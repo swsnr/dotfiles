@@ -1,0 +1,9 @@
+# -*- mode: gitconfig; -*-
+# External programs
+[gpg]
+	# Absolute path to GPG to work around /usr/local/bin not being in $PATH of
+	# UI applications
+	program = /usr/local/bin/gpg
+# Credential helper
+[credential]
+	helper = osxkeychain

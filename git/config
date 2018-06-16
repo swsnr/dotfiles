@@ -1,0 +1,93 @@
+# Core settings
+[user]
+	name = Sebastian Wiesner
+	useconfigonly = true
+	signingKey = 5C42FE98
+[core]
+	preloadIndex = true
+[branch]
+	autoSetupRebase = always
+[status]
+	# Short git status output, but include branch info
+	short = true
+	branch = true
+# Commit and tag settings
+[commit]
+	verbose = true
+[tag]
+	sort = version:refname
+# Rebasing and merging
+[rebase]
+	# Automatically squash with certain commit message prefixes
+	autoSquash = true
+	# Automatically stash before rebasing
+	autoStash = true
+[merge]
+	# Include summary commit messages in git merge commit message
+	log = true
+	# Use p4merge for git mergetool
+	tool = p4merge
+[mergetool]
+	# Do not prompt before every single merge and do not keep *.orig files
+	# around after the merge
+	prompt = false
+	keepBackup = false
+[rerere]
+	# Track and remember conflict resolutions for replaying them, see
+	# https://git-scm.com/blog/2010/03/08/rerere.html
+	enabled = true
+# Diffing and logging
+[diff]
+	# Use p4merge for git difftool
+	tool = p4merge
+	mnemonicprefix = true
+	algorithm = patience
+	# Use blank lines as diff boundary to improve diffs
+	compactionHeuristic = true
+[diff "org"]
+	xfuncname = "^\\*+.*"
+[diff "lisp"]
+	xfuncname = "^\\([^ ]+ [^ ]+"
+[log]
+	# Use mailmap files to map author information
+	mailmap = true
+	# Abbreviate hashes in git log
+	abbrevCommit = true
+[pretty]
+	fancy = %C(bold)Commit:%C(reset) %C(green)%H%C(red)%d%n%C(bold)Author:%C(reset) %C(cyan)%an <%ae>%n%C(bold)Date:%C(reset)   %C(blue)%ai (%ar)%C(reset)%n%+B
+	overview = %C(green)%h%C(reset) %s%n%C(blue)(%ar by %an)%C(red)%d%C(reset)%n
+# Transfer settings
+[transfer]
+	# Check transferred objects
+	fsckObjects = true
+# Remotes
+[remote]
+	pushDefault = origin
+[fetch]
+	# Always prune dead branches from remotes
+	prune = true
+[push]
+	# Push annotated tag reachable from pushed commits
+	followTags = true
+	# Sign pushes if the server supports it
+	gpgSign = if-asked
+# UI
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+	ui = auto
+# Submodules
+[submodule]
+	# Fetch submodules in parallel, with a reasonable number of jobs
+	fetchJobs = 0
+[alias]
+	# Quickly serve repo over path
+	serve = daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/
+# External services
+[github]
+	user = lunaryorn
+# Includes
+[include]
+	# System-specific local settings
+	path = config.local

@@ -1,0 +1,19 @@
+# OS X cruft
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows cruft
+Thumbs.db
+Desktop.ini
+
+# IntelliJ
+.idea/
+*.iml
+
+# SBT
+.sbtopts
+
+# VSCode
+.vscode/

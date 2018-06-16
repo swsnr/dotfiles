@@ -1,0 +1,13 @@
+- link:
+    ~/.config/git/config:
+      path: git/config
+      force: true
+      create: true
+    ~/.config/git/ignore:
+      path: git/ignore
+      force: true
+      create: true
+    ~/.config/git/attributes:
+      path: git/attributes
+      force: true
+      create: true
