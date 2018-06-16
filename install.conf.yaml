@@ -1,15 +1,23 @@
+- defaults:
+    link:
+      force: true
+      create: true
 - link:
-    ~/.config/git/config:
-      path: git/config
-      force: true
-      create: true
-    ~/.config/git/ignore:
-      path: git/ignore
-      force: true
-      create: true
-    ~/.config/git/attributes:
-      path: git/attributes
-      force: true
-      create: true
+    # Git config files
+    ~/.config/git/config: git/config
+    ~/.config/git/ignore: git/ignore
+    ~/.config/git/attributes: git/attributes
+    # Ruby configuration
+    ~/.gemrc:
+    # Scala configuration
+    ~/.ammonite/predef.sc: scala/ammonite-predef.sc
+    ~/.sbt/1.0/settings.sbt: scala/settings.sbt
+    ~/.sbt/1.0/plugins/plugins.sbt: scala/plugins.sbt
+    ~/.sbt/1.0/plugins/project/sbt-updates.sbt: scala/sbt-updates.sbt
+    ~/.sbt/0.13/settings.sbt: scala/settings.sbt
+    ~/.sbt/0.13/plugins/plugins.sbt: scala/plugins.sbt
+    ~/.sbt/0.13/plugins/project/sbt-updates.sbt: scala/sbt-updates.sbt
+    # LaTeX
+    ~/.config/latexmk/latexmkrc: latexmkrc
 - shell:
     - [yarn config set prefix ~/.local, Set yarn installation prefix]
