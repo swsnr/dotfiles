@@ -11,3 +11,5 @@
       path: git/attributes
       force: true
       create: true
+- shell:
+    - [yarn config set prefix ~/.local, Set yarn installation prefix]
