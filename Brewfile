@@ -109,16 +109,16 @@ cask 'eid-de'  # Electronic ID card application
 
 # Fonts
 tap 'caskroom/fonts'
-cask 'fira-mono'
-cask 'fira-sans'
-cask 'hasklig'
-cask 'open-sans'
-cask 'open-sans-condensed'
-cask 'source-code-pro'
-cask 'source-sans-pro'
-cask 'vollkorn'
-cask 'lato'
-cask 'crimson-text'
+cask 'font-fira-mono'
+cask 'font-fira-sans'
+cask 'font-hasklig'
+cask 'font-open-sans'
+cask 'font-open-sans-condensed'
+cask 'font-source-code-pro'
+cask 'font-source-sans-pro'
+cask 'font-vollkorn'
+cask 'font-lato'
+cask 'font-crimson-text'
 
 # Gaming
 cask 'steam'
