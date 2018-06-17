@@ -3,6 +3,16 @@
       force: true
       create: true
       relink: true
+- clean:
+    # Prune dead symlinks in these directories
+    - '~'
+    - '~/.config/fish/functions'
+    - '~/.config/fish/conf.d'
+    - '~/.config/git'
+    - '~/.sbt/1.0/'
+    - '~/.sbt/1.0/plugins'
+    - '~/.sbt/0.13/'
+    - '~/.sbt/0.13/plugins'
 - link:
     # Symlink entire dotfiles folder, for convenience
     ~/.dotfiles: ''
