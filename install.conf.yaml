@@ -2,9 +2,18 @@
     link:
       force: true
       create: true
+      relink: true
 - link:
     # Symlink entire dotfiles folder, for convenience
     ~/.dotfiles: ''
+    # Fish shell config files
+    ~/.config/fish/config.fish: fish/config.fish
+    ~/.config/fish/functions:
+      path: fish/functions/*.fish
+      glob: true
+    ~/.config/fish/conf.d:
+      path: fish/conf.d/*.fish
+      glob: true
     # Git config files
     ~/.config/git/config: git/config
     ~/.config/git/ignore: git/ignore
