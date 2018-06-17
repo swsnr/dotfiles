@@ -1,2 +1,0 @@
-- Evaluate [dotbot](https://github.com/anishathalye/dotbot)
-- Import simple dotfiles from playbooks
