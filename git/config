@@ -89,5 +89,7 @@
 	user = lunaryorn
 # Includes
 [include]
-	# System-specific local settings
+	# Platform specific settings
+	path = config.platform
+	# Local settings for this system
 	path = config.local

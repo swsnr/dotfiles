@@ -1,0 +1,4 @@
+# Use keychain for SSH passphrases, and automatically add keys to SSH agent upon
+# use.  Make stuff convenient on OS X 8)
+UseKeychain yes
+AddKeysToAgent yes

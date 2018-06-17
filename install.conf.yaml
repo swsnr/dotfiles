@@ -3,6 +3,8 @@
       force: true
       create: true
 - link:
+    # Symlink entire dotfiles folder, for convenience
+    ~/.dotfiles: ''
     # Git config files
     ~/.config/git/config: git/config
     ~/.config/git/ignore: git/ignore
@@ -23,3 +25,5 @@
     ~/.tmux.conf:
 - shell:
     - [yarn config set prefix ~/.local, Set yarn installation prefix]
+    - - sh -c '[ $(uname) == Darwin ] && ./install -c install.conf.macos.yaml'
+      - Install macos dotfiles

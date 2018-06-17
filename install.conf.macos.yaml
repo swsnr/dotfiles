@@ -1,0 +1,11 @@
+# MacOS specific dotfiles
+- defaults:
+    link:
+      force: true
+      create: true
+- link:
+    # DevonTHINK feed stylesheet
+    "~/Library/Application Support/DEVONthink Pro 2/StyleSheets/Vollkorn.css": macos/devonthink-feed.css
+    ~/.config/git/config.platform: macos/git/config.platform
+    ~/.gnupg/gpg-agent.conf: macos/gpg-agent.conf
+    ~/.ssh/config: macos/ssh-config
