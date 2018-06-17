@@ -1,6 +1,9 @@
 # CC0, see <http://creativecommons.org/publicdomain/zero/1.0/>
 
-if status is-interactive
+if begin
+        status is-interactive
+        and string match --quiet 'iTerm*' $TERM_PROGRAM
+    end
     set iterm2_hostname (hostname -f)
     function update_iterm2_location --on-event fish_prompt
         # Tell item what directory, what host we're on, and that the prompt is
