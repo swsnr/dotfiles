@@ -37,11 +37,11 @@
     ~/.sbt/0.13/plugins/plugins.sbt: scala/plugins.sbt
     ~/.sbt/0.13/plugins/project/sbt-updates.sbt: scala/sbt-updates.sbt
     # Misc
-    ~/.gemrc:
-    ~/.config/latexmk/latexmkrc: latexmkrc
-    ~/.gnupg/gpg.conf: gpg.conf
-    ~/.ideavimrc:
-    ~/.tmux.conf:
+    ~/.gemrc: misc/gemrc
+    ~/.config/latexmk/latexmkrc: misc/latexmkrc
+    ~/.gnupg/gpg.conf: misc/gpg.conf
+    ~/.ideavimrc: misc/ideavimrc
+    ~/.tmux.conf: misc/tmux.conf
 - shell:
     - [yarn config set prefix ~/.local, Set yarn installation prefix]
     - - sh -c '[ $(uname) == Darwin ] && ./install -c macos/install.conf.yaml'
