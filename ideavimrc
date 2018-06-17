@@ -1,0 +1,55 @@
+" CC0, see <http://creativecommons.org/publicdomain/zero/1.0/>
+
+set hlsearch " Highlight last search results
+set incsearch " Search incrementally
+set visualbell " Don't beep please
+
+set surround " Surround text with quotes, parens, etc.
+
+" Quickly go to normal mode
+inoremap fd <esc>
+
+" Run IntelliJ actions
+nnoremap <Space><Space> :action GotoAction<CR>
+
+" Comments
+nnoremap <Space>c<Space> :action CommentByLineComment<CR>
+
+" Refactoring commands
+nnoremap <Space>rm :action Refactorings.QuickListPopupAction<CR>
+nnoremap <Space>rr :action RenameElement<CR>
+
+" Search
+nnoremap <Space>se :action SearchEverywhere<CR>
+nnoremap <Space>ss :action GotoSymbol<CR>
+nnoremap <Space>su :action FindUsages<CR>
+
+" Jumping
+nnoremap <Space>j<Space> :action AceAction<CR>
+nnoremap <Space>jd :action GotoDeclaration<CR>
+nnoremap <Space>jt :action FileStructurePopup<CR>
+
+" Help
+nnoremap <Space>hj :action QuickJavadoc<CR>
+
+" Files
+nnoremap <Space>ff :action GotoFile<CR>
+nnoremap <Space>fr :action RecentFiles<CR>
+nnoremap <Space>fI :source ~/.ideavimrc<CR>
+
+" Git
+nnoremap <Space>gm :action Vcs.QuickListPopupAction<CR>
+
+" Window actions
+nnoremap <Space>w/ :action SplitVertically<CR>
+nnoremap <Space>w- :action SplitHorizontally<CR>
+nnoremap <Space>wm :action UnsplitAll<CR>
+
+" Run commands (eXecute)
+nnoremap <Space>x<Space> :action Run<cr>
+nnoremap <Space>xr :action Run<cr>
+nnoremap <Space>xc :action RunClass<cr>
+nnoremap <Space>xm :action ChooseRunConfiguration<cr>
+nnoremap <Space>x. :action Rerun<cr>
+nnoremap <Space>xt :action RerunTests<cr>
+nnoremap <Space>xf :action RerunFailedTests<cr>

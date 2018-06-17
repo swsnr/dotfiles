@@ -18,6 +18,8 @@ brew 'fish'
 brew 'autojump' # Fast directory jumping
 brew 'fortune' # Funny jokes and proverbs
 brew 'cowsay' # Ascii art speech bubbles
+brew 'tmux' # Terminal multiplexer
+brew 'reattach-to-user-namespace' # To access macOS clipboard from tmux
 
 # Development
 brew 'git'
