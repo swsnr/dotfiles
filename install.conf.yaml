@@ -34,5 +34,5 @@
     ~/.tmux.conf:
 - shell:
     - [yarn config set prefix ~/.local, Set yarn installation prefix]
-    - - sh -c '[ $(uname) == Darwin ] && ./install -c install.conf.macos.yaml'
+    - - sh -c '[ $(uname) == Darwin ] && ./install -c macos/install.conf.yaml'
       - Install macos dotfiles

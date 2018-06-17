@@ -1,4 +1,6 @@
-# MacOS specific dotfiles
+# MacOS specific dotfiles.
+
+# Note: Link targets are relative to the repo root, not to this directory
 - defaults:
     link:
       force: true
