@@ -11,25 +11,24 @@ DOTBOT_DIR = os.path.join(BASEDIR, 'dotbot')
 DOTBOT_BIN = os.path.join(DOTBOT_DIR, 'bin', 'dotbot')
 
 
-GIT = shutil.which('git')
-PYTHON = shutil.which('python3') or shutil.which('python')
-
-
 def dotbot(directory, config, args=None):
-    cmd = [PYTHON, DOTBOT_BIN, '-d', directory, '-c', config]
+    cmd = [sys.executable, DOTBOT_BIN, '-d', directory, '-c', config]
     if args:
         cmd.extend(args)
     check_call(cmd, cwd=BASEDIR)
 
 
 def main():
-    if not GIT:
-        sys.exit('MISSING GIT')
-    if not PYTHON:
-        sys.exit('MISSING PYTHON')
+    if sys.version_info < (3, 2):
+        sys.exit('Need Python 3.2 or newer')
 
-    check_call([GIT, '-C', DOTBOT_DIR, 'submodule', 'sync', '--quiet', '--recursive'])
-    check_call([GIT, '-C', BASEDIR, 'submodule', 'update', '--init', '--recursive'])
+    # Find git to update submodules
+    git = shutil.which('git')
+    if not git:
+        sys.exit('MISSING GIT')
+
+    check_call([git, '-C', DOTBOT_DIR, 'submodule', 'sync', '--quiet', '--recursive'])
+    check_call([git, '-C', BASEDIR, 'submodule', 'update', '--init', '--recursive'])
 
     dotbot(BASEDIR, 'install.conf.yaml')
 
