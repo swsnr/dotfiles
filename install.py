@@ -5,14 +5,12 @@ import os
 import shutil
 from subprocess import check_call
 
-BASEDIR = os.path.abspath(os.path.dirname(__FILE__))
+BASEDIR = os.path.abspath(os.path.dirname(__file__))
 
 DOTBOT_DIR = os.path.join(BASEDIR, 'dotbot')
 DOTBOT_BIN = os.path.join(DOTBOT_DIR, 'bin', 'dotbot')
 
 CONFIG = 'install.conf.yaml'
-
-BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 GIT = shutil.which('git')
 PYTHON = shutil.which('python3') or shutil.which('python')
@@ -26,13 +24,13 @@ def dotbot(directory, config, args=None):
 
 
 def main():
-    if not git:
+    if not GIT:
         sys.exit('MISSING GIT')
-    if not python:
+    if not PYTHON:
         sys.exit('MISSING PYTHON')
 
     check_call([GIT, '-C', DOTBOT_DIR, 'submodule', 'sync', '--quiet', '--recursive'])
-    check_call([GIT, -'C', BASEDIR, 'submodule', 'update', '--init', '--recursive'])
+    check_call([GIT, '-C', BASEDIR, 'submodule', 'update', '--init', '--recursive'])
 
     dotbot(BASEDIR, 'install.conf.yaml')
 
