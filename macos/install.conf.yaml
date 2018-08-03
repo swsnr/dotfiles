@@ -11,3 +11,5 @@
     ~/.config/git/config.platform: macos/git/config.platform
     ~/.gnupg/gpg-agent.conf: macos/gpg-agent.conf
     ~/.ssh/config: macos/ssh-config
+- shell:
+    - [yarn config set prefix ~/.local, Set yarn installation prefix]

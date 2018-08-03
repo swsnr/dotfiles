@@ -42,7 +42,4 @@
     ~/.gnupg/gpg.conf: misc/gpg.conf
     ~/.ideavimrc: misc/ideavimrc
     ~/.tmux.conf: misc/tmux.conf
-- shell:
-    - [yarn config set prefix ~/.local, Set yarn installation prefix]
-    - - sh -c '[ $(uname) == Darwin ] && ./install -c macos/install.conf.yaml'
-      - Install macos dotfiles
+
