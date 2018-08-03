@@ -13,6 +13,3 @@ addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "0.3.4")
 // Dependency management: Get a list or graph of all dependencies, and find
 // updates for installed dependencies
 addSbtPlugin("net.virtual-void" % "sbt-dependency-graph" % "0.9.0")
-
-// Faster dependency resolution
-addSbtPlugin("io.get-coursier" % "sbt-coursier" % "1.0.3")
