@@ -82,6 +82,12 @@
 	# Fetch submodules in parallel, with a reasonable number of jobs
 	fetchJobs = 0
 [alias]
+	# All day every day shortcuts
+	a = add
+	c = commit
+	cf = commit --ammed --reuse-message=HEAD
+	f = fetch
+	p = push
 	# Quickly serve repo over path
 	serve = daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/
 # External services
