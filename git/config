@@ -85,9 +85,18 @@
 	# All day every day shortcuts
 	a = add
 	c = commit
-	cf = commit --ammed --reuse-message=HEAD
-	f = fetch
+	cm = commit --message
+	cfr = commit --amend --reuse-message=HEAD
+	f = fetch --all
+	ff = merge --ff-only
+	gl = log --pretty=fancy --topo-order
+	noff = merge --no-ff
 	p = push
+	pf = push --force-with-lease
+	r = !git --no-pager log --pretty=oneline --topo-order -l 30
+	s = status
+	# Who's this Git user?
+	whoami = config user.email
 	# Quickly serve repo over path
 	serve = daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/
 # External services
