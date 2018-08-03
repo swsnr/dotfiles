@@ -8,6 +8,13 @@ import shutil
 from subprocess import check_call
 
 
+# Extensions to remove in favour of other extensions
+OLD_EXTENSIONS = [
+    # Superseded by 'crates'
+    'belfz.search-crates-io',
+]
+
+
 EXTENSIONS = [
     # Nice dark theme
     'dracula-theme.theme-dracula',
@@ -27,7 +34,7 @@ EXTENSIONS = [
     'KnisterPeter.vscode-github',
     # Rust language support and crate search in crate manifests
     'rust-lang.rust',
-    'belfz.search-crates-io',
+    'serayuzgur.crates',
     # Misc languages
     'TeddyDD.fish',
     'eg2.tslint',
@@ -43,6 +50,8 @@ def main():
     code = shutil.which('code')
     if not code:
         sys.exit('Did not find `code` in `$PATH`.  Is VSCode installed?')
+    for extension in OLD_EXTENSIONS:
+        check_call([code, '--uninstall-extension', extension])
     for extension in EXTENSIONS:
         check_call([code, '--install-extension', extension])
 
