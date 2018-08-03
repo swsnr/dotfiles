@@ -4,6 +4,7 @@
 Configure VSCode and install some basic extensions.
 """
 
+import sys
 import shutil
 from subprocess import check_call
 
