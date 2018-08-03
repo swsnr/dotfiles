@@ -6,8 +6,31 @@
       force: true
       create: true
 - link:
+    # Fish shell config files
+    ~/.config/fish/config.fish: fish/config.fish
+    ~/.config/fish/functions:
+      path: fish/functions/*.fish
+      glob: true
+    ~/.config/fish/conf.d:
+      path: fish/conf.d/*.fish
+      glob: true
+    # Scala configuration
+    ~/.ammonite/predef.sc: scala/ammonite-predef.sc
+    ~/.sbt/1.0/settings.sbt: scala/settings.sbt
+    ~/.sbt/1.0/plugins/plugins.sbt: scala/plugins.sbt
+    ~/.sbt/1.0/plugins/project/sbt-updates.sbt: scala/sbt-updates.sbt
+    ~/.sbt/0.13/settings.sbt: scala/settings.sbt
+    ~/.sbt/0.13/plugins/plugins.sbt: scala/plugins.sbt
+    ~/.sbt/0.13/plugins/project/sbt-updates.sbt: scala/sbt-updates.sbt
     # DevonTHINK feed stylesheet
     "~/Library/Application Support/DEVONthink Pro 2/StyleSheets/Vollkorn.css": macos/devonthink-feed.css
+    # Misc
+    ~/.gemrc: misc/gemrc
+    ~/.config/latexmk/latexmkrc: misc/latexmkrc
+    ~/.gnupg/gpg.conf: misc/gpg.conf
+    ~/.ideavimrc: misc/ideavimrc
+    ~/.tmux.conf: misc/tmux.conf
+    # Platform-specific config
     ~/.config/git/config.platform: macos/git/config.platform
     ~/.gnupg/gpg-agent.conf: macos/gpg-agent.conf
     ~/.ssh/config: macos/ssh-config
