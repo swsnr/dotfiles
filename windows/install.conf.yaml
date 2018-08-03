@@ -1,0 +1,10 @@
+# MacOS specific dotfiles.
+
+# Note: Link targets are relative to the repo root, not to this directory
+- defaults:
+    link:
+      force: true
+      create: true
+- link:
+    # Platform-specific config
+    ~/.config/git/config.platform: windows/git/config.platform

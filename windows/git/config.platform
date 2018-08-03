@@ -1,0 +1,6 @@
+[core]
+	# Use VSCode as Git editor on Windows
+	editor = 'C:/Program Files/Microsoft VS Code/bin/code' -wn
+	# Disable autocrlf behaviour on Windows: Most developer tools handle
+	# CRLF just fine, so why bother with this magic?
+	autocrlf = false
