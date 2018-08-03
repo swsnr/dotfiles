@@ -6,5 +6,8 @@
       force: true
       create: true
 - link:
+    # Powershell
+    ~/Documents/WindowsPowerShell/profile.ps1: windows/powershell/profile.ps1
+    ~/Documents/WindowsPowerShell/types.ps1xml: windows/powershell/types.ps1xml
     # Platform-specific config
     ~/.config/git/config.platform: windows/git/config.platform
