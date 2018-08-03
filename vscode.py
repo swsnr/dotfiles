@@ -4,6 +4,7 @@
 Configure VSCode and install some basic extensions.
 """
 
+import shutil
 from subprocess import check_call
 
 
@@ -39,8 +40,11 @@ EXTENSIONS = [
 
 
 def main():
+    code = shutil.which('code')
+    if not code:
+        sys.exit('Did not find `code` in `$PATH`.  Is VSCode installed?')
     for extension in EXTENSIONS:
-        check_call(['code', '--install-extension', extension])
+        check_call([code, '--install-extension', extension])
 
 
 if __name__ == '__main__':
