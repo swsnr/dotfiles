@@ -178,9 +178,6 @@ New-Alias -Name gpf -Value "GitPushForce" -Option AllScope
 New-Alias -Name gl -Value "Get-GitLog" -Option AllScope -Force
 New-Alias -Name glo -Value "Get-GitLogOverview" -Option AllScope
 
-# Java options for Java launchers
-$env:JAVA_OPTS += ' -Xmx2G -Xss2M'
-
 # Add chocolatey tools to this shell if installed
 $ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
 if (Test-Path $ChocolateyProfile) {

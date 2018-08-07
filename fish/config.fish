@@ -56,30 +56,6 @@ if command --search 'lesspipe.sh' >/dev/null
     end
 end
 
-# Java options
-#
-# Give Java programs more memory by default:
-#
-# * -Xmx2G        Increase the maximum heap size of the JVM from 1GB to 2GB
-# * -Xss2M        Increase the thread stack size of the JVM from 1MB to 2MB
-#
-# For reference about the GC settings, see
-# https://blogs.oracle.com/poonam/entry/about_g1_garbage_collector_permanent
-if test (hostname) = 'lunaryorn-kitten'
-    set -x JAVA_OPTS '-Xmx1G -Xss2M'
-else
-    set -x JAVA_OPTS '-Xmx2G -Xss2M'
-end
-
-# SBT options
-#
-# * -Dsbt.global.autoimport=true: Fix auto-imports for auto-plugins in global
-#    configuration.  See changelog of 0.13.11 at
-#    https://github.com/sbt/sbt/releases/tag/v0.13.11
-# * -Dammonite.version=… set the ammonite version for ammonite-sbt, see
-#    https://github.com/alexarchambault/sbt-ammonite#bumping-the-ammonite-version
-set -x SBT_OPTS "-Dsbt.global.autoimport=true -Dammonite.version=0.8"
-
 # Setup tools for an interactive shell
 if status is-interactive
     # Autojump for fast directory jumping
