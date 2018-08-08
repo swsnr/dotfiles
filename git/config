@@ -95,6 +95,8 @@
 	pf = push --force-with-lease
 	r = !git --no-pager log --pretty=oneline --topo-order -l 30
 	s = status
+	# Get the current branch
+	current = symbolic-ref --short HEAD
 	# Who's this Git user?
 	whoami = config user.email
 	# Quickly serve repo over path
