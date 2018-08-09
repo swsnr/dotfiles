@@ -27,6 +27,7 @@ brew 'gist'
 brew 'hub'
 brew 'git-standup'
 cask 'p4merge'
+tap 'caskroom/versions'  # For dash3
 cask 'dash3'  # API doc browser
 cask 'jetbrains-toolbox'
 cask 'visual-studio-code'
@@ -107,7 +108,8 @@ brew 'ffmpeg'  # Command line audio/video processor
 brew 'gnupg'
 brew 'pinentry-mac'
 cask '1password'  # Password and secret manager
-cask 'eid-de'  # Electronic ID card application
+tap 'caskroom/eid'  # Electronic ID card application
+cask 'eid-de'
 
 # Fonts
 tap 'caskroom/fonts'
