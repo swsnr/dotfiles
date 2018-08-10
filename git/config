@@ -94,7 +94,7 @@
 	p = push
 	pf = push --force-with-lease
 	pu = push --set-upstream
-	r = !git --no-pager log --pretty=oneline --topo-order -l 30
+	r = !git --no-pager log --pretty=oneline --topo-order -n 30
 	s = status
 	# Get the current branch
 	current = symbolic-ref --short HEAD
