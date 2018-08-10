@@ -98,8 +98,9 @@
 	s = status
 	# Get the current branch
 	current = symbolic-ref --short HEAD
-	# Who's this Git user?
+	# Manage my Git identity
 	whoami = config user.email
+	iam = config user.email
 	# Quickly serve repo over path
 	serve = daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/
 # External services
