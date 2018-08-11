@@ -27,8 +27,10 @@ def main():
     if not git:
         sys.exit('MISSING GIT')
 
-    check_call([git, '-C', DOTBOT_DIR, 'submodule', 'sync', '--quiet', '--recursive'])
-    check_call([git, '-C', BASEDIR, 'submodule', 'update', '--init', '--recursive'])
+    check_call([git, '-C', DOTBOT_DIR, 'submodule',
+                'sync', '--quiet', '--recursive'])
+    check_call([git, '-C', BASEDIR, 'submodule',
+                'update', '--init', '--recursive'])
 
     dotbot(BASEDIR, 'install.conf.yaml')
 
