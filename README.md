@@ -5,11 +5,13 @@ Build with [dotbot][].  Highlights:
 * [Fish shell][] configuration.
 * [Git][] configuration.
 * [SBT][] configuration.
+* [Powershell][] configuration.
 
 [dotbot]: https://github.com/anishathalye/dotbot
 [fish shell]: https://fishshell.com
 [git]: https://git-scm.com
 [sbt]: https://www.scala-sbt.org
+[powershell]: https://msdn.microsoft.com/en-us/powershell
 
 ## Install
 
