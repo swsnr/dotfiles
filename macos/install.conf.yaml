@@ -34,4 +34,9 @@
       command: macos/scripts/defaults.py
       stdout: true
       stderr: true
-    - [yarn config set prefix ~/.local, Set yarn installation prefix]
+    - description: Set yarn prefix to ~/.local
+      command: yarn config set prefix ~/.local
+    - description: Install iterm2 utilities
+      command: macos/scripts/iterm2_tools.py
+      stdout: true
+      stderr: true
