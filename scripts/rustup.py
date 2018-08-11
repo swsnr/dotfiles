@@ -15,6 +15,7 @@
 
 import sys
 import shutil
+from argparse import ArgumentParser
 from subprocess import check_call
 
 
@@ -54,6 +55,11 @@ def setup_toolchain(rustup, toolchain):
 
 
 def main():
+    parser = ArgumentParser(description="""\
+Setup rust.  Install toolchains and toolchain components, and crates I use.
+""")
+    parser.parse_args()
+
     rustup = shutil.which('rustup')
     if not rustup:
         sys.exit('rustup missing; install from https://rustup.rs!')

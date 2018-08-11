@@ -13,6 +13,7 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
+from argparse import ArgumentParser
 from subprocess import check_call
 
 
@@ -31,7 +32,13 @@ PACKAGES = [
 
 
 def main():
-    print('Install and update texlive packages; may prompt for sudo password!')
+    parser = ArgumentParser(
+        description="""\
+Setup texlive: Configure tlmgr and install packages.
+""",
+        epilog='MAY PROMPT FOR SUDO PASSWORD!')
+    parser.parse_args()
+
     # Install documentation along with packages, for texdoc
     tlmgr_set_option('docfiles', 1)
     # Update texlive manager and packages

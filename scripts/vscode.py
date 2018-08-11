@@ -19,6 +19,7 @@ Configure VSCode and install some basic extensions.
 
 import sys
 import shutil
+from argparse import ArgumentParser
 from subprocess import check_call
 
 
@@ -60,6 +61,9 @@ EXTENSIONS = [
 
 
 def main():
+    parser = ArgumentParser(description='Install vscode extensions')
+    parser.parse_args()
+
     code = shutil.which('code')
     if not code:
         sys.exit('Did not find `code` in `$PATH`.  Is VSCode installed?')
