@@ -5,6 +5,9 @@
     link:
       force: true
       create: true
+- shell:
+    - description: Check whether FileVault is enabled
+      command: "sh -c '[ $(fdesetup isactive) == true ]'"
 - link:
     # Fish shell config files
     ~/.config/fish/config.fish: fish/config.fish
