@@ -27,5 +27,8 @@
     ~/.gnupg/gpg-agent.conf: macos/gpg-agent.conf
     ~/.ssh/config: macos/ssh-config
 - shell:
-    - [macos/scripts/defaults.py, Set macos defaults]
+    - description: Set macos defaults
+      command: macos/scripts/defaults.py
+      stdout: true
+      stderr: true
     - [yarn config set prefix ~/.local, Set yarn installation prefix]
