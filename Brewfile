@@ -34,7 +34,7 @@ cask 'visual-studio-code'
 brew 'cmake' # Some Rust crates need it
 
 # JVM
-cask 'zulu'
+cask 'zulu'  # OpenJDK for macOS
 brew 'jvmtop'
 brew 'sbt'
 brew 'ammonite-repl'
