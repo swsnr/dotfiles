@@ -82,6 +82,7 @@ cask 'tex-live-utility' # GUI for tlmgr
 # Networking
 brew 'nmap'
 cask 'wireshark'
+brew 'nethogs'
 brew 'httpie' # HTTP client
 brew 'jq' # JSON processor for command line
 brew 'jid' # Interactive JSON querying
