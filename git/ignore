@@ -17,3 +17,6 @@ Desktop.ini
 
 # VSCode
 .vscode/
+
+# Python bytecode
+__pycache__/
