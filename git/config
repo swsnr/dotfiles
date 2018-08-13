@@ -92,7 +92,7 @@
 	l = log --pretty=fancy --topo-order
 	lg = log --pretty=fancy --topo-order --graph
 	mff = merge --ff-only
-	mFF = merge --no-ff
+	mnoff = merge --no-ff
 	p = push
 	pf = push --force-with-lease
 	pu = push --set-upstream
