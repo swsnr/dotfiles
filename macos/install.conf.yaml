@@ -5,6 +5,9 @@
     link:
       force: true
       create: true
+- shell:
+    - description: Check whether FileVault is enabled
+      command: "sh -c '[ $(fdesetup isactive) == true ]'"
 - link:
     # Fish shell config files
     ~/.config/fish/config.fish: fish/config.fish
@@ -27,4 +30,13 @@
     ~/.gnupg/gpg-agent.conf: macos/gpg-agent.conf
     ~/.ssh/config: macos/ssh-config
 - shell:
-    - [yarn config set prefix ~/.local, Set yarn installation prefix]
+    - description: Set macos defaults
+      command: macos/scripts/defaults.py
+      stdout: true
+      stderr: true
+    - description: Set yarn prefix to ~/.local
+      command: yarn config set prefix ~/.local
+    - description: Install iterm2 utilities
+      command: macos/scripts/iterm2_tools.py
+      stdout: true
+      stderr: true
