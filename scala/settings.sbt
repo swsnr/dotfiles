@@ -1,6 +1,9 @@
 // Cancel executions with C-c
 cancelable in Global := true
 
+// Clear screen when watching sources
+triggeredMessage := Watched.clearWhenTriggered
+
 // A workaround to show plugin updates
 addCommandAlias("outdatedPlugins",
                 "; reload plugins; dependencyUpdates; reload return")
