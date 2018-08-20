@@ -85,7 +85,7 @@
 	# All day every day shortcuts
 	a = add
 	c = commit
-	cfr = commit --amend --reuse-message=HEAD
+	cfm = commit --amend --reuse-message=HEAD
 	cm = commit --message
 	co = checkout
 	f = fetch --all
