@@ -23,7 +23,6 @@
     ~/.gemrc: misc/gemrc
     ~/.config/latexmk/latexmkrc: misc/latexmkrc
     ~/.gnupg/gpg.conf: misc/gpg.conf
-    ~/.ideavimrc: misc/ideavimrc
     ~/.tmux.conf: misc/tmux.conf
     # Platform-specific config
     ~/.config/git/config.platform: macos/git/config.platform
