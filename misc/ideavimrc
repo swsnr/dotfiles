@@ -30,16 +30,22 @@ nnoremap <a-l> gt
 nnoremap <c-s-tab> gT
 nnoremap <c-tab> gt
 
+" smart selection
+map + :action SmartSelect<cr>
+map - :action SmartUnSelect<cr>
+
 " Run IntelliJ actions
 nnoremap <Space><Space> :action GotoAction<CR>
 
 " Comments
 nnoremap <Space>c<Space> :action CommentByLineComment<CR>
 
-" Refactoring commands
-nnoremap <Space>rm :action Refactorings.QuickListPopupAction<CR>
-nnoremap <Space>rr :action RenameElement<CR>
-nnoremap <Space>rf :action ReformatCode<CR>
+" Code commands
+nnoremap <Space>cR :action Refactorings.QuickListPopupAction<CR>
+nnoremap <Space>cr :action RenameElement<CR>
+nnoremap <Space>cf :action ReformatCode<CR>
+nnoremap <Space>cp :action ParameterInfo<CR>
+nnoremap <Space>co :action OverrideMethods<CR>
 
 " Search
 nnoremap <Space>se :action SearchEverywhere<CR>
@@ -77,3 +83,4 @@ nnoremap <Space>xm :action ChooseRunConfiguration<cr>
 nnoremap <Space>x. :action Rerun<cr>
 nnoremap <Space>xt :action RerunTests<cr>
 nnoremap <Space>xf :action RerunFailedTests<cr>
+nnoremap <Space>xs :action Activatesbt-shell-toolwindowToolWindow<cr>
