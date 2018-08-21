@@ -162,6 +162,9 @@ if ($host.Name -eq 'ConsoleHost') {
     Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
 }
 
+# Unixification
+New-Alias -Name which -Value Get-Command
+
 # Coloured ls
 Import-Module Get-ChildItemColor
 New-Alias -Name ll -Value Get-ChildItemColor
