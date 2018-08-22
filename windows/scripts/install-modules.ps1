@@ -12,13 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+$oldModules = @(
+    # Superseded by ZLocation
+    'Jump.Location'
+)
+
+Remove-Module -ErrorAction Continue $oldModules
+
 $modules = @(
     # Colourful ls
     'Get-ChildItemColor'
     # Adds git status information to powershell prompt
     'posh-git'
-    # autojump for powershell: Quickly jump to directories
-    'Jump.Location'
+    # z for powershell
+    'ZLocation'
     # Better line editing for powershell
     'PSReadLine'
     # YAML support for powershell

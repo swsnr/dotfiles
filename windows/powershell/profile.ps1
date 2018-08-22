@@ -136,8 +136,9 @@ function prompt {
     $prompt
 }
 
-# Jump to directories fast, like autojump
-Import-Module Jump.Location
+# Jump to directories fast.
+Import-Module ZLocation
+New-Alias -Name j -Value z
 
 # Line-editing in console hosts
 if ($host.Name -eq 'ConsoleHost') {
