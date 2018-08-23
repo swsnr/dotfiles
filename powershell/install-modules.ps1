@@ -21,17 +21,13 @@ $oldModules = @(
 
 Remove-Module -ErrorAction Continue $oldModules
 
-$modules = @(
-    # Colourful ls
-    'Get-ChildItemColor'
-    # Adds git status information to powershell prompt
-    'posh-git'
-    # z for powershell
-    'ZLocation'
-    # Better line editing for powershell
-    'PSReadLine'
-    # YAML support for powershell
-    'powershell-yaml'
-);
-
-PowerShellGet\Install-Module $modules -Scope CurrentUser
+# YAML support for powershell
+PowerShellGet\Install-Module 'powershell-yaml' -Scope CurrentUser
+# Colourful ls
+PowerShellGet\Install-Module 'Get-ChildItemColor' -Scope CurrentUser
+# autojump/z for powershell
+PowerShellGet\Install-Module 'ZLocation' -Scope CurrentUser
+# Adds git status information to powershell prompt, min 1.0, for core compatibility
+PowerShellGet\Install-Module 'posh-git' -Scope CurrentUser -AllowPrerelease -MinimumVersion '1.0.0-beta2'
+# Better line editing for powershell, min 2.0 for core compatibility
+PowerShellGet\Install-Module 'PSReadLine' -Scope CurrentUser -Force -AllowPrerelease -MinimumVersion '2.0.0-beta2'

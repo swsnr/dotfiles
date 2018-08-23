@@ -23,13 +23,19 @@ Import-Module posh-git
 # Replace home with ~
 $GitPromptSettings.DefaultPromptAbbreviateHomeDirectory = $true;
 # Git prompt settings, see https://github.com/lunaryorn/playbooks/blob/master/roles/fish/files/functions/fish_right_prompt.fish for fish variant
-$GitPromptSettings.BranchIdenticalStatusToForegroundColor = 'Green'
+$GitPromptSettings.BranchIdenticalStatusSymbol.ForegroundColor = [ConsoleColor]::DarkGreen
+$GitPromptSettings.BranchColor.ForegroundColor = [ConsoleColor]::DarkCyan
+$GitPromptSettings.BeforeStatus.Text = '('
+$GitPromptSettings.BeforeStatus.ForegroundColor = 'Black'
+$GitPromptSettings.AfterStatus.Text = ')'
+$GitPromptSettings.AfterStatus.ForegroundColor = 'Black'
+$GitPromptSettings.DelimStatus.ForegroundColor = 'Black'
 # Symbol and colours for working status summary
 $GitPromptSettings.LocalStagedStatusSymbol = '●'
 $GitPromptSettings.LocalWorkingStatusSymbol = '+'
-$GitPromptSettings.LocalWorkingStatusForegroundColor = 'Yellow'
+$GitPromptSettings.LocalWorkingStatusSymbol.ForegroundColor = [ConsoleColor]::DarkYellow
 # Color for working status details
-$GitPromptSettings.WorkingForegroundColor = 'Magenta'
+$GitPromptSettings.WorkingColor.ForegroundColor =  [ConsoleColor]::DarkMagenta
 
 function Get-AbbreviatedPath([String] $path) {
     <#
@@ -125,22 +131,21 @@ function prompt {
         $prompt += Write-Prompt '!' -ForegroundColor Red
     }
     $prompt += Write-Prompt ' '
-    $prompt += Write-Prompt (Get-PromptWorkingDir) -ForegroundColor Cyan
+    $prompt += Write-Prompt (Get-PromptWorkingDir) -ForegroundColor DarkCyan
     $prompt += Write-VcsStatus
     $prompt += Write-Prompt ' '
-    $prompt += Write-Prompt "$(if ($PsDebugContext) {' [DBG]: '} else {''})" -ForegroundColor Magenta
-    $prompt += Write-Prompt "$('❯' * ($nestedPromptLevel + 1))" -ForegroundColor Green
-    $prompt += " "
+    $prompt += Write-Prompt "$(if ($PsDebugContext) {' [DBG]: '} else {''})" -ForegroundColor DarkMagenta
+    $prompt += Write-Prompt "$('❯' * ($nestedPromptLevel + 1))" -ForegroundColor DarkGreen
 
     $LASTEXITCODE = $origLastExitCode
-    $prompt
+    if ($prompt) { "$prompt " } else { " " }
 }
 
 # Jump to directories fast.
 # TODO: Doesn't work on core currently, perhaps check for proper powershell?
 # See https://github.com/vors/ZLocation/issues/32 and https://github.com/vors/ZLocation/pull/33
-Import-Module ZLocation
-New-Alias -Name j -Value z
+# Import-Module ZLocation
+# New-Alias -Name j -Value z
 
 # Line-editing in console hosts
 if ($host.Name -eq 'ConsoleHost') {
@@ -163,6 +168,25 @@ if ($host.Name -eq 'ConsoleHost') {
     # Default to menu-completion
     Set-PSReadlineKeyHandler -Chord 'Shift+Tab' -Function Complete
     Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
+
+    # Custom colours for readline highlighting
+    Set-PSReadlineOption -Colors @{
+        ContinuationPrompt = "$([char]0x1b)[0m"
+        Emphasis = "$([char]0x1b)[0m$([char]0x1b)[3m" # Italic
+        Error = "$([char]0x1b)[0m$([char]0x1b)[31;1m" # Bright red
+        Selection = "$([char]0x1b)[0m"
+        Default = "$([char]0x1b)[0m" # No special colour
+        Comment = "$([char]0x1b)[0m$([char]0x1b)[37m" # Gray
+        Keyword = "$([char]0x1b)[0m$([char]0x1b)[1m" # Bold
+        String = "$([char]0x1b)[0m$([char]0x1b)[33m" # Yellow
+        Operator = "$([char]0x1b)[0m$([char]0x1b)[35m" # Magenta
+        Variable = "$([char]0x1b)[0m$([char]0x1b)[33m"
+        Command = "$([char]0x1b)[1m" # Bold
+        Parameter = "$([char]0x1b)[0m$([char]0x1b)[36m" # Cyan
+        Type = "$([char]0x1b)[0m"
+        Number = "$([char]0x1b)[0m$([char]0x1b)[34m" # Blue
+        Member = "$([char]0x1b)[0m"
+    }
 }
 
 # Unixification
