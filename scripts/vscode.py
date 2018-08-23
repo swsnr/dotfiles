@@ -57,6 +57,7 @@ EXTENSIONS = [
     'itryapitsin.Scala',
     'lunaryorn.fish-ide',
     'ms-python.python',
+    'ms-vscode.powershell',
 ]
 
 

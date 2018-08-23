@@ -7,10 +7,10 @@
       create: true
 - link:
     # Powershell
-    ~/Documents/WindowsPowerShell/profile.ps1: windows/powershell/profile.ps1
-    ~/Documents/WindowsPowerShell/types.ps1xml: windows/powershell/types.ps1xml
+    ~/Documents/WindowsPowerShell/profile.ps1: powershell/profile.ps1
+    ~/Documents/WindowsPowerShell/types.ps1xml: powershell/types.ps1xml
     # Platform-specific config
     ~/.config/git/config.platform: windows/git/config.platform
 - shell:
-    - - "powershell -Command windows/scripts/install-modules.ps1"
+    - - "powershell -Command powershell/install-modules.ps1"
       - "Install powershell modules"

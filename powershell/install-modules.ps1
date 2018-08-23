@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# TODO: Make sure to trust all relevant repositories here
+
 $oldModules = @(
     # Superseded by ZLocation
     'Jump.Location'
