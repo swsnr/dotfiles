@@ -137,6 +137,8 @@ function prompt {
 }
 
 # Jump to directories fast.
+# TODO: Doesn't work on core currently, perhaps check for proper powershell?
+# See https://github.com/vors/ZLocation/issues/32 and https://github.com/vors/ZLocation/pull/33
 Import-Module ZLocation
 New-Alias -Name j -Value z
 
