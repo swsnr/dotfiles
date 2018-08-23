@@ -27,6 +27,8 @@ from subprocess import check_output, check_call
 OLD_EXTENSIONS = [
     # Superseded by 'crates'
     'belfz.search-crates-io',
+    # Gone.
+    'TeddyDD.fish',
 ]
 
 
@@ -51,7 +53,6 @@ EXTENSIONS = [
     'rust-lang.rust',
     'serayuzgur.crates',
     # Misc languages
-    'TeddyDD.fish',
     'eg2.tslint',
     'itryapitsin.Sbt',
     'itryapitsin.Scala',
