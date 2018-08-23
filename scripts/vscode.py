@@ -20,7 +20,7 @@ Configure VSCode and install some basic extensions.
 import sys
 import shutil
 from argparse import ArgumentParser
-from subprocess import check_call
+from subprocess import check_output, check_call
 
 
 # Extensions to remove in favour of other extensions
@@ -61,6 +61,13 @@ EXTENSIONS = [
 ]
 
 
+def installed_extensions(code):
+    output = check_output(
+        [code, '--list-extensions']).decode(sys.getdefaultencoding())
+
+    return set(line.lower() for line in output.splitlines())
+
+
 def main():
     parser = ArgumentParser(description='Install vscode extensions')
     parser.parse_args()
@@ -68,9 +75,14 @@ def main():
     code = shutil.which('code')
     if not code:
         sys.exit('Did not find `code` in `$PATH`.  Is VSCode installed?')
+
+    installed = installed_extensions(code)
+
     for extension in OLD_EXTENSIONS:
+        if extension.lower() in installed:
         check_call([code, '--uninstall-extension', extension])
     for extension in EXTENSIONS:
+        if extension.lower() not in installed:
         check_call([code, '--install-extension', extension])
 
 
