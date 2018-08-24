@@ -81,10 +81,10 @@ def main():
 
     for extension in OLD_EXTENSIONS:
         if extension.lower() in installed:
-        check_call([code, '--uninstall-extension', extension])
+            check_call([code, '--uninstall-extension', extension])
     for extension in EXTENSIONS:
         if extension.lower() not in installed:
-        check_call([code, '--install-extension', extension])
+            check_call([code, '--install-extension', extension])
 
 
 if __name__ == '__main__':
