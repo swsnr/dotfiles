@@ -65,6 +65,21 @@ function Get-AbbreviatedPath([String] $path) {
     }
 }
 
+function ConvertTo-TotalHours ([int] $minutes) {
+    <#
+     .SYNOPSIS
+     Converts minutes to total hours.
+
+     .DESCRIPTION
+     Converts the given minutes to the corresponding total hours value, rounded
+     to two decimals.
+
+     .PARAMETER minutes
+     The minutes to convert. Mandatory.
+    #>
+    return '{0:0.##}' -f [System.TimeSpan]::FromMinutes($minutes).TotalHours
+}
+
 function Get-PromptWorkingDir {
     # Adapted from Get-PromptPath, see https://github.com/dahlbyk/posh-git/blob/master/src/Utils.ps1#L290
 
