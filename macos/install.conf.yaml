@@ -19,6 +19,7 @@
       glob: true
     # Powershell config files
     ~/.config/powershell/profile.ps1: powershell/profile.ps1
+    ~/.config/powershell/Microsoft.Powershell_profile.ps1: powershell/Microsoft.Powershell_profile.ps1
     ~/.config/powershell/types.ps1xml: powershell/types.ps1xml
     # DevonTHINK feed stylesheet
     "~/Library/Application Support/DEVONthink Pro 2/StyleSheets/Vollkorn.css": macos/devonthink-feed.css

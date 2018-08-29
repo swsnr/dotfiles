@@ -8,9 +8,11 @@
 - link:
     # Powershell (legacy)
     ~/Documents/WindowsPowerShell/profile.ps1: powershell/profile.ps1
+    ~/Documents/WindowsPowerShell/Microsoft.Powershell_profile.ps1: powershell/Microsoft.Powershell_profile.ps1
     ~/Documents/WindowsPowerShell/types.ps1xml: powershell/types.ps1xml
     # Powershell Core (6+)
     ~/Documents/PowerShell/profile.ps1: powershell/profile.ps1
+    ~/Documents/PowerShell/Microsoft.Powershell_profile.ps1: powershell/Microsoft.Powershell_profile.ps1
     ~/Documents/PowerShell/types.ps1xml: powershell/types.ps1xml
     # Platform-specific config
     ~/.config/git/config.platform: windows/git/config.platform
