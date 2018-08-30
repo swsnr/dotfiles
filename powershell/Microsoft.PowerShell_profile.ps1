@@ -23,10 +23,10 @@ $GitPromptSettings.DefaultPromptAbbreviateHomeDirectory = $true;
 $GitPromptSettings.BranchIdenticalStatusSymbol.ForegroundColor = [ConsoleColor]::DarkGreen
 $GitPromptSettings.BranchColor.ForegroundColor = [ConsoleColor]::DarkCyan
 $GitPromptSettings.BeforeStatus.Text = '('
-$GitPromptSettings.BeforeStatus.ForegroundColor = 'Black'
+$GitPromptSettings.BeforeStatus.ForegroundColor = [ConsoleColor]::White
 $GitPromptSettings.AfterStatus.Text = ')'
-$GitPromptSettings.AfterStatus.ForegroundColor = 'Black'
-$GitPromptSettings.DelimStatus.ForegroundColor = 'Black'
+$GitPromptSettings.AfterStatus.ForegroundColor = [ConsoleColor]::White
+$GitPromptSettings.DelimStatus.ForegroundColor = [ConsoleColor]::White
 # Symbol and colours for working status summary
 $GitPromptSettings.LocalStagedStatusSymbol = '●'
 $GitPromptSettings.LocalWorkingStatusSymbol = '+'
