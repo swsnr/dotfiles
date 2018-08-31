@@ -22,9 +22,9 @@ $GitPromptSettings.DefaultPromptAbbreviateHomeDirectory = $true;
 # Git prompt settings, see https://github.com/lunaryorn/playbooks/blob/master/roles/fish/files/functions/fish_right_prompt.fish for fish variant
 $GitPromptSettings.BranchIdenticalStatusSymbol.ForegroundColor = [ConsoleColor]::DarkGreen
 $GitPromptSettings.BranchColor.ForegroundColor = [ConsoleColor]::DarkCyan
-$GitPromptSettings.BeforeStatus.Text = '('
+$GitPromptSettings.BeforeStatus.Text = '❬'
 $GitPromptSettings.BeforeStatus.ForegroundColor = [ConsoleColor]::White
-$GitPromptSettings.AfterStatus.Text = ')'
+$GitPromptSettings.AfterStatus.Text = '❭'
 $GitPromptSettings.AfterStatus.ForegroundColor = [ConsoleColor]::White
 $GitPromptSettings.DelimStatus.ForegroundColor = [ConsoleColor]::White
 # Symbol and colours for working status summary
@@ -37,23 +37,25 @@ $GitPromptSettings.WorkingColor.ForegroundColor = [ConsoleColor]::DarkMagenta
 function prompt {
     $origLastExitCode = $LASTEXITCODE
 
-    $prompt = ''
+    $reset = "$([char]0x1b)[0m"
+    $prompt = $reset
 
+    $prompt += "❬$([char]0x1b)[35m$([DateTime]::now.ToString("yyyy-MM-dd HH:mm"))$reset❭"
+    $prompt += Write-VcsStatus
+    $prompt += " ❬$([char]0x1b)[35m$(Get-PromptWorkingDir)$reset❭"
+
+    $prompt += "`n"
     if ($origLastExitCode -eq 0) {
-        $prompt += Write-Prompt '✔' -ForegroundColor Green
+        $prompt += "$([char]0x1b)[32m✔"
     }
     else {
-        $prompt += Write-Prompt '!' -ForegroundColor Red
+        $prompt += "$([char]0x1b)[31;1m!"
     }
-    $prompt += Write-Prompt ' '
-    $prompt += Write-Prompt (Get-PromptWorkingDir) -ForegroundColor DarkCyan
-    $prompt += Write-VcsStatus
-    $prompt += Write-Prompt ' '
-    $prompt += Write-Prompt "$(if ($PsDebugContext) {' [DBG]: '} else {''})" -ForegroundColor DarkMagenta
-    $prompt += Write-Prompt "$('❯' * ($nestedPromptLevel + 1))" -ForegroundColor DarkGreen
+    $prompt += "$([char]0x1b)[31m$(if ($PsDebugContext) {' [DBG]'} else {''})"
+    $prompt += "$reset$([char]0x1b)[32m $('❯' * ($nestedPromptLevel + 1))$reset "
 
     $LASTEXITCODE = $origLastExitCode
-    if ($prompt) { "$prompt " } else { " " }
+    $prompt
 }
 
 # Line editing and history for console hosts

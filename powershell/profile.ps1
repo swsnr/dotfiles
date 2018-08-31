@@ -98,19 +98,12 @@ function Get-PromptWorkingDir {
         $stringComparison = [System.StringComparison]::OrdinalIgnoreCase
     }
 
-    # If in a Git repository abbreviate the path to show only the root name of
-    # the working copy, since my git repos typically have unique names so I'll
-    # know where I am at this point.
-    $gitDir = Get-GitDirectory
-    if ($gitDir -and ((Split-Path $gitDir -Leaf) -eq '.git')) {
-        $workingCopyBase = Split-Path $gitDir
-        $tail = Get-AbbreviatedPath $currentPath.SubString($workingCopyBase.Length)
-        $currentPath = 'git:' + (Split-Path $workingCopyBase -Leaf) + $tail
-    }
-    # Otherwise just replace $Home with ~ if possible
-    elseif ($currentPath -and $currentPath.StartsWith($Home, $stringComparison)) {
+    # Replace $Home with ~ if possible
+    if ($currentPath -and $currentPath.StartsWith($Home, $stringComparison)) {
         $tail = Get-AbbreviatedPath $currentPath.SubString($Home.Length)
         $currentPath = "~" + $tail
+    } else {
+        $currentPath = Get-AbbreviatedPath $currentPath
     }
 
     return $currentPath
