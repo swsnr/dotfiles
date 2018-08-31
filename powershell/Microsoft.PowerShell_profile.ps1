@@ -35,7 +35,7 @@ $GitPromptSettings.LocalWorkingStatusSymbol.ForegroundColor = [ConsoleColor]::Da
 $GitPromptSettings.WorkingColor.ForegroundColor = [ConsoleColor]::DarkMagenta
 
 function prompt {
-    $origLastExitCode = $LASTEXITCODE
+    $wasSuccessful = $?
 
     $reset = "$([char]0x1b)[0m"
     $prompt = $reset
@@ -45,7 +45,7 @@ function prompt {
     $prompt += " ❬$([char]0x1b)[35m$(Get-PromptWorkingDir)$reset❭"
 
     $prompt += "`n"
-    if ($origLastExitCode -eq 0) {
+    if ($wasSuccessful) {
         $prompt += "$([char]0x1b)[32m✔"
     }
     else {
