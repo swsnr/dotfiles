@@ -19,7 +19,13 @@ $oldModules = @(
     'Jump.Location'
 )
 
-Remove-Module -ErrorAction Continue $oldModules
+[array]$toRemove = Compare-Object `
+    $oldModules (Get-Module | Select-Object -ExpandProperty Name) `
+    -ExcludeDifferent -IncludeEqual | Select-Object -ExpandProperty InputObject
+
+if ($toRemove.Count -gt 0) {
+    Remove-Module $toRemove
+}
 
 # YAML support for powershell
 Install-Module 'powershell-yaml' -Scope CurrentUser
