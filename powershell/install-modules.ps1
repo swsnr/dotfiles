@@ -22,12 +22,12 @@ $oldModules = @(
 Remove-Module -ErrorAction Continue $oldModules
 
 # YAML support for powershell
-PowerShellGet\Install-Module 'powershell-yaml' -Scope CurrentUser
+Install-Module 'powershell-yaml' -Scope CurrentUser
 # Colourful ls
-PowerShellGet\Install-Module 'Get-ChildItemColor' -Scope CurrentUser
+Install-Module 'Get-ChildItemColor' -Scope CurrentUser
 # autojump/z for powershell
-PowerShellGet\Install-Module 'ZLocation' -Scope CurrentUser
+Install-Module 'ZLocation' -Scope CurrentUser
 # Adds git status information to powershell prompt, min 1.0, for core compatibility
-PowerShellGet\Install-Module 'posh-git' -Scope CurrentUser -AllowPrerelease -MinimumVersion '1.0.0-beta2'
+Install-Module 'posh-git' -Scope CurrentUser -AllowPrerelease -MinimumVersion '1.0.0-beta2'
 # Better line editing for powershell, min 2.0 for core compatibility
-PowerShellGet\Install-Module 'PSReadLine' -Scope CurrentUser -Force -AllowPrerelease -MinimumVersion '2.0.0-beta2'
+Install-Module 'PSReadLine' -Scope CurrentUser -AllowPrerelease -MinimumVersion '2.0.0-beta2'
