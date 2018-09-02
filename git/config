@@ -48,6 +48,8 @@
 	xfuncname = "^\\*+.*"
 [diff "lisp"]
 	xfuncname = "^\\([^ ]+ [^ ]+"
+[diff "rust"]
+	xfuncname = "^[ \t]*(pub|)[ \t]*((fn|struct|enum|impl|trait|mod)[^;]*)$"
 [log]
 	# Use mailmap files to map author information
 	mailmap = true
