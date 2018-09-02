@@ -12,8 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# TODO: Make sure to trust all relevant repositories here
+# Trust PSGallery
+Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
 
+# Remove modules I do not use anymore
 $oldModules = @(
     # Superseded by ZLocation
     'Jump.Location'
