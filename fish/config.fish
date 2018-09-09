@@ -47,15 +47,6 @@ set -x PAGER 'less'
 # -z: Keep four lines when scrolling
 set -x LESS '-q -g -i -M -R -S -w -z-4'
 
-# Less pipe
-if command --search 'lesspipe.sh' >/dev/null
-    set -x LESSOPEN "|/usr/local/bin/lesspipe.sh %s"
-    set -x LESS_ADVANCED_PREPROCESSOR 1
-    if command --search 'pygmentize' >/dev/null
-        set -x LESSCOLORIZER pygmentize
-    end
-end
-
 # Setup tools for an interactive shell
 if status is-interactive
     # Autojump for fast directory jumping

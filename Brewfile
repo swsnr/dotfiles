@@ -3,7 +3,6 @@
 # core utilities
 brew 'mas' # CLI client for appstore
 brew 'less'  # The built-in less is horribly outdated
-brew 'lesspipe'  # Add file formats to less
 brew 'rsync'  # rsync likewise
 brew 'htop'  # CLI process manager
 brew 'm-cli'  # macOS system CLI tool
