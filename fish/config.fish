@@ -34,6 +34,7 @@ end
 set -x EDITOR 'code -nw'
 set -x BROWSER 'open'
 set -x PAGER 'less'
+set -x BAT_THEME 'TwoDark'
 
 # Default less options:
 #
