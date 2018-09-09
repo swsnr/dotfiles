@@ -84,7 +84,10 @@ brew 'nmap'
 cask 'wireshark'
 brew 'nethogs'
 brew 'httpie' # HTTP client
-brew 'jq' # JSON processor for command line
+
+# Data processing
+brew 'xsv' # CLI CSV processing
+brew 'jq' # CLI JSON processor
 brew 'jid' # Interactive JSON querying
 
 # Messaging
