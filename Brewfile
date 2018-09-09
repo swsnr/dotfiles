@@ -7,6 +7,7 @@ brew 'lesspipe'  # Add file formats to less
 brew 'rsync'  # rsync likewise
 brew 'htop'  # CLI process manager
 brew 'm-cli'  # macOS system CLI tool
+brew 'bat' # cat with wings
 brew 'ripgrep'  # A better grep
 brew 'exa'  # A better ls
 brew 'tokei'  # Count code fast!
