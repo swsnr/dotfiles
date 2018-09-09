@@ -34,7 +34,7 @@ Install-Module 'powershell-yaml' -Scope CurrentUser
 # Colourful ls
 Install-Module 'Get-ChildItemColor' -Scope CurrentUser
 # autojump/z for powershell
-Install-Module 'ZLocation' -Scope CurrentUser
+Install-Module 'ZLocation' -Scope CurrentUser -MinimumVersion '1.0.0'
 # Adds git status information to powershell prompt, min 1.0, for core compatibility
 Install-Module 'posh-git' -Scope CurrentUser -AllowPrerelease -MinimumVersion '1.0.0-beta2'
 # Better line editing for powershell, min 2.0 for core compatibility
