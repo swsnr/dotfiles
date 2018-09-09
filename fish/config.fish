@@ -60,6 +60,10 @@ if status is-interactive
         python3 -m virtualfish ^/dev/null | source
     end
 
+    # Prefer bat over less and cat
+    alias less='bat'
+    alias cat='bat'
+
     # Prefer exa over ls for listings
     alias ll='exa --long --git'
     alias la='ll --all'
