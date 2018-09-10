@@ -95,5 +95,4 @@ if status is-interactive
     abbr --add o open
     abbr --add pbc pbcopy
     abbr --add pbp pbpaste
-    abbr --add vag vagrant
 end
