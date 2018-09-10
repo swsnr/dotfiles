@@ -16,6 +16,7 @@
 import sys
 import os
 import shutil
+import socket
 from subprocess import check_call
 
 
@@ -51,6 +52,10 @@ def main():
         dotbot(BASEDIR, os.path.join('macos', 'install.conf.yaml'))
     elif sys.platform == "win32":
         dotbot(BASEDIR, os.path.join('windows', 'install.conf.yaml'))
+
+    hostname = socket.gethostname()
+    if '.uberspace.de' in hostname:
+        dotbot(BASEDIR, os.path.join('uberspace', 'install.conf.yaml'))
 
 
 if __name__ == '__main__':

@@ -2,3 +2,7 @@
 # use.  Make stuff convenient on OS X 8)
 UseKeychain yes
 AddKeysToAgent yes
+
+Host uber.space
+    Hostname lovas.uberspace.de
+    IdentityFile ~/.ssh/uberspace
