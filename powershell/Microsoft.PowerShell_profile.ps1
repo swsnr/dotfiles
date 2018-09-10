@@ -41,8 +41,8 @@ function prompt {
     $prompt = $reset
 
     $prompt += "❬$([char]0x1b)[35m$([DateTime]::now.ToString("yyyy-MM-dd HH:mm"))$reset❭"
-    $prompt += Write-VcsStatus
     $prompt += " ❬$([char]0x1b)[35m$(Get-PromptWorkingDir)$reset❭"
+    $prompt += Write-VcsStatus
 
     $prompt += "`n"
     if ($wasSuccessful) {
