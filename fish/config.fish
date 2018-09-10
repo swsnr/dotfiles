@@ -34,6 +34,7 @@ end
 set -x EDITOR 'code -nw'
 set -x BROWSER 'open'
 set -x PAGER 'less'
+set -x BAT_THEME 'TwoDark'
 
 # Default less options:
 #
@@ -47,15 +48,6 @@ set -x PAGER 'less'
 # -z: Keep four lines when scrolling
 set -x LESS '-q -g -i -M -R -S -w -z-4'
 
-# Less pipe
-if command --search 'lesspipe.sh' >/dev/null
-    set -x LESSOPEN "|/usr/local/bin/lesspipe.sh %s"
-    set -x LESS_ADVANCED_PREPROCESSOR 1
-    if command --search 'pygmentize' >/dev/null
-        set -x LESSCOLORIZER pygmentize
-    end
-end
-
 # Setup tools for an interactive shell
 if status is-interactive
     # Autojump for fast directory jumping
@@ -68,6 +60,10 @@ if status is-interactive
     if command --search 'python3' >/dev/null
         python3 -m virtualfish ^/dev/null | source
     end
+
+    # Prefer bat over less and cat
+    alias less='bat'
+    alias cat='bat'
 
     # Prefer exa over ls for listings
     alias ll='exa --long --git'

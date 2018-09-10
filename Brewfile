@@ -3,10 +3,10 @@
 # core utilities
 brew 'mas' # CLI client for appstore
 brew 'less'  # The built-in less is horribly outdated
-brew 'lesspipe'  # Add file formats to less
 brew 'rsync'  # rsync likewise
 brew 'htop'  # CLI process manager
 brew 'm-cli'  # macOS system CLI tool
+brew 'bat' # cat with wings
 brew 'ripgrep'  # A better grep
 brew 'exa'  # A better ls
 brew 'tokei'  # Count code fast!
@@ -84,7 +84,10 @@ brew 'nmap'
 cask 'wireshark'
 brew 'nethogs'
 brew 'httpie' # HTTP client
-brew 'jq' # JSON processor for command line
+
+# Data processing
+brew 'xsv' # CLI CSV processing
+brew 'jq' # CLI JSON processor
 brew 'jid' # Interactive JSON querying
 
 # Messaging
@@ -121,6 +124,7 @@ cask 'font-open-sans'
 cask 'font-open-sans-condensed'
 cask 'font-source-code-pro'
 cask 'font-source-sans-pro'
+cask 'font-source-serif-pro'
 cask 'font-vollkorn'
 cask 'font-lato'
 cask 'font-crimson-text'

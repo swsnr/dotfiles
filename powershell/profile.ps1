@@ -109,14 +109,9 @@ function Get-PromptWorkingDir {
     return $currentPath
 }
 
-# Jump to directories fast.
-if ($PSVersionTable.PSVersion.Major -lt 6) {
-    # TODO: Doesn't work on core currently, see
-    # https://github.com/vors/ZLocation/issues/32 and
-    # https://github.com/vors/ZLocation/pull/33
-    Import-Module ZLocation
-    New-Alias -Name j -Value z
-}
+# Jump to directories fast. and
+Import-Module ZLocation
+New-Alias -Name j -Value z
 
 # Unixification
 New-Alias -Name which -Value Get-Command
