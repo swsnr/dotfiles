@@ -62,12 +62,19 @@ if status is-interactive
     end
 
     # Prefer bat over less and cat
-    alias less='bat'
-    alias cat='bat'
+    if command --search 'bat' >/dev/null
+        alias less='bat'
+        alias cat='bat'
+    end
 
     # Prefer exa over ls for listings
-    alias ll='exa --long --git'
-    alias la='ll --all'
+    if command --search 'exa' >/dev/null
+        alias ll='exa --long --git'
+        alias la='ll --all'
+    else
+        alias ll='ls -l'
+        alias la='ls -la'
+    end
 
     # Abbreviations (unlike aliases, these are expanded before running)
     abbr --add _ sudo
