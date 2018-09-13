@@ -12,3 +12,5 @@
     ~/.config/fish/conf.d:
       path: fish/conf.d/*.fish
       glob: true
+    # tmux
+    ~/.tmux.conf: uberspace/tmux.conf
