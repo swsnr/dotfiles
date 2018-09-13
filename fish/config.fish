@@ -31,7 +31,12 @@ if status is-login
 end
 
 # Environment variables
-set -x EDITOR 'code -nw'
+if string match '*.uberspace.de' (hostname)
+    # On uberspace use nano as editor
+    set -x EDITOR 'nano'
+else
+    set -x EDITOR 'code -nw'
+end
 set -x BROWSER 'open'
 set -x PAGER 'less'
 set -x BAT_THEME 'TwoDark'
