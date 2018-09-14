@@ -37,8 +37,16 @@ if string match '*.uberspace.de' (hostname)
 else
     set -x EDITOR 'code -nw'
 end
-set -x BROWSER 'open'
+
 set -x PAGER 'less'
+if command --search 'xdg-open' >/dev/null
+    # Unix
+    set -x BROWSER 'xdg-open'
+else
+    # macOS
+    set -x BROWSER 'open'
+end
+
 # Color theme for bat, see <https://github.com/sharkdp/bat>
 set -x BAT_THEME 'TwoDark'
 # Additional cows for cowsay, if existing
@@ -106,4 +114,11 @@ if status is-interactive
     abbr --add o open
     abbr --add pbc pbcopy
     abbr --add pbp pbpaste
+
+    if not command --search pbcopy >/dev/null
+        # If not on macOS pretend we'd be
+        alias pbcopy='xsel -i'
+        alias pbpaste='xsel -o'
+        alias open='xdg-open'
+    end
 end
