@@ -50,7 +50,9 @@ def main():
 
     if sys.platform == 'darwin':
         dotbot(BASEDIR, os.path.join('macos', 'install.conf.yaml'))
-    elif sys.platform == "win32":
+    elif sys.platform == 'linux':
+        dotbot(BASEDIR, os.path.join('linux', 'install.conf.yaml'))
+    elif sys.platform == 'win32':
         dotbot(BASEDIR, os.path.join('windows', 'install.conf.yaml'))
 
     hostname = socket.gethostname()
