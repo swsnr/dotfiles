@@ -6,8 +6,8 @@
 #
 # * Shorten path in prompt like in my Zsh, relative to repo root
 
-# First things first
-umask 022
+# First things first: Don't let anyone else get access to my files
+umask 077
 
 # When fish exits…
 function on_exit --on-process-exit %self
