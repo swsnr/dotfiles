@@ -117,8 +117,8 @@ if status is-interactive
 
     if not command --search pbcopy >/dev/null
         # If not on macOS pretend we'd be
-        alias pbcopy='xsel -i'
-        alias pbpaste='xsel -o'
+        alias pbcopy='xsel -pi'
+        alias pbpaste='xsel -po'
         alias open='xdg-open'
     end
 end
