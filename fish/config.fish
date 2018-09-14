@@ -69,9 +69,10 @@ set -x LESS '-q -g -i -M -R -S -w -z-4'
 # Setup tools for an interactive shell
 if status is-interactive
     # Autojump for fast directory jumping
-    for directory in '/usr/local/share' '/usr/share'
+    for directory in "$HOME/share" '/usr/local/share' '/usr/share'
         if [ -f "$directory/autojump/autojump.fish" ]
             source "$directory/autojump/autojump.fish"
+            break
         end
     end
 
