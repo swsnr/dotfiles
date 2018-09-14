@@ -41,17 +41,11 @@ def setup_toolchain(rustup, toolchain):
     Setup the given `toolchain`, eg, `stable` or `nightly`, with `rustup`.
     """
     check_call([rustup, 'toolchain', 'install', toolchain])
-    for component in ['rustfmt-preview', 'rls-preview']:
+    for component in ['rustfmt-preview', 'rls-preview', 'clippy-preview']:
         check_call([rustup, 'component',
                     'add',
                     '--toolchain', toolchain,
                     component])
-    # On nightly toolchains, also install clippy
-    if toolchain.startswith('nightly'):
-        check_call([rustup, 'component',
-                    'add',
-                    '--toolchain', toolchain,
-                    'clippy-preview'])
 
 
 def main():
