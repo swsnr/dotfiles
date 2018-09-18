@@ -14,3 +14,6 @@ addCommandAlias("outdated", "dependencyUpdates")
 // I can never remember these either
 addCommandAlias("ls", "projects")
 addCommandAlias("cd", "project")
+
+// Nor this
+addCommandAlias("javaVersion", """eval System.getProperty("java.version")""")
