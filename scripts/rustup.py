@@ -30,10 +30,7 @@ CRATES = [
 ]
 
 
-TOOLCHAINS = [
-    'stable',
-    'nightly'
-]
+TOOLCHAINS = ['stable']
 
 
 def setup_toolchain(rustup, toolchain):
