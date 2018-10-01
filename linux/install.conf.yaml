@@ -16,3 +16,12 @@
     ~/.config/latexmk/latexmkrc: misc/latexmkrc
     ~/.gnupg/gpg.conf: misc/gpg.conf
     ~/.tmux.conf: misc/tmux.conf
+    ~/.config/fontconfig/conf.d:
+      path: "linux/fontconfig/*.conf"
+      glob: true
+- shell:
+    - description: Update fontconfig cache
+      command: "fc-cache -f -v"
+      stdout: true
+      stderr: true
+
