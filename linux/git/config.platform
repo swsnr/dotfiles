@@ -1,0 +1,3 @@
+# Credential helper
+[credential]
+	helper = libsecret

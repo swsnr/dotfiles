@@ -16,4 +16,6 @@
     ~/.config/latexmk/latexmkrc: misc/latexmkrc
     ~/.gnupg/gpg.conf: misc/gpg.conf
     ~/.tmux.conf: misc/tmux.conf
+    # Platform-specific config
+    ~/.config/git/config.platform: linux/git/config.platform
 
