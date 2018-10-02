@@ -27,7 +27,6 @@ CRATES = [
     'cargo-license',
     'git-gone',
     'xkpwgen',
-    'tealdeer',
 ]
 
 
