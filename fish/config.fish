@@ -83,8 +83,8 @@ if status is-interactive
 
     # Prefer bat over less and cat
     if command --search 'bat' >/dev/null
-        alias less='bat'
-        alias cat='bat'
+        alias less='bat --paging always'
+        alias cat='bat --paging never'
     end
 
     # Prefer exa over ls for listings
