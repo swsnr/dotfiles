@@ -25,7 +25,7 @@ function fish_right_prompt -d 'My right-hand side prompt'
 
     echo -sn (set_color white) '❮' (set_color normal)
     set -l battery (prompt_battery)
-    if test -n $battery
+    if string length -q $battery $battery
         echo -sn ' ' $battery
     end
     echo -sn (__fish_git_prompt)
