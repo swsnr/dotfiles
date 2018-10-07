@@ -123,6 +123,11 @@ if status is-interactive
     abbr --add pbc pbcopy
     abbr --add pbp pbpaste
 
+    if not command --search ldd >/dev/null
+        # I always forget this one on macOS
+        alias ldd='otool -L'
+    end
+
     if not command --search pbcopy >/dev/null
         # If not on macOS pretend we were
         alias pbcopy='xsel -bi'
