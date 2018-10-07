@@ -48,8 +48,10 @@ brew 'yarn'
 brew 'python'
 brew 'ruby'
 brew 'rustup-init'
+# Musl toolchain for cross compilation
+brew 'FiloSottile/musl-cross/musl-cross'
 
-# desktop tools
+# Desktop tools
 cask 'flux'  # My old air doesn't have nightshift
 cask 'launchbar'  # Spotlight improved
 cask 'appcleaner'  # Clean application data
