@@ -18,6 +18,51 @@
 # directory, virtualenv, battery information and git status.
 
 function fish_prompt -d 'My personal prompt'
+    # Settings for the Git prompt
+    set -g __fish_git_prompt_show_informative_status 1
+    set -g __fish_git_prompt_hide_untrackedfiles 1
+
+    set -g __fish_git_prompt_color_branch -o magenta
+    set -g __fish_git_prompt_showupstream "informative"
+    set -g __fish_git_prompt_char_upstream_ahead "↑"
+    set -g __fish_git_prompt_char_upstream_behind "↓"
+    set -g __fish_git_prompt_char_upstream_prefix ""
+
+    set -g __fish_git_prompt_char_stagedstate "●"
+    set -g __fish_git_prompt_char_dirtystate "+"
+    set -g __fish_git_prompt_char_untrackedfiles "…"
+    set -g __fish_git_prompt_char_conflictedstate "x"
+    set -g __fish_git_prompt_char_cleanstate "✔"
+
+    set -g __fish_git_prompt_color_dirtystate red
+    set -g __fish_git_prompt_color_stagedstate yellow
+    set -g __fish_git_prompt_color_invalidstate red
+    set -g __fish_git_prompt_color_untrackedfiles red
+    set -g __fish_git_prompt_color_cleanstate green
+
+    echo -sn '('
+    if set -q SUDO_USER
+        echo -sn (set_color -o red) $USER (set_color normal)
+    else
+        echo -sn (set_color magenta) $USER (set_color normal)
+    end
+    echo -sn '@' (set_color magenta) (prompt_hostname) (set_color normal) ')'
+
+    # Working directory and git prompt
+    echo -sn ' (' (set_color cyan) (prompt_pwd) (set_color normal) ')'
+    echo -sn (__fish_git_prompt)
+
+    # Battery if present and supported
+    set -l battery (prompt_battery)
+    if string length -q $battery $battery
+        echo -sn ' (' $battery ')'
+    end
+
+    # Python virtualenv if any
+    if set -q VIRTUAL_ENV
+        echo -sn ' (' (set_color -i cyan) (basename $VIRTUAL_ENV) (set_color normal) ')'
+    end
+    echo -s
     # Indicate exit code of last command
     if test $status -eq 0
         echo -sn (set_color green) '✔'
@@ -25,23 +70,6 @@ function fish_prompt -d 'My personal prompt'
         echo -sn (set_color -o red) '!'
     end
     echo -sn (set_color normal)
-    if set -q SUDO_USER
-        # Show the target user name when in a sudo shell
-        echo -sn ' ' (set_color -o red) $USER (set_color normal)
-    else if set -q SSH_CONNECTION
-        # When connected via SSH show the login user name
-        echo -sn ' ' (set_color magenta) $USER (set_color normal)
-    end
-    if set -q SSH_CONNECTION
-        # When connected via SSH show the target system
-        echo -sn '@' (set_color magenta) (prompt_hostname) (set_color normal)
-    end
-    # Working directory
-    echo -sn ' ' (set_color cyan) (prompt_pwd) (set_color normal)
-    # Python virtualenv if any
-    if set -q VIRTUAL_ENV
-        echo -sn ' (' (set_color -i cyan) (basename $VIRTUAL_ENV) (set_color normal) ')'
-    end
     # Prompt separator
     echo -sn (set_color green) ' ❯ ' (set_color normal)
     # Tell iterm that the command input starts now
