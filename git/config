@@ -45,10 +45,6 @@
 	algorithm = patience
 	# Use blank lines as diff boundary to improve diffs
 	compactionHeuristic = true
-[diff "org"]
-	xfuncname = "^\\*+.*"
-[diff "lisp"]
-	xfuncname = "^\\([^ ]+ [^ ]+"
 [diff "rust"]
 	xfuncname = "^[ \t]*(pub|)[ \t]*((fn|struct|enum|impl|trait|mod)[^;]*)$"
 [log]
