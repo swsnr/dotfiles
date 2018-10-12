@@ -88,15 +88,24 @@
 	cm = commit --message
 	co = checkout
 	f = fetch --all
+	# Prune gone upstream branches
+	gX = git gone prune
+	# Fancy and brief logs
 	l = log --pretty=fancy --topo-order --graph
 	lo = log --pretty=overview --topo-order --graph
+	# Show most recent commits and commits within the last week
+	lr = log --pretty=overview --topo-order --graph -n 30
+	lw = log --pretty=overview --topo-order --graph --since 7d
 	mff = merge --ff-only
 	mnoff = merge --no-ff
 	p = push
 	pf = push --force-with-lease
 	pu = push --set-upstream
-	r = !git --no-pager log --pretty=oneline --topo-order -n 30
 	s = status
+	# Submodules
+	sub = submodule
+	subs = submodule sync --recursive
+	subu = submodule update --init --recursive
 	# Get the current branch
 	current = symbolic-ref --short HEAD
 	# Manage my Git identity
