@@ -108,18 +108,8 @@ if status is-interactive
     abbr --add df df -kh
     abbr --add du du -kh
     abbr --add e eval $EDITOR
-    abbr --add g git
-    abbr --add gP git pull
-    abbr --add gS git stash
-    abbr --add gb git branch
-    abbr --add gc git commit
-    abbr --add gcf git commit --amend
-    abbr --add gl git log --pretty=fancy --topo-order
-    abbr --add gp git push
-    abbr --add gpf git push --force-with-lease
-    abbr --add gr git rebase
-    abbr --add gs git status
     abbr --add o open
+    abbr --add g git
     abbr --add pbc pbcopy
     abbr --add pbp pbpaste
 
