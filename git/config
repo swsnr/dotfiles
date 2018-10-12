@@ -88,8 +88,8 @@
 	cm = commit --message
 	co = checkout
 	f = fetch --all
-	l = log --pretty=fancy --topo-order
-	lg = log --pretty=fancy --topo-order --graph
+	l = log --pretty=fancy --topo-order --graph
+	lo = log --pretty=overview --topo-order --graph
 	mff = merge --ff-only
 	mnoff = merge --no-ff
 	p = push
