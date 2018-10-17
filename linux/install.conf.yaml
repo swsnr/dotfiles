@@ -20,6 +20,7 @@
     ~/.config/latexmk/latexmkrc: misc/latexmkrc
     ~/.gnupg/gpg.conf: misc/gpg.conf
     ~/.tmux.conf: misc/tmux.conf
+    ~/.local/share/xfce4/terminal/colorschemes/dracula.theme: linux/xfce4/dracula.theme
     # Platform-specific config
     ~/.config/git/config.platform: linux/git/config.platform
 - shell:
