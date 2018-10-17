@@ -12,6 +12,8 @@
     ~/.config/fish/conf.d:
       path: fish/conf.d/*.fish
       glob: true
+    # Pacman
+    ~/.config/pacman/makepkg.conf: linux/pacman/makepkg.conf
     # neovim
     ~/.config/nvim/init.vim: nvim/init.vim
     # Misc config files
