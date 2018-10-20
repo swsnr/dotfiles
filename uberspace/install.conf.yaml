@@ -6,3 +6,4 @@
 - link:
     # tmux
     ~/.tmux.conf: uberspace/tmux.conf
+    ~/.config/fish/conf.d/linuxbrew.fish: uberspace/linuxbrew.fish
