@@ -8,5 +8,5 @@
     ~/.tmux.conf: uberspace/tmux.conf
     # Special fish configuration files for the old Fish version on uberspace
     ~/.config/fish/functions:
-      path: fish/functions/*.fish
+      path: uberspace/fish/functions/*.fish
       glob: true
