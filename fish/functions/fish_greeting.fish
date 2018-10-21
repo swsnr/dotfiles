@@ -27,16 +27,4 @@ function fish_greeting -d 'My cow says things to you!'
     # I start a shell
     fortune -s | cowsay -f kitty -W (math $COLUMNS - 10)
     echo
-
-    # At work, automatically authenticate against the firewall with identity
-    # from keychain
-    if hostname | string match -q 'GFMB*'
-        set -l authenticate (command -s gf-fw-authenticate)
-        if test $status -eq 0
-            eval $authenticate
-            echo
-        else
-            echo 'gf-fw-authenticate not found, cannot authenticate on firewall'
-        end
-    end
 end
