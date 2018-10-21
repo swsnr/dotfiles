@@ -13,11 +13,11 @@
 # the License.
 
 function fish_greeting -d 'My cow says things to you!'
-    if not command --quiet --search cowsay
+    if not command --search cowsay >/dev/null
         echo 'I am silent. Install cowsay!'
         return 1
     end
-    if not command --quiet --search fortune
+    if not command --search fortune >/dev/null
         cowsay -y 'I have nothing to say. Install fortune!'
         echo
         return 1
