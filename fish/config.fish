@@ -19,14 +19,14 @@ umask 077
 
 # When fish exits…
 function on_exit --on-process-exit %self
-    if status is-login
+    if status --is-login
         # …kill sudo timestamps if the shell is a login shell
         sudo -K
     end
 end
 
 # Paths, only for login shells
-if status is-login
+if status --is-login
     # Binaries from Python, Ruby and Rust
     set -x PATH ~/Library/Python/*/bin $PATH
     set -x PATH ~/.gem/ruby/*/bin $PATH
@@ -75,7 +75,7 @@ end
 set -x LESS '-q -g -i -M -R -S -w -z-4'
 
 # Setup tools for an interactive shell
-if status is-interactive
+if status --is-interactive
     # Autojump for fast directory jumping
     for directory in "$HOME/share" '/usr/local/share' '/usr/share'
         if [ -f "$directory/autojump/autojump.fish" ]
