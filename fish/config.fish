@@ -77,11 +77,13 @@ set -x LESS '-q -g -i -M -R -S -w -z-4'
 # Setup tools for an interactive shell
 if status --is-interactive
     # Autojump for fast directory jumping
-    for directory in "$HOME/share" '/usr/local/share' '/usr/share'
-        if [ -f "$directory/autojump/autojump.fish" ]
-            source "$directory/autojump/autojump.fish"
+    for directory in "$HOME/.autojump" '/usr/local' '/usr'
+        set -l __autojump_file "$directory/share/autojump/autojump.fish"
+        if [ -f $__autojump_file ]
+            source $__autojump_file
             break
         end
+        set -e __autojump_file
     end
 
     # Virtualenv helper
