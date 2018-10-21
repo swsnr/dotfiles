@@ -13,7 +13,7 @@
 # the License.
 
 if begin
-        status is-interactive
+        status --is-interactive
         and string match --quiet 'iTerm*' $TERM_PROGRAM
     end
     set iterm2_hostname (hostname -f)
