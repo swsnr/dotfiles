@@ -56,7 +56,7 @@ def main():
         dotbot(BASEDIR, os.path.join('windows', 'install.conf.yaml'))
 
     hostname = socket.gethostname()
-    if '.uberspace.de' in hostname:
+    if hostname.endswith('.uberspace.de'):
         dotbot(BASEDIR, os.path.join('uberspace', 'install.conf.yaml'))
 
 
