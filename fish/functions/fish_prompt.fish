@@ -18,6 +18,8 @@
 # directory, virtualenv, battery information and git status.
 
 function fish_prompt -d 'My personal prompt'
+    set -l last_exit_code $status
+
     # Settings for the Git prompt
     set -g __fish_git_prompt_show_informative_status 1
     set -g __fish_git_prompt_hide_untrackedfiles 1
@@ -64,7 +66,7 @@ function fish_prompt -d 'My personal prompt'
     end
     echo -s
     # Indicate exit code of last command
-    if test $status -eq 0
+    if test $last_exit_code -eq 0
         echo -sn (set_color green) '✔'
     else
         echo -sn (set_color -o red) '!'
