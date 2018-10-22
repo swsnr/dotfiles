@@ -17,6 +17,7 @@
     # neovim
     ~/.config/nvim/init.vim: nvim/init.vim
     # Misc config files
+    ~/.config/kitty/kitty.conf: misc/kitty.conf
     ~/.config/latexmk/latexmkrc: misc/latexmkrc
     ~/.gnupg/gpg.conf: misc/gpg.conf
     ~/.tmux.conf: misc/tmux.conf
