@@ -94,7 +94,7 @@
 	l = log --pretty=fancy --topo-order --graph
 	lo = log --pretty=overview --topo-order --graph
 	# Show most recent commits and commits within the last week
-	lr = log --pretty=overview --topo-order --graph -n 30
+	lr = log --pretty=overview --topo-order --graph -n 10
 	lw = log --pretty=overview --topo-order --graph --since 7d
 	mff = merge --ff-only
 	mnoff = merge --no-ff
