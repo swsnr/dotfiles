@@ -24,5 +24,5 @@
     # Platform-specific config
     ~/.config/git/config.platform: linux/git/config.platform
 - shell:
-    - - "curl -fLo /home/swiesner/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+    - - "curl -fLo $HOME/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
       - "Install vimplug"
