@@ -16,7 +16,7 @@
 import sys
 import shutil
 from argparse import ArgumentParser
-from subprocess import check_call
+from subprocess import check_call, call
 
 
 CRATES = [
@@ -55,7 +55,8 @@ Setup rust.  Install toolchains and toolchain components, and crates I use.
     if not rustup:
         sys.exit('rustup missing; install from https://rustup.rs!')
 
-    check_call([rustup, 'self', 'update'])
+    # Don't use check_call here; rustup might be installed system wide
+    call([rustup, 'self', 'update'])
     check_call([rustup, 'update'])
 
     for toolchain in TOOLCHAINS:
