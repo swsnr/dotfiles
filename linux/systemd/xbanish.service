@@ -1,8 +1,11 @@
 [Unit]
-Description="Hide cursor while typing"
+Description="xbanish"
 
 [Service]
 ExecStart=xbanish
+# Restart only when xbanish dies; lets me stop the service by killing xbanish
+# directly
+Restart=on-abnormal
 
 [Install]
 WantedBy=default.target
