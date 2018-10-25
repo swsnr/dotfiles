@@ -16,6 +16,10 @@
     ~/.config/pacman/makepkg.conf: linux/pacman/makepkg.conf
     # neovim
     ~/.config/nvim/init.vim: nvim/init.vim
+    # Custom systemd services
+    ~/.config/systemd/user/:
+      path: linux/systemd/*.service
+      glob: true
     # Misc config files
     ~/.config/kitty/kitty.conf: misc/kitty.conf
     ~/.config/latexmk/latexmkrc: misc/latexmkrc

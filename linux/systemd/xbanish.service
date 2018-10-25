@@ -1,0 +1,8 @@
+[Unit]
+Description="Hide cursor while typing"
+
+[Service]
+ExecStart=xbanish
+
+[Install]
+WantedBy=default.target
