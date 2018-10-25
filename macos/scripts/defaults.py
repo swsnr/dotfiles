@@ -29,7 +29,7 @@ DEFAULTS = {
         # Do not sort spaces by recent usage to be more predictable.
         'mru-spaces': False,
         # Automatically hide the dock; I don’t use it much
-        'autohide': False
+        'autohide': True
     },
     'com.apple.finder': {
         # Don't warn when changing file extensions in Finder
