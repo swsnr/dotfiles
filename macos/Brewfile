@@ -9,7 +9,8 @@ brew 'm-cli'  # macOS system CLI tool
 brew 'tldr' # Fancy manpages
 brew 'bat' # cat with wings
 brew 'ripgrep'  # A better grep
-brew 'exa'  # A better ls
+brew 'exa'  # …and a better ls
+brew 'fd'  # …and a better find!
 brew 'tokei'  # Count code fast!
 
 # Shell
