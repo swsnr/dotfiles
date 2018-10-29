@@ -1,6 +1,6 @@
 # Credential helper
 [credential]
-	helper = libsecret
+	helper = store
 # Disable the pager and let the GUI terminal emulator do its job
 [core]
 	pager =
