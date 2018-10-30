@@ -24,6 +24,6 @@ addCommandAlias("javaHome", """eval System.getProperty("java.home")""")
 
 // Get the name of the underlying runtime, because it contains the PID which
 // comes handy if you’d like to inspect the SBT shell w/ visualvm
-addCommandAlias("runtimeName", "java.lang.management.ManagementFactory.getRuntimeMXBean().getName()")
+addCommandAlias("runtimeName", "eval java.lang.management.ManagementFactory.getRuntimeMXBean().getName()")
 // Only for JDK 9 or newer
-addCommandAlias("runtimePID", "ProcessHandle.current().pid()")
+addCommandAlias("runtimePID", "eval ProcessHandle.current().pid()")
