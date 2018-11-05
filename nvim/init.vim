@@ -20,7 +20,7 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
 " UI plugins
-Plug 'icymind/neosolarized' " Color scheme for GUI and iTerm2
+Plug 'dracula/vim', { 'as': 'dracula' } " Color scheme
 Plug 'vim-airline/vim-airline' " Better status line (plus themes)
 Plug 'vim-airline/vim-airline-themes'
 Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' } " Quick jump
@@ -43,20 +43,6 @@ Plug 'tpope/vim-fugitive' " A great Git frontend
 Plug 'antoyo/vim-licenses' " Insert licenses in buffers
 Plug 'neomake/neomake' " Asychronously compile/check buffers
 Plug 'sbdchd/neoformat' " Format files
-" Languages
-Plug 'kballard/vim-fish' " Fish scripts
-Plug 'plasticboy/vim-markdown' " Markdown support
-Plug 'cespare/vim-toml' " TOML
-Plug 'rust-lang/rust.vim' " Rust
-Plug 'racer-rust/vim-racer' " Rust completion
-Plug 'geverding/vim-hocon' " HOCON
-Plug 'derekwyatt/vim-scala' " Scala
-Plug 'tmux-plugins/vim-tmux' " tmux config support
-Plug 'leafgarland/typescript-vim' " Typescript
-Plug 'lervag/vimtex' " LaTeX
-Plug 'neovimhaskell/haskell-vim' " Haskell
-Plug 'eagletmt/neco-ghc' " Haskell completion
-Plug 'parsonsmatt/intero-neovim' " Haskell navigation and type info
 
 " Initialize plugin system
 call plug#end()
@@ -69,11 +55,7 @@ Plug 'vim-airline/vim-airline' " Better status line
 " to use the real solarized palette regardless of the TTY colours.
 set termguicolors
 " Solarized light
-set background=light
-let g:neosolarized_bold = 1
-let g:neosolarized_underline = 1
-let g:neosolarized_italic = 1
-colorscheme NeoSolarized
+colorscheme dracula
 
 " Use solarized light for Airline as well, and some fancy unicode separators
 let g:airline_theme = 'solarized'
@@ -309,17 +291,6 @@ augroup fish
 augroup END
 " }}}
 
-" {{{ Markdown
-let g:vim_markdown_toc_autofit = 1 " Auto-shrink ToC window
-let g:vim_markdown_frontmatter = 1 " Enable YAML frontmatter for Jekyll
-
-augroup markdown
-  au!
-  autocmd FileType markdown nnoremap <buffer> <localleader>t :Toc<cr>
-  autocmd FileType markdown nnoremap <buffer> <localleader>T :Toch<cr>
-augroup END
-" }}}
-
 " {{{ LaTeX
 let g:vimtex_fold_enabled = 1 " Enable folding
 " Configure the latexmk compiler to use a custom set of options. In particular,
@@ -338,32 +309,4 @@ let g:vimtex_view_general_viewer
 let g:vimtex_view_general_options = '-r @line @pdf @tex'
 " }}}
 
-" {{{ Ruby
-augroup ruby
-  au!
-  autocmd FileType ruby setlocal foldmethod=syntax
-augroup END
-" }}}
-
-" {{{ Rust
-let g:racer_experimental_completer = 1 " Full function defs in completion
-
-augroup rust
-  au!
-  autocmd FileType rust setlocal foldmethod=syntax
-  autocmd FileType rust nnoremap <buffer> <localleader>m :Neomake! clippy<cr>
-  autocmd FileType rust nnoremap <buffer> gd <Plug>(rust-def)
-  autocmd FileType rust nnoremap <buffer> K <Plug>(rust-doc)
-augroup END
-" }}}
-
-" {{{ Haskell
-augroup haskell
-  au! FileType haskell nnoremap <buffer> gd :InteroGoToDef<cr>
-  au! FileType haskell nnoremap <buffer> <localleader>tt :InteroType<cr>
-  au! FileType haskell nnoremap <buffer> <localleader>tg :InteroGenericType<cr>
-  au! FileType haskell nnoremap <buffer> <localleader>it :InteroType<cr>
-  au! BufWritePost *.hs InteroReload
-augroup END
-" }}}
 " }}}
