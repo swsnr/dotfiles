@@ -47,7 +47,6 @@ brew 'yarn'
 
 # Misc languages
 brew 'python'
-brew 'ruby'
 brew 'rustup-init'
 # Musl toolchain for cross compilation
 brew 'FiloSottile/musl-cross/musl-cross'
