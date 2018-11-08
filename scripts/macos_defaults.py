@@ -13,6 +13,7 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
+import sys
 import os
 from argparse import ArgumentParser
 from subprocess import check_call
@@ -106,6 +107,10 @@ def main():
 Setup macOS application settings.
 """)
     parser.parse_args()
+
+    if sys.platform != 'darwin':
+        print('Not on MacOS; skipping')
+        return
 
     for domain, settings in DEFAULTS.items():
         for key, value in settings.items():

@@ -120,6 +120,8 @@
 # Includes
 [include]
 	# Platform specific settings
-	path = config.platform
+	path = config.macos
+	path = config.linux
+	path = config.windows
 	# Local settings for this system
 	path = config.local

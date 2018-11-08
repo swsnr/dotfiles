@@ -13,6 +13,7 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
+import sys
 import os
 import hashlib
 from urllib import request
@@ -41,6 +42,10 @@ def main():
 Setup macOS application settings.
 """)
     parser.parse_args()
+
+    if sys.platform != 'darwin':
+        print('Not on MacOS; skipping')
+        return
 
     for name, checksum in TOOLS.items():
         targetdir = os.path.join('~', '.local', 'bin')

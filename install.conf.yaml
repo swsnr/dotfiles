@@ -1,3 +1,8 @@
+# Configuration file for Unix systems, eg, macos and Linux.
+#
+# Since Windows is so special, it has its own config file in
+# windows/install.conf.yaml which does not share anything with this file.
+
 - defaults:
     link:
       force: true
@@ -13,13 +18,39 @@
     - '~/.sbt/1.0/plugins'
     - '~/.sbt/0.13/'
     - '~/.sbt/0.13/plugins'
+- shell:
+    - description: Check whether FileVault is enabled
+      command: sh -c 'uname -s | grep -qi darwin && [ $(fdesetup isactive) == true ] || exit 0'
 - link:
     # Symlink entire dotfiles folder, for convenience
     ~/.dotfiles: ''
+    # Fish shell config files
+    ~/.config/fish/config.fish: fish/config.fish
+    ~/.config/fish/functions:
+      path: fish/functions/*.fish
+      glob: true
+    ~/.config/fish/conf.d:
+      path: fish/conf.d/*.fish
+      glob: true
+    # Special Fish functions for uberspace
+    ~/.config/fish/functions/prompt_hostname.fish:
+      path: uberspace/fish/functions/prompt_hostname.fish
+      glob: true
+      if: "hostname | grep -qi uberspace.de"
+    # Powershell Core config files
+    ~/.config/powershell/profile.ps1: powershell/profile.ps1
+    ~/.config/powershell/Microsoft.Powershell_profile.ps1: powershell/Microsoft.PowerShell_profile.ps1
+    ~/.config/powershell/types.ps1xml: powershell/types.ps1xml
     # Git config files
     ~/.config/git/config: git/config
     ~/.config/git/ignore: git/ignore
     ~/.config/git/attributes: git/attributes
+    ~/.config/git/config.linux:
+        path: git/config.linux
+        if: "uname -s | grep -qi linux"
+    ~/.config/git/config.macos:
+        path: git/config.macos
+        if: "uname -s | grep -qi darwin"
     # Scala configuration
     ~/.ammonite/predef.sc: scala/ammonite-predef.sc
     ~/.sbt/1.0/settings.sbt: scala/settings.sbt
@@ -28,5 +59,50 @@
     ~/.sbt/0.13/settings.sbt: scala/settings.sbt
     ~/.sbt/0.13/plugins/plugins.sbt: scala/plugins.sbt
     ~/.sbt/0.13/plugins/project/sbt-updates.sbt: scala/sbt-updates.sbt
+    # Systemd user units if systemd is available
+    ~/.local/share/systemd/user/:
+      path: systemd/*.service
+      glob: true
+      if: "test -f /etc/systemd/user.conf"
+    # Pacman configuration if pacman is installed
+    ~/.config/pacman/makepkg.conf:
+        path: pacman/makepkg.conf
+        if: "test -f /etc/pacman.conf"
+    ~/.config/repoctl/config.toml:
+        path: pacman/repoctl.toml
+        if: "test -f /etc/pacman.conf"
+    # neovim
+    ~/.config/nvim/init.vim: nvim/init.vim
+    # tmux: Main config to dispatch, and then version-specific configurations
+    ~/.tmux.conf: tmux/tmux.conf
+    ~/.tmux.2.conf: tmux/tmux.2.conf
+    ~/.tmux.1.conf: tmux/tmux.1.conf
     # Misc
+    ~/.gemrc: misc/gemrc
     ~/.ideavimrc: misc/ideavimrc
+    ~/.config/latexmk/latexmkrc: misc/latexmkrc
+    ~/.gnupg/gpg.conf: misc/gpg.conf
+    # MacOS configuration
+    ~/.gnupg/gpg-agent.conf:
+        path: macos/gpg-agent.conf
+        if: 'uname -s | grep -qi darwin'
+    ~/.ssh/config:
+        path: macos/ssh-config
+        if: 'uname -s | grep -qi darwin'
+    # DevonTHINK feed stylesheet for Markdown files
+    "~/Library/Application Support/DEVONthink Pro 2/StyleSheets/Vollkorn.css":
+        path: macos/devonthink-feed.css
+        if: 'uname -s | grep -qi darwin'
+- shell:
+    - description: "Install vimplug"
+      command: "curl -fLo $HOME/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+    - description: Set yarn prefix to ~/.local
+      command: sh -c 'command -v yarn && yarn config set prefix ~/.local || exit 0'
+    - description: "MacOS: Set defaults"
+      command: scripts/macos_defaults.py
+      stdout: true
+      stderr: true
+    - description: "MacOS: Install iterm2 utilities"
+      command: scripts/macos_iterm2_tools.py
+      stdout: true
+      stderr: true

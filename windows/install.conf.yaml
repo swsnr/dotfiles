@@ -5,19 +5,32 @@
     link:
       force: true
       create: true
+- clean:
+    # Prune dead symlinks in these directories
+    - '~/.config/git'
+    - '~/.sbt/1.0/'
+    - '~/.sbt/1.0/plugins'
+    - '~/.sbt/0.13/'
+    - '~/.sbt/0.13/plugins'
 - link:
-    # Powershell (legacy)
-    ~/Documents/WindowsPowerShell/profile.ps1: powershell/profile.ps1
-    ~/Documents/WindowsPowerShell/Microsoft.Powershell_profile.ps1: powershell/Microsoft.Powershell_profile.ps1
-    ~/Documents/WindowsPowerShell/types.ps1xml: powershell/types.ps1xml
+    # Symlink entire dotfiles folder, for convenience
+    ~/.dotfiles: ''
+    # Git config files
+    ~/.config/git/config: git/config
+    ~/.config/git/ignore: git/ignore
+    ~/.config/git/attributes: git/attributes
+    ~/.config/git/config.windows: git/config.windows
+    # Scala configuration
+    ~/.ammonite/predef.sc: scala/ammonite-predef.sc
+    ~/.sbt/1.0/settings.sbt: scala/settings.sbt
+    ~/.sbt/1.0/plugins/plugins.sbt: scala/plugins.sbt
+    ~/.sbt/1.0/plugins/project/sbt-updates.sbt: scala/sbt-updates.sbt
+    ~/.sbt/0.13/settings.sbt: scala/settings.sbt
+    ~/.sbt/0.13/plugins/plugins.sbt: scala/plugins.sbt
+    ~/.sbt/0.13/plugins/project/sbt-updates.sbt: scala/sbt-updates.sbt
+    # Misc
+    ~/.ideavimrc: misc/ideavimrc
     # Powershell Core (6+)
     ~/Documents/PowerShell/profile.ps1: powershell/profile.ps1
     ~/Documents/PowerShell/Microsoft.Powershell_profile.ps1: powershell/Microsoft.Powershell_profile.ps1
     ~/Documents/PowerShell/types.ps1xml: powershell/types.ps1xml
-    # Platform-specific config
-    ~/.config/git/config.platform: windows/git/config.platform
-- shell:
-    - - "powershell -Command powershell/install-modules.ps1"
-      - "Install Windows Powershell modules"
-    - - "pwsh -Command powershell/install-modules.ps1"
-      - "Install Powershell Core modules"

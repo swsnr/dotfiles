@@ -17,7 +17,7 @@ import sys
 import os
 import shutil
 import socket
-from subprocess import check_call
+from subprocess import check_call, call
 
 
 BASEDIR = os.path.abspath(os.path.dirname(__file__))
@@ -29,7 +29,7 @@ def dotbot(directory, config, args=None):
     cmd = [sys.executable, DOTBOT_BIN, '-d', directory, '-c', config]
     if args:
         cmd.extend(args)
-    check_call(cmd, cwd=BASEDIR)
+    return call(cmd, cwd=BASEDIR)
 
 
 def main():
@@ -46,19 +46,11 @@ def main():
     check_call([git, '-C', BASEDIR, 'submodule',
                 'update', '--init', '--recursive'])
 
-    dotbot(BASEDIR, 'install.conf.yaml')
-
-    if sys.platform == 'darwin':
-        dotbot(BASEDIR, os.path.join('macos', 'install.conf.yaml'))
-    elif sys.platform == 'linux':
-        dotbot(BASEDIR, os.path.join('linux', 'install.conf.yaml'))
-    elif sys.platform == 'win32':
-        dotbot(BASEDIR, os.path.join('windows', 'install.conf.yaml'))
-
-    hostname = socket.gethostname()
-    if hostname.endswith('.uberspace.de'):
-        dotbot(BASEDIR, os.path.join('uberspace', 'install.conf.yaml'))
+    if sys.platform == 'win32':
+        return dotbot(BASEDIR, os.path.join('windows', 'install.conf.yaml'))
+    else:
+        return dotbot(BASEDIR, 'install.conf.yaml')
 
 
 if __name__ == '__main__':
-    main()
+    sys.exit(main())
