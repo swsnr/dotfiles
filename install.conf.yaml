@@ -59,6 +59,22 @@
     ~/.sbt/0.13/settings.sbt: scala/settings.sbt
     ~/.sbt/0.13/plugins/plugins.sbt: scala/plugins.sbt
     ~/.sbt/0.13/plugins/project/sbt-updates.sbt: scala/sbt-updates.sbt
+    # neovim
+    ~/.config/nvim/init.vim: nvim/init.vim
+    # tmux: Main config to dispatch, and then version-specific configurations
+    ~/.tmux.conf: tmux/tmux.conf
+    ~/.tmux.2.conf: tmux/tmux.2.conf
+    ~/.tmux.1.conf: tmux/tmux.1.conf
+    # SSH
+    ~/.ssh/config: ssh/config
+    ~/.ssh/config.d/macos:
+        path: ssh/config.d/macos
+        if: 'uname -s | grep -qi darwin'
+    # Misc
+    ~/.gemrc: misc/gemrc
+    ~/.ideavimrc: misc/ideavimrc
+    ~/.config/latexmk/latexmkrc: misc/latexmkrc
+    ~/.gnupg/gpg.conf: misc/gpg.conf
     # Systemd user units if systemd is available
     ~/.local/share/systemd/user/:
       path: systemd/*.service
@@ -71,23 +87,9 @@
     ~/.config/repoctl/config.toml:
         path: pacman/repoctl.toml
         if: "test -f /etc/pacman.conf"
-    # neovim
-    ~/.config/nvim/init.vim: nvim/init.vim
-    # tmux: Main config to dispatch, and then version-specific configurations
-    ~/.tmux.conf: tmux/tmux.conf
-    ~/.tmux.2.conf: tmux/tmux.2.conf
-    ~/.tmux.1.conf: tmux/tmux.1.conf
-    # Misc
-    ~/.gemrc: misc/gemrc
-    ~/.ideavimrc: misc/ideavimrc
-    ~/.config/latexmk/latexmkrc: misc/latexmkrc
-    ~/.gnupg/gpg.conf: misc/gpg.conf
     # MacOS configuration
     ~/.gnupg/gpg-agent.conf:
         path: macos/gpg-agent.conf
-        if: 'uname -s | grep -qi darwin'
-    ~/.ssh/config:
-        path: macos/ssh-config
         if: 'uname -s | grep -qi darwin'
     # DevonTHINK feed stylesheet for Markdown files
     "~/Library/Application Support/DEVONthink Pro 2/StyleSheets/Vollkorn.css":
