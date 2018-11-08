@@ -12,8 +12,9 @@
     ~/.config/fish/conf.d:
       path: fish/conf.d/*.fish
       glob: true
-    # Pacman
+    # Pacman and related tools
     ~/.config/pacman/makepkg.conf: linux/pacman/makepkg.conf
+    ~/.config/repoctl/config.toml: linux/pacman/repoctl.toml
     # neovim
     ~/.config/nvim/init.vim: nvim/init.vim
     # Custom systemd services
