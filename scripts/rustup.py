@@ -25,6 +25,7 @@ CRATES = [
     'cargo-release',
     'cargo-graph',
     'cargo-license',
+    'cargo-sweep',
     'git-gone',
     'xkpwgen',
 ]
