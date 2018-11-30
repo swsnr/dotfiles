@@ -1,0 +1,8 @@
+#!/bin/sh
+
+export "$(fish -l -c env | grep -e '^PATH=')"
+
+if [ "x${XDG_CURRENT_DESKTOP}" = "xXFCE" ]; then
+    # Force Qt5 application to look like Gtk applications
+    export QT_QPA_PLATFORMTHEME=gtk2
+fi

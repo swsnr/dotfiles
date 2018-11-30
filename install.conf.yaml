@@ -79,6 +79,7 @@
         if: 'uname -s | grep -qi darwin'
 
     # Linux configuration
+    ~/.xprofile: linux/xprofile
     # Systemd user units if systemd is available
     ~/.local/share/systemd/user/:
       path: systemd/*.service
