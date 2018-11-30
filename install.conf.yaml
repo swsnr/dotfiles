@@ -16,8 +16,6 @@
     - '~/.config/git'
     - '~/.sbt/1.0/'
     - '~/.sbt/1.0/plugins'
-    - '~/.sbt/0.13/'
-    - '~/.sbt/0.13/plugins'
 - shell:
     - description: Check whether FileVault is enabled
       command: sh -c 'uname -s | grep -qi darwin && [ $(fdesetup isactive) == true ] || exit 0'
@@ -60,9 +58,6 @@
     ~/.sbt/1.0/settings.sbt: scala/settings.sbt
     ~/.sbt/1.0/plugins/plugins.sbt: scala/plugins.sbt
     ~/.sbt/1.0/plugins/project/sbt-updates.sbt: scala/sbt-updates.sbt
-    ~/.sbt/0.13/settings.sbt: scala/settings.sbt
-    ~/.sbt/0.13/plugins/plugins.sbt: scala/plugins.sbt
-    ~/.sbt/0.13/plugins/project/sbt-updates.sbt: scala/sbt-updates.sbt
 
     # Misc unix tools
     ~/.gemrc: misc/gemrc
