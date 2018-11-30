@@ -16,6 +16,8 @@
     - '~/.config/git'
     - '~/.sbt/1.0/'
     - '~/.sbt/1.0/plugins'
+    - '~/.config/powershell'
+    - '~/.config/nvim'
 - shell:
     - description: Check whether FileVault is enabled
       command: sh -c 'uname -s | grep -qi darwin && [ $(fdesetup isactive) == true ] || exit 0'
