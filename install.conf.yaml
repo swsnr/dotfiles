@@ -24,6 +24,7 @@
 - link:
     # Symlink entire dotfiles folder, for convenience
     ~/.dotfiles: ''
+
     # Fish shell config files
     ~/.config/fish/config.fish: fish/config.fish
     ~/.config/fish/functions:
@@ -37,10 +38,12 @@
       path: uberspace/fish/functions/prompt_hostname.fish
       glob: true
       if: "hostname | grep -qi uberspace.de"
+
     # Powershell Core config files
     ~/.config/powershell/profile.ps1: powershell/profile.ps1
     ~/.config/powershell/Microsoft.Powershell_profile.ps1: powershell/Microsoft.PowerShell_profile.ps1
     ~/.config/powershell/types.ps1xml: powershell/types.ps1xml
+
     # Git config files
     ~/.config/git/config: git/config
     ~/.config/git/ignore: git/ignore
@@ -51,6 +54,7 @@
     ~/.config/git/config.macos:
         path: git/config.macos
         if: "uname -s | grep -qi darwin"
+
     # Scala configuration
     ~/.ammonite/predef.sc: scala/ammonite-predef.sc
     ~/.sbt/1.0/settings.sbt: scala/settings.sbt
@@ -59,6 +63,12 @@
     ~/.sbt/0.13/settings.sbt: scala/settings.sbt
     ~/.sbt/0.13/plugins/plugins.sbt: scala/plugins.sbt
     ~/.sbt/0.13/plugins/project/sbt-updates.sbt: scala/sbt-updates.sbt
+
+    # Misc unix tools
+    ~/.gemrc: misc/gemrc
+    ~/.ideavimrc: misc/ideavimrc
+    ~/.config/latexmk/latexmkrc: misc/latexmkrc
+    ~/.gnupg/gpg.conf: misc/gpg.conf
     # neovim
     ~/.config/nvim/init.vim: nvim/init.vim
     # tmux: Main config to dispatch, and then version-specific configurations
@@ -70,11 +80,8 @@
     ~/.ssh/config.d/macos:
         path: ssh/config.d/macos
         if: 'uname -s | grep -qi darwin'
-    # Misc
-    ~/.gemrc: misc/gemrc
-    ~/.ideavimrc: misc/ideavimrc
-    ~/.config/latexmk/latexmkrc: misc/latexmkrc
-    ~/.gnupg/gpg.conf: misc/gpg.conf
+
+    # Linux configuration
     # Systemd user units if systemd is available
     ~/.local/share/systemd/user/:
       path: systemd/*.service
@@ -87,7 +94,8 @@
     ~/.config/repoctl/config.toml:
         path: pacman/repoctl.toml
         if: "test -f /etc/pacman.conf"
-    # MacOS configuration
+
+    # macOS configuration
     ~/.gnupg/gpg-agent.conf:
         path: macos/gpg-agent.conf
         if: 'uname -s | grep -qi darwin'
@@ -95,6 +103,7 @@
     "~/Library/Application Support/DEVONthink Pro 2/StyleSheets/Vollkorn.css":
         path: macos/devonthink-feed.css
         if: 'uname -s | grep -qi darwin'
+
 - shell:
     - description: "Install vimplug"
       command: "curl -fLo $HOME/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
