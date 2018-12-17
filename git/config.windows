@@ -1,3 +1,8 @@
 [core]
 	# Make git cope with CRLF line endings
 	autocrlf = true
+# Use winmerge (<http://winmerge.org/>) as merge tool on Windows
+[diff]
+	tool = winmerge
+[merge]
+	tool = winmerge
