@@ -4,3 +4,7 @@
 # Disable the pager and let the GUI terminal emulator do its job
 [core]
 	pager =
+[diff]
+	tool = meld
+[merge]
+	tool = meld
