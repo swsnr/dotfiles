@@ -28,7 +28,6 @@ brew 'git'
 brew 'gist'
 brew 'hub'
 brew 'git-standup'
-cask 'p4v'  # Perforce client just for p4merge
 tap 'caskroom/versions'  # For dash3
 cask 'dash3'  # API doc browser
 cask 'jetbrains-toolbox'

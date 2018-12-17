@@ -26,8 +26,6 @@
 [merge]
 	# Include summary commit messages in git merge commit message
 	log = true
-	# Use p4merge for git mergetool
-	tool = p4merge
 [mergetool]
 	# Do not prompt before every single merge and do not keep *.orig files
 	# around after the merge
@@ -39,8 +37,6 @@
 	enabled = true
 # Diffing and logging
 [diff]
-	# Use p4merge for git difftool
-	tool = p4merge
 	mnemonicprefix = true
 	algorithm = patience
 	# Use blank lines as diff boundary to improve diffs
