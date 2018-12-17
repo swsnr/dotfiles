@@ -83,6 +83,8 @@
 	cfm = commit --amend --reuse-message=HEAD
 	cm = commit --message
 	co = checkout
+	d = diff
+	dt = difftool
 	f = fetch --all
 	# Prune gone upstream branches
 	gX = git gone prune
