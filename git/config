@@ -79,6 +79,7 @@
 [alias]
 	# All day every day shortcuts
 	a = add
+	bc = checkout -b
 	c = commit
 	cfm = commit --amend --reuse-message=HEAD
 	cm = commit --message
