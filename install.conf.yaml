@@ -61,6 +61,9 @@
     ~/.sbt/1.0/plugins/plugins.sbt: scala/plugins.sbt
     ~/.sbt/1.0/plugins/project/sbt-updates.sbt: scala/sbt-updates.sbt
 
+    # Javascript configuration
+    ~/.npmrc: javascript/npmrc
+
     # Misc unix tools
     ~/.gemrc: misc/gemrc
     ~/.ideavimrc: misc/ideavimrc
