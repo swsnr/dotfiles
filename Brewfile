@@ -27,7 +27,6 @@ brew 'reattach-to-user-namespace' # To access macOS clipboard from tmux
 brew 'git'
 brew 'gist'
 brew 'hub'
-brew 'git-standup'
 tap 'caskroom/versions'  # For dash3
 cask 'dash3'  # API doc browser
 cask 'jetbrains-toolbox'
@@ -47,8 +46,6 @@ brew 'yarn'
 # Misc languages
 brew 'python'
 brew 'rustup-init'
-# Musl toolchain for cross compilation
-brew 'FiloSottile/musl-cross/musl-cross'
 
 # Desktop tools
 cask 'flux'  # My old air doesn't have nightshift
@@ -70,9 +67,6 @@ mas 'Keynote', id: 409183694 # Powerpoint \o/
 mas 'Deckset', id: 847496013 # Quick & easy markdown presentations
 
 # Markdown & LaTeX
-tap 'ValeLint/vale'
-brew 'vale'
-brew 'languagetool'
 brew 'pandoc' # The ultimate Markdown converter
 brew 'mdcat' # Show markdown documents on TTY
 brew 'ghostscript' # For basictex
@@ -84,7 +78,6 @@ cask 'tex-live-utility' # GUI for tlmgr
 # Networking
 brew 'nmap'
 cask 'wireshark'
-brew 'nethogs'
 brew 'httpie' # HTTP client
 
 # Data processing
