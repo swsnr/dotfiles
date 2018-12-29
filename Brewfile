@@ -27,6 +27,7 @@ brew 'reattach-to-user-namespace' # To access macOS clipboard from tmux
 brew 'git'
 brew 'gist'
 brew 'hub'
+cask 'meld'  # Diff & merge tool
 tap 'caskroom/versions'  # For dash3
 cask 'dash3'  # API doc browser
 cask 'jetbrains-toolbox'
