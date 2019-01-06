@@ -69,6 +69,14 @@
     ~/.ideavimrc: misc/ideavimrc
     ~/.config/latexmk/latexmkrc: misc/latexmkrc
     ~/.gnupg/gpg.conf: misc/gpg.conf
+    # Bat configuration for macOS.  Should at some point also be ~/.config, see
+    # https://github.com/sharkdp/bat/issues/442
+    ~/Library/Preferences/bat/config:
+        path: misc/bat
+        if: "uname -s | grep -qi darwin"
+    ~/.config/bat/config:
+        path: misc/bat
+        if: "uname -s | grep -qi linux"
     # neovim
     ~/.config/nvim/init.vim: nvim/init.vim
     # tmux: Main config to dispatch, and then version-specific configurations

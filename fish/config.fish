@@ -55,8 +55,6 @@ else
     set -x BROWSER 'open'
 end
 
-# Color theme for bat, see <https://github.com/sharkdp/bat>
-set -x BAT_THEME 'TwoDark'
 # Additional cows for cowsay, if existing
 if [ -d ~/.cowsay ]
     set -x COWPATH "$HOME/.cowsay:$COWPATH"
