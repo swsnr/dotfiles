@@ -37,8 +37,6 @@ EXTENSIONS = [
     'EditorConfig.EditorConfig',
     # Rewrap paragraphs like in Emcas
     'stkb.rewrap',
-    # Linter for natural language
-    'lunaryorn.vale',
     # LaTeX editing
     'James-Yu.latex-workshop',
     # TOML for crate manifests and for hugo frontmatter
