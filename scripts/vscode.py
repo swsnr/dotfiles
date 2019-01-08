@@ -33,8 +33,6 @@ OLD_EXTENSIONS = [
 
 
 EXTENSIONS = [
-    # Nice dark theme
-    'dracula-theme.theme-dracula',
     # Support .editorconfig files
     'EditorConfig.EditorConfig',
     # Rewrap paragraphs like in Emcas
@@ -53,7 +51,7 @@ EXTENSIONS = [
     'rust-lang.rust',
     'serayuzgur.crates',
     # Misc languages
-    'eg2.tslint',
+    'ms-vscode.vscode-typescript-tslint-plugin',
     'itryapitsin.Sbt',
     'itryapitsin.Scala',
     'lunaryorn.fish-ide',
