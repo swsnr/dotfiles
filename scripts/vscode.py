@@ -47,6 +47,7 @@ EXTENSIONS = [
     'eamodio.gitlens',
     'codezombiech.gitignore',
     'KnisterPeter.vscode-github',
+    'github.vscode-pull-request-github',
     # Rust language support and crate search in crate manifests
     'rust-lang.rust',
     'serayuzgur.crates',
