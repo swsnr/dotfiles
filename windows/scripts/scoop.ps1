@@ -19,12 +19,14 @@ if (-Not (Get-Command "scoop" -errorAction SilentlyContinue)) {
 
 # Buckets
 scoop bucket add java
+scoop bucket add lunaryorn https://github.com/lunaryorn/scoop-bucket.git
 
 $packages = (
     # Basic tools
     "git",
     "python",
     "ripgrep",
+    "tokei",
 
     # Data processing
     "jq",
