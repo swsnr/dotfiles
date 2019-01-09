@@ -1,6 +1,9 @@
 [core]
 	# Make git cope with CRLF line endings
 	autocrlf = true
+# Credential helper
+[credential]
+	helper = manager
 # Use winmerge (<http://winmerge.org/>) as merge tool on Windows
 [diff]
 	tool = winmerge
