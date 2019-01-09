@@ -24,6 +24,11 @@ $packages = (
     # Basic tools
     "git",
     "python",
+    "ripgrep",
+
+    # Data processing
+    "jq",
+    "xsv",
 
     # Java & Scala packages
     "zulu8",
