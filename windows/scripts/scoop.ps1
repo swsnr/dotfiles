@@ -36,7 +36,10 @@ $packages = (
     # Java & Scala packages
     "zulu8",
     "sbt",
-    "ammonite"
+    "ammonite",
+
+    # Misc tools for programming
+    "shellcheck"
 )
 
 # Install packages
