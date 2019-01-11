@@ -12,8 +12,6 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
-# Fish configuration of Sebastian Wiesner <sebastian@swsnr.de>
-
 # First things first: Don't let anyone else get access to my files
 umask 077
 
@@ -63,58 +61,3 @@ end
 # -w: Highlight the first new line after scrolling
 # -z: Keep four lines when scrolling
 set -x LESS '-q -g -i -M -R -S -w -z-4'
-
-# Setup tools for an interactive shell
-if status --is-interactive
-    # Autojump for fast directory jumping
-    for directory in "$HOME/.autojump" '/usr/local' '/usr'
-        set -l __autojump_file "$directory/share/autojump/autojump.fish"
-        if [ -f $__autojump_file ]
-            source $__autojump_file
-            break
-        end
-        set -e __autojump_file
-    end
-
-    # Virtualenv helper
-    if command --search 'python3' >/dev/null
-        python3 -m virtualfish 2>/dev/null | source
-    end
-
-    # Prefer bat over less and cat
-    if command --search 'bat' >/dev/null
-        alias less='bat --paging always'
-        alias cat='bat --paging never'
-    end
-
-    # Prefer exa over ls for listings
-    if command --search 'exa' >/dev/null
-        alias ll='exa --long --git'
-        alias la='ll --all'
-    else
-        alias ll='ls -l'
-        alias la='ls -la'
-    end
-
-    # Abbreviations (unlike aliases, these are expanded before running)
-    abbr --add _ sudo
-    abbr --add df df -kh
-    abbr --add du du -kh
-    abbr --add e eval $EDITOR
-    abbr --add o open
-    abbr --add g git
-    abbr --add pbc pbcopy
-    abbr --add pbp pbpaste
-
-    if not command --search ldd >/dev/null
-        # I always forget this one on macOS
-        alias ldd='otool -L'
-    end
-
-    if not command --search pbcopy >/dev/null
-        # If not on macOS pretend we were
-        alias pbcopy='xsel -bi'
-        alias pbpaste='xsel -bo'
-        alias open='xdg-open'
-    end
-end
