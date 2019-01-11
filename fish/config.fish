@@ -17,14 +17,6 @@
 # First things first: Don't let anyone else get access to my files
 umask 077
 
-# When fish exits…
-function on_exit --on-process-exit %self
-    if status --is-login
-        # …kill sudo timestamps if the shell is a login shell
-        sudo -K
-    end
-end
-
 # Paths, only for login shells
 if status --is-login
     # Binaries from Python, Ruby and Rust
