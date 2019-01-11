@@ -78,7 +78,7 @@ if status --is-interactive
 
     # Virtualenv helper
     if command --search 'python3' >/dev/null
-        python3 -m virtualfish ^/dev/null | source
+        python3 -m virtualfish 2>/dev/null | source
     end
 
     # Prefer bat over less and cat
