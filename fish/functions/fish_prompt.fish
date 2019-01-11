@@ -69,9 +69,24 @@ function fish_prompt -d 'My personal prompt'
     if test $last_exit_code -eq 0
         echo -sn (set_color green) '✔'
     else
-        echo -sn (set_color -o red) '!'
+        echo -sn (set_color -o red) !
     end
     echo -sn (set_color normal)
+
+    set -l flags
+    if set -q fish_private_mode
+        set -a flags 'private'
+    end
+    if set -q SUDO_USER
+        set -a flags 'sudo'
+    end
+    if set -q SSH_CONNECTION
+        set -a flags 'ssh'
+    end
+    if [ 0 -lt (count $flags) ]
+        echo -sn ' ' (set_color -o yellow) (string join ' ' $flags) (set_color normal)
+    end
+
     # Prompt separator
     echo -sn (set_color green) ' ❯ ' (set_color normal)
     # Tell iterm that the command input starts now
