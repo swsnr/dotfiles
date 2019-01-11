@@ -28,6 +28,7 @@ $packages = (
     "ripgrep",
     "tokei",
     "mdcat",
+    "fd",
 
     # Data processing
     "jq",
