@@ -31,7 +31,7 @@ if status --is-login
 end
 
 # Environment variables
-if string match -q '*.uberspace.de' (hostname)
+if string match -q '*.uberspace.de' $hostname
     # On uberspace use nano as editor
     set -x EDITOR 'nano'
 else

@@ -12,15 +12,12 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
-if begin
-        status --is-interactive
-    end
-    set iterm2_hostname (hostname -f)
+if status --is-interactive
     function update_iterm2_location --on-event fish_prompt
         # Tell item what directory, what host we're on, and that the prompt is
         # about to begin
         iterm2_command 'current_dir' (pwd)
-        iterm2_command 'remote_host' $USER $iterm2_hostname
+        iterm2_command 'remote_host' $USER $hostname
         iterm2_command 'prompt'
     end
 
