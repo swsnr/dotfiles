@@ -15,9 +15,7 @@
 function fish_title -d 'Window title for fish'
     if set -q fish_title
         echo $fish_title
-    else if test (count $argv) -gt 0
-        echo $argv[1] ' $ ' (prompt_pwd)
     else
-        prompt_pwd
+        echo (prompt_pwd) ' > ' (status current-command)
     end
 end
