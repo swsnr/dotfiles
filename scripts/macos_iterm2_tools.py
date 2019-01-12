@@ -22,7 +22,7 @@ from argparse import ArgumentParser
 URL = 'https://raw.githubusercontent.com/gnachman/iterm2-website/master/source/utilities/{tool_name}'
 
 TOOLS = {
-    'imgcat': 'b5923d2bd5c008272d09fae2f0c1d5ccd9b7084bb8a4912315923fbc3d603cc3',
+    'imgcat': 'b8fd783db29dbdd8a84beabbc251544dcc26bafad3b20c9ff32db7e8c7cd2869',
     'imgls': 'e6c81566996720f20f1ba7dea6cbdb8266db3754a417f6ae845878a8957e92d9'
 }
 
