@@ -33,6 +33,7 @@ OLD_EXTENSIONS = [
 
 
 EXTENSIONS = [
+    'PKief.material-icon-theme',
     # Support .editorconfig files
     'EditorConfig.EditorConfig',
     # Rewrap paragraphs like in Emcas
