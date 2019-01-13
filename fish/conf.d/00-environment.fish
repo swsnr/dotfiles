@@ -18,14 +18,10 @@ umask 077
 # Paths, only for login shells
 if status --is-login
     # Binaries from Python, Ruby and Rust
-    set -x PATH ~/Library/Python/*/bin $PATH
-    set -x PATH ~/.gem/ruby/*/bin $PATH
-    set -x PATH ~/.cargo/bin $PATH
+    set -xp PATH ~/.local/bin ~/.cargo/bin ~/Library/Python/*/bin ~/.gem/ruby/*/bin
 
-    # Binaries, manpages, etc. from ~/.local
-    set -x PATH ~/.local/bin $PATH
-    set -x MANPATH /usr/share/man /usr/local/share/man ~/.local/share/man
-    set -x INFOPATH /usr/share/info /usr/local/share/info ~/.local/share/info
+    set -x MANPATH ~/.local/share/man /usr/local/share/man /usr/share/man
+    set -x INFOPATH ~/.local/share/info /usr/local/share/info /usr/share/info
 end
 
 # Environment variables
