@@ -80,6 +80,8 @@
 	# All day every day shortcuts
 	a = add
 	bc = checkout -b
+	bl = branch
+	bla = branch -a
 	c = commit
 	cfm = commit --amend --reuse-message=HEAD
 	cm = commit --message
