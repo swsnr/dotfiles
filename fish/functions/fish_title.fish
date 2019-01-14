@@ -14,8 +14,10 @@
 
 function fish_title -d 'Window title for fish'
     if set -q fish_title
-        echo $fish_title
+        echo -sn $fish_title
     else
-        echo (prompt_pwd) ' > ' (status current-command)
+        echo -sn (prompt_pwd)
     end
+
+    echo -s ' – ' (status current-command)
 end
