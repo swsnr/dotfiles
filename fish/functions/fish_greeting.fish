@@ -25,6 +25,6 @@ function fish_greeting -d 'My cow says things to you!'
 
     # -s gives me just a short story; don't want to read a novel whenever
     # I start a shell
-    fortune -s | cowsay -f kitty -W (math $COLUMNS - 10)
+    fortune -s | cowsay -f bunny -W (math $COLUMNS - 10)
     echo
 end
