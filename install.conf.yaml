@@ -60,13 +60,11 @@
     ~/.sbt/1.0/settings.sbt: scala/settings.sbt
     ~/.sbt/1.0/plugins/plugins.sbt: scala/plugins.sbt
     ~/.sbt/1.0/plugins/project/sbt-updates.sbt: scala/sbt-updates.sbt
-
-    # Javascript configuration
+    # Misc languages
     ~/.npmrc: javascript/npmrc
+    ~/.gemrc: misc/gemrc
 
     # Misc unix tools
-    ~/.gemrc: misc/gemrc
-    ~/.ideavimrc: misc/ideavimrc
     ~/.config/latexmk/latexmkrc: misc/latexmkrc
     ~/.gnupg/gpg.conf: misc/gpg.conf
     # Bat configuration for macOS.  Should at some point also be ~/.config, see
@@ -77,8 +75,9 @@
     ~/.config/bat/config:
         path: misc/bat
         if: "uname -s | grep -qi linux"
-    # neovim
+    # neovim & other editors
     ~/.config/nvim/init.vim: nvim/init.vim
+    ~/.ideavimrc: misc/ideavimrc
     # tmux: Main config to dispatch, and then version-specific configurations
     ~/.tmux.conf: tmux/tmux.conf
     ~/.tmux.2.conf: tmux/tmux.2.conf
