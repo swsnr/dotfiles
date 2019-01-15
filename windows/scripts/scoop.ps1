@@ -24,6 +24,7 @@ scoop bucket add lunaryorn https://github.com/lunaryorn/scoop-bucket.git
 $packages = (
     # Basic tools
     "git",
+    "git-gone",
     "python",
     "ripgrep",
     "tokei",
