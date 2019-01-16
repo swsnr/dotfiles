@@ -25,8 +25,16 @@ if status --is-login
         ~/.gem/ruby/*/bin \
         /home/linuxbrew/.linuxbrew/bin
 
-    set -x MANPATH ~/.local/share/man /usr/local/share/man /usr/share/man
-    set -x INFOPATH ~/.local/share/info /usr/local/share/info /usr/share/info
+    set -x MANPATH \
+        ~/.local/share/man \
+        /usr/local/share/man \
+        /home/linuxbrew/.linuxbrew/share/man \
+        /usr/share/man
+    set -x INFOPATH \
+        ~/.local/share/info \
+        /usr/local/share/info \
+        /home/linuxbrew/.linuxbrew/share/info \
+        /usr/share/info
 end
 
 # Environment variables
