@@ -1,4 +1,4 @@
-# Copyright 2018-2019 Sebastian Wiesner <sebastian@swsnr.de>
+# Copyright 2019 Sebastian Wiesner <sebastian@swsnr.de>
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may not
 # use this file except in compliance with the License. You may obtain a copy of
@@ -12,14 +12,10 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
-if status --is-interactive
-    # Abbreviations (unlike aliases, these are expanded before running)
-    abbr --add _ sudo
-    abbr --add df df -kh
-    abbr --add du du -kh
-    abbr --add e eval '$EDITOR'
-    abbr --add o open
-    abbr --add g git
-    abbr --add pbc pbcopy
-    abbr --add pbp pbpaste
+function pbpaste --description 'Paste from clipboard'
+    if not command --search pbpaste >/dev/null
+        xsel -bo $argv
+    else
+        command pbpaste $argv
+    end
 end
