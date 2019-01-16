@@ -18,7 +18,12 @@ umask 077
 # Paths, only for login shells
 if status --is-login
     # Binaries from Python, Ruby and Rust
-    set -xp PATH /home/linuxbrew/.linuxbrew/bin ~/.local/bin ~/.cargo/bin ~/Library/Python/*/bin ~/.gem/ruby/*/bin
+    set -xp PATH \
+        ~/.local/bin \
+        ~/.cargo/bin \
+        ~/Library/Python/*/bin \
+        ~/.gem/ruby/*/bin \
+        /home/linuxbrew/.linuxbrew/bin
 
     set -x MANPATH ~/.local/share/man /usr/local/share/man /usr/share/man
     set -x INFOPATH ~/.local/share/info /usr/local/share/info /usr/share/info
