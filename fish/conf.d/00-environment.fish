@@ -37,6 +37,11 @@ if status --is-login
         /usr/share/info
 end
 
+# Add linuxbrew completions
+if [ -d /home/linuxbrew/.linuxbrew/share/fish/vendor_completions.d/ ]
+    set -a fish_complete_path /home/linuxbrew/.linuxbrew/share/fish/vendor_completions.d/
+end
+
 # Environment variables
 if string match -q '*.uberspace.de' $hostname
     # On uberspace use nano as editor
