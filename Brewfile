@@ -17,8 +17,9 @@ brew 'tmux' # Terminal multiplexer
 
 # Development
 brew 'git'
-brew 'gist'
-brew 'hub'
+brew 'git-recent' # Show recently modified git branches
+brew 'gist' # Client for gist.github.com
+brew 'hub' # Client for github
 brew 'cmake' # Some Rust crates need it
 
 # Java and Scala
