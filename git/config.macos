@@ -7,9 +7,6 @@
 # Credential helper
 [credential]
 	helper = osxkeychain
-# Disable the pager; iTerm's so much better at scrolling than less.
-[core]
-	pager =
 # Use meld, from brew cask install meld, as diff and merge tool
 [diff]
   tool = meld
