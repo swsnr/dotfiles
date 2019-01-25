@@ -12,7 +12,7 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
-function pbcopy --description 'Open things'
+function open --description 'Open things'
     if command --search xdg-open >/dev/null
         xdg-open $argv
     else
