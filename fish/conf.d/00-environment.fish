@@ -77,4 +77,7 @@ end
 # -S: Cut of long lines instead of wrapping them
 # -w: Highlight the first new line after scrolling
 # -z: Keep four lines when scrolling
-set -x LESS '-q -g -i -M -R -S -w -z-4'
+# -X: Don't set initialization termcap stuff to terminal, to avoid unintended side-effects
+# -K: Exit on interrupt
+# -F: Exit immediately if content fits on screen
+set -x LESS '-q -g -i -M -R -S -w -z-4 -X -K -F'
