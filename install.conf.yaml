@@ -118,7 +118,7 @@
     ~/.config/joplin-desktop/userstyle.css: joplin/userstyle.css
 
     # Extension modules for Albert launcher
-    ~/.local/share/albert/org.albert.extension.python/module:
+    ~/.local/share/albert/org.albert.extension.python/modules:
         path: "albert/extensions/*.py"
         glob: true
         if: 'test -f /usr/share/applications/albert.desktop'
