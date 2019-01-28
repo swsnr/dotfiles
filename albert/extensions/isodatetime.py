@@ -20,9 +20,9 @@
 """
 
 __iid__ = "PythonInterface/v0.2"
-__prettyname__ = "ISO Date"
-__version__ = "1.1"
-__trigger__ = "isodt "
+__prettyname__ = "ISO Date and Time"
+__version__ = "0.1"
+__trigger__ = "isodt"
 __author__ = "Sebastian Wiesner"
 __dependencies__ = []
 
@@ -30,6 +30,9 @@ from albertv0 import *
 from datetime import *
 
 def handleQuery(query):
+    if not query.isTriggered:
+        return None
+
     now = datetime.now()
 
     return [
