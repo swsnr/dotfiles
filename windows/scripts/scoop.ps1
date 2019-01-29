@@ -36,7 +36,7 @@ $packages = (
     "xsv",
 
     # Java & Scala packages
-    "zulu8",
+    "adopt8-openj9",
     "sbt",
     "ammonite",
 
