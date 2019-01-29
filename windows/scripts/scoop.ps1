@@ -36,7 +36,7 @@ $packages = (
     "xsv",
 
     # Java & Scala packages
-    "adopt8-openj9",
+    "adopt8-hotspot",
     "sbt",
     "ammonite",
 
