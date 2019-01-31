@@ -1,4 +1,2 @@
-# Use keychain for SSH passphrases, and automatically add keys to SSH agent upon
-# use.  Make stuff convenient on OS X 8)
+# Store SSH keys in keychain
 UseKeychain yes
-AddKeysToAgent yes
