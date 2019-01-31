@@ -87,8 +87,11 @@
     ~/.tmux.1.conf: tmux/tmux.1.conf
     # SSH
     ~/.ssh/config: ssh/config
+    ~/.ssh/config.d/:
+        path: ssh/config.d/*
+        glob: true
     ~/.ssh/config.d/macos:
-        path: ssh/config.d/macos
+        path: ssh/macos
         if: 'uname -s | grep -qi darwin'
 
     # Linux configuration

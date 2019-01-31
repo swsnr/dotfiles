@@ -3,8 +3,3 @@
 # KEEP THIS LINE AT THE TOP; otherwise it's conditional by the first `Host`
 # directive.
 Include config.d/*
-
-# Connect to uberspace
-Host uber.space
-    Hostname lovas.uberspace.de
-    IdentityFile ~/.ssh/uberspace
