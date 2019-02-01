@@ -23,8 +23,10 @@ brew 'hub' # Client for github
 brew 'cmake' # Some Rust crates need it
 
 # Java and Scala
+tap 'scalacenter/bloop'
 brew 'jvmtop'
 brew 'sbt'
+brew 'bloop'
 brew 'ammonite-repl'
 
 # NodeJS

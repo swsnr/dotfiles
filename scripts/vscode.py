@@ -51,8 +51,7 @@ EXTENSIONS = [
     'serayuzgur.crates',
     # Misc languages
     'ms-vscode.vscode-typescript-tslint-plugin',
-    'itryapitsin.Sbt',
-    'itryapitsin.Scala',
+    'scalameta.metals',
     'lunaryorn.fish-ide',
     'ms-python.python',
     'ms-vscode.powershell',
