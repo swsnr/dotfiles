@@ -12,8 +12,10 @@ Desktop.ini
 .idea/
 *.iml
 
-# SBT
+# Scala
 .sbtopts
+.metals/
+.bloop/
 
 # VSCode
 .vscode/
