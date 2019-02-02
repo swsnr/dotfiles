@@ -8,6 +8,7 @@ brew 'ripgrep'  # A better grep
 brew 'exa'  # …and a better ls
 brew 'fd'  # …and a better find!
 brew 'tokei'  # Count code fast!
+brew 'p7zip' # 7z
 
 # Shell
 brew 'autojump' # Fast directory jumping
@@ -102,8 +103,6 @@ if Gem::Platform.local.os == "darwin"
     cask 'tex-live-utility' # GUI for tlmgr
 
     # Networking
-    brew 'nmap'
-    cask 'wireshark'
     brew 'httpie' # HTTP client
     # Messaging
     cask 'whatsapp'
