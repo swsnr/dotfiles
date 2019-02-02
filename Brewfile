@@ -25,12 +25,10 @@ brew 'cmake' # Some Rust crates need it
 # Java and Scala
 tap 'scalacenter/bloop'
 tap 'coursier/formulas'
-tap 'olafurpg/scalafmt'
 brew 'jvmtop'
 brew 'sbt'
 brew 'bloop'
 brew 'coursier'
-brew 'scalafmt'
 brew 'ammonite-repl'
 
 # NodeJS
