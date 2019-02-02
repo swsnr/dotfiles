@@ -5,4 +5,4 @@
 Include config.d/*
 
 # Add keys from key files to the SSH agent, but ask first
-AddKeysToAgent ask
+AddKeysToAgent yes
