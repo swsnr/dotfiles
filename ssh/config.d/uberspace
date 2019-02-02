@@ -1,4 +1,4 @@
 # Connection settings for Uberspace
-Host uber.space,lovas.uberspace.de
+Host uber.space lovas.uberspace.de
     Hostname lovas.uberspace.de
     IdentityFile ~/.ssh/uberspace
