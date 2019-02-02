@@ -64,13 +64,13 @@ if Gem::Platform.local.os == "darwin"
 
     # Development
     cask 'meld'  # Diff & merge tool
-    tap 'caskroom/versions'  # For dash3
     cask 'dash3'  # API doc browser
     cask 'jetbrains-toolbox'
     cask 'visual-studio-code'
 
     # JVM
-    cask 'zulu'  # OpenJDK for macOS
+    tap 'AdoptOpenJDK/openjdk'
+    cask 'adoptopenjdk8'
 
     # Misc languages
     brew 'python'
