@@ -90,8 +90,8 @@
     ~/.ssh/config.d/:
         path: ssh/config.d/*
         glob: true
-    ~/.ssh/config.d/macos:
-        path: ssh/macos
+    ~/.ssh/config.d/00-macos:
+        path: ssh/00-macos
         if: 'uname -s | grep -qi darwin'
 
     # Linux configuration
