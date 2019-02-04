@@ -40,6 +40,8 @@ brew 'yarn'
 brew 'pandoc' # The ultimate Markdown converter
 brew 'mdcat' # Show markdown documents on TTY
 
+brew 'hugo'
+
 # Data processing
 brew 'xsv' # CLI CSV processing
 brew 'jq' # CLI JSON processor
