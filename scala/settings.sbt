@@ -4,6 +4,9 @@ cancelable in Global := true
 // Clear screen when watching sources
 triggeredMessage := Watched.clearWhenTriggered
 
+// Don't resolve SNAPSHOTS again and again
+updateOptions := updateOptions.value.withLatestSnapshots(false)
+
 // A workaround to show plugin updates
 addCommandAlias("outdatedPlugins",
                 "; reload plugins; dependencyUpdates; reload return")
