@@ -71,14 +71,7 @@
     # Misc unix tools
     ~/.config/latexmk/latexmkrc: misc/latexmkrc
     ~/.gnupg/gpg.conf: misc/gpg.conf
-    # Bat configuration for macOS.  Should at some point also be ~/.config, see
-    # https://github.com/sharkdp/bat/issues/442
-    ~/Library/Preferences/bat/config:
-        path: misc/bat
-        if: "uname -s | grep -qi darwin"
-    ~/.config/bat/config:
-        path: misc/bat
-        if: "uname -s | grep -qi linux"
+    ~/.config/bat/config: misc/bat
     # neovim & other editors
     ~/.config/nvim/init.vim: nvim/init.vim
     ~/.ideavimrc: misc/ideavimrc
