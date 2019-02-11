@@ -15,7 +15,6 @@
 # Autojump for fast directory jumping
 if status --is-interactive
     for directory in "$HOME/.autojump/" \
-        '/home/linuxbrew/.linuxbrew/' \
         '/usr/local/' \
         '/usr/'
         set -l __autojump_file "$directory/share/autojump/autojump.fish"

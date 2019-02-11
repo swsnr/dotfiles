@@ -22,24 +22,16 @@ if status --is-login
         ~/.local/bin \
         ~/.cargo/bin \
         ~/Library/Python/*/bin \
-        ~/.gem/ruby/*/bin \
-        /home/linuxbrew/.linuxbrew/bin
+        ~/.gem/ruby/*/bin
 
     set -x MANPATH \
         ~/.local/share/man \
         /usr/local/share/man \
-        /home/linuxbrew/.linuxbrew/share/man \
         /usr/share/man
     set -x INFOPATH \
         ~/.local/share/info \
         /usr/local/share/info \
-        /home/linuxbrew/.linuxbrew/share/info \
         /usr/share/info
-end
-
-# Add linuxbrew completions
-if [ -d /home/linuxbrew/.linuxbrew/share/fish/vendor_completions.d/ ]
-    set -a fish_complete_path /home/linuxbrew/.linuxbrew/share/fish/vendor_completions.d/
 end
 
 # Environment variables
