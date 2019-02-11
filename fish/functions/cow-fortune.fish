@@ -22,11 +22,9 @@ function cow-fortune -d 'My cow says things to you!'
         set cows \
             ghostbusters \
             hellokitty \
-            kitty \
             koala \
             moofasa \
             sheep \
-            small \
             vader \
             vader-koala
     end
