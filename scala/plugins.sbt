@@ -8,7 +8,7 @@ addSbtPlugin("com.orrsella" %% "sbt-stats" % "1.0.7")
 addSbtPlugin("com.typesafe.sbt" % "sbt-license-report" % "1.2.0")
 
 // Show dependencies updates
-addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "0.3.4")
+addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "0.4.0")
 
 // Dependency management: Get a list or graph of all dependencies, and find
 // updates for installed dependencies
