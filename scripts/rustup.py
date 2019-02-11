@@ -24,7 +24,8 @@ CRATES = [
     'cargo-outdated',
     'cargo-release',
     'cargo-graph',
-    'cargo-license',
+    # Currently broken due to outdated openssl dependency
+    # 'cargo-license',
     'cargo-sweep',
     'git-gone',
     'xkpwgen',
