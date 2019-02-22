@@ -1,5 +1,10 @@
 #!/bin/sh
 
+if [ "x${XDG_CURRENT_DESKTOP}" = "xXFCE" -o "x${XDG_CURRENT_DESKTOP}" = "xGNOME" ]; then
+    # Configure QT explicitly on Gnome and XFCE
+    export QT_QPA_PLATFORMTHEME=qt5ct
+fi
+
 export "$(fish -l -c env | grep -e '^PATH=')"
 export "$(fish -l -c env | grep -e '^MANPATH=')"
 export "$(fish -l -c env | grep -e '^INFOPATH=')"
