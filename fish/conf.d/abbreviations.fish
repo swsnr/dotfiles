@@ -22,4 +22,7 @@ if status --is-interactive
     abbr --add g git
     abbr --add pbc pbcopy
     abbr --add pbp pbpaste
+
+    abbr --add sc systemctl
+    abbr --add scu systemctl --user
 end
