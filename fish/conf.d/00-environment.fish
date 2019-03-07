@@ -73,3 +73,6 @@ end
 # -K: Exit on interrupt
 # -F: Exit immediately if content fits on screen
 set -x LESS '-q -g -i -M -R -S -w -z-4 -X -K -F'
+
+# Prefer english message for all CLI tools
+set -x LC_MESSAGES 'en_GB.utf8'
