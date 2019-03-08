@@ -94,9 +94,6 @@
     ~/.config/pacman/makepkg.conf:
         path: pacman/makepkg.conf
         if: "test -f /etc/pacman.conf"
-    ~/.config/repoctl/config.toml:
-        path: pacman/repoctl.toml
-        if: "test -f /etc/pacman.conf"
     ~/.config/fontconfig/conf.d:
         path: fontconfig/*.conf
         glob: true
