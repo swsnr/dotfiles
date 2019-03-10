@@ -10,22 +10,22 @@
       relink: true
 - clean:
     # Prune dead symlinks in these directories
-    - '~'
-    - '~/.config/fish'
-    - '~/.config/fish/functions'
-    - '~/.config/fish/conf.d'
-    - '~/.config/git'
-    - '~/.sbt/1.0/'
-    - '~/.sbt/1.0/plugins'
-    - '~/.config/powershell'
-    - '~/.config/nvim'
-    - '~/.ssh/config.d'
+    - "~"
+    - "~/.config/fish"
+    - "~/.config/fish/functions"
+    - "~/.config/fish/conf.d"
+    - "~/.config/git"
+    - "~/.sbt/1.0/"
+    - "~/.sbt/1.0/plugins"
+    - "~/.config/powershell"
+    - "~/.config/nvim"
+    - "~/.ssh/config.d"
 - shell:
     - description: Check whether FileVault is enabled
       command: sh -c 'uname -s | grep -qi darwin && [ $(fdesetup isactive) == true ] || exit 0'
 - link:
     # Symlink entire dotfiles folder, for convenience
-    ~/.dotfiles: ''
+    ~/.dotfiles: ""
 
     # Fish shell config files
     ~/.config/fish/functions:
@@ -50,11 +50,11 @@
     ~/.config/git/ignore: git/ignore
     ~/.config/git/attributes: git/attributes
     ~/.config/git/config.linux:
-        path: git/config.linux
-        if: "uname -s | grep -qi linux"
+      path: git/config.linux
+      if: "uname -s | grep -qi linux"
     ~/.config/git/config.macos:
-        path: git/config.macos
-        if: "uname -s | grep -qi darwin"
+      path: git/config.macos
+      if: "uname -s | grep -qi darwin"
 
     # Scala configuration
     ~/.ammonite/predef.sc: scala/ammonite-predef.sc
@@ -82,40 +82,40 @@
     # SSH
     ~/.ssh/config: ssh/config
     ~/.ssh/config.d/:
-        path: ssh/config.d/*
-        glob: true
+      path: ssh/config.d/*
+      glob: true
     ~/.ssh/config.d/00-macos:
-        path: ssh/00-macos
-        if: 'uname -s | grep -qi darwin'
+      path: ssh/00-macos
+      if: "uname -s | grep -qi darwin"
 
     # Linux configuration
     ~/.xprofile: linux/xprofile
     # Pacman configuration if pacman is installed
     ~/.config/pacman/makepkg.conf:
-        path: pacman/makepkg.conf
-        if: "test -f /etc/pacman.conf"
+      path: pacman/makepkg.conf
+      if: "test -f /etc/pacman.conf"
     ~/.config/fontconfig/conf.d:
-        path: fontconfig/*.conf
-        glob: true
-        if: 'uname -s | grep -qi linux'
+      path: fontconfig/*.conf
+      glob: true
+      if: "uname -s | grep -qi linux"
 
     # macOS configuration
     ~/.gnupg/gpg-agent.conf:
-        path: macos/gpg-agent.conf
-        if: 'uname -s | grep -qi darwin'
+      path: macos/gpg-agent.conf
+      if: "uname -s | grep -qi darwin"
     # DevonTHINK feed stylesheet for Markdown files
     "~/Library/Application Support/DEVONthink Pro 2/StyleSheets/Vollkorn.css":
-        path: macos/devonthink-feed.css
-        if: 'uname -s | grep -qi darwin'
+      path: macos/devonthink-feed.css
+      if: "uname -s | grep -qi darwin"
 
     # Joplin stylesheet
     ~/.config/joplin-desktop/userstyle.css: joplin/userstyle.css
 
     # Extension modules for Albert launcher
     ~/.local/share/albert/org.albert.extension.python/modules:
-        path: "albert/extensions/*.py"
-        glob: true
-        if: 'test -f /usr/share/applications/albert.desktop'
+      path: "albert/extensions/*.py"
+      glob: true
+      if: "test -f /usr/share/applications/albert.desktop"
 
 - shell:
     - description: "Install vimplug"
