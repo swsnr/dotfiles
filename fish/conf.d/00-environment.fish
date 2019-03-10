@@ -74,5 +74,8 @@ end
 # -F: Exit immediately if content fits on screen
 set -x LESS '-q -g -i -M -R -S -w -z-4 -X -K -F'
 
-# Prefer english message for all CLI tools
-set -x LC_MESSAGES 'en_GB.utf8'
+if ! string match --quiet 'darwin*' $OSTYPE
+    # Prefer english message for all CLI tools on Linux.  On macOS this confuses
+    # Perl, so don't change the locale
+    set -x LC_MESSAGES 'en_GB.utf8'
+end
