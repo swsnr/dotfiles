@@ -110,13 +110,6 @@
 
     # Joplin stylesheet
     ~/.config/joplin-desktop/userstyle.css: joplin/userstyle.css
-
-    # Extension modules for Albert launcher
-    ~/.local/share/albert/org.albert.extension.python/modules:
-      path: "albert/extensions/*.py"
-      glob: true
-      if: "test -f /usr/share/applications/albert.desktop"
-
 - shell:
     - description: "Install vimplug"
       command: "curl -fLo $HOME/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
