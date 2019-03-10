@@ -13,7 +13,7 @@
 # the License.
 
 function prompt_battery -d 'Battery information for prompt'
-    if string match --quiet 'darwin*' $OSTYPE
+    if string match -iq 'darwin*' (uname -s)
         prompt_battery_macos
     end
 end

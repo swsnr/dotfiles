@@ -74,7 +74,7 @@ end
 # -F: Exit immediately if content fits on screen
 set -x LESS '-q -g -i -M -R -S -w -z-4 -X -K -F'
 
-if ! string match --quiet 'darwin*' $OSTYPE
+if ! string match -qi 'darwin*' (uname -s)
     # Prefer english message for all CLI tools on Linux.  On macOS this confuses
     # Perl, so don't change the locale
     set -x LC_MESSAGES 'en_GB.utf8'
