@@ -14,7 +14,7 @@
 
 # See https://github.com/lunaryorn/term-background.rs
 if command --search 'term-background' >/dev/null
-    set LY_TERM_BACKGROUND (term-background (tty))
+    set LY_TERM_BACKGROUND (term-background (tty) 2>/dev/null)
 
     if string match -q light $LY_TERM_BACKGROUND
         set -x BAT_THEME OneHalfLight
