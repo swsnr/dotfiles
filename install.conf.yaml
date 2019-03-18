@@ -68,8 +68,9 @@
     ~/.npmrc: javascript/npmrc
     ~/.gemrc: misc/gemrc
 
+    # Binaries
     # Script for use as $EDITOR, see 00-environment.fish
-    ~/.local/bin/code-nw: misc/code-nw.sh
+    ~/.local/bin/code-nw: bin/code-nw.sh
 
     # Misc unix tools
     ~/.config/latexmk/latexmkrc: misc/latexmkrc
