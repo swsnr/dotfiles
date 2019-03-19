@@ -15,7 +15,7 @@
 if status --is-interactive
     # See https://github.com/lunaryorn/term-background.rs
     if command --search 'term-background' >/dev/null
-        set LY_TERM_BACKGROUND (term-background (tty))
+        set LY_TERM_BACKGROUND (term-background --timeout 1000 (tty))
         if string match -q light $LY_TERM_BACKGROUND
             set -x BAT_THEME OneHalfLight
         else
