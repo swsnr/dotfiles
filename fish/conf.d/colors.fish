@@ -17,9 +17,9 @@ if status --is-interactive
     if command --search 'term-background' >/dev/null
         set LY_TERM_BACKGROUND (term-background --timeout 1000 (tty))
         if string match -q light $LY_TERM_BACKGROUND
-            set -x BAT_THEME OneHalfLight
+            set -x BAT_THEME 'Monokai Extended Light'
         else
-            set -x BAT_THEME TwoDark
+            set -x BAT_THEME 'Monokai Extended'
         end
     end
 end
