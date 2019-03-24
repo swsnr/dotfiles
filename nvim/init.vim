@@ -20,6 +20,10 @@ if $LY_TERM_BACKGROUND == 'light'
 else
   set background=dark
 end
+let g:solarized_term_italics=1
+colorscheme solarized8
+" Use light background in GUIs
+autocmd guienter * set background=light
 
 " Line numbers relative to current line
 set number " Line numbers…
