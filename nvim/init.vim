@@ -33,6 +33,8 @@ set colorcolumn=+1
 set expandtab " No tabs
 set shiftwidth=2 " Indent by two spaces
 set spell " Spell checking
+set autoread " Auto-reload unchanged buffers
+set autowrite " Write files before make
 set splitright " Make vsplit split to the right instead of left
 set splitbelow " Make split split below instead of above
 let g:better_whitespace_enabled=1
