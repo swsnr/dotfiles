@@ -10,3 +10,6 @@
 [submodule "nvim/pack/dotfiles/start/vim-solarized8"]
 	path = nvim/pack/dotfiles/start/vim-solarized8
 	url = https://github.com/lifepillar/vim-solarized8.git
+[submodule "nvim/pack/dotfiles/start/rust.vim"]
+	path = nvim/pack/dotfiles/start/rust.vim
+	url = https://github.com/rust-lang/rust.vim

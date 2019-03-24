@@ -49,7 +49,6 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
-
 " Format current paragraph/selection easily
 nnoremap Q gqip
 vnoremap Q gq
@@ -90,3 +89,5 @@ augroup fish
   autocmd filetype fish setlocal foldmethod=expr shiftwidth=4
   autocmd filetype fish compiler fish
 augroup END
+
+let g:rustfmt_autosave = 1
