@@ -78,6 +78,7 @@
     ~/.config/bat/config: misc/bat
     # neovim & other editors
     ~/.config/nvim/init.vim: nvim/init.vim
+    ~/.local/share/nvim/site/pack/dotfiles: nvim/pack/dotfiles
     ~/.ideavimrc: misc/ideavimrc
     # tmux: Main config to dispatch, and then version-specific configurations
     ~/.tmux.conf: tmux/tmux.conf
@@ -115,8 +116,6 @@
     # Joplin stylesheet
     ~/.config/joplin-desktop/userstyle.css: joplin/userstyle.css
 - shell:
-    - description: "Install vimplug"
-      command: "curl -fLo $HOME/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
     - description: Set yarn prefix to ~/.local
       command: sh -c 'command -v yarn && yarn config set prefix ~/.local || exit 0'
     - description: "MacOS: Set defaults"
