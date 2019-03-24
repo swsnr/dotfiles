@@ -78,6 +78,9 @@ nnoremap <leader>lo :lopen<cr>
 nnoremap <leader>ln :lnext<cr>
 nnoremap <leader>lp :lprevious<cr>
 
+" Make
+nnoremap <leader>m :make
+
 " Commands for windows and splits
 nnoremap <leader>w/ :vsplit<cr>
 nnoremap <leader>w- :split<cr>
