@@ -86,6 +86,14 @@ nnoremap <leader>wq :q<cr>
 " Text commands
 nnoremap <leader>xw :StripWhitespace<cr>
 
+augroup vc_git
+  au!
+  " Automatically start insert mode in a new first line in Git commit messages,
+  " to that I can start typing my message right away without having to press i
+  " first
+  autocmd BufRead COMMIT_EDITMSG execute "normal! gg" | execute "normal! O" | startinsert
+augroup END
+
 augroup fish
   au!
   autocmd filetype fish setlocal foldmethod=expr shiftwidth=4
