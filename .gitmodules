@@ -4,3 +4,6 @@
 [submodule "nvim/pack/dotfiles/start/vim-better-whitespace"]
 	path = nvim/pack/dotfiles/start/vim-better-whitespace
 	url = https://github.com/ntpeters/vim-better-whitespace.git
+[submodule "nvim/pack/dotfiles/start/vim-fish"]
+	path = nvim/pack/dotfiles/start/vim-fish
+	url = https://github.com/dag/vim-fish.git

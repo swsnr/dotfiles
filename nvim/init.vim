@@ -34,7 +34,6 @@ set splitbelow " Make split split below instead of above
 let g:better_whitespace_enabled=1
 let g:strip_whitespace_on_save=1
 
-" {{{ Bindings
 " Leader settings
 let mapleader = ' '
 let maplocalleader = ','
@@ -59,8 +58,6 @@ nnoremap <leader>bn :bnext<cr>
 nnoremap <leader>bp :bprevious<cr>
 nnoremap <leader>bq :bdelete<cr>
 
-" <leader>c is occupied by NerdCommenter!
-
 " Errors (Quickfix list)
 nnoremap <leader>ee :cc!<cr>
 nnoremap <leader>en :cnext<cr>
@@ -83,3 +80,9 @@ nnoremap <leader>wq :q<cr>
 
 " Text commands
 nnoremap <leader>xw :StripWhitespace<cr>
+
+augroup fish
+  au!
+  autocmd filetype fish setlocal foldmethod=expr shiftwidth=4
+  autocmd filetype fish compiler fish
+augroup END
