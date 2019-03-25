@@ -74,6 +74,7 @@
     ~/.config/bat/config: misc/bat
     # neovim & other editors
     ~/.config/nvim/init.vim: nvim/init.vim
+    ~/.config/nvim/ginit.vim: nvim/ginit.vim
     ~/.local/share/nvim/site/pack/dotfiles: nvim/pack/dotfiles
     ~/.ideavimrc: misc/ideavimrc
     # tmux: Main config to dispatch, and then version-specific configurations
