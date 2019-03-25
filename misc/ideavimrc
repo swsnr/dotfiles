@@ -48,6 +48,7 @@ nnoremap <Space>cp :action ParameterInfo<CR>
 nnoremap <Space>co :action OverrideMethods<CR>
 
 " Search
+nnoremap <Space>sc :action GotoClass<CR>
 nnoremap <Space>se :action SearchEverywhere<CR>
 nnoremap <Space>ss :action GotoSymbol<CR>
 nnoremap <Space>su :action FindUsages<CR>
