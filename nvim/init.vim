@@ -31,8 +31,6 @@
 " 'neomake/neomake' " Asychronously compile/check buffers
 " 'sbdchd/neoformat' " Format files
 
-" TODO: Set grep program to rg
-
 " {{{ User interface
 " Enable 256 colours in terminal
 set termguicolors
@@ -66,6 +64,16 @@ set autoread " Auto-reload unchanged buffers
 set autowrite " Write files before make
 set splitright " Make vsplit split to the right instead of left
 set splitbelow " Make split split below instead of above
+" }}}
+
+" {{{ Search
+set ignorecase " Ignore case when searching…
+set smartcase " …for all-lowercase patterns
+
+if executable('rg')
+  set grepprg=rg\ --vimgrep\ --no-heading
+  set grepformat=%f:%l:%c:%m,%f:%l:%m
+endif
 " }}}
 
 " {{{ Key bindings
