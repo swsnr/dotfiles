@@ -150,6 +150,11 @@ augroup END
 
 " {{{ Rust
 let g:rustfmt_autosave = 1
+augroup rust
+  au!
+  au filetype rust map <buffer> <localleader>b :silent make build <Bar> cwindow<cr>
+  au filetype rust map <buffer> <localleader>c :silent make check <Bar> cwindow<cr>
+augroup END
 " }}}
 
 " {{{ Scala
