@@ -12,6 +12,28 @@
 " License for the specific language governing permissions and limitations under
 " the License.
 
+" TODO: Notable plugins:
+" 'vim-airline/vim-airline' " Better status line (plus themes)
+" 'vim-airline/vim-airline-themes'
+" 'Shougo/denite.nvim' " Quick jump
+" 'padde/jump.vim' " Autojump for Vim
+" 'justinmk/vim-sneak' " A fast / for quick motion to char sequences
+" 'Shougo/deoplete.nvim' " Completion
+" 'ntpeters/vim-better-whitespace' " Highlight and cleanup whitespace
+" 'scrooloose/nerdcommenter' " Commenting and uncommenting
+" 'tpope/vim-surround' " Surround text with quotes, tags and parens
+" 'wellle/targets.vim' " Additional text objects and motions
+" 'jiangmiao/auto-pairs' " Auto-insert closing pairs
+" 'mhinz/vim-grepper' " Better grepping for vim
+" 'airblade/vim-gitgutter' " Highlight changed hunks in editor
+" 'tpope/vim-fugitive' " A great Git frontend
+" 'antoyo/vim-licenses' " Insert licenses in buffers
+" 'neomake/neomake' " Asychronously compile/check buffers
+" 'sbdchd/neoformat' " Format files
+
+" TODO: Set grep program to rg
+
+" {{{ User interface
 " Enable 256 colours in terminal
 set termguicolors
 " Adapt background color, see colors.fish
@@ -24,7 +46,9 @@ let g:solarized_term_italics=1
 colorscheme solarized8
 " Use light background in GUIs
 autocmd guienter * set background=light
+" }}}
 
+" {{{ Text editing
 " Line numbers relative to current line
 set number " Line numbers…
 set relativenumber " …relative to current line
@@ -33,13 +57,18 @@ set colorcolumn=+1
 set expandtab " No tabs
 set shiftwidth=2 " Indent by two spaces
 set spell " Spell checking
+let g:better_whitespace_enabled=1
+let g:strip_whitespace_on_save=1
+" }}}
+
+" {{{ Buffers and windows
 set autoread " Auto-reload unchanged buffers
 set autowrite " Write files before make
 set splitright " Make vsplit split to the right instead of left
 set splitbelow " Make split split below instead of above
-let g:better_whitespace_enabled=1
-let g:strip_whitespace_on_save=1
+" }}}
 
+" {{{ Key bindings
 " Leader settings
 let mapleader = ' '
 let maplocalleader = ','
@@ -55,6 +84,7 @@ nnoremap <C-H> <C-W><C-H>
 nnoremap Q gqip
 vnoremap Q gq
 
+" {{{ Leader bindings
 " Applications & tools
 nnoremap <leader>at :split <bar> :resize 15 <bar> :terminal<cr>
 
@@ -88,7 +118,10 @@ nnoremap <leader>wq :q<cr>
 
 " Text commands
 nnoremap <leader>xw :StripWhitespace<cr>
+" }}}
+" }}}
 
+" {{{ Version control
 augroup vc_git
   au!
   " Automatically start insert mode in a new first line in Git commit messages,
@@ -96,11 +129,20 @@ augroup vc_git
   " first
   autocmd BufRead COMMIT_EDITMSG execute "normal! gg" | execute "normal! O" | startinsert
 augroup END
+" }}}
 
+" {{{ File types
+" {{{ Fish
 augroup fish
   au!
   autocmd filetype fish setlocal foldmethod=expr shiftwidth=4
   autocmd filetype fish compiler fish
 augroup END
+" }}}
 
+" {{{ Rust
 let g:rustfmt_autosave = 1
+" }}}
+" }}}
+
+" vim: fdm=marker
