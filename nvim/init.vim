@@ -151,6 +151,16 @@ augroup END
 " {{{ Rust
 let g:rustfmt_autosave = 1
 " }}}
+
+" {{{ Scala
+let g:scala_scaladoc_indent=1 " Scaladoc indent for doc comments
+let g:scala_sort_across_groups=1 " Sort imports into groups
+augroup scala
+  au!
+  " Use scala filetype for SBT files, as it works better
+  au BufRead,BufNewFile *.sbt set filetype=scala
+augroup END
+" }}}
 " }}}
 
 " vim: fdm=marker

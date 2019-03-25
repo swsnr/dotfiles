@@ -13,3 +13,6 @@
 [submodule "nvim/pack/dotfiles/start/rust.vim"]
 	path = nvim/pack/dotfiles/start/rust.vim
 	url = https://github.com/rust-lang/rust.vim
+[submodule "nvim/pack/dotfiles/start/vim-scala"]
+	path = nvim/pack/dotfiles/start/vim-scala
+	url = https://github.com/derekwyatt/vim-scala.git
