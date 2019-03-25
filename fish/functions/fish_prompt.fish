@@ -87,22 +87,11 @@ function fish_prompt -d 'My personal prompt'
         echo -sn ' ' (set_color -o yellow) (string join ' ' $flags) (set_color normal)
     end
 
-    # Prompt separator, also serving as vi mode indicator
-    echo -sn ' '
-    switch $fish_bind_mode
-      case default
-        echo -sn (set_color -b green white) '❯'
-      case insert
-        echo -sn (set_color green) '❯'
-      case replace_one
-        echo -sn (set_color green) '_'
-      case visual
-        echo -sn (set_color green) '█'
-      case '*'
-        echo -sn (set_color red) '❯'
-    end
-    echo -sn (set_color normal) ' '
+    # Add fish mode to prompt right before separator
+    echo -sn ' ' (fish_default_mode_prompt)
 
+    # Prompt separator
+    echo -sn (set_color green) '❯ ' (set_color normal)
     # Tell iterm that the command input starts now
     iterm2_command 'command_start'
 end
