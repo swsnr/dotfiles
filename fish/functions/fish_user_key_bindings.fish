@@ -16,6 +16,10 @@ function fish_user_key_bindings
 
     # Get back to normal mode with fd
     bind -M insert -m default fd force-repaint
-    # Prepend sudo to the command line with M-s
-    bind \es sudo-commandline
+
+    # Prepend sudo to the command line with leader s
+    bind -M default ' s' sudo-commandline
+
+    # Execute current autosuggestion with space space
+    bind -M default '  ' accept-autosuggestion execute
 end
