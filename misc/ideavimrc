@@ -41,6 +41,7 @@ nnoremap <Space><Space> :action GotoAction<CR>
 nnoremap <Space>c<Space> :action CommentByLineComment<CR>
 
 " Code commands
+nnoremap <Space>cc :action CompileDirty<CR>
 nnoremap <Space>cR :action Refactorings.QuickListPopupAction<CR>
 nnoremap <Space>cr :action RenameElement<CR>
 nnoremap <Space>cf :action ReformatCode<CR>
@@ -69,7 +70,9 @@ nnoremap <Space>fr :action RecentFiles<CR>
 nnoremap <Space>fI :source ~/.ideavimrc<CR>
 
 " Git
+nnoremap <Space>gg :action CheckinProject<CR>
 nnoremap <Space>gm :action Vcs.QuickListPopupAction<CR>
+nnoremap <Space>gp :action Vcs.Push<CR>
 
 " Window actions
 nnoremap <Space>w/ :action SplitVertically<CR>
