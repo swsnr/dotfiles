@@ -161,6 +161,14 @@ augroup scala
   au BufRead,BufNewFile *.sbt set filetype=scala
 augroup END
 " }}}
+
+" {{{ Groovy (mostly Jenkinsfile)
+augroup groovy
+  au!
+  au BufRead,BufNewFile *Jenkinsfile set filetype=groovy
+  au filetype groovy setlocal foldmethod=expr shiftwidth=4
+augroup END
+" }}}
 " }}}
 
 " vim: fdm=marker
