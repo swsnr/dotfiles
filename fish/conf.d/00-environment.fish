@@ -39,10 +39,8 @@ if string match -q '*.uberspace.de' $hostname
     # On uberspace use nano as editor
     set -x EDITOR 'nano'
 else
-    # Use code -nw as editor, via a wrapper script, because $EDITOR should
-    # apparently not contain whitespace, see e.g.
-    # https://github.com/fish-shell/fish-shell/pull/5379
-    set -x EDITOR 'code-nw'
+    # Otherwise my beloved vim
+    set -x 'EDITOR' 'nvim'
 end
 
 set -x PAGER 'less'
