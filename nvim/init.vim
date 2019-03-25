@@ -19,7 +19,6 @@
 " 'padde/jump.vim' " Autojump for Vim
 " 'justinmk/vim-sneak' " A fast / for quick motion to char sequences
 " 'Shougo/deoplete.nvim' " Completion
-" 'ntpeters/vim-better-whitespace' " Highlight and cleanup whitespace
 " 'scrooloose/nerdcommenter' " Commenting and uncommenting
 " 'tpope/vim-surround' " Surround text with quotes, tags and parens
 " 'wellle/targets.vim' " Additional text objects and motions
