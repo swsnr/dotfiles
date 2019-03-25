@@ -125,6 +125,8 @@ nnoremap <leader>w- :split<cr>
 nnoremap <leader>wq :q<cr>
 
 " Text commands
+nnoremap <leader>xf gggqG
+nnoremap <leader>xi gg=qG
 nnoremap <leader>xw :StripWhitespace<cr>
 " }}}
 " }}}
