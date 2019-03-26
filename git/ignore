@@ -23,3 +23,6 @@ Desktop.ini
 
 # Python bytecode
 __pycache__/
+
+# CTags
+tags
