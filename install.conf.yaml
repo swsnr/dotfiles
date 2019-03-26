@@ -77,6 +77,7 @@
     ~/.config/nvim/ginit.vim: nvim/ginit.vim
     ~/.local/share/nvim/site/pack/dotfiles: nvim/pack/dotfiles
     ~/.ideavimrc: misc/ideavimrc
+    ~/.ctags: misc/ctags
     # tmux: Main config to dispatch, and then version-specific configurations
     ~/.tmux.conf: tmux/tmux.conf
     ~/.tmux.2.conf: tmux/tmux.2.conf
