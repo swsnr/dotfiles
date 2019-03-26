@@ -32,6 +32,7 @@ brew 'git-recent' # Show recently modified git branches
 brew 'gist' # Client for gist.github.com
 brew 'hub' # Client for github
 brew 'cmake' # Some Rust crates need it
+brew 'ctags' # Index sources
 cask 'meld'  # Diff & merge tool
 cask 'dash3'  # API doc browser
 cask 'jetbrains-toolbox'
