@@ -27,7 +27,7 @@ Needs Python 3.2 or newer.
 
 ## License
 
-Copyright 2018 Sebastian Wiesner
+Copyright 2018-2019 Sebastian Wiesner
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use
 this file except in compliance with the License. You may obtain a copy of the
