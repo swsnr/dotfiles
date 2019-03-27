@@ -53,7 +53,6 @@ set textwidth=80
 set colorcolumn=+1
 set expandtab " No tabs
 set shiftwidth=2 " Indent by two spaces
-set spell " Spell checking
 let g:better_whitespace_enabled=1
 let g:strip_whitespace_on_save=1
 " }}}
