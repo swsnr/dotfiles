@@ -20,6 +20,7 @@
     - "~/.config/powershell"
     - "~/.config/nvim"
     - "~/.ssh/config.d"
+    - "~/.ctags.d"
 - shell:
     - description: Check whether FileVault is enabled
       command: sh -c 'uname -s | grep -qi darwin && [ $(fdesetup isactive) == true ] || exit 0'
@@ -72,12 +73,14 @@
     ~/.config/latexmk/latexmkrc: misc/latexmkrc
     ~/.gnupg/gpg.conf: misc/gpg.conf
     ~/.config/bat/config: misc/bat
-    # neovim & other editors
+    # VIM and related tooling
     ~/.config/nvim/init.vim: nvim/init.vim
     ~/.config/nvim/ginit.vim: nvim/ginit.vim
     ~/.local/share/nvim/site/pack/dotfiles: nvim/pack/dotfiles
     ~/.ideavimrc: misc/ideavimrc
-    ~/.ctags: misc/ctags
+    ~/.ctags.d:
+      path: misc/ctags.d/*.ctags
+      glob: true
     # tmux: Main config to dispatch, and then version-specific configurations
     ~/.tmux.conf: tmux/tmux.conf
     ~/.tmux.2.conf: tmux/tmux.2.conf
