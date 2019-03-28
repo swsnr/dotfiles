@@ -30,14 +30,12 @@
     ~/.dotfiles: ""
 
     # Fish shell config files
+    ~/.config/fish/config.fish: fish/config.fish
     ~/.config/fish/functions:
       path: fish/functions/*.fish
       glob: true
     ~/.config/fish/completions:
       path: fish/completions/*.fish
-      glob: true
-    ~/.config/fish/conf.d:
-      path: fish/conf.d/*.fish
       glob: true
     # Special Fish functions for uberspace
     ~/.config/fish/functions/prompt_hostname.fish:

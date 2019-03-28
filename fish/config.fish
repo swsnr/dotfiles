@@ -40,7 +40,7 @@ if string match -q '*.uberspace.de' $hostname
     set -x EDITOR 'nano'
 else
     # Otherwise my beloved vim
-    set -x 'EDITOR' 'nvim'
+    set -x EDITOR 'nvim'
 end
 
 set -x PAGER 'less'
@@ -76,4 +76,64 @@ if ! string match -qi 'darwin*' (uname -s)
     # Prefer english message for all CLI tools on Linux.  On macOS this confuses
     # Perl, so don't change the locale
     set -x LC_MESSAGES 'en_GB.utf8'
+end
+
+# Extra things for interactive shells
+if status --is-interactive
+    # Setup autojump
+    for directory in "$HOME/.autojump/" '/usr/local/' '/usr/'
+        set -l __autojump_file "$directory/share/autojump/autojump.fish"
+        if [ -f $__autojump_file ]
+            source $__autojump_file
+            break
+        end
+        set -e __autojump_file
+    end
+
+    # Setup virtualenv helper for Python
+    if command --search 'python3' >/dev/null
+        python3 -m virtualfish 2>/dev/null | source
+    end
+
+    # Detect terminal background color and adapt color themes accordingly.
+    # Also export to subprocesses to make nvim aware of the terminal background.
+    #
+    # term-background is from https://github.com/lunaryorn/term-background.rs
+    if command --search 'term-background' >/dev/null
+        set -x LY_TERM_BACKGROUND (term-background --timeout 1000 (tty))
+        if string match -q light $LY_TERM_BACKGROUND
+            set -x BAT_THEME 'Monokai Extended Light'
+        else
+            set -x BAT_THEME 'Monokai Extended'
+        end
+    end
+
+    # Tell iterm2 the exit code of the last command
+    function update_iterm2_exit_status --on-event fish_postexec
+        iterm2_command 'command_finished' $status
+    end
+
+    # Tell iterm2 and compatible terminals what directory and host we're in
+    function update_iterm2_location --on-event fish_prompt
+        # Tell item what directory, what host we're on, and that the prompt is
+        # about to begin
+        iterm2_command 'current_dir' (pwd)
+        iterm2_command 'remote_host' $USER $hostname
+        iterm2_command 'prompt'
+    end
+
+    update_iterm2_location
+
+    # Abbreviations (unlike aliases, these are expanded before running)
+    abbr --add _ sudo
+    abbr --add df df -kh
+    abbr --add du du -kh
+    abbr --add e eval '$EDITOR'
+    abbr --add o open
+    abbr --add g git
+    abbr --add pbc pbcopy
+    abbr --add pbp pbpaste
+
+    abbr --add sc systemctl
+    abbr --add scu systemctl --user
 end
