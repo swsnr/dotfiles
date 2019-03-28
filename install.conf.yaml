@@ -19,6 +19,7 @@
     - "~/.sbt/1.0/plugins"
     - "~/.config/powershell"
     - "~/.config/nvim"
+    - "~/.config/kitty"
     - "~/.ssh/config.d"
     - "~/.ctags.d"
 - shell:
@@ -104,7 +105,12 @@
       path: fontconfig/*.conf
       glob: true
       if: "uname -s | grep -qi linux"
-    # i3 window manager
+    # Kitty terminal emulator config
+    ~/.config/kitty/:
+      path: kitty/*
+      glob: true
+      if: "type -p kitty > /dev/null"
+    # i3 window manager and tooling
     ~/.config/i3/config:
       path: i3/config
       if: "type -p i3 > /dev/null"
