@@ -51,7 +51,7 @@ bindsym $mod+Shift+q kill
 bindsym $mod+w kill
 
 # Program launcher
-bindsym $mod+space exec rofi -modi drun -show drun
+bindsym $mod+space exec rofi -show-icons -modi drun -show drun
 
 # File manager
 bindsym $mod+e exec thunar
