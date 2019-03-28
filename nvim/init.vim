@@ -58,6 +58,7 @@ let g:strip_whitespace_on_save=1
 " }}}
 
 " {{{ Buffers and windows
+set hidden " Hide abandoned buffers
 set autoread " Auto-reload unchanged buffers
 set autowrite " Write files before make
 set splitright " Make vsplit split to the right instead of left
