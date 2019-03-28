@@ -80,7 +80,7 @@ endif
 let mapleader = ' '
 let maplocalleader = ','
 
-inoremap fd <Esc>
+inoremap jk <Esc>
 
 " Simpler navigation for splits
 nnoremap <C-J> <C-W><C-J>

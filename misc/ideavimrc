@@ -8,7 +8,7 @@ set showmode
 set surround " Surround text with quotes, parens, etc.
 
 " Quickly go to normal mode
-inoremap fd <esc>
+inoremap jk <esc>
 
 " unimpaired mappings
 nnoremap [<space> O<esc>j

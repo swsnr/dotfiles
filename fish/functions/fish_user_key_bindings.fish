@@ -14,8 +14,8 @@
 function fish_user_key_bindings
     fish_vi_key_bindings
 
-    # Get back to normal mode with fd
-    bind -M insert -m default fd force-repaint
+    # Get back to normal mode with jk
+    bind -M insert -m default jk force-repaint
 
     # Prepend sudo to the command line with leader s
     bind -M default ' s' sudo-commandline
