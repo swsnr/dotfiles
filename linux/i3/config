@@ -37,7 +37,7 @@ exec --no-startup-id gnome-flashback
 exec_always --no-startup-id gnome-power-manager
 
 # Assign random wallpapers to all screens
-exec_always --no-startup-id "$HOME/.local/bin/random-wallpaper"
+exec_always --no-startup-id "random-wallpaper"
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -130,6 +130,8 @@ bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
+# Fresh background
+bindsym $mod+Shift+b exec --no-startup-id "random-wallpaper"
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
