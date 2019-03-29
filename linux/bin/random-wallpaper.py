@@ -43,7 +43,7 @@ def number_of_monitors():
 
 
 def set_wallpapers(files):
-    cmd = ['feh', '--bg-fill']
+    cmd = ['feh', '--no-fehbg', '--bg-fill']
     cmd.extend(files)
     check_call(cmd)
 
