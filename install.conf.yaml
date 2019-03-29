@@ -118,6 +118,9 @@
     ~/.config/i3status/config:
       path: linux/i3/i3status.conf
       if: "type -p i3status > /dev/null"
+    ~/.local/bin/random-wallpaper:
+      path: linux/bin/random-wallpaper.py
+      if: "uname -s | grep -qi linux"
 
     # macOS configuration
     ~/.gnupg/gpg-agent.conf:

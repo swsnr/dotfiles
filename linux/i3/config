@@ -36,6 +36,9 @@ exec --no-startup-id gnome-flashback
 # Power manager
 exec_always --no-startup-id gnome-power-manager
 
+# Assign random wallpapers to all screens
+exec_always --no-startup-id "$HOME/.local/bin/random-wallpaper"
+
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
