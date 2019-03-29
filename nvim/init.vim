@@ -179,6 +179,13 @@ augroup scala
 augroup END
 " }}}
 
+" {{{ Python
+augroup python
+  au!
+  au filetype python setlocal formatprg=autopep8\ -
+augroup END
+" }}}
+
 " {{{ Groovy (mostly Jenkinsfile)
 augroup groovy
   au!
