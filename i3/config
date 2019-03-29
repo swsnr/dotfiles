@@ -8,20 +8,19 @@ set $mod Mod4
 # is used in the bar {} block below.
 font pango:Ubuntu 13
 
-# Colors (material palette)
-set $primary #f06292
-set $primary_light #ff94c2
-set $primary_dark #ba2d65
-set $secondary #37464f
-set $secondary_light #62717b
-set $secondary_dark #101f27
-set $text_dark #000000
-set $text_light #ffffff
+# Colors from the Arc theme
+set $background #f5f6f7
+set $foreground	#5c616c
+set $selection #5294e2
+# 50% of $selection
+set $selection_light #a8c9f0
+set $warning #F27835
 
-client.focused          $secondary      $primary         $text_dark $primary $secondary
-client.focused_inactive $secondary_dark $secondary_light $text_light $primary $secondary_dark
-client.unfocused        $secondary_dark $secondary_dark  $text_light $primary $secondary_dark
-client.urgent           $secondary      $primary_light   $text_dark $primary $secondary
+# <class>               <border>        <background>     <text>      <indicator> <child_border>
+client.focused          $background     $selection       #ffffff     $selection  $background
+client.focused_inactive $background     $selection_light #ffffff     $selection  $background
+client.unfocused        $background     $background      $foreground $selection  $background
+client.urgent           $background     $warning         #ffffff     $selection  $background
 client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 
 client.background       #ffffff
@@ -36,9 +35,6 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id gnome-flashback
 # Power manager
 exec_always --no-startup-id gnome-power-manager
-
-# Audio and network manager
-exec nm-applet
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -174,12 +170,12 @@ bar {
   tray_padding 5px
 
   colors {
-    background $secondary_dark
-    statusline $text_light
-    separator $secondary_light
+    background $background
+    statusline $foreground
+    separator $foreground
 
-    focused_workspace $secondary_dark $primary $text_dark
-    urgent_workspace $secondary_dark $primary_light $text_dark
-    active_workspace $secondary_dark  $primary_dark $text_dark
+    focused_workspace $background $selection  #ffffff
+    urgent_workspace  $background $warning    #fffff
+    active_workspace  $background $selection_light $foreground
   }
 }

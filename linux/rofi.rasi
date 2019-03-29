@@ -52,7 +52,7 @@ configuration {
 /*	window-format: "{w}    {i}{c}   {t}";*/
 /*	click-to-exit: true;*/
 /*	show-match: true;*/
-	theme: "i3-material";
+	theme: "Arc";
 /*	color-normal: ;*/
 /*	color-urgent: ;*/
 /*	color-active: ;*/

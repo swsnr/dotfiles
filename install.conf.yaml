@@ -98,9 +98,6 @@
     ~/.config/rofi/config.rasi:
       path: linux/rofi.rasi
       if: "type -p rofi > /dev/null"
-    ~/.config/rofi/i3-material.rasi:
-      path: linux/rofi-i3-material.rasi
-      if: "type -p rofi > /dev/null"
     # Pacman configuration if pacman is installed
     ~/.config/pacman/makepkg.conf:
       path: pacman/makepkg.conf
