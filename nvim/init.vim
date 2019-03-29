@@ -20,12 +20,10 @@
 " 'justinmk/vim-sneak' " A fast / for quick motion to char sequences
 " 'Shougo/deoplete.nvim' " Completion
 " 'scrooloose/nerdcommenter' " Commenting and uncommenting
-" 'tpope/vim-surround' " Surround text with quotes, tags and parens
 " 'wellle/targets.vim' " Additional text objects and motions
 " 'jiangmiao/auto-pairs' " Auto-insert closing pairs
 " 'mhinz/vim-grepper' " Better grepping for vim
 " 'airblade/vim-gitgutter' " Highlight changed hunks in editor
-" 'tpope/vim-fugitive' " A great Git frontend
 " 'antoyo/vim-licenses' " Insert licenses in buffers
 " 'neomake/neomake' " Asychronously compile/check buffers
 " 'sbdchd/neoformat' " Format files
@@ -109,6 +107,17 @@ nnoremap <leader>ep :cprevious<cr>
 " File commands
 nnoremap <leader>fi :e ~/.config/nvim/init.vim<cr>
 
+" Git
+nnoremap <leader>gA :Gwrite<cr>
+nnoremap <leader>gc :Gcommit<cr>
+nnoremap <leader>gg :GitGutterToggle<cr>
+nnoremap <leader>gl :Glog<cr>
+nnoremap <leader>gm :Gmove<cr>
+nnoremap <leader>gP :Gpull<cr>
+nnoremap <leader>gp :Gpush<cr>
+nnoremap <leader>gs :Gstatus<cr>
+nnoremap <leader>gX :Gremove<cr>
+
 " Locations
 nnoremap <leader>ll :ll!<cr>
 nnoremap <leader>lo :lopen<cr>
@@ -133,6 +142,8 @@ nnoremap <leader>xw :StripWhitespace<cr>
 " {{{ Version control
 augroup vc_git
   au!
+  " Prevent flooding with fugitive buffers
+  autocmd BufReadPost fugitive://* set bufhidden=delete
   " Automatically start insert mode in a new first line in Git commit messages,
   " to that I can start typing my message right away without having to press i
   " first

@@ -19,3 +19,6 @@
 [submodule "nvim/pack/dotfiles/start/vim-sandwich"]
 	path = nvim/pack/dotfiles/start/vim-sandwich
 	url = https://github.com/machakann/vim-sandwich.git
+[submodule "nvim/pack/dotfiles/start/vim-fugitive"]
+	path = nvim/pack/dotfiles/start/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive.git
