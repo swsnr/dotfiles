@@ -35,15 +35,12 @@ brew 'cmake' # Some Rust crates need it
 brew 'ctags' # Index sources
 cask 'meld'  # Diff & merge tool
 cask 'dash3'  # API doc browser
-cask 'jetbrains-toolbox'
-cask 'visual-studio-code'
 
 # Java and Scala
 tap 'AdoptOpenJDK/openjdk'
 cask 'adoptopenjdk8'
 tap 'scalacenter/bloop'
 tap 'coursier/formulas'
-brew 'jvmtop'
 brew 'sbt'
 brew 'bloop'
 brew 'coursier'
