@@ -33,7 +33,7 @@ brew 'gist' # Client for gist.github.com
 brew 'hub' # Client for github
 brew 'cmake' # Some Rust crates need it
 tap 'universal-ctags/universal-ctags'
-brew 'universal-ctags' # Index sources
+brew 'universal-ctags', args: ['HEAD'] # Index sources
 cask 'meld'  # Diff & merge tool
 cask 'dash3'  # API doc browser
 
