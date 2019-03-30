@@ -32,7 +32,8 @@ brew 'git-recent' # Show recently modified git branches
 brew 'gist' # Client for gist.github.com
 brew 'hub' # Client for github
 brew 'cmake' # Some Rust crates need it
-brew 'ctags' # Index sources
+tap 'universal-ctags/universal-ctags'
+brew 'universal-ctags' # Index sources
 cask 'meld'  # Diff & merge tool
 cask 'dash3'  # API doc browser
 
@@ -115,11 +116,9 @@ brew 'ffmpeg'  # Command line audio/video processor
 brew 'gnupg'
 brew 'pinentry-mac'
 cask '1password'  # Password and secret manager
-tap 'caskroom/eid'  # Electronic ID card application
-cask 'eid-de'
 
 # Fonts
-tap 'caskroom/fonts'
+tap 'homebrew/cask-fonts'
 cask 'font-fira-mono'
 cask 'font-fira-sans'
 cask 'font-hasklig'
