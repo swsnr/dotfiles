@@ -98,6 +98,10 @@
     ~/.ssh/config.d/00-macos:
       path: ssh/00-macos
       if: "uname -s | grep -qi darwin"
+    # Kitty terminal emulator config
+    ~/.config/kitty/:
+      path: kitty/*
+      glob: true
 
     # Linux configuration
     ~/.xprofile: linux/xprofile
@@ -112,11 +116,6 @@
       path: linux/fontconfig/*.conf
       glob: true
       if: "uname -s | grep -qi linux"
-    # Kitty terminal emulator config
-    ~/.config/kitty/:
-      path: kitty/*
-      glob: true
-      if: "type -p kitty > /dev/null"
     # i3 window manager and tooling
     ~/.config/i3/config:
       path: linux/i3/config
