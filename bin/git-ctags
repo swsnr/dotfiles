@@ -20,6 +20,5 @@ set -e
 
 git_dir="$(git rev-parse --git-dir)"
 trap 'rm -f "${git_dir}/tags.tmp"' EXIT
-git ls-files | \
-  ctags --tag-relative=always -L - -f "${git_dir}/tags.tmp" "${@}"
+git ls-files | ctags --tag-relative=never -L - -f "${git_dir}/tags.tmp" "${@}"
 mv "${git_dir}/tags.tmp" "${git_dir}/tags"
