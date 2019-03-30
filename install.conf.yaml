@@ -11,6 +11,7 @@
 - clean:
     # Prune dead symlinks in these directories
     - "~"
+    - "~/.local/bin"
     - "~/.config/fish"
     - "~/.config/fish/functions"
     - "~/.config/fish/conf.d"
@@ -28,6 +29,11 @@
 - link:
     # Symlink entire dotfiles folder, for convenience
     ~/.dotfiles: ""
+
+    # Personal binaries
+    ~/.local/bin:
+      path: "bin/*"
+      glob: true
 
     # Fish shell config files
     ~/.config/fish/config.fish: fish/config.fish
