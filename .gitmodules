@@ -22,3 +22,6 @@
 [submodule "nvim/pack/dotfiles/start/vim-fugitive"]
 	path = nvim/pack/dotfiles/start/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive.git
+[submodule "nvim/pack/dotfiles/start/vim-toml"]
+	path = nvim/pack/dotfiles/start/vim-toml
+	url = https://github.com/cespare/vim-toml.git
