@@ -26,15 +26,7 @@ function fish_prompt -d 'My personal prompt'
 
     set -g __fish_git_prompt_color_branch -o magenta
     set -g __fish_git_prompt_showupstream "informative"
-    set -g __fish_git_prompt_char_upstream_ahead "↑"
-    set -g __fish_git_prompt_char_upstream_behind "↓"
     set -g __fish_git_prompt_char_upstream_prefix ""
-
-    set -g __fish_git_prompt_char_stagedstate "●"
-    set -g __fish_git_prompt_char_dirtystate "+"
-    set -g __fish_git_prompt_char_untrackedfiles "…"
-    set -g __fish_git_prompt_char_conflictedstate "x"
-    set -g __fish_git_prompt_char_cleanstate "✔"
 
     set -g __fish_git_prompt_color_dirtystate red
     set -g __fish_git_prompt_color_stagedstate yellow
@@ -42,56 +34,56 @@ function fish_prompt -d 'My personal prompt'
     set -g __fish_git_prompt_color_untrackedfiles red
     set -g __fish_git_prompt_color_cleanstate green
 
-    echo -sn '('
-    if set -q SUDO_USER
-        echo -sn (set_color -o red) $USER (set_color normal)
-    else
-        echo -sn (set_color magenta) $USER (set_color normal)
+    if [ (id -u) -eq 0 ] || [ $LOGNAME != $USER ] || set -q SSH_CONNECTION
+        set -l color 'yellow'
+        if [ $USER = 'root' ]
+            set color 'red'
+        end
+        echo -sn (set_color -o $color) $USER (set_color normal) (set_color -o) " in "
     end
-    echo -sn '@' (set_color magenta) (prompt_hostname) (set_color normal) ')'
-
     # Working directory and git prompt
-    echo -sn ' (' (set_color cyan) (prompt_pwd) (set_color normal) ')'
-    echo -sn (__fish_git_prompt)
+    echo -sn (set_color -o cyan) (prompt_pwd) (set_color normal)
+    echo -sn (set_color -o) (__fish_git_prompt " on  %s")
+
+    # Python virtualenv if any
+    if set -q VIRTUAL_ENV
+        echo -sn (set_color -o) ' via ' (set_color -o cyan) (basename $VIRTUAL_ENV) (set_color normal)
+    end
+
+    # Time
+    echo -sn (set_color -o) ' at ' (set_color -o cyan) (date '+%H:%m') (set_color normal)
 
     # Battery if present and supported
     set -l battery (prompt_battery)
     if string length -q $battery $battery
-        echo -sn ' (' $battery ')'
+        echo -sn (set_color -o) ' ⚡' $battery
     end
 
-    # Python virtualenv if any
-    if set -q VIRTUAL_ENV
-        echo -sn ' (' (set_color -i cyan) (basename $VIRTUAL_ENV) (set_color normal) ')'
-    end
+    # New line
     echo -s
-    # Indicate exit code of last command
-    if test $last_exit_code -eq 0
-        echo -sn (set_color green) '✔'
-    else
-        echo -sn (set_color -o red) !
-    end
-    echo -sn (set_color normal)
-
-    set -l flags
-    if set -q fish_private_mode
-        set -a flags 'private'
-    end
-    if set -q SUDO_USER
-        set -a flags 'sudo'
-    end
-    if set -q SSH_CONNECTION
-        set -a flags 'ssh'
-    end
-    if [ 0 -lt (count $flags) ]
-        echo -sn ' ' (set_color -o yellow) (string join ' ' $flags) (set_color normal)
-    end
 
     # Add fish mode to prompt right before separator
-    echo -sn ' ' (fish_default_mode_prompt)
+    echo -sn (set_color -o)
+    switch $fish_bind_mode
+        case default
+            echo -sn '[N]'
+        case insert
+            echo -sn '[I]'
+        case replace_one
+            echo -sn '[R]'
+        case visual
+            echo -sn '[V]'
+    end
+    echo -sn (set_color normal) ' '
 
-    # Prompt separator
-    echo -sn (set_color green) '❯ ' (set_color normal)
+    # Indicate exit code of last command
+    if test $last_exit_code -eq 0
+        echo -sn (set_color -o green)
+    else
+        echo -sn (set_color -o red)
+    end
+    echo -sn "→ " (set_color normal)
+
     # Tell iterm that the command input starts now
     iterm2_command 'command_start'
 end
