@@ -51,7 +51,7 @@ function fish_prompt -d 'My personal prompt'
     end
 
     # Time
-    echo -sn (set_color -o) ' at ' (set_color -o cyan) (date '+%H:%m') (set_color normal)
+    echo -sn (set_color -o) ' at ' (set_color -o cyan) (date '+%H:%M') (set_color normal)
 
     # Battery if present and supported
     set -l battery (prompt_battery)
