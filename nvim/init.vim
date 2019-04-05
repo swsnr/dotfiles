@@ -164,8 +164,8 @@ augroup END
 let g:rustfmt_autosave = 1
 augroup rust
   au!
-  au filetype rust map <buffer> <localleader>b :silent make build <Bar> cwindow<cr>
-  au filetype rust map <buffer> <localleader>c :silent make check <Bar> cwindow<cr>
+  au filetype rust map <buffer> <localleader>b :silent make build <Bar> cwindow 25<cr>
+  au filetype rust map <buffer> <localleader>c :silent make check <Bar> cwindow 25<cr>
 augroup END
 " }}}
 
