@@ -130,6 +130,10 @@ bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
+# Scratchpad
+bindsym $mod+minus scratchpad show
+bindsym $mod+Shift+minus move scratchpad
+
 # Fresh background
 bindsym $mod+Shift+b exec --no-startup-id "random-wallpaper"
 # reload the configuration file
@@ -167,6 +171,13 @@ mode "resize" {
 }
 
 bindsym $mod+r mode "resize"
+
+# Window assignments and rules
+# Float jetbrains toolbox windows
+for_window [class="jetbrains-toolbox"] floating enable
+# Open notes and messages on second workspace
+assign [class="Joplin"] 2
+assign [class="Rocket.Chat"] 2
 
 bar {
   status_command i3status
