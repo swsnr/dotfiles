@@ -120,9 +120,6 @@
     ~/.config/i3/config:
       path: linux/i3/config
       if: "type -p i3 > /dev/null"
-    ~/.config/i3status/config:
-      path: linux/i3/i3status.conf
-      if: "type -p i3status > /dev/null"
     ~/.config/i3blocks/config:
       path: linux/i3/i3blocks.conf
       if: "type -p i3blocks > /dev/null"
