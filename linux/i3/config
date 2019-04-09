@@ -180,8 +180,9 @@ assign [class="Joplin"] 2
 assign [class="Rocket.Chat"] 2
 
 bar {
-  status_command i3status
+  status_command i3blocks
   position top
+  separator_symbol " "
   tray_output primary
   tray_padding 5px
 

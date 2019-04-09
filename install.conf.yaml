@@ -123,6 +123,9 @@
     ~/.config/i3status/config:
       path: linux/i3/i3status.conf
       if: "type -p i3status > /dev/null"
+    ~/.config/i3blocks/config:
+      path: linux/i3/i3blocks.conf
+      if: "type -p i3blocks > /dev/null"
     ~/.local/bin/random-wallpaper:
       path: linux/bin/random-wallpaper.py
       if: "uname -s | grep -qi linux"
