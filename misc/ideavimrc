@@ -62,7 +62,7 @@ nnoremap <Space>jt :action FileStructurePopup<CR>
 nnoremap <Space>js :action Switcher<CR>
 
 " Help
-nnoremap <Space>hj :action QuickJavadoc<CR>
+nnoremap <Space>hj :action QuickJavaDoc<CR>
 nnoremap <Space>hp :action ParameterInfo<CR>
 
 " Files
