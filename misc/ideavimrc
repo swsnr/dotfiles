@@ -47,6 +47,7 @@ nnoremap <Space>cr :action RenameElement<CR>
 nnoremap <Space>cf :action ReformatCode<CR>
 nnoremap <Space>cp :action ParameterInfo<CR>
 nnoremap <Space>co :action OverrideMethods<CR>
+nnoremap <Space>ci :action ImplementMethods<CR>
 
 " Search
 nnoremap <Space>sc :action GotoClass<CR>
