@@ -173,8 +173,9 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Window assignments and rules
-# Float jetbrains toolbox windows
+# Float jetbrains toolbox and some other dialog-like windows
 for_window [class="jetbrains-toolbox"] floating enable
+for_window [class="Evolution-alarm-notify"] floating enable
 # Open notes and messages on second workspace
 assign [class="Joplin"] 2
 assign [class="Rocket.Chat"] 2
