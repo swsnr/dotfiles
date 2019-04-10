@@ -26,8 +26,6 @@ CRATES = [
     'cargo-graph',
     'cargo-license',
     'cargo-sweep',
-    'git-gone',
-    'xkpwgen',
 ]
 
 
