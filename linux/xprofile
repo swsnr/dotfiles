@@ -1,9 +1,18 @@
 #!/bin/sh
 
 case "${XDG_CURRENT_DESKTOP}" in
-    XFCE | *GNOME | i3)
-        # Configure QT explicitly on Gnome and XFCE
+    XFCE | *GNOME)
+        # Configure Qt explicitly on Gnome and XFCE
         export QT_QPA_PLATFORMTHEME=qt5ct;
+        ;;
+    i3)
+        # Set Qt theme for i3, and expose Gnome's SSH agent
+        export QT_QPA_PLATFORMTHEME=qt5ct;
+        # TODO: Use ssh-agent once we get rid of gnome-keyring
+        # Use keepassxc instead once it's ready, see
+        # <https://github.com/keepassxreboot/keepassxc/issues/1403>
+        eval "$(gnome-keyring-daemon --start)"
+        export SSH_AUTH_SOCK
         ;;
 esac
 
