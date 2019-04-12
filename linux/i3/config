@@ -31,6 +31,10 @@ exec --no-startup-id dunst
 exec --no-startup-id /usr/lib/gsd-xsettings
 # Polkit agent
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+# Tray icons for network manager, pulse audio and battery
+exec --no-startup-id nm-applet
+exec --no-startup-id pasystray
+exec --no-startup-id cbatticon -u 30 -n -c 'notify-send -u critical "Battery critical"'
 
 # Assign random wallpapers to all screens
 exec_always --no-startup-id "random-wallpaper"
