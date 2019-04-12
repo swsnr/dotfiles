@@ -123,6 +123,11 @@
     ~/.config/i3blocks/config:
       path: linux/i3/i3blocks.conf
       if: "type -p i3blocks > /dev/null"
+    # Notification daemon for i3
+    ~/.config/dunst/dunstrc:
+      path: linux/dunstrc
+      if: "type -p dunst > /dev/null"
+    # Linux scripts
     ~/.local/bin/random-wallpaper:
       path: linux/bin/random-wallpaper.py
       if: "uname -s | grep -qi linux"
