@@ -25,16 +25,10 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 
 client.background       #ffffff
 
-# Gnome components to get Gnome apps working, see
-# <https://github.com/csxr/i3-gnome/wiki/Tips-&-Tricks#gnome-flashback> Settings
-# daemon
-exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-xsettings
+# Gnome settings daemon for Gtk3/Gnome apps
+exec --no-startup-id /usr/lib/gsd-xsettings
 # Polkit agent
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-# Gnome session stuff to get gnome control center etc working
-exec --no-startup-id gnome-flashback
-# Power manager
-exec_always --no-startup-id gnome-power-manager
 
 # Assign random wallpapers to all screens
 exec_always --no-startup-id "random-wallpaper"
@@ -134,16 +128,22 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 bindsym $mod+minus scratchpad show
 bindsym $mod+Shift+minus move scratchpad
 
-# Fresh background
-bindsym $mod+Shift+b exec --no-startup-id "random-wallpaper"
-# reload the configuration file
-bindsym $mod+Shift+c reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
-# Logout, shutdown and reboot
-bindsym $mod+Shift+e exec "gnome-session-quit"
-bindsym $mod+Ctrl+r exec "gnome-session-quit --reboot"
-bindsym $mod+Ctrl+h exec "gnome-session-quit --power-off"
+# System mode
+set $mode_system (w) new wallpaper, (c) reconfigure, (l) reload, (s) shutdown, (r) reboot, (e) exit
+mode "$mode_system" {
+        bindsym e exec --no-startup-id i3-msg exit, mode "default"
+        bindsym c reload, mode "default"
+        bindsym l restart, mode "default"
+        bindsym r exec --no-startup-id systemctl reboot, mode "default"
+        bindsym s exec --no-startup-id systemctl poweroff, mode "default"
+        bindsym w exec --no-startup-id "random-wallpaper", mode "default"
+
+        bindsym $mod+Delete mode "default"
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym $mod+Delete mode "$mode_system"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
