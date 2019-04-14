@@ -2,7 +2,6 @@
 [user]
 	name = Sebastian Wiesner
 	useconfigonly = true
-	signingKey = 5C42FE98
 [core]
 	preloadIndex = true
 [branch]
