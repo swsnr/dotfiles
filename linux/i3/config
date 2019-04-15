@@ -25,8 +25,6 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 
 client.background       #ffffff
 
-# Notifications
-exec --no-startup-id dunst
 # Gnome settings daemon for Gtk3/Gnome apps
 exec --no-startup-id /usr/lib/gsd-xsettings
 # Polkit agent
