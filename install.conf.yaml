@@ -99,7 +99,9 @@
       if: "uname -s | grep -qi darwin"
 
     # Linux configuration
-    ~/.xprofile: linux/xprofile
+    ~/.xprofile:
+      path: linux/xprofile
+      if: "uname -s | grep -qi linux"
     ~/.config/rofi/config.rasi:
       path: linux/rofi.rasi
       if: "type -p rofi > /dev/null"
