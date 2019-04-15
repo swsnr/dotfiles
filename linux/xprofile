@@ -16,6 +16,10 @@ case "${XDG_CURRENT_DESKTOP}" in
         ;;
 esac
 
+# Import paths from fish
 export "$(fish -l -c env | grep -e '^PATH=')"
 export "$(fish -l -c env | grep -e '^MANPATH=')"
 export "$(fish -l -c env | grep -e '^INFOPATH=')"
+
+# Turn on numlock
+numlockx on
