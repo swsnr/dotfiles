@@ -37,7 +37,17 @@ exec --no-startup-id pasystray
 exec --no-startup-id cbatticon -u 30 -n -c 'notify-send -u critical "Battery critical"'
 
 # Assign random wallpapers to all screens
-exec_always --no-startup-id "random-wallpaper"
+exec_always --no-startup-id random-wallpaper
+
+# Provide a terminal in scratch-pad for quick access, see
+# <https://gist.github.com/indeedwatson/2bfc3c533d172a2f62da4ebdc752b39c>
+exec --no-startup-id kitty --name=scratchpad-terminal
+bindsym $mod+grave [instance="scratchpad-terminal"] scratchpad show, \
+  move position center
+for_window [instance="scratchpad-terminal"] floating enable, \
+  border pixel 5, \
+  resize set 1024 786, \
+  move scratchpad
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
