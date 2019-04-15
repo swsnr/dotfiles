@@ -41,7 +41,7 @@ exec_always --no-startup-id random-wallpaper
 
 # Provide a terminal in scratch-pad for quick access, see
 # <https://gist.github.com/indeedwatson/2bfc3c533d172a2f62da4ebdc752b39c>
-exec --no-startup-id kitty --name=scratchpad-terminal
+exec --no-startup-id tilix --name=scratchpad-terminal
 bindsym $mod+grave [instance="scratchpad-terminal"] scratchpad show, \
   move position center
 for_window [instance="scratchpad-terminal"] floating enable, \
@@ -53,7 +53,7 @@ for_window [instance="scratchpad-terminal"] floating enable, \
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+t exec kitty
+bindsym $mod+t exec tilix
 
 # kill focused window
 bindsym $mod+Shift+q kill
