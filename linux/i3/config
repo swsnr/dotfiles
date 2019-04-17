@@ -8,6 +8,13 @@ set $mod Mod4
 # is used in the bar {} block below.
 font pango:Ubuntu 13
 
+# Don't steal focus; mark windows as urgent if they request activation.
+focus_on_window_activation urgent
+# Never make Idea windows focused right away; I always open IDEA in the
+# background because it takes so long to start.
+no_focus [class=".*jetbrains.*"]
+no_focus [window_type=dialog]
+
 # Colors from the Arc theme
 set $background #f5f6f7
 set $foreground	#5c616c
