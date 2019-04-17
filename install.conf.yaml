@@ -137,9 +137,6 @@
     "~/Library/Application Support/DEVONthink Pro 2/StyleSheets/Vollkorn.css":
       path: macos/devonthink-feed.css
       if: "uname -s | grep -qi darwin"
-
-    # Joplin stylesheet
-    ~/.config/joplin-desktop/userstyle.css: joplin/userstyle.css
 - shell:
     - description: Set yarn prefix to ~/.local
       command: sh -c 'command -v yarn && yarn config set prefix ~/.local || exit 0'
