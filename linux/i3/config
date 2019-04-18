@@ -187,9 +187,11 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Window assignments and rules
-# Float jetbrains toolbox and some other dialog-like windows
+# Float jetbrains toolbox because it's intended to float
 for_window [class="jetbrains-toolbox"] floating enable
-for_window [class="Evolution-alarm-notify"] floating enable
+# Float keepassxc because most of the time I just type the password to unlock
+# and close the window again.
+for_window [class="keepassxc"] floating enable
 # Open messages on second screen
 assign [class="Rocket.Chat"] 2
 
