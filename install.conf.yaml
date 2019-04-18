@@ -120,6 +120,10 @@
     ~/.config/i3blocks/config:
       path: linux/i3/i3blocks.conf
       if: "type -p i3blocks > /dev/null"
+    ~/.config/i3blocks/blocklets:
+      path: linux/i3/blocklets/*
+      glob: true
+      if: "type -p i3blocks > /dev/null"
     # Notification daemon for i3
     ~/.config/dunst/dunstrc:
       path: linux/dunstrc
