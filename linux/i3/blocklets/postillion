@@ -24,16 +24,20 @@ def item_pubdate(item):
     return parsedate_tz(item.findtext('pubDate'))
 
 
+def extract_quotes(item):
+    description = html.fromstring(item.findtext('description'))
+    # Split by marker and drop last element which is the "More…" link.
+    return [s.strip()
+            for s in description.text_content().split('+++')[:-1]
+            if s]
+
+
 def main():
     with urlopen('http://feeds.feedburner.com/blogspot/rkEL') as source:
         feed = etree.parse(source)
     newstickers = sorted(feed.findall('.//item[category = "Newsticker"]'),
                          key=item_pubdate)
-    description = html.fromstring(newstickers[0].findtext('description'))
-    # Split by marker and drop last element which is the "More…" link.
-    quotes = [s.strip()
-              for s in description.text_content().split('+++')[:-1]
-              if s]
+    quotes = [quote for item in newstickers for quote in extract_quotes(item)]
     print(random.choice(quotes))
 
 
