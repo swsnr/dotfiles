@@ -42,9 +42,9 @@ nnoremap <Space>c<Space> :action CommentByLineComment<CR>
 
 " Code commands
 nnoremap <Space>cc :action CompileDirty<CR>
-nnoremap <Space>cR :action Refactorings.QuickListPopupAction<CR>
+noremap <Space>cR :action Refactorings.QuickListPopupAction<CR>
 nnoremap <Space>cr :action RenameElement<CR>
-nnoremap <Space>cf :action ReformatCode<CR>
+noremap <Space>cf :action ReformatCode<CR>
 nnoremap <Space>cp :action ParameterInfo<CR>
 nnoremap <Space>co :action OverrideMethods<CR>
 nnoremap <Space>ci :action ImplementMethods<CR>
