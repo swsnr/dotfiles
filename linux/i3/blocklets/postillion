@@ -15,13 +15,8 @@
 
 import random
 from urllib.request import urlopen
-from email.utils import parsedate_tz
 
 from lxml import etree, html
-
-
-def item_pubdate(item):
-    return parsedate_tz(item.findtext('pubDate'))
 
 
 def extract_quotes(item):
@@ -35,8 +30,7 @@ def extract_quotes(item):
 def main():
     with urlopen('http://feeds.feedburner.com/blogspot/rkEL') as source:
         feed = etree.parse(source)
-    newstickers = sorted(feed.findall('.//item[category = "Newsticker"]'),
-                         key=item_pubdate)
+    newstickers = feed.findall('.//item[category = "Newsticker"]')
     quotes = [quote for item in newstickers for quote in extract_quotes(item)]
     print(random.choice(quotes))
 
