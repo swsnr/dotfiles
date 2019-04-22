@@ -9,6 +9,8 @@ Build with [dotbot][].  Highlights:
 * NeoVim (`nvim`)
 * i3 (`linux/i3`)
 
+[dotbot]: https://github.com/anishathalye/dotbot
+
 ## Install
 
 ```console
