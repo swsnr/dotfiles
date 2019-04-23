@@ -35,7 +35,9 @@ def main():
     with urlopen('http://feeds.feedburner.com/blogspot/rkEL') as source:
         feed = etree.parse(source)
     newstickers = feed.findall('.//item[category = "Newsticker"]')
-    quotes = [quote for item in newstickers for quote in extract_quotes(item)]
+    quotes = [quote for item in newstickers
+              for quote in extract_quotes(item) if
+              quote]
     print('📯 {}'.format(random.choice(quotes)), flush=True)
     while True:
         time.sleep(INTERVAL)
