@@ -14,9 +14,13 @@
 # the License.
 
 import random
+import time
 from urllib.request import urlopen
 
 from lxml import etree, html
+
+
+INTERVAL = 30
 
 
 def extract_quotes(item):
@@ -32,7 +36,10 @@ def main():
         feed = etree.parse(source)
     newstickers = feed.findall('.//item[category = "Newsticker"]')
     quotes = [quote for item in newstickers for quote in extract_quotes(item)]
-    print('📯 {}'.format(random.choice(quotes)))
+    print('📯 {}'.format(random.choice(quotes)), flush=True)
+    while True:
+        time.sleep(INTERVAL)
+        print('📯 {}'.format(random.choice(quotes)), flush=True)
 
 
 if __name__ == '__main__':
