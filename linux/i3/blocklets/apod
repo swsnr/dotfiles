@@ -15,9 +15,20 @@
 
 set -e
 
+api_key="$(secret-tool lookup server api.nasa.gov kind api-key)"
+url="https://api.nasa.gov/planetary/apod?api_key=${api_key}"
+curl -sS "${url}" | jq -r '
+if .code then
+  "\(.msg)\n", null | halt_error(1)
+elif .error.code then
+  "\(.error.message)\n", null | halt_error(1)
+else
+  "APOD \(now | strftime("%Y-%m-%d")): \(.title)"
+end
+'
+
 # Open webbrowser with today's APOD image
-if [[ "${BLOCK_BUTTON:+clicked}" = clicked ]]; then
-  apodclient browse today;
+if [[ "$BLOCK_BUTTON" -eq 1 ]]; then
+    exec xdg-open "https://apod.nasa.gov/apod/ap$(date '+%y%m%d').html" &> /dev/null &
 fi
 
-exec apodclient title today
