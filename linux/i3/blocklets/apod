@@ -23,7 +23,7 @@ if .code then
 elif .error.code then
   "\(.error.message)\n", null | halt_error(1)
 else
-  "APOD \(now | strftime("%Y-%m-%d")): \(.title)"
+  "🌌 APOD \(now | strftime("%Y-%m-%d")): \(.title)"
 end
 '
 

@@ -32,7 +32,7 @@ def main():
         feed = etree.parse(source)
     newstickers = feed.findall('.//item[category = "Newsticker"]')
     quotes = [quote for item in newstickers for quote in extract_quotes(item)]
-    print(random.choice(quotes))
+    print('📯 {}'.format(random.choice(quotes)))
 
 
 if __name__ == '__main__':
