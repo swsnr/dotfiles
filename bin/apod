@@ -13,14 +13,14 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
-import sys
 import json
-from platform import system
-from textwrap import fill
-from pathlib import Path
-from datetime import date
+import sys
 from argparse import ArgumentParser
+from datetime import date
+from pathlib import Path
+from platform import system
 from subprocess import run
+from textwrap import fill
 
 
 def get_pictures_directory():
