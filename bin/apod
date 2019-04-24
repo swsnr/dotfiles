@@ -15,6 +15,7 @@
 
 import sys
 import json
+from platform import system
 from textwrap import fill
 from pathlib import Path
 from datetime import date
@@ -22,17 +23,31 @@ from argparse import ArgumentParser
 from subprocess import run
 
 
+def get_pictures_directory():
+    if system() == 'Darwin':
+        return Path.home() / 'Pictures'
+    else:
+        process = run(['xdg-user-dir', 'PICTURES'],
+                      check=True, capture_output=True, encoding='utf-8')
+        return Path(process.stdout.splitlines()[0])
+
+
 def get_default_directory():
-    # TODO: Get Image directory on macOS
-    process = run(['xdg-user-dir', 'PICTURES'],
-                  check=True, capture_output=True, encoding='utf-8')
-    return Path(process.stdout.splitlines()[0]) / 'APOD'
+    return get_pictures_directory() / 'APOD'
 
 
 def lookup_api_key():
-    # TODO: Get API key from keychain on macOS (via security)
-    process = run(['secret-tool', 'lookup', 'server', 'api.nasa.gov', 'kind',
-                   'api-key'], check=True, capture_output=True, encoding='utf-8')
+    cmds = {
+        'Darwin': [
+            'security', 'find-internet-password', '-C', 'apky', '-s',
+            'api.nasa.gov', '-r', 'htps', '-w'
+        ],
+        'Linux': [
+            'secret-tool', 'lookup',
+            'server', 'api.nasa.gov', 'kind', 'api-key']
+    }
+    process = run(cmds[system()], check=True,
+                  capture_output=True, encoding='utf-8')
     return process.stdout.rstrip()
 
 
