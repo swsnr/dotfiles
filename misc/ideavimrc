@@ -38,7 +38,7 @@ map - :action SmartUnSelect<cr>
 nnoremap <Space><Space> :action GotoAction<CR>
 
 " Comments
-nnoremap <Space>c<Space> :action CommentByLineComment<CR>
+noremap <Space>c<Space> :action CommentByLineComment<CR>
 
 " Code commands
 nnoremap <Space>cc :action CompileDirty<CR>
