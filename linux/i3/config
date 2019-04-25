@@ -213,8 +213,9 @@ bar {
     statusline $foreground
     separator $foreground
 
-    focused_workspace $background $selection  #ffffff
-    urgent_workspace  $background $warning    #fffff
-    active_workspace  $background $selection_light $foreground
+    focused_workspace  $background $selection  #ffffff
+    urgent_workspace   $background $warning    #fffff
+    active_workspace   $background $selection_light $foreground
+    inactive_workspace $background $background $foreground
   }
 }
