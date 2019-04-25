@@ -54,6 +54,7 @@ nnoremap <Space>sc :action GotoClass<CR>
 nnoremap <Space>se :action SearchEverywhere<CR>
 nnoremap <Space>ss :action GotoSymbol<CR>
 nnoremap <Space>su :action FindUsages<CR>
+noremap <Space>sf :action FindInPath<CR>
 
 " Jumping
 nnoremap <Space>j<Space> :action AceAction<CR>
