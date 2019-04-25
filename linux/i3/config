@@ -49,12 +49,16 @@ bindsym $mod+grave exec tilix -q
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-# start a terminal
+# Start a terminal quickly
 bindsym $mod+t exec tilix
 
-# kill focused window
+# Kill focused window
 bindsym $mod+Shift+q kill
 bindsym $mod+w kill
+
+# Kill window with middle-click on title bar (with modifier on whole window)
+bindsym --release button2 kill
+bindsym --whole-window $mod+button2 kill
 
 # Program launcher
 bindsym $mod+space exec rofi -show-icons -modi drun -show drun
