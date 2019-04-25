@@ -61,7 +61,7 @@ bindsym --release button2 kill
 bindsym --whole-window $mod+button2 kill
 
 # Program launcher
-bindsym $mod+space exec rofi -show-icons -modi drun -show drun
+bindsym $mod+space exec "rofi -show-icons -combi-modi 'drun,window' -modi combi -show combi"
 
 # File manager
 bindsym $mod+e exec thunar
