@@ -19,8 +19,16 @@ from argparse import ArgumentParser
 from datetime import date
 from pathlib import Path
 from platform import system
-from subprocess import run
+from subprocess import run, Popen, DEVNULL
 from textwrap import fill
+
+
+def open_file(path):
+    cmds = {
+        'Darwin': ['open', str(path)],
+        'Linux': ['xdg-open', str(path)]
+    }
+    return Popen(cmds[system()], stdout=DEVNULL, stderr=DEVNULL)
 
 
 def get_pictures_directory():
@@ -81,8 +89,10 @@ Copyright {}
 """.format(image_info['title'],
            image_info.get('copyright', 'NASA Public Domain'),
            fill(image_info['explanation'], width=80, break_long_words=False))
-    target.with_suffix('.md').write_text(info, encoding='utf-8')
+    meta_target = target.with_suffix('.md')
+    meta_target.write_text(info, encoding='utf-8')
     print('APOD written to {}'.format(target))
+    return (target, meta_target)
 
 
 def main():
@@ -91,6 +101,8 @@ def main():
     parser.add_argument('--directory', help='Target directory', type=Path)
     parser.add_argument('date', metavar='YYYY-MM-DD', help='Date to download',
                         type=date.fromisoformat, nargs='?', default=date.today())
+    parser.add_argument('-o', '--open', help='Open after downloading',
+                        action='store_true')
     args = parser.parse_args()
     if not args.api_key:
         args.api_key = lookup_api_key()
@@ -109,7 +121,9 @@ def main():
         sys.exit('APOD error: {} (code {})'.format(error['message'],
                                                    error['code']))
     else:
-        download_image(args.directory, info)
+        (image, _) = download_image(args.directory, info)
+        if args.open:
+            open_file(image)
 
 
 if __name__ == '__main__':
