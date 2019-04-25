@@ -18,4 +18,8 @@ set -e
 config_home="${XDG_CONFIG_HOME:-$HOME/.config}"
 location="$(< "${config_home}"/i3blocks/location)"
 
+if [[ "$BLOCK_BUTTON" -eq 1 ]]; then
+  xdg-open "https://wttr.in/${location}" &> /dev/null &
+fi
+
 exec curl "https://wttr.in/${location}?format=%c%t"
