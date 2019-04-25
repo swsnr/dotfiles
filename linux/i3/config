@@ -78,37 +78,37 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-# split in horizontal orientation
+# Split in horizontal orientation
 bindsym $mod+h split h
 
-# split in vertical orientation
+# Split in vertical orientation
 bindsym $mod+v split v
 
-# enter fullscreen mode for the focused container
-bindsym $mod+Return fullscreen toggle
+# Enter fullscreen mode for the focused container
+bindsym $mod+return fullscreen toggle
 
-# change container layout (stacked, tabbed, toggle split)
-bindsym $mod+Shift+s layout stacking
-bindsym $mod+Shift+w layout tabbed
-bindsym $mod+Shift+t layout toggle split
+# Change container layout (stacked, tabbed, toggle split)
+bindsym $mod+shift+s layout stacking
+bindsym $mod+shift+w layout tabbed
+bindsym $mod+shift+t layout toggle split
 
-# toggle tiling / floating
-bindsym $mod+Shift+f floating toggle
+# Toggle tiling / floating
+bindsym $mod+shift+f floating toggle
 
-# change focus between tiling / floating windows
+# Change focus between tiling / floating windows
 bindsym $mod+f focus mode_toggle
 
-# focus the parent container
+# Focus the parent container
 bindsym $mod+a focus parent
 
-# focus the child container
+# Focus the child container
 bindsym $mod+d focus child
 
-# focus urgent window
+# Focus urgent window
 bindsym $mod+u [urgent=latest] focus
 
 # Define names for default workspaces for which we configure key bindings later on.
-# We use variables to avoid repeating the names in multiple places.
+# we use variables to avoid repeating the names in multiple places.
 set $ws1 "1"
 set $ws2 "2"
 set $ws3 "3"
@@ -120,7 +120,7 @@ set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
 
-# switch to workspace
+# Switch to workspace
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
 bindsym $mod+3 workspace $ws3
@@ -132,7 +132,7 @@ bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace $ws9
 bindsym $mod+0 workspace $ws10
 
-# move focused container to workspace
+# Move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
 bindsym $mod+Shift+2 move container to workspace $ws2
 bindsym $mod+Shift+3 move container to workspace $ws3
@@ -148,19 +148,35 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 bindsym $mod+minus scratchpad show
 bindsym $mod+Shift+minus move scratchpad
 
+# Workspace mode
+set $mode_workspace (←→↑↓) move to output, (p) move to primary
+mode "$mode_workspace" {
+  bindsym Left move workspace to output left, mode "default"
+  bindsym Down move workspace to output down, mode "default"
+  bindsym Up move workspace to output up, mode "default"
+  bindsym Right move workspace to output right, mode "default"
+
+  bindsym p move workspace to output primary, mode "default"
+
+  bindsym $mod+s mode "default"
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+bindsym $mod+s mode "$mode_workspace"
+
 # System mode
 set $mode_system (w) new wallpaper, (c) reconfigure, (l) reload, (s) shutdown, (r) reboot, (e) exit
 mode "$mode_system" {
-        bindsym e exec --no-startup-id i3-msg exit, mode "default"
-        bindsym c reload, mode "default"
-        bindsym l restart, mode "default"
-        bindsym r exec --no-startup-id systemctl reboot, mode "default"
-        bindsym s exec --no-startup-id systemctl poweroff, mode "default"
-        bindsym w exec --no-startup-id "random-wallpaper", mode "default"
+  bindsym e exec --no-startup-id i3-msg exit, mode "default"
+  bindsym c reload, mode "default"
+  bindsym l restart, mode "default"
+  bindsym r exec --no-startup-id systemctl reboot, mode "default"
+  bindsym s exec --no-startup-id systemctl poweroff, mode "default"
+  bindsym w exec --no-startup-id "random-wallpaper", mode "default"
 
-        bindsym $mod+Delete mode "default"
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
+  bindsym $mod+Delete mode "default"
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
 }
 
 bindsym $mod+Delete mode "$mode_system"
