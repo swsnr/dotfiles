@@ -13,35 +13,124 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
+import json
+import os
 import random
 import time
-from urllib.request import urlopen
+from dataclasses import dataclass, asdict, is_dataclass
+from datetime import datetime, timedelta
+from pathlib import Path
+from typing import List
 
-from lxml import etree, html
+
+def get_xdg_cache_home():
+    cache_home = os.environ.get('XDG_CACHE_HOME')
+    if cache_home:
+        return Path(cache_home)
+    else:
+        return Path.home() / '.cache'
 
 
-INTERVAL = 30
+def state_file_path():
+    return get_xdg_cache_home() / 'i3blocks' / 'blocklets' / 'postillion.json'
+
+
+@dataclass
+class State:
+    current_quote: str
+    quotes: List[str]
+    quotes_timestamp: datetime
+
+    @property
+    def is_outdated(self):
+        diff = datetime.utcnow() - self.quotes_timestamp
+        return diff > timedelta(hours=6)
+
+    def update_quotes(self, quotes):
+        self.quotes = quotes
+        self.quotes_timestamp = datetime.utcnow()
+
+
+def fresh_state():
+    quotes = get_quotes()
+    return State(random.choice(quotes), quotes, datetime.utcnow())
+
+
+class StateEncoder(json.JSONEncoder):
+    def default(self, o):
+        if is_dataclass(o):
+            return asdict(o)
+        elif isinstance(o, datetime):
+            return o.isoformat()
+        else:
+            return super().default()
+
+
+def get_state(state_file):
+    if state_file.is_file():
+        with open(state_file, 'rb') as source:
+            state_data = json.load(source)
+            state = State(
+                current_quote=state_data['current_quote'],
+                quotes=state_data['quotes'],
+                quotes_timestamp=datetime.fromisoformat(
+                    state_data['quotes_timestamp'])
+            )
+        return state
+    else:
+        return None
+
+
+def write_state(state, state_file):
+    state_file.parent.mkdir(parents=True, exist_ok=True)
+    with open(state_file, 'w', encoding='utf-8') as sink:
+        json.dump(asdict(state), sink, cls=StateEncoder)
 
 
 def extract_quotes(item):
-    description = html.fromstring(item.findtext('description'))
+    from lxml.html import fromstring
+    description = fromstring(item.findtext('description'))
     # Split by marker and drop last element which is the "More…" link.
     return [s.strip()
             for s in description.text_content().split('+++')[:-1]
             if s]
 
 
-def main():
+def get_quotes():
+    from urllib.request import urlopen
+    from lxml import etree
     with urlopen('http://feeds.feedburner.com/blogspot/rkEL') as source:
         feed = etree.parse(source)
     newstickers = feed.findall('.//item[category = "Newsticker"]')
     quotes = [quote for item in newstickers
               for quote in extract_quotes(item) if
               quote]
-    print('📯 {}'.format(random.choice(quotes)), flush=True)
-    while True:
-        time.sleep(INTERVAL)
-        print('📯 {}'.format(random.choice(quotes)), flush=True)
+    return quotes
+
+
+def set_selection(content):
+    from subprocess import run, DEVNULL
+    run(['xsel', '-i'], input=content.encode('utf-8'),
+        stdout=DEVNULL, stderr=DEVNULL, check=True)
+
+
+def main():
+    state_file = state_file_path()
+    state = get_state(state_file)
+    if not state:
+        # Fetch quotes initially
+        state = fresh_state()
+    elif os.environ.get('BLOCK_BUTTON', '') == '2':
+        # If middle button was clicked copy the current quote
+        set_selection(state.current_quote)
+    else:
+        if state.is_outdated:
+            state.update_quotes(get_quotes())
+        # Otherwise generate a new quote, after updating quotes if necessary
+        state.current_quote = random.choice(state.quotes)
+
+    print('📯 {}'.format(state.current_quote), flush=True)
+    write_state(state, state_file)
 
 
 if __name__ == '__main__':
