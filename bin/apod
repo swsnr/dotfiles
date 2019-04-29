@@ -59,11 +59,33 @@ def lookup_api_key():
     return process.stdout.rstrip()
 
 
+class APODError(Exception):
+    def __init__(self, code, message, response):
+        super().__init__(code, message, response)
+
+    @property
+    def code(self):
+        return self.args[0]
+
+    @property
+    def message(self):
+        return self.args[1]
+
+    def __str__(self):
+        return '{} (code {})'.format(self.message, self.code)
+
+
 def get_info(api_key, date):
     url = "https://api.nasa.gov/planetary/apod?api_key={}&date={}&hd=True".format(
         api_key, date.isoformat())
     process = run(['curl', '-sS', url], check=True, capture_output=True)
-    return json.loads(process.stdout.strip())
+    info = json.loads(process.stdout.strip())
+    if info.get('code'):
+        raise APODError(info['code'], info['msg'], info)
+    elif 'error' in info:
+        raise APODError(info['error']['code'], info['error']['message'], info)
+    else:
+        return info
 
 
 def image_exists(directory, date):
@@ -113,17 +135,17 @@ def main():
         print('APOD {} already exists in {}'.format(args.date, args.directory))
         return
 
-    info = get_info(args.api_key, args.date)
-    if info.get('code'):
-        sys.exit('APOD error: {} (code {})'.format(info['msg'], info['code']))
-    elif info.get('error', {}).get('code'):
-        error = info['error']
-        sys.exit('APOD error: {} (code {})'.format(error['message'],
-                                                   error['code']))
-    else:
+    try:
+        info = get_info(args.api_key, args.date)
         (image, _) = download_image(args.directory, info)
         if args.open:
             open_file(image)
+    except APODError as error:
+        sys.exit('APOD error: {}'.format(error))
+    except ValueError as error:
+        sys.exit('Error: {}'.format(error))
+    except KeyboardInterrupt:
+        pass
 
 
 if __name__ == '__main__':
