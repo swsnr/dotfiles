@@ -14,7 +14,8 @@
 
 function open --description 'Open things'
     if command --search xdg-open >/dev/null
-        xdg-open $argv
+        xdg-open $argv >/dev/null 2>&1 &
+        disown
     else
         command open $argv
     end
