@@ -101,7 +101,7 @@ def download_image(directory, image_info):
     basename = url.split('/')[-1]
     filename = '{}-{}'.format(image_info['date'], basename)
     target = directory / filename
-    run(['curl', '-sSf', '-o', str(target), url], check=True)
+    run(['curl', '-f', '-o', str(target), url], check=True)
     info = """\
 # {}
 
