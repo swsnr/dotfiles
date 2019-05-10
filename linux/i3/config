@@ -64,7 +64,7 @@ bindsym --whole-window $mod+button2 kill
 bindsym $mod+space exec "rofi -show-icons -combi-modi 'drun,window' -modi combi -show combi"
 
 # File manager
-bindsym $mod+e exec thunar
+bindsym $mod+e exec xdg-open ~
 
 # Change focus
 bindsym $mod+Left focus left
