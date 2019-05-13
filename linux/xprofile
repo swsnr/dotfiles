@@ -5,7 +5,8 @@ case "${XDG_CURRENT_DESKTOP}" in
         # Configure Qt explicitly on Gnome and XFCE
         export QT_QPA_PLATFORMTHEME=qt5ct;
         ;;
-    i3)
+    # If XDG_CURRENT_DESKTOP isn't set, assume i3
+    "" | i3)
         # Set Qt theme for i3, and expose Gnome's SSH agent
         export QT_QPA_PLATFORMTHEME=qt5ct;
         # TODO: Use ssh-agent once we get rid of gnome-keyring
