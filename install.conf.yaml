@@ -104,7 +104,7 @@
       if: "uname -s | grep -qi linux"
     ~/.config/rofi/config.rasi:
       path: linux/rofi.rasi
-      if: "type -p rofi > /dev/null"
+      if: "uname -s | grep -qi linux"
     # Pacman configuration if pacman is installed
     ~/.config/pacman/makepkg.conf:
       path: linux/pacman/makepkg.conf
@@ -116,18 +116,18 @@
     # i3 window manager and tooling
     ~/.config/i3/config:
       path: linux/i3/config
-      if: "type -p i3 > /dev/null"
+      if: "uname -s | grep -qi linux"
     ~/.config/i3blocks/config:
       path: linux/i3/i3blocks.conf
-      if: "type -p i3blocks > /dev/null"
+      if: "uname -s | grep -qi linux"
     ~/.config/i3blocks/blocklets:
       path: linux/i3/blocklets/*
       glob: true
-      if: "type -p i3blocks > /dev/null"
+      if: "uname -s | grep -qi linux"
     # Notification daemon for i3
     ~/.config/dunst/dunstrc:
       path: linux/dunstrc
-      if: "type -p dunst > /dev/null"
+      if: "uname -s | grep -qi linux"
     # Linux scripts
     ~/.local/bin/random-wallpaper:
       path: linux/bin/random-wallpaper.py
