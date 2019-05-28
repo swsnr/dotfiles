@@ -99,9 +99,6 @@
       if: "uname -s | grep -qi darwin"
 
     # Linux configuration
-    ~/.xprofile:
-      path: linux/xprofile
-      if: "uname -s | grep -qi linux"
     ~/.profile:
       path: linux/profile.sh
       if: "uname -s | grep -qi linux"
