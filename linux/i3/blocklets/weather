@@ -22,4 +22,4 @@ if [[ "$BLOCK_BUTTON" -eq 1 ]]; then
   xdg-open "https://wttr.in/${location}" &> /dev/null &
 fi
 
-exec curl "https://wttr.in/${location}?format=%c%t"
+exec curl -s "https://wttr.in/${location}?format=%c%t"
