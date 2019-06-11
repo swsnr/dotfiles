@@ -62,20 +62,6 @@ function fish_prompt -d 'My personal prompt'
     # New line
     echo -s
 
-    # Add fish mode to prompt right before separator
-    echo -sn (set_color -o)
-    switch $fish_bind_mode
-        case default
-            echo -sn '[N]'
-        case insert
-            echo -sn '[I]'
-        case replace_one
-            echo -sn '[R]'
-        case visual
-            echo -sn '[V]'
-    end
-    echo -sn (set_color normal) ' '
-
     # Indicate exit code of last command
     if test $last_exit_code -eq 0
         echo -sn (set_color -o green)
