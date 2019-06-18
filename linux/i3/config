@@ -12,8 +12,8 @@ font pango:Ubuntu 13
 focus_on_window_activation urgent
 # Never make Idea windows focused right away; I always open IDEA in the
 # background because it takes so long to start.
-no_focus [class=".*jetbrains.*"]
-no_focus [window_type=dialog]
+no_focus [class="jetbrains-idea"]
+no_focus [title="IntelliJ IDEA"]
 
 # Colors from the Arc theme
 set $background #f5f6f7
