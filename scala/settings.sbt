@@ -4,15 +4,21 @@ cancelable in Global := true
 // Clear screen when watching sources
 triggeredMessage := Watched.clearWhenTriggered
 
-// Don't resolve SNAPSHOTS again and again
+// Clear screen command
+commands += Command.command("clear") { state =>
+  print("\033c")
+  state
+}
+
+// Don't resolve snapshot dependencies again and again
 updateOptions := updateOptions.value.withLatestSnapshots(false)
+
+// I can never remember this command.
+addCommandAlias("outdated", "dependencyUpdates")
 
 // A workaround to show plugin updates
 addCommandAlias("outdatedPlugins",
                 "; reload plugins; dependencyUpdates; reload return")
-
-// I can never remember this command.
-addCommandAlias("outdated", "dependencyUpdates")
 
 // Make SBT shell a bit more like a regular shell to keep my muscle memory
 // working
