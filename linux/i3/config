@@ -35,8 +35,8 @@ client.background       #ffffff
 # Gnome settings daemon for Gtk3/Gnome apps
 exec --no-startup-id /usr/lib/gsd-xsettings
 # Autostart applications, including various tray icons like nm-applet or
-# pasystray
-exec --no-startup-id dex -a
+# pasystray, and a GNOME environment
+exec --no-startup-id dex -a -e GNOME
 
 # Assign random wallpapers to all screens
 exec_always --no-startup-id random-wallpaper
