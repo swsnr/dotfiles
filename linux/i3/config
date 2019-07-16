@@ -54,8 +54,7 @@ bindsym $mod+t exec tilix
 bindsym $mod+Shift+q kill
 bindsym $mod+w kill
 
-# Kill window with middle-click on title bar (with modifier on whole window)
-bindsym --release button2 kill
+# Kill window with $mod + middle-click
 bindsym --whole-window $mod+button2 kill
 
 # Program launcher
