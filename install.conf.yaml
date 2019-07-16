@@ -132,6 +132,9 @@
     ~/.local/bin/random-wallpaper:
       path: linux/bin/random-wallpaper.py
       if: "uname -s | grep -qi linux"
+    ~/.local/bin/rofi-idea-projects:
+      path: linux/bin/rofi-idea-projects
+      if: "uname -s | grep -qi linux"
 
     # macOS configuration
     ~/.gnupg/gpg-agent.conf:
