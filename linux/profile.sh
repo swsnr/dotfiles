@@ -19,6 +19,9 @@ case "${XDG_CURRENT_DESKTOP}" in
     XFCE | *GNOME | i3)
         # On XFCE, Gnome and i3 make Qt appearance configurable
         export QT_QPA_PLATFORMTHEME=qt5ct;
+        # Enable Gnome Keyring SSH
+        eval "$(/usr/bin/gnome-keyring-daemon --start --components=ssh)"
+        export SSH_AUTH_SOCK
         ;;
 esac
 
