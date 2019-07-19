@@ -102,23 +102,24 @@
     ~/.profile:
       path: linux/profile.sh
       if: "uname -s | grep -qi linux"
-    ~/.config/rofi/config.rasi:
-      path: linux/rofi.rasi
-      if: "uname -s | grep -qi linux"
-    # Systemd user units if systemd is available
     ~/.local/share/systemd/user/:
       path: linux/systemd/*.service
       glob: true
       if: "test -f /etc/systemd/user.conf"
-    # Pacman configuration if pacman is installed
-    ~/.config/pacman/makepkg.conf:
-      path: linux/pacman/makepkg.conf
-      if: "test -f /etc/pacman.conf"
     ~/.config/fontconfig/conf.d:
       path: linux/fontconfig/*.conf
       glob: true
       if: "uname -s | grep -qi linux"
-    # i3 window manager and tooling
+    ~/.local/bin/random-wallpaper:
+      path: linux/bin/random-wallpaper.py
+      if: "uname -s | grep -qi linux"
+
+    # Arch Linux configuration
+    ~/.config/pacman/makepkg.conf:
+      path: linux/pacman/makepkg.conf
+      if: "test -f /etc/pacman.conf"
+
+    # i3 and related tools
     ~/.config/i3/config:
       path: linux/i3/config
       if: "uname -s | grep -qi linux"
@@ -129,16 +130,16 @@
       path: linux/i3/blocklets/*
       glob: true
       if: "uname -s | grep -qi linux"
-    # Notification daemon for i3
-    ~/.config/dunst/dunstrc:
-      path: linux/dunstrc
-      if: "uname -s | grep -qi linux"
-    # Linux scripts
-    ~/.local/bin/random-wallpaper:
-      path: linux/bin/random-wallpaper.py
+    # rofi, launcher for i3
+    ~/.config/rofi/config.rasi:
+      path: linux/rofi.rasi
       if: "uname -s | grep -qi linux"
     ~/.local/bin/rofi-idea-projects:
       path: linux/bin/rofi-idea-projects
+      if: "uname -s | grep -qi linux"
+    # Notifications for i3
+    ~/.config/dunst/dunstrc:
+      path: linux/dunstrc
       if: "uname -s | grep -qi linux"
 
     # macOS configuration
