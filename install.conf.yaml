@@ -105,6 +105,11 @@
     ~/.config/rofi/config.rasi:
       path: linux/rofi.rasi
       if: "uname -s | grep -qi linux"
+    # Systemd user units if systemd is available
+    ~/.local/share/systemd/user/:
+      path: linux/systemd/*.service
+      glob: true
+      if: "test -f /etc/systemd/user.conf"
     # Pacman configuration if pacman is installed
     ~/.config/pacman/makepkg.conf:
       path: linux/pacman/makepkg.conf

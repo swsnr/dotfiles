@@ -1,0 +1,9 @@
+[Unit]
+Description="unclutter"
+
+[Service]
+ExecStart=unclutter --exclude-root --ignore-scrolling
+Restart=always
+
+[Install]
+WantedBy=default.target
