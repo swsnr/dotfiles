@@ -1,0 +1,10 @@
+[Unit]
+Description=Update Notifier Timer
+
+[Timer]
+OnStartupSec=1min
+OnUnitActiveSec=2h
+Unit=notify-checkupdates.service
+
+[Install]
+WantedBy=default.target

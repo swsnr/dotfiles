@@ -1,0 +1,11 @@
+#!/bin/sh
+
+updates="$(checkupdates)"
+
+if [ -n "${udpates}" ]; then
+    notify-send --urgency low --expire-time 5000 \
+        --app-name 'checkupdates' --icon 'system-software-update' \
+        "Updates available:
+        
+${updates}"
+fi

@@ -103,7 +103,7 @@
       path: linux/profile.sh
       if: "uname -s | grep -qi linux"
     ~/.local/share/systemd/user/:
-      path: linux/systemd/*.service
+      path: linux/systemd/*
       glob: true
       if: "test -f /etc/systemd/user.conf"
     ~/.config/fontconfig/conf.d:
@@ -112,6 +112,9 @@
       if: "uname -s | grep -qi linux"
     ~/.local/bin/random-wallpaper:
       path: linux/bin/random-wallpaper.py
+      if: "uname -s | grep -qi linux"
+    ~/.local/bin/notify-checkupdates:
+      path: linux/bin/notify-checkupdates
       if: "uname -s | grep -qi linux"
 
     # Arch Linux configuration
