@@ -18,4 +18,4 @@ addSbtPlugin("net.virtual-void" % "sbt-dependency-graph" % "0.9.2")
 addSbtPlugin("com.github.cb372" % "sbt-explicit-dependencies" % "0.2.8")
 
 // Bloop build tool, see https://scalacenter.github.io/bloop/
-addSbtPlugin("ch.epfl.scala" % "sbt-bloop" % "1.2.5")
+//addSbtPlugin("ch.epfl.scala" % "sbt-bloop" % "1.2.5")
