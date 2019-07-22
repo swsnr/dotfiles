@@ -133,6 +133,9 @@
       path: linux/i3/blocklets/*
       glob: true
       if: "uname -s | grep -qi linux"
+    ~/.config/compton/compton.conf:
+      path: linux/compton.conf
+      if: "uname -s | grep -qi linux"
     # rofi, launcher for i3
     ~/.config/rofi/config.rasi:
       path: linux/rofi.rasi
