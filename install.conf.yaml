@@ -68,6 +68,7 @@
     ~/.ammonite/predef.sc: scala/ammonite-predef.sc
     ~/.sbt/1.0/settings.sbt: scala/settings.sbt
     ~/.sbt/1.0/plugins/plugins.sbt: scala/plugins.sbt
+    ~/.sbt/1.0/plugins/sbt-updates.sbt: scala/sbt-updates.sbt
     ~/.sbt/1.0/plugins/project/sbt-updates.sbt: scala/sbt-updates.sbt
     # Misc languages
     ~/.npmrc: javascript/npmrc
