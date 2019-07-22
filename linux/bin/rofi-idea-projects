@@ -18,6 +18,10 @@ import sys
 import xml.etree.ElementTree as etree
 import subprocess
 from pathlib import Path
+from collections import Counter, namedtuple
+
+
+Project = namedtuple('Project', 'name path')
 
 
 def latest_config_file():
@@ -31,24 +35,40 @@ def latest_config_file():
         return None
 
 
+def read_project(directory):
+    namefile = directory.expanduser() / '.idea' / '.name'
+    try:
+        name = namefile.read_text(encoding='utf-8').strip()
+    except FileNotFoundError:
+        name = directory.name
+    return Project(name=name, path=directory)
+
+
 def read_projects(file):
     document = etree.parse(file)
-    projects = [Path(el.attrib['value'].replace('$USER_HOME$', str(Path.home())))
-                for el in
-                document.findall('.//option[@name="recentPaths"]/list/option')]
-    projects.sort(key=lambda p: str(p))
-    return projects
+    paths = (Path(el.attrib['value'].replace('$USER_HOME$', '~'))
+             for el in
+             document.findall('.//option[@name="recentPaths"]/list/option'))
+    projects = [read_project(directory) for directory in paths if
+                directory.expanduser().is_dir()]
+    duplicates = [name for name, count
+                  in Counter(p.name for p in projects).items()
+                  if 1 < count]
+    if duplicates:
+        raise ValueError('Duplicate project name: {}', ', '.join(duplicates))
+    return dict((p.name, p) for p in projects)
 
 
 def main():
+    config_file = latest_config_file()
+    projects = read_projects(config_file)
     if len(sys.argv) == 1:
-        config_file = latest_config_file()
-        projects = read_projects(config_file)
-        for project in projects:
-            print(str(project).replace(str(Path.home()), '~'))
+        for project_name in sorted(projects.keys()):
+            print(str(project_name))
     else:
         print()
-        subprocess.Popen(['idea', str(Path(sys.argv[1]).expanduser())],
+        path = projects[sys.argv[1]].path
+        subprocess.Popen(['idea', str(path.expanduser())],
                          stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
 
 
