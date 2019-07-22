@@ -92,10 +92,13 @@ def main():
     projects = read_projects(config_file)
     recent = read_recent_entries()
     if len(sys.argv) == 1:
+        print('\x00prompt\x1fIDEA Project')
+        icon = get_data_home() / 'JetBrains' / 'Toolbox' / 'apps' / \
+            'IDEA-U' / 'ch-0' / '.icon.svg'
         sorted_by_recent = sorted(
             projects.keys(), key=lambda n: (recent.get(n, 0) * -1, n))
         for project_name in sorted_by_recent:
-            print(str(project_name))
+            print('{}\x00icon\x1f{}'.format(project_name, icon))
     else:
         print()
         name = sys.argv[1]
