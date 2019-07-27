@@ -40,8 +40,8 @@ if $TERM !~ 'screen'
   " Unless in screen/tmux assume a modern terminal and enable true color
   " support, to make solarized use the real solarized palette.
   set termguicolors
+  let g:solarized_term_italics=1 " Enable italics in color scheme
 end
-let g:solarized_term_italics=1 " Enable italics in color scheme
 colorscheme solarized8
 " Use light background in GUIs
 autocmd guienter * set background=light
