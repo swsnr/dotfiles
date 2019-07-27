@@ -1,4 +1,4 @@
-# Copyright 2018-2019 Sebastian Wiesner <sebastian@swsnr.de>
+# Copyright 2019 Sebastian Wiesner <sebastian@swsnr.de>
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may not
 # use this file except in compliance with the License. You may obtain a copy of
@@ -12,16 +12,9 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
-function fish_title -d 'Window title for fish'
-    if set -q fish_title
-        echo -sn $fish_title
-    else
-        echo -sn (prompt_pwd)
-    end
-
-    if is-fish-version 3
-        echo -s ' – ' (status current-command)
-    else
-        echo -s " – $_"
-    end
+function is-fish-version -a 'expected' -d 'Check fish version'
+    set -l expected $argv[1]
+    set -l actual $FISH_VERSION
+    printf '%s\n' $expected $actual | sort -CV
+    return $status
 end
