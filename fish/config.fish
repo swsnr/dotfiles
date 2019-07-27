@@ -18,11 +18,12 @@ umask 077
 # Paths, only for login shells
 if status --is-login
     # Binaries from Python, Ruby and Rust
-    set -xp PATH \
+    set -x PATH \
         ~/.local/bin \
         ~/.cargo/bin \
         ~/Library/Python/*/bin \
-        ~/.gem/ruby/*/bin
+        ~/.gem/ruby/*/bin \
+        $PATH
 
     set -x MANPATH \
         ~/.local/share/man \
