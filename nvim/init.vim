@@ -36,14 +36,9 @@ if $LY_TERM_BACKGROUND == 'light'
 else
   set background=dark
 end
-" Check
-if $TERM =~ 'screen'
-  " In screen terminals assume that we have no true color support, and thus hope
-  " that the terminal uses the solarized palette so only use 16 colors.
-  let g:solarized_use16=1
-else
-  " Assume a modern terminal and enable true color support, to make solarized
-  " use the real solarized palette.
+if $TERM !~ 'screen'
+  " Unless in screen/tmux assume a modern terminal and enable true color
+  " support, to make solarized use the real solarized palette.
   set termguicolors
 end
 let g:solarized_term_italics=1 " Enable italics in color scheme
