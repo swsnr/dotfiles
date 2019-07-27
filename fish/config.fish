@@ -36,14 +36,7 @@ if status --is-login
 end
 
 # Environment variables
-if string match -q '*.uberspace.de' $hostname
-    # On uberspace use nano as editor
-    set -x EDITOR 'nano'
-else
-    # Otherwise my beloved vim
-    set -x EDITOR 'nvim'
-end
-
+set -x EDITOR 'nvim'
 set -x PAGER 'less'
 if command --search 'xdg-open' >/dev/null
     # Unix
