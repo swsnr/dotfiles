@@ -14,5 +14,5 @@
 
 # Attach or create my uberspace tmux session
 function tmux-uberspace
-    tmux new -A -s 'uberspace'
+    tmux new -A -s 'uberspace' $argv
 end
