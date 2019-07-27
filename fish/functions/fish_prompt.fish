@@ -41,7 +41,13 @@ function fish_prompt -d 'My personal prompt'
         if [ $USER = 'root' ]
             set color 'red'
         end
-        echo -sn (set_color -o $color) $USER (set_color normal) (set_color -o) " in "
+        echo -sn (set_color -o $color) $USER (set_color -o normal)
+
+        if set -q SSH_CONNECTION
+            echo -sn '@' (set_color -o green) (prompt_hostname) (set_color -o normal) ' in '
+        else
+            echo ' in '
+        end
     end
     # Working directory and git prompt
     echo -sn (set_color -o cyan) (prompt_pwd) (set_color normal)
