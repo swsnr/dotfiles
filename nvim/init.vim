@@ -29,15 +29,24 @@
 " 'sbdchd/neoformat' " Format files
 
 " {{{ User interface
-" Enable 256 colours in terminal
-set termguicolors
-" Adapt background color, see colors.fish
+" If we've got information about terminal background (see colors.fish) use it to
+" adapt the color scheme to the terminal background.
 if $LY_TERM_BACKGROUND == 'light'
   set background=light
 else
   set background=dark
 end
-let g:solarized_term_italics=1
+" Check
+if $TERM =~ 'screen'
+  " In screen terminals assume that we have no true color support, and thus hope
+  " that the terminal uses the solarized palette so only use 16 colors.
+  let g:solarized_use16=1
+else
+  " Assume a modern terminal and enable true color support, to make solarized
+  " use the real solarized palette.
+  set termguicolors
+end
+let g:solarized_term_italics=1 " Enable italics in color scheme
 colorscheme solarized8
 " Use light background in GUIs
 autocmd guienter * set background=light
