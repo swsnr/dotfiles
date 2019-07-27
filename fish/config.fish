@@ -72,10 +72,20 @@ if not string match -qi 'darwin*' (uname -s)
     set -x LC_MESSAGES 'en_GB.utf8'
 end
 
+# Extra settings for uberspace
+if string match -q '*.uberspace.de' (hostname)
+    if status --is-login
+        set -x PATH \
+            $HOME/opt/autojump/bin \
+            $HOME/opt/pgsql/bin \
+            $PATH
+    end
+end
+
 # Extra things for interactive shells
 if status --is-interactive
     # Setup autojump
-    for directory in "$HOME/.autojump/" '/usr/local/' '/usr/'
+    for directory in "$HOME/opt/autojump/" '/usr/local/' '/usr/'
         set -l __autojump_file "$directory/share/autojump/autojump.fish"
         if [ -f $__autojump_file ]
             source $__autojump_file
