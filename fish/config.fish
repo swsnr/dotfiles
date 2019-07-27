@@ -85,6 +85,9 @@ if string match -q '*.uberspace.de' (hostname)
             $HOME/opt/pgsql/share/man \
             $MANPATH
     end
+
+    # On uberspace connect to local postgres via domain sockets in my tmp dir
+    set -x PGHOST $HOME/tmp
 end
 
 # Extra things for interactive shells
