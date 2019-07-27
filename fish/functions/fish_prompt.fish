@@ -34,7 +34,9 @@ function fish_prompt -d 'My personal prompt'
     set -g __fish_git_prompt_color_untrackedfiles red
     set -g __fish_git_prompt_color_cleanstate green
 
-    if [ (id -u) -eq 0 ] || [ $LOGNAME != $USER ] || set -q SSH_CONNECTION
+    if [ (id -u) -eq 0 ]
+        or [ $LOGNAME != $USER ]
+        or set -q SSH_CONNECTION
         set -l color 'yellow'
         if [ $USER = 'root' ]
             set color 'red'
