@@ -76,6 +76,7 @@ end
 if string match -q '*.uberspace.de' (hostname)
     if status --is-login
         set -x PATH \
+            $HOME/bin \
             $HOME/opt/autojump/bin \
             $HOME/opt/pgsql/bin \
             $PATH
