@@ -79,6 +79,11 @@ if string match -q '*.uberspace.de' (hostname)
             $HOME/opt/autojump/bin \
             $HOME/opt/pgsql/bin \
             $PATH
+
+        set -x MANPATH \
+            $HOME/opt/autojump/share/man \
+            $HOME/opt/pgsql/share/man \
+            $MANPATH
     end
 end
 
