@@ -78,17 +78,12 @@ if string match -q '*.uberspace.de' (hostname)
         set -x PATH \
             $HOME/bin \
             $HOME/opt/autojump/bin \
-            $HOME/opt/pgsql/bin \
             $PATH
 
         set -x MANPATH \
             $HOME/opt/autojump/share/man \
-            $HOME/opt/pgsql/share/man \
             $MANPATH
     end
-
-    # On uberspace connect to local postgres via domain sockets in my tmp dir
-    set -x PGHOST $HOME/tmp
 end
 
 # Extra things for interactive shells
