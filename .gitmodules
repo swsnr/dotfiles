@@ -25,3 +25,6 @@
 [submodule "nvim/pack/ly-rust/start/vim-toml"]
 	path = nvim/pack/ly-rust/start/vim-toml
 	url = https://github.com/cespare/vim-toml.git
+[submodule "nvim/pack/ly-scala/start/vim-hocon"]
+	path = nvim/pack/ly-scala/start/vim-hocon
+	url = https://github.com/GEverding/vim-hocon.git
