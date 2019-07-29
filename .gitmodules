@@ -1,27 +1,27 @@
 [submodule "dotbot"]
 	path = dotbot
 	url = https://github.com/anishathalye/dotbot
-[submodule "nvim/pack/dotfiles/start/vim-better-whitespace"]
-	path = nvim/pack/dotfiles/start/vim-better-whitespace
+[submodule "nvim/pack/ly-base/start/vim-better-whitespace"]
+	path = nvim/pack/ly-base/start/vim-better-whitespace
 	url = https://github.com/ntpeters/vim-better-whitespace.git
-[submodule "nvim/pack/dotfiles/start/vim-fish"]
-	path = nvim/pack/dotfiles/start/vim-fish
+[submodule "nvim/pack/ly-misc/start/vim-fish"]
+	path = nvim/pack/ly-misc/start/vim-fish
 	url = https://github.com/dag/vim-fish.git
-[submodule "nvim/pack/dotfiles/start/vim-solarized8"]
-	path = nvim/pack/dotfiles/start/vim-solarized8
+[submodule "nvim/pack/ly-base/start/vim-solarized8"]
+	path = nvim/pack/ly-base/start/vim-solarized8
 	url = https://github.com/lifepillar/vim-solarized8.git
-[submodule "nvim/pack/dotfiles/start/rust.vim"]
-	path = nvim/pack/dotfiles/start/rust.vim
+[submodule "nvim/pack/ly-rust/start/rust.vim"]
+	path = nvim/pack/ly-rust/start/rust.vim
 	url = https://github.com/rust-lang/rust.vim
-[submodule "nvim/pack/dotfiles/start/vim-scala"]
-	path = nvim/pack/dotfiles/start/vim-scala
+[submodule "nvim/pack/ly-scala/start/vim-scala"]
+	path = nvim/pack/ly-scala/start/vim-scala
 	url = https://github.com/derekwyatt/vim-scala.git
-[submodule "nvim/pack/dotfiles/start/vim-sandwich"]
-	path = nvim/pack/dotfiles/start/vim-sandwich
+[submodule "nvim/pack/ly-base/start/vim-sandwich"]
+	path = nvim/pack/ly-base/start/vim-sandwich
 	url = https://github.com/machakann/vim-sandwich.git
-[submodule "nvim/pack/dotfiles/start/vim-fugitive"]
-	path = nvim/pack/dotfiles/start/vim-fugitive
+[submodule "nvim/pack/ly-git/start/vim-fugitive"]
+	path = nvim/pack/ly-git/start/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive.git
-[submodule "nvim/pack/dotfiles/start/vim-toml"]
-	path = nvim/pack/dotfiles/start/vim-toml
+[submodule "nvim/pack/ly-rust/start/vim-toml"]
+	path = nvim/pack/ly-rust/start/vim-toml
 	url = https://github.com/cespare/vim-toml.git

@@ -16,6 +16,7 @@
     - "~/.config/fish/functions"
     - "~/.config/fish/conf.d"
     - "~/.config/git"
+    - "~/.local/share/nvim/site/pack/"
     - "~/.sbt/1.0/"
     - "~/.sbt/1.0/plugins"
     - "~/.config/powershell"
@@ -81,7 +82,9 @@
     # VIM and related tooling
     ~/.config/nvim/init.vim: nvim/init.vim
     ~/.config/nvim/ginit.vim: nvim/ginit.vim
-    ~/.local/share/nvim/site/pack/dotfiles: nvim/pack/dotfiles
+    ~/.local/share/nvim/site/pack/:
+      path: nvim/pack/*
+      glob: true
     ~/.ideavimrc: misc/ideavimrc
     ~/.ctags.d:
       path: misc/ctags.d/*.ctags
