@@ -18,9 +18,9 @@ no_focus [class="jetbrains-idea"]
 no_focus [title="IntelliJ IDEA"]
 
 # Colors from the Arc theme
-set $background #f5f6f7
-set $foreground	#5c616c
-set $selection #5294e2
+set $background #383C4A
+set $foreground	#8F949F
+set $selection #5294E2
 # 50% of $selection
 set $selection_light #a8c9f0
 set $warning #F27835
