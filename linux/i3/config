@@ -207,14 +207,13 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# Window assignments and rules
-# Float jetbrains toolbox because it's intended to float
+# Float windows
 for_window [class="jetbrains-toolbox"] floating enable
-# Float keepassxc because most of the time I just type the password to unlock
-# and close the window again.
 for_window [class="keepassxc"] floating enable
-# Float the Remmina launcher
+# Use title and not class, because class also affects actual remote destop
+# windows but these should tile like other windows
 for_window [title="(?i)Remmina Remote Desktop Client"] floating enable
+for_window [class="(?i)gcolor3"] floating enable
 # Open messages on second screen
 assign [class="Rocket.Chat"] 2
 
