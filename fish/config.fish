@@ -109,11 +109,20 @@ if status --is-interactive
     # term-background is from https://github.com/lunaryorn/term-background.rs
     if command --search 'term-background' >/dev/null
         set -x LY_TERM_BACKGROUND (term-background --timeout 1000 (tty))
-        if string match -q light $LY_TERM_BACKGROUND
-            set -x BAT_THEME 'Monokai Extended Light'
-        else
-            set -x BAT_THEME 'Monokai Extended'
-        end
+    end
+
+    # Adapt shell environment to background color
+    if string match -q light $LY_TERM_BACKGROUND
+        set -x BAT_THEME 'Monokai Extended Light'
+        set DIRCOLORS_THEME 'ayu'
+    else
+        set -x BAT_THEME 'Monokai Extended'
+        set DIRCOLORS_THEME 'molokai'
+    end
+
+    # dircolors, by vidid <https://github.com/sharkdp/vivid>
+    if command --search vivid >/dev/null
+        set -x LS_COLORS (vivid generate $DIRCOLORS_THEME)
     end
 
     # Tell iterm2 the exit code of the last command
