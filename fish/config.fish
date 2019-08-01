@@ -113,10 +113,10 @@ if status --is-interactive
 
     # Adapt shell environment to background color
     if string match -q light $LY_TERM_BACKGROUND
-        set -x BAT_THEME 'Monokai Extended Light'
+        set -x BAT_THEME 'OneHalfLight'
         set DIRCOLORS_THEME 'ayu'
     else
-        set -x BAT_THEME 'Monokai Extended'
+        set -x BAT_THEME 'OneHalfDark'
         set DIRCOLORS_THEME 'molokai'
     end
 
