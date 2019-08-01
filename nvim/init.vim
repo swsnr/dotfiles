@@ -29,7 +29,7 @@
 " 'sbdchd/neoformat' " Format files
 
 " {{{ User interface
-" If we've got information about terminal background (see colors.fish) use it to
+" If we've got information about terminal background (see config.fish) use it to
 " adapt the color scheme to the terminal background.
 if $LY_TERM_BACKGROUND == 'light'
   set background=light
