@@ -2,8 +2,6 @@
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
-set $mod Mod4
-
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 font pango:Ubuntu 13
@@ -16,6 +14,9 @@ focus_on_window_activation urgent
 # background because it takes so long to start.
 no_focus [class="jetbrains-idea"]
 no_focus [title="IntelliJ IDEA"]
+
+# Switch back to old workspace
+workspace_auto_back_and_forth yes
 
 # Colors from the Arc theme
 set $background #E7E8EB
@@ -31,7 +32,6 @@ client.focused_inactive $background     $selection_light #ffffff     $selection 
 client.unfocused        $background     $background      $foreground $selection  $background
 client.urgent           $background     $warning         #ffffff     $selection  $background
 client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
-
 client.background       #ffffff
 
 # Gnome settings daemon for Gtk3/Gnome apps
@@ -42,6 +42,9 @@ exec --no-startup-id dex -a
 
 # Assign random wallpapers to all screens
 exec_always --no-startup-id random-wallpaper
+
+# Modifier for keybindings
+set $mod Mod4
 
 # Make tilix guake appear at center instead of top
 bindsym $mod+grave exec tilix -q
