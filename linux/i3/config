@@ -138,7 +138,7 @@ bindsym $mod+minus scratchpad show
 bindsym $mod+Shift+minus move scratchpad
 
 # Workspace mode
-set $mode_workspace (←→↑↓) move to output, (p) move to primary
+set $mode_workspace (←→↑↓) move to output, (p) move to primary, (r) rename
 mode "$mode_workspace" {
   bindsym Left move workspace to output left, mode "default"
   bindsym Down move workspace to output down, mode "default"
@@ -146,6 +146,8 @@ mode "$mode_workspace" {
   bindsym Right move workspace to output right, mode "default"
 
   bindsym p move workspace to output primary, mode "default"
+
+  bindsym r mode default, exec --no-startup-id i3-rename-workspace $(zenity --entry --text 'New workspace name?')
 
   bindsym $mod+s mode "default"
   bindsym Return mode "default"
