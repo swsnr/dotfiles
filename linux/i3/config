@@ -153,7 +153,7 @@ mode "$mode_workspace" {
   bindsym Return mode "default"
   bindsym Escape mode "default"
 }
-bindsym $mod+s mode "$mode_workspace"
+bindsym $mod+Insert mode "$mode_workspace"
 
 # System mode
 set $mode_system (w) new wallpaper, (c) reconfigure, (l) reload, (s) shutdown, (r) reboot, (e) exit
