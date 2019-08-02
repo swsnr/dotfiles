@@ -166,11 +166,11 @@ bindsym $mod+s mode "$mode_workspace"
 # System mode
 set $mode_system (w) new wallpaper, (c) reconfigure, (l) reload, (s) shutdown, (r) reboot, (e) exit
 mode "$mode_system" {
-  bindsym e exec --no-startup-id i3-msg exit, mode "default"
+  bindsym e exec --no-startup-id zenity --question --text 'Logout?' && i3-msg exit, mode "default"
   bindsym c reload, mode "default"
   bindsym l restart, mode "default"
-  bindsym r exec --no-startup-id systemctl reboot, mode "default"
-  bindsym s exec --no-startup-id systemctl poweroff, mode "default"
+  bindsym r exec --no-startup-id zenity --question --text 'Reboot?' && systemctl reboot, mode "default"
+  bindsym s exec --no-startup-id zenity --question --text 'Shutdown?' && systemctl poweroff, mode "default"
   bindsym w exec --no-startup-id "random-wallpaper", mode "default"
 
   bindsym $mod+Delete mode "default"
