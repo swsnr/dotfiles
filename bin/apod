@@ -122,7 +122,7 @@ def main():
     parser.add_argument('--api-key', help='API key')
     parser.add_argument('--directory', help='Target directory', type=Path)
     parser.add_argument('date', metavar='YYYY-MM-DD', help='Date to download',
-                        type=date.fromisoformat, nargs='?', default=date.today())
+                        type=date.fromisoformat, nargs='*', default=[date.today()])
     parser.add_argument('-o', '--open', help='Open after downloading',
                         action='store_true')
     args = parser.parse_args()
@@ -131,21 +131,23 @@ def main():
     if not args.directory:
         args.directory = get_default_directory()
 
-    if image_exists(args.directory, args.date):
-        print('APOD {} already exists in {}'.format(args.date, args.directory))
-        return
+    for date_to_download in args.date:
+        if image_exists(args.directory, date_to_download):
+            print('APOD {} already exists in {}'.format(
+                date_to_download, args.directory))
+            continue
 
-    try:
-        info = get_info(args.api_key, args.date)
-        (image, _) = download_image(args.directory, info)
-        if args.open:
-            open_file(image)
-    except APODError as error:
-        sys.exit('APOD error: {}'.format(error))
-    except ValueError as error:
-        sys.exit('Error: {}'.format(error))
-    except KeyboardInterrupt:
-        pass
+        try:
+            info = get_info(args.api_key, date_to_download)
+            (image, _) = download_image(args.directory, info)
+            if args.open:
+                open_file(image)
+        except APODError as error:
+            sys.exit('APOD error: {}'.format(error))
+        except ValueError as error:
+            sys.exit('Error: {}'.format(error))
+        except KeyboardInterrupt:
+            pass
 
 
 if __name__ == '__main__':
