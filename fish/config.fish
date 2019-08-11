@@ -77,10 +77,12 @@ if string match -q '*.uberspace.de' (hostname)
     if status --is-login
         set -x PATH \
             $HOME/bin \
+            $HOME/opt/pgsql/bin \
             $HOME/opt/autojump/bin \
             $PATH
 
         set -x MANPATH \
+            $HOME/opt/pgsql/share/man \
             $HOME/opt/autojump/share/man \
             $MANPATH
     end
