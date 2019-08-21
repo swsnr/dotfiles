@@ -56,7 +56,6 @@ floating_modifier $mod
 bindsym $mod+t exec tilix
 
 # Kill focused window
-bindsym $mod+Shift+q kill
 bindsym $mod+w kill
 
 # Kill window with $mod + middle-click
@@ -80,31 +79,8 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-# Split in horizontal orientation
-bindsym $mod+h split h
-
-# Split in vertical orientation
-bindsym $mod+v split v
-
 # Enter fullscreen mode for the focused container
 bindsym $mod+Return fullscreen toggle
-
-# Change container layout (stacked, tabbed, toggle split)
-bindsym $mod+shift+s layout stacking
-bindsym $mod+shift+w layout tabbed
-bindsym $mod+shift+t layout toggle split
-
-# Toggle tiling / floating
-bindsym $mod+shift+f floating toggle
-
-# Change focus between tiling / floating windows
-bindsym $mod+f focus mode_toggle
-
-# Focus the parent container
-bindsym $mod+a focus parent
-
-# Focus the child container
-bindsym $mod+d focus child
 
 # Focus urgent window
 bindsym $mod+u [urgent=latest] focus
@@ -137,6 +113,29 @@ bindsym $mod+Shift+0 move container to workspace number 10
 bindsym $mod+minus scratchpad show
 bindsym $mod+Shift+minus move scratchpad
 
+# Container mode
+set $mode_container split (h)orizontal (v)ertical, layout (s)plit (t)abbed stac(k)ing, (f)loating toggle, focus (↑↓ m) parent/child/mode
+mode "$mode_container" {
+  bindsym h split h; mode "default"
+  bindsym v split v; mode "default"
+
+  bindsym s layout toggle split; mode "default"
+  bindsym t layout tabbed; mode "default"
+  bindsym k layout stacking; mode "default"
+
+  bindsym f floating toggle; mode "default"
+
+  bindsym Down focus child; mode "default"
+  bindsym Up focus parent; mode "default"
+  bindsym m focus mode_toggle; mode "default"
+
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+
+  bindsym $mod+Tab mode "default"
+}
+bindsym $mod+Tab mode "$mode_container"
+
 # Workspace mode
 set $mode_workspace (←→↑↓) move to output, (p) move to primary, (r) rename
 mode "$mode_workspace" {
@@ -149,9 +148,10 @@ mode "$mode_workspace" {
 
   bindsym r mode default, exec --no-startup-id i3-rename-workspace $(zenity --entry --text 'New workspace name?')
 
-  bindsym $mod+s mode "default"
   bindsym Return mode "default"
   bindsym Escape mode "default"
+
+  bindsym $mod+Insert mode "default"
 }
 bindsym $mod+Insert mode "$mode_workspace"
 
@@ -165,36 +165,35 @@ mode "$mode_system" {
   bindsym s exec --no-startup-id zenity --question --text 'Shutdown?' && systemctl poweroff, mode "default"
   bindsym w exec --no-startup-id "random-wallpaper", mode "default"
 
-  bindsym $mod+Delete mode "default"
   bindsym Return mode "default"
   bindsym Escape mode "default"
-}
 
+  bindsym $mod+Delete mode "default"
+}
 bindsym $mod+Delete mode "$mode_system"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
+  # These bindings trigger as soon as you enter the resize mode
+  # Pressing left will shrink the window’s width.
+  # Pressing right will grow the window’s width.
+  # Pressing up will shrink the window’s height.
+  # Pressing down will grow the window’s height.
+  bindsym h resize shrink width 10 px or 10 ppt
+  bindsym j resize grow height 10 px or 10 ppt
+  bindsym k resize shrink height 10 px or 10 ppt
+  bindsym l resize grow width 10 px or 10 ppt
 
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym h resize shrink width 10 px or 10 ppt
-        bindsym j resize grow height 10 px or 10 ppt
-        bindsym k resize shrink height 10 px or 10 ppt
-        bindsym l resize grow width 10 px or 10 ppt
+  # same bindings, but for the arrow keys
+  bindsym Left resize shrink width 10 px or 10 ppt
+  bindsym Down resize grow height 10 px or 10 ppt
+  bindsym Up resize shrink height 10 px or 10 ppt
+  bindsym Right resize grow width 10 px or 10 ppt
 
-        # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
-
-        # back to normal: Enter or Escape or $mod+r
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-        bindsym $mod+r mode "default"
+  # back to normal: Enter or Escape or $mod+r
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+  bindsym $mod+r mode "default"
 }
 
 bindsym $mod+r mode "resize"
