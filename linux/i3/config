@@ -161,7 +161,7 @@ mode "$mode_workspace" {
 
   bindsym p move workspace to output primary, mode "default"
 
-  bindsym r mode default, exec --no-startup-id i3-rename-workspace $(zenity --entry --text 'New workspace name?')
+  bindsym r mode default, exec --no-startup-id i3-rename-workspace "$(zenity --entry --text 'New workspace name?')"
 
   bindsym Return mode "default"
   bindsym Escape mode "default"
