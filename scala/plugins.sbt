@@ -9,7 +9,7 @@ addSbtPlugin("com.typesafe.sbt" % "sbt-license-report" % "1.2.0")
 
 // Dependency management: Get a list or graph of all dependencies, and find
 // updates for installed dependencies
-addSbtPlugin("net.virtual-void" % "sbt-dependency-graph" % "0.9.2")
+addSbtPlugin("net.virtual-void" % "sbt-dependency-graph" % "0.10.0-RC1")
 
 // Check for missing or unused dependencies
 addSbtPlugin("com.github.cb372" % "sbt-explicit-dependencies" % "0.2.9")
