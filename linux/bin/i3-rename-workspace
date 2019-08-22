@@ -14,6 +14,7 @@
 # the License.
 
 import json
+import html
 from argparse import ArgumentParser
 from subprocess import run
 
@@ -31,7 +32,7 @@ def main():
     workspaces = json.loads(run(['i3-msg', '-t', 'get_workspaces'],
                                 capture_output=True, check=True).stdout.decode('utf-8'))
     focused = next(w for w in workspaces if is_focused(w))
-    new_name = '{0}: {1}'.format(focused['num'], args.name)
+    new_name = '{0}: {1}'.format(focused['num'], html.escape(args.name))
     run(['i3-msg', 'rename workspace "{}" to "{}"'.format(focused['name'], new_name)], check=True)
 
 
