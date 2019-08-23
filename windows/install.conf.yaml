@@ -29,5 +29,3 @@
       ~/Documents/PowerShell/profile.ps1: powershell/profile.ps1
       ~/Documents/PowerShell/Microsoft.Powershell_profile.ps1: powershell/Microsoft.Powershell_profile.ps1
       ~/Documents/PowerShell/types.ps1xml: powershell/types.ps1xml
-      # Joplin user stylesheet
-      ~/.config/joplin-desktop/userstyle.css: joplin/userstyle.css
