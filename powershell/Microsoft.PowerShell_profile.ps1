@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Profile for ConsoleHost, ie, not ISE or VSCode shells
-
 # Line editing and history for console hosts
 Import-Module PSReadLine
 
@@ -37,19 +35,13 @@ Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
 
 # Custom colours for readline highlighting
 Set-PSReadlineOption -Colors @{
-    ContinuationPrompt = "$([char]0x1b)[0m"
-    Emphasis           = "$([char]0x1b)[0m$([char]0x1b)[3m" # Italic
-    Error              = "$([char]0x1b)[0m$([char]0x1b)[31;1m" # Bright red
-    Selection          = "$([char]0x1b)[0m"
-    Default            = "$([char]0x1b)[0m" # No special colour
-    Comment            = "$([char]0x1b)[0m$([char]0x1b)[37m" # Gray
-    Keyword            = "$([char]0x1b)[0m$([char]0x1b)[1m" # Bold
-    String             = "$([char]0x1b)[0m$([char]0x1b)[33m" # Yellow
-    Operator           = "$([char]0x1b)[0m$([char]0x1b)[35m" # Magenta
-    Variable           = "$([char]0x1b)[0m$([char]0x1b)[33m"
-    Command            = "$([char]0x1b)[1m" # Bold
-    Parameter          = "$([char]0x1b)[0m$([char]0x1b)[36m" # Cyan
-    Type               = "$([char]0x1b)[0m"
-    Number             = "$([char]0x1b)[0m$([char]0x1b)[34m" # Blue
-    Member             = "$([char]0x1b)[0m"
+    Emphasis  = [ConsoleColor]::White
+    Error     = [ConsoleColor]::Red
+    Comment   = [ConsoleColor]::Green
+    Keyword   = [ConsoleColor]::White
+    String    = [ConsoleColor]::Yellow
+    Operator  = [ConsoleColor]::Magenta
+    Variable  = [ConsoleColor]::Yellow
+    Parameter = [ConsoleColor]::Cyan
+    Number    = [ConsoleColor]::Blue
 }
