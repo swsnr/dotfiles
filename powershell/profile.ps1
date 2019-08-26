@@ -78,37 +78,31 @@ function ConvertTo-TotalHours ([int] $minutes) {
     return '{0:0.##}' -f [System.TimeSpan]::FromMinutes($minutes).TotalHours
 }
 
-function Get-PromptWorkingDir {
-    # Adapted from Get-PromptPath, see https://github.com/dahlbyk/posh-git/blob/master/src/Utils.ps1#L290
 
-    # A UNC path has no drive so it's better to use the ProviderPath e.g. "\\server\share".
-    # However for any path with a drive defined, it's better to use the Path property.
-    # In this case, ProviderPath is "\LocalMachine\My"" whereas Path is "C:\LocalMachine\My".
-    # The latter is more desirable.
-    $pathInfo = (Get-Location)
-    $currentPath = if ($pathInfo.Drive) { $pathInfo.Path } else { $pathInfo.ProviderPath }
+# Fancy prompt for console hosts
+Import-Module posh-git
 
-    # File system paths are case-sensitive on Linux and case-insensitive on Windows and macOS
-    if ($IsLinux) {
-        $stringComparison = [System.StringComparison]::Ordinal
-    }
-    else {
-        $stringComparison = [System.StringComparison]::OrdinalIgnoreCase
-    }
+# Replace home with ~
+$GitPromptSettings.DefaultPromptPath.ForegroundColor = [ConsoleColor]::DarkMagenta
+$GitPromptSettings.DefaultPromptAbbreviateHomeDirectory = $true;
+$GitPromptSettings.DefaultPromptBeforeSuffix.Text = "`n";
+$GitPromptSettings.DefaultPromptSuffix.Text = '→ '
+$GitPromptSettings.DefaultPromptSuffix.ForegroundColor = [ConsoleColor]::White;
+$GitPromptSettings.DefaultPromptPrefix.Text = 'In ';
+$GitPromptSettings.DefaultPromptPrefix.ForegroundColor = [ConsoleColor]::White
+$GitPromptSettings.BeforeStatus.Text = 'on  '
+$GitPromptSettings.BeforeStatus.ForegroundColor = [ConsoleColor]::White
+$GitPromptSettings.AfterStatus.Text = ''
+$GitPromptSettings.BranchIdenticalStatusSymbol.ForegroundColor = [ConsoleColor]::DarkGreen
+$GitPromptSettings.BranchColor.ForegroundColor = [ConsoleColor]::DarkCyan
+$GitPromptSettings.DelimStatus.ForegroundColor = [ConsoleColor]::White
+$GitPromptSettings.WorkingColor.ForegroundColor = [ConsoleColor]::DarkMagenta
+$GitPromptSettings.LocalStagedStatusSymbol = '●'
+$GitPromptSettings.LocalWorkingStatusSymbol = '+'
+$GitPromptSettings.LocalWorkingStatusSymbol.ForegroundColor = [ConsoleColor]::DarkYellow
 
-    # Replace $Home with ~ if possible
-    if ($currentPath -and $currentPath.StartsWith($Home, $stringComparison)) {
-        $tail = Get-AbbreviatedPath $currentPath.SubString($Home.Length)
-        $currentPath = "~" + $tail
-    }
-    else {
-        $currentPath = Get-AbbreviatedPath $currentPath
-    }
-
-    return $currentPath
-}
-
-# Jump to directories fast. and
+# Jump to directories fast. Import _after_ posh-git to make sure that location
+# tracking works, see <https://github.com/vors/ZLocation#note>
 Import-Module ZLocation
 New-Alias -Name j -Value z
 
