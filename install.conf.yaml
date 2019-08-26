@@ -43,11 +43,6 @@
     ~/.config/fish/completions:
       path: fish/completions/*.fish
       glob: true
-    # Special Fish functions for uberspace
-    ~/.config/fish/functions/prompt_hostname.fish:
-      path: uberspace/fish/functions/prompt_hostname.fish
-      glob: true
-      if: "hostname | grep -qi uberspace.de"
 
     # Powershell Core config files
     ~/.config/powershell/:
