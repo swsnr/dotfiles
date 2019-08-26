@@ -50,8 +50,9 @@
       if: "hostname | grep -qi uberspace.de"
 
     # Powershell Core config files
-    ~/.config/powershell/profile.ps1: powershell/profile.ps1
-    ~/.config/powershell/Microsoft.Powershell_profile.ps1: powershell/Microsoft.PowerShell_profile.ps1
+    ~/.config/powershell/:
+      path: powershell/*.ps1
+      glob: true
     ~/.config/powershell/types.ps1xml: powershell/types.ps1xml
 
     # Git config files

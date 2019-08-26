@@ -10,6 +10,7 @@
       - "~/.config/git"
       - "~/.sbt/1.0/"
       - "~/.sbt/1.0/plugins"
+      - "~/Documents/PowerShell/"
 - link:
       # Symlink entire dotfiles folder, for convenience
       ~/.dotfiles: ""
@@ -27,6 +28,7 @@
       # Misc
       ~/.ideavimrc: misc/ideavimrc
       # Powershell Core (6+)
-      ~/Documents/PowerShell/profile.ps1: powershell/profile.ps1
-      ~/Documents/PowerShell/Microsoft.Powershell_profile.ps1: powershell/Microsoft.Powershell_profile.ps1
+      ~/Documents/PowerShell/:
+            path: powershell/*.ps1
+            glob: true
       ~/Documents/PowerShell/types.ps1xml: powershell/types.ps1xml

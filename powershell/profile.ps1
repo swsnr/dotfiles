@@ -128,3 +128,6 @@ Invoke-LocalProfile
 
 # Add custom type data
 Update-TypeData -AppendPath (Join-Path (Split-Path $profile.CurrentUserAllHosts) -ChildPath 'types.ps1xml')
+
+# Source local completion scripts
+. (Join-Path (Split-Path $profile.CurrentUserAllHosts) '_rg.ps1')
