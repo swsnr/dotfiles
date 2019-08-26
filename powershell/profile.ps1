@@ -116,12 +116,6 @@ New-Alias -Name ll -Value Get-ChildItemColor
 # Git aliases
 New-Alias -Name g -Value "git" -Option AllScope
 
-# Add chocolatey tools to this shell if installed
-$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
-if (Test-Path $ChocolateyProfile) {
-    Import-Module "$ChocolateyProfile"
-}
-
 # Load machine-specific settings
 function Invoke-LocalProfile {
     $local_profile = Join-Path (Split-Path $profile.CurrentUserAllHosts) 'local.ps1'
