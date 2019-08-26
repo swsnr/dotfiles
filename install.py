@@ -17,6 +17,7 @@ import sys
 import os
 import shutil
 import socket
+from argparse import ArgumentParser
 from subprocess import check_call, call
 
 
@@ -36,15 +37,22 @@ def main():
     if sys.version_info < (3, 2):
         sys.exit('Need Python 3.2 or newer')
 
-    # Find git to update submodules
-    git = shutil.which('git')
-    if not git:
-        sys.exit('MISSING GIT')
+    parser = ArgumentParser()
+    parser.add_argument('--no-git', action='store_false', dest='git')
+    parser.set_defaults(git=True)
 
-    check_call([git, '-C', DOTBOT_DIR, 'submodule',
-                'sync', '--quiet', '--recursive'])
-    check_call([git, '-C', BASEDIR, 'submodule',
-                'update', '--init', '--recursive'])
+    args = parser.parse_args()
+
+    if args.git:
+        # Find git to update submodules
+        git = shutil.which('git')
+        if not git:
+            sys.exit('MISSING GIT')
+
+        check_call([git, '-C', DOTBOT_DIR, 'submodule',
+                    'sync', '--quiet', '--recursive'])
+        check_call([git, '-C', BASEDIR, 'submodule',
+                    'update', '--init', '--recursive'])
 
     if sys.platform == 'win32':
         return dotbot(BASEDIR, os.path.join('windows', 'install.conf.yaml'))
