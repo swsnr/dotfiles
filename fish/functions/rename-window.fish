@@ -13,9 +13,7 @@
 # the License.
 
 function rename-window -d 'Rename the current tab'
-    if not argparse --name=rename-window 'h/help' 'c/clear' -- $argv
-        return 1
-    end
+    argparse --name=rename-window 'h/help' 'c/clear' -- $argv || return 1
 
     if set -q _flag_help
         echo "rename-window --clear"

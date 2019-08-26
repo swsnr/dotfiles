@@ -19,9 +19,5 @@ function fish_title -d 'Window title for fish'
         echo -sn (prompt_pwd)
     end
 
-    if is-fish-version 3
-        echo -s ' – ' (status current-command)
-    else
-        echo -s " – $_"
-    end
+    echo -s ' – ' (status current-command)
 end
