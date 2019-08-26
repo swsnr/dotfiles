@@ -1,4 +1,4 @@
-﻿# CCopyright 2018-2019 Sebastian Wiesner <sebastian@swsnr.de>
+﻿# Copyright 2018-2019 Sebastian Wiesner <sebastian@swsnr.de>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -42,15 +42,13 @@ function Get-AbbreviatedPath([String] $path) {
         $leaf = Split-Path $path -Leaf
         $separator = [IO.Path]::DirectorySeparatorChar.ToString()
         $removeEmpty = [System.StringSplitOptions]::RemoveEmptyEntries
-        $abbreviatedParts = $head.split($separator, $removeEmpty) |
-            ForEach-Object { $_.substring(0, 1) }
+        $abbreviatedParts = $head.split($separator, $removeEmpty) | ForEach-Object { $_.substring(0, 1) }
 
         if ($abbreviatedParts.Length -eq 0) {
             $abbreviated = $leaf
         }
         else {
-            $abbreviated = ($abbreviatedParts -join $separator) |
-                Join-Path -ChildPath $leaf
+            $abbreviated = ($abbreviatedParts -join $separator) | Join-Path -ChildPath $leaf
         }
 
         if ($path.StartsWith($separator)) {
@@ -102,7 +100,8 @@ function Get-PromptWorkingDir {
     if ($currentPath -and $currentPath.StartsWith($Home, $stringComparison)) {
         $tail = Get-AbbreviatedPath $currentPath.SubString($Home.Length)
         $currentPath = "~" + $tail
-    } else {
+    }
+    else {
         $currentPath = Get-AbbreviatedPath $currentPath
     }
 
@@ -120,17 +119,8 @@ New-Alias -Name which -Value Get-Command
 Import-Module Get-ChildItemColor
 New-Alias -Name ll -Value Get-ChildItemColor
 
-# Git Functions
-function Send-GitPushForce() { git push --force-with-lease }
-function Get-GitLog() { git log --pretty=fancy --topo-order }
-function Get-GitLogOverview() { git log --pretty=overview --topo-order }
-function Get-GitCurrentBranch() {  g rev-parse --abbrev-ref HEAD }
-
 # Git aliases
 New-Alias -Name g -Value "git" -Option AllScope
-New-Alias -Name gpf -Value "GitPushForce" -Option AllScope
-New-Alias -Name gl -Value "Get-GitLog" -Option AllScope -Force
-New-Alias -Name glo -Value "Get-GitLogOverview" -Option AllScope
 
 # Add chocolatey tools to this shell if installed
 $ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
