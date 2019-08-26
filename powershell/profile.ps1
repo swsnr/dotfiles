@@ -83,13 +83,13 @@ function Get-PromptWorkingDir {
 
     # A UNC path has no drive so it's better to use the ProviderPath e.g. "\\server\share".
     # However for any path with a drive defined, it's better to use the Path property.
-    # In this case, ProviderPath is "\LocalMachine\My"" whereas Path is "Cert:\LocalMachine\My".
+    # In this case, ProviderPath is "\LocalMachine\My"" whereas Path is "C:\LocalMachine\My".
     # The latter is more desirable.
-    $pathInfo = $ExecutionContext.SessionState.Path.CurrentLocation
+    $pathInfo = (Get-Location)
     $currentPath = if ($pathInfo.Drive) { $pathInfo.Path } else { $pathInfo.ProviderPath }
 
     # File system paths are case-sensitive on Linux and case-insensitive on Windows and macOS
-    if (($PSVersionTable.PSVersion.Major -ge 6) -and $IsLinux) {
+    if ($IsLinux) {
         $stringComparison = [System.StringComparison]::Ordinal
     }
     else {
