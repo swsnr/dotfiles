@@ -18,5 +18,5 @@ function amm --description 'Scala REPL'
     # propagate arguments from this function and expand them to ammonite via $@.
     # The first argument needs to be the "command name" which is why amm appears
     # twice here.
-    sh -c 'amm "$@"' amm $argv
+    sh -c 'amm --no-remote-logging "$@"' amm $argv
 end
