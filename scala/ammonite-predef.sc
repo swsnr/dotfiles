@@ -1,10 +1,8 @@
 // Add kind projector plugin for type lambdas
-import $plugin.$ivy.`org.spire-math::kind-projector:0.9.9`
-import $ivy.`org.typelevel::cats-core:1.5.0`
+import $ivy.`org.typelevel::cats-core:2.0.0-RC2`
 import $ivy.`com.chuusai::shapeless:2.3.3`
-import $ivy.`io.circe::circe-core:0.10.0`
-import $ivy.`io.circe::circe-generic:0.10.0`
-import $ivy.`io.circe::circe-parser:0.10.0`
+import $ivy.`io.circe::circe-generic:0.12.0-RC4`
+import $ivy.`io.circe::circe-parser:0.12.0-RC4`
 
 // Load ammonite-shell for this ammonite version
 interp.load.ivy(
@@ -19,6 +17,3 @@ import shellSession._
 import ammonite.ops._
 import ammonite.shell._
 ammonite.shell.Configure(interp, repl, wd)
-
-// Enable partial unification
-interp.configureCompiler(_.settings.YpartialUnification.value = true)
