@@ -129,16 +129,12 @@ bindsym $mod+minus scratchpad show
 bindsym $mod+Shift+minus move scratchpad
 
 # Container mode
-set $mode_container split (h)orizontal (v)ertical, layout (s)plit (t)abbed stac(k)ing, (f)loating toggle, focus (↑↓ m) parent/child/mode
+set $mode_container layout (s)plit (t)abbed stac(k)ing, (f)loating toggle, focus (↑↓ m) parent/child/mode
 mode "$mode_container" {
-  bindsym slash split horizontal; mode "default"
-  bindsym minus split vertical; mode "default"
-
+  bindsym space split toggle; mode "default"
   bindsym s layout toggle split; mode "default"
   bindsym t layout tabbed; mode "default"
   bindsym k layout stacking; mode "default"
-  bindsym h layout splith; mode "default"
-  bindsym v layout splitv; mode "default"
 
   bindsym f floating toggle; mode "default"
 
@@ -149,9 +145,9 @@ mode "$mode_container" {
   bindsym Return mode "default"
   bindsym Escape mode "default"
 
-  bindsym $mod+Tab mode "default"
+  bindsym $mod+BackSpace mode "default"
 }
-bindsym $mod+Tab mode "$mode_container"
+bindsym $mod+BackSpace mode "$mode_container"
 
 # Workspace mode
 set $mode_workspace (←→↑↓) move to output, (p) move to primary, (r) rename
