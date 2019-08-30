@@ -129,7 +129,7 @@ bindsym $mod+minus scratchpad show
 bindsym $mod+Shift+minus move scratchpad
 
 # Container mode
-set $mode_container layout (s)plit (t)abbed stac(k)ing, (f)loating toggle, focus (↑↓ m) parent/child/mode
+set $mode_container ( ) split toggle, layout (s)plit (t)abbed stac(k)ing, (f)loating toggle, focus (↑↓ m) parent/child/mode
 mode "$mode_container" {
   bindsym space split toggle; mode "default"
   bindsym s layout toggle split; mode "default"
