@@ -13,8 +13,10 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
-from argparse import ArgumentParser
 import random
+import os
+import json
+from argparse import ArgumentParser
 from pathlib import Path
 from subprocess import check_output, check_call
 
@@ -27,8 +29,10 @@ DIRECTORIES = [
     PICTURE_DIR / 'Space',
 ]
 
-
 EXTENSIONS = {'.jpg', '.jpeg', '.png'}
+
+RUNTIME_DIR = Path(os.environ['XDG_RUNTIME_DIR']
+                   ) if 'XDG_RUNTIME_DIR' in os.environ else None
 
 
 def wallpaper_files():
@@ -48,6 +52,13 @@ def set_wallpapers(files):
     check_call(cmd)
 
 
+def save_state(wallpaper_files):
+    if RUNTIME_DIR:
+        data = {'files': list(map(str, wallpaper_files))}
+        with open(RUNTIME_DIR / 'random-wallpaper.json', 'w') as sink:
+            json.dump(data, sink)
+
+
 def main():
     parser = ArgumentParser(
         description='Set a random wallpaper on each monitor')
@@ -55,6 +66,7 @@ def main():
 
     wallpapers = random.sample(wallpaper_files(), number_of_monitors())
     set_wallpapers(wallpapers)
+    save_state(wallpapers)
 
 
 if __name__ == '__main__':
