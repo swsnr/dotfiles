@@ -117,12 +117,24 @@ Copyright {}
     return (target, meta_target)
 
 
+try:
+    from dateutil.parser import parse as dateutil_parse
+
+    def parse_date(s):
+        return dateutil_parse(s).date()
+except ImportError:
+    import warnings
+    warnings.warn(
+        'dateutil not available, falling back to built-in ISO format parser')
+    parse_date = date.fromisoformat
+
+
 def main():
     parser = ArgumentParser(description='Download APOD images')
     parser.add_argument('--api-key', help='API key')
     parser.add_argument('--directory', help='Target directory', type=Path)
     parser.add_argument('date', metavar='YYYY-MM-DD', help='Date to download',
-                        type=date.fromisoformat, nargs='*', default=[date.today()])
+                        type=parse_date, nargs='*', default=[date.today()])
     parser.add_argument('-o', '--open', help='Open after downloading',
                         action='store_true')
     args = parser.parse_args()
