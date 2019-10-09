@@ -116,6 +116,11 @@ New-Alias -Name ll -Value Get-ChildItemColor
 # Git aliases
 New-Alias -Name g -Value "git" -Option AllScope
 
+# Script aliases
+function apod {
+    py ${env:userprofile}/.dotfiles/bin/apod $args
+}
+
 # Load machine-specific settings
 function Invoke-LocalProfile {
     $local_profile = Join-Path (Split-Path $profile.CurrentUserAllHosts) 'local.ps1'
