@@ -116,6 +116,12 @@ New-Alias -Name ll -Value Get-ChildItemColor
 # Git aliases
 New-Alias -Name g -Value "git" -Option AllScope
 
+function Set-LocationGitRoot {
+    Set-Location (git root)
+}
+
+New-Alias -Name gcd -Value "Set-LocationGitRoot"
+
 # Script aliases
 function apod {
     py ${env:userprofile}/.dotfiles/bin/apod $args

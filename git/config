@@ -108,6 +108,8 @@
 	subu = submodule update --init --recursive
 	# Get the current branch
 	current = symbolic-ref --short HEAD
+	# Get the root directory
+	root = rev-parse --show-toplevel
 	# Manage my Git identity
 	whoami = config user.email
 	iam = config user.email
