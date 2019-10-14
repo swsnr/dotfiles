@@ -23,7 +23,7 @@ from subprocess import run, Popen, DEVNULL
 from textwrap import fill
 
 import keyring
-from dateutil.parser import parse as parse_date
+import dateutil.parser
 
 
 def open_file(path):
@@ -143,6 +143,10 @@ Copyright {}
     meta_target.write_text(info, encoding='utf-8')
     print('APOD written to {}'.format(target))
     return (target, meta_target)
+
+
+def parse_date(s):
+    return dateutil.parser.parse(s).date()
 
 
 def main():
