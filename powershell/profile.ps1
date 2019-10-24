@@ -127,6 +127,10 @@ function apod {
     py ${env:userprofile}/.dotfiles/bin/apod $args
 }
 
+function amm {
+    java -jar (Join-Path -Path (Get-Item ~) "opt" "ammonite" "latest.jar") $args
+}
+
 # Load machine-specific settings
 function Invoke-LocalProfile {
     $local_profile = Join-Path (Split-Path $profile.CurrentUserAllHosts) 'local.ps1'
