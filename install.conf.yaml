@@ -47,7 +47,7 @@
       glob: true
     ~/.config/powershell/types.ps1xml: powershell/types.ps1xml
 
-    # Git config files
+    # Git config files and tools
     ~/.config/git/config: git/config
     ~/.config/git/ignore: git/ignore
     ~/.config/git/attributes: git/attributes
@@ -57,6 +57,7 @@
     ~/.config/git/config.macos:
       path: git/config.macos
       if: "uname -s | grep -qi darwin"
+    ~/.local/bin/git-gone: submodules/git-gone/git-gone
 
     # Scala configuration
     ~/.ammonite/predef.sc: scala/ammonite-predef.sc
