@@ -153,7 +153,3 @@
       command: scripts/macos_defaults.py
       stdout: true
       stderr: true
-    - description: "MacOS: Install iterm2 utilities"
-      command: scripts/macos_iterm2_tools.py
-      stdout: true
-      stderr: true
