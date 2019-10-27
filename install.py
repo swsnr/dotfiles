@@ -22,7 +22,7 @@ from subprocess import check_call, call
 
 
 BASEDIR = os.path.abspath(os.path.dirname(__file__))
-DOTBOT_DIR = os.path.join(BASEDIR, 'dotbot')
+DOTBOT_DIR = os.path.join(BASEDIR, 'submodules', 'dotbot')
 DOTBOT_BIN = os.path.join(DOTBOT_DIR, 'bin', 'dotbot')
 
 
