@@ -6,7 +6,6 @@ Build with [dotbot][].  Highlights:
 * Git 
 * SBT
 * Powershell
-* NeoVim (`nvim`)
 * i3 (`linux/i3`)
 
 [dotbot]: https://github.com/anishathalye/dotbot

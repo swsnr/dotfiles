@@ -36,7 +36,7 @@ if status --is-login
 end
 
 # Environment variables
-set -x EDITOR 'nvim'
+set -x EDITOR 'code'
 set -x PAGER 'less'
 if command --search 'xdg-open' >/dev/null
     # Unix
@@ -90,7 +90,6 @@ if status --is-interactive
     end
 
     # Detect terminal background color and adapt color themes accordingly.
-    # Also export to subprocesses to make nvim aware of the terminal background.
     #
     # term-background is from https://github.com/lunaryorn/term-background.rs
     if command --search 'term-background' >/dev/null

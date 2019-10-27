@@ -29,9 +29,6 @@
     ~/.sbt/1.0/plugins/sbt-updates.sbt: scala/sbt-updates.sbt
     ~/.sbt/1.0/plugins/project/sbt-updates.sbt: scala/sbt-updates.sbt
 
-    # Misc
-    ~/.ideavimrc: misc/ideavimrc
-
     # Powershell Core (6+)
     ~/Documents/PowerShell/:
       path: powershell/*.ps1
