@@ -86,57 +86,48 @@
       if: "uname -s | grep -qi darwin"
 
     # Linux configuration
-    ~/.profile:
-      path: linux/profile.sh
+    ~/.xprofile:
+      path: linux/xprofile.sh
       if: "uname -s | grep -qi linux"
-    ~/.local/share/systemd/user/:
-      path: linux/systemd/*
-      glob: true
-      if: "test -f /etc/systemd/user.conf"
-    ~/.config/fontconfig/conf.d:
-      path: linux/fontconfig/*.conf
-      glob: true
-      if: "uname -s | grep -qi linux"
-    ~/.local/bin/random-wallpaper:
-      path: linux/bin/random-wallpaper.py
-      if: "uname -s | grep -qi linux"
-    ~/.local/bin/notify-checkupdates:
-      path: linux/bin/notify-checkupdates
-      if: "uname -s | grep -qi linux"
-
-    # Arch Linux configuration
-    ~/.config/pacman/makepkg.conf:
-      path: linux/pacman/makepkg.conf
-      if: "test -f /etc/pacman.conf"
+    # ~/.profile:
+    #   path: linux/profile.sh
+    #   if: "uname -s | grep -qi linux"
+    # ~/.local/share/systemd/user/:
+    #   path: linux/systemd/*
+    #   glob: true
+    #   if: "test -f /etc/systemd/user.conf"
+    # ~/.local/bin/random-wallpaper:
+    #   path: linux/bin/random-wallpaper.py
+    #   if: "uname -s | grep -qi linux"
 
     # i3 and related tools
-    ~/.config/i3/config:
-      path: linux/i3/config
-      if: "uname -s | grep -qi linux"
-    ~/.local/bin/i3-rename-workspace:
-      path: linux/bin/i3-rename-workspace
-      if: "uname -s | grep -qi linux"
-    ~/.config/i3blocks/config:
-      path: linux/i3/i3blocks.conf
-      if: "uname -s | grep -qi linux"
-    ~/.config/i3blocks/blocklets:
-      path: linux/i3/blocklets/*
-      glob: true
-      if: "uname -s | grep -qi linux"
-    ~/.config/compton/compton.conf:
-      path: linux/compton.conf
-      if: "uname -s | grep -qi linux"
-    # rofi, launcher for i3
-    ~/.config/rofi/config.rasi:
-      path: linux/rofi.rasi
-      if: "uname -s | grep -qi linux"
-    ~/.local/bin/rofi-idea-projects:
-      path: linux/bin/rofi-idea-projects
-      if: "uname -s | grep -qi linux"
-    # Notifications for i3
-    ~/.config/dunst/dunstrc:
-      path: linux/dunstrc
-      if: "uname -s | grep -qi linux"
+    # ~/.config/i3/config:
+    #   path: linux/i3/config
+    #   if: "uname -s | grep -qi linux"
+    # ~/.local/bin/i3-rename-workspace:
+    #   path: linux/bin/i3-rename-workspace
+    #   if: "uname -s | grep -qi linux"
+    # ~/.config/i3blocks/config:
+    #   path: linux/i3/i3blocks.conf
+    #   if: "uname -s | grep -qi linux"
+    # ~/.config/i3blocks/blocklets:
+    #   path: linux/i3/blocklets/*
+    #   glob: true
+    #   if: "uname -s | grep -qi linux"
+    # ~/.config/compton/compton.conf:
+    #   path: linux/compton.conf
+    #   if: "uname -s | grep -qi linux"
+    # # rofi, launcher for i3
+    # ~/.config/rofi/config.rasi:
+    #   path: linux/rofi.rasi
+    #   if: "uname -s | grep -qi linux"
+    # ~/.local/bin/rofi-idea-projects:
+    #   path: linux/bin/rofi-idea-projects
+    #   if: "uname -s | grep -qi linux"
+    # # Notifications for i3
+    # ~/.config/dunst/dunstrc:
+    #   path: linux/dunstrc
+    #   if: "uname -s | grep -qi linux"
 
     # macOS configuration
     ~/.gnupg/gpg-agent.conf:
