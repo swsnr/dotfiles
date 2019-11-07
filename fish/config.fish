@@ -36,7 +36,7 @@ if status --is-login
 end
 
 # Environment variables
-set -x EDITOR 'code'
+set -x EDITOR 'code -nw'
 set -x PAGER 'less'
 if command --search 'xdg-open' >/dev/null
     # Unix
