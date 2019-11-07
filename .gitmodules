@@ -1,6 +1,3 @@
 [submodule "dotbot"]
 	path = submodules/dotbot
 	url = https://github.com/anishathalye/dotbot
-[submodule "submodules/git-gone"]
-	path = submodules/git-gone
-	url = https://github.com/eed3si9n/git-gone.git
