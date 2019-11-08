@@ -89,9 +89,6 @@
     ~/.xprofile:
       path: linux/xprofile.sh
       if: "uname -s | grep -qi linux"
-    # ~/.profile:
-    #   path: linux/profile.sh
-    #   if: "uname -s | grep -qi linux"
     # ~/.local/share/systemd/user/:
     #   path: linux/systemd/*
     #   glob: true
@@ -113,9 +110,6 @@
     # ~/.config/i3blocks/blocklets:
     #   path: linux/i3/blocklets/*
     #   glob: true
-    #   if: "uname -s | grep -qi linux"
-    # ~/.config/compton/compton.conf:
-    #   path: linux/compton.conf
     #   if: "uname -s | grep -qi linux"
     # # rofi, launcher for i3
     # ~/.config/rofi/config.rasi:
