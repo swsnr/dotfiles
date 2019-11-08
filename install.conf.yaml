@@ -89,6 +89,9 @@
     ~/.xprofile:
       path: linux/xprofile.sh
       if: "uname -s | grep -qi linux"
+    ~/.local/bin/gnome-random-wallpaper:
+      path: linux/bin/gnome-random-wallpaper.py
+      if: "uname -s | grep -qi linux"
     # ~/.local/share/systemd/user/:
     #   path: linux/systemd/*
     #   glob: true
