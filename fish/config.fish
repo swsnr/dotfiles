@@ -138,4 +138,7 @@ if status --is-interactive
 
     abbr --add sc systemctl
     abbr --add scu systemctl --user
+    abbr --add jc journalctl
+    abbr --add jcu journalctl --user
+    abbr --add dc docker-compose
 end
