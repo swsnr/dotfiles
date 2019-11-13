@@ -116,9 +116,9 @@ def get_info(api_key, date):
         return info
 
 
-def image_exists(directory, date):
+def get_image_file(directory, date):
     pattern = '{}-'.format(date.isoformat())
-    return any(e.name.startswith(pattern) for e in directory.iterdir())
+    return next(filter(lambda e: e.name.startswith(pattern), directory.iterdir()), None)
 
 
 def download_image(directory, image_info):
@@ -166,23 +166,24 @@ def main():
         args.directory = get_default_directory()
 
     for date_to_download in args.date:
-        if image_exists(args.directory, date_to_download):
+        image = get_image_file(args.directory, date_to_download)
+        if image:
             print('APOD {} already exists in {}'.format(
                 date_to_download, args.directory))
-            continue
-
-        try:
+        else:
             info = get_info(args.api_key, date_to_download)
             (image, _) = download_image(args.directory, info)
-            if args.open:
-                open_file(image)
-        except APODError as error:
-            sys.exit('APOD error: {}'.format(error))
-        except ValueError as error:
-            sys.exit('Error: {}'.format(error))
-        except KeyboardInterrupt:
-            pass
+
+        if args.open:
+            open_file(image)
 
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except APODError as error:
+        sys.exit('APOD error: {}'.format(error))
+    except ValueError as error:
+        sys.exit('Error: {}'.format(error))
+    except KeyboardInterrupt:
+        pass
