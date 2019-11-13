@@ -72,15 +72,8 @@
     ~/.config/latexmk/latexmkrc: misc/latexmkrc
     ~/.gnupg/gpg.conf: misc/gpg.conf
     ~/.config/bat/config: misc/bat
-    # tmux: Main config to dispatch, and then version-specific configurations
-    ~/.tmux.conf: tmux/tmux.conf
-    ~/.tmux.2.conf: tmux/tmux.2.conf
-    ~/.tmux.1.conf: tmux/tmux.1.conf
     # SSH
     ~/.ssh/config: ssh/config
-    ~/.ssh/config.d/:
-      path: ssh/config.d/*
-      glob: true
     ~/.ssh/config.d/00-macos:
       path: ssh/00-macos
       if: "uname -s | grep -qi darwin"
@@ -126,10 +119,6 @@
     #   path: linux/dunstrc
     #   if: "uname -s | grep -qi linux"
 
-    # macOS configuration
-    ~/.gnupg/gpg-agent.conf:
-      path: macos/gpg-agent.conf
-      if: "uname -s | grep -qi darwin"
     # DevonTHINK feed stylesheet for Markdown files
     "~/Library/Application Support/DEVONthink Pro 2/StyleSheets/Vollkorn.css":
       path: macos/devonthink-feed.css
