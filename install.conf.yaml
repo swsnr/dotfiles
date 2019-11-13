@@ -90,7 +90,7 @@
     #   glob: true
     #   if: "test -f /etc/systemd/user.conf"
     # ~/.local/bin/random-wallpaper:
-    #   path: linux/bin/random-wallpaper.py
+    #   path: linux/i3/bin/random-wallpaper.py
     #   if: "uname -s | grep -qi linux"
 
     # i3 and related tools
@@ -98,7 +98,7 @@
     #   path: linux/i3/config
     #   if: "uname -s | grep -qi linux"
     # ~/.local/bin/i3-rename-workspace:
-    #   path: linux/bin/i3-rename-workspace
+    #   path: linux/i3/bin/i3-rename-workspace
     #   if: "uname -s | grep -qi linux"
     # ~/.config/i3blocks/config:
     #   path: linux/i3/i3blocks.conf
@@ -109,14 +109,14 @@
     #   if: "uname -s | grep -qi linux"
     # # rofi, launcher for i3
     # ~/.config/rofi/config.rasi:
-    #   path: linux/rofi.rasi
+    #   path: linux/i3/rofi.rasi
     #   if: "uname -s | grep -qi linux"
     # ~/.local/bin/rofi-idea-projects:
-    #   path: linux/bin/rofi-idea-projects
+    #   path: linux/i3/bin/rofi-idea-projects
     #   if: "uname -s | grep -qi linux"
     # # Notifications for i3
     # ~/.config/dunst/dunstrc:
-    #   path: linux/dunstrc
+    #   path: linux/i3/dunstrc
     #   if: "uname -s | grep -qi linux"
 
     # DevonTHINK feed stylesheet for Markdown files
