@@ -15,15 +15,27 @@
 
 import json
 import sys
+import os
+import imghdr
 from argparse import ArgumentParser
 from datetime import date
 from pathlib import Path
 from platform import system
-from subprocess import run, Popen, DEVNULL
+from subprocess import run, Popen, DEVNULL, check_call
 from textwrap import fill
 
 import keyring
 import dateutil.parser
+
+
+def set_wallpaper(image_path):
+    if ':GNOME' in os.environ.get('XDG_CURRENT_DESKTOP', ''):
+        for namespace in {'org.gnome.desktop.background', 'org.gnome.desktop.screensaver'}:
+            check_call(['gsettings', 'set', namespace,
+                        'picture-uri', image_path.as_uri()])
+    else:
+        raise NotImplementedError(
+            'Cannot set wallpaper in current environment')
 
 
 def open_file(path):
@@ -116,9 +128,12 @@ def get_info(api_key, date):
         return info
 
 
+def is_image_file(path, date):
+    return path.name.startswith('{}-'.format(date.isoformat())) and imghdr.what(path)
+
+
 def get_image_file(directory, date):
-    pattern = '{}-'.format(date.isoformat())
-    return next(filter(lambda e: e.name.startswith(pattern), directory.iterdir()), None)
+    return next(filter(lambda e: is_image_file(e, date), directory.iterdir()), None)
 
 
 def download_image(directory, image_info):
@@ -152,8 +167,10 @@ def parse_date(s):
 def main():
     parser = ArgumentParser(description='Download APOD images')
     parser.add_argument('--api-key', help='API key')
+    parser.add_argument('-w', '--wallpaper', help='Set APOD image as wallpaper',
+                        action='store_true')
     parser.add_argument('--directory', help='Target directory', type=Path)
-    parser.add_argument('date', metavar='YYYY-MM-DD', help='Date to download',
+    parser.add_argument('dates', metavar='YYYY-MM-DD', help='Date to download',
                         type=parse_date, nargs='*', default=[date.today()])
     parser.add_argument('-o', '--open', help='Open after downloading',
                         action='store_true')
@@ -164,18 +181,21 @@ def main():
             parser.error('No API key given and no API key in credential store')
     if not args.directory:
         args.directory = get_default_directory()
+    if args.wallpaper and len(args.dates) != 1:
+        parser.error('Cannot set multiple images as wallpaper')
 
-    for date_to_download in args.date:
+    for date_to_download in args.dates:
         image = get_image_file(args.directory, date_to_download)
-        if image:
-            print('APOD {} already exists in {}'.format(
-                date_to_download, args.directory))
-        else:
+        if not image:
             info = get_info(args.api_key, date_to_download)
             (image, _) = download_image(args.directory, info)
 
         if args.open:
             open_file(image)
+
+        if args.wallpaper:
+            set_wallpaper(image)
+            print('Set wallpaper to {}'.format(image))
 
 
 if __name__ == '__main__':
