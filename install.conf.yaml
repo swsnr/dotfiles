@@ -82,6 +82,15 @@
     ~/.config/pacman/makepkg.conf:
       path: linux/arch/makepkg.conf
       if: "test -f /etc/pacman.conf"
+    ~/.local/bin/notify-checkupdates:
+      path: linux/arch/notify-checkupdates
+      if: "test -f /etc/pacman.conf"
+    ~/.local/share/systemd/user/notify-checkupdates.service:
+      path: linux/arch/notify-checkupdates.service
+      if: "test -f /etc/pacman.conf"
+    ~/.local/share/systemd/user/notify-checkupdates.timer:
+      path: linux/arch/notify-checkupdates.timer
+      if: "test -f /etc/pacman.conf"
     # Linux configuration (Gnome)
     ~/.local/bin/gnome-random-wallpaper:
       path: linux/gnome/bin/gnome-random-wallpaper.py
