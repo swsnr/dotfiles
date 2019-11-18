@@ -78,7 +78,11 @@
       path: ssh/00-macos
       if: "uname -s | grep -qi darwin"
 
-    # Linux configuration
+    # Linux configuration (Arch)
+    ~/.config/pacman/makepkg.conf:
+      path: linux/arch/makepkg.conf
+      if: "test -f /etc/pacman.conf"
+    # Linux configuration (Gnome)
     ~/.local/bin/gnome-random-wallpaper:
       path: linux/gnome/bin/gnome-random-wallpaper.py
       if: "uname -s | grep -qi linux"
