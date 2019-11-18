@@ -69,7 +69,7 @@ set -x LESS '-q -g -i -M -R -S -w -z-4 -X -K -F'
 # Extra things for interactive shells
 if status --is-interactive
     # Setup autojump
-    for directory in "$HOME/opt/autojump/" '/usr/local/' '/usr/'
+    for directory in "$HOME/.autojump" '/usr/local/' '/usr/'
         set -l __autojump_file "$directory/share/autojump/autojump.fish"
         if [ -f $__autojump_file ]
             source $__autojump_file
