@@ -33,6 +33,11 @@ if status --is-login
         ~/.local/share/info \
         /usr/local/share/info \
         /usr/share/info
+
+    if uname -s | grep -qi linux
+        # Make Qt5 appearance configurable
+        set -x QT_QPA_PLATFORMTHEME qt5ct
+    end
 end
 
 # Environment variables
