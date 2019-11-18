@@ -98,9 +98,14 @@
 	l24 = log --pretty=overview --topo-order --graph --since '24 hours ago'
 	mff = merge --ff-only
 	mnoff = merge --no-ff
+	mt = mergetool
 	p = push
 	pf = push --force-with-lease
 	pu = push --set-upstream
+	r = rebase
+	ri = rebase -i
+	rc = rebase --continue
+	ra = rebase --abort
 	s = status
 	# Submodules
 	sub = submodule
