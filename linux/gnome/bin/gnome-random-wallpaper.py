@@ -45,7 +45,7 @@ def main():
         description='Set a random wallpaper for GNOME')
     parser.parse_args()
 
-    if ':GNOME' in os.environ.get('XDG_CURRENT_DESKTOP', ''):
+    if 'GNOME' in os.environ.get('XDG_CURRENT_DESKTOP', ''):
         wallpaper = random.choice(wallpaper_files()).as_uri()
         for namespace in {'org.gnome.desktop.background', 'org.gnome.desktop.screensaver'}:
             check_call(['gsettings', 'set', namespace,
