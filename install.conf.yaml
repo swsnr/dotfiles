@@ -82,6 +82,16 @@
     ~/.local/bin/reset-thunderbolt.bash:
       path: linux/reset-thunderbolt.bash
       if: "uname -s | grep -qi linux"
+    # Linux fontconfig, for emojis
+    ~/.config/fontconfig/conf.d/69-emoji.conf:
+      path: submodules/fontconfig-emoji/69-emoji.conf
+      if: "uname -s | grep -qi linux"
+    ~/.config/fontconfig/conf.d/70-no-dejavu.conf:
+      path: submodules/fontconfig-emoji/70-no-dejavu.conf
+      if: "uname -s | grep -qi linux"
+    ~/.config/fontconfig/conf.d/70-no-mozilla-emoji.conf:
+      path: submodules/fontconfig-emoji/70-no-mozilla-emoji.conf
+      if: "uname -s | grep -qi linux"
     # Linux configuration (Arch)
     ~/.config/pacman/makepkg.conf:
       path: linux/arch/makepkg.conf
@@ -141,6 +151,7 @@
     - description: Set yarn prefix to ~/.local
       command: sh -c 'command -v yarn && yarn config set prefix ~/.local || exit 0'
     - command: sh -c 'if uname -s | grep -qi linux; then sudo -n install -D -m644 linux/etc/nobeep.conf /etc/modprobe.d; fi'
+      stderr: true
     - description: "MacOS: Set defaults"
       command: scripts/macos_defaults.py
       stdout: true
