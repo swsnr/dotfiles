@@ -14,7 +14,7 @@
 
 function pbpaste --description 'Paste from clipboard'
     if not command --search pbpaste >/dev/null
-        xsel -bo $argv
+        wl-paste $argv
     else
         command pbpaste $argv
     end

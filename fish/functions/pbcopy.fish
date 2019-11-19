@@ -14,7 +14,7 @@
 
 function pbcopy --description 'Copy to clipboard'
     if not command --search pbcopy >/dev/null
-        xsel -bi $argv
+        wl-copy $argv
     else
         command pbcopy $argv
     end
