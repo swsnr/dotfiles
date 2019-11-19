@@ -78,6 +78,10 @@
       path: ssh/00-macos
       if: "uname -s | grep -qi darwin"
 
+    # Linux configuration (basic)
+    ~/.local/bin/reset-thunderbolt.bash:
+      path: linux/reset-thunderbolt.bash
+      if: "uname -s | grep -qi linux"
     # Linux configuration (Arch)
     ~/.config/pacman/makepkg.conf:
       path: linux/arch/makepkg.conf
