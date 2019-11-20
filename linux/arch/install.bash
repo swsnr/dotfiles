@@ -186,6 +186,9 @@ packages=(
     # Dependencies of scripts in my dotfiles
     python-dateutil
     python-keyring
+
+    # LaTex
+    texlive-most
 )
 
 echo "Install packages"
