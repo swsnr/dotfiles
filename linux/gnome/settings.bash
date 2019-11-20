@@ -32,6 +32,9 @@ gs org.gnome.desktop.interface font-name 'Ubuntu 12'
 gs org.gnome.desktop.interface document-font-name 'Ubuntu 12'
 gs org.gnome.desktop.interface monospace-font-name 'Ubuntu Mono 11'
 
+# Shell
+gs org.gnome.mutter workspaces-only-on-primary true
+
 # Enable location services
 gs org.gnome.system.location enabled true
 
