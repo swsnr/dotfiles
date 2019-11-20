@@ -154,3 +154,6 @@
       command: scripts/macos_defaults.py
       stdout: true
       stderr: true
+    - command: linux/gnome/settings.bash
+      stdout: true
+      stderr: true
