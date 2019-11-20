@@ -97,6 +97,8 @@ packages=(
     # Browser
     firefox
     firefox-i18n-de
+    # Gnome web browser, for web apps
+    epiphany
 
     # Gnome shell & basic tools
     gdm
@@ -127,8 +129,9 @@ packages=(
     evolution-ews
     # Help viewer
     yelp
-    # Image viewer
+    # Image viewer & editing
     eog
+    gimp
     # Terminal
     tilix
     # Disk space analyzer
