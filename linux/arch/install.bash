@@ -243,3 +243,11 @@ locale-gen
 
 echo "Update pkgfile database"
 pkgfile --update
+
+aurpackages=(
+    "aurutils"
+    "yaru"
+)
+
+echo "INSTALL AUR PACKAGES MANUALLY (use aurutils!)"
+echo "AUR packages: ${aurpackages[*]}"
