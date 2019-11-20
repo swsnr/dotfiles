@@ -26,7 +26,7 @@ function gs {
 }
 
 # Gtk theme and fonts
-gs org.gnome.desktop.interface gtk-theme Yaru-dark
+gs org.gnome.desktop.interface gtk-theme Yaru
 gs org.gnome.desktop.interface icon-theme Yaru
 gs org.gnome.desktop.interface font-name 'Ubuntu 12'
 gs org.gnome.desktop.interface document-font-name 'Ubuntu 12'
