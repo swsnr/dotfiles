@@ -108,6 +108,8 @@ packages=(
     dconf-editor
     gnome-tweaks
     flatpak
+    # DBus inspector
+    d-feet
     # Gnome software
     gnome-calculator
     gnome-calendar
@@ -121,7 +123,7 @@ packages=(
     gnome-shell-extensions
     gnome-system-monitor
     gnome-todo
-    gnome-weather
+    gnome-weatherin
     # Basic NTP sync
     gnote
     file-roller
