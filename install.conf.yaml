@@ -150,8 +150,6 @@
 - shell:
     - description: Set yarn prefix to ~/.local
       command: sh -c 'command -v yarn && yarn config set prefix ~/.local || exit 0'
-    - command: sh -c 'if uname -s | grep -qi linux; then sudo -n install -D -m644 linux/etc/nobeep.conf /etc/modprobe.d; fi'
-      stderr: true
     - description: "MacOS: Set defaults"
       command: scripts/macos_defaults.py
       stdout: true
