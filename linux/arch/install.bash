@@ -60,6 +60,8 @@ packages=(
     pacman-contrib
     # Lookup packages by contents
     pkgfile
+    # Watch processes
+    htop
 
     # Networking
     bind-tools
@@ -89,6 +91,9 @@ packages=(
     openjdk8-doc
     openjdk8-src
     sbt
+
+    # Mono
+    mono
 
     # Containers
     docker
@@ -123,7 +128,7 @@ packages=(
     gnome-shell-extensions
     gnome-system-monitor
     gnome-todo
-    gnome-weatherin
+    gnome-weather
     # Basic NTP sync
     gnote
     file-roller
@@ -183,6 +188,10 @@ packages=(
     ttf-fira-code
     ttf-fira-mono
     ttf-fira-sans
+    # More nice fonts
+    adobe-source-code-pro-fonts
+    adobe-source-sans-pro-fonts
+    adobe-source-serif-pro-fonts
     # Good UI font for some themes
     ttf-roboto
     # My favourite UI font
