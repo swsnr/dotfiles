@@ -277,6 +277,8 @@ aurpackages=(
     yaru-gtk-theme
     yaru-icon-theme
     yaru-sound-theme
+    # A favourite font of mine
+    otf-vollkorn
 )
 
 if command -v aur > /dev/null; then
