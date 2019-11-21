@@ -25,8 +25,11 @@ if [ $EUID != 0 ]; then
     exec sudo "$0" "$@"
 fi
 
-echo "Install basic packages"
+echo "Configure pacman"
+install -m644 linux/arch/etc/pacman.conf /etc/pacman.conf
+install -m644 linux/arch/etc/pacman-mirrorlist /etc/pacman.d/mirrorlist
 
+echo "Install basic packages"
 packages=(
     # System
     base
@@ -260,3 +263,4 @@ aurpackages=(
 
 echo "INSTALL AUR PACKAGES MANUALLY (use aurutils!)"
 echo "AUR packages: ${aurpackages[*]}"
+
