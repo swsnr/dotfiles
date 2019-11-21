@@ -25,6 +25,17 @@ if [ $EUID != 0 ]; then
     exec sudo "$0" "$@"
 fi
 
+echo "Create AUR repo structure and group"
+groupadd --system --force qpkgrepo_aur
+install -d /srv/pkgrepo
+install -m 2775 -g pkgrepo_aur -d /srv/pkgrepo/aur
+setfacl -d -m group:pkgrepo_aur:rwx /srv/pkgrepo/aur
+setfacl -m group:pkgrepo_aur:rwx /srv/pkgrepo/aur
+if [[ ! -f /srv/pkgrepo/aur/aur.db.tar.xz ]]; then
+    echo "Initialize empty package database; ignore the following warnings"
+    repo-add /srv/pkgrepo/aur/aur.db.tar.xz
+fi
+
 echo "Configure pacman"
 install -m644 linux/arch/etc/pacman.conf /etc/pacman.conf
 install -m644 linux/arch/etc/pacman-mirrorlist /etc/pacman.d/mirrorlist
@@ -256,11 +267,25 @@ locale-gen
 echo "Update pkgfile database"
 pkgfile --update
 
+echo "Install AUR packages from local repo"
 aurpackages=(
-    "aurutils"
-    "yaru"
+    # AUR helpers
+    aurutils
+    # Nice Gnome theme from Ubuntu
+    yaru-gtk-theme
+    yaru-icon-theme
+    yaru-sound-theme
 )
 
-echo "INSTALL AUR PACKAGES MANUALLY (use aurutils!)"
-echo "AUR packages: ${aurpackages[*]}"
-
+if command -v aur > /dev/null; then
+    for package in "${aurpackages[@]}"; do
+        if aur repo --list | grep -q "^$package\>"; then
+            pacman -Sy --needed --noconfirm "$package"
+        else
+            echo "AUR package $package not in repo; build with aur build!"
+        fi
+    done
+else
+    echo "AUR helper aurutils not installed"
+    echo "INSTALL AURUTILS MANUALLY FROM AUR"
+fi
