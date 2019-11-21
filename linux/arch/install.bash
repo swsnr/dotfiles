@@ -233,6 +233,8 @@ services=(
     gdm
     # pkgfile updates
     pkgfile-update.timer
+    # Pacman cache cleanup
+    paccache.timer
 )
 
 echo "Enable systemd services: ${services[*]}"
