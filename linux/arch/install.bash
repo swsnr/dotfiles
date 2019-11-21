@@ -116,8 +116,6 @@ packages=(
     # Browser
     firefox
     firefox-i18n-de
-    # Gnome web browser, for web apps
-    epiphany
 
     # Gnome shell & basic tools
     gdm
