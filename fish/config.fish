@@ -73,6 +73,18 @@ set -x LESS '-q -g -i -M -R -S -w -z-4 -X -K -F'
 
 # Extra things for interactive shells
 if status --is-interactive
+
+    # Give me English messages in an interface shell in a TTY; these messages
+    # are just so much better than the translations!
+    #
+    # Don't do this in a login shell, though, because that'd change the language
+    # of the entire desktop, since GDM starts the session through a login shell
+    if ! string match -qi 'darwin*' (uname -s)
+        # Prefer english message for all CLI tools on Linux.  On macOS this confuses
+        # Perl, so don't change the locale
+        set -x LC_MESSAGES 'en_GB.utf8'
+    end
+
     # Setup autojump
     for directory in "$HOME/.autojump" '/usr/local/' '/usr/'
         set -l __autojump_file "$directory/share/autojump/autojump.fish"
