@@ -70,7 +70,6 @@
 
     # Misc unix tools
     ~/.config/latexmk/latexmkrc: misc/latexmkrc
-    ~/.gnupg/gpg.conf: misc/gpg.conf
     ~/.config/bat/config: misc/bat
     # SSH
     ~/.ssh/config: ssh/config
