@@ -281,6 +281,8 @@ aurpackages=(
     yaru-sound-theme
     # A favourite font of mine
     otf-vollkorn
+    # CLI client for 1password
+    1password-cli
 )
 
 if command -v aur > /dev/null; then
