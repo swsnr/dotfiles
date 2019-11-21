@@ -172,6 +172,8 @@ packages=(
 
     # Other software
     keepassxc
+    # Feed reader
+    feedreader
 
     # Office
     libreoffice-fresh
