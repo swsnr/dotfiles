@@ -94,6 +94,9 @@ packages=(
     kdiff3
     # Text editor
     code
+    # API docs browser
+    zeal
+    # Shell linter
     shellcheck
 
     # Python
