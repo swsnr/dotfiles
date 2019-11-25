@@ -63,8 +63,6 @@
 [push]
 	# Push annotated tag reachable from pushed commits
 	followTags = true
-	# Sign pushes if the server supports it
-	gpgSign = if-asked
 # UI
 [color]
 	diff = auto
