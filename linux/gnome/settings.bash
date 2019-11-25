@@ -26,8 +26,9 @@ function gs {
 }
 
 # Gtk theme and fonts
-gs org.gnome.desktop.interface gtk-theme Yaru
-gs org.gnome.desktop.interface icon-theme Yaru
+gs org.gnome.desktop.interface gtk-theme Arc
+gs org.gnome.desktop.interface icon-theme Numix-Circle-Light
+gs org.gnome.desktop.interface cursor-theme Numix-Cursor-Light
 gs org.gnome.desktop.interface font-name 'Ubuntu 12'
 gs org.gnome.desktop.interface document-font-name 'Ubuntu 12'
 gs org.gnome.desktop.interface monospace-font-name 'Ubuntu Mono 11'

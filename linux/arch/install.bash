@@ -194,6 +194,9 @@ packages=(
     qt5ct
     kvantum-qt5
 
+    # Themes and stuff
+    arc-gtk-theme
+
     # Fonts
     # Metric equivalents for Arial, Times New Roman, etc.
     ttf-liberation
@@ -276,10 +279,9 @@ echo "Install AUR packages from local repo"
 aurpackages=(
     # AUR helpers
     aurutils
-    # Nice Gnome theme from Ubuntu
-    yaru-gtk-theme
-    yaru-icon-theme
-    yaru-sound-theme
+    # Lovely icon theme :)
+    numix-circle-icon-theme-git
+    numix-cursor-theme
     # A favourite font of mine
     otf-vollkorn
     # CLI client for 1password
