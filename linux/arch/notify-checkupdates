@@ -15,7 +15,6 @@
 
 repos=()
 
-updates="$(checkupdates)"
 if [[ -n "$(checkupdates)" ]]; then
     repos+=('Pacman')
 fi
