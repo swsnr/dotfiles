@@ -197,6 +197,11 @@ packages=(
     arc-gtk-theme
 
     # Fonts
+    # Basic sets of fonts for good language support
+    noto-fonts
+    noto-fonts-cjk
+    noto-fonts-extra
+    noto-fonts-emoji
     # Metric equivalents for Arial, Times New Roman, etc.
     ttf-liberation
     # …for MS Cambria
