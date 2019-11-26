@@ -285,6 +285,8 @@ echo "Install AUR packages from local repo"
 aurpackages=(
     # AUR helpers
     aurutils
+    # Shell extension for system tray icnos
+    gnome-shell-extension-appindicator
     # Lovely icon theme :)
     numix-circle-icon-theme-git
     numix-cursor-theme
