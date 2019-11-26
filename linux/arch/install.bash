@@ -124,7 +124,6 @@ packages=(
     gdm
     gnome-shell
     gnome-shell-extensions
-    chrome-gnome-shell
     dconf-editor
     gnome-tweaks
     flatpak
