@@ -290,10 +290,15 @@ aurpackages=(
     # Lovely icon theme :)
     numix-circle-icon-theme-git
     numix-cursor-theme
+
     # A favourite font of mine
     otf-vollkorn
+
     # CLI client for 1password
     1password-cli
+
+    # Scala REPL
+    ammonite
 )
 
 if command -v aur > /dev/null; then
