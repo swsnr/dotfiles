@@ -73,7 +73,10 @@ packages=(
 
     # Basic tools
     sudo
+    # Manpages…
     man-db
+    # …and simpler manpages
+    tldr
     # Better ls
     exa
     # Better find
