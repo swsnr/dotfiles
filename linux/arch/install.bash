@@ -20,10 +20,20 @@ set -e
 
 echo "Provisioning Arch Linux system"
 
-if [ $EUID != 0 ]; then
+if [[ $EUID != 0 ]]; then
     echo "Root required, elevating with sudo $0 $*"
     exec sudo "$0" "$@"
 fi
+
+if [[ "$1" == "--all" ]]; then
+    FAST="false"
+else
+    FAST="true"
+fi
+
+function do-all {
+    [[ "$FAST" == 'false' ]] && return 0 || return 1
+}
 
 echo "Create AUR repo structure and group"
 groupadd --system --force qpkgrepo_aur
@@ -274,12 +284,20 @@ echo "Allow sudo to wheel group members"
 install -m700 -d /etc/sudoers.d/
 install -m600 linux/etc/sudoers-wheel /etc/sudoers.d/10-wheel
 
-echo "Create locales"
-install -m644 linux/etc/locale.gen /etc/locale.gen
-locale-gen
+if do-all; then
+    echo "Create locales"
+    install -m644 linux/etc/locale.gen /etc/locale.gen
+    locale-gen
+else
+    echo "Create locales (SKIPPED)"
+fi
 
-echo "Update pkgfile database"
-pkgfile --update
+if do-all; then
+    echo "Update pkgfile database"
+    pkgfile --update
+else
+    echo "Update pkgfile database (SKIPPED)"
+fi
 
 echo "Install AUR packages from local repo"
 aurpackages=(
