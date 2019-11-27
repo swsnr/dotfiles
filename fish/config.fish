@@ -152,4 +152,6 @@ if status --is-interactive
     abbr --add jc journalctl
     abbr --add jcu journalctl --user
     abbr --add dc docker-compose
+
+    abbr --add wttr curl wttr.in
 end
