@@ -56,10 +56,6 @@ packages=(
     base
     # To identify the system
     lsb-release
-    # Boot loader
-    grub
-    # Find other operating systems for Grub configuration
-    os-prober
     # Firmware updates
     fwupd
     # Processor microcode
