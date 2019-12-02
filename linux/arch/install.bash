@@ -120,8 +120,9 @@ packages=(
     openjdk8-src
     sbt
 
-    # Mono
+    # Misc
     mono
+    rustup
 
     # Containers
     docker
