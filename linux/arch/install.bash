@@ -318,6 +318,9 @@ aurpackages=(
     numix-circle-icon-theme-git
     numix-cursor-theme
 
+    # Docker credentials storage
+    docker-credential-secretservice
+
     # A favourite font of mine
     otf-vollkorn
 
