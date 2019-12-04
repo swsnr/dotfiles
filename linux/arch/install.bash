@@ -329,6 +329,9 @@ aurpackages=(
 
     # Scala REPL
     ammonite
+
+    # Switch to dedicated graphics card
+    switcheroo-control
 )
 
 if command -v aur > /dev/null; then
@@ -343,3 +346,7 @@ else
     echo "AUR helper aurutils not installed"
     echo "INSTALL AURUTILS MANUALLY FROM AUR"
 fi
+
+# Enable graphics card switching
+systemctl enable switcheroo-control
+systemctl start switcheroo-control
