@@ -90,6 +90,8 @@ packages=(
 
     # Networking
     bind-tools
+    # Better WiFi networking (no more wpa_supplicant)
+    iwd
 
     # My shell environment
     fish
@@ -245,6 +247,9 @@ echo "Install packages"
 pacman -Sy --needed --noconfirm "${packages[@]}"
 
 services=(
+    # WiFi and network management
+    iwd
+    NetworkManager
     # Basic NTP sync
     systemd-timesyncd
     # Hostname resolution
@@ -261,6 +266,10 @@ services=(
 
 echo "Enable systemd services: ${services[*]}"
 systemctl enable "${services[@]}"
+
+echo "Make NetworkManager use iwd for Wifi management"
+install -m644 linux/arch/etc/networkmanager-wifi-backend-iwd.conf \
+    /etc/NetworkManager/conf.d/wifi-backend.conf
 
 echo "Redirect resolv.conf to systemd-resolved"
 ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
