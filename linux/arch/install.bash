@@ -155,7 +155,6 @@ packages=(
     gnome-screenshot
     gnome-shell-extensions
     gnome-system-monitor
-    gnome-todo
     gnome-weather
     # Basic NTP sync
     gnote
@@ -188,6 +187,8 @@ packages=(
     keepassxc
     # Feed reader
     feedreader
+    # CLI task manager (TaskWarrior)
+    task
 
     # Office
     libreoffice-fresh
