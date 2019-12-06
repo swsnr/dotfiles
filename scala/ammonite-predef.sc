@@ -17,3 +17,14 @@ import shellSession._
 import ammonite.ops._
 import ammonite.shell._
 ammonite.shell.Configure(interp, repl, wd)
+
+// My prompt
+repl.prompt.bind {
+  import java.util.regex.Pattern.quote
+  val now = java.time.LocalTime.now().format(java.time.format.DateTimeFormatter.ofPattern("HH:mm"))
+  val shortpwd = wd.toString
+    .replaceFirst(s"\\A${quote(home.toString)}", "~")
+    .replaceAll("(\\.?[^/])[^/]*/", "$1/")
+  s"$shortpwd at $now\nλ "
+}
+interp.colors().prompt() = fansi.Color.LightMagenta
