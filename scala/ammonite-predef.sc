@@ -1,8 +1,8 @@
-// Add kind projector plugin for type lambdas
-import $ivy.`org.typelevel::cats-core:2.0.0-RC2`
-import $ivy.`com.chuusai::shapeless:2.3.3`
-import $ivy.`io.circe::circe-generic:0.12.0-RC4`
-import $ivy.`io.circe::circe-parser:0.12.0-RC4`
+// Circe for JSON mangling
+import $ivy.`io.circe::circe-generic:0.12.3`
+import $ivy.`io.circe::circe-parser:0.12.3`
+// STTP for the quick HTTP request
+import $ivy.`com.softwaremill.sttp.client::core:2.0.0-RC4`
 
 // Load ammonite-shell for this ammonite version
 interp.load.ivy(
