@@ -98,6 +98,12 @@ packages=(
     fortune-mod
     cowsay
 
+    # CLI tools
+    # Task manager
+    task
+    # Graph rendering
+    graphviz
+
     # Dev tools
     base-devel
     git
@@ -156,8 +162,6 @@ packages=(
     gnome-shell-extensions
     gnome-system-monitor
     gnome-weather
-    # Basic NTP sync
-    gnote
     file-roller
     evolution
     evolution-ews
@@ -178,17 +182,17 @@ packages=(
     deja-dup
     # SMB integration for Gnome
     gvfs-smb
-    # CLI clipboard access
-    wl-clipboard
     # User directories
     xdg-user-dirs
+    # CLI clipboard access
+    wl-clipboard
 
-    # Other software
+    # Password store
     keepassxc
     # Feed reader
     feedreader
-    # CLI task manager (TaskWarrior)
-    task
+    # Desktop wiki & note taking
+    zim
 
     # Office
     libreoffice-fresh
@@ -207,9 +211,6 @@ packages=(
     # Qt5 integration into Qt
     qt5ct
     kvantum-qt5
-
-    # Themes and stuff
-    arc-gtk-theme
 
     # Fonts
     # Basic sets of fonts for good language support
@@ -246,6 +247,15 @@ packages=(
 
 echo "Install packages"
 pacman -Sy --needed --noconfirm "${packages[@]}"
+
+opt_deps=(
+    # For ZIM (source code viewing and spell checking)
+    gtksourceview3
+    gtkspell3
+)
+
+echo "Install optional dependendencies"
+pacman -Sy --needed --asdeps --noconfirm "${opt_deps}"
 
 services=(
     # WiFi and network management
