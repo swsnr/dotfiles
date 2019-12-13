@@ -302,7 +302,7 @@ install -m644 linux/etc/locale.conf /etc/locale.conf
 
 echo "Allow sudo to wheel group members"
 install -m700 -d /etc/sudoers.d/
-install -m600 linux/etc/sudoers-wheel /etc/sudoers.d/10-wheel
+install -m600 linux/arch/etc/sudoers-wheel /etc/sudoers.d/10-wheel
 
 if do-all; then
     echo "Create locales"
