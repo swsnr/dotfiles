@@ -300,6 +300,12 @@ install -m644 linux/etc/vconsole.conf /etc/vconsole.conf
 echo "Configure system locale"
 install -m644 linux/etc/locale.conf /etc/locale.conf
 
+echo "Configure system settings"
+install -m644 linux/arch/etc/sysctl-laptop.conf /etc/sysctl.d/laptop.conf
+
+echo "Configure module settings"
+install -m644 linux/arch/etc/modprobe-powersave.conf /etc/modprobe.d/powersave.conf
+
 echo "Allow sudo to wheel group members"
 install -m700 -d /etc/sudoers.d/
 install -m600 linux/arch/etc/sudoers-wheel /etc/sudoers.d/10-wheel
