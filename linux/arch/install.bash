@@ -132,10 +132,6 @@ packages=(
     mono
     rustup
 
-    # Containers
-    docker
-    docker-compose
-
     # Browser
     firefox
     firefox-i18n-de
@@ -163,8 +159,6 @@ packages=(
     gnome-system-monitor
     gnome-weather
     file-roller
-    evolution
-    evolution-ews
     # Help viewer
     yelp
     # Image viewer & editing
@@ -191,8 +185,6 @@ packages=(
     keepassxc
     # Feed reader
     feedreader
-    # Desktop wiki & note taking
-    zim
 
     # Office
     libreoffice-fresh
@@ -248,15 +240,6 @@ packages=(
 echo "Install packages"
 pacman -Sy --needed --noconfirm "${packages[@]}"
 
-opt_deps=(
-    # For ZIM (source code viewing and spell checking)
-    gtksourceview3
-    gtkspell3
-)
-
-echo "Install optional dependendencies"
-pacman -Sy --needed --asdeps --noconfirm "${opt_deps}"
-
 services=(
     # WiFi and network management
     iwd
@@ -265,8 +248,6 @@ services=(
     systemd-timesyncd
     # Hostname resolution
     systemd-resolved
-    # Docker daemon
-    docker.socket
     # Graphical display
     gdm
     # pkgfile updates
@@ -335,9 +316,6 @@ aurpackages=(
     numix-circle-icon-theme-git
     numix-cursor-theme
 
-    # Docker credentials storage
-    docker-credential-secretservice
-
     # A favourite font of mine
     otf-vollkorn
 
@@ -346,9 +324,6 @@ aurpackages=(
 
     # Scala REPL
     ammonite
-
-    # Switch to dedicated graphics card
-    switcheroo-control
 )
 
 if command -v aur > /dev/null; then
@@ -363,7 +338,3 @@ else
     echo "AUR helper aurutils not installed"
     echo "INSTALL AURUTILS MANUALLY FROM AUR"
 fi
-
-# Enable graphics card switching
-systemctl enable switcheroo-control
-systemctl start switcheroo-control
