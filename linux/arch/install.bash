@@ -114,8 +114,9 @@ packages=(
     nano
     # Better console font
     terminus-font
-    # NTFS support
+    # Additional filesystems
     ntfs-3g
+    exfat-utils
 
     # Basic tools
     sudo
