@@ -13,5 +13,5 @@
 # the License.
 
 function http-serve -d 'Serve the current directory over HTTP'
-    python -m SimpleHTTPServer $argv
+    python -m http.server $argv
 end
