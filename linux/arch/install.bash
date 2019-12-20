@@ -204,6 +204,10 @@ packages=(
     qt5ct
     kvantum-qt5
 
+    # Printing
+    cups
+    cups-pdf
+
     # Fonts
     # Basic sets of fonts for good language support
     noto-fonts
@@ -254,6 +258,8 @@ services=(
     pkgfile-update.timer
     # Pacman cache cleanup
     paccache.timer
+    # CUPS (on demand)
+    org.cups.cupsd.socket
 )
 
 echo "Enable systemd services: ${services[*]}"
