@@ -233,6 +233,9 @@ packages=(
     # CLI clipboard access
     wl-clipboard
 
+    # Gtk theme
+    arc-gtk-theme
+
     # Password store
     keepassxc
     # Feed reader
