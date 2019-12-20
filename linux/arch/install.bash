@@ -50,7 +50,6 @@ echo "Configure pacman"
 install -m644 linux/arch/etc/pacman.conf /etc/pacman.conf
 install -m644 linux/arch/etc/pacman-mirrorlist /etc/pacman.d/mirrorlist
 
-echo "Install basic packages"
 packages=(
     # System
     base
@@ -90,6 +89,8 @@ packages=(
 
     # Networking
     bind-tools
+    # mDNS
+    avahi
     # Better WiFi networking (no more wpa_supplicant)
     iwd
 
@@ -244,6 +245,17 @@ packages=(
 echo "Install packages"
 pacman -Sy --needed --noconfirm "${packages[@]}"
 
+optdeps=(
+    # avahi: avahi-discover GUI tool
+    python-dbus
+)
+
+echo "Install optional dependencies of packages"
+pacman -Sy --needed --noconfirm --asdeps "${optdeps[@]}"
+
+echo "Configure NSS"
+install -m644 linux/arch/etc/nsswitch.conf /etc/nsswitch.conf
+
 services=(
     # WiFi and network management
     iwd
@@ -252,27 +264,32 @@ services=(
     systemd-timesyncd
     # Hostname resolution
     systemd-resolved
+    # mDNS support
+    avahi-daemon.service
+    # Printing system (on demand)
+    org.cups.cupsd.socket
     # Graphical display
     gdm
     # pkgfile updates
     pkgfile-update.timer
     # Pacman cache cleanup
     paccache.timer
-    # CUPS (on demand)
-    org.cups.cupsd.socket
 )
 
-echo "Enable systemd services: ${services[*]}"
+echo "Enable systemd services"
 systemctl enable "${services[@]}"
 
 echo "Make NetworkManager use iwd for Wifi management"
 install -m644 linux/arch/etc/networkmanager-wifi-backend-iwd.conf \
     /etc/NetworkManager/conf.d/wifi-backend.conf
 
+echo "Configure systemd-resolved"
+install -m644 linux/arch/etc/systemd-resolved.conf /etc/systemd/resolved.conf
+
 echo "Redirect resolv.conf to systemd-resolved"
 ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 
-echo "Start systemd services: ${services[*]}"
+echo "Start systemd services"
 systemctl start "${services[@]}"
 
 echo "Disable pc speaker to silence linux console"
