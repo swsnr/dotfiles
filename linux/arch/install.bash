@@ -18,10 +18,31 @@ set -e
 [[ "$OSTYPE" == linux-gnu ]] || exit 1;
 [[ -f /etc/pacman.conf ]] || exit
 
-echo "Provisioning Arch Linux system"
+function h1 {
+    local colour
+    case "$1" in
+        --warn)
+            colour='31;1'
+            shift 1
+            ;;
+        --ignore)
+            colour='37'
+            shift 1
+            ;;
+        *)
+            colour='32'
+    esac
+
+    local words
+    printf -v words '%s ' "$@"
+
+    printf '\033[%sm%s\033[0m\n' "$colour" "$words"
+}
+
+h1 "Provisioning Arch Linux system"
 
 if [[ $EUID != 0 ]]; then
-    echo "Root required, elevating with sudo $0 $*"
+    h1 --warn "Root required, elevating with sudo $0 $*"
     exec sudo "$0" "$@"
 fi
 
@@ -35,18 +56,48 @@ function do-all {
     [[ "$FAST" == 'false' ]] && return 0 || return 1
 }
 
-echo "Create AUR repo structure and group"
+h1 "Disable pc speaker to silence linux console"
+if lsmod | grep -qi pcspkr; then
+    rmmod pcspkr
+fi
+install -m644 linux/etc/nobeep.conf /etc/modprobe.d/nobeep.conf
+
+h1 "Configure console font"
+install -m644 linux/etc/vconsole.conf /etc/vconsole.conf
+
+h1 "Configure system locale"
+install -m644 linux/etc/locale.conf /etc/locale.conf
+
+h1 "Configure system settings"
+install -m644 linux/arch/etc/sysctl-laptop.conf /etc/sysctl.d/laptop.conf
+
+h1 "Configure module settings"
+install -m644 linux/arch/etc/modprobe-powersave.conf /etc/modprobe.d/powersave.conf
+
+h1 "Allow sudo to wheel group members"
+install -m700 -d /etc/sudoers.d/
+install -m600 linux/arch/etc/sudoers-wheel /etc/sudoers.d/10-wheel
+
+if do-all; then
+    h1 "Create locales"
+    install -m644 linux/etc/locale.gen /etc/locale.gen
+    locale-gen
+else
+    h1 --ignore "Create locales (SKIPPED)"
+fi
+
+h1 "Create AUR repo structure and group"
 groupadd --system --force qpkgrepo_aur
 install -d /srv/pkgrepo
 install -m 2775 -g pkgrepo_aur -d /srv/pkgrepo/aur
 setfacl -d -m group:pkgrepo_aur:rwx /srv/pkgrepo/aur
 setfacl -m group:pkgrepo_aur:rwx /srv/pkgrepo/aur
 if [[ ! -f /srv/pkgrepo/aur/aur.db.tar.xz ]]; then
-    echo "Initialize empty package database; ignore the following warnings"
+    h1 "Initialize empty package database; ignore the following warnings"
     repo-add /srv/pkgrepo/aur/aur.db.tar.xz
 fi
 
-echo "Configure pacman"
+h1 "Configure pacman"
 install -m644 linux/arch/etc/pacman.conf /etc/pacman.conf
 install -m644 linux/arch/etc/pacman-mirrorlist /etc/pacman.d/mirrorlist
 
@@ -242,7 +293,7 @@ packages=(
     texlive-most
 )
 
-echo "Install packages"
+h1 "Install packages"
 pacman -Sy --needed --noconfirm "${packages[@]}"
 
 optdeps=(
@@ -250,10 +301,10 @@ optdeps=(
     python-dbus
 )
 
-echo "Install optional dependencies of packages"
+h1 "Install optional dependencies of packages"
 pacman -Sy --needed --noconfirm --asdeps "${optdeps[@]}"
 
-echo "Configure NSS"
+h1 "Configure NSS"
 install -m644 linux/arch/etc/nsswitch.conf /etc/nsswitch.conf
 
 services=(
@@ -276,60 +327,30 @@ services=(
     paccache.timer
 )
 
-echo "Enable systemd services"
+h1 "Enable systemd services"
 systemctl enable "${services[@]}"
 
-echo "Make NetworkManager use iwd for Wifi management"
+h1 "Make NetworkManager use iwd for Wifi management"
 install -m644 linux/arch/etc/networkmanager-wifi-backend-iwd.conf \
     /etc/NetworkManager/conf.d/wifi-backend.conf
 
-echo "Configure systemd-resolved"
+h1 "Configure systemd-resolved"
 install -m644 linux/arch/etc/systemd-resolved.conf /etc/systemd/resolved.conf
 
-echo "Redirect resolv.conf to systemd-resolved"
+h1 "Redirect resolv.conf to systemd-resolved"
 ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 
-echo "Start systemd services"
+h1 "Start systemd services"
 systemctl start "${services[@]}"
 
-echo "Disable pc speaker to silence linux console"
-if lsmod | grep -qi pcspkr; then
-    rmmod pcspkr
-fi
-install -m644 linux/etc/nobeep.conf /etc/modprobe.d/nobeep.conf
-
-echo "Configure console font"
-install -m644 linux/etc/vconsole.conf /etc/vconsole.conf
-
-echo "Configure system locale"
-install -m644 linux/etc/locale.conf /etc/locale.conf
-
-echo "Configure system settings"
-install -m644 linux/arch/etc/sysctl-laptop.conf /etc/sysctl.d/laptop.conf
-
-echo "Configure module settings"
-install -m644 linux/arch/etc/modprobe-powersave.conf /etc/modprobe.d/powersave.conf
-
-echo "Allow sudo to wheel group members"
-install -m700 -d /etc/sudoers.d/
-install -m600 linux/arch/etc/sudoers-wheel /etc/sudoers.d/10-wheel
-
 if do-all; then
-    echo "Create locales"
-    install -m644 linux/etc/locale.gen /etc/locale.gen
-    locale-gen
-else
-    echo "Create locales (SKIPPED)"
-fi
-
-if do-all; then
-    echo "Update pkgfile database"
+    h1 "Update pkgfile database"
     pkgfile --update
 else
-    echo "Update pkgfile database (SKIPPED)"
+    h1 --ignore "Update pkgfile database (SKIPPED)"
 fi
 
-echo "Install AUR packages from local repo"
+h1 "Install AUR packages from local repo"
 aurpackages=(
     # AUR helpers
     aurutils
@@ -357,10 +378,10 @@ if command -v aur > /dev/null; then
         if aur repo --list | grep -q "^$package\>"; then
             pacman -Sy --needed --noconfirm "$package"
         else
-            echo "AUR package $package not in repo; build with aur build!"
+            h1 --warn "AUR package $package not in repo; build with aur build!"
         fi
     done
 else
-    echo "AUR helper aurutils not installed"
-    echo "INSTALL AURUTILS MANUALLY FROM AUR"
+    h1 "AUR helper aurutils not installed"
+    h1 --warn "INSTALL AURUTILS MANUALLY FROM AUR"
 fi
