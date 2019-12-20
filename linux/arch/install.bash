@@ -324,6 +324,9 @@ aurpackages=(
 
     # Scala REPL
     ammonite
+
+    # Personal tools
+    mdcat
 )
 
 if command -v aur > /dev/null; then
