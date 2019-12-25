@@ -73,6 +73,7 @@
     ~/.config/bat/config: misc/bat
     # SSH
     ~/.ssh/config: ssh/config
+    ~/.ssh/config.d/10-uberspace: ssh/10-uberspace
     ~/.ssh/config.d/00-macos:
       path: ssh/00-macos
       if: "uname -s | grep -qi darwin"
