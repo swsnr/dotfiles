@@ -312,6 +312,8 @@ h1 "Configure NSS"
 install -m644 linux/arch/etc/nsswitch.conf /etc/nsswitch.conf
 
 services=(
+    # Periodically trim file systems
+    fstrim.timer
     # WiFi and network management
     iwd
     NetworkManager
