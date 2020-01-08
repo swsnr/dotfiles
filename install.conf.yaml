@@ -34,6 +34,7 @@
 
     # Fish shell config files
     ~/.config/fish/config.fish: fish/config.fish
+    ~/.config/fish/functions/fisher.fish: submodules/fisher/fisher.fish
     ~/.config/fish/functions:
       path: fish/functions/*.fish
       glob: true
