@@ -87,7 +87,7 @@ else
 fi
 
 h1 "Create AUR repo structure and group"
-groupadd --system --force qpkgrepo_aur
+groupadd --system --force pkgrepo_aur
 install -d /srv/pkgrepo
 install -m 2775 -g pkgrepo_aur -d /srv/pkgrepo/aur
 setfacl -d -m group:pkgrepo_aur:rwx /srv/pkgrepo/aur
