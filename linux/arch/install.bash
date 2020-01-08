@@ -140,6 +140,7 @@ packages=(
     htop
 
     # Networking
+    networkmanager
     bind-tools
     # mDNS
     avahi
