@@ -153,8 +153,6 @@ packages=(
     cowsay
 
     # CLI tools
-    # Task manager
-    task
     # Graph rendering
     graphviz
 
@@ -167,8 +165,6 @@ packages=(
     kdiff3
     # Text editor
     code
-    # API docs browser
-    zeal
     # Shell linter
     shellcheck
 
@@ -183,7 +179,6 @@ packages=(
     sbt
 
     # Misc
-    mono
     rustup
 
     # Browser
@@ -237,11 +232,6 @@ packages=(
 
     # Gtk theme
     arc-gtk-theme
-
-    # Password store
-    keepassxc
-    # Feed reader
-    feedreader
 
     # Office
     libreoffice-fresh
@@ -361,7 +351,7 @@ h1 "Install AUR packages from local repo"
 aurpackages=(
     # AUR helpers
     aurutils
-    # Shell extension for system tray icnos
+    # Shell extension for system tray icons
     gnome-shell-extension-appindicator
     # Lovely icon theme :)
     numix-circle-icon-theme-git
@@ -380,15 +370,17 @@ aurpackages=(
     mdcat
 )
 
-if command -v aur > /dev/null; then
-    for package in "${aurpackages[@]}"; do
-        if aur repo --list | grep -q "^$package\>"; then
-            pacman -Sy --needed --noconfirm "$package"
-        else
-            h1 --warn "AUR package $package not in repo; build with aur build!"
-        fi
-    done
-else
-    h1 "AUR helper aurutils not installed"
-    h1 --warn "INSTALL AURUTILS MANUALLY FROM AUR"
+if ! pacman -Sy --needed --noconfirm "${aurpackages[@]}"; then
+    h1 --warn "AUR packages failed to install"
+
+    if command -v aur > /dev/null; then
+        h1 "Build the following AUR packages:"
+        for package in "${aurpackages[@]}"; do
+            if ! aur repo --list | grep -q "^$package\>"; then
+                echo "  * ${package}"
+            fi
+        done
+    else
+        h1 'Build and install aurutils first'
+    fi
 fi
