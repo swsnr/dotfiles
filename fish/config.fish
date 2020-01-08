@@ -85,16 +85,6 @@ if status --is-interactive
         set -x LC_MESSAGES 'en_GB.utf8'
     end
 
-    # Setup autojump
-    for directory in "$HOME/.autojump" '/usr/local/' '/usr/'
-        set -l __autojump_file "$directory/share/autojump/autojump.fish"
-        if [ -f $__autojump_file ]
-            source $__autojump_file
-            break
-        end
-        set -e __autojump_file
-    end
-
     # Setup virtualenv helper for Python
     if command --search 'python3' >/dev/null
         python3 -m virtualfish 2>/dev/null | source

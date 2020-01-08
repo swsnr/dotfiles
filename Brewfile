@@ -21,7 +21,6 @@ brew 'fish'
 cask 'iterm2' # Terminal emulator
 cask 'go2shell' # Open iterm from finder
 brew 'reattach-to-user-namespace' # To access macOS clipboard from tmux
-brew 'autojump' # Fast directory jumping
 brew 'fortune' # Funny jokes and proverbs
 brew 'cowsay' # Ascii art speech bubbles
 brew 'tmux' # Terminal multiplexer

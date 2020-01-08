@@ -1,3 +1,5 @@
 # Fish packages
 # Bracketed pairs in line editing
 laughedelic/pisces
+# Pure fish directory jumping
+jethrokuan/z
