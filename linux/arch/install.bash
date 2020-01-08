@@ -138,6 +138,8 @@ packages=(
     pkgfile
     # Watch processes
     htop
+    # Copying
+    rsync
 
     # Networking
     networkmanager
@@ -167,6 +169,8 @@ packages=(
     code
     # Shell linter
     shellcheck
+    # Site generator
+    hugo
 
     # Python
     python-pylint
