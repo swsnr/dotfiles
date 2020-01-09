@@ -33,9 +33,6 @@ gs org.gnome.desktop.interface font-name 'Ubuntu 12'
 gs org.gnome.desktop.interface document-font-name 'Ubuntu 12'
 gs org.gnome.desktop.interface monospace-font-name 'Ubuntu Mono 11'
 
-# Shell theme
-gs org.gnome.shell.extensions.user-theme name 'Arc'
-
 # Shell
 gs org.gnome.mutter workspaces-only-on-primary true
 
