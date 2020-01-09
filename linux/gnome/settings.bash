@@ -50,7 +50,7 @@ gs org.gnome.desktop.interface clock-show-weekday true
 gs org.gnome.desktop.interface locate-pointer true
 # Don't remember the numlock state…
 gs org.gnome.desktop.peripherals.keyboard remember-numlock-state false
-# …and instead turn on numlock on boot.j
+# …and instead turn on numlock on boot.
 gs org.gnome.desktop.peripherals.keyboard numlock-state true
 
 # Include active terminal title in Tilix window title (we deliberage don't expand here!)
