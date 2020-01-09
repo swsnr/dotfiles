@@ -36,6 +36,9 @@ gs org.gnome.desktop.interface monospace-font-name 'Ubuntu Mono 11'
 # Shell
 gs org.gnome.mutter workspaces-only-on-primary true
 
+# Disable shell hot corner
+gs org.gnome.desktop.interface enable-hot-corners false
+
 # Enable location services
 gs org.gnome.system.location enabled true
 
