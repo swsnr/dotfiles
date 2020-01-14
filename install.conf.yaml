@@ -56,9 +56,6 @@
     ~/.config/git/config.linux:
       path: git/config.linux
       if: "uname -s | grep -qi linux"
-    ~/.config/git/config.macos:
-      path: git/config.macos
-      if: "uname -s | grep -qi darwin"
 
     # Scala configuration
     ~/.ammonite/predef.sc: scala/ammonite-predef.sc
@@ -76,9 +73,6 @@
     # SSH
     ~/.ssh/config: ssh/config
     ~/.ssh/config.d/10-uberspace: ssh/10-uberspace
-    ~/.ssh/config.d/00-macos:
-      path: ssh/00-macos
-      if: "uname -s | grep -qi darwin"
 
     # Linux configuration (basic)
     ~/.local/bin/reset-thunderbolt.bash:
@@ -111,18 +105,9 @@
     ~/.local/bin/gnome-random-wallpaper:
       path: linux/gnome/bin/gnome-random-wallpaper.py
       if: "uname -s | grep -qi linux"
-
-    # DevonTHINK feed stylesheet for Markdown files
-    "~/Library/Application Support/DEVONthink Pro 2/StyleSheets/Vollkorn.css":
-      path: macos/devonthink-feed.css
-      if: "uname -s | grep -qi darwin"
 - shell:
     - description: Set yarn prefix to ~/.local
       command: sh -c 'command -v yarn && yarn config set prefix ~/.local || exit 0'
-    - description: "MacOS: Set defaults"
-      command: macos/macos_defaults.py
-      stdout: true
-      stderr: true
     - command: linux/gnome/settings.bash
       stdout: true
       stderr: true
