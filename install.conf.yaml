@@ -105,6 +105,9 @@
     ~/.local/bin/gnome-random-wallpaper:
       path: linux/gnome/bin/gnome-random-wallpaper.py
       if: "uname -s | grep -qi linux"
+
+    # ZIM style configuration
+    ~/.config/zim/style.conf: misc/zim-style.conf
 - shell:
     - description: Set yarn prefix to ~/.local
       command: sh -c 'command -v yarn && yarn config set prefix ~/.local || exit 0'
