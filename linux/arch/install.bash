@@ -237,6 +237,9 @@ packages=(
     # Gtk theme
     arc-gtk-theme
 
+    # Desktop wiki, note taking, TODO lists
+    zim
+
     # Office
     libreoffice-fresh
     libreoffice-fresh-de
