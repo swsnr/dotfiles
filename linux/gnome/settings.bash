@@ -26,12 +26,22 @@ function gs {
 }
 
 # Gtk theme and fonts
-gs org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
-gs org.gnome.desktop.interface icon-theme 'Numix-Circle'
-gs org.gnome.desktop.interface cursor-theme 'Numix-Cursor'
 gs org.gnome.desktop.interface font-name 'Ubuntu 12'
 gs org.gnome.desktop.interface document-font-name 'Ubuntu 12'
 gs org.gnome.desktop.interface monospace-font-name 'Ubuntu Mono 11'
+
+case "$HOSTNAME" in
+kasterl)
+    gs org.gnome.desktop.interface gtk-theme 'Yaru'
+    gs org.gnome.desktop.interface icon-theme 'Numix-Circle-Light'
+    gs org.gnome.desktop.interface cursor-theme 'Numix-Cursor-Light'
+    ;;
+*)
+    gs org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
+    gs org.gnome.desktop.interface icon-theme 'Numix-Circle'
+    gs org.gnome.desktop.interface cursor-theme 'Numix-Cursor'
+    ;;
+esac
 
 # Shell
 gs org.gnome.mutter workspaces-only-on-primary true
