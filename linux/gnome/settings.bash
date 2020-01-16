@@ -52,7 +52,8 @@ esac
 
 # Shell
 gs org.gnome.mutter workspaces-only-on-primary true
-
+# Only Alt-Tab between windows of the current workspace
+gs org.gnome.shell.app-switcher current-workspace-only true
 # Disable shell hot corner
 gs org.gnome.desktop.interface enable-hot-corners false
 
