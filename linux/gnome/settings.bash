@@ -15,6 +15,8 @@
 
 set -e
 
+theme="${1:-light}"
+
 if [[ "$OSTYPE" != "linux-gnu" ]]; then
     echo "Skipping, not on Linux"
     exit 0
@@ -25,22 +27,27 @@ function gs {
     gsettings set "${@}"
 }
 
-# Gtk theme and fonts
+# Fonts
 gs org.gnome.desktop.interface font-name 'Ubuntu 12'
 gs org.gnome.desktop.interface document-font-name 'Ubuntu 12'
 gs org.gnome.desktop.interface monospace-font-name 'Ubuntu Mono 11'
 
-case "$HOSTNAME" in
-kasterl)
+# Gtk theme
+# Light
+case "$theme" in
+light)
     gs org.gnome.desktop.interface gtk-theme 'Yaru'
     gs org.gnome.desktop.interface icon-theme 'Numix-Circle-Light'
     gs org.gnome.desktop.interface cursor-theme 'Numix-Cursor-Light'
     ;;
-*)
+dark)
     gs org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
     gs org.gnome.desktop.interface icon-theme 'Numix-Circle'
     gs org.gnome.desktop.interface cursor-theme 'Numix-Cursor'
     ;;
+*)
+    echo "Unsupported theme: $theme" 1>&2
+    exit 1
 esac
 
 # Shell
