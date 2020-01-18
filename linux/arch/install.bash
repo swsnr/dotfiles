@@ -373,8 +373,14 @@ aurpackages=(
     # Scala REPL
     ammonite
 
+    # TLA+
+    tla-toolbox
+
     # Personal tools
     mdcat
+
+    # PS4 remote client
+    chiaki
 )
 
 if ! pacman -Sy --needed --noconfirm "${aurpackages[@]}"; then
