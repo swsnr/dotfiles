@@ -23,7 +23,7 @@ function op-get --description 'Get a password from 1Password'
     op get item $item | jq -r '
 [
   .overview.title,
-  "Username: " + (.details.fields[] | select(.name == "username") | .value),
-  "Password: " + (.details.fields[] | select(.name == "password") | .value)
+  "Username: " + (.details.fields[] | (select(.designation == "username") // select(.name == "username")) | .value),
+  "Password: " + (.details.fields[] | (select(.designation == "password") // select(.name == "password")) | .value)
 ] | join("\n")'
 end
