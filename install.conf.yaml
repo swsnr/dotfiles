@@ -73,6 +73,7 @@
     # SSH
     ~/.ssh/config: ssh/config
     ~/.ssh/config.d/10-uberspace: ssh/10-uberspace
+    ~/.ssh/config.d/10-aur: ssh/10-aur
 
     # Linux configuration (basic)
     ~/.local/bin/reset-thunderbolt.bash:

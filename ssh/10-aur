@@ -1,0 +1,3 @@
+Host aur.archlinux.org
+    User aur
+    IdentityFile ~/.ssh/aur
