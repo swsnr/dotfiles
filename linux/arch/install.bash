@@ -117,6 +117,8 @@ packages=(
     # Additional filesystems
     ntfs-3g
     exfat-utils
+    # EFI boot loaders
+    efibootmgr
 
     # Basic tools
     sudo
@@ -154,10 +156,6 @@ packages=(
     fortune-mod
     cowsay
 
-    # CLI tools
-    # Graph rendering
-    graphviz
-
     # Dev tools
     base-devel
     git
@@ -185,10 +183,6 @@ packages=(
     # Misc
     rustup
 
-    # Browser
-    firefox
-    firefox-i18n-de
-
     # Gnome shell & basic tools
     gdm
     gnome-shell
@@ -196,15 +190,20 @@ packages=(
     dconf-editor
     gnome-tweaks
     flatpak
+    # User directories
+    xdg-user-dirs
+    # CLI clipboard access
+    wl-clipboard
+
     # DBus inspector
     d-feet
+
     # Gnome software
     gnome-calculator
     gnome-calendar
     gnome-characters
     gnome-clocks
     gnome-disk-utility
-    gnome-documents
     gnome-font-viewer
     gnome-logs
     gnome-screenshot
@@ -212,30 +211,48 @@ packages=(
     gnome-system-monitor
     gnome-weather
     file-roller
-    # Help viewer
     yelp
-    # Image viewer & editing
-    eog
-    gimp
-    # Terminal
-    tilix
-    # Disk space analyzer
-    baobab
-    # Videos
-    totem
-    # Preview
-    sushi
+
     # Backup tool
     deja-dup
-    # SMB integration for Gnome
-    gvfs-smb
-    # User directories
-    xdg-user-dirs
-    # CLI clipboard access
-    wl-clipboard
 
-    # Gtk theme
-    arc-gtk-theme
+    # File management
+    nautilus
+    # Previewing
+    sushi
+    # Disk space analyzer
+    baobab
+    # File protocols
+    gvfs-smb
+    gvfs-mtp
+
+    # Browser
+    firefox
+    firefox-i18n-de
+    feedreader
+    # Communication
+    signal-desktop
+    geary
+
+    # Images
+    eog
+    gimp
+    inkscape
+    graphviz
+
+    # Terminal
+    tilix
+
+    # Multimedia
+    totem
+    vlc
+    rhythmbox
+    youtube-dl
+
+    # Documents
+    gnome-documents
+    evince
+    simple-scan
 
     # Desktop wiki, note taking, TODO lists
     zim
@@ -253,6 +270,9 @@ packages=(
     # Thesaurus
     mythes-de
     mythes-en
+
+    # Gtk theme
+    arc-gtk-theme
 
     # Qt5 integration into Qt
     qt5ct
@@ -293,6 +313,9 @@ packages=(
 
     # LaTex
     texlive-most
+
+    # Gaming
+    steam
 )
 
 h1 "Install packages"
