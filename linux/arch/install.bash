@@ -376,11 +376,15 @@ aurpackages=(
     # TLA+
     tla-toolbox
 
-    # Personal tools
-    mdcat
-
     # PS4 remote client
     chiaki
+
+    # Boot message
+    mkinitcpio-bootmsg
+
+    # Personal tools
+    mdcat
+    git-gone
 )
 
 if ! pacman -Sy --needed --noconfirm "${aurpackages[@]}"; then
