@@ -148,6 +148,7 @@ packages=(
     bind-tools
     # mDNS
     avahi
+    nss-mdns
     # Better WiFi networking (no more wpa_supplicant)
     iwd
 
