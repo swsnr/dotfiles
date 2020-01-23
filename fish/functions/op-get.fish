@@ -14,7 +14,7 @@
 
 function op-get --description 'Get a password from 1Password'
     if ! set -q argv[1]
-        echo "Item name required" 2>&1
+        echo "Item name required" 1>&2
         return 1
     end
 
