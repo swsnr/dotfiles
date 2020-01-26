@@ -18,7 +18,6 @@
     - "~/.config/git"
     - "~/.sbt/1.0/"
     - "~/.sbt/1.0/plugins"
-    - "~/.config/powershell"
     - "~/.ssh/config.d"
 - shell:
     - description: Check whether FileVault is enabled
@@ -39,12 +38,6 @@
     ~/.config/fish/functions:
       path: fish/functions/*.fish
       glob: true
-
-    # Powershell Core config files
-    ~/.config/powershell/:
-      path: powershell/*.ps1
-      glob: true
-    ~/.config/powershell/types.ps1xml: powershell/types.ps1xml
 
     # Git config files and tools
     ~/.config/git/config: git/config
