@@ -75,7 +75,4 @@ function fish_prompt -d 'My personal prompt'
         echo -sn (set_color -o red)
     end
     echo -sn "→ " (set_color normal)
-
-    # Tell iterm that the command input starts now
-    iterm2_command 'command_start'
 end

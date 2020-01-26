@@ -87,22 +87,6 @@ if status --is-interactive
         set -x LS_COLORS (vivid generate $DIRCOLORS_THEME)
     end
 
-    # Tell iterm2 the exit code of the last command
-    function update_iterm2_exit_status --on-event fish_postexec
-        iterm2_command 'command_finished' $status
-    end
-
-    # Tell iterm2 and compatible terminals what directory and host we're in
-    function update_iterm2_location --on-event fish_prompt
-        # Tell item what directory, what host we're on, and that the prompt is
-        # about to begin
-        iterm2_command 'current_dir' (pwd)
-        iterm2_command 'remote_host' $USER $hostname
-        iterm2_command 'prompt'
-    end
-
-    update_iterm2_location
-
     # Abbreviations (unlike aliases, these are expanded before running)
     abbr --add _ sudo
     abbr --add df df -kh
