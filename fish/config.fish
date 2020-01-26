@@ -29,13 +29,7 @@ end
 # Environment variables
 set -x EDITOR 'code -nw'
 set -x PAGER 'less'
-if command --search 'xdg-open' >/dev/null
-    # Unix
-    set -x BROWSER 'xdg-open'
-else
-    # macOS
-    set -x BROWSER 'open'
-end
+set -x BROWSER 'xdg-open'
 
 # Additional cows for cowsay, if existing
 if [ -d ~/.cowsay ]
@@ -65,11 +59,7 @@ if status --is-interactive
     #
     # Don't do this in a login shell, though, because that'd change the language
     # of the entire desktop, since GDM starts the session through a login shell
-    if ! string match -qi 'darwin*' (uname -s)
-        # Prefer english message for all CLI tools on Linux.  On macOS this confuses
-        # Perl, so don't change the locale
-        set -x LC_MESSAGES 'en_GB.utf8'
-    end
+    set -x LC_MESSAGES 'en_GB.utf8'
 
     # Setup virtualenv helper for Python
     if command --search 'python3' >/dev/null

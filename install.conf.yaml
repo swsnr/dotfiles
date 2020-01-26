@@ -1,4 +1,4 @@
-# Configuration file for Unix systems, eg, macos and Linux.
+# Configuration file for Unix systems
 #
 # Since Windows is so special, it has its own config file in
 # windows/install.conf.yaml which does not share anything with this file.
@@ -19,9 +19,6 @@
     - "~/.sbt/1.0/"
     - "~/.sbt/1.0/plugins"
     - "~/.ssh/config.d"
-- shell:
-    - description: Check whether FileVault is enabled
-      command: sh -c 'uname -s | grep -qi darwin && [ $(fdesetup isactive) == true ] || exit 0'
 - link:
     # Symlink entire dotfiles folder, for convenience
     ~/.dotfiles: ""
