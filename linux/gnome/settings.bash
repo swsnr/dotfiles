@@ -36,7 +36,7 @@ gs org.gnome.desktop.interface monospace-font-name 'Ubuntu Mono 11'
 # Light
 case "$theme" in
 light)
-    gs org.gnome.desktop.interface gtk-theme 'Yaru'
+    gs org.gnome.desktop.interface gtk-theme 'Arc-Darker'
     gs org.gnome.desktop.interface icon-theme 'Numix-Circle-Light'
     gs org.gnome.desktop.interface cursor-theme 'Numix-Cursor-Light'
     ;;
