@@ -62,6 +62,9 @@ if lsmod | grep -qi pcspkr; then
 fi
 install -m644 linux/etc/nobeep.conf /etc/modprobe.d/nobeep.conf
 
+h1 "Enable intel fastboot"
+install -m644 linux/etc/i915.conf /etc/modprobe.d/i915.conf
+
 h1 "Configure console font"
 install -m644 linux/etc/vconsole.conf /etc/vconsole.conf
 
