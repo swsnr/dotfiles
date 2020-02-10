@@ -166,7 +166,7 @@ packages=(
     httpie
     jq
     # Diff/merge tool
-    kdiff3
+    meld
     # Text editor
     code
     # Shell linter
