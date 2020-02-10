@@ -22,7 +22,7 @@ if [[ "$OSTYPE" != "linux-gnu" ]]; then
     exit 0
 fi
 
-function gs {
+function gs() {
     echo "gsettings set $*"
     gsettings set "${@}"
 }
@@ -48,6 +48,7 @@ dark)
 *)
     echo "Unsupported theme: $theme" 1>&2
     exit 1
+    ;;
 esac
 
 # Shell

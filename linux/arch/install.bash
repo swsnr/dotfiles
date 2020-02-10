@@ -15,22 +15,23 @@
 
 set -e
 
-[[ "$OSTYPE" == linux-gnu ]] || exit 1;
+[[ "$OSTYPE" == linux-gnu ]] || exit 1
 [[ -f /etc/pacman.conf ]] || exit
 
-function h1 {
+function h1() {
     local colour
     case "$1" in
-        --warn)
-            colour='31;1'
-            shift 1
-            ;;
-        --ignore)
-            colour='37'
-            shift 1
-            ;;
-        *)
-            colour='32'
+    --warn)
+        colour='31;1'
+        shift 1
+        ;;
+    --ignore)
+        colour='37'
+        shift 1
+        ;;
+    *)
+        colour='32'
+        ;;
     esac
 
     local words
@@ -52,7 +53,7 @@ else
     FAST="true"
 fi
 
-function do-all {
+function do-all() {
     [[ "$FAST" == 'false' ]] && return 0 || return 1
 }
 
@@ -417,7 +418,7 @@ aurpackages=(
 if ! pacman -Sy --needed --noconfirm "${aurpackages[@]}"; then
     h1 --warn "AUR packages failed to install"
 
-    if command -v aur > /dev/null; then
+    if command -v aur >/dev/null; then
         h1 "Build the following AUR packages:"
         for package in "${aurpackages[@]}"; do
             if ! aur repo --list | grep -q "^$package\>"; then
