@@ -15,7 +15,7 @@
 
 set -e
 
-[[ "$OSTYPE" == linux-gnu ]] || exit 1
+[[ $OSTYPE == linux-gnu ]] || exit 1
 [[ -f /etc/pacman.conf ]] || exit
 
 function h1() {
@@ -47,14 +47,14 @@ if [[ $EUID != 0 ]]; then
     exec sudo "$0" "$@"
 fi
 
-if [[ "$1" == "--all" ]]; then
+if [[ $1 == "--all" ]]; then
     FAST="false"
 else
     FAST="true"
 fi
 
 function do-all() {
-    [[ "$FAST" == 'false' ]] && return 0 || return 1
+    [[ $FAST == 'false' ]] && return 0 || return 1
 }
 
 h1 "Disable pc speaker to silence linux console"
