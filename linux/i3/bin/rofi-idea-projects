@@ -93,8 +93,7 @@ def main():
     recent = read_recent_entries()
     if len(sys.argv) == 1:
         print('\x00prompt\x1fIDEA Project')
-        icon = get_data_home() / 'JetBrains' / 'Toolbox' / 'apps' / \
-            'IDEA-U' / 'ch-0' / '.icon.svg'
+        icon = '/opt/intellij-idea-ultimate-edition/bin/idea.svg'
         sorted_by_recent = sorted(
             projects.keys(), key=lambda n: (recent.get(n, 0) * -1, n))
         for project_name in sorted_by_recent:
@@ -105,7 +104,7 @@ def main():
         path = projects[name].path
         recent[name] = time()
         write_recent_entries(recent)
-        subprocess.Popen(['idea', str(path.expanduser())],
+        subprocess.Popen(['intellij-idea-ultimate-edition', str(path.expanduser())],
                          stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
 
 
