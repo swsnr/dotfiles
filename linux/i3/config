@@ -23,22 +23,22 @@ workspace_auto_back_and_forth yes
 # set $foreground #6B6F74
 # set $selection #5294E2
 # # 50% of $selection
-# set $selection_light #a8c9f0
+# set $selection_inactive #a8c9f0
 # set $warning #F27835
 
 # Colors from Adwaita dark
 set $background #353535
 set $foreground #eeeeec
 set $selection #15539e
-set $selection_light #bcd6f6
+set $selection_inactive #030c17
 set $warning #f57900
 
-# <class>               <border>        <background>     <text>      <indicator> <child_border>
-client.focused          $background     $selection       #ffffff     $selection  $background
-client.focused_inactive $background     $selection_light #ffffff     $selection  $background
-client.unfocused        $background     $background      $foreground $selection  $background
-client.urgent           $background     $warning         #ffffff     $selection  $background
-client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+# <class>               <border>        <background>        <text>      <indicator> <child_border>
+client.focused          $background     $selection          #ffffff     $selection  $background
+client.focused_inactive $background     $selection_inactive #ffffff     $selection  $background
+client.unfocused        $background     $background         $foreground $selection  $background
+client.urgent           $background     $warning            #ffffff     $selection  $background
+client.placeholder      #000000 #0c0c0c #ffffff #000000     #0c0c0c
 client.background       #ffffff
 
 # Gnome environment and session, see <https://github.com/i3-gnome/i3-gnome/wiki/Tips-&-Tricks>
@@ -224,7 +224,7 @@ bindsym $mod+r mode "resize"
 for_window [class="(?i)keepassxc"] floating enable
 # Use title and not class, because class also affects actual remote destop
 # windows but these should tile like other windows
-for_window [title="(?i)Remmina Remote Desktop Client"] floating enable
+for_window [title="Remmina Remote-Desktop-Client"] floating enable
 for_window [class="(?i)gcolor3"] floating enable
 # Open messages on second screen
 assign [class="Rocket.Chat"] 2
@@ -243,7 +243,7 @@ bar {
 
     focused_workspace  $background $selection  #ffffff
     urgent_workspace   $background $warning    #fffff
-    active_workspace   $background $selection_light $foreground
+    active_workspace   $background $selection_inactive $foreground
     inactive_workspace $background $background $foreground
   }
 }
