@@ -68,7 +68,7 @@ bindsym $mod+w kill
 bindsym --whole-window $mod+button2 kill
 
 # Program launcher
-bindsym $mod+space exec "rofi -show-icons -combi-modi 'drun,window,idea:rofi-idea-projects' -modi 'combi#idea:rofi-idea-projects' -show combi"
+bindsym $mod+space exec "rofi -show-icons -combi-modi 'drun,window,idea:rofi-idea-projects,code:rofi-code-projects' -modi 'combi#idea:rofi-idea-projects#code:rofi-code-projects' -show combi"
 
 # File manager
 bindsym $mod+e exec xdg-open ~

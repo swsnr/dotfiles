@@ -121,6 +121,9 @@
     ~/.local/bin/rofi-idea-projects:
       path: linux/i3/bin/rofi-idea-projects
       if: "i3 --version | grep -qi 'i3 version'"
+    ~/.local/bin/rofi-code-projects:
+      path: linux/i3/bin/rofi-code-projects
+      if: "i3 --version | grep -qi 'i3 version'"
 
     # ZIM style configuration
     ~/.config/zim/style.conf: misc/zim-style.conf
