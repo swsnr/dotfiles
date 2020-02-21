@@ -180,11 +180,12 @@ bindsym $mod+Insert mode "$mode_workspace"
 # System mode
 set $mode_system (w) new wallpaper, (c) reconfigure, (l) reload, (s) shutdown, (r) reboot, (e) exit
 mode "$mode_system" {
-  bindsym e exec --no-startup-id zenity --question --text 'Logout?' && i3-msg exit, mode "default"
+  # bindsym e exec --no-startup-id zenity --question --text 'Logout?' && i3-msg exit, mode "default"
+  bindsym e exec --no-startup-id dbus-send --type=method_call --dest=org.gnome.SessionManager /org/gnome/SessionManager org.gnome.SessionManager.Logout uint32:0
   bindsym c reload, mode "default"
   bindsym l restart, mode "default"
-  bindsym r exec --no-startup-id zenity --question --text 'Reboot?' && systemctl reboot, mode "default"
-  bindsym s exec --no-startup-id zenity --question --text 'Shutdown?' && systemctl poweroff, mode "default"
+  bindsym r exec --no-startup-id dbus-send --type=method_call --dest=org.gnome.SessionManager /org/gnome/SessionManager org.gnome.SessionManager.Reboot
+  bindsym s exec --no-startup-id dbus-send --type=method_call --dest=org.gnome.SessionManager /org/gnome/SessionManager org.gnome.SessionManager.Shutdown
   bindsym w exec --no-startup-id "gnome-random-wallpaper", mode "default"
 
   bindsym Return mode "default"
@@ -226,8 +227,10 @@ for_window [class="(?i)keepassxc"] floating enable
 # windows but these should tile like other windows
 for_window [title="Remmina Remote-Desktop-Client"] floating enable
 for_window [class="(?i)gcolor3"] floating enable
-# Open messages on second screen
-assign [class="Rocket.Chat"] 2
+# Open messages and notes on second screen
+assign [class="Rocket.Chat"] 3
+assign [class="(?i)zim"] 3
+
 
 bar {
   status_command i3blocks
