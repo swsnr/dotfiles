@@ -227,8 +227,8 @@ for_window [class="(?i)keepassxc"] floating enable
 # windows but these should tile like other windows
 for_window [title="Remmina Remote-Desktop-Client"] floating enable
 for_window [class="(?i)gcolor3"] floating enable
-# Open messages and notes on second screen
-assign [class="Rocket.Chat"] 3
+# Put messages and notes on fixed screens
+assign [class="Rocket.Chat"] 2
 assign [class="(?i)zim"] 3
 
 
