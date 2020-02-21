@@ -99,6 +99,3 @@
 - shell:
     - description: Set yarn prefix to ~/.local
       command: sh -c 'command -v yarn && yarn config set prefix ~/.local || exit 0'
-    - command: linux/gnome/settings.bash
-      stdout: true
-      stderr: true
