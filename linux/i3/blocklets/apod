@@ -1,0 +1,35 @@
+#!/bin/bash
+# Copyright 2019 Sebastian Wiesner <sebastian@swsnr.de>
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may not
+# use this file except in compliance with the License. You may obtain a copy of
+# the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations under
+# the License.
+
+set -e
+
+# Open webbrowser with today's APOD image
+if [[ "$BLOCK_BUTTON" -eq 1 ]]; then
+    xdg-open "https://apod.nasa.gov/apod/ap$(date '+%y%m%d').html" &> /dev/null &
+fi
+
+api_key="$(secret-tool lookup server api.nasa.gov kind api-key)"
+url="https://api.nasa.gov/planetary/apod?api_key=${api_key}"
+exec curl -sS "${url}" | jq -r '
+if .code then
+  "\(.msg)\n", null | halt_error(1)
+elif .error.code then
+  "\(.error.message)\n", null | halt_error(1)
+else
+  "🌌 APOD \(now | strftime("%Y-%m-%d")): \(.title)"
+end
+'
+
+
