@@ -130,6 +130,9 @@
 - shell:
     - description: Set yarn prefix to ~/.local
       command: sh -c 'command -v yarn && yarn config set prefix ~/.local || exit 0'
+    - description: Code OSS settings
+      command: misc/code-settings.py
+      stdout: true
     - description: Gnome settings
       command: bash linux/gnome/settings.bash
       stdout: true
