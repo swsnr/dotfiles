@@ -15,8 +15,6 @@
 
 set -e
 
-theme="${1:-light}"
-
 if [[ $OSTYPE != "linux-gnu" ]]; then
     echo "Skipping, not on Linux"
     exit 0
