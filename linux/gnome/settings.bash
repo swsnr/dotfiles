@@ -32,25 +32,6 @@ gs org.gnome.desktop.interface font-name 'Ubuntu 12'
 gs org.gnome.desktop.interface document-font-name 'Ubuntu 12'
 gs org.gnome.desktop.interface monospace-font-name 'Ubuntu Mono 11'
 
-# Gtk theme
-# Light
-case "$theme" in
-light)
-    gs org.gnome.desktop.interface gtk-theme 'Arc'
-    gs org.gnome.desktop.interface icon-theme 'Numix-Circle-Light'
-    gs org.gnome.desktop.interface cursor-theme 'Numix-Cursor-Light'
-    ;;
-dark)
-    gs org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
-    gs org.gnome.desktop.interface icon-theme 'Numix-Circle'
-    gs org.gnome.desktop.interface cursor-theme 'Numix-Cursor'
-    ;;
-*)
-    echo "Unsupported theme: $theme" 1>&2
-    exit 1
-    ;;
-esac
-
 # Shell
 gs org.gnome.mutter workspaces-only-on-primary true
 # Only Alt-Tab between windows of the current workspace

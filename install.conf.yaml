@@ -93,6 +93,9 @@
     ~/.local/bin/gnome-random-wallpaper:
       path: linux/gnome/bin/gnome-random-wallpaper.py
       if: "uname -s | grep -qi linux"
+    ~/.local/bin/gnome-theme:
+      path: linux/gnome/bin/gnome-theme.bash
+      if: "uname -s | grep -qi linux"
 
     # i3 and related tools
     ~/.xprofile:
@@ -127,3 +130,6 @@
 - shell:
     - description: Set yarn prefix to ~/.local
       command: sh -c 'command -v yarn && yarn config set prefix ~/.local || exit 0'
+    - description: Gnome settings
+      command: bash linux/gnome/settings.bash
+      stdout: true
