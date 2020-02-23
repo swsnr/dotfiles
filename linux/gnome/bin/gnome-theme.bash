@@ -40,6 +40,22 @@ function vscode_theme() {
     mv "$target" "$CODE_SETTINGS"
 }
 
+function tilix_theme() {
+    local profile
+    local theme_file
+    profile="$(gsettings get com.gexperts.Tilix.ProfilesList default | sed -e "s/^'//" -e "s/'\$//")"
+
+    # Don't mess with bold colors
+    gsettings set "com.gexperts.Tilix.Profile:/com/gexperts/Tilix/profiles/$profile/" bold-is-bright false
+
+    local theme_file="/usr/share/tilix/schemes/$1.json"
+
+    gsettings set "com.gexperts.Tilix.Profile:/com/gexperts/Tilix/profiles/$profile/" use-theme-colors "$(jq '.["use-theme-colors"]' <"$theme_file")"
+    gsettings set "com.gexperts.Tilix.Profile:/com/gexperts/Tilix/profiles/$profile/" background-color "$(jq -r '.["background-color"]' <"$theme_file")"
+    gsettings set "com.gexperts.Tilix.Profile:/com/gexperts/Tilix/profiles/$profile/" foreground-color "$(jq -r '.["foreground-color"]' <"$theme_file")"
+    gsettings set "com.gexperts.Tilix.Profile:/com/gexperts/Tilix/profiles/$profile/" palette "$(jq -c '.["palette"]' <"$theme_file")"
+}
+
 # Gtk theme
 # Light
 case "$theme" in
@@ -49,6 +65,7 @@ light)
     gsettings set org.gnome.desktop.interface cursor-theme 'Numix-Cursor-Light'
 
     vscode_theme 'Solarized Light'
+    tilix_theme 'solarized-light'
     ;;
 dark)
     gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
@@ -56,6 +73,7 @@ dark)
     gsettings set org.gnome.desktop.interface cursor-theme 'Numix-Cursor'
 
     vscode_theme 'Default Dark+'
+    tilix_theme monokai
     ;;
 *)
     echo "Unsupported theme: $theme" 1>&2
