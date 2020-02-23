@@ -166,6 +166,7 @@ packages=(
     git
     httpie
     jq
+    shfmt
     # Diff/merge tool
     meld
     # Text editor
@@ -262,6 +263,15 @@ packages=(
     # Desktop wiki, note taking, TODO lists
     zim
 
+    # i3 environment (w/ i3-gnome from AUR)
+    gnome-flashback
+    i3-wm
+    i3blocks
+    rofi
+    xarchiver
+    nomacs
+    flameshot
+
     # Office
     libreoffice-fresh
     libreoffice-fresh-de
@@ -329,6 +339,10 @@ pacman -Sy --needed --noconfirm "${packages[@]}"
 optdeps=(
     # avahi: avahi-discover GUI tool
     python-dbus
+    # gnome-flashback dependencies
+    gnome-screensaver
+    network-manager-applet
+    gnome-applets
 )
 
 h1 "Install optional dependencies of packages"
@@ -392,11 +406,11 @@ aurpackages=(
     numix-circle-icon-theme-git
     numix-cursor-theme
 
+    # Gnome session with i3
+    i3-gnome
+
     # A favourite font of mine
     otf-vollkorn
-
-    # CLI client for 1password
-    1password-cli
 
     # Scala REPL
     ammonite
