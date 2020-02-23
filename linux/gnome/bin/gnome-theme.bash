@@ -32,6 +32,14 @@ dark | light)
     ;;
 esac
 
+CODE_SETTINGS="$HOME/.config/Code - OSS/User/settings.json"
+
+function vscode_theme() {
+    target="$(mktemp -p "$HOME/.config/Code - OSS/User" .settings.json.XXXXXXXXXX)"
+    jq --arg vscode_theme "$1" '.["workbench.colorTheme"] = $vscode_theme' <"$CODE_SETTINGS" >"$target"
+    mv "$target" "$CODE_SETTINGS"
+}
+
 # Gtk theme
 # Light
 case "$theme" in
@@ -39,11 +47,15 @@ light)
     gsettings set org.gnome.desktop.interface gtk-theme 'Arc'
     gsettings set org.gnome.desktop.interface icon-theme 'Numix-Circle-Light'
     gsettings set org.gnome.desktop.interface cursor-theme 'Numix-Cursor-Light'
+
+    vscode_theme 'Solarized Light'
     ;;
 dark)
     gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
     gsettings set org.gnome.desktop.interface icon-theme 'Numix-Circle'
     gsettings set org.gnome.desktop.interface cursor-theme 'Numix-Cursor'
+
+    vscode_theme 'Default Dark+'
     ;;
 *)
     echo "Unsupported theme: $theme" 1>&2
