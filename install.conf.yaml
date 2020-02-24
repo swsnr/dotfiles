@@ -101,6 +101,9 @@
     ~/.xprofile:
       path: linux/i3/xprofile.sh
       if: "i3 --version | grep -qi 'i3 version'"
+    ~/.Xresources:
+      path: linux/i3/Xresources
+      if: "i3 --version | grep -qi 'i3 version'"
     ~/.config/i3/config:
       path: linux/i3/config
       if: "i3 --version | grep -qi 'i3 version'"
@@ -121,10 +124,7 @@
       path: linux/i3/themes/*
       glob: true
       if: "i3 --version | grep -qi 'i3 version'"
-    # rofi, launcher for i3
-    ~/.config/rofi/config.rasi:
-      path: linux/i3/rofi.rasi
-      if: "i3 --version | grep -qi 'i3 version'"
+    # Extra rofi mode scripts
     ~/.local/bin/rofi-idea-projects:
       path: linux/i3/bin/rofi-idea-projects
       if: "i3 --version | grep -qi 'i3 version'"

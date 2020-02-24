@@ -1,0 +1,9 @@
+! Font settings for X11
+Xft.antialias: 1
+Xft.hinting: 1
+Xft.hintstyle: hintslight
+Xft.rgba: rgb
+
+! Rofi launcher settings
+rofi.font: Ubuntu 13
+rofi.sorting-method: fzf
