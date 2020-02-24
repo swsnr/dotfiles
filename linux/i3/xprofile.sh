@@ -25,3 +25,9 @@ export QT_QPA_PLATFORMTHEME=qt5ct
 
 # Restore screen layout (GDM runs on wayland and doesn't help us here)
 autorandr --change --default clone-largest
+
+# Load current i3 theme if present
+i3_theme="$HOME/.config/i3/themes/current"
+if [[ -f $i3_theme ]]; then
+    xrdb -merge "$i3_theme"
+fi

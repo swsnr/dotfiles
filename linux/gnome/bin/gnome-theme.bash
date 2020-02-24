@@ -32,6 +32,8 @@ dark | light)
     ;;
 esac
 
+echo "$theme"
+
 CODE_SETTINGS="$HOME/.config/Code - OSS/User/settings.json"
 
 function vscode_theme() {

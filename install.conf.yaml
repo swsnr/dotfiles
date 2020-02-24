@@ -104,6 +104,9 @@
     ~/.config/i3/config:
       path: linux/i3/config
       if: "i3 --version | grep -qi 'i3 version'"
+    ~/.local/bin/i3-theme:
+        path: linux/i3/bin/i3-theme.bash
+        if: "i3 --version | grep -qi 'i3 version'"
     ~/.local/bin/i3-rename-workspace:
       path: linux/i3/bin/i3-rename-workspace
       if: "i3 --version | grep -qi 'i3 version'"
@@ -112,6 +115,10 @@
       if: "i3 --version | grep -qi 'i3 version'"
     ~/.config/i3blocks/blocklets:
       path: linux/i3/blocklets/*
+      glob: true
+      if: "i3 --version | grep -qi 'i3 version'"
+    ~/.config/i3/themes:
+      path: linux/i3/themes/*
       glob: true
       if: "i3 --version | grep -qi 'i3 version'"
     # rofi, launcher for i3
