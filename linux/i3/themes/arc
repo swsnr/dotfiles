@@ -3,3 +3,5 @@ i3wm.foreground: #6B6F74
 i3wm.selection: #5294E2
 i3wm.selection_inactive: #a8c9f0
 i3wm.warning: #F27835
+
+rofi.theme: Arc
