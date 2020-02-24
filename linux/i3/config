@@ -177,7 +177,7 @@ mode "$mode_system" {
   bindsym l restart, mode "default"
   bindsym r exec --no-startup-id dbus-send --type=method_call --dest=org.gnome.SessionManager /org/gnome/SessionManager org.gnome.SessionManager.Reboot, mode "default"
   bindsym s exec --no-startup-id dbus-send --type=method_call --dest=org.gnome.SessionManager /org/gnome/SessionManager org.gnome.SessionManager.Shutdown, mode "default"
-  bindsym u exec --no-startup-id systemctl sleep, mode "default"
+  bindsym u exec --no-startup-id systemctl suspend, mode "default"
   bindsym w exec --no-startup-id "gnome-random-wallpaper", mode "default"
   bindsym q exec --no-startup-id i3-theme toggle, mode "default"
 
