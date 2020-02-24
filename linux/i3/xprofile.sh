@@ -24,7 +24,10 @@ export "$(fish -l -c env | grep -e '^INFOPATH=')"
 export QT_QPA_PLATFORMTHEME=qt5ct
 
 # Restore screen layout (GDM runs on wayland and doesn't help us here)
-autorandr --change --default clone-largest
+if [[ -z "$XRDP_SESSION" ]]; then
+    # Don't update displays in an XRDP session.
+    autorandr --change --default clone-largest
+fi
 
 # Load current i3 theme if present
 i3_theme="$HOME/.config/i3/themes/current"

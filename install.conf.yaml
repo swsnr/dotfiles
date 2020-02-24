@@ -104,6 +104,9 @@
     ~/.Xresources:
       path: linux/i3/Xresources
       if: "i3 --version | grep -qi 'i3 version'"
+    ~/.xinitrc:
+      path: linux/i3/xinitrc
+      if: "i3 --version | grep -qi 'i3 version'"
     ~/.config/i3/config:
       path: linux/i3/config
       if: "i3 --version | grep -qi 'i3 version'"
