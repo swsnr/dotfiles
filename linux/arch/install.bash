@@ -238,7 +238,6 @@ packages=(
     feedreader
     # Communication
     signal-desktop
-    geary
 
     # Images
     eog
@@ -328,9 +327,6 @@ packages=(
 
     # LaTex
     texlive-most
-
-    # Gaming
-    steam
 )
 
 h1 "Install packages"
