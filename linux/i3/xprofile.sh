@@ -17,8 +17,6 @@
 
 # Import paths from fish
 export "$(fish -l -c env | grep -e '^PATH=')"
-export "$(fish -l -c env | grep -e '^MANPATH=')"
-export "$(fish -l -c env | grep -e '^INFOPATH=')"
 
 # Make Qt5 apps use qt5ct
 export QT_QPA_PLATFORMTHEME=qt5ct
