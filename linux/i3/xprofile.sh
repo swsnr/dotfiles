@@ -13,9 +13,6 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
-# POSIX shell profile for global environment, because not all environment source
-# fish's settings.
-
 # Import paths from fish
 export "$(fish -l -c env | grep -e '^PATH=')"
 
