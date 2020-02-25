@@ -97,7 +97,9 @@
       path: linux/gnome/bin/gnome-theme.bash
       if: "uname -s | grep -qi linux"
 
-    # i3 and related tools
+    # X11 settings: xprofile for i3 environment, Xresources for some X11 settings
+    # and dynamic i3 themeing, and xinitrc to start an X11 instance with i3wm
+    # from xrdp.
     ~/.xprofile:
       path: linux/i3/xprofile.sh
       if: "i3 --version | grep -qi 'i3 version'"
@@ -107,11 +109,16 @@
     ~/.xinitrc:
       path: linux/i3/xinitrc
       if: "i3 --version | grep -qi 'i3 version'"
+    # i3 with custom scripts, and i3blocks for the status bar
     ~/.config/i3/config:
       path: linux/i3/config
       if: "i3 --version | grep -qi 'i3 version'"
     ~/.local/bin/i3-theme:
       path: linux/i3/bin/i3-theme.bash
+      if: "i3 --version | grep -qi 'i3 version'"
+    ~/.config/i3/themes:
+      path: linux/i3/themes/*
+      glob: true
       if: "i3 --version | grep -qi 'i3 version'"
     ~/.local/bin/i3-rename-workspace:
       path: linux/i3/bin/i3-rename-workspace
@@ -123,16 +130,15 @@
       path: linux/i3/blocklets/*
       glob: true
       if: "i3 --version | grep -qi 'i3 version'"
-    ~/.config/i3/themes:
-      path: linux/i3/themes/*
-      glob: true
-      if: "i3 --version | grep -qi 'i3 version'"
-    # Extra rofi mode scripts
+    # Extra modes for Rofi launcher
     ~/.local/bin/rofi-idea-projects:
       path: linux/i3/bin/rofi-idea-projects
       if: "i3 --version | grep -qi 'i3 version'"
     ~/.local/bin/rofi-code-projects:
       path: linux/i3/bin/rofi-code-projects
+      if: "i3 --version | grep -qi 'i3 version'"
+    ~/.local/bin/rofi-yes-no:
+      path: linux/i3/bin/rofi-yes-no.bash
       if: "i3 --version | grep -qi 'i3 version'"
 
     # ZIM style configuration

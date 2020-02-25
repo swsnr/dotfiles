@@ -173,7 +173,7 @@ bindsym $mod+Insert mode "$mode_workspace"
 # System mode
 set $mode_system  (q) toggle light/dark, (w) new wallpaper, (c) reconfigure, (l) reload, (u) suspend, (s) shutdown, (r) reboot, (e) exit
 mode "$mode_system" {
-  bindsym e exec --no-startup-id zenity --question --text 'Logout?' && i3-msg exit, mode "default"
+  bindsym e exec --no-startup-id rofi-yes-no 'Logout?' 'Exit i3 and return to session manager?' && i3-msg exit, mode "default"
   bindsym c reload, mode "default"
   bindsym l restart, mode "default"
   bindsym r exec --no-startup-id dbus-send --type=method_call --dest=org.gnome.SessionManager /org/gnome/SessionManager org.gnome.SessionManager.Reboot, mode "default"
