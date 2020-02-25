@@ -1,3 +1,4 @@
+#!/bin/sh
 # Copyright 2018-2019 Sebastian Wiesner <sebastian@swsnr.de>
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -22,13 +23,13 @@ export "$(fish -l -c env | grep -e '^PATH=')"
 export QT_QPA_PLATFORMTHEME=qt5ct
 
 # Restore screen layout (GDM runs on wayland and doesn't help us here)
-if [[ -z "$XRDP_SESSION" ]]; then
+if [ -z "$XRDP_SESSION" ]; then
     # Don't update displays in an XRDP session.
     autorandr --change --default clone-largest
 fi
 
 # Load current i3 theme if present
 i3_theme="$HOME/.config/i3/themes/current"
-if [[ -f $i3_theme ]]; then
+if [ -f "$i3_theme" ]; then
     xrdb -merge "$i3_theme"
 fi
