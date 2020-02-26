@@ -39,7 +39,7 @@ exec_always --no-startup-id gnome-power-manager &
 exec --no-startup-id gnome-flashback &
 exec --no-startup-id /usr/bin/gnome-screensaver &
 exec --no-startup-id nm-applet &
-# Password manager and secretservice daemon
+# Password manager
 exec keepassxc &
 
 # Modifier for keybindings
