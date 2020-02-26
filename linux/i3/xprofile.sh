@@ -19,9 +19,9 @@ export "$(fish -l -c env | grep -e '^PATH=')"
 # Make Qt5 apps use qt5ct
 export QT_QPA_PLATFORMTHEME=qt5ct
 
-# Add SSH to keyring
+# Start SSH agent if not already running
 if [ -z "$SSH_AUTH_SOCK" ]; then
-    eval "$(gnome-keyring-daemon -c ssh)"
+    eval "$(ssh-agent)"
     export SSH_AUTH_SOCK
 fi
 
