@@ -263,13 +263,19 @@ packages=(
     zim
 
     # i3 environment (w/ i3-gnome from AUR)
-    gnome-flashback
     i3-wm
     i3blocks
+    xss-lock
+    i3lock-color
     rofi
+    dunst
+    network-manager-applet
+    pasystray
+    dex
     xarchiver
     nomacs
     flameshot
+    autorandr
 
     # Office
     libreoffice-fresh
@@ -335,10 +341,6 @@ pacman -Sy --needed --noconfirm "${packages[@]}"
 optdeps=(
     # avahi: avahi-discover GUI tool
     python-dbus
-    # gnome-flashback dependencies
-    gnome-screensaver
-    network-manager-applet
-    gnome-applets
 )
 
 h1 "Install optional dependencies of packages"
@@ -402,7 +404,7 @@ aurpackages=(
     numix-circle-icon-theme-git
     numix-cursor-theme
 
-    # Gnome session with i3
+    # i3 session for GDM, also with optional gnome support
     i3-gnome
 
     # A favourite font of mine

@@ -33,14 +33,23 @@ client.urgent           $background     $warning            #ffffff     $selecti
 client.placeholder      #000000 #0c0c0c #ffffff #000000     #0c0c0c
 client.background       #ffffff
 
-# Gnome environment and session, see <https://github.com/i3-gnome/i3-gnome/wiki/Tips-&-Tricks>
+# Wallpaper
+exec --no-startup-id random-wallpaper
+# Policykit
+exec --no-startup-id /usr/bin/lxqt-policykit-agent &
+# Settings for Gtk3
 exec --no-startup-id /usr/lib/gsd-xsettings &
-exec_always --no-startup-id gnome-power-manager &
-exec --no-startup-id gnome-flashback &
-exec --no-startup-id /usr/bin/gnome-screensaver &
+exec --no-startup-id pasystray &
 exec --no-startup-id nm-applet &
-# Password manager
-exec keepassxc &
+# Auto-start apps
+exec --no-startup-id keepassxc &
+exec --no-startup-id zim &
+
+# Lock screen: Use xss-lock to trigger locking on systemd events.  We pass -n to
+# keep running in foreground, because xss-lock doesn't want the locker to fork.
+# Then we use systemd commands to lock the session.
+exec --no-startup-id xss-lock -- i3-lock-wallpaper -n
+bindsym $mod+l exec --no-startup-id loginctl lock-session
 
 # Modifier for keybindings
 set $mod Mod4
@@ -66,8 +75,10 @@ bindsym $mod+space exec "rofi -show-icons -combi-modi 'drun,window,idea:rofi-ide
 # File manager
 bindsym $mod+e exec xdg-open ~
 
-# Lock screen
-bindsym $mod+l exec loginctl lock-session
+# Volume control
+bindsym $mod+F10 exec --no-startup-id pactl set-sink-mute 0 toggle
+bindsym $mod+F11 exec --no-startup-id pactl set-sink-volume 0 -5%
+bindsym $mod+F12 exec --no-startup-id pactl set-sink-volume 0 +5%
 
 # Change focus
 bindsym $mod+Left focus left
