@@ -76,9 +76,9 @@ bindsym $mod+space exec "rofi -show-icons -combi-modi 'drun,window,idea:rofi-ide
 bindsym $mod+e exec xdg-open ~
 
 # Volume control
-bindsym $mod+F10 exec --no-startup-id pactl set-sink-mute 0 toggle
-bindsym $mod+F11 exec --no-startup-id pactl set-sink-volume 0 -5%
-bindsym $mod+F12 exec --no-startup-id pactl set-sink-volume 0 +5%
+bindsym $mod+F10 exec --no-startup-id ponymix toggle
+bindsym $mod+F11 exec --no-startup-id ponymix -N decrease 5
+bindsym $mod+F12 exec --no-startup-id ponymix -N increase 5
 
 # Change focus
 bindsym $mod+Left focus left

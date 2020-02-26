@@ -249,6 +249,7 @@ packages=(
     tilix
 
     # Multimedia
+    ponymix
     totem
     vlc
     rhythmbox
