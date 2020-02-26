@@ -19,6 +19,12 @@ export "$(fish -l -c env | grep -e '^PATH=')"
 # Make Qt5 apps use qt5ct
 export QT_QPA_PLATFORMTHEME=qt5ct
 
+# Add SSH to keyring
+if [ -z "$SSH_AUTH_SOCK" ]; then
+    eval "$(gnome-keyring-daemon -c ssh)"
+    export SSH_AUTH_SOCK
+fi
+
 # Restore screen layout (GDM runs on wayland and doesn't help us here)
 if [ -z "$XRDP_SESSION" ]; then
     # Don't update displays in an XRDP session.
