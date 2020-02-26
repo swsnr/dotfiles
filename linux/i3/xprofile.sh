@@ -29,6 +29,9 @@ fi
 if [ -z "$XRDP_SESSION" ]; then
     # Don't update displays in an XRDP session.
     autorandr --change --default clone-largest
+else
+    # Make remote output the primary display
+    xrandr --output rdp0 --primary
 fi
 
 # Load current i3 theme if present
