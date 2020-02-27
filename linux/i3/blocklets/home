@@ -1,0 +1,157 @@
+#!/usr/bin/env python3
+# Copyright 2020 Sebastian Wiesner <sebastian@swsnr.de>
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may not
+# use this file except in compliance with the License. You may obtain a copy of
+# the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations under
+# the License.
+
+
+import os
+import sys
+import json
+from pathlib import Path
+from collections import namedtuple
+from datetime import timedelta, datetime
+from itertools import groupby
+
+
+def config_home():
+    home = os.environ.get('XDG_CONFIG_HOME')
+    if home:
+        return Path(home)
+    else:
+        return Path.home() / '.config'
+
+
+def runtime_dir():
+    return Path(os.environ['XDG_RUNTIME_DIR'])
+
+
+class UnknownStationError(Exception):
+    def __init__(self, name):
+        self.name = name
+        self.mnessage = f'Unknown station: {self.name}'
+
+
+Route = namedtuple('Route', 'departure_time arrival_time stops')
+
+
+def collect_stops(route):
+    stops = []
+    for part in route['connectionPartList']:
+        stops.append(part['from']['name'])
+        stops.append(part['to']['name'])
+    return [k for k, _ in groupby(stops)]
+
+
+def get_routes(start, destination):
+    import mvg_api
+    start_id = mvg_api.get_id_for_station(start)
+    if not start_id:
+        raise UnknownStationError(start)
+    dest_id = mvg_api.get_id_for_station(destination)
+    if not dest_id:
+        raise UnknownStationError(destination)
+
+    routes = mvg_api.get_route(start_id, dest_id)
+    routes.sort(key=lambda r: r['departure'])
+    return [
+        Route(
+            route['departure_datetime'],
+            route['arrival_datetime'],
+            collect_stops(route)
+        )
+        for route in routes
+    ]
+
+
+def cached_route_file():
+    return runtime_dir() / 'i3blocks-home-route.json'
+
+
+def get_cached_route():
+    file = cached_route_file()
+    if file.exists():
+        contents = file.read_text()
+        if contents:
+            raw = json.loads(contents)
+            return Route(
+                datetime.fromisoformat(raw['departure_time']),
+                datetime.fromisoformat(raw['arrival_time']),
+                raw['stops'])
+    return None
+
+
+def cache_route(route):
+    raw_route = route._asdict()
+    for key in ['departure_time', 'arrival_time']:
+        raw_route[key] = raw_route[key].isoformat()
+    cached_route_file().write_text(json.dumps(raw_route))
+
+
+def is_reachable(route, walk_time):
+    return datetime.now() <= (route.departure_time - walk_time)
+
+
+def print_route(route, walk_time):
+    route_walk_start = route.departure_time - walk_time
+    route_start_diff = route_walk_start - datetime.now()
+    start_in = round(route_start_diff.total_seconds() / 60)
+
+    print(
+        f'🚆 In {start_in} min, dep. {route.departure_time:%H:%M} arr. {route.arrival_time:%H:%M}, via {route.stops[1]}')
+
+
+def main():
+    from argparse import ArgumentParser
+
+    parser = ArgumentParser(description='Print home route')
+    parser.parse_args()
+
+    config_file = config_home() / 'i3blocks' / 'home.json'
+
+    try:
+        if config_file.exists():
+
+            with config_file.open() as source:
+                config = json.load(source)
+
+            walk_time = timedelta(seconds=config['walk_to_start'])
+
+            cached_route = get_cached_route()
+            if cached_route and is_reachable(cached_route, walk_time):
+                print_route(cached_route, walk_time)
+                return
+
+            routes = get_routes(config['start'], config['destination'])
+            if not routes:
+                cached_route_file().unlink(missing_ok=True)
+                print('n.a.')
+                return
+
+            next_route = next(
+                (route for route in routes if is_reachable(route, walk_time)), None)
+            if not next_route:
+                cached_route_file().unlink(missing_ok=True)
+                print('n.a.')
+                return
+
+            cache_route(next_route)
+            print_route(next_route, walk_time)
+
+    except ImportError as error:
+        sys.exit(f'Missing module: {error.name}')
+    except UnknownStationError as error:
+        sys.exit(f'Unknown station: {error.name}')
+
+
+if __name__ == '__main__':
+    main()
