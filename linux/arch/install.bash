@@ -266,17 +266,21 @@ packages=(
     # i3 environment (w/ i3-gnome from AUR)
     i3-wm
     i3blocks
+    # Display configuration
+    autorandr
+    # Screen locking
     xss-lock
     i3lock-color
+    # Desktop env: launcher, notifications, and applets
     rofi
     dunst
     network-manager-applet
     pasystray
-    dex
+    # Apps for i3
     xarchiver
     nomacs
     flameshot
-    autorandr
+    zathura
 
     # Office
     libreoffice-fresh
@@ -342,6 +346,8 @@ pacman -Sy --needed --noconfirm "${packages[@]}"
 optdeps=(
     # avahi: avahi-discover GUI tool
     python-dbus
+    # zathura: PDF support
+    zathura-pdf-mupdf
 )
 
 h1 "Install optional dependencies of packages"
