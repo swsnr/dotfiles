@@ -195,7 +195,6 @@ packages=(
     gnome-shell-extensions
     dconf-editor
     gnome-tweaks
-    flatpak
     # User directories
     xdg-user-dirs
     # CLI clipboard access
