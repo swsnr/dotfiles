@@ -225,19 +225,18 @@ mode "resize" {
   bindsym Escape mode "default"
   bindsym $mod+r mode "default"
 }
-
 bindsym $mod+r mode "resize"
 
 # Float windows
 for_window [class="(?i)keepassxc"] floating enable
-# Use title and not class, because class also affects actual remote destop
-# windows but these should tile like other windows
-for_window [title="Remmina Remote-Desktop-Client"] floating enable
 for_window [class="(?i)gcolor3"] floating enable
+for_window [class="Evolution-alarm-notify"] floating enable
+# Use title and not class for Remmina, because class also affects actual remote
+# desktop windows but these should tile like other windows
+for_window [title="Remmina Remote-Desktop-Client"] floating enable
 # Put messages and notes on fixed screens
 assign [class="Rocket.Chat"] 2
 assign [class="(?i)zim"] 3
-
 
 bar {
   status_command i3blocks
