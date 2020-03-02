@@ -39,8 +39,10 @@ exec --no-startup-id random-wallpaper
 exec --no-startup-id /usr/bin/lxqt-policykit-agent &
 # Settings for Gtk3
 exec --no-startup-id /usr/lib/gsd-xsettings &
+# Applets for the status bar: Sound, network manager and disks
 exec --no-startup-id pasystray &
 exec --no-startup-id nm-applet &
+exec --no-startup-id udiskie -sa &
 # Auto-start apps
 exec --no-startup-id keepassxc &
 exec --no-startup-id zim &

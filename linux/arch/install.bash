@@ -275,6 +275,7 @@ packages=(
     dunst
     network-manager-applet
     pasystray
+    udiskie
     # Apps for i3
     xarchiver
     nomacs
