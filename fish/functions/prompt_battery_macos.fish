@@ -40,6 +40,7 @@ function prompt_battery_macos -d 'macOS Battery info in prompt'
     # estimate to include them in the prompt. Fall back to the precentage
     # level if the system can't provide any estimation of the remaining time
     set -l time (string match -r '\\d+:\\d+' $remaining)
+    set -l level
     if test (count $time) -gt 0
         set level "|$time[1]"
     else
@@ -83,7 +84,7 @@ function prompt_battery_macos -d 'macOS Battery info in prompt'
                 set state_symbol '↓'
                 set colour (set_color 'yellow')
             end
-        case *
+        case '*'
             echo -s -n (set_color -o red) 'UNKNOWN STATE:' $state (set_color normal)
             return 1
     end
