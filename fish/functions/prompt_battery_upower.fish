@@ -31,16 +31,7 @@ function prompt_battery_upower -d 'upower battery info in prompt'
     # whole regex, so we start at 2 for the 1st matching group.
     set -l percentage (string match -r '^percentage:\s+(.+)' $battery_info)[2]
     set -l state (string match -r '^state:\s+(.+)' $battery_info)[2]
-    set -l remaining (string match -r '^time to empty:\s+(.+)' $battery_info)[2]
     set -l level
-
-    # TODO: Time to charge?
-
-    if test -n "$remaining"
-        set level "|$remaining"
-    else
-        set level "|$percentage"
-    end
 
     # Parse the state into a colour to use in the prompt and a state symbol
     # to indicate the battery state.
@@ -50,11 +41,30 @@ function prompt_battery_upower -d 'upower battery info in prompt'
             # information is really redundant, and we do not want to show
             # anything.
             return 0
+        case 'charging'
+            set -l time_to_full (string match -r '^time to full:\s+(.+)' $battery_info)[2]
+            if test -n "$time_to_full"
+                set level "|$time_to_full"
+            else
+                set level "|$percentage"
+            end
+            set colour (set_color 'green')
+            set state_symbol '↑'
         case 'discharging'
-            # TODO: extract warning-level
+            set -l time_to_empty (string match -r '^time to empty:\s+(.+)' $battery_info)[2]
+            if test -n "$time_to_empty"
+                set level "|$time_to_empty"
+            else
+                set level "|$percentage"
+            end
+            set -l warning_level (string match -r '^warning-level:\s+(.+)' $battery_info)[2]
+            if not string match -q 'none' $warning_level
+                echo -s -n (set_color -o red) 'UNKNOWN WARNING LEVEL:' $warning_level (set_color normal)
+                exit 1
+            end
             set state_symbol '↓'
             set colour (set_color 'yellow')
-        case *
+        case '*'
             echo -s -n (set_color -o red) 'UNKNOWN STATE:' $state (set_color normal)
             return 1
     end
