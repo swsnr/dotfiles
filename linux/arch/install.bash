@@ -349,6 +349,9 @@ optdeps=(
     python-dbus
     # zathura: PDF support
     zathura-pdf-mupdf
+    # zim: source code viewing and spell checking
+    gtksourceview3
+    gtkspell3
 )
 
 h1 "Install optional dependencies of packages"
