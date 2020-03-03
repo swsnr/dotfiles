@@ -15,5 +15,7 @@
 function prompt_battery -d 'Battery information for prompt'
     if string match -iq 'darwin*' (uname -s)
         prompt_battery_macos
+    else if command -q upower
+        prompt_battery_upower
     end
 end
