@@ -270,8 +270,9 @@ packages=(
     # Screen locking
     xss-lock
     i3lock-color
-    # Desktop env: launcher, notifications, and applets
+    # Desktop env: launcher, XDG autostart, notifications, and applets
     rofi
+    dex
     dunst
     network-manager-applet
     pasystray
