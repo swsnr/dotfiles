@@ -62,14 +62,14 @@ if status --is-interactive
     set -x LC_MESSAGES 'en_GB.utf8'
 
     # Setup virtualenv helper for Python
-    if command --search 'python3' >/dev/null
+    if command -q 'python3'
         python3 -m virtualfish 2>/dev/null | source
     end
 
     # Detect terminal background color and adapt color themes accordingly.
     #
     # term-background is from https://github.com/lunaryorn/term-background.rs
-    if command --search 'term-background' >/dev/null
+    if command -q 'term-background'
         set -x LY_TERM_BACKGROUND (term-background --timeout 1000 (tty))
     end
 
@@ -83,7 +83,7 @@ if status --is-interactive
     end
 
     # dircolors, by vidid <https://github.com/sharkdp/vivid>
-    if command --search vivid >/dev/null
+    if command -q vivid
         set -x LS_COLORS (vivid generate $DIRCOLORS_THEME)
     end
 

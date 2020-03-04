@@ -13,7 +13,7 @@
 # the License.
 
 function open --description 'Open things'
-    if command --search xdg-open >/dev/null
+    if command -q xdg-open
         xdg-open $argv >/dev/null 2>&1 &
         disown
     else

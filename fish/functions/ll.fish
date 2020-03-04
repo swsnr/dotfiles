@@ -13,7 +13,7 @@
 # the License.
 
 function ll --description 'List files verbosely'
-    if command --search 'exa' >/dev/null
+    if command -q 'exa'
         exa --long --git $argv
     else
         ls -l $argv

@@ -13,9 +13,9 @@
 # the License.
 
 function get -d 'Download from a remote URL'
-    if command --search 'curl' >/dev/null
+    if command -q curl
         curl --continue-at - --location --progress-bar --remote-name --remote-time --remote-header-name $argv
-    else if command --search 'wget' >/dev/null
+    else if command -q wget
         wget --continue --progress=bar --timestamping $argv
     else
         echo 'Don\'t know how to download 😞'
