@@ -132,6 +132,8 @@ packages=(
     tldr
     # Better ls
     exa
+    # and dircolors for ls
+    vivid
     # Better find
     fd
     # Better grep
