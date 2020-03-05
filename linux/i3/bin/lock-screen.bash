@@ -13,4 +13,17 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
-exec i3lock -ti "$(jq -r .files[0] <"$XDG_RUNTIME_DIR/random-wallpaper.json")" "$@"
+# Suspend dunst first
+systemctl --user kill --signal=USR1 dunst
+
+# Do not fork because we need to wait for unlock, for xss-lock as well asfor
+# re-enabling dunst.  Blur all windows
+i3lock -B6 -n \
+    --insidecolor=373445ff --ringcolor=ffffffff --line-uses-inside \
+    --keyhlcolor=d23c3dff --bshlcolor=d23c3dff --separatorcolor=00000000 \
+    --insidevercolor=fecf4dff --insidewrongcolor=d23c3dff \
+    --ringvercolor=ffffffff --ringwrongcolor=ffffffff \
+    --radius=30 --veriftext="🌀" --wrongtext="❌"
+
+# Resume dunst after unlock
+systemctl --user kill --signal=USR2 dunst

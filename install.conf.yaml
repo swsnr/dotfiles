@@ -123,8 +123,8 @@
     ~/.local/bin/i3-rename-workspace:
       path: linux/i3/bin/i3-rename-workspace
       if: "i3 --version | grep -qi 'i3 version'"
-    ~/.local/bin/i3-lock-wallpaper:
-        path: linux/i3/bin/i3-lock-wallpaper.bash
+    ~/.local/bin/lock-screen:
+        path: linux/i3/bin/lock-screen.bash
         if: "i3 --version | grep -qi 'i3 version'"
     ~/.local/bin/random-wallpaper:
       path: linux/i3/bin/random-wallpaper.py

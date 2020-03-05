@@ -43,7 +43,7 @@ exec --no-startup-id dex --autostart --environment i3 &
 # Lock screen: Use xss-lock to trigger locking on systemd events.  We pass -n to
 # keep running in foreground, because xss-lock doesn't want the locker to fork.
 # Then we use systemd commands to lock the session.
-exec --no-startup-id xss-lock -- i3-lock-wallpaper -n
+exec --no-startup-id xss-lock -- lock-screen
 bindsym $mod+l exec --no-startup-id loginctl lock-session
 
 # Modifier for keybindings
