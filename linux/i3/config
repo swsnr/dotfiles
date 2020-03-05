@@ -136,6 +136,10 @@ bindsym $mod+Next workspace next_on_output
 bindsym $mod+minus scratchpad show
 bindsym $mod+Shift+minus move scratchpad
 
+# Floating windows
+bindsym $mod+f focus mode_toggle
+bindsym $mod+Shift+f floating toggle
+
 # Container mode
 set $mode_container ( ) split toggle, layout (s)plit (t)abbed stac(k)ing, (f)loating toggle, focus (↑↓ m) parent/child/mode
 mode "$mode_container" {
