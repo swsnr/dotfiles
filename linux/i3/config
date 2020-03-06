@@ -88,7 +88,7 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # Enter fullscreen mode for the focused container
-bindsym $mod+Return fullscreen toggle
+bindsym $mod+Shift+Return fullscreen toggle
 
 # Focus urgent window
 bindsym $mod+u [urgent=latest] focus
@@ -223,6 +223,89 @@ mode "resize" {
   bindsym $mod+r mode "default"
 }
 bindsym $mod+r mode "resize"
+
+set $mode_i3 i3
+# The super binding mode
+mode "$mode_i3" {
+  # Switch to workspace
+  bindsym 1 workspace number 1, mode "default"
+  bindsym 2 workspace number 2, mode "default"
+  bindsym 3 workspace number 3, mode "default"
+  bindsym 4 workspace number 4, mode "default"
+  bindsym 5 workspace number 5, mode "default"
+  bindsym 6 workspace number 6, mode "default"
+  bindsym 7 workspace number 7, mode "default"
+  bindsym 8 workspace number 8, mode "default"
+  bindsym 9 workspace number 9, mode "default"
+  bindsym 0 workspace number 10, mode "default"
+
+  # also with numblock
+  bindsym Mod2+KP_1 workspace number 1, mode "default"
+  bindsym Mod2+KP_2 workspace number 2, mode "default"
+  bindsym Mod2+KP_3 workspace number 3, mode "default"
+  bindsym Mod2+KP_4 workspace number 4, mode "default"
+  bindsym Mod2+KP_5 workspace number 5, mode "default"
+  bindsym Mod2+KP_6 workspace number 6, mode "default"
+  bindsym Mod2+KP_7 workspace number 7, mode "default"
+  bindsym Mod2+KP_8 workspace number 8, mode "default"
+  bindsym Mod2+KP_9 workspace number 9, mode "default"
+  bindsym Mod2+KP_0 workspace number 10, mode "default"
+
+  # Move focused container to workspace
+  bindsym Shift+1 move container to workspace number 1, mode "default"
+  bindsym Shift+2 move container to workspace number 2, mode "default"
+  bindsym Shift+3 move container to workspace number 3, mode "default"
+  bindsym Shift+4 move container to workspace number 4, mode "default"
+  bindsym Shift+5 move container to workspace number 5, mode "default"
+  bindsym Shift+6 move container to workspace number 6, mode "default"
+  bindsym Shift+7 move container to workspace number 7, mode "default"
+  bindsym Shift+8 move container to workspace number 8, mode "default"
+  bindsym Shift+9 move container to workspace number 9, mode "default"
+  bindsym Shift+0 move container to workspace number 10, mode "default"
+
+  # Change focus
+  bindsym Left focus left, mode "default"
+  bindsym Down focus down, mode "default"
+  bindsym Up focus up, mode "default"
+  bindsym Right focus right, mode "default"
+
+  # Move windows
+  bindsym Shift+Left move left, mode "default"
+  bindsym Shift+Down move down, mode "default"
+  bindsym Shift+Up move up, mode "default"
+  bindsym Shift+Right move right, mode "default"
+
+  # Cycle workspaces
+  bindsym Prior workspace prev_on_output, mode "default"
+  bindsym Next workspace next_on_output, mode "default"
+
+  # Scratchpad
+  bindsym minus scratchpad show, mode "default"
+  bindsym Shift+minus move scratchpad, mode "default"
+
+  # Floating windows
+  bindsym f focus mode_toggle, mode "default"
+  bindsym Shift+f floating toggle, mode "default"
+
+  # quick bindings
+  bindsym Return fullscreen toggle, mode "default"
+  bindsym u [urgent=latest] focus, mode "default"
+  bindsym w kill, mode "default"
+  bindsym l exec --no-startup-id loginctl lock-session, mode "default"
+
+  bindsym t exec tilix, mode "default"
+  bindsym e exec xdg-open ~
+
+  bindsym space exec i3-rofi, mode "default"
+
+  bindsym BackSpace mode "$mode_container"
+  bindsym Insert mode "$mode_workspace"
+  bindsym Delete mode "$mode_system"
+  bindsym r mode "resize"
+
+  bindsym Escape mode "default"
+}
+bindsym $mod+Return mode "$mode_i3"
 
 # Float windows
 for_window [class="(?i)keepassxc"] floating enable
