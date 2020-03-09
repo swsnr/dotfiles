@@ -47,9 +47,8 @@ def main():
 
     if 'GNOME' in os.environ.get('XDG_CURRENT_DESKTOP', ''):
         wallpaper = random.choice(wallpaper_files()).as_uri()
-        for namespace in {'org.gnome.desktop.background', 'org.gnome.desktop.screensaver'}:
-            check_call(['gsettings', 'set', namespace,
-                        'picture-uri', wallpaper])
+        check_call(['gsettings', 'set', 'org.gnome.desktop.background',
+                    'picture-uri', wallpaper])
     else:
         parser.error('Not running in GNOME!')
 
