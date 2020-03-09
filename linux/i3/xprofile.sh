@@ -21,7 +21,7 @@ export QT_QPA_PLATFORMTHEME=qt5ct
 
 # Start SSH agent if not already running
 if [ -z "$SSH_AUTH_SOCK" ]; then
-    eval "$(ssh-agent)"
+    eval "$(/usr/bin/gnome-keyring-daemon --start --components=ssh)"
     export SSH_AUTH_SOCK
 fi
 
