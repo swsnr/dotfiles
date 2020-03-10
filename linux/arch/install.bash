@@ -265,25 +265,25 @@ packages=(
     zim
 
     # i3 environment (w/ i3-gnome from AUR)
-    i3-wm
-    i3blocks
-    # Display configuration
-    autorandr
-    # Screen locking
-    xss-lock
-    i3lock-color
-    # Desktop env: launcher, XDG autostart, notifications, and applets
-    rofi
-    dex
-    dunst
-    network-manager-applet
-    pasystray
-    udiskie
-    # Apps for i3
-    xarchiver
-    nomacs
-    flameshot
-    zathura
+    # i3-wm
+    # i3blocks
+    # # Display configuration
+    # autorandr
+    # # Screen locking
+    # xss-lock
+    # i3lock-color
+    # # Desktop env: launcher, XDG autostart, notifications, and applets
+    # rofi
+    # dex
+    # dunst
+    # network-manager-applet
+    # pasystray
+    # udiskie
+    # # Apps for i3
+    # xarchiver
+    # nomacs
+    # flameshot
+    # zathura
 
     # Office
     libreoffice-fresh
