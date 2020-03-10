@@ -259,6 +259,7 @@ packages=(
     # Documents
     gnome-documents
     evince
+    zathura
     simple-scan
 
     # Desktop wiki, note taking, TODO lists
@@ -283,7 +284,6 @@ packages=(
     # xarchiver
     # nomacs
     # flameshot
-    # zathura
 
     # Office
     libreoffice-fresh
@@ -418,7 +418,7 @@ aurpackages=(
     numix-cursor-theme
 
     # i3 session for GDM, also with optional gnome support
-    i3-gnome
+    # i3-gnome
 
     # A favourite font of mine
     otf-vollkorn
