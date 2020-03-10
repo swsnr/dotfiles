@@ -294,7 +294,7 @@ mode "$mode_i3" {
   bindsym l exec --no-startup-id loginctl lock-session, mode "default"
 
   bindsym t exec tilix, mode "default"
-  bindsym e exec xdg-open ~
+  bindsym e exec xdg-open ~, mode "default"
 
   bindsym space exec i3-rofi, mode "default"
 
