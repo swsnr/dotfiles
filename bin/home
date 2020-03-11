@@ -73,32 +73,40 @@ def get_routes(start, destination):
     ]
 
 
-def cached_route_file():
-    return runtime_dir() / 'i3blocks-home-route.json'
+def is_reachable(route, walk_time, now):
+    return now <= (route.departure_time - walk_time)
 
 
-def get_cached_route():
-    file = cached_route_file()
+def cached_routes_file():
+    return runtime_dir() / 'home-routes.json'
+
+
+def get_cached_routes():
+    file = cached_routes_file()
     if file.exists():
         contents = file.read_text()
         if contents:
-            raw = json.loads(contents)
-            return Route(
-                datetime.fromisoformat(raw['departure_time']),
-                datetime.fromisoformat(raw['arrival_time']),
-                raw['stops'])
+            raw_routes = json.loads(contents)['routes']
+            return [
+                Route(
+                    datetime.fromisoformat(raw_route['departure_time']),
+                    datetime.fromisoformat(raw_route['arrival_time']),
+                    raw_route['stops'])
+                for raw_route in raw_routes
+            ]
     return None
 
 
-def cache_route(route):
-    raw_route = route._asdict()
-    for key in ['departure_time', 'arrival_time']:
-        raw_route[key] = raw_route[key].isoformat()
-    cached_route_file().write_text(json.dumps(raw_route))
+def cache_routes(routes):
+    raw_routes = [route._asdict() for route in routes]
+    for raw_route in raw_routes:
+        for key in ['departure_time', 'arrival_time']:
+            raw_route[key] = raw_route[key].isoformat()
+    cached_routes_file().write_text(json.dumps({'routes': raw_routes}))
 
 
-def is_reachable(route, walk_time):
-    return datetime.now() <= (route.departure_time - walk_time)
+def routes_still_valid(routes, walk_time, now):
+    return routes and is_reachable(routes[0], walk_time, now)
 
 
 def print_route(route, walk_time):
@@ -114,7 +122,10 @@ def main():
     from argparse import ArgumentParser
 
     parser = ArgumentParser(description='Print home route')
-    parser.parse_args()
+    parser.add_argument('-n', metavar='#CONNECTIONS', type=int,
+                        dest='number_of_connections',
+                        help='number of connections to print')
+    args = parser.parse_args()
 
     config_file = config_home() / 'i3blocks' / 'home.json'
 
@@ -126,26 +137,21 @@ def main():
 
             walk_time = timedelta(seconds=config['walk_to_start'])
 
-            cached_route = get_cached_route()
-            if cached_route and is_reachable(cached_route, walk_time):
-                print_route(cached_route, walk_time)
-                return
+            now = datetime.now()
 
-            routes = get_routes(config['start'], config['destination'])
-            if not routes:
-                cached_route_file().unlink(missing_ok=True)
+            cached_routes = get_cached_routes()
+            routes = cached_routes if routes_still_valid(
+                cached_routes, walk_time, now) else get_routes(config['start'], config['destination'])
+
+            reachable_routes = [route for route in routes if is_reachable(
+                route, walk_time, now)]
+            if not reachable_routes:
                 print('n.a.')
                 return
 
-            next_route = next(
-                (route for route in routes if is_reachable(route, walk_time)), None)
-            if not next_route:
-                cached_route_file().unlink(missing_ok=True)
-                print('n.a.')
-                return
-
-            cache_route(next_route)
-            print_route(next_route, walk_time)
+            cache_routes(reachable_routes)
+            for route in reachable_routes[:args.number_of_connections]:
+                print_route(route, walk_time)
 
     except ImportError as error:
         sys.exit(f'Missing module: {error.name}')
