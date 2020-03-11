@@ -31,7 +31,7 @@ gs org.gnome.desktop.interface document-font-name 'Ubuntu 12'
 gs org.gnome.desktop.interface monospace-font-name 'Ubuntu Mono 11'
 
 # Shell
-gs org.gnome.mutter workspaces-only-on-primary true
+gs org.gnome.mutter workspaces-only-on-primary false
 # Only Alt-Tab between windows of the current workspace
 gs org.gnome.shell.app-switcher current-workspace-only true
 # Disable shell hot corner
