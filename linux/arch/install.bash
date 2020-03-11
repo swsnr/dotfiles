@@ -266,24 +266,22 @@ packages=(
     zim
 
     # i3 environment (w/ i3-gnome from AUR)
-    # i3-wm
-    # i3blocks
-    # # Display configuration
-    # autorandr
-    # # Screen locking
-    # xss-lock
-    # i3lock-color
-    # # Desktop env: launcher, XDG autostart, notifications, and applets
-    # rofi
-    # dex
-    # dunst
-    # network-manager-applet
-    # pasystray
-    # udiskie
-    # # Apps for i3
-    # xarchiver
-    # nomacs
-    # flameshot
+    i3-wm
+    i3blocks
+    # Display configuration
+    autorandr
+    # Screen locking
+    xss-lock
+    i3lock-color
+    # Desktop env: launcher, XDG autostart, notifications, and applets
+    rofi
+    dex
+    dunst
+    udiskie
+    # Apps for i3
+    xarchiver
+    nomacs
+    flameshot
 
     # Office
     libreoffice-fresh
@@ -418,7 +416,7 @@ aurpackages=(
     numix-cursor-theme
 
     # i3 session for GDM, also with optional gnome support
-    # i3-gnome
+    i3-gnome
 
     # A favourite font of mine
     otf-vollkorn
