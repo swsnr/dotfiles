@@ -39,6 +39,8 @@ exec --no-startup-id /usr/bin/dunst &
 exec --no-startup-id /usr/lib/gsd-xsettings &
 # Auto-mounting
 exec --no-startup-id udiskie -san &
+# polkit agent
+exec --no-startup-id /usr/lib/mate-polkit/polkit-mate-authentication-agent-1 &
 # Wallpaper
 exec --no-startup-id random-wallpaper
 # Autostart apps
