@@ -251,6 +251,7 @@ packages=(
 
     # Multimedia
     ponymix
+    pulsemixer
     totem
     vlc
     rhythmbox
