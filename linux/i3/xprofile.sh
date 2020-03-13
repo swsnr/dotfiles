@@ -13,8 +13,8 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
-# Import paths from fish
-export "$(fish -l -c env | grep -e '^PATH=')"
+# Import environment from fish
+eval "$(fish -l -c dump_env_posix)"
 
 # Make Qt5 apps use qt5ct
 export QT_QPA_PLATFORMTHEME=qt5ct
