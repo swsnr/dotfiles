@@ -46,14 +46,14 @@ exec --no-startup-id random-wallpaper
 # Autostart apps
 exec --no-startup-id dex --autostart --environment i3 &
 
+# Modifier for keybindings
+set $mod Mod4
+
 # Lock screen: Use xss-lock to trigger locking on systemd events.  We pass -n to
 # keep running in foreground, because xss-lock doesn't want the locker to fork.
 # Then we use systemd commands to lock the session.
 exec --no-startup-id xss-lock -- lock-screen
 bindsym $mod+l exec --no-startup-id loginctl lock-session
-
-# Modifier for keybindings
-set $mod Mod4
 
 # Make tilix guake appear at center instead of top
 bindsym $mod+grave exec tilix -q
@@ -337,7 +337,7 @@ bar {
     separator $foreground
 
     focused_workspace  $background $selection  #ffffff
-    urgent_workspace   $background $warning    #fffff
+    urgent_workspace   $background $warning    #ffffff
     active_workspace   $background $selection_inactive $foreground
     inactive_workspace $background $background $foreground
   }
