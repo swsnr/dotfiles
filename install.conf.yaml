@@ -148,6 +148,12 @@
       path: linux/i3/bin/rofi-yes-no.bash
       if: "i3 --version | grep -qi 'i3 version'"
 
+    # Sway
+    ~/.config/sway/:
+      path: linux/sway/config/*
+      glob: true
+      if: "sway --version | grep -qi 'sway version'"
+
     # ZIM style configuration
     ~/.config/zim/style.conf: misc/zim-style.conf
 - shell:

@@ -1,0 +1,5 @@
+set $background #E7E8EB
+set $foreground #6B6F74
+set $selection #5294E2
+set $selection_inactive #a8c9f0
+set $warning #F27835

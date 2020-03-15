@@ -68,6 +68,11 @@ function i3_theme() {
     # i3-msg reload
 }
 
+function sway_theme() {
+    ln -sf "$1" ~/.config/i3/themes/current
+    # TODO: If running sway, apply the theme
+}
+
 # Gtk theme
 # Light
 case "$theme" in
@@ -79,6 +84,7 @@ light)
     vscode_theme 'Solarized Light'
     tilix_theme 'solarized-light'
     i3_theme 'arc'
+    sway_theme 'arc'
     ;;
 dark)
     gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
@@ -88,6 +94,7 @@ dark)
     vscode_theme 'Default Dark+'
     tilix_theme monokai
     i3_theme 'adwaita-dark'
+    sway_theme 'adwaita-dark'
     ;;
 *)
     echo "Unsupported theme: $theme" 1>&2

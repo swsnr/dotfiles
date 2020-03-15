@@ -1,0 +1,340 @@
+# i3 config file (v4)
+#
+# Please see https://i3wm.org/docs/userguide.html for a complete reference!
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+font pango:Ubuntu 13
+
+# Do not change focus with mouse movements
+focus_follows_mouse no
+# Don't steal focus; mark windows as urgent if they request activation.
+focus_on_window_activation urgent
+# Never make Idea windows focused right away; I always open IDEA in the
+# background because it takes so long to start.
+no_focus [class="jetbrains-idea"]
+no_focus [title="IntelliJ IDEA"]
+
+# Switch back to old workspace
+workspace_auto_back_and_forth yes
+
+# Include color theme
+include theme
+
+# <class>               <border>        <background>        <text>      <indicator> <child_border>
+client.focused          $background     $selection          #ffffff     $selection  $background
+client.focused_inactive $background     $selection_inactive #ffffff     $selection  $background
+client.unfocused        $background     $background         $foreground $selection  $background
+client.urgent           $background     $warning            #ffffff     $selection  $background
+client.placeholder      #000000 #0c0c0c #ffffff #000000     #0c0c0c
+client.background       #ffffff
+
+# Notifications
+exec --no-startup-id /usr/bin/mako &
+# Settings for Gtk3
+exec --no-startup-id /usr/lib/gsd-xsettings &
+# Auto-mounting
+exec --no-startup-id udiskie -san &
+# polkit agent
+exec --no-startup-id /usr/lib/mate-polkit/polkit-mate-authentication-agent-1 &
+# Wallpaper
+# exec --no-startup-id random-wallpaper
+# Autostart apps
+exec --no-startup-id dex --autostart --environment sway &
+
+# Modifier for keybindings
+set $mod Mod4
+
+# Lock screen: Use xss-lock to trigger locking on systemd events.  We pass -n to
+# keep running in foreground, because xss-lock doesn't want the locker to fork.
+# Then we use systemd commands to lock the session.
+exec --no-startup-id xss-lock -- lock-screen
+bindsym $mod+l exec --no-startup-id loginctl lock-session
+
+# Make tilix guake appear at center instead of top
+bindsym $mod+grave exec tilix -q
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# Start a terminal quickly
+bindsym $mod+t exec tilix
+
+# Kill focused window
+bindsym $mod+w kill
+
+# Kill window with $mod + middle-click
+bindsym --whole-window $mod+button2 kill
+
+# Program launcher
+bindsym $mod+space exec i3-rofi
+
+# File manager
+bindsym $mod+e exec xdg-open ~
+
+# Volume control
+bindsym $mod+F10 exec --no-startup-id ponymix toggle
+bindsym $mod+F11 exec --no-startup-id ponymix -N decrease 5
+bindsym $mod+F12 exec --no-startup-id ponymix -N increase 5
+
+# Change focus
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Move windows
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# Enter fullscreen mode for the focused container
+bindsym $mod+Shift+Return fullscreen toggle
+
+# Focus urgent window
+bindsym $mod+u [urgent=latest] focus
+
+# Switch to workspace
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+# also with numblock
+bindsym $mod+Mod2+KP_1 workspace number 1
+bindsym $mod+Mod2+KP_2 workspace number 2
+bindsym $mod+Mod2+KP_3 workspace number 3
+bindsym $mod+Mod2+KP_4 workspace number 4
+bindsym $mod+Mod2+KP_5 workspace number 5
+bindsym $mod+Mod2+KP_6 workspace number 6
+bindsym $mod+Mod2+KP_7 workspace number 7
+bindsym $mod+Mod2+KP_8 workspace number 8
+bindsym $mod+Mod2+KP_9 workspace number 9
+bindsym $mod+Mod2+KP_0 workspace number 10
+
+# Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
+
+# Cycle workspaces
+bindsym $mod+Prior workspace prev_on_output
+bindsym $mod+Next workspace next_on_output
+
+# Scratchpad
+bindsym $mod+minus scratchpad show
+bindsym $mod+Shift+minus move scratchpad
+
+# Floating windows
+bindsym $mod+f focus mode_toggle
+bindsym $mod+Shift+f floating toggle
+
+# Container mode
+set $mode_container ( ) split toggle, layout (s)plit (t)abbed stac(k)ing, (f)loating toggle, focus (↑↓ m) parent/child/mode
+mode "$mode_container" {
+  bindsym space split toggle; mode "default"
+  bindsym s layout toggle split; mode "default"
+  bindsym t layout tabbed; mode "default"
+  bindsym k layout stacking; mode "default"
+
+  bindsym f floating toggle; mode "default"
+
+  bindsym Down focus child; mode "default"
+  bindsym Up focus parent; mode "default"
+  bindsym m focus mode_toggle; mode "default"
+
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+
+  bindsym $mod+BackSpace mode "default"
+}
+bindsym $mod+BackSpace mode "$mode_container"
+
+# Workspace mode
+set $mode_workspace (←→↑↓) move to output, (p) move to primary, (r) rename
+mode "$mode_workspace" {
+  bindsym Left move workspace to output left, mode "default"
+  bindsym Down move workspace to output down, mode "default"
+  bindsym Up move workspace to output up, mode "default"
+  bindsym Right move workspace to output right, mode "default"
+
+  bindsym p move workspace to output primary, mode "default"
+
+  bindsym r mode default, exec --no-startup-id i3-rename-workspace "$(rofi -dmenu -p 'New workspace name' -mesg 'Enter a new name for the current workspace')"
+
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+
+  bindsym $mod+Insert mode "default"
+}
+bindsym $mod+Insert mode "$mode_workspace"
+
+# System mode
+set $mode_system  (q) toggle light/dark, (w) new wallpaper, (c) reconfigure, (l) reload, (u) suspend, (s) shutdown, (r) reboot, (e) exit
+mode "$mode_system" {
+  bindsym e exec --no-startup-id rofi-yes-no 'Logout?' 'Exit sway and return to session manager?' && swaymsg exit, mode "default"
+  bindsym c reload, mode "default"
+  bindsym l restart, mode "default"
+  bindsym r exec --no-startup-id rofi-yess-no 'Reboot?' && systemctl reboot, mode "default"
+  bindsym s exec --no-startup-id rofi-yes-no 'Shutdown?' && systemctl poweroff, mode "default"
+  bindsym u exec --no-startup-id systemctl suspend, mode "default"
+  bindsym w exec --no-startup-id "random-wallpaper", mode "default"
+  bindsym q exec --no-startup-id ui-theme toggle, mode "default"
+
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+
+  bindsym $mod+Delete mode "default"
+}
+bindsym $mod+Delete mode "$mode_system"
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+  # These bindings trigger as soon as you enter the resize mode
+  # Pressing left will shrink the window’s width.
+  # Pressing right will grow the window’s width.
+  # Pressing up will shrink the window’s height.
+  # Pressing down will grow the window’s height.
+  bindsym h resize shrink width 10 px or 10 ppt
+  bindsym j resize grow height 10 px or 10 ppt
+  bindsym k resize shrink height 10 px or 10 ppt
+  bindsym l resize grow width 10 px or 10 ppt
+
+  # same bindings, but for the arrow keys
+  bindsym Left resize shrink width 10 px or 10 ppt
+  bindsym Down resize grow height 10 px or 10 ppt
+  bindsym Up resize shrink height 10 px or 10 ppt
+  bindsym Right resize grow width 10 px or 10 ppt
+
+  # back to normal: Enter or Escape or $mod+r
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+  bindsym $mod+r mode "default"
+}
+bindsym $mod+r mode "resize"
+
+set $mode_sway sway
+# The super binding mode
+mode "$mode_sway" {
+  # Switch to workspace
+  bindsym 1 workspace number 1, mode "default"
+  bindsym 2 workspace number 2, mode "default"
+  bindsym 3 workspace number 3, mode "default"
+  bindsym 4 workspace number 4, mode "default"
+  bindsym 5 workspace number 5, mode "default"
+  bindsym 6 workspace number 6, mode "default"
+  bindsym 7 workspace number 7, mode "default"
+  bindsym 8 workspace number 8, mode "default"
+  bindsym 9 workspace number 9, mode "default"
+  bindsym 0 workspace number 10, mode "default"
+
+  # also with numblock
+  bindsym Mod2+KP_1 workspace number 1, mode "default"
+  bindsym Mod2+KP_2 workspace number 2, mode "default"
+  bindsym Mod2+KP_3 workspace number 3, mode "default"
+  bindsym Mod2+KP_4 workspace number 4, mode "default"
+  bindsym Mod2+KP_5 workspace number 5, mode "default"
+  bindsym Mod2+KP_6 workspace number 6, mode "default"
+  bindsym Mod2+KP_7 workspace number 7, mode "default"
+  bindsym Mod2+KP_8 workspace number 8, mode "default"
+  bindsym Mod2+KP_9 workspace number 9, mode "default"
+  bindsym Mod2+KP_0 workspace number 10, mode "default"
+
+  # Move focused container to workspace
+  bindsym Shift+1 move container to workspace number 1, mode "default"
+  bindsym Shift+2 move container to workspace number 2, mode "default"
+  bindsym Shift+3 move container to workspace number 3, mode "default"
+  bindsym Shift+4 move container to workspace number 4, mode "default"
+  bindsym Shift+5 move container to workspace number 5, mode "default"
+  bindsym Shift+6 move container to workspace number 6, mode "default"
+  bindsym Shift+7 move container to workspace number 7, mode "default"
+  bindsym Shift+8 move container to workspace number 8, mode "default"
+  bindsym Shift+9 move container to workspace number 9, mode "default"
+  bindsym Shift+0 move container to workspace number 10, mode "default"
+
+  # Change focus
+  bindsym Left focus left, mode "default"
+  bindsym Down focus down, mode "default"
+  bindsym Up focus up, mode "default"
+  bindsym Right focus right, mode "default"
+
+  # Move windows
+  bindsym Shift+Left move left, mode "default"
+  bindsym Shift+Down move down, mode "default"
+  bindsym Shift+Up move up, mode "default"
+  bindsym Shift+Right move right, mode "default"
+
+  # Cycle workspaces
+  bindsym Prior workspace prev_on_output, mode "default"
+  bindsym Next workspace next_on_output, mode "default"
+
+  # Scratchpad
+  bindsym minus scratchpad show, mode "default"
+  bindsym Shift+minus move scratchpad, mode "default"
+
+  # Floating windows
+  bindsym f focus mode_toggle, mode "default"
+  bindsym Shift+f floating toggle, mode "default"
+
+  # quick bindings
+  bindsym Return fullscreen toggle, mode "default"
+  bindsym u [urgent=latest] focus, mode "default"
+  bindsym w kill, mode "default"
+  bindsym l exec --no-startup-id loginctl lock-session, mode "default"
+
+  bindsym t exec tilix, mode "default"
+  bindsym e exec xdg-open ~, mode "default"
+
+  bindsym space exec i3-rofi, mode "default"
+
+  bindsym BackSpace mode "$mode_container"
+  bindsym Insert mode "$mode_workspace"
+  bindsym Delete mode "$mode_system"
+  bindsym r mode "resize"
+
+  bindsym Escape mode "default"
+}
+bindsym $mod+Return mode "$mode_sway"
+
+# Float windows
+for_window [class="(?i)keepassxc"] floating enable
+for_window [class="(?i)gcolor3"] floating enable
+for_window [class="Evolution-alarm-notify"] floating enable
+# Use title and not class for Remmina, because class also affects actual remote
+# desktop windows but these should tile like other windows
+for_window [title="Remmina Remote-Desktop-Client"] floating enable
+# Put messages and notes on fixed screens
+assign [class="Rocket.Chat"] 2
+assign [class="(?i)zim"] 3
+
+bar {
+  status_command i3blocks
+  position top
+  separator_symbol " "
+  tray_output primary
+  tray_padding 5px
+
+  colors {
+    background $background
+    statusline $foreground
+    separator $foreground
+
+    focused_workspace  $background $selection  #ffffff
+    urgent_workspace   $background $warning    #ffffff
+    active_workspace   $background $selection_inactive $foreground
+    inactive_workspace $background $background $foreground
+  }
+}
