@@ -1,0 +1,23 @@
+# Copyright 2020 Sebastian Wiesner <sebastian@swsnr.de>
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may not
+# use this file except in compliance with the License. You may obtain a copy of
+# the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations under
+# the License.
+
+# Sway behaviour
+
+# Do not change focus with mouse movements
+focus_follows_mouse no
+# Don't steal focus; mark windows as urgent if they request activation.
+focus_on_window_activation urgent
+
+# Switch back to old workspace
+workspace_auto_back_and_forth yes

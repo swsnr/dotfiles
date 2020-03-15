@@ -1,0 +1,31 @@
+# Copyright 2020 Sebastian Wiesner <sebastian@swsnr.de>
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may not
+# use this file except in compliance with the License. You may obtain a copy of
+# the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations under
+# the License.
+
+# sway window specific rules
+
+# Never make Idea windows focused right away; I always open IDEA in the
+# background because it takes so long to start.
+no_focus [class="jetbrains-idea"]
+no_focus [title="IntelliJ IDEA"]
+
+# Float windows
+for_window [class="(?i)keepassxc"] floating enable
+for_window [class="(?i)gcolor3"] floating enable
+for_window [class="Evolution-alarm-notify"] floating enable
+# Use title and not class for Remmina, because class also affects actual remote
+# desktop windows but these should tile like other windows
+for_window [title="Remmina Remote-Desktop-Client"] floating enable
+# Put messages and notes on fixed screens
+assign [class="Rocket.Chat"] 2
+assign [class="(?i)zim"] 3

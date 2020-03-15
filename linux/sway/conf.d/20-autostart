@@ -1,0 +1,33 @@
+# Copyright 2020 Sebastian Wiesner <sebastian@swsnr.de>
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may not
+# use this file except in compliance with the License. You may obtain a copy of
+# the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations under
+# the License.
+
+# Sway autostart programs configuration
+
+# Notifications
+exec --no-startup-id /usr/bin/mako &
+# Settings for Gtk3
+exec --no-startup-id /usr/lib/gsd-xsettings &
+# Auto-mounting
+exec --no-startup-id udiskie -san &
+# TODO: Replace xss-lock with wayland alternative
+# Lock screen: Use xss-lock to trigger locking on systemd events.  We pass -n to
+# keep running in foreground, because xss-lock doesn't want the locker to fork.
+# Then we use systemd commands to lock the session.
+exec --no-startup-id xss-lock -- lock-screen &
+# polkit agent
+exec --no-startup-id /usr/lib/mate-polkit/polkit-mate-authentication-agent-1 &
+# Wallpaper
+# exec --no-startup-id random-wallpaper
+# Autostart apps
+exec --no-startup-id dex --autostart --environment sway &

@@ -69,7 +69,7 @@ function i3_theme() {
 }
 
 function sway_theme() {
-    ln -sf "$1" ~/.config/i3/themes/current
+    ln -sf "../themes/$1" ~/.config/sway/conf.d/00-theme
     # TODO: If running sway, apply the theme
 }
 

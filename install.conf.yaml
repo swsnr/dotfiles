@@ -149,8 +149,15 @@
       if: "i3 --version | grep -qi 'i3 version'"
 
     # Sway
-    ~/.config/sway/:
-      path: linux/sway/config/*
+    ~/.config/sway/config:
+      path: linux/sway/config
+      if: "sway --version | grep -qi 'sway version'"
+    ~/.config/sway/conf.d/:
+      path: linux/sway/conf.d/*
+      glob: true
+      if: "sway --version | grep -qi 'sway version'"
+    ~/.config/sway/themes/:
+      path: linux/sway/themes/*
       glob: true
       if: "sway --version | grep -qi 'sway version'"
 
