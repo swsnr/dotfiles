@@ -14,11 +14,10 @@
 
 # Sway configuration
 
+# TODO: xcursor theme for all seats in all theme files
 # TODO: Mako notification setup
-# TODO: Keyboard layout
-# TODO: Wallpaper
+# TODO: Random wallpaper
 # TODO: Screen locking
-# TODO: Split (bindings, autostart, window rules, bar)
 # TODO: Wofi instead of rofi
 # TODO: Tray icons
 # TODO: Identify X11 apps
