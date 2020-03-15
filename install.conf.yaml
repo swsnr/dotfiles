@@ -93,8 +93,8 @@
     ~/.local/bin/gnome-random-wallpaper:
       path: linux/gnome/bin/gnome-random-wallpaper.py
       if: "uname -s | grep -qi linux"
-    ~/.local/bin/gnome-theme:
-      path: linux/gnome/bin/gnome-theme.bash
+    ~/.local/bin/ui-theme:
+      path: linux/bin/ui-theme.bash
       if: "uname -s | grep -qi linux"
 
     # X11 settings: xprofile for i3 environment, Xresources for some X11 settings
@@ -112,9 +112,6 @@
     # i3 with custom scripts, and i3blocks for the status bar
     ~/.config/i3/config:
       path: linux/i3/config
-      if: "i3 --version | grep -qi 'i3 version'"
-    ~/.local/bin/i3-theme:
-      path: linux/i3/bin/i3-theme.bash
       if: "i3 --version | grep -qi 'i3 version'"
     ~/.config/i3/themes:
       path: linux/i3/themes/*

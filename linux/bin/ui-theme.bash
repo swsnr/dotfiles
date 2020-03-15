@@ -13,6 +13,8 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
+# Toggle between light and dark themes
+
 set -e
 
 case "$1" in
@@ -58,6 +60,14 @@ function tilix_theme() {
     gsettings set "com.gexperts.Tilix.Profile:/com/gexperts/Tilix/profiles/$profile/" palette "$(jq -c '.["palette"]' <"$theme_file")"
 }
 
+function i3_theme() {
+    # Activate the current theme
+    ln -sf "$1" ~/.config/i3/themes/current
+    # TODO: If running i3, apply the theme
+    # xrdb -merge ~/.config/i3/themes/current
+    # i3-msg reload
+}
+
 # Gtk theme
 # Light
 case "$theme" in
@@ -68,6 +78,7 @@ light)
 
     vscode_theme 'Solarized Light'
     tilix_theme 'solarized-light'
+    i3_theme 'arc'
     ;;
 dark)
     gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
@@ -76,6 +87,7 @@ dark)
 
     vscode_theme 'Default Dark+'
     tilix_theme monokai
+    i3_theme 'adwaita-dark'
     ;;
 *)
     echo "Unsupported theme: $theme" 1>&2
