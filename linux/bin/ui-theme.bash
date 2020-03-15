@@ -70,7 +70,9 @@ function i3_theme() {
 
 function sway_theme() {
     ln -sf "../themes/$1" ~/.config/sway/conf.d/00-theme
-    # TODO: If running sway, apply the theme
+    if [[ -n "$SWAYSOCK" ]]; then
+        swaymsg reload
+    fi
 }
 
 # Gtk theme
