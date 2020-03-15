@@ -40,17 +40,40 @@ def wallpaper_files():
             if item.is_file() and item.suffix.lower() in EXTENSIONS]
 
 
+def x11_number_of_monitors():
+    output = check_output(['xrandr', '--listactivemonitors'])
+    return len(output.splitlines()[1:])
+
+
+def x11_set_wallpapers(files):
+    cmd = ['feh', '--no-fehbg', '--bg-fill']
+    cmd.extend(files)
+    check_call(cmd)
+
+
+def save_state(wallpaper_files):
+    if RUNTIME_DIR:
+        data = {'files': list(map(str, wallpaper_files))}
+        with open(RUNTIME_DIR / 'random-wallpaper.json', 'w') as sink:
+            json.dump(data, sink)
+
+
 def main():
     parser = ArgumentParser(
-        description='Set a random wallpaper for GNOME')
+        description='Set a random wallpaper for current desktop')
     parser.parse_args()
 
     if 'GNOME' in os.environ.get('XDG_CURRENT_DESKTOP', ''):
         wallpaper = random.choice(wallpaper_files()).as_uri()
         check_call(['gsettings', 'set', 'org.gnome.desktop.background',
                     'picture-uri', wallpaper])
+    elif 'wayland' not in os.environ.get('XDG_SESSION_TYPE', ''):
+        # Assume plain X11, e.g. i3
+        wallpapers = random.sample(wallpaper_files(), x11_number_of_monitors())
+        x11_set_wallpapers(wallpapers)
+        save_state(wallpapers)
     else:
-        parser.error('Not running in GNOME!')
+        sys.exit('Unsupported desktop environment')
 
 
 if __name__ == '__main__':
