@@ -18,7 +18,7 @@
 
 /* exported init */
 
-const { St, GObject, Gio, Clutter } = imports.gi;
+const { St, GLib, GObject, Gio, Clutter } = imports.gi;
 
 const Main = imports.ui.main;
 const Me = imports.misc.extensionUtils.getCurrentExtension();
@@ -107,6 +107,8 @@ const HomeIndicator = GObject.registerClass(
 class Extension {
     constructor() {
         this.indicator = null;
+        this.refresh_source_id = null;
+        this.refresh_again = true;
     }
 
     enable() {
@@ -118,12 +120,20 @@ class Extension {
             get_routes().then(
                 (routes) => this.indicator.show_routes(routes),
                 (error) => this.indicator.show_error(error));
+
+            this.refresh_again = true;
+            this.refresh_source_id = GLib.timeout_add_seconds(60, () => {
+                get_routes();
+                return this.refresh_again;
+            });
         }
     }
 
     disable() {
         l('disabled');
         if (this.indicator !== null) {
+            this.refresh_again = false;
+            GLib.source_remove(this.refresh_source_id);
             this.indicator.destroy();
             this.indicator = null;
         }
