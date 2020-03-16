@@ -89,12 +89,19 @@
     ~/.local/share/systemd/user/notify-checkupdates.timer:
       path: linux/arch/notify-checkupdates.timer
       if: "test -f /etc/pacman.conf"
+
     # Linux configuration (desktops)
     ~/.local/bin/random-wallpaper:
       path: linux/bin/random-wallpaper.py
       if: "uname -s | grep -qi linux"
     ~/.local/bin/ui-theme:
       path: linux/bin/ui-theme.bash
+      if: "uname -s | grep -qi linux"
+
+    # Gnome
+    ~/.local/share/gnome-shell/extensions/home@swsnr.de:
+      path: linux/gnome/extensions/home@swsnr.de/*
+      glob: true
       if: "uname -s | grep -qi linux"
 
     # X11 settings: xprofile for i3 environment, Xresources for some X11 settings
