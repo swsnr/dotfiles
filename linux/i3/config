@@ -38,7 +38,7 @@ exec --no-startup-id /usr/bin/dunst &
 # Settings for Gtk3
 exec --no-startup-id /usr/lib/gsd-xsettings &
 # Auto-mounting
-exec --no-startup-id udiskie -san &
+exec --no-startup-id udiskie -san --appindicator &
 # polkit agent
 exec --no-startup-id /usr/lib/mate-polkit/polkit-mate-authentication-agent-1 &
 # Wallpaper
