@@ -84,7 +84,7 @@ const HomeIndicator = GObject.registerClass(
 
       this.label = new St.Label({ text: "🚆 n.a." });
       this.label.clutter_text.y_align = Clutter.ActorAlign.CENTER;
-      this.actor.add_child(this.label);
+      this.add_child(this.label);
     }
 
     showRoutes(routes) {
