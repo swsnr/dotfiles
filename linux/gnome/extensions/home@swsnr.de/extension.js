@@ -118,11 +118,6 @@ class Extension {
         this.indicator
       );
 
-      get_routes().then(
-        routes => this.indicator.show_routes(routes),
-        error => this.indicator.show_error(error)
-      );
-
       this.refresh_again = true;
       this.refresh_source_id = GLib.timeout_add_seconds(60, () => {
         get_routes();
