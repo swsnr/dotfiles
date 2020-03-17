@@ -61,11 +61,18 @@ const execCommand = argv =>
   });
 
 // TODO: Use soup instead of CLI tool
-const get_routes = () =>
+const getRoutes = () =>
   execCommand(["home"]).then(output => {
     l(`Got routes: ${output}`);
     return output.trim().split("\n");
   });
+
+const getRoutesForIndicator = indicator => {
+  getRoutes().then(
+    routes => indicator.showRoutes(routes),
+    error => indicator.showError(error)
+  );
+};
 
 const HomeIndicator = GObject.registerClass(
   { GTypeName: "HomeIndicator" },
@@ -80,7 +87,7 @@ const HomeIndicator = GObject.registerClass(
       this.actor.add_child(this.label);
     }
 
-    show_routes(routes) {
+    showRoutes(routes) {
       l(`showing routes: ${routes}`);
       this.menu.removeAll();
       if (routes) {
@@ -94,7 +101,7 @@ const HomeIndicator = GObject.registerClass(
       }
     }
 
-    show_error(error) {
+    showError(error) {
       l(`error: ${error}`);
       this.label.set_text(`Error: ${error}`);
       this.menu.removeAll();
@@ -105,8 +112,8 @@ const HomeIndicator = GObject.registerClass(
 class Extension {
   constructor() {
     this.indicator = null;
-    this.refresh_source_id = null;
-    this.refresh_again = true;
+    this.sourceIdOfRefreshTimer = null;
+    this.shallRefreshAgain = true;
   }
 
   enable() {
@@ -118,13 +125,15 @@ class Extension {
         this.indicator
       );
 
-      this.refresh_again = true;
-      this.refresh_source_id = GLib.timeout_add_seconds(
+      getRoutesForIndicator(this.indicator);
+
+      this.shallRefreshAgain = true;
+      this.sourceIdOfRefreshTimer = GLib.timeout_add_seconds(
         GLib.PRIORITY_DEFAULT,
         60,
         () => {
-          get_routes();
-          return this.refresh_again;
+          getRoutesForIndicator(this.indicator);
+          return this.shallRefreshAgain;
         }
       );
     }
@@ -133,8 +142,8 @@ class Extension {
   disable() {
     l("disabled");
     if (this.indicator !== null) {
-      this.refresh_again = false;
-      GLib.source_remove(this.refresh_source_id);
+      this.shallRefreshAgain = false;
+      GLib.source_remove(this.sourceIdOfRefreshTimer);
       this.indicator.destroy();
       this.indicator = null;
     }
