@@ -119,10 +119,14 @@ class Extension {
       );
 
       this.refresh_again = true;
-      this.refresh_source_id = GLib.timeout_add_seconds(60, () => {
-        get_routes();
-        return this.refresh_again;
-      });
+      this.refresh_source_id = GLib.timeout_add_seconds(
+        GLib.PRIORITY_DEFAULT,
+        60,
+        () => {
+          get_routes();
+          return this.refresh_again;
+        }
+      );
     }
   }
 
