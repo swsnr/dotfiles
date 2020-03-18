@@ -76,7 +76,7 @@ h1 "Configure system settings"
 install -m644 linux/arch/etc/sysctl-laptop.conf /etc/sysctl.d/laptop.conf
 
 h1 "Configure module settings"
-for file in powersave hid-apple; do
+for file in powersave apple-magic; do
     install -m644 "linux/arch/etc/modprobe-$file.conf" "/etc/modprobe.d/$file.conf"
 done
 
