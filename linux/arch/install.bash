@@ -158,6 +158,9 @@ packages=(
     # Better WiFi networking (no more wpa_supplicant)
     iwd
 
+    # Bluetooth
+    bluez
+
     # My shell environment
     fish
     fortune-mod
@@ -367,6 +370,8 @@ services=(
     # WiFi and network management
     iwd
     NetworkManager
+    # Bluetooth
+    bluetooth
     # Basic NTP sync
     systemd-timesyncd
     # Hostname resolution
