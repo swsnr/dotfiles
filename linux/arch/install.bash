@@ -76,7 +76,9 @@ h1 "Configure system settings"
 install -m644 linux/arch/etc/sysctl-laptop.conf /etc/sysctl.d/laptop.conf
 
 h1 "Configure module settings"
-install -m644 linux/arch/etc/modprobe-powersave.conf /etc/modprobe.d/powersave.conf
+for file in powersave hid-apple; do
+    install -m644 "linux/arch/etc/modprobe-$file.conf" "/etc/modprobe.d/$file.conf"
+done
 
 h1 "Allow sudo to wheel group members"
 install -m700 -d /etc/sudoers.d/
@@ -267,24 +269,6 @@ packages=(
     # Desktop wiki, note taking, TODO lists
     zim
 
-    # i3 environment (w/ i3-gnome from AUR)
-    i3-wm
-    i3blocks
-    # Display configuration
-    autorandr
-    # Screen locking
-    xss-lock
-    i3lock-color
-    # Desktop env: launcher, XDG autostart, notifications, and applets
-    rofi
-    dex
-    dunst
-    udiskie
-    # Apps for i3
-    xarchiver
-    nomacs
-    flameshot
-
     # Office
     libreoffice-fresh
     libreoffice-fresh-de
@@ -413,9 +397,6 @@ aurpackages=(
     # Lovely icon theme :)
     numix-circle-icon-theme-git
     numix-cursor-theme
-
-    # i3 session for GDM, also with optional gnome support
-    i3-gnome
 
     # A favourite font of mine
     otf-vollkorn
