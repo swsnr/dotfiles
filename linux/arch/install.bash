@@ -155,8 +155,6 @@ packages=(
     # mDNS
     avahi
     nss-mdns
-    # Better WiFi networking (no more wpa_supplicant)
-    iwd
 
     # Bluetooth
     bluez
@@ -368,7 +366,6 @@ services=(
     # Periodically trim file systems
     fstrim.timer
     # WiFi and network management
-    iwd
     NetworkManager
     # Bluetooth
     bluetooth
@@ -390,10 +387,6 @@ services=(
 
 h1 "Enable systemd services"
 systemctl enable "${services[@]}"
-
-h1 "Make NetworkManager use iwd for Wifi management"
-install -m644 linux/arch/etc/networkmanager-wifi-backend-iwd.conf \
-    /etc/NetworkManager/conf.d/wifi-backend.conf
 
 h1 "Configure systemd-resolved"
 install -m644 linux/arch/etc/systemd-resolved.conf /etc/systemd/resolved.conf
