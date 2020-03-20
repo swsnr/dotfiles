@@ -59,8 +59,9 @@
     ~/.config/bat/config: misc/bat
     # SSH
     ~/.ssh/config: ssh/config
-    ~/.ssh/config.d/10-uberspace: ssh/10-uberspace
-    ~/.ssh/config.d/10-aur: ssh/10-aur
+    ~/.ssh/config.d/:
+      path: ssh/config.d/*
+      glob: true
 
     # Linux configuration (basic)
     ~/.local/bin/reset-thunderbolt.bash:
