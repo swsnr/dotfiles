@@ -61,12 +61,16 @@ function prompt_battery_upower -d 'upower battery info in prompt'
                 set level "|$percentage"
             end
             set -l warning_level (string match -r '^warning-level:\s+(.+)' $battery_info)[2]
-            if not string match -q 'none' $warning_level
-                echo -s -n (set_color -o red) 'UNKNOWN WARNING LEVEL:' $warning_level (set_color normal)
-                exit 1
+            switch $warning_level
+                case 'none'
+                    set state_symbol '↓'
+                    set colour (set_color 'yellow')
+                case 'low'
+                    set state_symbol '↡'
+                    set colour (set_color 'red')
+                case '*'
+                    echo -s -n (set_color -o red) 'UNKNOWN WARNING LEVEL:' $warning_level (set_color normal)
             end
-            set state_symbol '↓'
-            set colour (set_color 'yellow')
         case '*'
             echo -s -n (set_color -o red) 'UNKNOWN STATE:' $state (set_color normal)
             return 1
