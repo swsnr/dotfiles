@@ -172,6 +172,8 @@
     # ZIM style configuration
     ~/.config/zim/style.conf: misc/zim-style.conf
 - shell:
+    - description: Create SSH connetion sockets
+      command: sh -c 'mkdir -p ~/.ssh/sockets'
     - description: Set yarn prefix to ~/.local
       command: sh -c 'command -v yarn && yarn config set prefix ~/.local || exit 0'
     - description: Code OSS settings
