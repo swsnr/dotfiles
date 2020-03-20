@@ -67,7 +67,7 @@ function prompt_battery_upower -d 'upower battery info in prompt'
                     set colour (set_color 'yellow')
                 case 'low'
                     set state_symbol '↡'
-                    set colour (set_color 'red')
+                    set colour (set_color -b 'red' -o 'white')
                 case '*'
                     echo -s -n (set_color -o red) 'UNKNOWN WARNING LEVEL:' $warning_level (set_color normal)
             end
