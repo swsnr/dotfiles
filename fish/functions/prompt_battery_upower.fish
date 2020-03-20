@@ -73,7 +73,6 @@ function prompt_battery_upower -d 'upower battery info in prompt'
             end
         case '*'
             echo -s -n (set_color -o red) 'UNKNOWN STATE:' $state (set_color normal)
-            return 1
     end
 
     echo -s -n $colour $state_symbol $level (set_color normal)
