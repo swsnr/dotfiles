@@ -31,7 +31,10 @@ function prompt_battery_upower -d 'upower battery info in prompt'
     # whole regex, so we start at 2 for the 1st matching group.
     set -l percentage (string match -r '^percentage:\s+(.+)' $battery_info)[2]
     set -l state (string match -r '^state:\s+(.+)' $battery_info)[2]
+
     set -l level
+    set -l state_symbol
+    set -l colour
 
     # Parse the state into a colour to use in the prompt and a state symbol
     # to indicate the battery state.
