@@ -1,4 +1,2 @@
-Host uber.space
-    Hostname lovas.uberspace.de
-    User swiesner
+Host *.uberspace.de
     IdentityFile ~/.ssh/uberspace
