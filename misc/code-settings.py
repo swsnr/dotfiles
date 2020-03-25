@@ -26,7 +26,7 @@ SETTINGS = {
     "editor.fontLigatures": True,
     "editor.fontSize": 18,
     "terminal.integrated.fontFamily": "PragmataPro Mono Liga",
-    "terminal.integrated.fontSize": 16,
+    "terminal.integrated.fontSize": 18,
     # Editing
     "editor.rulers": [
         80,
