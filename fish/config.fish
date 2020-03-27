@@ -36,6 +36,11 @@ if [ -d ~/.cowsay ]
     set -x COWPATH "$HOME/.cowsay:$COWPATH"
 end
 
+# If installed use nnn as pager for aur sync
+if command -q nnn
+    set -x AUR_PAGER nnn
+end
+
 # Default less options:
 #
 # -q: Do not beep
