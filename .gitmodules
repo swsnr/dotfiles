@@ -1,6 +1,9 @@
 [submodule "dotbot"]
 	path = submodules/dotbot
 	url = https://github.com/anishathalye/dotbot
+[submodule "submodules/fontconfig-emoji"]
+	path = submodules/fontconfig-emoji
+	url = https://github.com/stove-panini/fontconfig-emoji.git
 [submodule "submodules/fisher"]
 	path = submodules/fisher
 	url = https://github.com/jorgebucaran/fisher.git

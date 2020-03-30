@@ -67,6 +67,16 @@
     ~/.local/bin/reset-thunderbolt.bash:
       path: linux/reset-thunderbolt.bash
       if: "uname -s | grep -qi linux"
+    # Linux fontconfig, for emojis
+    ~/.config/fontconfig/conf.d/69-emoji.conf:
+      path: submodules/fontconfig-emoji/69-emoji.conf
+      if: "uname -s | grep -qi linux"
+    ~/.config/fontconfig/conf.d/70-no-dejavu.conf:
+      path: submodules/fontconfig-emoji/70-no-dejavu.conf
+      if: "uname -s | grep -qi linux"
+    ~/.config/fontconfig/conf.d/70-no-mozilla-emoji.conf:
+      path: submodules/fontconfig-emoji/70-no-mozilla-emoji.conf
+      if: "uname -s | grep -qi linux"
     # Linux configuration (Arch)
     ~/.config/pacman/makepkg.conf:
       path: linux/arch/makepkg.conf
