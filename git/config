@@ -118,6 +118,9 @@
 	iam = config user.email
 	# Quickly serve repo over path
 	serve = daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/
+[url "https://"]
+	# Force HTTPS URLs
+	insteadOf = http://
 # Includes
 [include]
 	# Platform specific settings
