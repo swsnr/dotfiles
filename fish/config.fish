@@ -25,9 +25,10 @@ if status --is-login
         set -x QT_QPA_PLATFORMTHEME qt5ct
 
         if [ $XDG_SESSION_TYPE = wayland ]
-            # Force Qt5 and Firefox to use wayland
+            # Make Qt5 use wayland
             set -x QT_QPA_PLATFORM wayland
-            set -x MOZ_ENABLE_WAYLAND 1
+            # Don't make Firefox use Wayland for now; it's a tad flaky
+            # set -x MOZ_ENABLE_WAYLAND 1
         end
     end
 end
