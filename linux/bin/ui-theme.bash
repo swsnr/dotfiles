@@ -60,22 +60,6 @@ function tilix_theme() {
     gsettings set "com.gexperts.Tilix.Profile:/com/gexperts/Tilix/profiles/$profile/" palette "$(jq -c '.["palette"]' <"$theme_file")"
 }
 
-function i3_theme() {
-    # Activate the current theme
-    ln -sf "$1" ~/.config/i3/themes/current
-    if [[ -n $I3SOCK && -z $SWAYSOCK ]]; then
-        xrdb -merge ~/.config/i3/themes/current
-        i3-msg reload
-    fi
-}
-
-function sway_theme() {
-    ln -sf "../themes/$1" ~/.config/sway/conf.d/00-theme
-    if [[ -n $SWAYSOCK ]]; then
-        swaymsg reload
-    fi
-}
-
 # Gtk theme
 # Light
 case "$theme" in
@@ -86,8 +70,6 @@ light)
 
     vscode_theme 'Solarized Light'
     tilix_theme 'solarized-light'
-    i3_theme 'arc'
-    sway_theme 'arc'
     ;;
 dark)
     gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
@@ -96,8 +78,6 @@ dark)
 
     vscode_theme 'Default Dark+'
     tilix_theme monokai
-    i3_theme 'adwaita-dark'
-    sway_theme 'adwaita-dark'
     ;;
 *)
     echo "Unsupported theme: $theme" 1>&2

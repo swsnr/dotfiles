@@ -13,6 +13,7 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
+import sys
 import random
 import os
 import json
@@ -40,17 +41,6 @@ def wallpaper_files():
             if item.is_file() and item.suffix.lower() in EXTENSIONS]
 
 
-def x11_number_of_monitors():
-    output = check_output(['xrandr', '--listactivemonitors'])
-    return len(output.splitlines()[1:])
-
-
-def x11_set_wallpapers(files):
-    cmd = ['feh', '--no-fehbg', '--bg-fill']
-    cmd.extend(files)
-    check_call(cmd)
-
-
 def save_state(wallpaper_files):
     if RUNTIME_DIR:
         data = {'files': list(map(str, wallpaper_files))}
@@ -67,11 +57,6 @@ def main():
         wallpaper = random.choice(wallpaper_files()).as_uri()
         check_call(['gsettings', 'set', 'org.gnome.desktop.background',
                     'picture-uri', wallpaper])
-    elif 'wayland' not in os.environ.get('XDG_SESSION_TYPE', ''):
-        # Assume plain X11, e.g. i3
-        wallpapers = random.sample(wallpaper_files(), x11_number_of_monitors())
-        x11_set_wallpapers(wallpapers)
-        save_state(wallpapers)
     else:
         sys.exit('Unsupported desktop environment')
 

@@ -1,4 +1,5 @@
-# Copyright 2020 Sebastian Wiesner <sebastian@swsnr.de>
+#!/bin/sh
+# Copyright 2018-2019 Sebastian Wiesner <sebastian@swsnr.de>
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may not
 # use this file except in compliance with the License. You may obtain a copy of
@@ -12,17 +13,11 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
-# Sway input configuration
+# Import environment from fish
+eval "$(fish -l -c dump_env_posix)"
 
-# Make touchpad nice
-input type:touchpad {
-    natural_scroll enabled
-    scroll_method two_finger
-    click_method clickfinger
-}
-
-# TODO: Figure out keyboard model for laptop
-input type:keyboard {
-    xkb_layout us
-    xkb_variant mac
-}
+# Start SSH agent if not already running
+if [ -z "$SSH_AUTH_SOCK" ]; then
+    eval "$(/usr/bin/gnome-keyring-daemon --start --components=ssh)"
+    export SSH_AUTH_SOCK
+fi

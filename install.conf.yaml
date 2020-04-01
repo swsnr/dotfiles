@@ -105,75 +105,12 @@
       glob: true
       if: "uname -s | grep -qi linux"
 
-    # X11 settings: xprofile for i3 environment, Xresources for some X11 settings
-    # and dynamic i3 themeing, and xinitrc to start an X11 instance with i3wm
-    # from xrdp.
+    # X11 environment
     ~/.xprofile:
-      path: linux/i3/xprofile.sh
-      if: "i3 --version | grep -qi 'i3 version'"
-    ~/.Xresources:
-      path: linux/i3/Xresources
-      if: "i3 --version | grep -qi 'i3 version'"
-    ~/.xinitrc:
-      path: linux/i3/xinitrc
-      if: "i3 --version | grep -qi 'i3 version'"
-    # i3 with custom scripts, and i3blocks for the status bar
-    ~/.config/i3/config:
-      path: linux/i3/config
-      if: "i3 --version | grep -qi 'i3 version'"
-    ~/.config/i3/themes:
-      path: linux/i3/themes/*
-      glob: true
-      if: "i3 --version | grep -qi 'i3 version'"
-    ~/.local/bin/i3-rofi:
-      path: linux/i3/bin/i3-rofi.bash
-      if: "i3 --version | grep -qi 'i3 version'"
-    ~/.local/bin/i3-rename-workspace:
-      path: linux/i3/bin/i3-rename-workspace
-      if: "i3 --version | grep -qi 'i3 version'"
-    ~/.local/bin/lock-screen:
-      path: linux/i3/bin/lock-screen.bash
-      if: "i3 --version | grep -qi 'i3 version'"
-    ~/.config/i3blocks/config:
-      path: linux/i3/i3blocks.conf
-      if: "i3 --version | grep -qi 'i3 version'"
-    ~/.config/i3blocks/blocklets:
-      path: linux/i3/blocklets/*
-      glob: true
-      if: "i3 --version | grep -qi 'i3 version'"
-    # Notification daemon
-    ~/.config/dunst/dunstrc:
-      path: linux/i3/dunstrc
-      if: "i3 --version | grep -qi 'i3 version'"
-    # Compositor
-    ~/.config/picom/picom:
-      path: linux/i3/picom.conf
-      if: "picom --version | grep -qi v"
-    # Extra modes for Rofi launcher
-    ~/.local/bin/rofi-idea-projects:
-      path: linux/i3/bin/rofi-idea-projects
-      if: "i3 --version | grep -qi 'i3 version'"
-    ~/.local/bin/rofi-code-projects:
-      path: linux/i3/bin/rofi-code-projects
-      if: "i3 --version | grep -qi 'i3 version'"
-    ~/.local/bin/rofi-yes-no:
-      path: linux/i3/bin/rofi-yes-no.bash
-      if: "i3 --version | grep -qi 'i3 version'"
+      path: linux/xprofile.sh
+      if: "uname -s | grep -qi linux"
 
-    # Sway
-    ~/.config/sway/config:
-      path: linux/sway/config
-      if: "sway --version | grep -qi 'sway version'"
-    ~/.config/sway/conf.d/:
-      path: linux/sway/conf.d/*
-      glob: true
-      if: "sway --version | grep -qi 'sway version'"
-    ~/.config/sway/themes/:
-      path: linux/sway/themes/*
-      glob: true
-      if: "sway --version | grep -qi 'sway version'"
-
-    # ZIM style configuration
+      # ZIM style configuration
     ~/.config/zim/style.conf: misc/zim-style.conf
 - shell:
     - description: Create SSH connetion sockets

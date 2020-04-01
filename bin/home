@@ -127,32 +127,32 @@ def main():
                         help='number of connections to print')
     args = parser.parse_args()
 
-    config_file = config_home() / 'i3blocks' / 'home.json'
+    config_file = config_home() / 'swsnr' / 'home.json'
 
     try:
-        if config_file.exists():
+        if not config_file.exists():
+            sys.exit(f'Configuration missing at {config_file}')
 
-            with config_file.open() as source:
-                config = json.load(source)
+        with config_file.open() as source:
+            config = json.load(source)
 
-            walk_time = timedelta(seconds=config['walk_to_start'])
+        walk_time = timedelta(seconds=config['walk_to_start'])
 
-            now = datetime.now()
+        now = datetime.now()
 
-            cached_routes = get_cached_routes()
-            routes = cached_routes if routes_still_valid(
-                cached_routes, walk_time, now) else get_routes(config['start'], config['destination'])
+        cached_routes = get_cached_routes()
+        routes = cached_routes if routes_still_valid(
+            cached_routes, walk_time, now) else get_routes(config['start'], config['destination'])
 
-            reachable_routes = [route for route in routes if is_reachable(
-                route, walk_time, now)]
-            if not reachable_routes:
-                print('n.a.')
-                return
+        reachable_routes = [route for route in routes if is_reachable(
+            route, walk_time, now)]
+        if not reachable_routes:
+            print('n.a.')
+            return
 
-            cache_routes(reachable_routes)
-            for route in reachable_routes[:args.number_of_connections]:
-                print_route(route, walk_time)
-
+        cache_routes(reachable_routes)
+        for route in reachable_routes[:args.number_of_connections]:
+            print_route(route, walk_time)
     except ImportError as error:
         sys.exit(f'Missing module: {error.name}')
     except UnknownStationError as error:

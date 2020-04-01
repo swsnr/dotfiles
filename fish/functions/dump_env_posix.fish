@@ -20,7 +20,10 @@ function dump_env_posix -d 'Dump important environment variables for POSIX sh'
         PATH \
         http_proxy https_proxy no_proxy \
         HTTP_PROXY HTTPS_PROXY NO_PROXY \
-        JAVA_OPTS
+        JAVA_OPTS \
+        QT_QPA_PLATFORMTHEME \
+        QT_QPA_PLATFORM \
+        MOZ_ENABLE_WAYLANDF
 
     for variable in $variables
         if set -q $variable
