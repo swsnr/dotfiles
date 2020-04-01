@@ -118,9 +118,6 @@
 	iam = config user.email
 	# Quickly serve repo over path
 	serve = daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/
-# External services
-[github]
-	user = lunaryorn
 # Includes
 [include]
 	# Platform specific settings
