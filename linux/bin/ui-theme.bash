@@ -63,14 +63,15 @@ function tilix_theme() {
 function i3_theme() {
     # Activate the current theme
     ln -sf "$1" ~/.config/i3/themes/current
-    # TODO: If running i3, apply the theme
-    # xrdb -merge ~/.config/i3/themes/current
-    # i3-msg reload
+    if [[ -n $I3SOCK && -z $SWAYSOCK ]]; then
+        xrdb -merge ~/.config/i3/themes/current
+        i3-msg reload
+    fi
 }
 
 function sway_theme() {
     ln -sf "../themes/$1" ~/.config/sway/conf.d/00-theme
-    if [[ -n "$SWAYSOCK" ]]; then
+    if [[ -n $SWAYSOCK ]]; then
         swaymsg reload
     fi
 }
