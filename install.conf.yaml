@@ -145,6 +145,10 @@
     ~/.config/dunst/dunstrc:
       path: linux/i3/dunstrc
       if: "i3 --version | grep -qi 'i3 version'"
+    # Compositor
+    ~/.config/picom/picom:
+      path: linux/i3/picom.conf
+      if: "picom --version | grep -qi v"
     # Extra modes for Rofi launcher
     ~/.local/bin/rofi-idea-projects:
       path: linux/i3/bin/rofi-idea-projects
