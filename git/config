@@ -76,13 +76,11 @@
 [alias]
 	# All day every day shortcuts
 	a = add
-	bc = checkout -b
 	bl = branch
 	bla = branch -a
 	c = commit
 	cfm = commit --amend --reuse-message=HEAD
 	cm = commit --message
-	co = checkout
 	d = diff
 	dt = difftool
 	f = fetch --all
@@ -100,11 +98,13 @@
 	p = push
 	pf = push --force-with-lease
 	pu = push --set-upstream
-	r = rebase
-	ri = rebase -i
-	rc = rebase --continue
-	ra = rebase --abort
+	r = restore
+	reb = rebase
+	rebi = rebase -i
+	rebc = rebase --continue
+	reba = rebase --abort
 	s = status
+	sw = switch
 	# Submodules
 	sub = submodule
 	subs = submodule sync --recursive
