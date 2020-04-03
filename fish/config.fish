@@ -99,6 +99,11 @@ if status --is-interactive
         set -x LS_COLORS (vivid generate $DIRCOLORS_THEME)
     end
 
+    # Fix my typos
+    if command -q fuck
+        thefuck --alias | source
+    end
+
     # Abbreviations (unlike aliases, these are expanded before running)
     abbr --add _ sudo
     abbr --add df df -kh
