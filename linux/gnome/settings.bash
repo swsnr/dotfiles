@@ -61,5 +61,5 @@ gs com.gexperts.Tilix.Settings warn-vte-config-issue false
 # Configure default Tilix profile
 profile="$(gsettings get com.gexperts.Tilix.ProfilesList default | sed -e "s/^'//" -e "s/'\$//")"
 gs "com.gexperts.Tilix.Profile:/com/gexperts/Tilix/profiles/$profile/" use-system-font false
-gs "com.gexperts.Tilix.Profile:/com/gexperts/Tilix/profiles/$profile/" font 'PragmataPro Mono Liga 14'
+gs "com.gexperts.Tilix.Profile:/com/gexperts/Tilix/profiles/$profile/" font 'PragmataPro Mono Liga 13'
 gs "com.gexperts.Tilix.Profile:/com/gexperts/Tilix/profiles/$profile/" terminal-bell 'icon'

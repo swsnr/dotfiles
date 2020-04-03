@@ -24,9 +24,9 @@ SETTINGS = {
     # Fonts
     "editor.fontFamily": "PragmataPro Liga",
     "editor.fontLigatures": True,
-    "editor.fontSize": 14,
+    "editor.fontSize": 16,
     "terminal.integrated.fontFamily": "PragmataPro Mono Liga",
-    "terminal.integrated.fontSize": 14,
+    "terminal.integrated.fontSize": 16,
     # Editing
     "editor.rulers": [
         80,
