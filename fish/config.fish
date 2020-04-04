@@ -23,13 +23,6 @@ if status --is-login
     if uname -s | grep -qi linux
         # Make Qt5 appearance configurable
         set -x QT_QPA_PLATFORMTHEME qt5ct
-
-        if [ $XDG_SESSION_TYPE = wayland ]
-            # Make Qt5 use wayland
-            set -x QT_QPA_PLATFORM wayland
-            # Don't make Firefox use Wayland for now; it's a tad flaky
-            # set -x MOZ_ENABLE_WAYLAND 1
-        end
     end
 end
 
