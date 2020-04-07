@@ -105,6 +105,8 @@
 	reba = rebase --abort
 	s = status
 	sw = switch
+	swc = switch -c
+	swD = switch --detach
 	# Submodules
 	sub = submodule
 	subs = submodule sync --recursive
