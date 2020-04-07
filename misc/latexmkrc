@@ -5,3 +5,5 @@ $pdf_mode = 4;
 push @generated_exts, "nav"; # Beamer nav files
 push @generated_exts, "snm"; # Also something from beamer?
 push @generated_exts, "vrb"; # Fancyvrb (e.g. via minted)
+
+$pdf_previewer = "zathura %O --fork %S"
