@@ -17,24 +17,24 @@ function update-theme -d 'Read the current terminal background and update our en
     #
     # term-background is from https://github.com/lunaryorn/term-background.rs
     if command -q 'term-background'
-        set -x LY_TERM_BACKGROUND (term-background --timeout 1000 (tty))
+        set -gx LY_TERM_BACKGROUND (term-background --timeout 1000 (tty))
     end
 
     if [ -z $LY_TERM_BACKGROUND ]
-        set -x LY_TERM_BACKGROUND 'unknown'
+        set -gx LY_TERM_BACKGROUND 'unknown'
     end
 
     # Adapt shell environment to background color
     if string match -q light $LY_TERM_BACKGROUND
-        set -x BAT_THEME 'Monokai Extended Light'
+        set -gx BAT_THEME 'Monokai Extended Light'
         set VIVID_THEME 'ayu'
     else
-        set -x BAT_THEME 'Monokai Extended Bright'
+        set -gx BAT_THEME 'Monokai Extended Bright'
         set VIVID_THEME 'molokai'
     end
 
     # dircolors, by vidid <https://github.com/sharkdp/vivid>
     if command -q vivid
-        set -x LS_COLORS (vivid generate $VIVID_THEME)
+        set -gx LS_COLORS (vivid generate $VIVID_THEME)
     end
 end
