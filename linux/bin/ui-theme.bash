@@ -69,7 +69,7 @@ light)
     gsettings set org.gnome.desktop.interface cursor-theme 'Numix-Cursor-Light'
 
     vscode_theme 'Solarized Light'
-    tilix_theme 'solarized-light'
+    tilix_theme tango
     ;;
 dark)
     gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
@@ -77,7 +77,7 @@ dark)
     gsettings set org.gnome.desktop.interface cursor-theme 'Numix-Cursor'
 
     vscode_theme 'Default Dark+'
-    tilix_theme monokai
+    tilix_theme tango
     ;;
 *)
     echo "Unsupported theme: $theme" 1>&2
