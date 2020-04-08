@@ -68,7 +68,7 @@ light)
     gsettings set org.gnome.desktop.interface icon-theme 'Numix-Circle-Light'
     gsettings set org.gnome.desktop.interface cursor-theme 'Numix-Cursor-Light'
 
-    vscode_theme 'Solarized Light'
+    vscode_theme 'Visual Studio Light'
     tilix_theme tango
     ;;
 dark)
@@ -76,7 +76,7 @@ dark)
     gsettings set org.gnome.desktop.interface icon-theme 'Numix-Circle'
     gsettings set org.gnome.desktop.interface cursor-theme 'Numix-Cursor'
 
-    vscode_theme 'Default Dark+'
+    vscode_theme 'Visual Studio Dark'
     tilix_theme tango
     ;;
 *)
