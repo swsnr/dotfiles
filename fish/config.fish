@@ -71,26 +71,7 @@ if status --is-interactive
         python3 -m virtualfish 2>/dev/null | source
     end
 
-    # Detect terminal background color and adapt color themes accordingly.
-    #
-    # term-background is from https://github.com/lunaryorn/term-background.rs
-    if command -q 'term-background'
-        set -x LY_TERM_BACKGROUND (term-background --timeout 1000 (tty))
-    end
-
-    # Adapt shell environment to background color
-    if string match -q light $LY_TERM_BACKGROUND
-        set -x BAT_THEME 'Solarized (light)'
-        set DIRCOLORS_THEME 'ayu'
-    else
-        set -x BAT_THEME 'OneHalfDark'
-        set DIRCOLORS_THEME 'molokai'
-    end
-
-    # dircolors, by vidid <https://github.com/sharkdp/vivid>
-    if command -q vivid
-        set -x LS_COLORS (vivid generate $DIRCOLORS_THEME)
-    end
+    update-theme
 
     # Fix my typos
     if command -q fuck
