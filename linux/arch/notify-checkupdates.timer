@@ -2,8 +2,7 @@
 Description=Update Notifier Timer
 
 [Timer]
-OnStartupSec=1min
-OnUnitActiveSec=1d
+OnCalendar=*-*-* 09:00:00
 Unit=notify-checkupdates.service
 
 [Install]
