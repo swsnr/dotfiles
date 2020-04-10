@@ -63,3 +63,14 @@ profile="$(gsettings get com.gexperts.Tilix.ProfilesList default | sed -e "s/^'/
 gs "com.gexperts.Tilix.Profile:/com/gexperts/Tilix/profiles/$profile/" use-system-font false
 gs "com.gexperts.Tilix.Profile:/com/gexperts/Tilix/profiles/$profile/" font 'PragmataPro Mono Liga 13'
 gs "com.gexperts.Tilix.Profile:/com/gexperts/Tilix/profiles/$profile/" terminal-bell 'icon'
+
+# Key bindings
+# Disable application switching with Alt+Tab
+gs org.gnome.desktop.wm.keybindings switch-applications []
+gs org.gnome.desktop.wm.keybindings switch-applications-backward []
+# Switch windows with Super+Tab
+gs org.gnome.desktop.wm.keybindings switch-windows "['<Super>Tab']"
+gs org.gnome.desktop.wm.keybindings switch-windows-backward "['<Shift><Super>Tab']"
+
+# Put app into full screen mode
+gs org.gnome.desktop.wm.keybindings toggle-fullscreen "['<Super>Return']"
