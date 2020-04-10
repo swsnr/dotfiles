@@ -82,6 +82,7 @@ light)
     gsettings set org.gnome.desktop.interface gtk-theme 'Arc'
     gsettings set org.gnome.desktop.interface icon-theme 'Numix-Circle-Light'
     gsettings set org.gnome.desktop.interface cursor-theme 'Numix-Cursor-Light'
+    gsettings set org.gnome.shell.extensions.user-theme name 'Arc'
 
     vscode_theme 'Solarized Light'
     tilix_theme 'solarized-light'
@@ -91,6 +92,7 @@ dark)
     gsettings set org.gnome.desktop.interface gtk-theme 'Arc-Dark'
     gsettings set org.gnome.desktop.interface icon-theme 'Numix-Circle'
     gsettings set org.gnome.desktop.interface cursor-theme 'Numix-Cursor'
+    gsettings set org.gnome.shell.extensions.user-theme name 'Arc-Dark'
 
     vscode_theme 'Solarized Dark'
     tilix_theme 'solarized-dark'
