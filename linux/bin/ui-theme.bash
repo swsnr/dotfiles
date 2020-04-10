@@ -38,6 +38,17 @@ echo "$theme"
 
 CODE_SETTINGS="$HOME/.config/Code - OSS/User/settings.json"
 
+function enable_user_themes() {
+    local uuid='user-theme@gnome-shell-extensions.gcampax.github.com'
+    local enabled_extensions
+    enabled_extensions="$(gsettings get org.gnome.shell enabled-extensions)"
+
+    if [[ $enabled_extensions != *$uuid* ]]; then
+        echo "Enabling user themes: Log in again to make this take effect!"
+        gnome-extensions enable "$uuid"
+    fi
+}
+
 function vscode_theme() {
     target="$(mktemp -p "$HOME/.config/Code - OSS/User" .settings.json.XXXXXXXXXX)"
     jq --arg vscode_theme "$1" '.["workbench.colorTheme"] = $vscode_theme' <"$CODE_SETTINGS" >"$target"
@@ -63,6 +74,8 @@ function tilix_theme() {
 function kvantum_style() {
     sed -i -E "s/^theme\\s*=.*\$/theme=$1/" ~/.config/Kvantum/kvantum.kvconfig
 }
+
+enable_user_themes
 
 case "$theme" in
 light)
