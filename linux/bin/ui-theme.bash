@@ -60,8 +60,10 @@ function tilix_theme() {
     gsettings set "com.gexperts.Tilix.Profile:/com/gexperts/Tilix/profiles/$profile/" palette "$(jq -c '.["palette"]' <"$theme_file")"
 }
 
-# Gtk theme
-# Light
+function kvantum_style() {
+    sed -i -E "s/^theme\\s*=.*\$/theme=$1/" ~/.config/Kvantum/kvantum.kvconfig
+}
+
 case "$theme" in
 light)
     gsettings set org.gnome.desktop.interface gtk-theme 'Arc'
@@ -70,6 +72,7 @@ light)
 
     vscode_theme 'Solarized Light'
     tilix_theme 'solarized-light'
+    kvantum_style 'KvArc'
     ;;
 dark)
     gsettings set org.gnome.desktop.interface gtk-theme 'Arc-Dark'
@@ -78,6 +81,7 @@ dark)
 
     vscode_theme 'Solarized Dark'
     tilix_theme 'solarized-dark'
+    kvantum_style 'KvArcDark'
     ;;
 *)
     echo "Unsupported theme: $theme" 1>&2
