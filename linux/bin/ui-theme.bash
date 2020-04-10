@@ -68,16 +68,16 @@ light)
     gsettings set org.gnome.desktop.interface icon-theme 'Numix-Circle-Light'
     gsettings set org.gnome.desktop.interface cursor-theme 'Numix-Cursor-Light'
 
-    vscode_theme 'Visual Studio Light'
-    tilix_theme tango
+    vscode_theme 'Solarized Light'
+    tilix_theme 'solarized-light'
     ;;
 dark)
-    gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
+    gsettings set org.gnome.desktop.interface gtk-theme 'Arc-Dark'
     gsettings set org.gnome.desktop.interface icon-theme 'Numix-Circle'
     gsettings set org.gnome.desktop.interface cursor-theme 'Numix-Cursor'
 
-    vscode_theme 'Visual Studio Dark'
-    tilix_theme tango
+    vscode_theme 'Solarized Dark'
+    tilix_theme 'solarized-dark'
     ;;
 *)
     echo "Unsupported theme: $theme" 1>&2

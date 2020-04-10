@@ -26,10 +26,10 @@ function update-theme -d 'Read the current terminal background and update our en
 
     # Adapt shell environment to background color
     if string match -q light $LY_TERM_BACKGROUND
-        set -gx BAT_THEME 'Monokai Extended Light'
+        set -gx BAT_THEME 'Solarized (light)'
         set VIVID_THEME 'ayu'
     else
-        set -gx BAT_THEME 'Monokai Extended Bright'
+        set -gx BAT_THEME 'Solarized (dark)'
         set VIVID_THEME 'molokai'
     end
 
