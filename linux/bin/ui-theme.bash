@@ -17,28 +17,7 @@
 
 set -e
 
-case "$1" in
-toggle)
-    if gsettings get org.gnome.desktop.interface icon-theme | grep -qi 'light'; then
-        theme=dark
-    else
-        theme=light
-    fi
-    ;;
-dark | light)
-    theme="$1"
-    ;;
-*)
-    echo "Unsupported theme: $1" 1>&2
-    exit 1
-    ;;
-esac
-
-echo "$theme"
-
-CODE_SETTINGS="$HOME/.config/Code - OSS/User/settings.json"
-
-function enable_user_themes() {
+function enable_shell_user_themes() {
     local uuid='user-theme@gnome-shell-extensions.gcampax.github.com'
     local enabled_extensions
     enabled_extensions="$(gsettings get org.gnome.shell enabled-extensions)"
@@ -50,9 +29,11 @@ function enable_user_themes() {
 }
 
 function vscode_theme() {
+    local settings="$HOME/.config/Code - OSS/User/settings.json"
+
     target="$(mktemp -p "$HOME/.config/Code - OSS/User" .settings.json.XXXXXXXXXX)"
-    jq --arg vscode_theme "$1" '.["workbench.colorTheme"] = $vscode_theme' <"$CODE_SETTINGS" >"$target"
-    mv "$target" "$CODE_SETTINGS"
+    jq --arg vscode_theme "$1" '.["workbench.colorTheme"] = $vscode_theme' <"$settings" >"$target"
+    mv "$target" "$settings"
 }
 
 function tilix_theme() {
@@ -75,7 +56,26 @@ function kvantum_style() {
     sed -i -E "s/^theme\\s*=.*\$/theme=$1/" ~/.config/Kvantum/kvantum.kvconfig
 }
 
-enable_user_themes
+case "$1" in
+toggle)
+    if gsettings get org.gnome.desktop.interface icon-theme | grep -qi 'light'; then
+        theme=dark
+    else
+        theme=light
+    fi
+    ;;
+dark | light)
+    theme="$1"
+    ;;
+*)
+    echo "Unsupported theme: $1" 1>&2
+    exit 1
+    ;;
+esac
+
+echo "$theme"
+
+enable_shell_user_themes
 
 case "$theme" in
 light)
