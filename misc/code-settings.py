@@ -22,7 +22,7 @@ SETTINGS = {
     "telemetry.enableCrashReporter": False,
     "telemetry.enableTelemetry": False,
     # Fonts
-    "editor.fontFamily": "PragmataPro Liga",
+    "editor.fontFamily": '"PragmataPro Liga","Noto Color Emoji"',
     "editor.fontLigatures": True,
     "editor.fontSize": 16,
     "terminal.integrated.fontFamily": "PragmataPro Mono Liga",
