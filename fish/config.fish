@@ -27,7 +27,7 @@ if status --is-login
 end
 
 # Environment variables
-set -x EDITOR 'code -nw'
+set -x EDITOR 'code -w'
 set -x PAGER 'less'
 set -x BROWSER 'xdg-open'
 
