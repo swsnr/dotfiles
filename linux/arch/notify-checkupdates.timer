@@ -3,6 +3,7 @@ Description=Update Notifier Timer
 
 [Timer]
 OnCalendar=*-*-* 09:00:00
+Persistent=true
 Unit=notify-checkupdates.service
 
 [Install]
