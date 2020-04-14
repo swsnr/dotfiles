@@ -109,5 +109,5 @@
       command: misc/code-settings.py
       stdout: true
     - description: Gnome settings
-      command: bash linux/gnome/settings.py
+      command: linux/gnome/settings.py
       stdout: true
