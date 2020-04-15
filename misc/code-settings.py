@@ -60,6 +60,7 @@ CODE_EXTENSIONS = [
     'James-Yu.latex-workshop',
     'ms-python.python',
     'vscoss.vscode-ansible',
+    'joaompinto.asciidoctor-vscode',
 ]
 
 
