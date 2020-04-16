@@ -68,8 +68,8 @@ KEYBINDINGS = {
         # Replace app switching with window switching
         'switch-applications': [],
         'switch-applications-backward': [],
-        'switch-windows': ['<Super>Tab'],
-        'switch-windows-backward': ['<Shift><Super>Tab'],
+        'switch-windows': ['<Super>Tab', '<Alt>Tab'],
+        'switch-windows-backward': ['<Shift><Super>Tab', '<Shift><Alt>Tab'],
         # Toggle fullscreen mode for apps
         'toggle-fullscreen': ['<Super>Return'],
         # Keep on top above all other windows
