@@ -28,6 +28,8 @@ SETTINGS = {
     "editor.fontSize": 16,
     "terminal.integrated.fontFamily": "PragmataPro Mono Liga",
     "terminal.integrated.fontSize": 16,
+    # Fix terminal colours; this a really stupid default imho
+    "terminal.integrated.drawBoldTextInBrightColors": False,
     # Editing
     "editor.rulers": [
         80,
