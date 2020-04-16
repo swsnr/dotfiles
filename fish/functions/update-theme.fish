@@ -14,11 +14,7 @@
 
 function update-theme -d 'Read the current terminal background and update our environment'
     # Detect terminal background color and adapt color themes accordingly.
-    #
-    # term-background is from https://github.com/lunaryorn/term-background.rs
-    if command -q 'term-background'
-        set -gx LY_TERM_BACKGROUND (term-background --timeout 1000 (tty))
-    end
+    set -gx LY_TERM_BACKGROUND (terminal-background)
 
     if [ -z $LY_TERM_BACKGROUND ]
         set -gx LY_TERM_BACKGROUND 'unknown'
