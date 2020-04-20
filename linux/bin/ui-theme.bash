@@ -17,14 +17,14 @@
 
 set -e
 
-function enable_shell_user_themes() {
+function disable_shell_user_themes() {
     local uuid='user-theme@gnome-shell-extensions.gcampax.github.com'
     local enabled_extensions
     enabled_extensions="$(gsettings get org.gnome.shell enabled-extensions)"
 
-    if [[ $enabled_extensions != *$uuid* ]]; then
-        echo "Enabling user themes: Log in again to make this take effect!"
-        gnome-extensions enable "$uuid"
+    if [[ $enabled_extensions == *$uuid* ]]; then
+        echo "Disabling user themes: Log in again to make this take effect!"
+        gnome-extensions disable "$uuid"
     fi
 }
 
@@ -75,28 +75,26 @@ esac
 
 echo "$theme"
 
-enable_shell_user_themes
+disable_shell_user_themes
 
 case "$theme" in
 light)
-    gsettings set org.gnome.desktop.interface gtk-theme 'Arc'
+    gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita'
     gsettings set org.gnome.desktop.interface icon-theme 'Numix-Circle-Light'
     gsettings set org.gnome.desktop.interface cursor-theme 'Numix-Cursor-Light'
-    gsettings set org.gnome.shell.extensions.user-theme name 'Arc'
 
     vscode_theme 'Solarized Light'
     tilix_theme 'solarized-light'
-    kvantum_style 'KvArc'
+    kvantum_style 'KvGnome'
     ;;
 dark)
-    gsettings set org.gnome.desktop.interface gtk-theme 'Arc-Dark'
+    gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
     gsettings set org.gnome.desktop.interface icon-theme 'Numix-Circle'
     gsettings set org.gnome.desktop.interface cursor-theme 'Numix-Cursor'
-    gsettings set org.gnome.shell.extensions.user-theme name 'Arc-Dark'
 
     vscode_theme 'Solarized Dark'
     tilix_theme 'solarized-dark'
-    kvantum_style 'KvArcDark'
+    kvantum_style 'KvGnomeDark'
     ;;
 *)
     echo "Unsupported theme: $theme" 1>&2
