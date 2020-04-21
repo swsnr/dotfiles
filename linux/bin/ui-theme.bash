@@ -83,6 +83,8 @@ light)
     gsettings set org.gnome.desktop.interface icon-theme 'Numix-Circle-Light'
     gsettings set org.gnome.desktop.interface cursor-theme 'Numix-Cursor-Light'
 
+    gsettings set org.gnome.Epiphany.reader color-scheme light
+
     vscode_theme 'Solarized Light'
     tilix_theme 'solarized-light'
     kvantum_style 'KvGnome'
@@ -91,6 +93,8 @@ dark)
     gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
     gsettings set org.gnome.desktop.interface icon-theme 'Numix-Circle'
     gsettings set org.gnome.desktop.interface cursor-theme 'Numix-Cursor'
+
+    gsettings set org.gnome.Epiphany.reader color-scheme dark
 
     vscode_theme 'Solarized Dark'
     tilix_theme 'solarized-dark'
