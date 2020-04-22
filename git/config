@@ -83,7 +83,8 @@
 	cm = commit --message
 	d = diff
 	dt = difftool
-	f = fetch --all
+	f = fetch
+	fa = fetch --all
 	# Prune gone upstream branches
 	gX = gone prune
 	# Fancy and brief logs
