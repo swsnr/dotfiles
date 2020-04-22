@@ -27,7 +27,6 @@ RESTORE_DEFAULTS = {
         # Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Safari/537.36
         #
         #
-        'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/605.1.15 (KHTML, like Gecko) Chrome/81.0.4044.113 Safari/605.1.15'
         'user-agent'
     }
 }
@@ -146,9 +145,9 @@ def _settings_for_key(key):
 
 
 def restore_defaults():
-    for key, items in RESTORE_DEFAULTS.items():
-        name, settings = _settings_for_key(key)
-        for key, value in items.items():
+    for schema_key, keys in RESTORE_DEFAULTS.items():
+        name, settings = _settings_for_key(schema_key)
+        for key in keys:
             print(f'{name} {key} reset')
             settings.reset(key)
 
