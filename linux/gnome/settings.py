@@ -17,6 +17,22 @@
 from gi.repository import Gio
 
 
+RESTORE_DEFAULTS = {
+    ('org.gnome.Epiphany.web', '/org/gnome/epiphany/web/'): {
+        # Use the default user agent in Epiphany, which looks like:
+        #
+        # Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0 Safari/605.1.15 Epiphany/605.1.15
+        #
+        # However this doesn't work with some apps, so let's look at the Safari user agent:
+        # Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Safari/537.36
+        #
+        #
+        'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/605.1.15 (KHTML, like Gecko) Chrome/81.0.4044.113 Safari/605.1.15'
+        'user-agent'
+    }
+}
+
+
 SETTINGS = {
     'org.gnome.desktop.interface': {
         'font-name': 'Ubuntu 12',
@@ -62,14 +78,6 @@ SETTINGS = {
         'monospace-font': 'PragmataPro Liga 12',
         'sans-serif-font': 'Ubuntu 12',
         'serif-font': 'Vollkorn 13',
-        # Default user agent of Epiphany:
-        # Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0 Safari/605.1.15 Epiphany/605.1.15
-        #
-        # However this doesn't work with some apps, so let's look at the Safari user agent:
-        # Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Safari/537.36
-        #
-        # And come up with a mix of things, specifically: Leave Epiphany out of the game and inject chrome instead
-        'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/605.1.15 (KHTML, like Gecko) Chrome/81.0.4044.113 Safari/605.1.15'
     },
     'org.gnome.Epiphany.reader': {
         # Use serif fonts in reading mode
@@ -126,17 +134,30 @@ def set_pytype(settings, key, value):
         raise ValueError(f'Value {value:r} for key {key} has unknown type')
 
 
-def apply_settings():
-    for schema, items in SETTINGS.items():
-        if isinstance(schema, str):
-            schema_name = schema
-            settings = Gio.Settings(schema=schema)
-        else:
-            schema, path = schema
-            schema_name = f'{schema}:{path}'
-            settings = Gio.Settings.new_with_path(schema, path)
+def _settings_for_key(key):
+    if isinstance(key, str):
+        schema_name = schema = key
+        settings = Gio.Settings(schema=schema)
+    else:
+        schema, path = key
+        schema_name = f'{schema}:{path}'
+        settings = Gio.Settings.new_with_path(schema, path)
+    return (schema_name, settings)
+
+
+def restore_defaults():
+    for key, items in RESTORE_DEFAULTS.items():
+        name, settings = _settings_for_key(key)
         for key, value in items.items():
-            print(f'{schema_name} {key} {value}')
+            print(f'{name} {key} reset')
+            settings.reset(key)
+
+
+def apply_settings():
+    for key, items in SETTINGS.items():
+        name, settings = _settings_for_key(key)
+        for key, value in items.items():
+            print(f'{name} {key} {value}')
             set_pytype(settings, key, value)
 
 
@@ -180,6 +201,7 @@ def apply_custom_bindings():
 
 
 def main():
+    restore_defaults()
     apply_settings()
     apply_keybindings()
     apply_custom_bindings()
