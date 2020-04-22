@@ -93,6 +93,7 @@ TILIX_PROFILE = {
 
 KEYBINDINGS = {
     'org.gnome.desktop.wm.keybindings': {
+        'close': ['<Alt>F4', '<Super>F4'],
         # Replace app switching with window switching
         'switch-applications': [],
         'switch-applications-backward': [],
