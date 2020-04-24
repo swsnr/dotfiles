@@ -59,7 +59,9 @@ SETTINGS = {
 TILIX_PROFILE = {
     'use-system-font': False,
     'font': 'PragmataPro Mono Liga 13',
-    'terminal-bell': 'icon'
+    'terminal-bell': 'icon',
+    'default-size-columns': 120,
+    'default-size-rows': 40
 }
 
 
@@ -102,6 +104,8 @@ def set_pytype(settings, key, value):
         settings.set_string(key, value)
     elif isinstance(value, bool):
         settings.set_boolean(key, value)
+    elif isinstance(value, int):
+        settings.set_int(key, value)
     else:
         raise ValueError(f'Value {value!r} for key {key} has unknown type')
 
