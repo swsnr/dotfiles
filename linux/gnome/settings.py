@@ -103,7 +103,7 @@ def set_pytype(settings, key, value):
     elif isinstance(value, bool):
         settings.set_boolean(key, value)
     else:
-        raise ValueError(f'Value {value:r} for key {key} has unknown type')
+        raise ValueError(f'Value {value!r} for key {key} has unknown type')
 
 
 def _settings_for_key(key):
