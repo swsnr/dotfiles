@@ -17,21 +17,6 @@
 from gi.repository import Gio
 
 
-RESTORE_DEFAULTS = {
-    ('org.gnome.Epiphany.web', '/org/gnome/epiphany/web/'): {
-        # Use the default user agent in Epiphany, which looks like:
-        #
-        # Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0 Safari/605.1.15 Epiphany/605.1.15
-        #
-        # However this doesn't work with some apps, so let's look at the Safari user agent:
-        # Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Safari/537.36
-        #
-        #
-        'user-agent'
-    }
-}
-
-
 SETTINGS = {
     'org.gnome.desktop.interface': {
         'font-name': 'Ubuntu 12',
@@ -68,19 +53,6 @@ SETTINGS = {
         'close-with-last-session': True,
         # Dont' warn about VTE configuration; fish already takes care of this.
         'warn-vte-config-issue': False
-    },
-    ('org.gnome.Epiphany.web', '/org/gnome/epiphany/web/'): {
-        # Enable mouse gestures
-        'enable-mouse-gestures': True,
-        # And use custom fonts
-        'use-gnome-fonts': False,
-        'monospace-font': 'PragmataPro Liga 12',
-        'sans-serif-font': 'Ubuntu 12',
-        'serif-font': 'Vollkorn 13',
-    },
-    'org.gnome.Epiphany.reader': {
-        # Use serif fonts in reading mode
-        'font-style': 'serif',
     },
 }
 
@@ -145,14 +117,6 @@ def _settings_for_key(key):
     return (schema_name, settings)
 
 
-def restore_defaults():
-    for schema_key, keys in RESTORE_DEFAULTS.items():
-        name, settings = _settings_for_key(schema_key)
-        for key in keys:
-            print(f'{name} {key} reset')
-            settings.reset(key)
-
-
 def apply_settings():
     for key, items in SETTINGS.items():
         name, settings = _settings_for_key(key)
@@ -201,7 +165,6 @@ def apply_custom_bindings():
 
 
 def main():
-    restore_defaults()
     apply_settings()
     apply_keybindings()
     apply_custom_bindings()
