@@ -1,6 +1,0 @@
-[Unit]
-Description=Update Notifier
-
-[Service]
-Type=oneshot
-ExecStart=%h/.local/bin/notify-checkupdates
