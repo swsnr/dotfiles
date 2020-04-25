@@ -19,6 +19,8 @@ from gi.repository import Gio
 
 
 EXTENSIONS = {
+    # Update notifications
+    'arch-update@RaphaelRochet',
     # Basic desktop stuff
     'appindicatorsupport@rgcjonas.gmail.com',
     # NASA wallpapers
