@@ -111,3 +111,4 @@
     - description: Gnome settings
       command: linux/gnome/settings.py
       stdout: true
+      stderr: true

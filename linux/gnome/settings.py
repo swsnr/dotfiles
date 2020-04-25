@@ -13,8 +13,19 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
-
+import sys
+from subprocess import run
 from gi.repository import Gio
+
+
+EXTENSIONS = {
+    # Basic desktop stuff
+    'appindicatorsupport@rgcjonas.gmail.com',
+    # NASA wallpapers
+    'nasa_apod@elinvention.ovh',
+    # Search providers I use often
+    'vscode-search-provider@jomik.org',
+}
 
 
 SETTINGS = {
@@ -168,11 +179,24 @@ def apply_custom_bindings():
     media_keys.set_strv('custom-keybindings', list(custom_bindings))
 
 
+def enable_extensions():
+    available_extensions = set(run(['gnome-extensions', 'list'],
+                                   check=True, capture_output=True,
+                                   text=True).stdout.splitlines())
+    for extension in EXTENSIONS:
+        if extension not in available_extensions:
+            print(f'Extension {extension} not installed!', file=sys.stderr)
+        else:
+            print(f'gnome-extensions enable {extension}')
+            run(['gnome-extensions', 'enable', extension], check=True)
+
+
 def main():
     apply_settings()
     apply_keybindings()
     apply_custom_bindings()
     apply_tilix_profile()
+    enable_extensions()
 
 
 if __name__ == '__main__':
