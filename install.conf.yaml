@@ -65,7 +65,7 @@
 
     # Linux configuration (basic)
     ~/.local/bin/reset-thunderbolt.bash:
-      path: reset-thunderbolt.bash
+      path: linux/reset-thunderbolt.bash
       if: "uname -s | grep -qi linux"
 
     # Linux configuration (Arch)
