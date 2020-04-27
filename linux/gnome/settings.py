@@ -67,6 +67,10 @@ SETTINGS = {
         # Dont' warn about VTE configuration; fish already takes care of this.
         'warn-vte-config-issue': False
     },
+    'org.gnome.shell.extensions.arch-update': {
+        'check-cmd': "/usr/bin/sh -c 'checkupdates; aur repo -ud aur'",
+        'update-cmd': "tilix -e 'sh -c  \"aur sync -cud aur && sudo pacman -Syu; echo Done - Press enter to exit; read\" '"
+    }
 }
 
 TILIX_PROFILE = {
