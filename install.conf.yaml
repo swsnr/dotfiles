@@ -65,24 +65,17 @@
 
     # Linux configuration (basic)
     ~/.local/bin/reset-thunderbolt.bash:
-      path: linux/reset-thunderbolt.bash
+      path: reset-thunderbolt.bash
       if: "uname -s | grep -qi linux"
+
     # Linux configuration (Arch)
     ~/.config/pacman/makepkg.conf:
-      path: linux/arch/makepkg.conf
+      path: arch/makepkg.conf
       if: "test -f /etc/pacman.conf"
-
-    # Linux configuration (desktops)
-    ~/.local/bin/random-wallpaper:
-      path: linux/bin/random-wallpaper.py
-      if: "uname -s | grep -qi linux"
-    ~/.local/bin/ui-theme:
-      path: linux/bin/ui-theme.bash
-      if: "uname -s | grep -qi linux"
 
     # Gnome
     ~/.local/share/gnome-shell/extensions/home@swsnr.de:
-      path: linux/gnome/extensions/home@swsnr.de/*
+      path: gnome/extensions/home@swsnr.de/*
       glob: true
       if: "uname -s | grep -qi linux"
 
@@ -100,6 +93,6 @@
       command: misc/code-settings.py
       stdout: true
     - description: Gnome settings
-      command: linux/gnome/settings.py
+      command: gnome/settings.py
       stdout: true
       stderr: true
