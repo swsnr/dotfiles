@@ -14,6 +14,8 @@
 # the License.
 
 import sys
+import json
+from pathlib import Path
 from subprocess import run
 from gi.repository import Gio
 
@@ -34,6 +36,11 @@ EXTENSIONS = {
 
 SETTINGS = {
     'org.gnome.desktop.interface': {
+        # Theme
+        'gtk-theme': 'Yaru',
+        'icon-theme': 'Yaru',
+        'cursor-theme': 'Yaru',
+        # Fonts
         'font-name': 'Ubuntu 12',
         'document-font-name': 'Ubuntu 12',
         'monospace-font-name': 'Ubuntu Mono 11',
@@ -69,6 +76,11 @@ SETTINGS = {
         # Dont' warn about VTE configuration; fish already takes care of this.
         'warn-vte-config-issue': False
     },
+    # Theme for the Gnome shell
+    'org.gnome.shell.extensions.user-theme': {
+        'name': 'Yaru'
+    },
+    # Commands for checking and performing Arch updates
     'org.gnome.shell.extensions.arch-update': {
         'check-cmd': "/usr/bin/sh -c 'checkupdates; aur repo -ud aur'",
         'update-cmd': "tilix -e 'sh -c  \"aur sync -cud aur && sudo pacman -Syu; echo Done - Press enter to exit; read\" '"
@@ -80,9 +92,12 @@ TILIX_PROFILE = {
     'font': 'PragmataPro Mono Liga 13',
     'terminal-bell': 'icon',
     'default-size-columns': 120,
-    'default-size-rows': 40
+    'default-size-rows': 40,
+    # Don't mess with bold colors
+    'bold-is-bright': False
 }
 
+TILIX_PROFILE_SCHEME = 'yaru'
 
 KEYBINDINGS = {
     'org.gnome.desktop.wm.keybindings': {
@@ -125,6 +140,8 @@ def set_pytype(settings, key, value):
         settings.set_boolean(key, value)
     elif isinstance(value, int):
         settings.set_int(key, value)
+    elif isinstance(value, list):
+        settings.set_strv(key, value)
     else:
         raise ValueError(f'Value {value!r} for key {key} has unknown type')
 
@@ -156,6 +173,13 @@ def apply_keybindings():
             settings.set_strv(key, value)
 
 
+def apply_tilix_scheme_to_profile(profile_settings):
+    scheme_file = Path(f"/usr/share/tilix/schemes/{TILIX_PROFILE_SCHEME}.json")
+    scheme = json.loads(scheme_file.read_text())
+    for key in ['use-theme-colors', 'background-color', 'background-color', 'palette']:
+        set_pytype(profile_settings, key, scheme[key])
+
+
 def apply_tilix_profile():
     tilix = Gio.Settings(schema='com.gexperts.Tilix.ProfilesList')
     profile_id = tilix.get_string('default')
@@ -165,6 +189,7 @@ def apply_tilix_profile():
     for key,  value in TILIX_PROFILE.items():
         print(f'{schema}:{profile_path} {key} {value}')
         set_pytype(profile, key, value)
+    apply_tilix_scheme_to_profile(profile)
 
 
 def binding_path(id):

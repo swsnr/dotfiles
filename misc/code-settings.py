@@ -22,6 +22,8 @@ SETTINGS = {
     # Disable telemetry
     "telemetry.enableCrashReporter": False,
     "telemetry.enableTelemetry": False,
+    # Colors
+    "workbench.colorTheme": "Default Light+",
     # Fonts
     "editor.fontFamily": '"PragmataPro Liga","Noto Color Emoji"',
     "editor.fontLigatures": True,
