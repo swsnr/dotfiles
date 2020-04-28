@@ -19,6 +19,8 @@ from gi.repository import Gio
 
 
 EXTENSIONS = {
+    # User shell themes
+    'user-theme@gnome-shell-extensions.gcampax.github.com',
     # Update notifications
     'arch-update@RaphaelRochet',
     # Basic desktop stuff

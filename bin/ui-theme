@@ -17,17 +17,6 @@
 
 set -e
 
-function enable_shell_user_themes() {
-    local uuid='user-theme@gnome-shell-extensions.gcampax.github.com'
-    local enabled_extensions
-    enabled_extensions="$(gsettings get org.gnome.shell enabled-extensions)"
-
-    if [[ $enabled_extensions != *$uuid* ]]; then
-        echo "Enabling user themes: Log in again to make this take effect!"
-        gnome-extensions enable "$uuid"
-    fi
-}
-
 function vscode_theme() {
     local settings="$HOME/.config/Code - OSS/User/settings.json"
 
@@ -74,8 +63,6 @@ dark | light)
 esac
 
 echo "$theme"
-
-enable_shell_user_themes
 
 gsettings set org.gnome.desktop.interface icon-theme 'Yaru'
 gsettings set org.gnome.desktop.interface cursor-theme 'Yaru'
