@@ -177,7 +177,11 @@ def apply_tilix_scheme_to_profile(profile_settings):
     scheme_file = Path(f"/usr/share/tilix/schemes/{TILIX_PROFILE_SCHEME}.json")
     scheme = json.loads(scheme_file.read_text())
     for key in ['use-theme-colors', 'background-color', 'background-color', 'palette']:
-        set_pytype(profile_settings, key, scheme[key])
+        value = scheme.get(key)
+        if value:
+            set_pytype(profile_settings, key, scheme[key])
+        else:
+            profile_settings.reset(key)
 
 
 def apply_tilix_profile():
