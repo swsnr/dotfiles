@@ -97,7 +97,7 @@ TILIX_PROFILE = {
     'bold-is-bright': False
 }
 
-TILIX_PROFILE_SCHEME = 'yaru'
+TILIX_PROFILE_SCHEME = 'tango'
 
 KEYBINDINGS = {
     'org.gnome.desktop.wm.keybindings': {
