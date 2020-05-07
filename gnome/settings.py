@@ -38,8 +38,8 @@ SETTINGS = {
     'org.gnome.desktop.interface': {
         # Theme
         'gtk-theme': 'Yaru',
-        'icon-theme': 'Yaru',
-        'cursor-theme': 'Yaru',
+        'icon-theme': 'Numix-Circle-Light',
+        'cursor-theme': 'Numix-Cursor-Light',
         # Fonts
         'font-name': 'Ubuntu 12',
         'document-font-name': 'Ubuntu 12',

@@ -64,24 +64,26 @@ esac
 
 echo "$theme"
 
-gsettings set org.gnome.desktop.interface icon-theme 'Yaru'
-gsettings set org.gnome.desktop.interface cursor-theme 'Yaru'
 kvantum_style 'KvYaru'
 
 case "$theme" in
 light)
+    gsettings set org.gnome.desktop.interface icon-theme 'Numix-Circle-Light'
+    gsettings set org.gnome.desktop.interface cursor-theme 'Numix-Cursor-Light'
     gsettings set org.gnome.desktop.interface gtk-theme 'Yaru'
     gsettings set org.gnome.shell.extensions.user-theme name 'Yaru'
 
-    vscode_theme 'Solarized Light'
-    tilix_theme 'solarized-light'
+    vscode_theme 'Default Light+'
+    # tilix_theme 'solarized-light'
     ;;
 dark)
+    gsettings set org.gnome.desktop.interface icon-theme 'Numix-Circle'
+    gsettings set org.gnome.desktop.interface cursor-theme 'Numix-Cursor'
     gsettings set org.gnome.desktop.interface gtk-theme 'Yaru-dark'
     gsettings set org.gnome.shell.extensions.user-theme name 'Yaru-dark'
 
-    vscode_theme 'Solarized Dark'
-    tilix_theme 'solarized-dark'
+    vscode_theme 'Default Dark+'
+    # tilix_theme 'solarized-dark'
     ;;
 *)
     echo "Unsupported theme: $theme" 1>&2
