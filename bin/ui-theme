@@ -74,7 +74,7 @@ light)
     gsettings set org.gnome.shell.extensions.user-theme name 'Yaru'
 
     vscode_theme 'Default Light+'
-    # tilix_theme 'solarized-light'
+    tilix_theme 'tango'
     ;;
 dark)
     gsettings set org.gnome.desktop.interface icon-theme 'Numix-Circle'
@@ -83,7 +83,7 @@ dark)
     gsettings set org.gnome.shell.extensions.user-theme name 'Yaru-dark'
 
     vscode_theme 'Default Dark+'
-    # tilix_theme 'solarized-dark'
+    tilix_theme 'tango'
     ;;
 *)
     echo "Unsupported theme: $theme" 1>&2
