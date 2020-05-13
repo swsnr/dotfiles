@@ -41,9 +41,9 @@ SETTINGS = {
         'icon-theme': 'Numix-Circle-Light',
         'cursor-theme': 'Numix-Cursor-Light',
         # Fonts
-        'font-name': 'Ubuntu 12',
-        'document-font-name': 'Ubuntu 12',
-        'monospace-font-name': 'Ubuntu Mono 11',
+        'font-name': 'Ubuntu 11',
+        'document-font-name': 'Ubuntu 11',
+        'monospace-font-name': 'Ubuntu Mono 10',
         # Disable hot corner for mouse
         'enable-hot-corners': False,
         # Show date and weekday in clock
@@ -89,7 +89,7 @@ SETTINGS = {
 
 TILIX_PROFILE = {
     'use-system-font': False,
-    'font': 'PragmataPro Mono Liga 13',
+    'font': 'PragmataPro Mono Liga 12',
     'terminal-bell': 'icon',
     'default-size-columns': 120,
     'default-size-rows': 40,

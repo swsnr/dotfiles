@@ -27,9 +27,9 @@ SETTINGS = {
     # Fonts
     "editor.fontFamily": '"PragmataPro Liga","Noto Color Emoji"',
     "editor.fontLigatures": True,
-    "editor.fontSize": 16,
+    "editor.fontSize": 14,
     "terminal.integrated.fontFamily": "PragmataPro Mono Liga",
-    "terminal.integrated.fontSize": 16,
+    "terminal.integrated.fontSize": 14,
     # Fix terminal colours; this a really stupid default imho
     "terminal.integrated.drawBoldTextInBrightColors": False,
     # Editing
