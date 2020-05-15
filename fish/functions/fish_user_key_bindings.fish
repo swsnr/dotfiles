@@ -12,13 +12,26 @@
 # License for the spec
 
 function fish_user_key_bindings
-    fish_default_key_bindings
+    fish_hybrid_key_bindings
 
-    bind \e\[3\;5~ kill-word
-    bind \cH backward-kill-word
-    bind \cV beginning-of-line
-    bind \f end-of-line
+    if test "$fish_key_bindings" = "fish_vi_key_bindings"
+        or test "$fish_key_bindings" = "fish_hybrid_key_bindings"
 
-    # Prepend sudo to the command line with Alt+s
-    bind -M default \es sudo-commandline
+        # Get back to normal mode with jk
+        bind -M insert -m default jk force-repaint
+
+        # Prepend sudo to the command line with leader s
+        bind -M default ' s' sudo-commandline
+
+        # Execute current autosuggestion with space space
+        bind -M default '  ' accept-autosuggestion execute
+    else
+        bind \e\[3\;5~ kill-word
+        bind \cH backward-kill-word
+        bind \cV beginning-of-line
+        bind \f end-of-line
+
+        # Prepend sudo to the command line with Alt+s
+        bind -M default \es sudo-commandline
+    end
 end

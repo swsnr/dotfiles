@@ -72,6 +72,8 @@ function fish_prompt -d 'My personal prompt'
     # New line
     echo -s
 
+    echo -sn (fish_default_mode_prompt)
+
     # Indicate exit code of last command
     if test $last_exit_code -eq 0
         echo -sn (set_color -o green)
