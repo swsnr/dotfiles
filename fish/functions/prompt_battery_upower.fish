@@ -65,6 +65,7 @@ function prompt_battery_upower -d 'upower battery info in prompt'
                 case 'none'
                     set state_symbol '↓'
                     set colour (set_color 'yellow')
+                case 'critical'
                 case 'low'
                     set state_symbol '↡'
                     set colour (set_color -b 'red' -o 'white')
