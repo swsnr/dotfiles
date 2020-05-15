@@ -38,6 +38,7 @@
 
     # VIM
     ~/.ideavimrc: vim/ideavimrc
+    ~/.config/nvim/init.vim: vim/init.vim
 
     # Git config files and tools
     ~/.config/git/config: git/config
