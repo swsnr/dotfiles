@@ -1,0 +1,92 @@
+" CC0, see <http://creativecommons.org/publicdomain/zero/1.0/>
+
+set hlsearch " Highlight last search results
+set incsearch " Search incrementally
+set visualbell " Don't beep please
+set showmode
+
+set surround " Surround text with quotes, parens, etc.
+
+" Quickly go to normal mode
+inoremap jk <esc>
+
+" unimpaired mappings
+nnoremap [<space> O<esc>j
+nnoremap ]<space> o<esc>k
+nnoremap [q :action PreviousOccurence<cr>
+nnoremap ]q :action NextOccurence<cr>
+nnoremap [m :action MethodUp<cr>
+nnoremap ]m :action MethodDown<cr>
+nnoremap [c :action VcsShowPrevChangeMarker<cr>
+nnoremap ]c :action VcsShowNextChangeMarker<cr>
+
+" easy window navigation
+nnoremap <c-l> <c-w>l
+nnoremap <c-j> <c-w>j
+nnoremap <c-h> <c-w>h
+nnoremap <c-k> <c-w>k
+nnoremap <a-h> gT
+nnoremap <a-l> gt
+nnoremap <c-s-tab> gT
+nnoremap <c-tab> gt
+
+" smart selection
+map + :action SmartSelect<cr>
+map - :action SmartUnSelect<cr>
+
+" Run IntelliJ actions
+nnoremap <Space><Space> :action GotoAction<CR>
+
+" Comments
+noremap <Space>c<Space> :action CommentByLineComment<CR>
+
+" Code commands
+nnoremap <Space>cc :action CompileDirty<CR>
+noremap <Space>cR :action Refactorings.QuickListPopupAction<CR>
+nnoremap <Space>cr :action RenameElement<CR>
+noremap <Space>cf :action ReformatCode<CR>
+nnoremap <Space>cp :action ParameterInfo<CR>
+nnoremap <Space>co :action OverrideMethods<CR>
+nnoremap <Space>ci :action ImplementMethods<CR>
+
+" Search
+nnoremap <Space>sc :action GotoClass<CR>
+nnoremap <Space>se :action SearchEverywhere<CR>
+nnoremap <Space>ss :action GotoSymbol<CR>
+nnoremap <Space>su :action FindUsages<CR>
+noremap <Space>sf :action FindInPath<CR>
+
+" Jumping
+nnoremap <Space>j<Space> :action AceAction<CR>
+nnoremap <Space>jd :action GotoDeclaration<CR>
+nnoremap <Space>jt :action FileStructurePopup<CR>
+nnoremap <Space>js :action Switcher<CR>
+
+" Help
+nnoremap <Space>hj :action QuickJavaDoc<CR>
+nnoremap <Space>hp :action ParameterInfo<CR>
+
+" Files
+nnoremap <Space>ff :action GotoFile<CR>
+nnoremap <Space>fr :action RecentFiles<CR>
+nnoremap <Space>fI :source ~/.ideavimrc<CR>
+
+" Git
+nnoremap <Space>gg :action CheckinProject<CR>
+nnoremap <Space>gm :action Vcs.QuickListPopupAction<CR>
+nnoremap <Space>gp :action Vcs.Push<CR>
+
+" Window actions
+nnoremap <Space>w/ :action SplitVertically<CR>
+nnoremap <Space>w- :action SplitHorizontally<CR>
+nnoremap <Space>wm :action UnsplitAll<CR>
+
+" Run commands (eXecute)
+nnoremap <Space>x<Space> :action Run<cr>
+nnoremap <Space>xr :action Run<cr>
+nnoremap <Space>xc :action RunClass<cr>
+nnoremap <Space>xm :action ChooseRunConfiguration<cr>
+nnoremap <Space>x. :action Rerun<cr>
+nnoremap <Space>xt :action RerunTests<cr>
+nnoremap <Space>xf :action RerunFailedTests<cr>
+nnoremap <Space>xs :action Activatesbt-shell-toolwindowToolWindow<cr>
