@@ -27,7 +27,7 @@ if status --is-login
 end
 
 # Environment variables
-set -x EDITOR 'code -w'
+set -x EDITOR 'nvim'
 set -x PAGER 'less'
 set -x BROWSER 'xdg-open'
 
