@@ -25,22 +25,6 @@ function vscode_theme() {
     mv "$target" "$settings"
 }
 
-function tilix_theme() {
-    local profile
-    local theme_file
-    profile="$(gsettings get com.gexperts.Tilix.ProfilesList default | sed -e "s/^'//" -e "s/'\$//")"
-
-    # Don't mess with bold colors
-    gsettings set "com.gexperts.Tilix.Profile:/com/gexperts/Tilix/profiles/$profile/" bold-is-bright false
-
-    local theme_file="/usr/share/tilix/schemes/$1.json"
-
-    gsettings set "com.gexperts.Tilix.Profile:/com/gexperts/Tilix/profiles/$profile/" use-theme-colors "$(jq '.["use-theme-colors"]' <"$theme_file")"
-    gsettings set "com.gexperts.Tilix.Profile:/com/gexperts/Tilix/profiles/$profile/" background-color "$(jq -r '.["background-color"]' <"$theme_file")"
-    gsettings set "com.gexperts.Tilix.Profile:/com/gexperts/Tilix/profiles/$profile/" foreground-color "$(jq -r '.["foreground-color"]' <"$theme_file")"
-    gsettings set "com.gexperts.Tilix.Profile:/com/gexperts/Tilix/profiles/$profile/" palette "$(jq -c '.["palette"]' <"$theme_file")"
-}
-
 function kvantum_style() {
     sed -i -E "s/^theme\\s*=.*\$/theme=$1/" ~/.config/Kvantum/kvantum.kvconfig
 }
@@ -74,7 +58,6 @@ light)
     gsettings set org.gnome.shell.extensions.user-theme name 'Yaru'
 
     vscode_theme 'Default Light+'
-    tilix_theme 'tango'
     ;;
 dark)
     gsettings set org.gnome.desktop.interface icon-theme 'Numix-Circle'
@@ -83,7 +66,6 @@ dark)
     gsettings set org.gnome.shell.extensions.user-theme name 'Yaru-dark'
 
     vscode_theme 'Default Dark+'
-    tilix_theme 'tango'
     ;;
 *)
     echo "Unsupported theme: $theme" 1>&2

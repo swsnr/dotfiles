@@ -13,6 +13,11 @@
 # the License.
 
 function fish_greeting -d 'My cow says things to you!'
+    if set -q NNNLVL
+        # Don't greet if started from nnn
+        return
+    end
+
     if not command -q cowsay
         echo 'I am silent. Install cowsay!'
         return 1

@@ -68,14 +68,6 @@ SETTINGS = {
         'remember-numlock-state': False,
         'numlock-state': True
     },
-    'com.gexperts.Tilix.Settings': {
-        # Include terminal title in window title
-        'app-title':  '${appName}: ${activeTerminalTitle}',
-        # Quit tilix when the last session closes
-        'close-with-last-session': True,
-        # Dont' warn about VTE configuration; fish already takes care of this.
-        'warn-vte-config-issue': False
-    },
     # Theme for the Gnome shell
     'org.gnome.shell.extensions.user-theme': {
         'name': 'Yaru'
@@ -83,21 +75,10 @@ SETTINGS = {
     # Commands for checking and performing Arch updates
     'org.gnome.shell.extensions.arch-update': {
         'check-cmd': "/usr/bin/sh -c 'checkupdates; aur repo -ud aur'",
-        'update-cmd': "tilix -e 'sh -c  \"aur sync -cud aur && sudo pacman -Syu; echo Done - Press enter to exit; read\" '"
+        'update-cmd': "gnome-terminal -e 'sh -c  \"aur sync -cud aur && sudo pacman -Syu; echo Done - Press enter to exit; read\" '"
     }
 }
 
-TILIX_PROFILE = {
-    'use-system-font': False,
-    'font': 'PragmataPro Mono Liga 12',
-    'terminal-bell': 'icon',
-    'default-size-columns': 120,
-    'default-size-rows': 40,
-    # Don't mess with bold colors
-    'bold-is-bright': False
-}
-
-TILIX_PROFILE_SCHEME = 'tango'
 
 KEYBINDINGS = {
     'org.gnome.desktop.wm.keybindings': {
@@ -125,9 +106,9 @@ CUSTOM_BINDINGS = {
         'command': 'random-wallpaper',
         'binding': '<Super>w',
     },
-    'tilix': {
-        'name': 'New tilix window',
-        'command': 'tilix',
+    'terminal': {
+        'name': 'New terminal window',
+        'command': 'gnome-terminal',
         'binding': '<Super>t',
     }
 }
@@ -173,29 +154,6 @@ def apply_keybindings():
             settings.set_strv(key, value)
 
 
-def apply_tilix_scheme_to_profile(profile_settings):
-    scheme_file = Path(f"/usr/share/tilix/schemes/{TILIX_PROFILE_SCHEME}.json")
-    scheme = json.loads(scheme_file.read_text())
-    for key in ['use-theme-colors', 'background-color', 'background-color', 'palette']:
-        value = scheme.get(key)
-        if value:
-            set_pytype(profile_settings, key, scheme[key])
-        else:
-            profile_settings.reset(key)
-
-
-def apply_tilix_profile():
-    tilix = Gio.Settings(schema='com.gexperts.Tilix.ProfilesList')
-    profile_id = tilix.get_string('default')
-    profile_path = f'/com/gexperts/Tilix/profiles/{profile_id}/'
-    schema = 'com.gexperts.Tilix.Profile'
-    profile = Gio.Settings.new_with_path(schema_id=schema, path=profile_path)
-    for key,  value in TILIX_PROFILE.items():
-        print(f'{schema}:{profile_path} {key} {value}')
-        set_pytype(profile, key, value)
-    apply_tilix_scheme_to_profile(profile)
-
-
 def binding_path(id):
     return f'/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/{id}/'
 
@@ -232,7 +190,6 @@ def main():
     apply_settings()
     apply_keybindings()
     apply_custom_bindings()
-    apply_tilix_profile()
     enable_extensions()
 
 
