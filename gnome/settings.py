@@ -113,6 +113,16 @@ CUSTOM_BINDINGS = {
     }
 }
 
+GNOME_TERMINAL_PROFILE = {
+    'audible-bell': False,
+    'bold-is-bright': False,
+    'default-size-columns': 120,
+    'default-size-rows': 40,
+    'font': 'PragmataPro Mono Liga 12',
+    'use-system-font': False,
+    'visible-name': 'Shell'
+}
+
 
 def set_pytype(settings, key, value):
     if isinstance(value, str):
@@ -172,6 +182,21 @@ def apply_custom_bindings():
     custom_bindings = set(media_keys.get_strv('custom-keybindings'))
     custom_bindings.update(binding_path(id) for id in CUSTOM_BINDINGS)
     media_keys.set_strv('custom-keybindings', list(custom_bindings))
+
+
+def apply_profile_settings(profile_id):
+    schema = 'org.gnome.Terminal.Legacy.Profile'
+    path = f'/org/gnome/terminal/legacy/profiles:/{profile_id}'
+    profile = Gio.Settings.new_with_path(schema_id=schema, path=path)
+    for key, value in GNOME_TERMINAL_PROFILE.items():
+        print(f'{schema}:{path} {key} {value}')
+        set_pytype(profile, key, value)
+
+
+def apply_gnome_terminal_profile():
+    profiles_list = Gio.Settings(schema='org.gnome.Terminal.ProfilesList')
+    profile_id = profiles_list.get_string('default')
+    apply_profile_settings(profile_id)
 
 
 def enable_extensions():
