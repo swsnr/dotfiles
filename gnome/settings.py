@@ -118,7 +118,7 @@ GNOME_TERMINAL_PROFILE = {
     'bold-is-bright': False,
     'default-size-columns': 120,
     'default-size-rows': 40,
-    'font': 'PragmataPro Mono Liga 12',
+    'font': 'PragmataPro Mono Liga 10',
     'use-system-font': False,
     'visible-name': 'Shell'
 }
