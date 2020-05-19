@@ -31,11 +31,6 @@ set -x EDITOR 'nvim'
 set -x PAGER 'less'
 set -x BROWSER 'xdg-open'
 
-# Additional cows for cowsay, if existing
-if [ -d ~/.cowsay ]
-    set -x COWPATH "$HOME/.cowsay:$COWPATH"
-end
-
 # If installed use nnn as pager for aur sync
 if command -q nnn
     set -x AUR_PAGER nnn

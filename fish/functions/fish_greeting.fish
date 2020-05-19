@@ -18,18 +18,13 @@ function fish_greeting -d 'My cow says things to you!'
         return
     end
 
-    if not command -q cowsay
-        echo 'I am silent. Install cowsay!'
-        return 1
-    end
     if not command -q fortune
-        cowsay -y 'I have nothing to say. Install fortune!'
-        echo
-        return 1
+        echo 'I have nothing to say. Install fortune!'
+        return
     end
 
     # -s gives me just a short story; don't want to read a novel whenever
     # I start a shell
-    cow-fortune -s
+    fortune -s
     echo
 end
