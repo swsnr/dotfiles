@@ -23,8 +23,19 @@ function fish_greeting -d 'My cow says things to you!'
         return
     end
 
-    # -s gives me just a short story; don't want to read a novel whenever
-    # I start a shell
-    fortune -s
+    # -c shows origin fortune file, -s only picks short fortunes
+    fortune -c -s \
+        art \
+        education \
+        ethnic \
+        law \
+        literature \
+        love \
+        magic \
+        pratchett \
+        science \
+        sports \
+        wisdom \
+        work
     echo
 end
