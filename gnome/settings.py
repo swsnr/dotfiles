@@ -186,7 +186,8 @@ def apply_custom_bindings():
 
 def apply_profile_settings(profile_id):
     schema = 'org.gnome.Terminal.Legacy.Profile'
-    path = f'/org/gnome/terminal/legacy/profiles:/{profile_id}'
+    path = f'/org/gnome/terminal/legacy/profiles:/:{profile_id}/'
+    from pprint import pprint; pprint(path)
     profile = Gio.Settings.new_with_path(schema_id=schema, path=path)
     for key, value in GNOME_TERMINAL_PROFILE.items():
         print(f'{schema}:{path} {key} {value}')
@@ -215,6 +216,7 @@ def main():
     apply_settings()
     apply_keybindings()
     apply_custom_bindings()
+    apply_gnome_terminal_profile()
     enable_extensions()
 
 
