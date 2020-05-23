@@ -19,9 +19,6 @@
     - "~/.sbt/1.0/plugins"
     - "~/.ssh/config.d"
 - link:
-    # Symlink entire dotfiles folder, for convenience
-    ~/.dotfiles: ""
-
     # Fish shell config files
     ~/.config/fish/config.fish: fish/config.fish
     ~/.config/fish/functions/fisher.fish: submodules/fisher/fisher.fish
