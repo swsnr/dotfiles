@@ -12,30 +12,5 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
-function fish_greeting -d 'My cow says things to you!'
-    if set -q NNNLVL
-        # Don't greet if started from nnn
-        return
-    end
-
-    if not command -q fortune
-        echo 'I have nothing to say. Install fortune!'
-        return
-    end
-
-    # -c shows origin fortune file, -s only picks short fortunes
-    fortune -c -s \
-        art \
-        education \
-        ethnic \
-        law \
-        literature \
-        love \
-        magic \
-        pratchett \
-        science \
-        sports \
-        wisdom \
-        work
-    echo
+function fish_greeting -d 'Silence'
 end
