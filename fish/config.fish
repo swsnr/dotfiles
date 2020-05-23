@@ -59,11 +59,6 @@ if status --is-interactive
 
     update-theme
 
-    # Fix my typos
-    if command -q fuck
-        thefuck --alias | source
-    end
-
     # Abbreviations (unlike aliases, these are expanded before running)
     abbr --add _ sudo
     abbr --add df df -kh
