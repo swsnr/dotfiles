@@ -20,22 +20,12 @@ if status --is-login
         ~/.local/bin \
         ~/.cargo/bin \
         $PATH
-
-    if uname -s | grep -qi linux
-        # Make Qt5 appearance configurable
-        set -x QT_QPA_PLATFORMTHEME qt5ct
-    end
 end
 
 # Environment variables
 set -x EDITOR 'nvim'
 set -x PAGER 'less'
 set -x BROWSER 'xdg-open'
-
-# If installed use nnn as pager for aur sync
-if command -q nnn
-    set -x AUR_PAGER nnn
-end
 
 # Default less options:
 #

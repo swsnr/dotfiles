@@ -15,9 +15,3 @@
 
 # Import environment from fish
 eval "$(fish -l -c dump_env_posix)"
-
-# Start SSH agent if not already running
-if [ -z "$SSH_AUTH_SOCK" ]; then
-    eval "$(/usr/bin/gnome-keyring-daemon --start --components=ssh)"
-    export SSH_AUTH_SOCK
-fi
