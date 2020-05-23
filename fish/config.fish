@@ -16,7 +16,6 @@
 if status --is-login
     # Personal binaries and Rust tools
     set -x PATH \
-        ~/bin \
         ~/.local/bin \
         ~/.cargo/bin \
         $PATH
