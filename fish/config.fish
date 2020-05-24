@@ -14,10 +14,11 @@
 
 # Paths, only for login shells
 if status --is-login
-    # Personal binaries and Rust tools
+    # Local per-user binaries, Rust tools, local gems, etc.
     set -x PATH \
         ~/.local/bin \
         ~/.cargo/bin \
+        ~/.gem/bin \
         $PATH
 end
 
