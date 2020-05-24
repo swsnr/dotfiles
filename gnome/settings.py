@@ -23,8 +23,6 @@ from gi.repository import Gio
 EXTENSIONS = {
     # User shell themes
     'user-theme@gnome-shell-extensions.gcampax.github.com',
-    # Update notifications
-    'arch-update@RaphaelRochet',
     # Basic desktop stuff
     'appindicatorsupport@rgcjonas.gmail.com',
     # NASA wallpapers
@@ -36,14 +34,6 @@ EXTENSIONS = {
 
 SETTINGS = {
     'org.gnome.desktop.interface': {
-        # Theme
-        'gtk-theme': 'Yaru',
-        'icon-theme': 'Numix-Circle-Light',
-        'cursor-theme': 'Numix-Cursor-Light',
-        # Fonts
-        'font-name': 'Ubuntu 11',
-        'document-font-name': 'Ubuntu 11',
-        'monospace-font-name': 'Ubuntu Mono 10',
         # Disable hot corner for mouse
         'enable-hot-corners': False,
         # Show date and weekday in clock
@@ -68,15 +58,6 @@ SETTINGS = {
         'remember-numlock-state': False,
         'numlock-state': True
     },
-    # Theme for the Gnome shell
-    'org.gnome.shell.extensions.user-theme': {
-        'name': 'Yaru'
-    },
-    # Commands for checking and performing Arch updates
-    'org.gnome.shell.extensions.arch-update': {
-        'check-cmd': "/usr/bin/sh -c 'checkupdates; aur repo -ud aur'",
-        'update-cmd': "gnome-terminal -e 'sh -c  \"aur sync -cud aur && sudo pacman -Syu; echo Done - Press enter to exit; read\" '"
-    }
 }
 
 
@@ -96,16 +77,6 @@ KEYBINDINGS = {
 }
 
 CUSTOM_BINDINGS = {
-    'ui-theme': {
-        'name': 'Toggle UI Theme',
-        'command': 'ui-theme toggle',
-        'binding': '<Super>q',
-    },
-    'random-wallpaper': {
-        'name': 'Set random wallpaper',
-        'command': 'random-wallpaper',
-        'binding': '<Super>w',
-    },
     'terminal': {
         'name': 'New terminal window',
         'command': 'gnome-terminal',
