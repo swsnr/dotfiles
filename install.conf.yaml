@@ -27,6 +27,11 @@
       path: fish/functions/*.fish
       glob: true
 
+    # Binaries
+    ~/.local/bin:
+      path: bin/*
+      glob: true
+
     # VIM
     ~/.ideavimrc: vim/ideavimrc
     ~/.config/nvim/init.vim: vim/init.vim
