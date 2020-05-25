@@ -1,8 +1,9 @@
 // Circe for JSON mangling
-import $ivy.`io.circe::circe-generic:0.12.3`
-import $ivy.`io.circe::circe-parser:0.12.3`
+import $ivy.`io.circe::circe-generic:0.13.0`
+import $ivy.`io.circe::circe-parser:0.13.0`
 // STTP for the quick HTTP request
-import $ivy.`com.softwaremill.sttp.client::core:2.0.0-RC4`
+import $ivy.`com.softwaremill.sttp.client::core:2.1.1`
+import $ivy.`com.softwaremill.sttp.client::circe:2.1.1`
 
 // Load ammonite-shell for this ammonite version
 interp.load.ivy(
