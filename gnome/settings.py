@@ -73,16 +73,13 @@ KEYBINDINGS = {
         'toggle-fullscreen': ['<Super>Return'],
         # Keep on top above all other windows
         'always-on-top': ['<Shift><Super>t'],
+    },
+    'org.gnome.settings-daemon.plugins.media-keys': {
+        'terminal': ['<Super>t']
     }
 }
 
-CUSTOM_BINDINGS = {
-    'terminal': {
-        'name': 'New terminal window',
-        'command': 'gnome-terminal',
-        'binding': '<Super>t',
-    }
-}
+CUSTOM_BINDINGS = {}
 
 GNOME_TERMINAL_PROFILE = {
     'audible-bell': False,
