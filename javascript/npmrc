@@ -1,2 +1,0 @@
-; Install global NPM packages to ~/.local
-prefix=${HOME}/.local
