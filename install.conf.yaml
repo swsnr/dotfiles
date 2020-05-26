@@ -54,8 +54,10 @@
     # Misc languages
     ~/.npmrc: javascript/npmrc
 
+    # Latex
+    ~/.config/latexmk/latexmkrc: latex/latexmkrc
+
     # Misc unix tools
-    ~/.config/latexmk/latexmkrc: misc/latexmkrc
     ~/.config/bat/config: misc/bat
     # SSH
     ~/.ssh/config: ssh/config
