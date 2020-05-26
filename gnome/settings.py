@@ -36,8 +36,9 @@ SETTINGS = {
         # Show date and weekday in clock
         'clock-show-date': True,
         'clock-show-weekday': True,
-        # Press left control to locate the cursoer
-        'locate-pointer': True,
+        # Disable Ctrl shortcut for locating the cursor; conflicts with
+        # IntelliJs Ctrl shortcut to add multiple cursors
+        'locate-pointer': False,
     },
     'org.gnome.mutter': {
         # Extend workspace across all screens
