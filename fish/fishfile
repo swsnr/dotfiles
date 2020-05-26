@@ -1,3 +1,5 @@
 # Fish packages
 # Pure fish directory jumping
 jethrokuan/z
+# sdkman integration for fish
+reitzig/sdkman-for-fish
