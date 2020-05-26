@@ -21,14 +21,11 @@ from gi.repository import Gio
 
 
 EXTENSIONS = {
-    # User shell themes
-    'user-theme@gnome-shell-extensions.gcampax.github.com',
-    # Basic desktop stuff
-    'appindicatorsupport@rgcjonas.gmail.com',
     # NASA wallpapers
     'nasa_apod@elinvention.ovh',
     # Search providers I use often
     'vscode-search-provider@jomik.org',
+    'jetbrains-search-provider@swsnr.de',
 }
 
 
