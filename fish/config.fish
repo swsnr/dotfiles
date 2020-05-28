@@ -22,8 +22,9 @@ if status --is-login
         $PATH
 end
 
-# Environment variables
-set -x EDITOR 'nvim'
+# Environment variables.  Use absolute path to nvim because it's likely in a
+# non-standard location where sudoedit won't pick it up if it's just the name.
+set -x EDITOR (type -p nvim)
 set -x PAGER 'less'
 set -x BROWSER 'xdg-open'
 
