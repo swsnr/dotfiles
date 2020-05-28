@@ -12,6 +12,6 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
-function youtube-dl-ps3 -d 'Download Youtube videos for PS4'
+function youtube-dl-ps4 -d 'Download Youtube videos for PS4'
     youtube-dl -f 'bestvideo[ext=mp4][vcodec!^=av01.]+bestaudio[ext=m4a]/best[ext=mp4]' $argv
 end
