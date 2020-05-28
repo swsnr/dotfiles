@@ -19,6 +19,9 @@
     - "~/.sbt/1.0/plugins"
     - "~/.ssh/config.d"
 - link:
+    # Misc shell config files
+    ~/.profile: shell/profile
+ 
     # Fish shell config files
     ~/.config/fish/config.fish: fish/config.fish
     ~/.config/fish/functions/fisher.fish: submodules/fisher/fisher.fish
@@ -78,10 +81,5 @@
       glob: true
       if: "uname -s | grep -qi linux"
 
-    # X11 environment
-    ~/.xprofile:
-      path: linux/xprofile.sh
-      if: "uname -s | grep -qi linux"
-
-      # ZIM style configuration
+    # ZIM style configuration
     ~/.config/zim/style.conf: misc/zim-style.conf
