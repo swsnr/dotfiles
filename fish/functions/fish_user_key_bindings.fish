@@ -21,7 +21,7 @@ function fish_user_key_bindings
         bind -M insert -m default jk force-repaint
 
         # Prepend sudo to the command line with leader s
-        bind -M default ' s' sudo-commandline
+        bind -M default ' s' __fish_prepend_sudo
 
         # Execute current autosuggestion with space space
         bind -M default '  ' accept-autosuggestion execute
@@ -30,8 +30,5 @@ function fish_user_key_bindings
         bind \cH backward-kill-word
         bind \cV beginning-of-line
         bind \f end-of-line
-
-        # Prepend sudo to the command line with Alt+s
-        bind -M default \es sudo-commandline
     end
 end
