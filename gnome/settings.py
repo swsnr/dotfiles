@@ -56,6 +56,10 @@ SETTINGS = {
         'remember-numlock-state': False,
         'numlock-state': True
     },
+    'org.gnome.desktop.calendar': {
+        # Show week numbers in calendar
+        'show-weekdate': True
+    }
 }
 
 
