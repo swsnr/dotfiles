@@ -12,6 +12,16 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
+# Paths, only for login shells
+if status --is-login
+    # Local per-user binaries, Rust tools, local gems, etc.
+    set -x PATH \
+        ~/.local/bin \
+        ~/.cargo/bin \
+        ~/.gem/bin \
+        $PATH
+end
+
 # Environment variables.  Use absolute path to nvim because it's likely in a
 # non-standard location where sudoedit won't pick it up if it's just the name.
 set -x EDITOR (type -p nvim)

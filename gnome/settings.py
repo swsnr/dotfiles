@@ -90,9 +90,7 @@ GNOME_TERMINAL_PROFILE = {
     'default-size-rows': 40,
     'font': 'PragmataPro Mono Liga 11',
     'use-system-font': False,
-    'visible-name': 'Fish',
-    'use-custom-command': True,
-    'custom-command': '/usr/bin/fish'
+    'visible-name': 'Shell'
 }
 
 
