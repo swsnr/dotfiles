@@ -77,5 +77,7 @@ if status --is-interactive
     abbr --add jcu journalctl --user
     abbr --add dc docker-compose
 
+    abbr --add rw rename-window
+
     abbr --add wttr curl wttr.in
 end
