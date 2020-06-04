@@ -42,7 +42,7 @@ SETTINGS = {
     },
     'org.gnome.mutter': {
         # Extend workspace across all screens
-        'workspaces-only-on-primary': False,
+        'workspaces-only-on-primary': True,
     },
     'org.gnome.shell.app-switcher': {
         # Limit app and window switcher to current workspace
