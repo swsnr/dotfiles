@@ -85,3 +85,8 @@
 
       # ZIM style configuration
     ~/.config/zim/style.conf: misc/zim-style.conf
+
+- shell:
+    - command: ./gnome/settings.py
+      stdout: true
+      stderr: true
