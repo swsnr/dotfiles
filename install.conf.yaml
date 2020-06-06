@@ -131,8 +131,3 @@
     font: 'PragmataPro Mono Liga 11'
     use-system-font: false
     visible-name: 'Shell'
-
-- shell:
-    - command: ./gnome/settings.py
-      stdout: true
-      stderr: true
