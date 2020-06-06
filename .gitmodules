@@ -4,3 +4,6 @@
 [submodule "submodules/fisher"]
 	path = submodules/fisher
 	url = https://github.com/jorgebucaran/fisher.git
+[submodule "submodules/dotbot-gsettings"]
+	path = submodules/dotbot-gsettings
+	url = ../dotbot-gsettings.git

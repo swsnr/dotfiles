@@ -86,6 +86,52 @@
       # ZIM style configuration
     ~/.config/zim/style.conf: misc/zim-style.conf
 
+- gsettings:
+    org.gnome.desktop.interface:
+      # Disable hot corner
+      enable-hot-corners: false
+      # Show date and weekday in clock
+      clock-show-date: true
+      clock-show-weekday: true
+      # Disable Ctrl shortcut for locating the cursor; conflicts with
+      # IntelliJs Ctrl shortcut to add multiple cursors
+      locate-pointer: false
+    org.gnome.mutter:
+      workspaces-only-on-primary: true
+    org.gnome.shell.app-switcher:
+      # Limit app and window switcher to current workspace
+      current-workspace-only: true
+    org.gnome.system.location:
+      # Enable location service
+      enabled: true
+    org.gnome.desktop.peripherals.keyboard:
+      remember-numlock-state: false
+      numlock-state: true
+    org.gnome.desktop.calendar:
+      # Show week numbers in calendar
+      show-weekdate: true
+    org.gnome.desktop.wm.keybindings:
+      close: [<Alt>F4, <Super>F4]
+      # Replace app switching with window switching
+      switch-applications: []
+      switch-applications-backward: []
+      switch-windows: ['<Super>Tab', '<Alt>Tab']
+      switch-windows-backward: ['<Shift><Super>Tab', '<Shift><Alt>Tab']
+      # Toggle fullscreen mode for apps
+      toggle-fullscreen: ['<Super>Return']
+      # Keep on top above all other windows
+      always-on-top: ['<Shift><Super>t']
+    org.gnome.settings-daemon.plugins.media-keys:
+      terminal: ['<Super>t']
+- gnome_terminal_profile:
+    audible-bell: false
+    bold-is-bright: false
+    default-size-columns: 120
+    default-size-rows: 40
+    font: 'PragmataPro Mono Liga 11'
+    use-system-font: false
+    visible-name: 'Shell'
+
 - shell:
     - command: ./gnome/settings.py
       stdout: true
