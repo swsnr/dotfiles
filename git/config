@@ -15,7 +15,7 @@
 [commit]
 	verbose = true
 [tag]
-	sort = version:refname
+	sort = -version:refname
 # Rebasing and merging
 [rebase]
 	# Automatically squash with certain commit message prefixes
