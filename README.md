@@ -19,6 +19,8 @@ A [dotbot] plugin to set Gnome settings.
 
 `gnome_terminal_profile` changes settings of the default Gnome Terminal profile.
 
+[dotbot]: https://github.com/anishathalye/dotbot
+
 ## License
 
 This Source Code Form is subject to the terms of the Mozilla Public License, v.
