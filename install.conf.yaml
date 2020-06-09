@@ -73,8 +73,7 @@
 
     # Gnome
     ~/.local/share/gnome-shell/extensions/home@swsnr.de:
-      path: gnome/extensions/home@swsnr.de/*
-      glob: true
+      path: gnome/extensions/home@swsnr.de
       if: "uname -s | grep -qi linux"
 
     # X11 environment
