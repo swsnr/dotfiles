@@ -13,12 +13,30 @@
 # the License.
 
 function update-theme -d 'Read the current terminal background and update our environment'
-    # Detect terminal background color and adapt color themes accordingly.
-    set -gx LY_TERM_BACKGROUND (terminal-background)
 
-    if [ -z $LY_TERM_BACKGROUND ]
-        set -gx LY_TERM_BACKGROUND 'unknown'
+    set -l mode $argv[1]
+    if [ -z $mode ]
+        set mode auto
     end
+
+    set -l background
+    switch $mode
+        case light
+            set background light
+        case dark
+            set background dark
+        case auto
+            set background (terminal-background)
+            if [ -z $background ]
+                set background unknown
+            end
+        case '*'
+            echo "Unknown background mode: $mode"
+            return 1
+    end
+
+    # Detect terminal background color and adapt color themes accordingly.
+    set -gx LY_TERM_BACKGROUND $background
 
     # Adapt shell environment to background color
     if string match -q light $LY_TERM_BACKGROUND
