@@ -72,3 +72,59 @@ class GSettings(Plugin):
             self._log.error('Some settings not applied!')
 
         return all_keys_applied
+
+
+class GnomeCustomBindings(Plugin):
+
+    _directive = 'gnome_bindings'
+    _schema_id = 'org.gnome.settings-daemon.plugins.media-keys.custom-keybinding'
+
+    def _path(self, id):
+        return f'/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/{id}/'
+
+    def can_handle(self, directive):
+        return directive == self._directive
+
+    def handle(self, directive, data):
+        if directive != self._directive:
+            raise ValueError(directive)
+
+        try:
+            from gi.repository import Gio
+        except ImportError:
+            self.log._error('Gio module not available')
+            return False
+
+        new_bindings = []
+        removed_bindings = []
+        for id, attrs in data.items():
+            binding = attrs['binding']
+            path = self._path(id)
+            settings = Gio.Settings.new_with_path(
+                self._schema_id, path=path)
+            if not binding:
+                settings_schema = settings.get_property('settings-schema')
+                for key in settings_schema.list_keys():
+                    settings.reset(key)
+                self._log.lowinfo(f'Unbind {id}')
+                removed_bindings.append(path)
+            else:
+                name = attrs['name']
+                command = attrs['command']
+                settings.set_string('name', name)
+                settings.set_string('command', command)
+                settings.set_string('binding', binding)
+                self._log.lowinfo(f'{id} {binding}: {name} ({command})')
+                new_bindings.append(path)
+
+        media_keys = Gio.Settings(
+            schema='org.gnome.settings-daemon.plugins.media-keys')
+        custom_bindings = media_keys.get_strv('custom-keybindings')
+        for path in new_bindings:
+            if path not in custom_bindings:
+                custom_bindings.append(path)
+        for path in removed_bindings:
+            custom_bindings.remove(path)
+        media_keys.set_strv('custom-keybindings', custom_bindings)
+
+        return True
