@@ -19,7 +19,6 @@ if status --is-login
         ~/.local/bin \
         ~/.cargo/bin \
         ~/.gem/bin \
-        /snap/bin \
         $PATH
 end
 
