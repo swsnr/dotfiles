@@ -129,3 +129,21 @@
     font: 'PragmataPro Mono Liga 11'
     use-system-font: false
     visible-name: 'Shell'
+
+- homebins:
+    update: true
+    add:
+      - bat
+      - exa
+      - fd
+      - git-gone
+      - hub
+      - jq
+      - mdcat
+      - nnn
+      - pandoc
+      - ripgrep
+      - shellcheck
+      - shfmt
+      - vivid
+      - youtube-dl

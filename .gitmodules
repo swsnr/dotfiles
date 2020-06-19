@@ -7,3 +7,6 @@
 [submodule "submodules/dotbot-gsettings"]
 	path = submodules/dotbot-gsettings
 	url = ../dotbot-gsettings.git
+[submodule "submodules/dotbot-homebins"]
+	path = submodules/dotbot-homebins
+	url = ../dotbot-homebins.git

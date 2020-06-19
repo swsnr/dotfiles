@@ -14,4 +14,5 @@ git submodule update --init --recursive "${DOTBOT_DIR}"
 
 "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" \
     -p ./submodules/dotbot-gsettings/gsettings.py \
+    -p ./submodules/dotbot-homebins/homebins.py \
     -c "${CONFIG}" "${@}"
