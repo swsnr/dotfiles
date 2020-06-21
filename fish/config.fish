@@ -53,11 +53,10 @@ if status --is-interactive
     # of the entire desktop, since GDM starts the session through a login shell
     set -x LC_MESSAGES 'en_GB.utf8'
 
-    # Setup virtualenv helper for Python
-    if command -q 'python3'
-        python3 -m virtualfish 2>/dev/null | source
-    end
+    # python -m venv shouldn't change my prompt.
+    set -x VIRTUAL_ENV_DISABLE_PROMPT 1
 
+    # Update colours (ls, bat, etc.)
     update-theme
 
     # Abbreviations (unlike aliases, these are expanded before running)
