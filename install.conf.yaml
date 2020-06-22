@@ -133,6 +133,7 @@
 - homebins:
     update: true
     add:
+      - bandwhich
       - bat
       - exa
       - fd
