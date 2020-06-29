@@ -15,11 +15,10 @@
 # Paths, only for login shells
 if status --is-login
     # Local per-user binaries, Rust tools, local gems, etc.
-    set -x PATH \
+    set -p PATH \
         ~/.local/bin \
         ~/.cargo/bin \
-        ~/.gem/bin \
-        $PATH
+        ~/.gem/bin
 end
 
 # Environment variables.  Use absolute path to nvim because it's likely in a
