@@ -1,0 +1,71 @@
+#!/usr/bin/env python3
+# Copyright 2020 Sebastian Wiesner <sebastian@swsnr.de>
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may not
+# use this file except in compliance with the License. You may obtain a copy of
+# the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations under
+# the License.
+
+"""
+Open today's journal page in ZIM
+"""
+
+import os
+from pathlib import Path
+from datetime import date
+from configparser import ConfigParser
+from subprocess import run, DEVNULL
+from locale import LC_MESSAGES
+from gi.repository import Gio, GLib
+from subprocess import run
+
+
+def get_zim_notebook_name():
+    config_home = Path(os.environ.get(
+        'XDG_CONFIG_HOME', Path.home() / '.config'))
+    notebooks_list = config_home / 'zim' / 'notebooks.list'
+    config = ConfigParser(interpolation=None)
+    config.read(notebooks_list)
+    return config['Notebook 1']['name']
+
+
+def get_session_locale(category):
+    """
+    Get the Gnome Session locale.
+    """
+    bus = Gio.bus_get_sync(Gio.BusType.SESSION, None)
+    # We need no properties and no signals here so speed up
+    flags = Gio.DBusProxyFlags.DO_NOT_CONNECT_SIGNALS | Gio.DBusProxyFlags.DO_NOT_LOAD_PROPERTIES
+    session = Gio.DBusProxy.new_sync(bus, flags, None,
+                                     'org.gnome.SessionManager',
+                                     '/org/gnome/SessionManager',
+                                     'org.gnome.SessionManager')
+    args = GLib.Variant.new_tuple(GLib.Variant.new_int32(category))
+    response = session.call_sync('GetLocale', args,
+                                 Gio.DBusCallFlags.NO_AUTO_START, 100, None)
+    return response.get_child_value(0).get_string()
+
+
+def main():
+    env = dict(os.environ)
+    # Explicitly enforce the session message locale to work around ZIM issue
+    # https://github.com/zim-desktop-wiki/zim-desktop-wiki/issues/1152
+    env['LC_MESSAGES'] = get_session_locale(LC_MESSAGES)
+    # Ensure ZIM is launched
+    run(['gtk-launch', 'zim'], env=env,
+        check=True, stdout=DEVNULL, stderr=DEVNULL)
+    # Then open todays journal page
+    today = date.today().strftime('%Y:%m:%d')
+    run(['zim', get_zim_notebook_name(), f'Journal:{today}'],
+        env=env, check=True, stdout=DEVNULL, stderr=DEVNULL)
+
+
+if __name__ == "__main__":
+    main()
