@@ -58,10 +58,7 @@ def main():
     # Explicitly enforce the session message locale to work around ZIM issue
     # https://github.com/zim-desktop-wiki/zim-desktop-wiki/issues/1152
     env['LC_MESSAGES'] = get_session_locale(LC_MESSAGES)
-    # Ensure ZIM is launched
-    run(['gtk-launch', 'zim'], env=env,
-        check=True, stdout=DEVNULL, stderr=DEVNULL)
-    # Then open todays journal page
+    # Open todays journal page
     today = date.today().strftime('%Y:%m:%d')
     run(['zim', get_zim_notebook_name(), f'Journal:{today}'],
         env=env, check=True, stdout=DEVNULL, stderr=DEVNULL)
