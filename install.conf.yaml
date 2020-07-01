@@ -144,6 +144,7 @@
     add:
       - bandwhich
       - bat
+      - delta
       - exa
       - fd
       - git-gone

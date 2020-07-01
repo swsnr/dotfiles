@@ -4,6 +4,8 @@
 	useconfigonly = true
 [core]
 	preloadIndex = true
+	# Use a colorful pager for logs, etc.
+	pager = delta
 [branch]
 	autoSetupRebase = always
 	sort = -authordate
@@ -11,6 +13,9 @@
 	# Short git status output, but include branch info
 	short = true
 	branch = true
+[interactive]
+	# Use a colorful pager for diffs
+	diffFilter = delta --color-only
 # Commit and tag settings
 [commit]
 	verbose = true
