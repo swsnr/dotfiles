@@ -13,13 +13,10 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
-"""
-Open today's journal page in ZIM
-"""
 
 import os
 from pathlib import Path
-from datetime import date
+from datetime import date, timedelta
 from configparser import ConfigParser
 from subprocess import run, DEVNULL
 from locale import LC_MESSAGES
@@ -54,13 +51,23 @@ def get_session_locale(category):
 
 
 def main():
+    from argparse import ArgumentParser
+
+    parser = ArgumentParser()
+    parser.add_argument('date', choices=['today', 'tomorrow'], nargs=1)
+    args = parser.parse_args()
+
+    page = {
+        'today': date.today(),
+        'tomorrow': date.today() + timedelta(days=1)
+    }[args.date[0]].strftime('%Y:%m:%d')
+
     env = dict(os.environ)
     # Explicitly enforce the session message locale to work around ZIM issue
     # https://github.com/zim-desktop-wiki/zim-desktop-wiki/issues/1152
     env['LC_MESSAGES'] = get_session_locale(LC_MESSAGES)
     # Open todays journal page
-    today = date.today().strftime('%Y:%m:%d')
-    run(['zim', get_zim_notebook_name(), f'Journal:{today}'],
+    run(['zim', get_zim_notebook_name(), f'Journal:{page}'],
         env=env, check=True, stdout=DEVNULL, stderr=DEVNULL)
 
 

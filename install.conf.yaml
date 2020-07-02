@@ -132,8 +132,12 @@
 - gnome_bindings:
     zimtoday:
       name: Open ZIM Journal page for today
-      command: zim-today
+      command: zim-journal today
       binding: <Super>j
+    zimtomorrow:
+      name: Open ZIM Journal page for tomorrow
+      command: zim-journal tomorrow
+      binding: <Super><Shift>j
     dlr-vpn:
       name: Toggle DLR VPN
       command: dlr-vpn toggle
