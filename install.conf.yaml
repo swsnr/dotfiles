@@ -34,6 +34,8 @@
     # VIM
     ~/.ideavimrc: vim/ideavimrc
     ~/.config/nvim/init.vim: vim/init.vim
+    # VIM plugins
+    ~/.local/share/nvim/site/pack/dotfiles/start/vim-toml: submodules/nvim/vim-toml
 
     # Git config files and tools
     ~/.config/git/config: git/config
