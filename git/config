@@ -4,8 +4,6 @@
 	useconfigonly = true
 [core]
 	preloadIndex = true
-	# Use a colorful pager for logs, etc.
-	pager = delta
 [branch]
 	autoSetupRebase = always
 	sort = -authordate

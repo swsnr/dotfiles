@@ -58,6 +58,12 @@ if status --is-interactive
     # Update colours (ls, bat, etc.)
     update-theme
 
+    if command -q delta
+        # If present use delta from https://github.com/dandavison/delta as pager
+        # for git, since it colours diffs so nicely
+        set -x GIT_PAGER delta
+    end
+
     # Abbreviations (unlike aliases, these are expanded before running)
     abbr --add _ sudo
     abbr --add df df -kh
