@@ -16,8 +16,14 @@
 if status --is-login
     # Local per-user binaries, Rust tools, local gems, etc.
     set -p PATH \
+        # My local binaries, from dotfiles and homebins
         ~/.local/bin \
+        # Rustup tooling
         ~/.cargo/bin \
+        # Ruby versions
+        ~/.rbenv/bin \
+        # Gems
+        ~/.gem/ruby/*/bin \
         ~/.gem/bin
 end
 
@@ -57,6 +63,11 @@ if status --is-interactive
 
     # Update colours (ls, bat, etc.)
     update-theme
+
+    if command -q rbenv
+        # Initialize rbenv for ruby
+        rbenv init - | source
+    end
 
     if command -q delta
         # If present use delta from https://github.com/dandavison/delta as pager
