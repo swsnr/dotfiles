@@ -131,19 +131,6 @@
     font: 'PragmataPro Mono Liga 11'
     use-system-font: false
     visible-name: 'Shell'
-- gnome_bindings:
-    zimtoday:
-      name: Open ZIM Journal page for today
-      command: zim-journal today
-      binding: <Super>j
-    zimtomorrow:
-      name: Open ZIM Journal page for tomorrow
-      command: zim-journal tomorrow
-      binding: <Super><Shift>j
-    dlr-vpn:
-      name: Toggle DLR VPN
-      command: dlr-vpn toggle
-      binding: <Super>slash
 
 - homebins:
     update: true
