@@ -12,11 +12,6 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
-# Personal prompt of Sebastian Wiesner <sebastian@swsnr.de>
-#
-# Features iTerm integration, command exit status, sudo and SSH support, working
-# directory, virtualenv, battery information and git status.
-
 function fish_prompt -d 'My personal prompt'
     set -l last_exit_code $status
 
