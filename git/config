@@ -14,6 +14,10 @@
 [interactive]
 	# Use a colorful pager for diffs
 	diffFilter = delta --color-only
+# Checkout
+[checkout]
+	# Always checkout remote branches from origin even if the remote branch exists in multiple remotes
+	defaultRemote = origin
 # Commit and tag settings
 [commit]
 	verbose = true
