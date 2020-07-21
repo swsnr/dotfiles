@@ -68,11 +68,6 @@
       path: linux/reset-thunderbolt.bash
       if: "uname -s | grep -qi linux"
 
-    # Linux configuration (Arch)
-    ~/.config/pacman/makepkg.conf:
-      path: arch/makepkg.conf
-      if: "test -f /etc/pacman.conf"
-
     # Gnome
     ~/.local/share/gnome-shell/extensions/home@swsnr.de:
       path: gnome/extensions/home@swsnr.de
