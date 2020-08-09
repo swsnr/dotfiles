@@ -141,6 +141,7 @@
       - jq
       - mdcat
       - nnn
+      - oxipng
       - pandoc
       - ripgrep
       - shellcheck
