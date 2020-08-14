@@ -96,6 +96,4 @@ if status --is-interactive
     abbr --add rw rename-window
 
     abbr --add wttr curl wttr.in
-
-    abbr --add amm amm --no-remote-logging
 end
