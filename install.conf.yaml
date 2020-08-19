@@ -92,7 +92,8 @@
       # IntelliJs Ctrl shortcut to add multiple cursors
       locate-pointer: false
     org.gnome.mutter:
-      workspaces-only-on-primary: true
+      # Extend workspaces to all displays
+      workspaces-only-on-primary: false
     org.gnome.shell.app-switcher:
       # Limit app and window switcher to current workspace
       current-workspace-only: true
