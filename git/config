@@ -140,3 +140,8 @@
 	path = config.windows
 	# Local settings for this system
 	path = config.local
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
