@@ -122,6 +122,8 @@
     org.gnome.shell.extensions.dash-to-dock:
       # Only show apps from the current workspace in dock
       isolate-workspaces: true
+      # Auto-hide dock (I don't use it a lot anyway)
+      dock-fixed: false
 - gnome_terminal_profile:
     audible-bell: false
     bold-is-bright: false
