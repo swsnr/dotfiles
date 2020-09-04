@@ -47,6 +47,16 @@ set -x BROWSER 'xdg-open'
 # -K: Exit on interrupt
 # -F: Exit immediately if content fits on screen
 set -x LESS '-q -g -i -M -R -S -w -z-4 -X -K -F'
+# Colorize less, see
+# <https://wiki.archlinux.org/index.php/Color_output_in_console#Using_less> and
+# <https://unix.stackexchange.com/a/108840/38243>
+set -x LESS_TERMCAP_mb (set_color -i magenta) # Begin blink
+set -x LESS_TERMCAP_md (set_color -o blue) # Begin bold
+set -x LESS_TERMCAP_me (set_color normal) # Reset bold/blink
+set -x LESS_TERMCAP_so (set_color -r yellow) # Start reverse video
+set -x LESS_TERMCAP_se (set_color normal) # Reset reverse video
+set -x LESS_TERMCAP_us (set_color -u green) # Start underline
+set -x LESS_TERMCAP_ue (set_color normal) # End reverse video
 
 # Extra things for interactive shells
 if status --is-interactive
