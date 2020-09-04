@@ -69,6 +69,11 @@ function fish_prompt -d 'My personal prompt'
 
     echo -sn (fish_default_mode_prompt)
 
+    # Private mode
+    if set -q fish_private_mode
+        echo -sn (set_color -o red) "⦸" (set_color normal) ' '
+    end
+
     # Indicate exit code of last command
     if test $last_exit_code -eq 0
         echo -sn (set_color -o green)
