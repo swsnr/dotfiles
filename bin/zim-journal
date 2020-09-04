@@ -44,10 +44,7 @@ def get_session_locale(category):
                                      'org.gnome.SessionManager',
                                      '/org/gnome/SessionManager',
                                      'org.gnome.SessionManager')
-    args = GLib.Variant.new_tuple(GLib.Variant.new_int32(category))
-    response = session.call_sync('GetLocale', args,
-                                 Gio.DBusCallFlags.NO_AUTO_START, 100, None)
-    return response.get_child_value(0).get_string()
+    return session.GetLocale('(i)', category)
 
 
 def main():
