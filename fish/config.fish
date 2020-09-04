@@ -86,22 +86,26 @@ if status --is-interactive
     end
 
     # Abbreviations (unlike aliases, these are expanded before running)
+    # Fast one or two letter abbrevs
     abbr --global --add _ sudo
-    abbr --global --add df df -kh
-    abbr --global --add du du -kh
+    abbr --global --add dc docker-compose
     abbr --global --add e eval '$EDITOR'
-    abbr --global --add o open
     abbr --global --add g git
-    abbr --global --add mdc mdcat
-    abbr --global --add mdl mdcat -p
-
-    abbr --global --add sc systemctl
-    abbr --global --add scu systemctl --user
     abbr --global --add jc journalctl
     abbr --global --add jcu journalctl --user
-    abbr --global --add dc docker-compose
-
+    abbr --global --add o open
     abbr --global --add rw rename-window
+    abbr --global --add s sbt
+    abbr --global --add sc systemctl
+    abbr --global --add scu systemctl --user
+    abbr --global --add y yarn
 
+    # Default args for some commands
+    abbr --global --add df df -kh
+    abbr --global --add du du -kh
+
+    # And some shortcuts
+    abbr --global --add mdc mdcat
+    abbr --global --add mdl mdcat -p
     abbr --global --add wttr curl wttr.in
 end
