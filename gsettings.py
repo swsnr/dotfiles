@@ -50,21 +50,30 @@ class GSettings(Plugin):
             self.log._error('Gio module not available')
             return False
 
+        source = Gio.SettingsSchemaSource.get_default()
+
         all_keys_applied = True
 
         if directive == 'gnome_terminal_profile':
-            profiles_list = Gio.Settings(
-                schema='org.gnome.Terminal.ProfilesList')
-            profile_id = profiles_list.get_string('default')
-            schema = 'org.gnome.Terminal.Legacy.Profile'
-            path = f'/org/gnome/terminal/legacy/profiles:/:{profile_id}/'
-            if not self._apply_settings(Gio.Settings.new_with_path(
-                    schema_id=schema, path=path), data):
-                all_keys_applied = False
+            if source.lookup('org.gnome.Terminal.ProfilesList', False):
+                profiles_list = Gio.Settings(
+                    schema='org.gnome.Terminal.ProfilesList')
+                profile_id = profiles_list.get_string('default')
+                schema = 'org.gnome.Terminal.Legacy.Profile'
+                path = f'/org/gnome/terminal/legacy/profiles:/:{profile_id}/'
+                if not self._apply_settings(Gio.Settings.new_with_path(
+                        schema_id=schema, path=path), data):
+                    all_keys_applied = False
+            else:
+                self._log.info('Gnome Terminal not installed; skipping')
         else:
             for schema, items in data.items():
-                if not self._apply_settings(Gio.Settings(schema=schema), items):
-                    all_keys_applied = False
+                if source.lookup(schema, False):
+                    if not self._apply_settings(Gio.Settings(schema=schema), items):
+                        all_keys_applied = False
+                else:
+                    self._log.info(
+                        'Skipping schema {}, does not exist'.format(schema))
 
         if all_keys_applied:
             self._log.info('All settings applied successfully')
