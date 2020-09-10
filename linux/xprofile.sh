@@ -24,7 +24,7 @@ if [[ "${XDG_CURRENT_DESKTOP}" == i3* ]]; then
     fi
 
     # Restore screen layout
-    autorandr --change --default horizontal
+    autorandr --change --default horizontal &> /dev/null
 fi
 
 # Make Qt5 apps use qt5ct
