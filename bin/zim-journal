@@ -62,7 +62,10 @@ def main():
     env = dict(os.environ)
     # Explicitly enforce the session message locale to work around ZIM issue
     # https://github.com/zim-desktop-wiki/zim-desktop-wiki/issues/1152
-    env['LC_MESSAGES'] = get_session_locale(LC_MESSAGES)
+    try:
+        env['LC_MESSAGES'] = get_session_locale(LC_MESSAGES)
+    except GLib.Error:
+        env['LC_MESSAGES'] = 'de_DE.utf8'
     # Open todays journal page
     run(['zim', get_zim_notebook_name(), f'Journal:{page}'],
         env=env, check=True, stdout=DEVNULL, stderr=DEVNULL)

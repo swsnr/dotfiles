@@ -1,3 +1,4 @@
+#!/bin/bash
 # Copyright 2019 Sebastian Wiesner <sebastian@swsnr.de>
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -12,20 +13,22 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
-function dump_env_posix -d 'Dump important environment variables for POSIX sh'
-    set -l variables \
-        EDITOR \
-        BROWSER \
-        PAGER \
-        PATH \
-        http_proxy https_proxy no_proxy \
-        HTTP_PROXY HTTPS_PROXY NO_PROXY \
-        JAVA_OPTS
+set -e
 
-    for variable in $variables
-        if set -q $variable
-            echo "$variable='$$variable'"
-            echo "export $variable"
-        end
-    end
+# Open webbrowser with today's APOD image
+if [[ $BLOCK_BUTTON -eq 1 ]]; then
+    xdg-open "https://apod.nasa.gov/apod/ap$(date '+%y%m%d').html" &>/dev/null &
+fi
+
+config_home="${XDG_CONFIG_HOME:-$HOME/.config}"
+api_key="$(< "${config_home}/apod/apikey")"
+url="https://api.nasa.gov/planetary/apod?api_key=${api_key}"
+exec curl -sS "${url}" | jq -r '
+if .code then
+  "\(.msg)\n", null | halt_error(1)
+elif .error.code then
+  "\(.error.message)\n", null | halt_error(1)
+else
+  "🌌 APOD \(now | strftime("%Y-%m-%d")): \(.title)"
 end
+'

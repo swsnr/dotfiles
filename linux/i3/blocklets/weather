@@ -1,3 +1,4 @@
+#!/bin/bash
 # Copyright 2019 Sebastian Wiesner <sebastian@swsnr.de>
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -12,20 +13,14 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
-function dump_env_posix -d 'Dump important environment variables for POSIX sh'
-    set -l variables \
-        EDITOR \
-        BROWSER \
-        PAGER \
-        PATH \
-        http_proxy https_proxy no_proxy \
-        HTTP_PROXY HTTPS_PROXY NO_PROXY \
-        JAVA_OPTS
+set -e
 
-    for variable in $variables
-        if set -q $variable
-            echo "$variable='$$variable'"
-            echo "export $variable"
-        end
-    end
-end
+config_home="${XDG_CONFIG_HOME:-$HOME/.config}"
+location="$(< "${config_home}"/i3blocks/location)"
+
+if [[ "$BLOCK_BUTTON" -eq 1 ]]; then
+  xdg-open "https://wttr.in/${location}" &> /dev/null &
+fi
+
+# Append a newline to flush output
+curl -s "https://wttr.in/${location}?format=%c%t" && echo

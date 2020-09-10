@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright 2018-2019 Sebastian Wiesner <sebastian@swsnr.de>
+# Copyright Sebastian Wiesner <sebastian@swsnr.de>
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may not
 # use this file except in compliance with the License. You may obtain a copy of
@@ -15,3 +15,17 @@
 
 # Import environment from fish
 eval "$(fish -l -c dump_env_posix)"
+
+if [[ "${XDG_CURRENT_DESKTOP}" == i3* ]]; then
+    # Enable i3 theme
+    i3_theme="$HOME/.config/i3/themes/current"
+    if [ -f "$i3_theme" ]; then
+        xrdb -merge "$i3_theme"
+    fi
+
+    # Restore screen layout
+    autorandr --change --default horizontal
+fi
+
+# Make Qt5 apps use qt5ct
+#export QT_QPA_PLATFORMTHEME=qt5ct

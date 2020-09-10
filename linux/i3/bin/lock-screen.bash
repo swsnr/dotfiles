@@ -1,4 +1,5 @@
-# Copyright 2019 Sebastian Wiesner <sebastian@swsnr.de>
+#!/bin/bash
+# Copyright 2020 Sebastian Wiesner <sebastian@swsnr.de>
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may not
 # use this file except in compliance with the License. You may obtain a copy of
@@ -12,20 +13,16 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
-function dump_env_posix -d 'Dump important environment variables for POSIX sh'
-    set -l variables \
-        EDITOR \
-        BROWSER \
-        PAGER \
-        PATH \
-        http_proxy https_proxy no_proxy \
-        HTTP_PROXY HTTPS_PROXY NO_PROXY \
-        JAVA_OPTS
+# Suspend dunst first
+pkill -USR1 dunst
 
-    for variable in $variables
-        if set -q $variable
-            echo "$variable='$$variable'"
-            echo "export $variable"
-        end
-    end
-end
+XSECURELOCK_BLANK_TIMEOUT=5 \
+    XSECURELOCK_BLANK_DPMS_STATE=suspend \
+    XSECURELOCK_SHOW_DATETIME=1 \
+    XSECURELOCK_DATETIME_FORMAT='%Y-%m-%d %H:%M' \
+    XSECURELOCK_FONT=PragmataPro \
+    XSECURELOCK_PASSWORD_PROMPT=disco \
+    xsecurelock
+
+# Resume dunst after unlock
+pkill -USR2 dunst

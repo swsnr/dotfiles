@@ -1,0 +1,40 @@
+#!/usr/bin/env python3
+# Copyright 2019 Sebastian Wiesner <sebastian@swsnr.de>
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may not
+# use this file except in compliance with the License. You may obtain a copy of
+# the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations under
+# the License.
+
+import json
+import html
+from argparse import ArgumentParser
+from subprocess import run
+
+
+def is_focused(workspace):
+    return workspace['focused']
+
+
+def main():
+    parser = ArgumentParser()
+    parser.add_argument('name')
+
+    args = parser.parse_args()
+
+    workspaces = json.loads(run(['i3-msg', '-t', 'get_workspaces'],
+                                capture_output=True, check=True).stdout.decode('utf-8'))
+    focused = next(w for w in workspaces if is_focused(w))
+    new_name = '{0}: {1}'.format(focused['num'], html.escape(args.name))
+    run(['i3-msg', 'rename workspace "{}" to "{}"'.format(focused['name'], new_name)], check=True)
+
+
+if __name__ == '__main__':
+    main()
