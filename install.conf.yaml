@@ -80,6 +80,8 @@
       path: linux/xprofile.sh
     ~/.Xresources:
       path: linux/Xresources
+    # X11 nightlight
+    ~/.config/redshift.conf: misc/redshift.conf
     # i3 with custom scripts, and i3blocks for the status bar
     ~/.config/i3/config:
       path: linux/i3/config
