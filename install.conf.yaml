@@ -117,6 +117,9 @@
       toggle-fullscreen: ['<Super>Return']
       # Keep on top above all other windows
       always-on-top: ['<Shift><Super>t']
+      # Disable input method switching wtih Super+Space
+      switch-input-source: ['XF86Keyboard']
+      switch-input-source-backward: ['<Shift>XF86Keyboard']
     org.gnome.settings-daemon.plugins.media-keys:
       terminal: ['<Super>t']
     org.gnome.shell.extensions.dash-to-dock:
