@@ -35,6 +35,8 @@ Ubuntu)
         "flameshot"
         # Pulseadio systray (TODO: Find alternative?)
         "pasystray"
+        # Devices
+        "udiskie"
         # Desktop background
         "feh"
         # Policy Kit helper
