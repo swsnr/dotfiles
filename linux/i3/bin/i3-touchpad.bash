@@ -19,3 +19,6 @@ touchpad="$(xinput list --name-only | grep -i touchpad)"
 
 # Enable natural scrolling
 xinput set-prop "${touchpad}" 'libinput Natural Scrolling Enabled' 1
+# Use multi-finger click instead of buttons
+# TODO: Check whether my Dell supports this too
+xinput set-prop "${touchpad}" 'libinput Click Method Enabled' 0 1
