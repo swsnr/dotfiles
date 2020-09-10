@@ -129,7 +129,10 @@
 
     # ZIM style configuration
     ~/.config/zim/style.conf: misc/zim-style.conf
+    # Alacritty terminal
     ~/.config/alacritty/alacritty.yml: misc/alacritty.yml
+    # Udiskie device manager for i3
+    ~/.config/udiskie/config.yml: linux/udiskie/config.yml
 
 - gsettings:
     org.gnome.desktop.interface:

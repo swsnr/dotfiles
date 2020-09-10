@@ -1,0 +1,3 @@
+device_config:
+  - id_type: squashfs
+    ignore: true

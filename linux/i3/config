@@ -51,7 +51,7 @@ exec --no-startup-id lxpolkit &
 # Systray helpers (pulse audio, network manager and mounts)
 exec --no-startup-id pasystray &
 exec --no-startup-id nm-applet &
-exec --no-startup-id udiskie -san --appindicator &
+exec --no-startup-id udiskie -san &
 
 # Setup tools (touchpad, wallpaper, etc.)
 exec --no-startup-id i3-touchpad &
