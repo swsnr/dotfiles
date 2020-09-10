@@ -33,27 +33,32 @@ client.urgent           $background     $warning            #ffffff     $selecti
 client.placeholder      #000000 #0c0c0c #ffffff #000000     #0c0c0c
 client.background       #ffffff
 
-# TODO: Polkit agent3
-# Setup touchpad
-exec --no-startup-id i3-touchpad &
-# Password manager
-exec --no-startup-id keepassxc &
+# Start services with systemctl (we do not enable them to not interfere with Gnome)
+# Let systemd handle service lifetime, etc.
 # Notifications
-exec --no-startup-id /usr/bin/dunst &
-# Sound
-exec --no-startup-id pasystray &
+exec --no-startup-id systemctl --user start dunst.service
+# Night light
+exec --no-startup-id systemctl --user start redshift.service
+
+# Desktop services
 # Settings for Gtk3
 exec --no-startup-id /usr/libexec/gsd-xsettings &
-# Network manager
-exec --no-startup-id nm-applet &
-# Auto-mounting
-exec --no-startup-id udiskie -san --appindicator &
 # Power manager
 exec --no-startup-id xfce4-power-manager
 # Policy Kit authentication agent
 exec --no-startup-id lxpolkit &
-# Wallpaper (Latest APOD wallpaper)
+
+# Systray helpers (pulse audio, network manager and mounts)
+exec --no-startup-id pasystray &
+exec --no-startup-id nm-applet &
+exec --no-startup-id udiskie -san --appindicator &
+
+# Setup tools (touchpad, wallpaper, etc.)
+exec --no-startup-id i3-touchpad &
 exec --no-startup-id apod -w &
+
+# Autostart applications
+exec --no-startup-id keepassxc &
 
 # Modifier for keybindings
 set $mod Mod4
