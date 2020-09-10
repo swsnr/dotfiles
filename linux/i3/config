@@ -50,8 +50,8 @@ exec --no-startup-id nm-applet &
 exec --no-startup-id udiskie -san --appindicator &
 # Power manager
 exec --no-startup-id xfce4-power-manager
-# TODO: Gnome Polkit?
-#exec --no-startup-id /usr/lib/mate-polkit/polkit-mate-authentication-agent-1 &
+# Policy Kit authentication agent
+exec --no-startup-id lxpolkit &
 # Wallpaper (Latest APOD wallpaper)
 exec --no-startup-id apod -w &
 
