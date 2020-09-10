@@ -130,7 +130,8 @@ def main():
         path = projects[name].path
         recent[name] = time()
         write_recent_entries(recent)
-        idea.launch([Gio.File.new_for_path(str(path.expanduser()))], None)
+        subprocess.run(['gtk-launch', idea.get_id(), path.expanduser().as_uri()],
+                       stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 
 if __name__ == '__main__':
