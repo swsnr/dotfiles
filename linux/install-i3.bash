@@ -23,8 +23,10 @@ Ubuntu)
         "i3-wm"
         "i3status"
         # Locking
-        xss-lock
-        xsecurelock
+        "xss-lock"
+        "xsecurelock"
+        # Night light
+        "redshift"
         # Notifications
         "dunst"
         # Launcher
@@ -36,7 +38,7 @@ Ubuntu)
         # Desktop background
         "feh"
         # Policy Kit helper
-        lxpolkit
+        "lxpolkit"
         # Power management
         "xfce4-power-manager"
         # Additional apps
@@ -49,6 +51,8 @@ Ubuntu)
         # Display layout editing and profiles
         "autorandr"
         "arandr"
+        # Additional scripting
+        "libsecret-tools"
     )
 
     sudo apt install "${packages[@]}"
