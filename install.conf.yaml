@@ -82,16 +82,18 @@
       path: linux/Xresources
     # X11 nightlight
     ~/.config/redshift.conf: misc/redshift.conf
-    # i3 with custom scripts, and i3blocks for the status bar
+    # i3 with custom scripts
     ~/.config/i3/config:
       path: linux/i3/config
       if: "i3 --version | grep -qi 'i3 version'"
+    # Custom dconf profile and settings file to override some Gtk settings for i3
     ~/.config/i3/dconf-profile:
       path: linux/i3/dconf/profile
       if: "i3 --version | grep -qi 'i3 version'"
     ~/.config/dconf/i3.txt:
       path: linux/i3/dconf/i3.txt
       if: "i3 --version | grep -qi 'i3 version'"
+    # i3 themes, including my default theme
     ~/.config/i3/themes:
       path: linux/i3/themes/*
       glob: true
@@ -99,6 +101,7 @@
     ~/.config/i3/themes/current:
       path: linux/i3/themes/adwaita-dark
       if: "i3 --version | grep -qi 'i3 version'"
+    # i3 scripts and tools
     ~/.local/bin/i3-touchpad:
       path: linux/i3/bin/i3-touchpad.bash
       if: "i3 --version | grep -qi 'i3 version'"
@@ -111,6 +114,7 @@
     ~/.local/bin/lock-screen:
       path: linux/i3/bin/lock-screen.bash
       if: "i3 --version | grep -qi 'i3 version'"
+    # i3 blocks for the status bar
     ~/.config/i3blocks/config:
       path: linux/i3/i3blocks.conf
       if: "i3 --version | grep -qi 'i3 version'"
