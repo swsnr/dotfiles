@@ -1,5 +1,6 @@
 #!/bin/bash
 # Copyright 2020 Sebastian Wiesner <sebastian@swsnr.de>
+# Copyright 2018 Stephen Gregoratto <dev@sgregoratto.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may not
 # use this file except in compliance with the License. You may obtain a copy of
@@ -13,10 +14,21 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
-set -e
-
-if command -v vpn &> /dev/null; then
-    if [[ "$(vpn)" == "activated" ]]; then
-        echo "🖧🔒"
-    fi
-fi
+init_color=${init_color:-#FFFF00}
+on_color=${on_color:-#FFFF00}
+export init_color on_color
+nmcli -t connection show --active | awk -F ':' '
+BEGIN {
+    init_color=ENVIRON["init_color"]
+    on_color=ENVIRON["on_color"]
+}
+$3=="vpn" {
+    name=$1
+    status="INIT"
+    color=init_color
+}
+$3=="tun" || ($4~/^tap/ || $3~/^tap/) {
+    status="ON"
+    color=on_color
+}
+END {if(status) printf("🖧 %s\n%s\n%s\n", name, status, color)}'
