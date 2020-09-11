@@ -16,9 +16,19 @@
 set -e
 
 touchpad="$(xinput list --name-only | grep -i touchpad)"
+props="$(xinput list-props "${touchpad}")"
+
+set-prop() {
+    local property="$1"
+    shift
+    if [[ "$props" == *"$property"* ]]; then
+        xinput set-prop "$touchpad" "$property" "$@"
+    else
+        echo "Skipping $property, does not exist" 1>&2
+    fi
+}
 
 # Enable natural scrolling
-xinput set-prop "${touchpad}" 'libinput Natural Scrolling Enabled' 1
+set-prop 'libinput Natural Scrolling Enabled' 1
 # Use multi-finger click instead of buttons
-# TODO: Check whether my Dell supports this too
-xinput set-prop "${touchpad}" 'libinput Click Method Enabled' 0 1
+set-prop 'libinput Click Method Enabled' 0 1
