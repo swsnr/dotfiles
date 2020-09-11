@@ -25,7 +25,6 @@ def main():
         '/org/gnome/SettingsDaemon/Color',
         'org.freedesktop.DBus.Properties'
     )
-    from pprint import pprint
     is_disabled = color.Get(
         '(ss)', 'org.gnome.SettingsDaemon.Color', 'DisabledUntilTomorrow')
     color.Set('(ssv)', 'org.gnome.SettingsDaemon.Color',
