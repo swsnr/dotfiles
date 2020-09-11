@@ -4,4 +4,4 @@ i3wm.selection: #15539e
 i3wm.selection_inactive: #030c17
 i3wm.warning: #f57900
 
-rofi.theme: Monokai
+rofi.theme: glue_pro_blue
