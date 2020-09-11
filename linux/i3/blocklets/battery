@@ -1,0 +1,104 @@
+#!/usr/bin/env python3
+# Copyright 2020 Sebastian Wiesner <sebastian@swsnr.de>
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may not
+# use this file except in compliance with the License. You may obtain a copy of
+# the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations under
+# the License.
+
+
+import os
+import sys
+import json
+from gi.repository import Gio, GLib
+
+
+def find_battery(upower):
+    for device_path in upower.EnumerateDevices():
+        device = Gio.DBusProxy.new_sync(
+            upower.get_connection(), Gio.DBusProxyFlags.NONE,
+            None, upower.get_name(), device_path,
+            'org.freedesktop.DBus.Properties')
+        # See https://upower.freedesktop.org/docs/Device.html#Device:Type
+        if device.Get('(ss)', 'org.freedesktop.UPower.Device', 'Type') == 2:
+            return device
+    else:
+        return None
+
+
+BLOCKS = [chr(0x2581 + i) for i in range(8)]
+STATE_SIGN = {
+    # Charging
+    1: '+',
+    # Fully charged
+    4: '',
+}
+
+
+def format_time(seconds):
+    minutes = seconds // 60
+    hours, minutes = divmod(minutes, 60)
+    return f'{hours}:{minutes:02}'
+
+
+def main():
+    upower = Gio.DBusProxy.new_for_bus_sync(
+        Gio.BusType.SYSTEM, Gio.DBusProxyFlags.NONE,
+        None, 'org.freedesktop.UPower',
+        '/org/freedesktop/UPower',
+        'org.freedesktop.UPower'
+    )
+    battery = find_battery(upower)
+    if not battery:
+        return
+
+    def print_battery():
+        props = dict((p, battery.Get('(ss)', 'org.freedesktop.UPower.Device', p))
+                     for p in ['TimeToEmpty', 'TimeToFull', 'State', 'WarningLevel', 'Percentage'])
+        percentage = max(0, min(100, props['Percentage']))
+        block = BLOCKS[int(percentage // 12.5)]
+        # See https://upower.freedesktop.org/docs/Device.html#Device:State
+        sign = STATE_SIGN.get(props['State'], '-')
+
+        if props['State'] == 4:
+            full_text = f'🔌{block}'
+        elif props['State'] == 1:
+            time = format_time(props['TimeToFull'])
+            full_text = f'{time} 🔌{block}'
+        else:
+            time = format_time(props['TimeToEmpty'])
+            full_text = f'{time} {block}'
+
+        output = {
+            'short_text': f'{sign}{percentage}%',
+            'full_text': full_text,
+            # See https://upower.freedesktop.org/docs/Device.html#Device:WarningLevel
+            'urgent': props['WarningLevel'] == 5,
+        }
+
+        if props['WarningLevel'] == 4:
+            output['color'] = os.environ.get('warning_color', '#f57c00')
+        elif props['WarningLevel'] == 3:
+            output['color'] = os.environ.get('critical_color', '#d32f2f')
+
+        json.dump(output, sys.stdout)
+        sys.stdout.write('\n')
+        sys.stdout.flush()
+
+    print_battery()
+    GLib.timeout_add_seconds(5, print_battery)
+    GLib.MainLoop().run()
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except KeyboardInterrupt:
+        pass
