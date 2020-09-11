@@ -17,6 +17,10 @@
 eval "$(fish -l -c dump_env_posix)"
 
 if [[ "${XDG_CURRENT_DESKTOP}" == i3* ]]; then
+    # Point dconf to a custom profile pointing to a custom database;
+    # this separates config changes made for i3 from changes made in Gnome sessions
+    export DCONF_PROFILE="$HOME/.config/i3/dconf-profile"
+
     # Enable i3 theme
     i3_theme="$HOME/.config/i3/themes/current"
     if [ -f "$i3_theme" ]; then
@@ -24,7 +28,7 @@ if [[ "${XDG_CURRENT_DESKTOP}" == i3* ]]; then
     fi
 
     # Restore screen layout
-    autorandr --change --default horizontal &> /dev/null
+    autorandr --change --default horizontal &>/dev/null
 fi
 
 # Make Qt5 apps use qt5ct

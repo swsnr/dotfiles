@@ -86,6 +86,12 @@
     ~/.config/i3/config:
       path: linux/i3/config
       if: "i3 --version | grep -qi 'i3 version'"
+    ~/.config/i3/dconf-profile:
+      path: linux/i3/dconf/profile
+      if: "i3 --version | grep -qi 'i3 version'"
+    ~/.config/dconf/i3.txt:
+      path: linux/i3/dconf/i3.txt
+      if: "i3 --version | grep -qi 'i3 version'"
     ~/.config/i3/themes:
       path: linux/i3/themes/*
       glob: true
