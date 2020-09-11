@@ -66,7 +66,7 @@ set $mod Mod4
 # Lock screen: Use xss-lock to trigger locking on systemd events.  We pass -n to
 # keep running in foreground, because xss-lock doesn't want the locker to fork.
 # Then we use systemd commands to lock the session.
-exec --no-startup-id xss-lock -n /usr/libexec/xsecurelock/dimmer -l -- lock-screen
+exec --no-startup-id xss-lock -l -- lock-screen
 bindsym $mod+l exec --no-startup-id loginctl lock-session
 
 # Use Mouse+$mod to drag floating windows to their wanted position
