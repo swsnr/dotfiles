@@ -99,9 +99,9 @@ def main():
 
         # Material Design A700 colors
         if props['WarningLevel'] == DeviceWarningLevel.CRITICAL:
-            output['color'] = os.environ.get('warning_color', '#f57c00')  # red
+            output['color'] = os.environ.get('warning_color', '#d32f2f')
         elif props['WarningLevel'] == DeviceWarningLevel.LOW:
-            output['color'] = os.environ.get('critical_color', '#d32f2f')
+            output['color'] = os.environ.get('critical_color', '#f57c00')
         elif props['State'] not in [DeviceState.FULLY_CHARGED, DeviceState.CHARGING]:
             # If discharging show battery time in green as long as there's no warning level
             output['color'] = os.environ.get('discharging_colour', '#388e3c')
