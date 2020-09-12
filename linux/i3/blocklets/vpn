@@ -14,8 +14,8 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
-init_color='#f57900f'
-on_color='#8BC34A'
+init_color=${init_color:-#FFFF00}
+on_color=${on_color:-#FFFF00}
 export init_color on_color
 nmcli -t connection show --active | awk -F ':' '
 BEGIN {
