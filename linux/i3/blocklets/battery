@@ -20,23 +20,20 @@ import json
 from enum import IntEnum
 from gi.repository import Gio, GLib
 
-# See https://upower.freedesktop.org/docs/Device.html#Device:Type
-
 
 class DeviceType(IntEnum):
+    """See https://upower.freedesktop.org/docs/Device.html#Device:Type"""
     BATTERY = 2
-
-# See https://upower.freedesktop.org/docs/Device.html#Device:State
 
 
 class DeviceState(IntEnum):
+    """See https://upower.freedesktop.org/docs/Device.html#Device:State"""
     CHARGING = 1
     FULLY_CHARGED = 4
 
-# See https://upower.freedesktop.org/docs/Device.html#Device:WarningLevel
-
 
 class DeviceWarningLevel(IntEnum):
+    """See https://upower.freedesktop.org/docs/Device.html#Device:WarningLevel"""
     LOW = 3
     CRITICAL = 4
     ACTION = 5
@@ -113,8 +110,16 @@ def main():
         sys.stdout.write('\n')
         sys.stdout.flush()
 
-    print_battery()
-    GLib.timeout_add_seconds(5, print_battery)
+        # If battery is low check faster to become aware of warnings
+        if props['WarningLevel'] in [DeviceWarningLevel.CRITICAL, DeviceWarningLevel.LOW, DeviceWarningLevel.ACTION]:
+            next_update = 5
+        else:
+            # Check every two minutes if situation isn't urgent
+            next_update = 120
+
+        GLib.timeout_add_seconds(next_update, print_battery)
+
+    GLib.timeout_add_seconds(0, print_battery)
     GLib.MainLoop().run()
 
 
