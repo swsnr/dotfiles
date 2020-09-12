@@ -24,5 +24,8 @@ XSECURELOCK_BLANK_TIMEOUT=5 \
     XSECURELOCK_PASSWORD_PROMPT=disco \
     xsecurelock
 
+# Tell logind that the session's unlocked again
+loginctl unlock-session
+
 # Resume dunst after unlock
 systemctl --user kill dunst.service --signal USR2
