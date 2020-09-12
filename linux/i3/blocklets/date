@@ -15,6 +15,7 @@
 
 import sys
 import json
+from locale import LC_ALL, setlocale
 from datetime import date
 from gi.repository import GLib
 
@@ -31,6 +32,7 @@ def print_date():
 
 
 def main():
+    setlocale(LC_ALL, '')
     print_date()
     # TODO: Refresh when screen is unlocked
     GLib.MainLoop().run()

@@ -16,6 +16,7 @@
 
 import sys
 import time
+from locale import LC_ALL, setlocale
 from datetime import datetime
 
 
@@ -26,6 +27,7 @@ def print_time():
 
 
 def main():
+    setlocale(LC_ALL, '')
     print_time()
     while True:
         time.sleep(60)
