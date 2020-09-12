@@ -14,7 +14,7 @@
 # the License.
 
 # Suspend dunst first
-pkill -USR1 dunst
+systemctl --user kill dunst.service --signal USR1
 
 XSECURELOCK_BLANK_TIMEOUT=5 \
     XSECURELOCK_BLANK_DPMS_STATE=suspend \
@@ -25,4 +25,4 @@ XSECURELOCK_BLANK_TIMEOUT=5 \
     xsecurelock
 
 # Resume dunst after unlock
-pkill -USR2 dunst
+systemctl --user kill dunst.service --signal USR2
