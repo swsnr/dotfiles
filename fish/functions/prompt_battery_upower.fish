@@ -64,9 +64,11 @@ function prompt_battery_upower -d 'upower battery info in prompt'
             switch $warning_level
                 case 'none'
                     set state_symbol '↓'
+                    set colour (set_color 'green')
+                case 'low'
+                    set state_symbol '↡'
                     set colour (set_color 'yellow')
                 case 'critical'
-                case 'low'
                     set state_symbol '↡'
                     set colour (set_color -b 'red' -o 'white')
                 case '*'
