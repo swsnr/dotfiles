@@ -22,6 +22,7 @@ Ubuntu)
         # Basics
         "i3-wm"
         "i3status"
+        "i3blocks"
         # Locking
         "xss-lock"
         "xsecurelock"
