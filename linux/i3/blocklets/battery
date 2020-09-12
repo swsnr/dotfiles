@@ -17,7 +17,29 @@
 import os
 import sys
 import json
+from enum import IntEnum
 from gi.repository import Gio, GLib
+
+# See https://upower.freedesktop.org/docs/Device.html#Device:Type
+
+
+class DeviceType(IntEnum):
+    BATTERY = 2
+
+# See https://upower.freedesktop.org/docs/Device.html#Device:State
+
+
+class DeviceState(IntEnum):
+    CHARGING = 1
+    FULLY_CHARGED = 4
+
+# See https://upower.freedesktop.org/docs/Device.html#Device:WarningLevel
+
+
+class DeviceWarningLevel(IntEnum):
+    LOW = 3
+    CRITICAL = 4
+    ACTION = 5
 
 
 def find_battery(upower):
@@ -26,19 +48,15 @@ def find_battery(upower):
             upower.get_connection(), Gio.DBusProxyFlags.NONE,
             None, upower.get_name(), device_path,
             'org.freedesktop.DBus.Properties')
-        # See https://upower.freedesktop.org/docs/Device.html#Device:Type
-        if device.Get('(ss)', 'org.freedesktop.UPower.Device', 'Type') == 2:
+        if device.Get('(ss)', 'org.freedesktop.UPower.Device', 'Type') == DeviceType.BATTERY:
             return device
     else:
         return None
 
 
-BLOCKS = [chr(0x2581 + i) for i in range(8)]
 STATE_SIGN = {
-    # Charging
-    1: '+',
-    # Fully charged
-    4: '',
+    DeviceState.CHARGING: '+',
+    DeviceState.FULLY_CHARGED: '',
 }
 
 
@@ -63,32 +81,35 @@ def main():
         props = dict((p, battery.Get('(ss)', 'org.freedesktop.UPower.Device', p))
                      for p in ['TimeToEmpty', 'TimeToFull', 'State', 'WarningLevel', 'Percentage'])
         percentage = max(0, min(100, props['Percentage']))
-        block = BLOCKS[int(percentage // 12.5)]
-        # See https://upower.freedesktop.org/docs/Device.html#Device:State
-        sign = STATE_SIGN.get(props['State'], '-')
 
-        if props['State'] == 4:
-            full_text = f'🔌{block}'
-        elif props['State'] == 1:
-            time = format_time(props['TimeToFull'])
-            full_text = f'{time} 🔌{block}'
+        if props['State'] == DeviceState.FULLY_CHARGED:
+            full_text = f'🔌 charged'
+        elif props['State'] == DeviceState.CHARGING:
+            time_full = props['TimeToFull']
+            text = format_time(time_full) if time_full else f'{percentage}%'
+            full_text = f'🔌 {text}'
         else:
-            time = format_time(props['TimeToEmpty'])
-            full_text = f'{time} {block}'
+            time_empty = props['TimeToEmpty']
+            text = format_time(time_empty) if time_empty else f'{percentage}%'
+            full_text = f'🔋 {text}'
 
+        sign = STATE_SIGN.get(props['State'], '-')
         output = {
             'short_text': f'{sign}{percentage}%',
             'full_text': full_text,
-            # See https://upower.freedesktop.org/docs/Device.html#Device:WarningLevel
-            'urgent': props['WarningLevel'] == 5,
+            'urgent': props['WarningLevel'] == DeviceWarningLevel.ACTION,
         }
 
-        if props['WarningLevel'] == 4:
-            output['color'] = os.environ.get('warning_color', '#f57c00')
-        elif props['WarningLevel'] == 3:
+        # Material Design A700 colors
+        if props['WarningLevel'] == DeviceWarningLevel.CRITICAL:
+            output['color'] = os.environ.get('warning_color', '#f57c00')  # red
+        elif props['WarningLevel'] == DeviceWarningLevel.LOW:
             output['color'] = os.environ.get('critical_color', '#d32f2f')
+        elif props['State'] not in [DeviceState.FULLY_CHARGED, DeviceState.CHARGING]:
+            # If discharging show battery time in green as long as there's no warning level
+            output['color'] = os.environ.get('discharging_colour', '#388e3c')
 
-        json.dump(output, sys.stdout)
+        json.dump(output, sys.stdout, ensure_ascii=False)
         sys.stdout.write('\n')
         sys.stdout.flush()
 
