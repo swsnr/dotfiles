@@ -131,7 +131,7 @@ def main():
 
     try:
         if not config_file.exists():
-            sys.exit(f'Configuration missing at {config_file}')
+            return
 
         with config_file.open() as source:
             config = json.load(source)
