@@ -112,7 +112,7 @@
       path: linux/i3/bin/i3-rename-workspace
       if: "i3 --version | grep -qi 'i3 version'"
     ~/.local/bin/lock-screen:
-      path: linux/i3/bin/lock-screen.bash
+      path: linux/i3/bin/lock-screen.py
       if: "i3 --version | grep -qi 'i3 version'"
     # i3 blocks for the status bar
     ~/.config/i3blocks/config:
