@@ -44,8 +44,8 @@ def find_battery(upower):
         device = Gio.DBusProxy.new_sync(
             upower.get_connection(), Gio.DBusProxyFlags.NONE,
             None, upower.get_name(), device_path,
-            'org.freedesktop.DBus.Properties')
-        if device.Get('(ss)', 'org.freedesktop.UPower.Device', 'Type') == DeviceType.BATTERY:
+            'org.freedesktop.UPower.Device')
+        if device.get_cached_property('Type').unpack() == DeviceType.BATTERY:
             return device
     else:
         return None
@@ -63,6 +63,51 @@ def format_time(seconds):
     return f'{hours}:{minutes:02}'
 
 
+PROPS = ['TimeToEmpty', 'TimeToFull', 'State', 'WarningLevel', 'Percentage']
+
+
+def print_battery(battery):
+    props = dict((p, battery.get_cached_property(p).unpack())
+                 for p in PROPS)
+    percentage = max(0, min(100, props['Percentage']))
+
+    if props['State'] == DeviceState.FULLY_CHARGED:
+        full_text = f'🔌 charged'
+    elif props['State'] == DeviceState.CHARGING:
+        time_full = props['TimeToFull']
+        text = format_time(time_full) if time_full else f'{percentage}%'
+        full_text = f'🔌 {text}'
+    else:
+        time_empty = props['TimeToEmpty']
+        text = format_time(time_empty) if time_empty else f'{percentage}%'
+        full_text = f'🔋 {text}'
+
+    sign = STATE_SIGN.get(props['State'], '-')
+    output = {
+        'short_text': f'{sign}{percentage}%',
+        'full_text': full_text,
+        'urgent': props['WarningLevel'] == DeviceWarningLevel.ACTION,
+    }
+
+    # Material Design A700 colors
+    if props['WarningLevel'] == DeviceWarningLevel.CRITICAL:
+        output['color'] = os.environ.get('warning_color', '#d32f2f')
+    elif props['WarningLevel'] == DeviceWarningLevel.LOW:
+        output['color'] = os.environ.get('critical_color', '#f57c00')
+    elif props['State'] not in [DeviceState.FULLY_CHARGED, DeviceState.CHARGING]:
+        # If discharging show battery time in green as long as there's no warning level
+        output['color'] = os.environ.get('discharging_colour', '#388e3c')
+
+    json.dump(output, sys.stdout, ensure_ascii=False)
+    sys.stdout.write('\n')
+    sys.stdout.flush()
+
+
+def print_if_changed(battery, changed_properties, _invalidated_properties):
+    if any(p in PROPS for p in changed_properties.unpack()):
+        print_battery(battery)
+
+
 def main():
     upower = Gio.DBusProxy.new_for_bus_sync(
         Gio.BusType.SYSTEM, Gio.DBusProxyFlags.NONE,
@@ -74,52 +119,10 @@ def main():
     if not battery:
         return
 
-    def print_battery():
-        props = dict((p, battery.Get('(ss)', 'org.freedesktop.UPower.Device', p))
-                     for p in ['TimeToEmpty', 'TimeToFull', 'State', 'WarningLevel', 'Percentage'])
-        percentage = max(0, min(100, props['Percentage']))
+    # Print battery information right after the mainloop started and whenever UPower signals a change
+    GLib.timeout_add_seconds(0, lambda: print_battery(battery))
+    battery.connect('g-properties-changed', print_if_changed)
 
-        if props['State'] == DeviceState.FULLY_CHARGED:
-            full_text = f'🔌 charged'
-        elif props['State'] == DeviceState.CHARGING:
-            time_full = props['TimeToFull']
-            text = format_time(time_full) if time_full else f'{percentage}%'
-            full_text = f'🔌 {text}'
-        else:
-            time_empty = props['TimeToEmpty']
-            text = format_time(time_empty) if time_empty else f'{percentage}%'
-            full_text = f'🔋 {text}'
-
-        sign = STATE_SIGN.get(props['State'], '-')
-        output = {
-            'short_text': f'{sign}{percentage}%',
-            'full_text': full_text,
-            'urgent': props['WarningLevel'] == DeviceWarningLevel.ACTION,
-        }
-
-        # Material Design A700 colors
-        if props['WarningLevel'] == DeviceWarningLevel.CRITICAL:
-            output['color'] = os.environ.get('warning_color', '#d32f2f')
-        elif props['WarningLevel'] == DeviceWarningLevel.LOW:
-            output['color'] = os.environ.get('critical_color', '#f57c00')
-        elif props['State'] not in [DeviceState.FULLY_CHARGED, DeviceState.CHARGING]:
-            # If discharging show battery time in green as long as there's no warning level
-            output['color'] = os.environ.get('discharging_colour', '#388e3c')
-
-        json.dump(output, sys.stdout, ensure_ascii=False)
-        sys.stdout.write('\n')
-        sys.stdout.flush()
-
-        # If battery is low check faster to become aware of warnings
-        if props['WarningLevel'] in [DeviceWarningLevel.CRITICAL, DeviceWarningLevel.LOW, DeviceWarningLevel.ACTION]:
-            next_update = 5
-        else:
-            # Check every two minutes if situation isn't urgent
-            next_update = 120
-
-        GLib.timeout_add_seconds(next_update, print_battery)
-
-    GLib.timeout_add_seconds(0, print_battery)
     GLib.MainLoop().run()
 
 
