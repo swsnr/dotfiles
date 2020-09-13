@@ -14,27 +14,77 @@
 # the License.
 
 import sys
+import os
 import json
 from locale import LC_ALL, setlocale
-from datetime import date
-from gi.repository import GLib
+from datetime import datetime, timedelta
+from gi.repository import Gio, GLib
 
 
-def print_date():
-    today = date.today()
-    output = {
-        'full_text': today.strftime('📅 %A, %Y-%m-%d (KW %V)'),
-        'short_text': today.strftime('📅 %m-%d (37)')
-    }
-    json.dump(output, sys.stdout, ensure_ascii=False, indent=None)
-    sys.stdout.write('\n')
-    sys.stdout.flush()
+class DateBlocklet:
+    def __init__(self):
+        self._timer_source = None
+        self.logind = Gio.DBusProxy.new_for_bus_sync(
+            Gio.BusType.SYSTEM, Gio.DBusProxyFlags.DO_NOT_LOAD_PROPERTIES | Gio.DBusProxyFlags.DO_NOT_CONNECT_SIGNALS, None,
+            'org.freedesktop.login1',
+            '/org/freedesktop/login1',
+            'org.freedesktop.login1.Manager'
+        )
+
+        session_id = os.environ.get('XDG_SESSION_ID')
+        if session_id:
+            session_path = self.logind.GetSession('(s)', session_id)
+        else:
+            session_path = self.logind.GetSessionByPID('(u)', os.getpid())
+        self.session = Gio.DBusProxy.new_sync(
+            self.logind.get_connection(), Gio.DBusProxyFlags.NONE, None,
+            self.logind.get_name(),
+            session_path,
+            'org.freedesktop.login1.Session'
+        )
+
+    def _session_changed(self, _session, changed_properties, _invalidated_properties):
+        locked = changed_properties.unpack().get('LockedHint', None)
+        if locked is False:
+            # The session got unlocked, refresh the date, in case the system
+            # was suspended over night
+            self.refresh_date()
+        elif locked is True:
+            # The session got locked, so stop the timer
+            self._pause()
+
+    def _pause(self):
+        if self._timer_source is not None:
+            GLib.source_remove(self._timer_source)
+            self._timer_source = None
+
+    def start(self):
+        # Refresh date right away, and whenever the session is unlocked
+        GLib.timeout_add_seconds(0, self.refresh_date)
+        self.session.connect('g-properties-changed', self._session_changed)
+
+    def refresh_date(self):
+        now = datetime.today()
+        output = {
+            'full_text': now.strftime('📅 %A, %Y-%m-%d (KW %V)'),
+            'short_text': now.strftime('📅 %m-%d (37)')
+        }
+        json.dump(output, sys.stdout, ensure_ascii=False, indent=None)
+        sys.stdout.write('\n')
+        sys.stdout.flush()
+
+        # Refresh date shortly after next midnight
+        midnight = (now + timedelta(days=1)).replace(
+            hour=0, minute=0, second=30, microsecond=0)
+        seconds_to_midnight = (midnight - now).total_seconds()
+        self._timer_source = GLib.timeout_add_seconds(
+            seconds_to_midnight, self.refresh_date)
 
 
 def main():
     setlocale(LC_ALL, '')
-    print_date()
-    # TODO: Refresh when screen is unlocked
+
+    DateBlocklet().start()
     GLib.MainLoop().run()
 
 

@@ -13,25 +13,71 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
-
+import os
 import sys
-import time
 from locale import LC_ALL, setlocale
 from datetime import datetime
+from gi.repository import Gio, GLib
 
 
-def print_time():
-    sys.stdout.write(datetime.today().strftime('🕰️ %H:%M'))
-    sys.stdout.write('\n')
-    sys.stdout.flush()
+class TimeBlocklet:
+    def __init__(self):
+        self._timer_source = None
+        self.logind = Gio.DBusProxy.new_for_bus_sync(
+            Gio.BusType.SYSTEM, Gio.DBusProxyFlags.DO_NOT_LOAD_PROPERTIES | Gio.DBusProxyFlags.DO_NOT_CONNECT_SIGNALS, None,
+            'org.freedesktop.login1',
+            '/org/freedesktop/login1',
+            'org.freedesktop.login1.Manager'
+        )
+
+        session_id = os.environ.get('XDG_SESSION_ID')
+        if session_id:
+            session_path = self.logind.GetSession('(s)', session_id)
+        else:
+            session_path = self.logind.GetSessionByPID('(u)', os.getpid())
+        self.session = Gio.DBusProxy.new_sync(
+            self.logind.get_connection(), Gio.DBusProxyFlags.NONE, None,
+            self.logind.get_name(),
+            session_path,
+            'org.freedesktop.login1.Session'
+        )
+
+    def start(self):
+        self.session.connect('g-properties-changed', self._session_changed)
+        self._resume()
+
+    def _resume(self):
+        if not self._timer_source:
+            self._print_time()
+            self._timer_source = GLib.timeout_add_seconds(60, self._print_time)
+
+    def _pause(self):
+        if self._timer_source:
+            GLib.source_remove(self._timer_source)
+            self._timer_source = None
+
+    def _session_changed(self, _session, changed_properties, _invalidated_properties):
+        locked = changed_properties.unpack().get('LockedHint', None)
+        if locked is False:
+            # The session got unlocked, update the time again
+            self._resume()
+        elif locked is True:
+            # The session got locked, so stop updating the time
+            self._pause()
+
+    def _print_time(self):
+        sys.stdout.write(datetime.today().strftime('🕰️ %H:%M'))
+        sys.stdout.write('\n')
+        sys.stdout.flush()
+        # Keep the glib timeout alive
+        return True
 
 
 def main():
     setlocale(LC_ALL, '')
-    print_time()
-    while True:
-        time.sleep(60)
-        print_time()
+
+    TimeBlocklet().start()
+    GLib.MainLoop().run()
 
 
 if __name__ == "__main__":
