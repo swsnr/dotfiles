@@ -29,7 +29,7 @@
     # the top and down respectively.
     # The width can be negative.  In this case the actual width is the
     # screen width minus the width defined in within the geometry option.
-    geometry = "300x5-30+20"
+    geometry = "x3"
 
     # Show how many messages are currently hidden (because of geometry).
     indicate_hidden = yes
@@ -130,7 +130,7 @@
 
     # Alignment of message text.
     # Possible values are "left", "center" and "right".
-    alignment = left
+    alignment = center
 
     # Show age of message if message is older than show_age_threshold
     # seconds.
@@ -166,7 +166,7 @@
     max_icon_size = 32
 
     # Paths to default icons.
-    icon_path = /usr/share/icons/Adwaita/16x16/status/:/usr/share/icons/Adwaita/16x16/devices/:/usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
+    icon_path = /usr/share/icons/Adwaita/16x16/status/:/usr/share/icons/Adwaita/16x16/devices/:/usr/share/icons/Humanity/status/16:/usr/share/icons/Humanity/devices/16
 
     ### History ###
 
@@ -275,25 +275,23 @@
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
-    background = "#a8c9f0"
-    foreground = "#ffffff"
+    background = "#353535"
+    foreground = "#eeeeec"
     timeout = 10
     # Icon for notifications with low urgency, uncomment to enable
     #icon = /path/to/icon
 
 [urgency_normal]
-    background = "#5294e2"
-    foreground = "#ffffff"
+    background = "#353535"
+    foreground = "#eeeeec"
     timeout = 10
-    # Icon for notifications with normal urgency, uncomment to enable
-    #icon = /path/to/icon
+    icon = /usr/share/icons/Humanity/status/16/dialog-information.svg
 
 [urgency_critical]
-    background = "#f27835"
-    foreground = "#ffffff"
+    background = "#f57900"
+    foreground = "#eeeeec"
     timeout = 0
-    # Icon for notifications with critical urgency, uncomment to enable
-    #icon = /path/to/icon
+    icon = /usr/share/icons/Humanity/status/16/dialog-warning.svg
 
 # Every section that isn't one of the above is interpreted as a rules to
 # override settings for certain messages.
