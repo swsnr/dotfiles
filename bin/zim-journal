@@ -18,10 +18,9 @@ import os
 from pathlib import Path
 from datetime import date, timedelta
 from configparser import ConfigParser
-from subprocess import run, DEVNULL
+from subprocess import Popen, DEVNULL
 from locale import LC_MESSAGES
 from gi.repository import Gio, GLib
-from subprocess import run
 
 
 def get_zim_notebook_name():
@@ -67,8 +66,8 @@ def main():
     except GLib.Error:
         env['LC_MESSAGES'] = 'de_DE.utf8'
     # Open todays journal page
-    run(['zim', get_zim_notebook_name(), f'Journal:{page}'],
-        env=env, check=True, stdout=DEVNULL, stderr=DEVNULL)
+    Popen(['zim', get_zim_notebook_name(), f'Journal:{page}'],
+          env=env, stdout=DEVNULL, stderr=DEVNULL)
 
 
 if __name__ == "__main__":
