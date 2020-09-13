@@ -19,4 +19,4 @@ if [[ -n "$2" ]]; then
     mesg=("-mesg" "$2")
 fi
 
-[[ "$(printf "%s\n%s" yes no | rofi -dmenu -p "$prompt" -no-custom "${mesg[@]}")" == "yes" ]]
+[[ "$(printf "%s\n%s" yes no | rofi -dmenu -m -4 -p "$prompt" -no-custom "${mesg[@]}")" == "yes" ]]

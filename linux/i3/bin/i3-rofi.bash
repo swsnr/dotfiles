@@ -13,7 +13,7 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
-exec rofi -show-icons \
+exec rofi -monitor -4 -show-icons \
     -combi-modi 'drun,window,idea:rofi-idea-projects,code:rofi-code-projects' \
     -modi 'combi#idea:rofi-idea-projects#code:rofi-code-projects' \
     -show combi
