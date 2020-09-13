@@ -69,10 +69,12 @@ def main():
         # If we don't need to handle the sleep lock just run xsecurelock with our settings
         run(['xsecurelock'], env=locker_env)
 
-    # Tell logind that the session's unlocked again
-    run(['loginctl', 'unlock-session'], check=True)
     # Resume notifications
     signal_dunst('USR2')
+
+    # Tell logind that the session's unlocked again. Needs to be last since it kills the locker,
+    # ie. this script
+    run(['loginctl', 'unlock-session'])
 
 
 if __name__ == "__main__":
