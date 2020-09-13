@@ -72,9 +72,6 @@ bindsym $mod+l exec --no-startup-id loginctl lock-session
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-# Start a terminal quickly
-bindsym $mod+t exec gnome-terminal
-
 # Kill focused window
 bindsym $mod+w kill
 
@@ -84,16 +81,20 @@ bindsym --whole-window $mod+button2 kill
 # Program launcher
 bindsym $mod+space exec i3-rofi
 
-# File manager
+# Apps
+bindsym $mod+t exec gnome-terminal
 bindsym $mod+e exec xdg-open ~
 bindsym XF86HomePage exec xdg-open https://duckduckgo.com
-
-# VPN
-bindsym $mod+slash exec vpn toggle &
-
 # ZIM journal
 bindsym $mod+j exec zim-journal today &
 bindsym $mod+Shift+j exec zim-journal tomorrow &
+
+# i3 docs
+bindsym $mod+question exec xdg-open https://i3wm.org/docs/userguide.html
+bindsym $mod+Shift+question exec xdg-open https://i3wm.org/docs/userguide.html
+
+# VPN
+bindsym $mod+slash exec vpn toggle &
 
 # Volume control
 bindsym XF86AudioMute exec --no-startup-id ponymix toggle
