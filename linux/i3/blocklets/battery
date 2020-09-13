@@ -125,6 +125,37 @@ def print_if_changed(battery, changed_properties, _invalidated_properties):
         print_battery_safe(battery)
 
 
+class Button(IntEnum):
+    LEFT = 1
+    MIDDLE = 2
+    RIGHT = 3
+
+
+class ButtonHandler():
+    def __init__(self, on_left_click):
+        self._on_left_click = on_left_click
+
+    def handle_event(self, channel, condition):
+        try:
+            if channel == 0 and condition == GLib.IO_IN:
+                line = next(sys.stdin)
+                LOG.debug(f'Got stdin: {line}')
+                event = json.loads(line)
+                LOG.debug(f'button event: {event}')
+                if event['button'] == Button.LEFT and not event['modifiers']:
+                    self._on_left_click()
+        except Exception as error:
+            LOG.exception(f'Failed to handle button event: {error}')
+
+        # Keep watching events indefinitely
+        return True
+
+
+def start_power_manager_settings():
+    Popen(['gtk-launch', 'xfce4-power-manager-settings.desktop'],
+          stdout=DEVNULL, stderr=DEVNULL)
+
+
 def main():
     logging.getLogger().addHandler(JournalHandler())
     LOG.setLevel(logging.INFO)
@@ -143,6 +174,10 @@ def main():
         # Print battery information right after the mainloop started and whenever UPower signals a change
         GLib.timeout_add_seconds(0, lambda: print_battery_safe(battery))
         battery.connect('g-properties-changed', print_if_changed)
+
+        # Handle button events from i3
+        GLib.io_add_watch(0, GLib.IO_IN, ButtonHandler(
+            on_left_click=start_power_manager_settings).handle_event)
 
         GLib.MainLoop().run()
     except Exception as error:
