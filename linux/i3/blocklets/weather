@@ -15,12 +15,36 @@
 
 set -e
 
-config_home="${XDG_CONFIG_HOME:-$HOME/.config}"
-location="$(< "${config_home}"/i3blocks/location)"
+location_file="${XDG_CONFIG_HOME:-$HOME/.config}/i3blocks/weather-location"
 
-if [[ "$BLOCK_BUTTON" -eq 1 ]]; then
-  xdg-open "https://wttr.in/${location}" &> /dev/null &
+if [[ -f "$location_file" ]]; then
+  location="$(<"$location_file")"
+else
+  location=''
 fi
 
+case "$BLOCK_BUTTON" in
+1)
+  if [[ -n "$location" ]]; then
+    xdg-open "https://wttr.in/${location}" &>/dev/null &
+  fi
+  ;;
+3)
+  if [[ -n "$location" ]]; then
+    location="$(echo "$location" | rofi -dmenu -m -4 -p 'Weather location' -mesg 'Pick current location for weather information or enter a new one')"
+  else
+    location="$(rofi -dmenu -m -4 -p 'Weather location' -mesg 'Enter location for weather information')"
+  fi
+
+  if [[ -n "$location" ]]; then
+    echo "$location" >"$location_file"
+  fi
+  ;;
+esac
+
 # Append a newline to flush output
-curl -s "https://wttr.in/${location}?format=%c%t" && echo
+if [[ -n "$location" ]]; then
+  curl -s "https://wttr.in/${location}?format=%c%t" && echo
+else
+  echo '<Right-click to set weather location>'
+fi
