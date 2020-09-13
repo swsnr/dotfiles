@@ -17,8 +17,14 @@
 import os
 import sys
 import json
+import logging
+from subprocess import Popen, DEVNULL
+from systemd.journal import JournalHandler
 from enum import IntEnum
 from gi.repository import Gio, GLib
+
+
+LOG = logging.getLogger('i3blocks.blocklets.battery')
 
 
 class DeviceType(IntEnum):
@@ -41,11 +47,13 @@ class DeviceWarningLevel(IntEnum):
 
 def find_battery(upower):
     for device_path in upower.EnumerateDevices():
+        LOG.debug(f'Checking device at {device_path}')
         device = Gio.DBusProxy.new_sync(
             upower.get_connection(), Gio.DBusProxyFlags.NONE,
             None, upower.get_name(), device_path,
             'org.freedesktop.UPower.Device')
         if device.get_cached_property('Type').unpack() == DeviceType.BATTERY:
+            LOG.info(f'Found battery at {device_path}')
             return device
     else:
         return None
@@ -69,6 +77,7 @@ PROPS = ['TimeToEmpty', 'TimeToFull', 'State', 'WarningLevel', 'Percentage']
 def print_battery(battery):
     props = dict((p, battery.get_cached_property(p).unpack())
                  for p in PROPS)
+    LOG.debug(f'Battery state: {props}')
     percentage = max(0, min(100, props['Percentage']))
 
     if props['State'] == DeviceState.FULLY_CHARGED:
@@ -103,27 +112,41 @@ def print_battery(battery):
     sys.stdout.flush()
 
 
-def print_if_changed(battery, changed_properties, _invalidated_properties):
-    if any(p in PROPS for p in changed_properties.unpack()):
+def print_battery_safe(battery):
+    try:
         print_battery(battery)
+    except Exception as error:
+        LOG.exception(f'Failed to print state of {battery}: {error}')
+
+
+def print_if_changed(battery, changed_properties, _invalidated_properties):
+    LOG.debug(f'Battery {battery} changed: {changed_properties}')
+    if any(p in PROPS for p in changed_properties.unpack()):
+        print_battery_safe(battery)
 
 
 def main():
-    upower = Gio.DBusProxy.new_for_bus_sync(
-        Gio.BusType.SYSTEM, Gio.DBusProxyFlags.NONE,
-        None, 'org.freedesktop.UPower',
-        '/org/freedesktop/UPower',
-        'org.freedesktop.UPower'
-    )
-    battery = find_battery(upower)
-    if not battery:
-        return
+    logging.getLogger().addHandler(JournalHandler())
+    LOG.setLevel(logging.INFO)
 
-    # Print battery information right after the mainloop started and whenever UPower signals a change
-    GLib.timeout_add_seconds(0, lambda: print_battery(battery))
-    battery.connect('g-properties-changed', print_if_changed)
+    try:
+        upower = Gio.DBusProxy.new_for_bus_sync(
+            Gio.BusType.SYSTEM, Gio.DBusProxyFlags.NONE,
+            None, 'org.freedesktop.UPower',
+            '/org/freedesktop/UPower',
+            'org.freedesktop.UPower'
+        )
+        battery = find_battery(upower)
+        if not battery:
+            return
 
-    GLib.MainLoop().run()
+        # Print battery information right after the mainloop started and whenever UPower signals a change
+        GLib.timeout_add_seconds(0, lambda: print_battery_safe(battery))
+        battery.connect('g-properties-changed', print_if_changed)
+
+        GLib.MainLoop().run()
+    except Exception as error:
+        LOG.exception(f'Failed to start blocket: {error}')
 
 
 if __name__ == "__main__":

@@ -15,9 +15,14 @@
 
 
 import os
+import logging
+from systemd.journal import JournalHandler
 from signal import SIGUSR1, SIGUSR2
 from subprocess import run, Popen
 from gi.repository import Gio
+
+
+LOG = logging.getLogger('i3-lock-screen')
 
 
 SETTINGS = {
@@ -30,7 +35,7 @@ SETTINGS = {
 }
 
 
-def main():
+def lock_screen():
     # Connect to systemd and logind
     flags = Gio.DBusProxyFlags.DO_NOT_LOAD_PROPERTIES | Gio.DBusProxyFlags.DO_NOT_CONNECT_SIGNALS
     systemd = Gio.DBusProxy.new_for_bus_sync(
@@ -47,34 +52,48 @@ def main():
     )
 
     # Suspend notifications
+    LOG.info('Screen about to lock, suspending dunst notifications')
     systemd.KillUnit('(ssi)', 'dunst.service', 'main', SIGUSR1)
 
     # Settings for xsecurelock
     locker_env = dict(os.environ)
     locker_env.update((f'XSECURELOCK_{key}', str(value))
                       for key, value in SETTINGS.items())
-    locker_env['LUNARYORN_LOCKED_SESSION_PATH'] = session.get_object_path()
 
     # Notify apps that the session is locked after the locker started successfully
     xsecurelock = ['xsecurelock', '--', 'i3-set-session-locked']
 
     lock_fd = os.environ.get('XSS_SLEEP_LOCK_FD', None)
     if lock_fd:
+        LOG.info(
+            f'Screen locking, starting {xsecurelock} with sleep lock at fd {lock_fd}')
         # We've inherited a sleep lock from xss-lock; we need to pass it on to
         # xsecurelock while closing our copy of the fd after spawning xsecurelock.
         lock_fd = int(lock_fd)
         lock = Popen(xsecurelock, env=locker_env, pass_fds=[lock_fd])
+        LOG.debug(f'Closing our copy of sleep lock fd {lock_fd}')
         os.close(lock_fd)
         lock.wait()
     else:
+        LOG.info(f'Screen locking, starting {xsecurelock} without sleep lock')
         # If we don't need to handle the sleep lock just run xsecurelock with our settings
         run(xsecurelock, env=locker_env)
 
-    # Tell apps that the session is now unlocked again.
+    LOG.info('Screen unlocked, updating session state')
     session.SetLockedHint('(b)', False)
 
-    # Resume notifications
+    LOG.info('Screen unlocked, resuming dunst notifications')
     systemd.KillUnit('(ssi)', 'dunst.service', 'main', SIGUSR2)
+
+
+def main():
+    logging.getLogger().addHandler(JournalHandler())
+    LOG.setLevel(logging.INFO)
+
+    try:
+        lock_screen()
+    except Exception as error:
+        LOG.exception(f'Failed to lock screen: {error}')
 
 
 if __name__ == "__main__":

@@ -15,10 +15,16 @@
 
 
 import os
+import logging
+from systemd.journal import JournalHandler
 from gi.repository import Gio
 
 
-def main():
+LOG = logging.getLogger('i3-set-session-locked')
+
+
+def set_session_locked():
+    LOG.info('Screen successfully locked, marking session as locked')
     flags = Gio.DBusProxyFlags.DO_NOT_LOAD_PROPERTIES | Gio.DBusProxyFlags.DO_NOT_CONNECT_SIGNALS
     session = Gio.DBusProxy.new_for_bus_sync(
         Gio.BusType.SYSTEM, flags, None,
@@ -28,6 +34,16 @@ def main():
     )
     # Tell apps that the session is now locked.
     session.SetLockedHint('(b)', True)
+
+
+def main():
+    logging.getLogger().addHandler(JournalHandler())
+    LOG.setLevel(logging.INFO)
+
+    try:
+        set_session_locked()
+    except Exception as error:
+        LOG.error(f'Failed to set session locked hint: {error}')
 
 
 if __name__ == "__main__":

@@ -16,9 +16,14 @@
 import sys
 import os
 import json
+import logging
+from systemd.journal import JournalHandler
 from locale import LC_ALL, setlocale
 from datetime import datetime, timedelta
 from gi.repository import Gio, GLib
+
+
+LOG = logging.getLogger('i3blocks.blocklets.date')
 
 
 class DateBlocklet:
@@ -42,16 +47,19 @@ class DateBlocklet:
             session_path,
             'org.freedesktop.login1.Session'
         )
+        LOG.debug(f'Connected to session at {session_path}')
 
     def _session_changed(self, _session, changed_properties, _invalidated_properties):
-        locked = changed_properties.unpack().get('LockedHint', None)
-        if locked is False:
-            # The session got unlocked, refresh the date, in case the system
-            # was suspended over night
-            self.refresh_date()
-        elif locked is True:
-            # The session got locked, so stop the timer
-            self._pause()
+        try:
+            locked = changed_properties.unpack().get('LockedHint', None)
+            if locked is False:
+                LOG.info('Session unlocked, refreshing date display')
+                self.refresh_date()
+            elif locked is True:
+                LOG.info('Session locked, stopping date update timer')
+                self._pause()
+        except Exception as error:
+            LOG.exception(f'Failed to handle session state change: {error}')
 
     def _pause(self):
         if self._timer_source is not None:
@@ -64,28 +72,43 @@ class DateBlocklet:
         self.session.connect('g-properties-changed', self._session_changed)
 
     def refresh_date(self):
-        now = datetime.today()
-        output = {
-            'full_text': now.strftime('📅 %A, %Y-%m-%d (KW %V)'),
-            'short_text': now.strftime('📅 %m-%d (37)')
-        }
-        json.dump(output, sys.stdout, ensure_ascii=False, indent=None)
-        sys.stdout.write('\n')
-        sys.stdout.flush()
+        try:
+            now = datetime.today()
+            output = {
+                'full_text': now.strftime('📅 %A, %Y-%m-%d (KW %V)'),
+                'short_text': now.strftime('📅 %m-%d (37)')
+            }
+            json.dump(output, sys.stdout, ensure_ascii=False, indent=None)
+            sys.stdout.write('\n')
+            sys.stdout.flush()
+        except Exception as error:
+            LOG.exception(f'Failed to print date: {error}')
 
-        # Refresh date shortly after next midnight
-        midnight = (now + timedelta(days=1)).replace(
-            hour=0, minute=0, second=30, microsecond=0)
-        seconds_to_midnight = (midnight - now).total_seconds()
-        self._timer_source = GLib.timeout_add_seconds(
-            seconds_to_midnight, self.refresh_date)
+        try:
+            # Refresh date shortly after next midnight
+            midnight = (now + timedelta(days=1)).replace(
+                hour=0, minute=0, second=30, microsecond=0)
+            seconds_to_midnight = int((midnight - now).total_seconds())
+            self._timer_source = GLib.timeout_add_seconds(
+                seconds_to_midnight, self.refresh_date)
+            LOG.info(
+                f'Scheduled date update at midnight {midnight}, {seconds_to_midnight} seconds away')
+        except Exception as error:
+            LOG.exception(
+                f'Failed to schedule date update at midnight: {error}')
 
 
 def main():
-    setlocale(LC_ALL, '')
+    logging.getLogger().addHandler(JournalHandler())
+    LOG.setLevel(logging.INFO)
 
-    DateBlocklet().start()
-    GLib.MainLoop().run()
+    try:
+        setlocale(LC_ALL, '')
+
+        DateBlocklet().start()
+        GLib.MainLoop().run()
+    except Exception as error:
+        LOG.exception(f'Failed to start blocket: {error}')
 
 
 if __name__ == "__main__":
