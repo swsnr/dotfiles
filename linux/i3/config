@@ -208,7 +208,6 @@ mode "$mode_workspace" {
 bindsym $mod+Insert mode "$mode_workspace"
 
 # System mode
-# TODO: Bind nightlight toggle?
 set $mode_system (w) new wallpaper, (n) nightlight, (c) reconfigure, (l) reload, (u) suspend, (s) shutdown, (r) reboot, (e) exit
 mode "$mode_system" {
   bindsym e exec --no-startup-id rofi-yes-no 'Logout?' 'Exit i3 and return to session manager?' && i3-msg exit, mode "default"

@@ -60,7 +60,6 @@ const execCommand = argv =>
     });
   });
 
-// TODO: Use soup instead of CLI tool
 const getRoutes = () =>
   execCommand(["home"]).then(output => {
     l(`Got routes: ${output}`);
