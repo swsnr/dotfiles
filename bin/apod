@@ -21,32 +21,18 @@ from argparse import ArgumentParser
 from datetime import date
 from pathlib import Path
 from platform import system
-from subprocess import run, Popen, DEVNULL, check_call
+from subprocess import run, Popen, DEVNULL
 from textwrap import fill
 
 import keyring
 import dateutil.parser
 
 
-def x11_number_of_monitors():
-    process = run(['xrandr', '--listactivemonitors'], check=True,
-                  capture_output=True, encoding='utf-8')
-    return len(process.stdout.splitlines()[1:])
-
-
-def x11_set_wallpapers(files):
-    cmd = ['feh', '--no-fehbg', '--bg-fill']
-    cmd.extend(files)
-    run(cmd, check=True)
-
-
 def set_wallpaper(image_path):
-    if 'GNOME' in os.environ.get('XDG_CURRENT_DESKTOP', ''):
+    if os.environ.get('XDG_CURRENT_DESKTOP', '') in ['GNOME', 'i3']:
         for namespace in {'org.gnome.desktop.background', 'org.gnome.desktop.screensaver'}:
-            check_call(['gsettings', 'set', namespace,
-                        'picture-uri', image_path.as_uri()])
-    elif 'I3SOCK' in os.environ:
-        x11_set_wallpapers([image_path] * x11_number_of_monitors())
+            run(['gsettings', 'set', namespace,
+                 'picture-uri', image_path.as_uri()], check=True)
     else:
         raise NotImplementedError(
             'Cannot set wallpaper in current environment')
