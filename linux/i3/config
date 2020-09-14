@@ -43,6 +43,8 @@ exec --no-startup-id systemctl --user start redshift.service
 # Desktop services
 # Settings for Gtk3
 exec --no-startup-id /usr/libexec/gsd-xsettings &
+# Update wallpaper from Gtk 3 settings
+exec --no-startup-id i3-wallpaper-service
 # Power manager
 exec --no-startup-id xfce4-power-manager
 # Policy Kit authentication agent
