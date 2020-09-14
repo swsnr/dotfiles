@@ -109,6 +109,7 @@ def main():
         GLib.MainLoop().run()
     except Exception as error:
         LOG.exception(f'Failed to start blocket: {error}')
+        sys.exit(1)
 
 
 if __name__ == "__main__":
