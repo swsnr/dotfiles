@@ -18,7 +18,7 @@ import sys
 import logging
 from pathlib import Path
 from urllib.parse import urlparse
-from subprocess import run
+from subprocess import DEVNULL, run
 from systemd.journal import JournalHandler
 from gi.repository import Gio, GLib
 
@@ -35,7 +35,7 @@ def x11_number_of_monitors():
 def x11_set_wallpapers(files):
     cmd = ['feh', '--no-fehbg', '--bg-fill']
     cmd.extend(files)
-    run(cmd, check=True)
+    run(cmd, check=True, stdout=DEVNULL, stderr=DEVNULL)
 
 
 def update_wallpaper(settings):
