@@ -91,7 +91,6 @@ bindsym $mod+j exec zim-journal today &
 bindsym $mod+Shift+j exec zim-journal tomorrow &
 
 # i3 docs
-bindsym $mod+question exec xdg-open https://i3wm.org/docs/userguide.html
 bindsym $mod+Shift+question exec xdg-open https://i3wm.org/docs/userguide.html
 
 # VPN
