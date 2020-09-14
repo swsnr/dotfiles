@@ -31,13 +31,14 @@ case "$BLOCK_BUTTON" in
   ;;
 3)
   if [[ -n "$location" ]]; then
-    location="$(echo "$location" | rofi -dmenu -m -4 -p 'Weather location' -mesg 'Pick current location for weather information or enter a new one')"
+    new_location="$(echo "$location" | rofi -dmenu -m -4 -p 'Weather location' -mesg 'Pick current location for weather information or enter a new one' || true)"
   else
-    location="$(rofi -dmenu -m -4 -p 'Weather location' -mesg 'Enter location for weather information')"
+    new_location="$(rofi -dmenu -m -4 -p 'Weather location' -mesg 'Enter location for weather information' || true)"
   fi
 
-  if [[ -n "$location" ]]; then
-    echo "$location" >"$location_file"
+  if [[ -n "$new_location" ]]; then
+    echo "$new_location" >"$location_file"
+    location="$new_location"
   fi
   ;;
 esac
