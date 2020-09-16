@@ -98,6 +98,16 @@ bindsym $mod+Shift+question exec xdg-open https://i3wm.org/docs/userguide.html
 # VPN
 bindsym $mod+slash exec vpn toggle &
 
+# Notifications
+# Mute/unmute
+bindsym $mod+equal exec --no-startup-id notify-send DUNST_COMMAND_TOGGLE
+# These bindings are in dunstrc
+# TODO: Make this i3 bindings as soon as a new dunst has this dunstctl thing
+# $mod+bracketright close
+# $mod+shift+bracketright close all
+# $mod+bracketleft history
+# $mod+period context
+
 # Volume control
 bindsym XF86AudioMute exec --no-startup-id ponymix toggle
 bindsym XF86AudioLowerVolume exec --no-startup-id ponymix -N decrease 3
