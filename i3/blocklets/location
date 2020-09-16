@@ -1,0 +1,68 @@
+#!/usr/bin/env python3
+# Copyright 2020 Sebastian Wiesner <sebastian@swsnr.de>
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may not
+# use this file except in compliance with the License. You may obtain a copy of
+# the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations under
+# the License.
+
+import sys
+import logging
+from systemd.journal import JournalHandler
+from gi.repository import GLib, Gio
+
+LOG = logging.getLogger('i3blocks.blocklets.location')
+
+
+def print_indicator(geoclue):
+    if geoclue.get_cached_property('InUse').unpack():
+        sys.stdout.write('📍\n')
+    else:
+        sys.stdout.write(' \n')
+
+    sys.stdout.flush()
+
+
+def geoclue_properties_changed(geoclue, changed_props, _invalidated_props):
+    try:
+        changed_props = changed_props.unpack()
+        if 'InUse' in changed_props:
+            print_indicator(geoclue)
+    except Exception as error:
+        LOG.exception(f'Failed to print location indicator: {error}')
+
+
+def main():
+    logging.getLogger().addHandler(JournalHandler())
+    LOG.setLevel(logging.INFO)
+
+    geoclue = Gio.DBusProxy.new_for_bus_sync(
+        Gio.BusType.SYSTEM, Gio.DBusProxyFlags.NONE, None,
+        'org.freedesktop.GeoClue2',
+        '/org/freedesktop/GeoClue2/Manager',
+        'org.freedesktop.GeoClue2.Manager'
+    )
+    geoclue.connect('g-properties-changed', geoclue_properties_changed)
+
+    GLib.timeout_add(0, lambda: print_indicator(geoclue))
+    GLib.MainLoop().run()
+
+    try:
+        pass
+    except Exception as error:
+        LOG.exception(f'Failed to connect to geoclue: {error}')
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except KeyboardInterrupt:
+        pass
