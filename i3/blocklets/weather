@@ -32,8 +32,8 @@ LOG = logging.getLogger('i3blocks.blocklets.weather')
 
 def weather_url_for_current_location(geoclue):
     location = geoclue.get_location()
-    lat = location.get_property('latitude')
-    lon = location.get_property('longitude')
+    lat = round(location.get_property('latitude'), 1)
+    lon = round(location.get_property('longitude'), 1)
     return f'https://wttr.in/{lat},{lon}'
 
 
