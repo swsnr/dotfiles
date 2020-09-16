@@ -16,6 +16,8 @@
 import logging
 import sys
 import json
+from subprocess import Popen, DEVNULL
+from enum import IntEnum
 from gi.repository import GLib, Gio
 from systemd.journal import JournalHandler
 from urllib.request import urlopen
@@ -28,14 +30,19 @@ gi.require_version('Geoclue', '2.0')
 LOG = logging.getLogger('i3blocks.blocklets.weather')
 
 
-def print_weather(geoclue):
+def weather_url_for_current_location(geoclue):
     location = geoclue.get_location()
     lat = location.get_property('latitude')
     lon = location.get_property('longitude')
-    LOG.debug(f'Receiving weather for location {lat},{lon}')
-    with urlopen(f'https://wttr.in/{lat},{lon}?format=%c%t') as source:
+    return f'https://wttr.in/{lat},{lon}'
+
+
+def print_weather(geoclue):
+    url = weather_url_for_current_location(geoclue)
+    LOG.debug(f'Receiving weather from {url}')
+    with urlopen(f'{url}?format=%c%t') as source:
         info = source.read().decode('utf-8')
-        LOG.debug(f'Got weather for location {lat},{lon}: {info}')
+        LOG.debug(f'Got weather from {url}: {info}')
     output = {'full_text': info}
     json.dump(output, sys.stdout, ensure_ascii=False, indent=None)
     sys.stdout.write('\n')
@@ -62,6 +69,40 @@ def _start(geoclue):
     return False
 
 
+class Button(IntEnum):
+    LEFT = 1
+    MIDDLE = 2
+    RIGHT = 3
+
+
+class ButtonHandler():
+    def __init__(self, on_left_click):
+        self._on_left_click = on_left_click
+
+    def handle_event(self, channel, condition):
+        try:
+            if channel == 0 and condition == GLib.IO_IN:
+                line = next(sys.stdin)
+                LOG.debug(f'Got stdin: {line}')
+                event = json.loads(line)
+                LOG.debug(f'button event: {event}')
+                if event['button'] == Button.LEFT and not event['modifiers']:
+                    self._on_left_click()
+        except Exception as error:
+            LOG.exception(f'Failed to handle button event: {error}')
+
+        # Keep watching events indefinitely
+        return True
+
+
+def open_weather(geoclue):
+    try:
+        url = weather_url_for_current_location(geoclue)
+        Popen(['xdg-open', url], stdout=DEVNULL, stderr=DEVNULL)
+    except Exception as error:
+        LOG.exception(f'Failed to open weather page in browser: {error}')
+
+
 def main():
     logging.getLogger().addHandler(JournalHandler())
     LOG.setLevel(logging.INFO)
@@ -71,8 +112,13 @@ def main():
         geoclue = Geoclue.Simple.new_sync(
             'i3blocks-weather', Geoclue.AccuracyLevel.CITY, None)
 
+        # Refresh weather immediately and once every hour
         GLib.timeout_add(0, lambda: _start(geoclue))
         GLib.timeout_add_seconds(3600, lambda: _update_on_timer(geoclue))
+
+        # Handle button events from i3
+        GLib.io_add_watch(0, GLib.IO_IN, ButtonHandler(
+            on_left_click=lambda: open_weather(geoclue)).handle_event)
 
         GLib.MainLoop().run()
     except Exception as error:
