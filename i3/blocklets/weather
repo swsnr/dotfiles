@@ -49,11 +49,6 @@ def print_weather_safe(geoclue):
         LOG.exception(f'Failed to print weather information: {error}')
 
 
-def _location_changed(geoclue, _prop):
-    LOG.debug('Updating weather after location changed')
-    print_weather_safe(geoclue)
-
-
 def _update_on_timer(geoclue):
     LOG.debug('Updating weather on timer')
     print_weather_safe(geoclue)
@@ -75,7 +70,6 @@ def main():
         from gi.repository import Geoclue
         geoclue = Geoclue.Simple.new_sync(
             'i3blocks-weather', Geoclue.AccuracyLevel.CITY, None)
-        geoclue.connect('notify::location', _location_changed)
 
         GLib.timeout_add(0, lambda: _start(geoclue))
         GLib.timeout_add_seconds(3600, lambda: _update_on_timer(geoclue))
