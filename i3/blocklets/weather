@@ -1,5 +1,5 @@
-#!/bin/bash
-# Copyright 2019 Sebastian Wiesner <sebastian@swsnr.de>
+#!/usr/bin/env python3
+# Copyright 2020 Sebastian Wiesner <sebastian@swsnr.de>
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may not
 # use this file except in compliance with the License. You may obtain a copy of
@@ -13,39 +13,81 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
-set -e
+import logging
+import sys
+import json
+from gi.repository import GLib, Gio
+from systemd.journal import JournalHandler
+from urllib.request import urlopen
+from shutil import copyfileobj
 
-location_file="${XDG_CONFIG_HOME:-$HOME/.config}/i3blocks/weather-location"
+import gi
+gi.require_version('Geoclue', '2.0')
 
-if [[ -f "$location_file" ]]; then
-  location="$(<"$location_file")"
-else
-  location=''
-fi
 
-case "$BLOCK_BUTTON" in
-1)
-  if [[ -n "$location" ]]; then
-    xdg-open "https://wttr.in/${location}" &>/dev/null &
-  fi
-  ;;
-3)
-  if [[ -n "$location" ]]; then
-    new_location="$(echo "$location" | rofi -dmenu -m -4 -p 'Weather location' -mesg 'Pick current location for weather information or enter a new one' || true)"
-  else
-    new_location="$(rofi -dmenu -m -4 -p 'Weather location' -mesg 'Enter location for weather information' || true)"
-  fi
+LOG = logging.getLogger('i3blocks.blocklets.weather')
 
-  if [[ -n "$new_location" ]]; then
-    echo "$new_location" >"$location_file"
-    location="$new_location"
-  fi
-  ;;
-esac
 
-# Append a newline to flush output
-if [[ -n "$location" ]]; then
-  curl -s "https://wttr.in/${location}?format=%c%t" && echo
-else
-  echo '<Right-click to set weather location>'
-fi
+def print_weather(geoclue):
+    location = geoclue.get_location()
+    lat = location.get_property('latitude')
+    lon = location.get_property('longitude')
+    LOG.debug(f'Receiving weather for location {lat},{lon}')
+    with urlopen(f'https://wttr.in/{lat},{lon}?format=%c%t') as source:
+        info = source.read().decode('utf-8')
+        LOG.debug(f'Got weather for location {lat},{lon}: {info}')
+    output = {'full_text': info}
+    json.dump(output, sys.stdout, ensure_ascii=False, indent=None)
+    sys.stdout.write('\n')
+    sys.stdout.flush()
+
+
+def print_weather_safe(geoclue):
+    try:
+        print_weather(geoclue)
+    except Exception as error:
+        LOG.exception(f'Failed to print weather information: {error}')
+
+
+def _location_changed(geoclue, _prop):
+    LOG.debug('Updating weather after location changed')
+    print_weather_safe(geoclue)
+
+
+def _update_on_timer(geoclue):
+    LOG.debug('Updating weather on timer')
+    print_weather_safe(geoclue)
+    return True
+
+
+def _start(geoclue):
+    LOG.info('Connected to geoclue, receiving initial weather information')
+    print_weather_safe(geoclue)
+    # Don't repeat the initial timeout
+    return False
+
+
+def main():
+    logging.getLogger().addHandler(JournalHandler())
+    LOG.setLevel(logging.INFO)
+
+    try:
+        from gi.repository import Geoclue
+        geoclue = Geoclue.Simple.new_sync(
+            'i3blocks-weather', Geoclue.AccuracyLevel.CITY, None)
+        geoclue.connect('notify::location', _location_changed)
+
+        GLib.timeout_add(0, lambda: _start(geoclue))
+        GLib.timeout_add_seconds(3600, lambda: _update_on_timer(geoclue))
+
+        GLib.MainLoop().run()
+    except Exception as error:
+        LOG.exception(f'Failed to connect to geoclue: {error}')
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except KeyboardInterrupt:
+        pass
