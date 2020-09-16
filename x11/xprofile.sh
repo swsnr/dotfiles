@@ -16,6 +16,11 @@
 # Import environment from fish
 eval "$(fish -l -c dump_env_posix)"
 
+if [[ "${XDG_CURRENT_DESKTOP}" == i3 && "$(lsb_release -is)" == "Ubuntu" ]]; then
+    # Cheat a little to treat a Ubuntu i3 desktop as Ubuntu system
+    export XDG_CURRENT_DESKTOP=i3:ubuntu
+fi
+
 if [[ "${XDG_CURRENT_DESKTOP}" == i3* ]]; then
     # Point dconf to a custom profile pointing to a custom database;
     # this separates config changes made for i3 from changes made in Gnome sessions
