@@ -96,7 +96,7 @@ bindsym $mod+Shift+j exec zim-journal tomorrow &
 bindsym $mod+Shift+question exec xdg-open https://i3wm.org/docs/userguide.html
 
 # VPN
-bindsym $mod+slash exec vpn toggle &
+bindsym $mod+slash exec --no-startup-id vpn toggle &
 
 # Notifications
 # Mute/unmute
