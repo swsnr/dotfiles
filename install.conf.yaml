@@ -84,63 +84,66 @@
     ~/.config/redshift.conf: misc/redshift.conf
     # i3 with custom scripts
     ~/.config/i3/config:
-      path: i3//config
+      path: i3/config
       if: "i3 --version | grep -qi 'i3 version'"
     # Custom dconf profile and settings file to override some Gtk settings for i3
     ~/.config/i3/dconf-profile:
-      path: i3//dconf/profile
+      path: i3/dconf/profile
       if: "i3 --version | grep -qi 'i3 version'"
     ~/.config/dconf/i3.txt:
-      path: i3//dconf/i3.txt
+      path: i3/dconf/i3.txt
       if: "i3 --version | grep -qi 'i3 version'"
     # i3 themes, including my default theme
     ~/.config/i3/themes:
-      path: i3//themes/*
+      path: i3/themes/*
       glob: true
       if: "i3 --version | grep -qi 'i3 version'"
     ~/.config/i3/themes/current:
-      path: i3//themes/adwaita-dark
+      path: i3/themes/adwaita-dark
       if: "i3 --version | grep -qi 'i3 version'"
     # i3 scripts and tools
     ~/.local/bin/i3-touchpad:
-      path: i3//bin/i3-touchpad.bash
+      path: i3/bin/i3-touchpad.bash
       if: "i3 --version | grep -qi 'i3 version'"
     ~/.local/bin/i3-rofi:
-      path: i3//bin/i3-rofi.bash
+      path: i3/bin/i3-rofi.bash
       if: "i3 --version | grep -qi 'i3 version'"
     ~/.local/bin/i3-rename-workspace:
-      path: i3//bin/i3-rename-workspace
+      path: i3/bin/i3-rename-workspace
       if: "i3 --version | grep -qi 'i3 version'"
     ~/.local/bin/i3-wallpaper-service:
-      path: i3//bin/i3-wallpaper-service.py
+      path: i3/bin/i3-wallpaper-service.py
       if: "i3 --version | grep -qi 'i3 version'"
     ~/.local/bin/i3-lock-screen:
-      path: i3//bin/i3-lock-screen.py
+      path: i3/bin/i3-lock-screen.py
       if: "i3 --version | grep -qi 'i3 version'"
     ~/.local/bin/i3-set-session-locked:
-      path: i3//bin/i3-set-session-locked.py
+      path: i3/bin/i3-set-session-locked.py
+      if: "i3 --version | grep -qi 'i3 version'"
+    ~/.local/bin/i3-exit:
+      path: i3/bin/i3-exit.py
       if: "i3 --version | grep -qi 'i3 version'"
     # i3 blocks for the status bar
     ~/.config/i3blocks/config:
-      path: i3//i3blocks.conf
+      path: i3/i3blocks.conf
       if: "i3 --version | grep -qi 'i3 version'"
     ~/.config/i3blocks/blocklets:
-      path: i3//blocklets/*
+      path: i3/blocklets/*
       glob: true
       if: "i3 --version | grep -qi 'i3 version'"
     # Notification daemon
     ~/.config/dunst/dunstrc:
-      path: i3//dunstrc
+      path: i3/dunstrc
       if: "i3 --version | grep -qi 'i3 version'"
     # Extra modes for Rofi launcher
     ~/.local/bin/rofi-idea-projects:
-      path: i3//bin/rofi-idea-projects
+      path: i3/bin/rofi-idea-projects
       if: "i3 --version | grep -qi 'i3 version'"
     ~/.local/bin/rofi-code-projects:
-      path: i3//bin/rofi-code-projects
+      path: i3/bin/rofi-code-projects
       if: "i3 --version | grep -qi 'i3 version'"
     ~/.local/bin/rofi-yes-no:
-      path: i3//bin/rofi-yes-no.bash
+      path: i3/bin/rofi-yes-no.bash
       if: "i3 --version | grep -qi 'i3 version'"
 
     # ZIM style configuration

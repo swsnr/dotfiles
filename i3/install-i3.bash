@@ -53,7 +53,8 @@ Ubuntu)
         # Display layout editing and profiles
         "autorandr"
         "arandr"
-        # Additional scripting
+        # Additional scripting tools
+        "wmctrl"
         "libsecret-tools"
     )
 
