@@ -189,6 +189,7 @@
       toggle-fullscreen: ['<Super>Return']
       # Keep on top above all other windows
       always-on-top: ['<Shift><Super>t']
+      toggle-on-all-workspaces: ['<Super>period']
       # Disable input method switching wtih Super+Space
       switch-input-source: ['XF86Keyboard']
       switch-input-source-backward: ['<Shift>XF86Keyboard']
