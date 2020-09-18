@@ -219,8 +219,8 @@
       - exa
       - fd
       - git-gone
+      - gh
       - hexyl
-      - hub
       - jq
       - mdcat
       - nnn
@@ -231,3 +231,5 @@
       - shfmt
       - vivid
       - youtube-dl
+    remove:
+      - hub
