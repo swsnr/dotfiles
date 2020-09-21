@@ -4,6 +4,9 @@
 	useconfigonly = true
 [core]
 	preloadIndex = true
+[init]
+	# No masters no more
+	defaultBranch = main
 [branch]
 	autoSetupRebase = always
 	sort = -authordate
