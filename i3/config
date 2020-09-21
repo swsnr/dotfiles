@@ -226,7 +226,7 @@ mode "$mode_system" {
   bindsym l restart, mode "default"
   bindsym n exec --no-startup-id toggle-nightlight, mode "default"
   bindsym r exec --no-startup-id rofi-yes-no 'Reboot?' && i3-exit reboot, mode "default"
-  bindsym s exec --no-startup-id rofi-yes-no 'Shutdown?' && i3-exit poweroff, mode "default"
+  bindsym s exec --no-startup-id rofi-yes-no 'Shutdown?' && i3-exit shutdown, mode "default"
   bindsym u exec --no-startup-id i3-exit suspend, mode "default"
   bindsym w exec --no-startup-id "random-wallpaper", mode "default"
 
