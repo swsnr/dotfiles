@@ -196,10 +196,9 @@
     org.gnome.settings-daemon.plugins.media-keys:
       terminal: ['<Super>t']
     org.gnome.shell.extensions.dash-to-dock:
-      # Only show apps from the current workspace in dock
-      isolate-workspaces: true
-      # Auto-hide dock (I don't use it a lot anyway)
-      dock-fixed: false
+      # extend the dock across all workspaces and fix it to the left side.
+      isolate-workspaces: false
+      dock-fixed: true
 - gnome_terminal_profile:
     audible-bell: false
     bold-is-bright: false
