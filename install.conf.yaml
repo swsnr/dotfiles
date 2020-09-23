@@ -193,8 +193,6 @@
       # Disable input method switching wtih Super+Space
       switch-input-source: ['XF86Keyboard']
       switch-input-source-backward: ['<Shift>XF86Keyboard']
-    org.gnome.settings-daemon.plugins.media-keys:
-      terminal: ['<Super>t']
     org.gnome.shell.extensions.dash-to-dock:
       # extend the dock across all workspaces and fix it to the left side.
       isolate-workspaces: false
@@ -207,6 +205,11 @@
     font: 'PragmataPro Mono Liga 11'
     use-system-font: false
     visible-name: 'Shell'
+- gnome_bindings:
+    terminal:
+      name: Start Terminal
+      command: gnome-terminal --tab
+      binding: <Super>t
 
 - homebins:
     update: true
