@@ -46,30 +46,8 @@ SETTINGS = {
 }
 
 
-CODE_EXTENSIONS = [
-    # Editing
-    'stkb.rewrap',
-    # Misc formats
-    'coolbear.systemd-unit-file',
-    # Fish editing and formatting
-    'bmalehorn.vscode-fish',
-    # Shell scripts
-    'timonwong.shellcheck',
-    'foxundermoon.shell-format',
-    # Rust and TOML
-    'bungcip.better-toml',
-    'rust-lang.rust',
-    'serayuzgur.crates',
-    # Languages
-    'James-Yu.latex-workshop',
-    'ms-python.python',
-    'vscoss.vscode-ansible',
-    'joaompinto.asciidoctor-vscode',
-]
-
-
 def update_config():
-    config_file = Path.home() / '.config' / 'Code' / 'User' / 'settings.json'
+    config_file = Path.home() / '.config' / 'Code - OSS' / 'User' / 'settings.json'
     settings = {}
     if config_file.is_file():
         with config_file.open() as source:
@@ -79,20 +57,8 @@ def update_config():
         json.dump(settings, sink, indent=4)
 
 
-def install_extensions():
-    installed_extensions = set(
-        run(['code', '--list-extensions'],
-            capture_output=True,
-            check=True,
-            text=True).stdout.splitlines())
-    for extension in CODE_EXTENSIONS:
-        if extension not in installed_extensions:
-            run(['code', '--install-extension', extension], check=True)
-
-
 def main():
     update_config()
-    install_extensions()
 
 
 if __name__ == '__main__':
