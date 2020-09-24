@@ -214,25 +214,6 @@
 - homebins:
     update: true
     add:
-      - bandwhich
-      - bat
+      - git-gone
       - coursier
       - delta
-      - exa
-      - fd
-      - git-gone
-      - gh
-      - hexyl
-      # TODO Remove once gh provides adequate substitute for hub ci-status,
-      # see https://github.com/cli/cli/issues/1055
-      - hub
-      - jq
-      - mdcat
-      - nnn
-      - oxipng
-      - pandoc
-      - ripgrep
-      - shellcheck
-      - shfmt
-      - vivid
-      - youtube-dl
