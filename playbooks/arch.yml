@@ -318,6 +318,39 @@
         user-db:user
         system-db:gdm
         file-db:/usr/share/gdm/greeter-dconf-defaults
+  # Local AUR repo
+  - name: Create pkgrepo dir
+    file:
+      name: /srv/pkgrepo
+      state: directory
+      mode: "0755"
+  - name: Create aur repo subvolume
+    command:
+      cmd: btrfs subvolume create /srv/pkgrepo/aur/
+      creates: /srv/pkgrepo/aur/
+  - name: Check that the aur directory is a subvolume
+    command:
+      cmd: btrfs subvolume show /srv/pkgrepo/aur/
+    changed_when: False
+  - name: Initialize package database
+    command:
+      cmd: repo-add /srv/pkgrepo/aur/aur.db.tar.xz
+      creates: /srv/pkgrepo/aur/aur.db.tar.xz
+  - name: Set default ACL for /srv/pkgrepo/aur to allow all users to read files regardless
+    acl:
+      path: "/srv/pkgrepo/aur"
+      default: true
+      state: present
+      follow: no
+      etype: other
+      permissions: "r--"
+  - name: Configure AUR repository
+    blockinfile:
+      path: /etc/pacman.conf
+      content: |
+        [aur]
+        SigLevel = Optional TrustAll
+        Server = file:///srv/pkgrepo/aur
 
   handlers:
   - name: Restart systemd-resolved
