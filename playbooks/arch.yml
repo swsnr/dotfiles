@@ -248,6 +248,24 @@
       state: present
     loop:
       - com.github.tchx84.Flatseal
+  # - name: Install i3
+  #   pacman:
+  #     state: present
+  #     name:
+  #     # i3
+  #     - i3-wm
+  #     - xss-lock
+  #     - xsecurelock
+  #     - redshift
+  #     - dunst
+  #     - rofi
+  #     - flameshot
+  #     - pasystray
+  #     - udiskie
+  #     - feh
+  #     - lxpolkit
+  #     - xfce4-power-manager
+  #     - nomacs
 
   # Configuration
   - name: Create directory for sudo settings

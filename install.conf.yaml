@@ -86,13 +86,6 @@
     ~/.config/i3/config:
       path: i3/config
       if: "i3 --version | grep -qi 'i3 version'"
-    # Custom dconf profile and settings file to override some Gtk settings for i3
-    ~/.config/i3/dconf-profile:
-      path: i3/dconf/profile
-      if: "i3 --version | grep -qi 'i3 version'"
-    ~/.config/dconf/i3.txt:
-      path: i3/dconf/i3.txt
-      if: "i3 --version | grep -qi 'i3 version'"
     # i3 themes, including my default theme
     ~/.config/i3/themes:
       path: i3/themes/*
