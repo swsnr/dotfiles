@@ -1,4 +1,4 @@
-- name: Install Arch Linux
+- name: Install Arch Linux base system
   hosts: localhost
   tasks:
   # Base setup
@@ -242,6 +242,12 @@
         # zim: source code viewing and spell checking
         - gtksourceview3
         - gtkspell3
+  - name: Install flatpaks
+    flatpak:
+      name: "{{ item }}"
+      state: present
+    loop:
+      - com.github.tchx84.Flatseal
 
   # Configuration
   - name: Create directory for sudo settings
