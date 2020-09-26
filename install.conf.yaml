@@ -152,6 +152,7 @@
     ~/.config/alacritty/alacritty.yml: misc/alacritty.yml
     # Udiskie device manager for i3
     ~/.config/udiskie/config.yml: misc/udiskie-config.yml
+    ~/.config/python_keyring/keyringrc.cfg: misc/keyringrc.cfg
 
 - gsettings:
     org.gnome.desktop.interface:
