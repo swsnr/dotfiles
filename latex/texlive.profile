@@ -2,12 +2,12 @@
 # It will NOT be updated and reflects only the
 # installation profile at installation time.
 selected_scheme scheme-small
-TEXDIR /home/basti/.local/texlive/2020
+TEXDIR ~/.local/texlive/2020
 TEXMFCONFIG ~/.texlive2020/texmf-config
 TEXMFHOME ~/texmf
-TEXMFLOCAL /home/basti/.local/texlive/texmf-local
-TEXMFSYSCONFIG /home/basti/.local/texlive/2020/texmf-config
-TEXMFSYSVAR /home/basti/.local/texlive/2020/texmf-var
+TEXMFLOCAL ~/.local/texlive/texmf-local
+TEXMFSYSCONFIG ~/.local/texlive/2020/texmf-config
+TEXMFSYSVAR ~/.local/texlive/2020/texmf-var
 TEXMFVAR ~/.texlive2020/texmf-var
 binary_x86_64-linux 1
 instopt_adjustpath 1
@@ -24,7 +24,7 @@ tlpdbopt_generate_updmap 0
 tlpdbopt_install_docfiles 1
 tlpdbopt_install_srcfiles 1
 tlpdbopt_post_code 1
-tlpdbopt_sys_bin /home/basti/.local/bin
-tlpdbopt_sys_info /home/basti/.local/share/info
-tlpdbopt_sys_man /home/basti/.local/share/man
+tlpdbopt_sys_bin ~/.local/bin
+tlpdbopt_sys_info ~/.local/share/info
+tlpdbopt_sys_man ~/.local/share/man
 tlpdbopt_w32_multi_user 1
