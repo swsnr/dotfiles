@@ -85,6 +85,9 @@ if status --is-interactive
         # set -x GIT_PAGER delta
     end
 
+    # To view files in aur-sync
+    set -x AUR_PAGER nnn
+
     # Abbreviations (unlike aliases, these are expanded before running)
     # Fast one or two letter abbrevs
     abbr --global --add _ sudo
