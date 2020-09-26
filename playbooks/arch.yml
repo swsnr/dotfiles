@@ -273,6 +273,8 @@
       - fstrim.timer
       # WiFi and network management
       - NetworkManager
+      # Home directory & user management
+      - systemd-homed
       # Basic NTP sync
       - systemd-timesyncd
       # Hostname resolution
