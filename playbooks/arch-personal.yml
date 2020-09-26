@@ -8,6 +8,15 @@
         - gnucash
         - geary
         - digikam
+        - pcsclite
+  - name: Enable and start services
+    systemd:
+      unit: "{{ item }}"
+      enabled: true
+      state: started
+    loop:
+      # Smartcard services for eID
+      - pcscd.socket
   - name: Configure NTP servers
     lineinfile:
       path: /etc/systemd/timesyncd.conf
