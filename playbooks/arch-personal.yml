@@ -1,0 +1,39 @@
+- name: Install personal Arch Linux system
+  hosts: localhost
+  tasks:
+  - name: Install personal packages
+    pacman:
+      state: present
+      name:
+        - gnucash
+        - geary
+        - digikam
+  - name: Configure NTP servers
+    lineinfile:
+      path: /etc/systemd/timesyncd.conf
+      insertafter: "#NTP="
+      regexp: "^NTP *="
+      line: NTP={{ servers | join(' ') }}
+    vars:
+      servers:
+        - ntp1.t-online.de
+        - 0.de.pool.ntp.org
+        - 1.de.pool.ntp.org
+        - 2.de.pool.ntp.org
+        - 3.de.pool.ntp.org
+    notify:
+    - Restart systemd-resolved
+  - name: Install flatpaks
+    flatpak:
+      name: "{{ item }}"
+      state: present
+    loop:
+      - com.github.geigi.cozy
+      - com.skype.Client
+      - com.valvesoftware.Steam
+
+  handlers:
+  - name: Restart systemd-timesyncd
+    systemd:
+      unit: systemd-timesyncd
+      state: restarted
