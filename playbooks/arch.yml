@@ -1,0 +1,326 @@
+- name: Install Arch Linux
+  hosts: localhost
+  tasks:
+  # Base setup
+  - name: Turn of PC speaker
+    modprobe:
+      name: pcspkr
+      state: absent
+  - name: Configure static hosts
+    lineinfile:
+      path: /etc/hosts
+      line: "{{ item }}"
+    loop:
+      # See <https://wiki.archlinux.org/index.php/Installation_guide#Network_configuration>
+      - "127.0.0.1 localhost"
+      - "::1 localhost"
+  - name: Enable locales
+    locale_gen:
+      name: "{{ item }}"
+    loop:
+      - "de_DE.UTF-8"
+      - "en_GB.UTF-8"
+      - "en_US.UTF-8"
+  - name: Configure console
+    copy:
+      dest: /etc/vconsole.conf
+      content: |
+        KEYMAP=us
+      mode: "0644"
+    notify:
+      - mkinitcpio
+  - name: Set system locale to de_DE.utf8
+    copy:
+      dest: /etc/locale.conf
+      content: |
+        LANG=de_DE.UTF-8
+      mode: "0644"
+  - name: Set timezone
+    timezone:
+      name: "Europe/Berlin"
+  - name: Install base packages
+    pacman:
+      state: present
+      name:
+      - base
+      - linux-firmware
+      - intel-ucode
+      - btrfs-progs
+      # Kernels
+      - linux
+      - linux-lts
+      # Manage EFI boot loaders
+      - efibootmgr
+    notify:
+      - mkinitcpio
+  - name: "Configure kernel modules"
+    copy:
+      dest: /etc/modprobe.d/lunaryorn-dotfiles.conf
+      content: |
+        # Blacklist pcspkr to silence beeps
+        blacklist pcspkr
+        # See https://wiki.archlinux.org/index.php/Power_management
+        options snd_hda_intel power_save=1
+        options snd_ac97_codec power_save=1
+        options iwlwifi power_save=1
+        # Prefer function keys over multimedia keys on Apple keyboards
+        options hid_apple fnmode=2
+        # Configure scrolling for Apple Magic Mouse
+        options hid_magicmouse scroll_acceleration=1 scroll_speed=40
+  - name: "Configure kernel parameters"
+    sysctl:
+      name: "{{ item.key }}"
+      value: "{{ item.value }}"
+      sysctl_file: /etc/sysctl.d/lunaryorn-dotfiles.conf
+    loop: "{{ items | dict2items }}"
+    vars:
+      items:
+        # Disable NMI watchdog (powertop rec.)
+        kernel.nmi_watchdog: "0"
+        # Increase writeback time (default 500, powertop rec.)
+        vm.dirty_writeback_centisecs: "1500"
+
+  # Packages
+  - name: Install packages
+    pacman:
+      state: present
+      name:
+      - ansible
+      - lsb-release
+      - fwupd
+      - sudo
+      - ntfs-3g
+      - exfat-utils
+      - usbutils
+      - thermald
+      # Additional pacman tools
+      - pacman-contrib
+      - pkgfile
+      - reflector
+      # Help
+      - man-db
+      - man-pages
+      - tldr
+      # My Shell
+      - fish
+      - exa
+      - fd
+      - ripgrep
+      - bat
+      - trash-cli
+      # Tools
+      - neovim
+      - htop
+      - powertop
+      - iotop
+      - rsync
+      - p7zip
+      - zip
+      - mdcat
+      - tree
+      - youtube-dl
+      # Networking
+      - networkmanager
+      - net-tools
+      - bind-tools
+      - inetutils
+      - avahi
+      - nss-mdns
+      # Development
+      - base-devel
+      - git
+      - httpie
+      - jq
+      - meld
+      - code
+      - shellcheck
+      - shfmt
+      - hugo
+      - ipython
+      - python-pylint
+      - autopep8
+      - rustup
+      - hub
+      - github-cli
+      - hexyl
+      # Desktop services
+      - cups
+      - hplip
+      - bluez
+      - sane
+      # Desktop
+      - materia-gtk-theme
+      - xdg-user-dirs
+      - wl-clipboard
+      - d-feet
+      - dconf-editor
+      - pavucontrol
+      - paprefs
+      - gst-plugins-ugly
+      - keepassxc
+      - deja-dup
+      - firefox
+      - firefox-i18n-de
+      - gimp
+      - inkscape
+      - vlc
+      - audacious
+      - zathura
+      - qalculate-gtk
+      - zim
+      - libreoffice-fresh
+      - libreoffice-fresh-de
+      - hyphen-de
+      - hyphen-en
+      - hunspell-de
+      - hunspell-en_GB
+      - hunspell-en_US
+      - mythes-de
+      - mythes-en
+      - flatpak
+      - remmina
+      - simple-scan
+      # Gnome
+      - gdm
+      - gnome-shell
+      - gnome-shell-extensions
+      - gnome-tweaks
+      - xdg-desktop-portal-gtk
+      - gnome-calculator
+      - gnome-calendar
+      - gnome-characters
+      - gnome-clocks
+      - gnome-disk-utility
+      - gnome-font-viewer
+      - gnome-logs
+      - gnome-screenshot
+      - gnome-shell-extensions
+      - gnome-system-monitor
+      - gnome-weather
+      - gnome-terminal
+      - seahorse
+      - file-roller
+      - yelp
+      - cheese
+      - nautilus
+      - gvfs-afc
+      - gvfs-goa
+      - gvfs-google
+      - gvfs-gphoto2
+      - gvfs-mtp
+      - gvfs-nfs
+      - gvfs-smb
+      - sushi
+      - baobab
+      - evince
+      - eog
+      - chrome-gnome-shell
+      # Fonts
+      - noto-fonts
+      - noto-fonts-extra
+      - noto-fonts-emoji
+      - ttf-liberation
+      - ttf-caladea
+      - ttf-carlito
+      - ttf-cascadia-code
+      - ttf-fira-code
+      - ttf-fira-mono
+      - ttf-fira-sans
+      - adobe-source-code-pro-fonts
+      - adobe-source-sans-pro-fonts
+      - adobe-source-serif-pro-fonts
+      - ttf-roboto
+      - ttf-ubuntu-font-family
+  # Optional deps
+  - name: Optional dependencies
+    pacman:
+      state: present
+      extra_args: --asdeps
+      name:
+        # zathura: PDF support
+        - zathura-pdf-mupdf
+        # zim: source code viewing and spell checking
+        - gtksourceview3
+        - gtkspell3
+
+  # Configuration
+  - name: Create directory for sudo settings
+    file:
+      path: /etc/sudoers.d
+      state: directory
+      mode: "0700"
+  - name: Allow wheel group to become root via sudo
+    copy:
+      dest: /etc/sudoers.d/10-wheel
+      content: |
+        %wheel ALL=(ALL:ALL) ALL
+      mode: "0600"
+  - name: Enable and start services
+    systemd:
+      unit: "{{ item }}"
+      enabled: true
+      state: started
+    loop:
+      # Thermal monitoring
+      - thermald.service
+      # Periodically trim file systems
+      - fstrim.timer
+      # WiFi and network management
+      - NetworkManager
+      # Basic NTP sync
+      - systemd-timesyncd
+      # Hostname resolution
+      - systemd-resolved
+      # mDNS support
+      - avahi-daemon.service
+      # pkgfile updates
+      - pkgfile-update.timer
+      # Pacman cache cleanup
+      - paccache.timer
+      # Printing
+      - org.cups.cupsd.service
+      # Bluetooth
+      - bluetooth.service
+  - name: Enable multicast DNS name resolution
+    lineinfile:
+      path: /etc/nsswitch.conf
+      regexp: "^hosts: "
+      line: "hosts: files mymachines myhostname mdns_minimal [NOTFOUND=return] resolve [!UNAVAIL=return] dns"
+  - name: Do not use resolved for multicast DNS (we use Avahi for this)
+    lineinfile:
+      path: /etc/systemd/resolved.conf
+      insertafter: "#MulticastDNS=yes"
+      regexp: "^MulticastDNS *="
+      line: MulticastDNS=no
+    notify:
+      - Restart systemd-resolved
+  - name: Redirect resolv.conf to systemd-resolved
+    file:
+      src: /run/systemd/resolve/stub-resolv.conf
+      dest: /etc/resolv.conf
+      state: link
+  - name: Create directory for dconf profiles
+    file:
+      path: /etc/dconf/profile
+      state: directory
+      mode: "0755"
+  - name: Define dconf profile for gdm
+    copy:
+      dest: /etc/dconf/profile/gdm
+      mode: "0644"
+      content: |
+        user-db:user
+        system-db:gdm
+        file-db:/usr/share/gdm/greeter-dconf-defaults
+
+  handlers:
+  - name: Restart systemd-resolved
+    systemd:
+      unit: systemd-resolved
+      state: restarted
+  - name: Restart systemd-timesyncd
+    systemd:
+      unit: systemd-timesyncd
+      state: restarted
+  - name: "mkinitcpio"
+    command: mkinitcpio -p linux linux-lts
