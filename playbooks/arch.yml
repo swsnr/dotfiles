@@ -231,6 +231,8 @@
       - adobe-source-serif-pro-fonts
       - ttf-roboto
       - ttf-ubuntu-font-family
+      - ttf-fira-mono
+      - ttf-fira-sans
   # Optional deps
   - name: Optional dependencies
     pacman:
@@ -247,6 +249,7 @@
       name: "{{ item }}"
       state: present
     loop:
+      # Manage flatpak permissions
       - com.github.tchx84.Flatseal
   # - name: Install i3
   #   pacman:
