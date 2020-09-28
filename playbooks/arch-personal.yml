@@ -31,7 +31,7 @@
         - 2.de.pool.ntp.org
         - 3.de.pool.ntp.org
     notify:
-    - Restart systemd-resolved
+    - Restart systemd-timesyncd
   - name: Install flatpaks
     flatpak:
       name: "{{ item }}"

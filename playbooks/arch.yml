@@ -118,6 +118,7 @@
       - zip
       - mdcat
       - tree
+      - nnn
       - youtube-dl
       # Networking
       - networkmanager
@@ -126,8 +127,10 @@
       - inetutils
       - avahi
       - nss-mdns
-      # Development
+      # Package building
       - base-devel
+      - devtools
+      # Development
       - git
       - httpie
       - jq
