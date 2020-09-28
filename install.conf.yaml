@@ -9,7 +9,7 @@
       relink: true
 - clean:
     # Prune dead symlinks in these directories
-    - "~"
+    - "~/.local/bin/"
     - "~/.config/fish"
     - "~/.config/fish/functions"
     - "~/.config/fish/conf.d"
