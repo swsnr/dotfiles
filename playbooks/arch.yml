@@ -340,6 +340,27 @@
         user-db:user
         system-db:gdm
         file-db:/usr/share/gdm/greeter-dconf-defaults
+
+  # Boot loader entries
+  - name: Install boot loader entries
+    copy:
+      dest: /boot/loader/entries/{{ item.key }}.conf
+      content: |
+        title {{ item.value.title }}
+        linux /vmlinuz-{{ item.value.linux }}
+        initrd /intel-ucode.img
+        initrd /initramfs-{{ item.value.linux }}.img
+        options quiet
+    loop: "{{ items | dict2items }}"
+    vars:
+      items:
+        arch:
+          title: Arch
+          linux: linux
+        arch-lts:
+          title: Arch LTS
+          linux: linux-lts
+
   # Local AUR repo
   - name: Create pkgrepo dir
     file:
