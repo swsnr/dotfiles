@@ -2,10 +2,6 @@
   hosts: localhost
   tasks:
   # Base setup
-  - name: Turn of PC speaker
-    modprobe:
-      name: pcspkr
-      state: absent
   - name: Configure static hosts
     lineinfile:
       path: /etc/hosts
