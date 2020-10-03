@@ -37,7 +37,6 @@
       name: "{{ item }}"
       state: present
     loop:
-      - com.github.geigi.cozy
       - com.skype.Client
       - com.valvesoftware.Steam
 
