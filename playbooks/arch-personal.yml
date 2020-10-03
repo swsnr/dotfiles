@@ -9,6 +9,7 @@
         - geary
         - digikam
         - pcsclite
+        - mediathekview
   - name: Enable and start services
     systemd:
       unit: "{{ item }}"
