@@ -41,6 +41,15 @@
       - com.skype.Client
       - com.valvesoftware.Steam
 
+  - name: Packages from AUR and my local repo
+    pacman:
+      state: present
+      name:
+      - cozy-audiobooks
+      - chiaki-git
+      - pcsc-cyberjack
+      - ausweisapp2
+
   handlers:
   - name: Restart systemd-timesyncd
     systemd:

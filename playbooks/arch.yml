@@ -395,6 +395,18 @@
         SigLevel = Optional TrustAll
         Server = file:///srv/pkgrepo/aur
 
+  - name: Packages from AUR and my local repo
+    pacman:
+      state: present
+      name:
+      - git-gone
+      - aurutils
+      - otf-vollkorn
+      - ttf-fira-go
+      - xtermcontorl
+      - git-delta
+      - numix-circle-icon-theme-git
+
   handlers:
   - name: Restart systemd-resolved
     systemd:
