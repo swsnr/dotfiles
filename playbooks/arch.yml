@@ -89,7 +89,6 @@
       - exfat-utils
       - usbutils
       - thermald
-      - libva-intel-driver
       # Additional pacman tools
       - pacman-contrib
       - pkgfile
@@ -158,6 +157,7 @@
       - pavucontrol
       - paprefs
       - gst-plugins-ugly
+      - gstreamer-vaapi
       - keepassxc
       - deja-dup
       - firefox
@@ -245,8 +245,8 @@
         # zim: source code viewing and spell checking
         - gtksourceview3
         - gtkspell3
-        # vlc: hardware decoding
-        - libva-intel-driver
+        # libva: Intel chipsets
+        - intel-media-driver
   - name: Install flatpaks
     flatpak:
       name: "{{ item }}"
