@@ -89,6 +89,7 @@
       - exfat-utils
       - usbutils
       - thermald
+      - libva-intel-driver
       # Additional pacman tools
       - pacman-contrib
       - pkgfile
@@ -149,6 +150,7 @@
       - sane
       # Desktop
       - materia-gtk-theme
+      - xcursor-pinux
       - xdg-user-dirs
       - wl-clipboard
       - d-feet
@@ -403,7 +405,7 @@
       - aurutils
       - otf-vollkorn
       - ttf-fira-go
-      - xtermcontorl
+      - xtermcontrol
       - git-delta
       - numix-circle-icon-theme-git
 
