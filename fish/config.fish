@@ -20,8 +20,6 @@ if status --is-login
         ~/.local/bin \
         # Rustup tooling
         ~/.cargo/bin \
-        # Ruby versions
-        ~/.rbenv/bin \
         # Gems
         ~/.gem/ruby/*/bin \
         ~/.gem/bin
