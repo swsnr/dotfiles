@@ -410,6 +410,7 @@
       - xtermcontrol
       - git-delta
       - numix-circle-icon-theme-git
+      - wcal-git
 
   handlers:
   - name: Restart systemd-resolved
