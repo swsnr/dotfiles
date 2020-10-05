@@ -7,9 +7,6 @@
 [submodule "submodules/dotbot-gsettings"]
 	path = submodules/dotbot-gsettings
 	url = ../dotbot-gsettings.git
-[submodule "submodules/dotbot-homebins"]
-	path = submodules/dotbot-homebins
-	url = ../dotbot-homebins.git
 [submodule "submodules/nvim/vim-toml"]
 	path = submodules/nvim/vim-toml
 	url = https://github.com/cespare/vim-toml.git
