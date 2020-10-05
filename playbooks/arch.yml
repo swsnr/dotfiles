@@ -245,6 +245,8 @@
         # zim: source code viewing and spell checking
         - gtksourceview3
         - gtkspell3
+        # vlc: hardware decoding
+        - libva-intel-driver
   - name: Install flatpaks
     flatpak:
       name: "{{ item }}"
