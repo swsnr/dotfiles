@@ -75,6 +75,57 @@
         kernel.nmi_watchdog: "0"
         # Increase writeback time (default 500, powertop rec.)
         vm.dirty_writeback_centisecs: "1500"
+        # The magic SysRq key enables certain keyboard combinations to be
+        # interpreted by the kernel to help with debugging. The kernel will respond
+        # to these keys regardless of the current running applications.
+        #
+        # In general, the magic SysRq key is not needed for the average Ubuntu
+        # system, and having it enabled by default can lead to security issues on
+        # the console such as being able to dump memory or to kill arbitrary
+        # processes including the running screen lock.
+        #
+        # Here is the list of possible values:
+        #   0 - disable sysrq completely
+        #   1 - enable all functions of sysrq
+        #  >1 - enable certain functions by adding up the following values:
+        #          2 - enable control of console logging level
+        #          4 - enable control of keyboard (SAK, unraw)
+        #          8 - enable debugging dumps of processes etc.
+        #         16 - enable sync command
+        #         32 - enable remount read-only
+        #         64 - enable signalling of processes (term, kill, oom-kill)
+        #        128 - allow reboot/poweroff
+        #        256 - allow nicing of all RT tasks
+        #
+        #   For example, to enable both control of console logging level and
+        #   debugging dumps of processes: kernel.sysrq = 10
+        #
+        # 128 + 32 + 16
+        kernel.sysrq: "176"
+        # The following settings are taken from an Ubuntu system; I guess they
+        # are reasonable to use.
+        #
+        # Many files and interfaces contain these addresses (e.g. /proc/kallsyms,
+        # /proc/modules, etc), and this setting can censor the addresses. A value
+        # of "0" allows all users to see the kernel addresses. A value of "1"
+        # limits visibility to the root user, and "2" blocks even the root user.
+        kernel.kptr_restrict: "1"
+        # IPv6 Privacy Extensions (RFC 4941)
+        # ---
+        # IPv6 typically uses a device's MAC address when choosing an IPv6 address
+        # to use in autoconfiguration. Privacy extensions allow using a randomly
+        # generated IPv6 address, which increases privacy.
+        #
+        # Acceptable values:
+        #    0 - don’t use privacy extensions.
+        #    1 - generate privacy addresses
+        #    2 - prefer privacy addresses and use them over the normal addresses.
+        net.ipv6.conf.all.use_tempaddr: "2"
+        net.ipv6.conf.default.use_tempaddr: "2"
+        # Turn on Source Address Verification in all interfaces to
+        # prevent some spoofing attacks.
+        net.ipv4.conf.default.rp_filter: "2"
+        net.ipv4.conf.all.rp_filter: "2"
 
   # Packages
   - name: Install packages
