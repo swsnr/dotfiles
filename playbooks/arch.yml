@@ -142,6 +142,8 @@
       - hub
       - github-cli
       - hexyl
+      # Virtual machines
+      - virt-manager
       # Desktop services
       - cups
       - hplip
@@ -247,6 +249,10 @@
         - gtkspell3
         # libva: Intel chipsets
         - intel-media-driver
+        # virt-manager: NAT & KVM support
+        - dnsmasq
+        - ebtables
+        - qemu
   - name: Install flatpaks
     flatpak:
       name: "{{ item }}"
