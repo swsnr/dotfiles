@@ -139,6 +139,11 @@
       path: i3/bin/rofi-yes-no.bash
       if: "i3 --version | grep -qi 'i3 version'"
 
+    # Kitty terminal emulator
+    ~/.config/kitty/:
+      path: kitty/*.conf
+      glob: true
+
     # ZIM style configuration
     ~/.config/zim/style.conf: misc/zim-style.conf
     # Alacritty terminal
