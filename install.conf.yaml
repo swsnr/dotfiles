@@ -146,8 +146,6 @@
 
     # ZIM style configuration
     ~/.config/zim/style.conf: misc/zim-style.conf
-    # Alacritty terminal
-    ~/.config/alacritty/alacritty.yml: misc/alacritty.yml
     # Udiskie device manager for i3
     ~/.config/udiskie/config.yml: misc/udiskie-config.yml
     # Make python keyring pick the proper backend
