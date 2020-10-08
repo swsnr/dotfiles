@@ -139,7 +139,6 @@
       - ntfs-3g
       - exfat-utils
       - usbutils
-      - thermald
       # Additional pacman tools
       - pacman-contrib
       - pkgfile
@@ -348,8 +347,6 @@
       enabled: true
       state: started
     loop:
-      # Thermal monitoring
-      - thermald.service
       # Periodically trim file systems
       - fstrim.timer
       # WiFi and network management
@@ -468,6 +465,21 @@
       - git-delta
       - numix-circle-icon-theme-git
       - wcal-git
+
+  # Cleanup
+  - name: Stop and disable unneeded services
+    systemd:
+      unit: "{{ item }}"
+      enabled: false
+      state: stopped
+    loop:
+      - thermald.service
+  - name: Remove old packages
+    pacman:
+      state: absent
+      extra_args: --recursive
+      name:
+      - thermald
 
   handlers:
   - name: Restart systemd-resolved
