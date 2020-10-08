@@ -474,6 +474,7 @@
       state: stopped
     loop:
       - thermald.service
+    ignore_errors: yes
   - name: Remove old packages
     pacman:
       state: absent
