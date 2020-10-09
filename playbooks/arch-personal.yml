@@ -1,6 +1,14 @@
 - name: Install personal Arch Linux system
   hosts: localhost
   tasks:
+  - name: Configure boot loader
+    copy:
+      dest: /efi/loader/loader.conf
+      content: |
+        timeout 0
+        editor no
+        console-mode keep
+        default arch.conf
   - name: Install personal packages
     pacman:
       state: present
