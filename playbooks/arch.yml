@@ -486,31 +486,6 @@
       - numix-circle-icon-theme-git
       - wcal-git
 
-  # Cleanup
-  - name: Stop and disable unneeded services
-    systemd:
-      unit: "{{ item }}"
-      enabled: false
-      state: stopped
-    loop:
-      - thermald.service
-    ignore_errors: yes
-  - name: Remove old packages
-    pacman:
-      state: absent
-      extra_args: --recursive
-      name:
-      - thermald
-  - name: Remove old AUR block without special marker
-    blockinfile:
-      path: /etc/pacman.conf
-      state: absent
-      content: |
-        [aur]
-        SigLevel = Optional TrustAll
-        Server = file:///srv/pkgrepo/aur
-    tags: pacman
-
   handlers:
   - name: Restart systemd-resolved
     systemd:
