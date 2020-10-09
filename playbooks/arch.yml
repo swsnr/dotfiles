@@ -128,6 +128,15 @@
         net.ipv4.conf.all.rp_filter: "2"
 
   # Packages
+  - name: Configure multilib repo
+    blockinfile:
+      path: /etc/pacman.conf
+      content: |
+        [multilib]
+        Include = /etc/pacman.d/mirrorlist
+      insertbefore: '^#\[multilib\]'
+      marker: '# {mark} ANSIBLE MULTILIB REPO'
+    tags: pacman
   - name: Configure pacman
     lineinfile:
       path: /etc/pacman.conf
