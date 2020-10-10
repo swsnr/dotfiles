@@ -164,6 +164,7 @@
       - pacman-contrib
       - pkgfile
       - reflector
+      - aurpublish
       # Help
       - man-db
       - man-pages

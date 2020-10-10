@@ -1,0 +1,4 @@
+# SSH config for aurpublish (it wants the "aur" alias)
+Host aur aur.archlinux.org
+    User aur
+    Hostname aur.archlinux.org
