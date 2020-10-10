@@ -18,6 +18,7 @@
         - digikam
         - pcsclite
         - mediathekview
+        - avidemux-qt
   - name: Enable and start services
     systemd:
       unit: "{{ item }}"
