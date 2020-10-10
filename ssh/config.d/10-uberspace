@@ -1,2 +1,0 @@
-Host *.uberspace.de
-    IdentityFile ~/.ssh/uberspace
