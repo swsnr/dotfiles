@@ -157,6 +157,9 @@
       - ntfs-3g
       - exfat-utils
       - usbutils
+      # Btrfs snapshots for backups and recovery
+      - snapper
+      - snap-pac
       # Additional pacman tools
       - pacman-contrib
       - pkgfile
@@ -387,6 +390,9 @@
       - org.cups.cupsd.service
       # Bluetooth
       - bluetooth.service
+      # Btrfs snapshots
+      - snapper-timeline.timer
+      - snapper-cleanup.timer
   - name: Enable multicast DNS name resolution
     lineinfile:
       path: /etc/nsswitch.conf
