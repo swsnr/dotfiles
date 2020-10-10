@@ -419,6 +419,18 @@
         system-db:gdm
         file-db:/usr/share/gdm/greeter-dconf-defaults
 
+  - name: Check btrfs subvolumes for better snapper support
+    command:
+      cmd: "btrfs subvolume show {{ item }}"
+    changed_when: False
+    loop:
+      - /srv
+      - /var/tmp
+      - /var/log
+      - /var/cache
+      - /var/cache/pacman/pkg
+      - /var/lib/flatpak/repo
+
   # Boot loader entries
   - name: Install boot loader entries
     copy:
