@@ -255,6 +255,7 @@
       - flatpak
       - remmina
       - simple-scan
+      - signal-desktop
       # Gnome
       - gdm
       - gnome-shell
@@ -332,8 +333,6 @@
     loop:
       # Manage flatpak permissions
       - com.github.tchx84.Flatseal
-      # Messenger
-      - org.signal.Signal
   # - name: Install i3
   #   pacman:
   #     state: present
