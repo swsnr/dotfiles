@@ -425,6 +425,17 @@
         user-db:user
         system-db:gdm
         file-db:/usr/share/gdm/greeter-dconf-defaults
+  - name: Configure font settings
+    file:
+      src: "../conf.avail/{{ item }}.conf"
+      dest: "/etc/fonts/conf.d/{{ item }}.conf"
+      state: link
+    loop:
+      # Hinting and subpixel aliasing
+      - 10-hinting-slight
+      - 10-sub-pixel-rgb
+      # LCD filter, see https://wiki.archlinux.org/index.php/Font_configuration#LCD_filter
+      - 11-lcdfilter-default
 
   - name: Check btrfs subvolumes for better snapper support
     command:
