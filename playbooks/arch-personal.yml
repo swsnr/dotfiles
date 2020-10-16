@@ -19,6 +19,7 @@
         - pcsclite
         - mediathekview
         - avidemux-qt
+        - intellij-idea-community-edition
   - name: Enable and start services
     systemd:
       unit: "{{ item }}"
