@@ -58,6 +58,8 @@ set -x LESS_TERMCAP_ue (set_color normal) # End reverse video
 
 # Extra things for interactive shells
 if status --is-interactive
+    # Set cursor shape for vi
+    set fish_cursor_insert underscore
 
     # Give me English messages in an interface shell in a TTY; these messages
     # are just so much better than the translations!
