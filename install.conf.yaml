@@ -143,6 +143,9 @@
     ~/.config/kitty/:
       path: kitty/*.conf
       glob: true
+    ~/.config/kitty/themes:
+      path: kitty/themes/*.conf
+      glob: true
 
     # ZIM style configuration
     ~/.config/zim/style.conf: misc/zim-style.conf
