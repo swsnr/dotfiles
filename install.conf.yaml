@@ -214,5 +214,5 @@
 - gnome_bindings:
     terminal:
       name: Start Terminal
-      command: gnome-terminal --tab
+      command: kitty -1
       binding: <Super>t
