@@ -224,27 +224,17 @@
       - bluez
       - sane
       # Desktop
-      - materia-gtk-theme
+      - flatpak
       - xcursor-pinux
       - xdg-user-dirs
       - wl-clipboard
-      - d-feet
-      - dconf-editor
-      - pavucontrol
-      - paprefs
-      - gst-plugins-ugly
-      - gstreamer-vaapi
       - keepassxc
-      - deja-dup
       - firefox
       - firefox-i18n-de
-      - gimp
-      - inkscape
-      - vlc
-      - audacious
       - zathura
-      - qalculate-gtk
       - zim
+      - signal-desktop
+      # Office
       - libreoffice-fresh
       - libreoffice-fresh-de
       - hyphen-de
@@ -254,45 +244,13 @@
       - hunspell-en_US
       - mythes-de
       - mythes-en
-      - flatpak
-      - remmina
-      - simple-scan
-      - signal-desktop
-      # Gnome
-      - gdm
-      - gnome-shell
-      - gnome-shell-extensions
-      - gnome-tweaks
-      - xdg-desktop-portal-gtk
-      - gnome-calculator
-      - gnome-calendar
-      - gnome-characters
-      - gnome-clocks
-      - gnome-disk-utility
-      - gnome-font-viewer
-      - gnome-logs
-      - gnome-screenshot
-      - gnome-shell-extensions
-      - gnome-system-monitor
-      - gnome-weather
-      - gnome-terminal
-      - seahorse
-      - file-roller
-      - yelp
-      - cheese
-      - nautilus
-      - gvfs-afc
-      - gvfs-goa
-      - gvfs-google
-      - gvfs-gphoto2
-      - gvfs-mtp
-      - gvfs-nfs
-      - gvfs-smb
-      - sushi
-      - baobab
-      - evince
-      - eog
-      - chrome-gnome-shell
+      # Multimedia Apps
+      - pavucontrol
+      - paprefs
+      - gst-plugins-ugly
+      - gstreamer-vaapi
+      - vlc
+      - audacious
       # Fonts
       - noto-fonts
       - noto-fonts-extra
@@ -335,24 +293,74 @@
     loop:
       # Manage flatpak permissions
       - com.github.tchx84.Flatseal
-  # - name: Install i3
-  #   pacman:
-  #     state: present
-  #     name:
-  #     # i3
-  #     - i3-wm
-  #     - xss-lock
-  #     - xsecurelock
-  #     - redshift
-  #     - dunst
-  #     - rofi
-  #     - flameshot
-  #     - pasystray
-  #     - udiskie
-  #     - feh
-  #     - lxpolkit
-  #     - xfce4-power-manager
-  #     - nomacs
+
+  - name: Install Gnome
+    pacman:
+      state: present
+      name:
+      - materia-gtk-theme
+      - d-feet
+      - dconf-editor
+      - xdg-desktop-portal-gtk
+      - gdm
+      - gnome-shell
+      - gnome-shell-extensions
+      - gnome-tweaks
+      - gnome-calculator
+      - gnome-calendar
+      - gnome-characters
+      - gnome-clocks
+      - gnome-disk-utility
+      - gnome-font-viewer
+      - gnome-logs
+      - gnome-screenshot
+      - gnome-shell-extensions
+      - gnome-system-monitor
+      - gnome-weather
+      - gnome-terminal
+      - seahorse
+      - file-roller
+      - yelp
+      - cheese
+      - nautilus
+      - gvfs-afc
+      - gvfs-goa
+      - gvfs-google
+      - gvfs-gphoto2
+      - gvfs-mtp
+      - gvfs-nfs
+      - gvfs-smb
+      - sushi
+      - baobab
+      - evince
+      - eog
+      - chrome-gnome-shell
+      - remmina
+      - simple-scan
+      # Gtk Apps
+      - gimp
+      - inkscape
+      - deja-dup
+
+  - name: Uninstall i3
+    pacman:
+      state: absent
+      extra_args: --recursive
+      name:
+      # i3
+      - i3-wm
+      - xss-lock
+      - xsecurelock
+      - redshift
+      - dunst
+      - rofi
+      - flameshot
+      - pasystray
+      - udiskie
+      - feh
+      - lxpolkit
+      - xfce4-power-manager
+      - nomacs
 
   # Configuration
   - name: Create directory for sudo settings
