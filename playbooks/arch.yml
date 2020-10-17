@@ -215,6 +215,7 @@
       - hub
       - github-cli
       - hexyl
+      - asciidoctor
       # Virtual machines
       - virt-manager
       # Desktop services
