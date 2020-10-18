@@ -73,6 +73,15 @@
       path: gnome/extensions/home@swsnr.de
       if: "uname -s | grep -qi linux"
 
+    # Sway
+    ~/.config/sway/config: sway/config
+    ~/.config/sway/config.d:
+      path: sway/config.d/*
+      glob: true
+    ~/.config/sway/themes.d:
+      path: sway/themes.d/*
+      glob: true
+
     # X11 settings: xprofile for i3 environment, Xresources for some X11 settings
     # and dynamic i3 themeing, and xinitrc to start an X11 instance with i3wm
     # from xrdp.
