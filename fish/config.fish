@@ -19,10 +19,7 @@ if status --is-login
         # My local binaries, from dotfiles and homebins
         ~/.local/bin \
         # Rustup tooling
-        ~/.cargo/bin \
-        # Gems
-        ~/.gem/ruby/*/bin \
-        ~/.gem/bin
+        ~/.cargo/bin
 end
 
 # Environment variables.  Use absolute path to nvim because it's likely in a

@@ -269,23 +269,6 @@
       - ttf-ubuntu-font-family
       - ttf-fira-mono
       - ttf-fira-sans
-  # Optional deps
-  - name: Optional dependencies
-    pacman:
-      state: present
-      extra_args: --asdeps
-      name:
-        # zathura: PDF support
-        - zathura-pdf-mupdf
-        # zim: source code viewing and spell checking
-        - gtksourceview3
-        - gtkspell3
-        # libva: Intel chipsets
-        - intel-media-driver
-        # virt-manager: NAT & KVM support
-        - dnsmasq
-        - ebtables
-        - qemu
   - name: Install flatpaks
     flatpak:
       name: "{{ item }}"
@@ -295,6 +278,7 @@
       - com.github.tchx84.Flatseal
 
   - name: Install Gnome
+    tags: [gnome]
     pacman:
       state: present
       name:
@@ -341,8 +325,8 @@
       - gimp
       - inkscape
       - deja-dup
-
   - name: Uninstall i3
+    tags: [i3]
     pacman:
       state: absent
       extra_args: --recursive
@@ -361,6 +345,23 @@
       - lxpolkit
       - xfce4-power-manager
       - nomacs
+  # Optional deps
+  - name: Optional dependencies
+    pacman:
+      state: present
+      extra_args: --asdeps
+      name:
+        # zathura: PDF support
+        - zathura-pdf-mupdf
+        # zim: source code viewing and spell checking
+        - gtksourceview3
+        - gtkspell3
+        # libva: Intel chipsets
+        - intel-media-driver
+        # virt-manager: NAT & KVM support
+        - dnsmasq
+        - ebtables
+        - qemu
 
   # Configuration
   - name: Create directory for sudo settings
