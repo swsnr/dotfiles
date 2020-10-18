@@ -189,6 +189,7 @@
       - tree
       - nnn
       - youtube-dl
+      - oxipng
       # Networking
       - networkmanager
       - net-tools
