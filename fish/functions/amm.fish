@@ -13,5 +13,5 @@
 # the License.
 
 function amm -d 'Launch ammonite with coursier, using latest Scala'
-    cs launch ammonite -- --no-remote-logging $argv
+    coursier launch ammonite -- --no-remote-logging $argv
 end
