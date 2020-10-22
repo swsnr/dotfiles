@@ -17,6 +17,7 @@ Desktop.ini
 .jvmopts
 .metals/
 .bloop/
+.bsp/
 
 # VSCode
 .vscode/
