@@ -69,14 +69,13 @@
       if: "uname -s | grep -qi linux"
 
     # Common stuff for Sway and i3
+    # Nightlight
+    ~/.config/redshift.conf: misc/redshift.conf
     # i3blocks for the status bar
-    ~/.config/i3blocks/config:
-      path: i3blocks/i3blocks.conf
-      if: "i3blocks -V | grep -qi 'i3blocks'"
+    ~/.config/i3blocks/config: i3blocks/i3blocks.conf
     ~/.config/i3blocks/blocklets:
       path: i3blocks/blocklets/*
       glob: true
-      if: "i3blocks -V | grep -qi 'i3blocks'"
 
     # Sway
     ~/.config/sway/config: sway/config
@@ -94,8 +93,6 @@
       path: x11/xprofile.sh
     ~/.Xresources:
       path: x11/Xresources
-    # X11 nightlight
-    ~/.config/redshift.conf: misc/redshift.conf
     # i3 with custom scripts
     ~/.config/i3/config:
       path: i3/config
@@ -111,9 +108,6 @@
     # i3 scripts and tools
     ~/.local/bin/i3-touchpad:
       path: i3/bin/i3-touchpad.bash
-      if: "i3 --version | grep -qi 'i3 version'"
-    ~/.local/bin/i3-rofi:
-      path: i3/bin/i3-rofi.bash
       if: "i3 --version | grep -qi 'i3 version'"
     ~/.local/bin/i3-rename-workspace:
       path: i3/bin/i3-rename-workspace
@@ -135,12 +129,6 @@
       path: i3/dunstrc
       if: "i3 --version | grep -qi 'i3 version'"
     # Extra modes for Rofi launcher
-    ~/.local/bin/rofi-idea-projects:
-      path: i3/bin/rofi-idea-projects
-      if: "i3 --version | grep -qi 'i3 version'"
-    ~/.local/bin/rofi-code-projects:
-      path: i3/bin/rofi-code-projects
-      if: "i3 --version | grep -qi 'i3 version'"
     ~/.local/bin/rofi-yes-no:
       path: i3/bin/rofi-yes-no.bash
       if: "i3 --version | grep -qi 'i3 version'"
