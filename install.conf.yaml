@@ -76,6 +76,8 @@
     ~/.config/i3blocks/blocklets:
       path: i3blocks/blocklets/*
       glob: true
+    # rofi launcher
+    ~/.config/rofi/config.rasi: misc/rofi.rasi
 
     # Sway
     ~/.config/sway/config: sway/config
