@@ -21,7 +21,7 @@ import subprocess
 import json
 from time import time
 from pathlib import Path
-from collections import Counter, namedtuple
+from collections import namedtuple
 from gi.repository import Gio
 
 
@@ -102,12 +102,7 @@ def read_projects(file):
              document.findall('.//option[@name="recentPaths"]/list/option'))
     projects = [read_project(directory) for directory in paths if
                 directory.expanduser().is_dir()]
-    duplicates = [name for name, count
-                  in Counter(p.name for p in projects).items()
-                  if 1 < count]
-    if duplicates:
-        raise ValueError('Duplicate project name: {}', ', '.join(duplicates))
-    return dict((p.name, p) for p in projects)
+    return dict((p.path, p) for p in projects)
 
 
 def get_icon_name(app):
@@ -129,18 +124,19 @@ def main():
     recent = read_recent_entries()
     if len(sys.argv) == 1:
         print('\x00prompt\x1fIDEA Project')
+        print('\x00no-custom\x1ftrue')
         icon_name = get_icon_name(idea) or ''
         sorted_by_recent = sorted(
-            projects.keys(), key=lambda n: (recent.get(n, 0) * -1, n))
-        for project_name in sorted_by_recent:
-            print('{}\x00icon\x1f{}'.format(project_name, icon_name))
+            projects.values(), key=lambda p: (recent.get(p.path, 0) * -1, p.name))
+        for project in sorted_by_recent:
+            print('{}\x00icon\x1f{}\x1finfo\x1f{}'.format(
+                project.name, icon_name, project.path))
     else:
         print()
-        name = sys.argv[1]
-        path = projects[name].path
-        recent[name] = time()
+        path = os.environ.get('ROFI_INFO')
+        recent[path] = time()
         write_recent_entries(recent)
-        subprocess.run(['gtk-launch', idea.get_id(), path.expanduser().as_uri()],
+        subprocess.run(['gtk-launch', idea.get_id(), Path(path).expanduser().as_uri()],
                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 
