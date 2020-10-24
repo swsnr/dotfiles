@@ -63,11 +63,6 @@
       path: ssh/config.d/*
       glob: true
 
-    # Linux configuration (basic)
-    ~/.local/bin/reset-thunderbolt.bash:
-      path: misc/reset-thunderbolt.bash
-      if: "uname -s | grep -qi linux"
-
     # Gnome
     ~/.local/share/gnome-shell/extensions/home@swsnr.de:
       path: gnome/extensions/home@swsnr.de
