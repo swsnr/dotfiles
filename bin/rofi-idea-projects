@@ -110,6 +110,16 @@ def read_projects(file):
     return dict((p.name, p) for p in projects)
 
 
+def get_icon_name(app):
+    icon = app.get_icon()
+    if isinstance(icon, Gio.FileIcon):
+        return icon.get_file().get_path()
+    elif isinstance(icon, Gio.ThemedIcon):
+        return icon.get_names()[0]
+    else:
+        raise ValueError(f'Cannot get icon name for {icon!r}')
+
+
 def main():
     idea = find_idea()
     config_file = latest_config_file()
@@ -119,11 +129,11 @@ def main():
     recent = read_recent_entries()
     if len(sys.argv) == 1:
         print('\x00prompt\x1fIDEA Project')
-        icon = idea.get_icon().get_file().get_path()
+        icon_name = get_icon_name(idea) or ''
         sorted_by_recent = sorted(
             projects.keys(), key=lambda n: (recent.get(n, 0) * -1, n))
         for project_name in sorted_by_recent:
-            print('{}\x00icon\x1f{}'.format(project_name, icon))
+            print('{}\x00icon\x1f{}'.format(project_name, icon_name))
     else:
         print()
         name = sys.argv[1]
