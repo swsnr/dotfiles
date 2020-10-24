@@ -73,6 +73,16 @@
       path: gnome/extensions/home@swsnr.de
       if: "uname -s | grep -qi linux"
 
+    # Common stuff for Sway and i3
+    # i3blocks for the status bar
+    ~/.config/i3blocks/config:
+      path: i3blocks/i3blocks.conf
+      if: "i3blocks -V | grep -qi 'i3blocks'"
+    ~/.config/i3blocks/blocklets:
+      path: i3blocks/blocklets/*
+      glob: true
+      if: "i3blocks -V | grep -qi 'i3blocks'"
+
     # Sway
     ~/.config/sway/config: sway/config
     ~/.config/sway/config.d:
@@ -124,14 +134,6 @@
       if: "i3 --version | grep -qi 'i3 version'"
     ~/.local/bin/i3-exit:
       path: i3/bin/i3-exit.py
-      if: "i3 --version | grep -qi 'i3 version'"
-    # i3 blocks for the status bar
-    ~/.config/i3blocks/config:
-      path: i3/i3blocks.conf
-      if: "i3 --version | grep -qi 'i3 version'"
-    ~/.config/i3blocks/blocklets:
-      path: i3/blocklets/*
-      glob: true
       if: "i3 --version | grep -qi 'i3 version'"
     # Notification daemon
     ~/.config/dunst/dunstrc:

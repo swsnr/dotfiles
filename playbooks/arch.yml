@@ -228,6 +228,8 @@
       - flatpak
       - xcursor-pinux
       - xdg-user-dirs
+      - materia-gtk-theme
+      - xdg-desktop-portal-gtk
       - wl-clipboard
       - keepassxc
       - firefox
@@ -235,6 +237,8 @@
       - zathura
       - zim
       - signal-desktop
+      - d-feet
+      - dconf-editor
       # Office
       - libreoffice-fresh
       - libreoffice-fresh-de
@@ -270,6 +274,9 @@
       - ttf-ubuntu-font-family
       - ttf-fira-mono
       - ttf-fira-sans
+      # Dependencies of my scripts
+      - python-keyring
+      - python-systemd
   - name: Install flatpaks
     flatpak:
       name: "{{ item }}"
@@ -283,10 +290,6 @@
     pacman:
       state: present
       name:
-      - materia-gtk-theme
-      - d-feet
-      - dconf-editor
-      - xdg-desktop-portal-gtk
       - gdm
       - gnome-shell
       - gnome-shell-extensions
@@ -326,26 +329,7 @@
       - gimp
       - inkscape
       - deja-dup
-  - name: Uninstall i3
-    tags: [i3]
-    pacman:
-      state: absent
-      extra_args: --recursive
-      name:
-      # i3
-      - i3-wm
-      - xss-lock
-      - xsecurelock
-      - redshift
-      - dunst
-      - rofi
-      - flameshot
-      - pasystray
-      - udiskie
-      - feh
-      - lxpolkit
-      - xfce4-power-manager
-      - nomacs
+
   # Optional deps
   - name: Optional dependencies
     pacman:
