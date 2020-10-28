@@ -1,5 +1,5 @@
 // Cancel executions with C-c
-cancelable in Global := true
+Global / cancelable := true
 
 // Clear screen when watching sources
 triggeredMessage := Watched.clearWhenTriggered
@@ -12,6 +12,9 @@ commands += Command.command("clear") { state =>
 
 // Don't resolve snapshot dependencies again and again
 updateOptions := updateOptions.value.withLatestSnapshots(false)
+
+// Enable semantic DB for IDEA
+Global / semanticdbEnabled := true
 
 // I can never remember this command.
 addCommandAlias("outdated", "dependencyUpdates")
