@@ -56,7 +56,7 @@
       state: present
       name:
       - cozy-audiobooks
-      - chiaki-git
+      - chiaki
       - pcsc-cyberjack
       - ausweisapp2
 
