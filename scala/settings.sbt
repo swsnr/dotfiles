@@ -14,7 +14,7 @@ commands += Command.command("clear") { state =>
 updateOptions := updateOptions.value.withLatestSnapshots(false)
 
 // Enable semantic DB for IDEA
-Global / semanticdbEnabled := true
+// Global / semanticdbEnabled := true
 
 // I can never remember this command.
 addCommandAlias("outdated", "dependencyUpdates")
