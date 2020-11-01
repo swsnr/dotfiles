@@ -382,6 +382,8 @@
       - pkgfile-update.timer
       # Pacman cache cleanup
       - paccache.timer
+      # Mirrorlist updates
+      - reflector.timer
       # Printing
       - org.cups.cupsd.service
       # Bluetooth
@@ -431,6 +433,15 @@
       - 10-sub-pixel-rgb
       # LCD filter, see https://wiki.archlinux.org/index.php/Font_configuration#LCD_filter
       - 11-lcdfilter-default
+  - name: Configure mirrorlist updates
+    copy:
+      dest: /etc/xdg/reflector/reflector.conf
+      content: |
+        --save /etc/pacman.d/mirrorlist
+        --protocol https
+        --country Germany
+        --latest 5
+        --sort age
 
   - name: Check btrfs subvolumes for better snapper support
     command:
