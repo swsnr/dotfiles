@@ -357,7 +357,7 @@ bar {
   status_command i3blocks
   position top
   separator_symbol " "
-  tray_output primary
+  tray_output none
   tray_padding 5px
 
   colors {
