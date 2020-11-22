@@ -29,7 +29,7 @@ function fish_prompt -d 'My personal prompt'
     set -g __fish_git_prompt_color_untrackedfiles red
     set -g __fish_git_prompt_color_cleanstate green
 
-    if [ (id -u) -eq 0 ] || [ $LOGNAME != $USER ] || set -q SSH_CONNECTION
+    if [ (id -u) -eq 0 ] || set -q SSH_CONNECTION
         set -l color 'yellow'
         if [ $USER = 'root' ]
             set color 'red'
@@ -44,7 +44,7 @@ function fish_prompt -d 'My personal prompt'
     end
     # Working directory and git prompt
     echo -sn (set_color -o cyan) (prompt_pwd) (set_color normal)
-    echo -sn (set_color -o) (__fish_git_prompt " on  %s")
+    echo -sn (set_color -o) (__fish_git_prompt " on  %s")
 
     # Python virtualenv if any
     if set -q VIRTUAL_ENV
@@ -61,7 +61,7 @@ function fish_prompt -d 'My personal prompt'
     # Battery if present and supported
     set -l battery (prompt_battery)
     if string length -q $battery $battery
-        echo -sn (set_color -o) ' ⚡' $battery
+        echo -sn (set_color -o) ' ' $battery
     end
 
     # New line
@@ -71,7 +71,7 @@ function fish_prompt -d 'My personal prompt'
 
     # Private mode
     if set -q fish_private_mode
-        echo -sn (set_color -o red) "⦸" (set_color normal) ' '
+        echo -sn (set_color -o red) "" (set_color normal) ' '
     end
 
     # Indicate exit code of last command
@@ -80,5 +80,5 @@ function fish_prompt -d 'My personal prompt'
     else
         echo -sn (set_color -o red)
     end
-    echo -sn "→ " (set_color normal)
+    echo -sn " " (set_color normal)
 end
