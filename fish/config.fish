@@ -85,6 +85,9 @@ if status --is-interactive
     # To view files in aur-sync
     set -x AUR_PAGER nnn
 
+    # diff prog, e.g. for pacdiff
+    set -x DIFFPROG 'nvim -d'
+
     # Abbreviations (unlike aliases, these are expanded before running)
     # Fast one or two letter abbrevs
     abbr --global --add _ sudo
