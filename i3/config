@@ -101,12 +101,10 @@ bindsym $mod+slash exec --no-startup-id vpn toggle &
 # Notifications
 # Mute/unmute
 bindsym $mod+equal exec --no-startup-id notify-send DUNST_COMMAND_TOGGLE
-# These bindings are in dunstrc
-# TODO: Make this i3 bindings as soon as a new dunst has this dunstctl thing
-# $mod+bracketright close
-# $mod+shift+bracketright close all
-# $mod+bracketleft history
-# $mod+period context
+bindsym $mod+bracketright exec --no-startup-id dunstctl close
+bindsym $mod+Shift+bracketright exec --no-startup-id dunstctl close-all
+bindsym $mod+bracketleft exec --no-startup-id dunstctl history-pop
+bindsym $mod+period exec --no-startup-id dunstctl context
 
 # Volume control
 bindsym XF86AudioMute exec --no-startup-id ponymix toggle
