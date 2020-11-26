@@ -42,13 +42,13 @@ exec --no-startup-id systemctl --user start redshift.service
 
 # Desktop services
 # Settings for Gtk3
-exec --no-startup-id /usr/libexec/gsd-xsettings &
+exec --no-startup-id /usr/lib/gsd-xsettings &
 # Update wallpaper from Gtk 3 settings
 exec --no-startup-id i3-wallpaper-service
 # Power manager
 exec --no-startup-id xfce4-power-manager
 # Policy Kit authentication agent
-exec --no-startup-id lxpolkit &
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 
 # Systray helpers (pulse audio, network manager and mounts)
 exec --no-startup-id pasystray &
@@ -82,10 +82,10 @@ bindsym $mod+w kill
 bindsym --whole-window $mod+button2 kill
 
 # Program launcher
-bindsym $mod+space exec i3-rofi
+bindsym $mod+space exec rofi-launch
 
 # Apps
-bindsym $mod+t exec gnome-terminal
+bindsym $mod+t exec kitty
 bindsym $mod+e exec xdg-open ~
 bindsym XF86HomePage exec xdg-open https://duckduckgo.com
 # ZIM journal
