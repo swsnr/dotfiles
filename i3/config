@@ -61,6 +61,7 @@ exec --no-startup-id apod -w &
 
 # Autostart applications
 exec --no-startup-id keepassxc &
+for_window [instance="keepassxc"] move scratchpad
 
 # Modifier for keybindings
 set $mod Mod4
@@ -83,6 +84,9 @@ bindsym --whole-window $mod+button2 kill
 
 # Program launcher
 bindsym $mod+space exec rofi-launch
+
+# Popup password manager
+bindsym $mod+k [instance="keepassxc"] scratchpad show
 
 # Apps
 bindsym $mod+t exec kitty
