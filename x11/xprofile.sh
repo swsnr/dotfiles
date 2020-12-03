@@ -24,6 +24,12 @@ case "${XDG_CURRENT_DESKTOP}" in
         xrdb -merge "$i3_theme"
     fi
 
+    # Start an SSH agent if we don't already have one from GDM
+    if [ -z "$SSH_AUTH_SOCK" ]; then
+      eval "$(ssh-agent)"
+      export SSH_AUTH_SOCK
+    fi
+
     # Restore screen layout
     autorandr --change --default horizontal >/dev/null 2>&1
     ;;
