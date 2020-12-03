@@ -51,7 +51,6 @@ exec --no-startup-id xfce4-power-manager
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 
 # Systray helpers (pulse audio, network manager and mounts)
-exec --no-startup-id pasystray &
 exec --no-startup-id nm-applet &
 exec --no-startup-id udiskie -san &
 
