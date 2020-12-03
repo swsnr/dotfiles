@@ -30,6 +30,9 @@ case "${XDG_CURRENT_DESKTOP}" in
       export SSH_AUTH_SOCK
     fi
 
+    # Keyboard layout
+    setxkbmap -layout us -variant mac
+
     # Restore screen layout
     autorandr --change --default horizontal >/dev/null 2>&1
     ;;
