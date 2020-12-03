@@ -97,9 +97,14 @@ def read_project(directory):
 
 def read_projects(file):
     document = etree.parse(file)
-    paths = (Path(el.attrib['value'].replace('$USER_HOME$', '~'))
-             for el in
-             document.findall('.//option[@name="recentPaths"]/list/option'))
+    # legacy paths
+    paths = set(Path(el.attrib['value'].replace('$USER_HOME$', '~'))
+                for el in
+                document.findall('.//option[@name="recentPaths"]/list/option'))
+    # Paths structure since IDEA 2020.3
+    paths.update(Path(el.attrib['key'].replace('$USER_HOME$', '~'))
+                 for el in
+                 document.findall('.//component[@name="RecentProjectsManager"]/option[@name="additionalInfo"]/map/entry'))
     projects = [read_project(directory) for directory in paths if
                 directory.expanduser().is_dir()]
     return dict((p.path, p) for p in projects)
