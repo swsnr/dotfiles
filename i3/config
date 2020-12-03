@@ -88,7 +88,7 @@ bindsym $mod+space exec rofi-launch
 bindsym $mod+k [instance="keepassxc"] scratchpad show
 
 # Apps
-bindsym $mod+t exec kitty
+bindsym $mod+t exec gnome-terminal
 bindsym $mod+e exec xdg-open ~
 bindsym XF86HomePage exec xdg-open https://duckduckgo.com
 # ZIM journal
