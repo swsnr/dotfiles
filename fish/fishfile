@@ -1,7 +1,3 @@
 # Fish packages
 # Pure fish directory jumping
 jethrokuan/z
-# sdkman integration for fish
-reitzig/sdkman-for-fish
-# Node version manager for fish
-jorgebucaran/fish-nvm
