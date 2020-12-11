@@ -20,6 +20,12 @@ if status --is-login
         ~/.local/bin \
         # Rustup tooling
         ~/.cargo/bin
+
+    # Force Qt and Firefox to use wayland to make multi monitor scaling work correctly.
+    if [ $XDG_SESSION_TYPE = wayland ]
+        set -x QT_QPA_PLATFORM wayland
+        set -x MOZ_ENABLE_WAYLAND 1
+    end
 end
 
 # Environment variables.  Use absolute path to nvim because it's likely in a
