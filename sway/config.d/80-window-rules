@@ -1,7 +1,0 @@
-# Float windows
-for_window [class="(?i)keepassxc"] floating enable
-for_window [class="(?i)gcolor3"] floating en able
-for_window [class="Evolution-alarm-notify"] floating enable
-# Use title and not class for Remmina, because class also affects actual remote
-# desktop windows but these should tile like other windows
-for_window [title="Remmina Remote-Desktop-Client"] floating enable

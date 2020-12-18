@@ -68,85 +68,8 @@
       path: gnome/extensions/home@swsnr.de
       if: "uname -s | grep -qi linux"
 
-    # Common stuff for Sway and i3
-    # Nightlight
-    ~/.config/redshift.conf: misc/redshift.conf
-    # i3blocks for the status bar
-    ~/.config/i3blocks/config: i3blocks/i3blocks.conf
-    ~/.config/i3blocks/blocklets:
-      path: i3blocks/blocklets/*
-      glob: true
-    # rofi launcher
-    ~/.config/rofi/config.rasi: misc/rofi.rasi
-
-    # Sway
-    ~/.config/sway/config: sway/config
-    ~/.config/sway/config.d:
-      path: sway/config.d/*
-      glob: true
-    ~/.config/sway/themes.d:
-      path: sway/themes.d/*
-      glob: true
-
-    # X11 settings: xprofile for i3 environment, Xresources for some X11 settings
-    # and dynamic i3 themeing, and xinitrc to start an X11 instance with i3wm
-    # from xrdp.
-    ~/.xprofile:
-      path: x11/xprofile.sh
-    ~/.Xresources:
-      path: x11/Xresources
-    # i3 with custom scripts
-    ~/.config/i3/config:
-      path: i3/config
-      if: "i3 --version | grep -qi 'i3 version'"
-    # i3 themes, including my default theme
-    ~/.config/i3/themes:
-      path: i3/themes/*
-      glob: true
-      if: "i3 --version | grep -qi 'i3 version'"
-    ~/.config/i3/themes/current:
-      path: i3/themes/adwaita-dark
-      if: "i3 --version | grep -qi 'i3 version'"
-    # i3 scripts and tools
-    ~/.local/bin/i3-touchpad:
-      path: i3/bin/i3-touchpad.bash
-      if: "i3 --version | grep -qi 'i3 version'"
-    ~/.local/bin/i3-rename-workspace:
-      path: i3/bin/i3-rename-workspace
-      if: "i3 --version | grep -qi 'i3 version'"
-    ~/.local/bin/i3-wallpaper-service:
-      path: i3/bin/i3-wallpaper-service.py
-      if: "i3 --version | grep -qi 'i3 version'"
-    ~/.local/bin/i3-lock-screen:
-      path: i3/bin/i3-lock-screen.py
-      if: "i3 --version | grep -qi 'i3 version'"
-    ~/.local/bin/i3-set-session-locked:
-      path: i3/bin/i3-set-session-locked.py
-      if: "i3 --version | grep -qi 'i3 version'"
-    ~/.local/bin/i3-exit:
-      path: i3/bin/i3-exit.py
-      if: "i3 --version | grep -qi 'i3 version'"
-    # Notification daemon
-    ~/.config/dunst/dunstrc:
-      path: i3/dunstrc
-      if: "i3 --version | grep -qi 'i3 version'"
-    # Extra modes for Rofi launcher
-    ~/.local/bin/rofi-yes-no:
-      path: i3/bin/rofi-yes-no.bash
-      if: "i3 --version | grep -qi 'i3 version'"
-
-    # Kitty terminal emulator
-    ~/.config/kitty/:
-      path: kitty/*.conf
-      glob: true
-    ~/.config/kitty/themes:
-      path: kitty/themes/*.conf
-      glob: true
-
     # ZIM style configuration
     ~/.config/zim/style.conf: misc/zim-style.conf
-    # Udiskie device manager for i3
-    ~/.config/udiskie/config.yml: misc/udiskie-config.yml
     # Make python keyring pick the proper backend
     ~/.config/python_keyring/keyringrc.cfg: misc/keyringrc.cfg
     # GPG configuration (because its defaults are as bad as the software itself)

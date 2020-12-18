@@ -1,5 +1,0 @@
-set $background #353535
-set $foreground #eeeeec
-set $selection #15539e
-set $selection_inactive #030c17
-set $warning #f57900

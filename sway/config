@@ -1,9 +1,0 @@
-# Sway config file
-#
-# Read `man 5 sway` for reference
-
-# Modifier for keybindings
-set $mod Mod4
-set $term kitty -1 --instance-group sway
-
-include config.d/*

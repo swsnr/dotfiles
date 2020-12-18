@@ -1,5 +1,0 @@
-# Settings for Gtk3
-exec --no-startup-id /usr/lib/gsd-xsettings &
-
-# Start the sway systemd session
-exec "systemctl --user import-environment; systemctl --user start sway-session.target"
