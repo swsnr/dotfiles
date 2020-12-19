@@ -119,9 +119,6 @@
       # extend the dock across all workspaces and fix it to the left side.
       isolate-workspaces: false
       dock-fixed: true
-    org.gnome.shell.extensions.arch-update:
-      check-cmd: /bin/sh -c '/usr/bin/checkupdates; aur repo -ud aur; flatpak remote-ls --updates'
-      update-cmd: gnome-terminal -e 'sh -c  "aur sync -cu; sudo pacman -Syu; flatpak update; echo Done - Press enter to exit; read" '
 - gnome_terminal_profile:
     audible-bell: false
     bold-is-bright: false
