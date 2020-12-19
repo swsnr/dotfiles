@@ -20,8 +20,7 @@
 - link:
     # Fish shell config files
     ~/.config/fish/config.fish: fish/config.fish
-    ~/.config/fish/functions/fisher.fish: submodules/fisher/fisher.fish
-    ~/.config/fish/fishfile: fish/fishfile
+    ~/.config/fish/fish_plugins: fish/fish_plugins
     ~/.config/fish/functions:
       path: fish/functions/*.fish
       glob: true
@@ -114,3 +113,7 @@
       name: Start Terminal
       command: gnome-terminal --tab
       binding: <Super>t
+
+- shell:
+  - description: Install fisher
+    command: fish -c 'type -q fisher || begin; curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher; end'
