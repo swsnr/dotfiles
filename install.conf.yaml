@@ -117,3 +117,6 @@
 - shell:
   - description: Install fisher
     command: fish -c 'type -q fisher || begin; curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher; end'
+  # TODO: This likely doesn't work because the contained `read` fails but lets keep it here as reminder
+  - description: Configure pop-shell shortcuts
+    command: /usr/share/gnome-shell/extensions/pop-shell@system76.com/scripts/configure.sh
