@@ -85,9 +85,6 @@
       # Disable Ctrl shortcut for locating the cursor; conflicts with
       # IntelliJs Ctrl shortcut to add multiple cursors
       locate-pointer: false
-    org.gnome.mutter:
-      # Only switch workspaces on the primary display
-      workspaces-only-on-primary: true
     org.gnome.shell.app-switcher:
       # Limit app and window switcher to current workspace
       current-workspace-only: true
@@ -101,17 +98,6 @@
       # Show week numbers in calendar
       show-weekdate: true
     org.gnome.desktop.wm.keybindings:
-      close: [<Alt>F4, <Super>F4]
-      # Replace app switching with window switching
-      switch-applications: []
-      switch-applications-backward: []
-      switch-windows: ['<Super>Tab', '<Alt>Tab']
-      switch-windows-backward: ['<Shift><Super>Tab', '<Shift><Alt>Tab']
-      # Toggle fullscreen mode for apps
-      toggle-fullscreen: ['<Super>Return']
-      # Keep on top above all other windows
-      always-on-top: ['<Shift><Super>t']
-      toggle-on-all-workspaces: ['<Super>period']
       # Disable input method switching wtih Super+Space
       switch-input-source: ['XF86Keyboard']
       switch-input-source-backward: ['<Shift>XF86Keyboard']
