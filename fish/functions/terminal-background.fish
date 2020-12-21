@@ -14,7 +14,7 @@
 
 function terminal-background --description 'Get terminal background info'
     if command -q xtermcontrol
-        set -l response (xtermcontrol --get-bg 2> /dev/null)
+        set -l response (env TERM=xterm xtermcontrol --get-bg 2> /dev/null)
         # Ideally we'd check the exit code here, but xtermcontrol always exists zero,
         # see https://github.com/JessThrysoee/xtermcontrol/issues/13
         #
