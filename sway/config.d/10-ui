@@ -1,0 +1,24 @@
+# Adwaita Dark palette
+set $background #353535
+set $foreground #eeeeec
+set $selection #15539e
+set $selection_inactive #030c17
+set $warning #f57900
+
+# Font for window titles.
+font pango:Ubuntu 11
+
+# <class>               <border>        <background>        <text>      <indicator> <child_border>
+client.focused          $background     $selection          #ffffff     $selection  $background
+client.focused_inactive $background     $selection_inactive #ffffff     $selection  $background
+client.unfocused        $background     $background         $foreground $selection  $background
+client.urgent           $background     $warning            #ffffff     $selection  $background
+client.placeholder      #000000 #0c0c0c #ffffff #000000     #0c0c0c
+client.background       #ffffff
+
+# Cursor theme
+seat seat0 {
+    xcursor_theme Adwaita
+    # Hide mouse cursor after one second of mouse inactivity
+    hide_cursor 1000
+}
