@@ -11,7 +11,7 @@ floating_modifier $mod normal
 bindsym $mod+l exec --no-startup-id loginctl lock-session
 
 # Kill focused window
-bindsym $mod+w kill
+bindsym $mod+q kill
 
 # Kill window with $mod + middle-click
 bindsym --whole-window $mod+button2 kill
@@ -94,12 +94,15 @@ bindsym $mod+f focus mode_toggle
 bindsym $mod+Shift+f floating toggle
 
 # Container mode
-set $mode_container ( ) split toggle, layout (s)plit (t)abbed stac(k)ing, (f)loating toggle, focus (↑↓ m) parent/child/mode
+set $mode_container ( ) split toggle, layout (s)plit (t)abbed stac(k)ing, split(h|v), (f)loating toggle, focus (↑↓ m) parent/child/mode
 mode "$mode_container" {
   bindsym space split toggle; mode "default"
   bindsym s layout toggle split; mode "default"
   bindsym t layout tabbed; mode "default"
   bindsym k layout stacking; mode "default"
+
+  bindsym h splith; mode "default"
+  bindsym v splitv; mode "default"
 
   bindsym f floating toggle; mode "default"
 
@@ -244,7 +247,7 @@ mode "$mode_sway" {
   # quick bindings
   bindsym Return fullscreen toggle, mode "default"
   bindsym u [urgent=latest] focus, mode "default"
-  bindsym w kill, mode "default"
+  bindsym q kill, mode "default"
   bindsym l exec --no-startup-id loginctl lock-session, mode "default"
 
   bindsym t exec $term, mode "default"

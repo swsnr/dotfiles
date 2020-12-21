@@ -53,7 +53,9 @@ def toggle_i3():
 
 
 def main():
-    if 'I3SOCK' in os.environ:
+    if 'SWAYSOCK' in os.environ:
+        pass
+    elif 'I3SOCK' in os.environ:
         toggle_i3()
     else:
         toggle_gnome()
