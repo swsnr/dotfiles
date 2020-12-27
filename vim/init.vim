@@ -110,30 +110,4 @@ augroup vc_git
   autocmd BufRead COMMIT_EDITMSG execute "normal! gg" | execute "normal! O" | startinsert
 augroup END
 " }}}
-
-" {{{ File types
-" {{{ Fish
-augroup fish
-  au!
-  autocmd filetype fish setlocal foldmethod=expr shiftwidth=4
-  "autocmd filetype fish compiler fish
-augroup END
-" }}}
-
-" {{{ Python
-augroup python
-  au!
-  au filetype python setlocal formatprg=autopep8\ -
-augroup END
-" }}}
-
-" {{{ Groovy (mostly Jenkinsfile)
-augroup groovy
-  au!
-  au BufRead,BufNewFile *Jenkinsfile set filetype=groovy
-  au filetype groovy setlocal foldmethod=expr shiftwidth=4
-augroup END
-" }}}
-" }}}
-
 " vim: fdm=marker
