@@ -44,6 +44,9 @@
     # VIM
     ~/.ideavimrc: vim/ideavimrc
     ~/.config/nvim/init.vim: vim/init.vim
+    ~/.config/nvim/after:
+      path: vim/after/*
+      glob: true
     # VIM plugins
     ~/.local/share/nvim/site/pack/dotfiles/start/vim-toml: submodules/nvim/vim-toml
 
