@@ -89,7 +89,7 @@ if status --is-interactive
     end
 
     # To view files in aur-sync
-    set -x AUR_PAGER nnn
+    set -x AUR_PAGER ranger
 
     # diff prog, e.g. for pacdiff
     set -x DIFFPROG 'nvim -d'
