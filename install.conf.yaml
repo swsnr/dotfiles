@@ -49,6 +49,7 @@
       glob: true
     # VIM plugins
     ~/.local/share/nvim/site/pack/dotfiles/start/vim-toml: submodules/nvim/vim-toml
+    ~/.local/share/nvim/site/pack/dotfiles/start/vim-fish: submodules/nvim/vim-fish
 
     # Git config files and tools
     ~/.config/git/config: git/config
