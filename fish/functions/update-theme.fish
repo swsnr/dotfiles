@@ -47,6 +47,9 @@ function update-theme -d 'Read the current terminal background and update our en
         set VIVID_THEME 'molokai'
     end
 
+    # Sync color theme with other tools
+    set -gx NB_SYNTAX_THEME $BAT_THEME
+
     # dircolors, by vidid <https://github.com/sharkdp/vivid>
     if command -q vivid
         set -gx LS_COLORS (vivid generate $VIVID_THEME)
