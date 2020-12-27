@@ -13,4 +13,6 @@
 # https://github.com/xwmx/nb
 ###############################################################################
 
+# nb wants a terminal browser, really, and one that takes stdin
+export BROWSER=w3m
 export NB_COLOR_THEME="${NB_COLOR_THEME:-raspberry}"
