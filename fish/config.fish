@@ -90,9 +90,6 @@ if status --is-interactive
         # set -x GIT_PAGER delta
     end
 
-    # To view files in aur-sync
-    set -x AUR_PAGER ranger
-
     # diff prog, e.g. for pacdiff
     set -x DIFFPROG 'nvim -d'
 
