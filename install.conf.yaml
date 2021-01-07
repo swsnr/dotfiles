@@ -150,3 +150,5 @@
 - shell:
   - description: Install fisher
     command: fish -c 'type -q fisher || begin; curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher; end'
+  - description: Install nb
+    command: 'curl -L https://raw.github.com/xwmx/nb/master/nb -o ~/.local/bin/nb && chmod a+x ~/.local/bin/nb'
