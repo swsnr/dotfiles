@@ -18,6 +18,8 @@ if status --is-login
     set -p PATH \
         # My local binaries, from dotfiles and homebins
         ~/.local/bin \
+        # Scala tooling
+        ~/.local/share/coursier/bin \
         # Rustup tooling
         ~/.cargo/bin
 
