@@ -84,12 +84,6 @@ if status --is-interactive
         rbenv init - | source
     end
 
-    if command -q delta
-        # If present use delta from https://github.com/dandavison/delta as pager
-        # for git, since it colours diffs so nicely
-        # set -x GIT_PAGER delta
-    end
-
     # diff prog, e.g. for pacdiff
     set -x DIFFPROG 'nvim -d'
 
