@@ -90,8 +90,9 @@
     ~/.gnupg/gpg.conf: misc/gpg.conf
     # Alacritty terminal
     ~/.config/alacritty/alacritty.yml: misc/alacritty.yml
-    # nb note taking tool
+    # nb note taking tool & todo CLI
     ~/.nbrc: misc/nbrc
+    ~/.todo/config: misc/todo-config
 
 - gsettings:
     org.gnome.desktop.interface:
