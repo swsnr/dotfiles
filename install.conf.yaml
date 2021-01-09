@@ -148,6 +148,24 @@
       command: gnome-terminal --tab
       binding: <Super>t
 
+- homebins:
+    update: true
+    add:
+    - bat
+    - exa
+    - git-gone
+    - homebins
+    - hub
+    - mmv
+    - nb
+    - pandoc
+    - ripgrep
+    - sd
+    - shellcheck
+    - todotxt-cli
+    - vivid
+    - youtube-dl
+
 - shell:
   - description: Install fisher
     command: fish -c 'type -q fisher || begin; curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher; end'

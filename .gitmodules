@@ -10,3 +10,6 @@
 [submodule "submodules/nvim/vim-fish"]
 	path = submodules/nvim/vim-fish
 	url = https://github.com/blankname/vim-fish.git
+[submodule "submodules/dotbot-homebins"]
+	path = submodules/dotbot-homebins
+	url = ../dotbot-homebins
