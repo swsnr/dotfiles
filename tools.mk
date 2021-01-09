@@ -36,7 +36,7 @@ git-gone:
 	curl -fL "https://github.com/lunaryorn/git-gone/releases/download/v$(GIT_GONE_VERSION)/git-gone-v$(GIT_GONE_VERSION)-x86_64-unknown-linux-musl.tar.gz" \
 		-o "$(DOWNLOAD)/git-gone-v$(GIT_GONE_VERSION)-x86_64-unknown-linux-musl.tar.gz"
 	tar xzf "$(DOWNLOAD)/git-gone-v$(GIT_GONE_VERSION)-x86_64-unknown-linux-musl.tar.gz" -C "$(DOWNLOAD)"
-	install -m755 "$(DOWNLOAD)/git-gone-v$(GIT_GONE_VERSION)-x86_64-unknown-linux-musl/git-gone" "$(HOME)/.local/git-gone"
+	install -m755 "$(DOWNLOAD)/git-gone-v$(GIT_GONE_VERSION)-x86_64-unknown-linux-musl/git-gone" "$(HOME)/.local/bin/git-gone"
 	install -D -m644 "$(DOWNLOAD)/git-gone-v$(GIT_GONE_VERSION)-x86_64-unknown-linux-musl/git-gone.1" "$(HOME)/.local/share/man/man1/git-gone.1"
 
 tools: nb todo.sh youtube-dl pandoc git-gone
