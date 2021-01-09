@@ -151,7 +151,3 @@
 - shell:
   - description: Install fisher
     command: fish -c 'type -q fisher || begin; curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher; end'
-  - description: Install nb
-    command: 'curl -L https://raw.github.com/xwmx/nb/5.7.8/nb -o ~/.local/bin/nb && chmod a+x ~/.local/bin/nb'
-  - description: Install todo.sh
-    command: 'curl -L https://raw.github.com/todotxt/todo.txt-cli/v2.12.0/todo.sh -o ~/.local/bin/todo.sh && chmod a+x ~/.local/bin/todo.sh'
