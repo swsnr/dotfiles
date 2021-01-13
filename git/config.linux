@@ -2,6 +2,7 @@
 [credential]
 	helper = libsecret
 [diff]
-	tool = kdiff3
+	guitool = kdiff3
 [merge]
-	tool = kdiff3
+	tool = nvimdiff
+	guitool = kdiff3
