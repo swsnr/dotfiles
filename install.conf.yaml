@@ -153,6 +153,7 @@
     add:
     - bat
     - exa
+    - fd
     - git-gone
     - homebins
     - hub
