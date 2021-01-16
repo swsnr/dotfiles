@@ -28,7 +28,7 @@ function update-theme -d 'Read the current terminal background and update our en
         case auto
             set background (terminal-background)
             if [ -z $background ]
-                set background light
+                set background dark
             end
         case '*'
             echo "Unknown background mode: $mode"
