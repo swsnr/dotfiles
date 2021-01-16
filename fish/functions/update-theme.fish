@@ -26,7 +26,9 @@ function update-theme -d 'Read the current terminal background and update our en
         case dark
             set background dark
         case auto
-            set background (terminal-background)
+            if test -x ~/.local/bin/xtermbg
+                set background (xtermbg -t)
+            end
             if [ -z $background ]
                 set background dark
             end

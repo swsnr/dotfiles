@@ -18,8 +18,10 @@ import sys
 import os
 import termios
 import tty
+import re
 from contextlib import contextmanager
 from functools import partial
+from argparse import ArgumentParser
 
 
 @contextmanager
@@ -32,10 +34,7 @@ def raw(filelike):
         termios.tcsetattr(filelike, termios.TCSANOW, attrs)
 
 
-def main():
-    if 'xterm' not in os.environ.get('TERM', '').lower():
-        sys.exit(1)
-    tty = os.ctermid()
+def read_background_colour(tty):
     with open(tty, 'wb', buffering=0) as sink:
         with raw(sink):
             sink.write(b'\033]11;?\007')
@@ -43,8 +42,41 @@ def main():
             with open(tty, 'rb', buffering=0) as source:
                 answer = b''.join(list(iter(partial(source.read, 1), b'\007')))
 
-    sys.stdout.buffer.write(answer.removeprefix(b'\033]11;'))
-    sys.stdout.buffer.write(b'\n')
+    return answer.removeprefix(b'\033]11;')
+
+
+def luminance(r, g, b):
+    # Derive luminance from RGB, as per ITU-R BT.709, 3 Signal format, item 3.2
+    return r * 0.2126 + g * 0.7152 + b * 0.0722
+
+
+def theme(r, g, b):
+    return 'light' if 128 < luminance(r, g, b) else 'dark'
+
+
+def main():
+    parser = ArgumentParser()
+    parser.add_argument('-t', '--theme', action='store_true')
+
+    args = parser.parse_args()
+
+    term = os.environ.get('TERM', '')
+    if 'xterm' not in term.lower():
+        print(f'Not an xterm: {term}', file=sys.stderr)
+        sys.exit(1)
+    colour = read_background_colour(os.ctermid())
+
+    if args.theme:
+        match = re.search(
+            b'^rgb:([^/]{2})[^/]*/([^/]{2})[^/]*/([^/]{2})[^/]*$', colour)
+        if not match:
+            print(f'Failed to parse color from {colour}', file=sys.stderr)
+            sys.exit(1)
+        r, g, b = match.groups()
+        print(theme(int(r, 16), int(g, 16), int(b, 16)))
+    else:
+        sys.stdout.buffer.write(colour)
+        sys.stdout.buffer.write(b'\n')
 
 
 if __name__ == '__main__':
