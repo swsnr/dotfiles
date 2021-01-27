@@ -1,6 +1,3 @@
-# Add keys from key files to the SSH agent, but ask first
-AddKeysToAgent yes
-
 # Show hostkeys visually
 VisualHostKey yes
 
