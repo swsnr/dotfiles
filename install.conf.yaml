@@ -164,6 +164,7 @@
     - mmv
     - nb
     - pandoc
+    - procs
     - ripgrep
     - sd
     - shellcheck
