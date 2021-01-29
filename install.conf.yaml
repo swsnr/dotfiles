@@ -156,6 +156,7 @@
     update: true
     add:
     - bat
+    - dust
     - exa
     - fd
     - git-gone
