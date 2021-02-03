@@ -131,6 +131,7 @@ def main():
 
     try:
         if not config_file.exists():
+            sys.exit('Missing configuration')
             return
 
         with config_file.open() as source:
