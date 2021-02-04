@@ -67,6 +67,11 @@ function fish_prompt -d 'My personal prompt'
     # New line
     echo -s
 
+    # Toolbox?
+    if inside-toolbox
+        echo -sn (set_color magenta) '⬢ ' (set_color normal)
+    end
+
     echo -sn (fish_default_mode_prompt)
 
     # Private mode
