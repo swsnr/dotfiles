@@ -1,0 +1,6 @@
+# STM32 rules for the Moonlander and Planck EZ Standard / Glow
+#
+# See <https://github.com/zsa/wally/issues/91#issuecomment-766193808>
+SUBSYSTEM=="usb", ATTR{idVendor}=="0483", ATTR{idProduct}=="df11", TAG+="uaccess", TAG+="udev-acl"
+# An other rule, see <https://github.com/zsa/wally/issues/91#issue-757783415>
+SUBSYSTEM=="usb", ATTR{idVendor}=="3297", ATTR{idProduct}=="1969", TAG+="uaccess", TAG+="udev-acl"
