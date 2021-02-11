@@ -120,7 +120,7 @@
       # Show week numbers in calendar
       show-weekdate: true
     org.gnome.desktop.wm.keybindings:
-      close: [<Alt>F4, <Super>F4]
+      close: [<Alt>F4, <Super>F4, <Super>w]
       # Replace app switching with window switching
       switch-applications: []
       switch-applications-backward: []
