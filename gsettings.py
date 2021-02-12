@@ -104,6 +104,11 @@ class GnomeCustomBindings(Plugin):
             self.log._error('Gio module not available')
             return False
 
+        source = Gio.SettingsSchemaSource.get_default()
+        if not source.lookup(self._schema_id, False):
+            self._log.info('Schema for custom keybindings not found, skipping')
+            return True
+
         new_bindings = []
         removed_bindings = []
         for id, attrs in data.items():
