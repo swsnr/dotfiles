@@ -107,6 +107,8 @@
     org.gnome.mutter:
       # Only switch workspaces on the primary display
       workspaces-only-on-primary: true
+      # Use static workspaces
+      dynamic-workspaces: false
     org.gnome.shell.app-switcher:
       # Limit app and window switcher to current workspace
       current-workspace-only: true
@@ -120,6 +122,7 @@
       # Show week numbers in calendar
       show-weekdate: true
     org.gnome.shell.keybindings:
+      # Disable quick shortcuts for applications; I switch workspaces instead
       switch-to-application-1: []
       switch-to-application-2: []
       switch-to-application-3: []
@@ -129,6 +132,8 @@
       switch-to-application-7: []
       switch-to-application-8: []
       switch-to-application-9: []
+    org.gnome.desktop.wm.preferences:
+      num-workspaces: 8
     org.gnome.desktop.wm.keybindings:
       close: [<Alt>F4, <Super>F4, <Super>w]
       # Replace app switching with window switching
