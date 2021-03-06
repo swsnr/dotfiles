@@ -13,7 +13,7 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
-set -euo pipefail
+set -xeuo pipefail
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
@@ -29,13 +29,13 @@ packages=(
     linux-headers
     linux-lts-headers
     lsb-release
-    ansible
     sudo
     efibootmgr
     # System monitoring
     powertop
     iotop
     htop
+    lsof
     # System services
     fwupd
     thermald
@@ -57,6 +57,8 @@ packages=(
     man-pages
     fish
     git
+    toolbox
+    neovim
     exa
     fd
     sd
@@ -64,81 +66,48 @@ packages=(
     bat
     mdcat
     nnn
-    code
-    neovim
     rsync
     curl
     p7zip
     zip
     jq
-    pandoc
     # Development tools
-    meld
+    # meld
     code
-    shellcheck
-    shfmt
     hub
     github-cli
-    ipython
-    python-pylint
-    autopep8
     rustup
-    asciidoctor
-    ruby-bundler
     hexyl
     oxipng
-    httpie
     # Containers, kubernetes & cloud
     podman
-    kubect
+    toolbox
+    kubectl
     helm
     hcloud
     # Desktop tools
-    trash-cli
     wl-clipboard
-    xdg-user-dirs
-    d-feet
     dconf-editor
     # Desktop services
+    flatpak
     pcsclite
     cups
     system-config-printer
     hplip
     bluez
     sane
+    pipewire-pulse
     # Applications
-    deja-dup
-    keepassxc
-    firefox
-    firefox-i18n-de
-    signal-desktop
-    remmina
+    # firefox
+    # firefox-i18n-de
     # Multimedia
-    gst-plugin-ugly
-    gstreamer-vaapi
-    vlc
-    audacious
-    youtube-dl
-    avidemux-qt
-    mediathekview
-    # Office
-    libreoffice-fresh
-    libreoffice-fresh-de
-    hyphen-de
-    hyphen-en
-    hunspell-de
-    hunspell-en_GB
-    hunspell-en_US
-    mythes-de
-    mythes-en
-    # Graphics & photos
-    digikam
-    gimp
-    inkscape
-    # Personal finances
-    gnucash
-    # Games
-    steam
+    # gst-plugin-ugly
+    # gstreamer-vaapi
+    # vlc
+    # audacious
+    # youtube-dl
+    # avidemux-qt
+    # mediathekview
     # Fonts
     noto-fonts
     noto-fonts-extra
@@ -159,26 +128,18 @@ packages=(
     ttf-fira-sans
     # Gnome
     gdm
-    gnome-calculator
-    gnome-calendar
     gnome-characters
-    gnome-clocks
-    gnome-disk-utility
-    gnome-font-viewer
     gnome-keyring
-    gnome-logs
-    gnome-maps
     gnome-screenshot
+    gnome-software
     gnome-shell
     gnome-shell-extensions
     gnome-system-monitor
+    gnome-control-center
     gnome-terminal
     gnome-tweaks
-    gnome-weather
-    seahorse
     file-roller
     yelp
-    cheese
     nautilus
     gvfs-afc
     gvfs-goa
@@ -188,44 +149,52 @@ packages=(
     gvfs-nfs
     gvfs-smb
     sushi
-    baobab
     evince
     eog
     chrome-gnome-shell
     simple-scan
 )
 
-pacman -Syu "${packages[@]}"
+pacman -Syu --needed "${packages[@]}"
+
+pacman -D --asdeps pipewire-pulse
 
 optdeps=(
+    # linux: wireless frequency policies
+    crda
+    # poppler: data files
+    poppler-data
+    # dracut: uefi support and stripping
+    binutils
+    elfutils
     # nb: rendered notes
-    w3m
+    #w3m
     # libva: intel drivers
     intel-media-driver
     # ripgrep-all: additional search adapters
-    tesseract
-    graphicsmagick
+    # tesseract
+    # graphicsmagick
     # tesseract: data models
-    tesseract-data-deu
-    tesseract-data-eng
+    # tesseract-data-deu
+    # tesseract-data-eng
 )
 
-pacman -S --asdeps "${optdeps[@]}"
+pacman -S --needed --asdeps "${optdeps[@]}"
 
 # Desktop manager
 systemctl enable gdm.service
 # Thermal control for intel systems
-systemctl enable --now thermald.service
+systemctl enable thermald.service
 # Periodically trim all filesystems
-systemctl enable --now fstrim.timer
+systemctl enable fstrim.timer
 # Pacman cache cleanup and file database updates
-systemctl enable --now paccache.timer
-systemctl enable --now pkgfile.timer
+systemctl enable paccache.timer
+systemctl enable pkgfile-update.timer
 # Look for firmware updates
-systemctl enable --now fwupd-refresh.timer
+systemctl enable fwupd-refresh.timer
 # Periodic mirrorlist updates
 install -Dpm644 "$DIR/etc/reflector.conf" /etc/xdg/reflector/reflector.conf
-systemctl enable --now reflector.timer
+systemctl enable reflector.timer
 # DNS stub daemon
 ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 install -Dpm644 "$DIR/etc/resolved-lunaryorn.conf" /etc/systemd/resolved.conf.d/50-lunaryorn.conf
@@ -236,13 +205,13 @@ install -Dpm644 "$DIR/etc/timesyncd-lunaryorn.conf" /etc/systemd/timesyncd.conf.
 systemctl enable systemd-timesyncd.service
 systemctl restart systemd-timesyncd.service
 # Networking
-systemctl enable --now NetworkManager.service
-systemctl enable --now avahi-daemon.service
+systemctl enable NetworkManager.service
+systemctl enable avahi-daemon.service
 # Printing and other desktop services
-systemctl enable --now cups.service
-systemctl enable --now bluetooth.service
+systemctl enable cups.service
+systemctl enable bluetooth.service
 # Smartcard services for ausweisapp2
-systemctl enable --now pcscd.socket
+systemctl enable pcscd.socket
 
 # Sudo settings
 install -dm700 /etc/sudoers.d/
@@ -255,16 +224,58 @@ install -m644 "$DIR/etc/sysctl-lunaryorn.conf" /etc/sysctl.d/99-lunaryorn.conf
 # TODO: Configure faillock?
 # TODO: nssswitch for mdns
 
+# Configure dracut
+install -m633 "$DIR/etc/lunaryorn-dracut.conf" /etc/dracut.conf.d/lunaryorn.conf
+
 # Install or update the bootloader
 if ! [[ -e /efi/EFI/BOOT/BOOTX64.EFI ]]; then
-    bootctl --esp-path=/efi --boot-path=/boot install
+    bootctl --esp-path=/efi install
 else
     bootctl update
 fi
 
 for file in 10-hinting-slight 10-sub-pixel-rgb 11-lcdfilter-default; do
-    ln -sf /etc/fonds/conf.avail/$file.conf /etc/fonts/conf.d/$file.conf
+    ln -sf /etc/fonts/conf.avail/$file.conf /etc/fonts/conf.d/$file.conf
 done
+
+
+# Apps
+flatpaks=(
+    com.github.tchx84.Flatseal
+    de.bund.ausweisapp.ausweisapp2
+    org.gnome.DejaDup
+    org.gnome.Evolution
+    org.gnome.Extensions
+    org.gnome.Maps
+    org.gnome.Weather
+    org.gnome.clocks
+    org.gnome.dfeet
+    org.gnome.seahorse.Application
+    org.keepassxc.KeePassXC
+    org.libreoffice.LibreOffice
+    org.videolan.VLC
+)
+
+flatpak install --or-update --noninteractive "${flatpaks[@]}"
+
+if [[ "${HOSTNAME}" == kasterl* ]]; then
+    personal_flatpaks=(
+        com.skype.Client
+        com.valvesoftware.Steam
+        org.atheme.audacious
+        org.gimp.GIMP
+        org.gnome.Lollypop
+        org.gnucash.GnuCash
+        org.jitsi.jitsi-meet
+        org.kde.digikam
+        org.stellarium.Stellarium
+        org.signal.Signal
+        re.chiaki.Chiaki
+        org.wesnoth.Wesnoth
+    )
+
+    flatpak install --or-update --noninteractive "${personal_flatpaks[@]}"
+fi
 
 # TODO: Copy bootloader entries
 # TODO: Configure systemd boot
