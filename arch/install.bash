@@ -225,7 +225,7 @@ install -m644 "$DIR/etc/sysctl-lunaryorn.conf" /etc/sysctl.d/99-lunaryorn.conf
 # TODO: nssswitch for mdns
 
 # Configure dracut
-install -m633 "$DIR/etc/lunaryorn-dracut.conf" /etc/dracut.conf.d/lunaryorn.conf
+install -m644 "$DIR/etc/lunaryorn-dracut.conf" /etc/dracut.conf.d/lunaryorn.conf
 
 # Install or update the bootloader
 if ! [[ -e /efi/EFI/BOOT/BOOTX64.EFI ]]; then
