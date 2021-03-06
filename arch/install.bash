@@ -257,6 +257,12 @@ flatpaks=(
 )
 
 flatpak install --or-update --noninteractive "${flatpaks[@]}"
+# Force firefox onto wayland
+flatpak override --socket=wayland --env=MOZ_ENABLE_WAYLAND=1 org.mozilla.firefox
+# Fix https://github.com/flathub/com.skype.Client/issues/126
+flatpak override --talk-name=org.freedesktop.ScreenSaver
+# Fix https://github.com/flathub/org.gnome.Lollypop/issues/109 (perhaps already fixed)
+# flatpak override --filesystem=/tmp org.gnome.Lollypop
 
 if [[ "${HOSTNAME}" == kasterl* ]]; then
     personal_flatpaks=(
