@@ -215,13 +215,11 @@ fi
 
 # Sudo settings
 install -dm700 /etc/sudoers.d/
-install -pm600 -t/etc/sudoers.d \
-    "$DIR/etc/sudoers.d/10-defaults" \
-    "$DIR/etc/sudoers.d/50-wheel"
+install -pm600 -t/etc/sudoers.d "$DIR"/etc/sudoers.d/*
 
-install -m644 "$DIR/etc/modprobe-lunaryorn.conf" /etc/modprobe.d/modprobe-lunaryorn.conf
-install -m644 "$DIR/etc/sysctl-lunaryorn.conf" /etc/sysctl.d/99-lunaryorn.conf
-install -m644 "$DIR/etc/lunaryorn-dracut.conf" /etc/dracut.conf.d/lunaryorn.conf
+install -pm644 "$DIR/etc/modprobe-lunaryorn.conf" /etc/modprobe.d/modprobe-lunaryorn.conf
+install -pm644 "$DIR/etc/sysctl-lunaryorn.conf" /etc/sysctl.d/99-lunaryorn.conf
+install -pm644 "$DIR/etc/lunaryorn-dracut.conf" /etc/dracut.conf.d/lunaryorn.conf
 # TODO: Configure faillock?
 # TODO: nssswitch for mdns
 
@@ -231,7 +229,7 @@ if ! [[ -e /efi/EFI/BOOT/BOOTX64.EFI ]]; then
 else
     bootctl update
 fi
-install -m644 "$DIR/etc/loader.conf" /efi/loader/loader.conf
+install -pm644 "$DIR/etc/loader.conf" /efi/loader/loader.conf
 
 # Global font configuration
 for file in 10-hinting-slight 10-sub-pixel-rgb 11-lcdfilter-default; do
