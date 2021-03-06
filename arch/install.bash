@@ -205,6 +205,14 @@ systemctl enable bluetooth.service
 # Smartcard services for ausweisapp2
 systemctl enable pcscd.socket
 
+if [[ ! -f /etc/subuid ]]; then touch /etc/subuid; fi
+if [[ ! -f /etc/subgid ]]; then touch /etc/subgid; fi
+
+# Allow myself to use rootless container
+if [[ -n "$SUDO_USER" ]]; then
+    usermod --add-subuids 165536-231072 --add-subgids 165536-231072 "$SUDO_USER"
+fi
+
 # Sudo settings
 install -dm700 /etc/sudoers.d/
 install -pm600 -t/etc/sudoers.d \
@@ -213,19 +221,16 @@ install -pm600 -t/etc/sudoers.d \
 
 install -m644 "$DIR/etc/modprobe-lunaryorn.conf" /etc/modprobe.d/modprobe-lunaryorn.conf
 install -m644 "$DIR/etc/sysctl-lunaryorn.conf" /etc/sysctl.d/99-lunaryorn.conf
+install -m644 "$DIR/etc/lunaryorn-dracut.conf" /etc/dracut.conf.d/lunaryorn.conf
 # TODO: Configure faillock?
 # TODO: nssswitch for mdns
 
-# Configure dracut
-install -m644 "$DIR/etc/lunaryorn-dracut.conf" /etc/dracut.conf.d/lunaryorn.conf
-
-# Install or update the bootloader
+# Install or update, and then configure the bootloader
 if ! [[ -e /efi/EFI/BOOT/BOOTX64.EFI ]]; then
     bootctl --esp-path=/efi install
 else
     bootctl update
 fi
-# Configure the loader menu
 install -m644 "$DIR/etc/loader.conf" /efi/loader/loader.conf
 
 # Global font configuration
@@ -277,8 +282,6 @@ if [[ "${HOSTNAME}" == kasterl* ]]; then
 
     flatpak install --or-update --noninteractive "${personal_flatpaks[@]}"
 fi
-
-# TODO: Configure systemd boot
 
 # TODO: Aur packages
 # wcal-git
