@@ -233,6 +233,8 @@ if ! [[ -e /efi/EFI/BOOT/BOOTX64.EFI ]]; then
 else
     bootctl update
 fi
+# Configure the loader menu
+install -m644 "$DIR/etc/loader.conf" /efi/loader/loader.conf
 
 # Global font configuration
 for file in 10-hinting-slight 10-sub-pixel-rgb 11-lcdfilter-default; do
