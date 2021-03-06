@@ -234,10 +234,10 @@ else
     bootctl update
 fi
 
+# Global font configuration
 for file in 10-hinting-slight 10-sub-pixel-rgb 11-lcdfilter-default; do
     ln -sf /etc/fonts/conf.avail/$file.conf /etc/fonts/conf.d/$file.conf
 done
-
 
 # Apps
 flatpaks=(
@@ -283,7 +283,6 @@ if [[ "${HOSTNAME}" == kasterl* ]]; then
     flatpak install --or-update --noninteractive "${personal_flatpaks[@]}"
 fi
 
-# TODO: Copy bootloader entries
 # TODO: Configure systemd boot
 
 # TODO: Aur packages
