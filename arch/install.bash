@@ -97,17 +97,9 @@ packages=(
     bluez
     sane
     pipewire-pulse
-    # Applications
-    # firefox
-    # firefox-i18n-de
-    # Multimedia
-    # gst-plugin-ugly
-    # gstreamer-vaapi
-    # vlc
-    # audacious
-    # youtube-dl
-    # avidemux-qt
-    # mediathekview
+    # Applications (only stuff that's not flatpaked)
+    youtube-dl
+    mediathekview
     # Fonts
     noto-fonts
     noto-fonts-extra
@@ -280,6 +272,7 @@ if [[ "${HOSTNAME}" == kasterl* ]]; then
         org.signal.Signal
         re.chiaki.Chiaki
         org.wesnoth.Wesnoth
+        com.github.geigi.cozy
     )
 
     flatpak install --or-update --noninteractive "${personal_flatpaks[@]}"
@@ -296,9 +289,7 @@ fi
 # plata-theme
 # nb
 # todotxt
-# chiaki
 # cozy-audiobooks
-# ausweisapp2
 # pcsc-cyberjack
 # git-gone
 # git-delta
