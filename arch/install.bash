@@ -89,6 +89,8 @@ packages=(
     wl-clipboard
     dconf-editor
     # Desktop services
+    xdg-user-dirs
+    xdg-utils
     flatpak
     pcsclite
     cups
@@ -130,6 +132,7 @@ packages=(
     gnome-control-center
     gnome-terminal
     gnome-tweaks
+    xdg-user-dirs-gtk
     file-roller
     yelp
     nautilus
