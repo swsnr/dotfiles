@@ -156,7 +156,6 @@ packages=(
     sushi
     evince
     eog
-    chrome-gnome-shell
     simple-scan
 )
 
