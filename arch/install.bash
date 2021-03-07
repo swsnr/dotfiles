@@ -82,7 +82,6 @@ packages=(
     zip
     jq
     # Development tools
-    # meld
     code
     hub
     github-cli
@@ -253,6 +252,7 @@ done
 flatpaks=(
     com.github.tchx84.Flatseal
     de.bund.ausweisapp.ausweisapp2
+    org.gnome.meld
     org.gnome.DejaDup
     org.gnome.Evolution
     org.gnome.Extensions
