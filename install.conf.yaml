@@ -104,11 +104,6 @@
       # Disable Ctrl shortcut for locating the cursor; conflicts with
       # IntelliJs Ctrl shortcut to add multiple cursors
       locate-pointer: false
-    org.gnome.mutter:
-      # Only switch workspaces on the primary display
-      workspaces-only-on-primary: true
-      # Use static workspaces
-      dynamic-workspaces: false
     org.gnome.shell.app-switcher:
       # Limit app and window switcher to current workspace
       current-workspace-only: true
