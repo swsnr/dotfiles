@@ -347,7 +347,7 @@ aur_packages=(
     tela-icon-theme
     plata-theme
     # dust
-    pscs-cyberjack
+    pcsc-cyberjack
     # git-gone
     # nb
     # todo.txt
