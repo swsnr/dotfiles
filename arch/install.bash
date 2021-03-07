@@ -15,6 +15,11 @@
 
 set -xeuo pipefail
 
+if [[ $EUID != 0 ]]; then
+    echo 'Elevating privileges'
+    exec sudo --preserve-env=AUR_PAGER,PACKAGER "$0" "$@"
+fi
+
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 packages=(
@@ -52,6 +57,11 @@ packages=(
     pacman-contrib
     reflector
     pkgfile
+    # Build packages
+    base-devel
+    namcap
+    devtools
+    aurpublish
     # Shell & tools
     man-db
     man-pages
@@ -285,17 +295,70 @@ if [[ "${HOSTNAME}" == kasterl* ]]; then
     flatpak install --or-update --noninteractive "${personal_flatpaks[@]}"
 fi
 
-# TODO: Aur packages
-# wcal-git
-# dust
-# otf-vollkorn
-# ttf-fira-go
-# tela-icon-theme
-# plata-theme
-# nb
-# todotxt
-# cozy-audiobooks
-# pcsc-cyberjack
-# git-gone
-# git-delta
-# dracut-hook-uefi
+# Initialize AUR repo
+if [[ ! -d /srv/pkgrepo/aur/ ]]; then
+    install -m755 -d /srv/pkgrepo
+    btrfs subvolume create /srv/pkgrepo/aur
+    repo-add /srv/pkgrepo/aur/aur.db.tar.zst
+fi
+
+# Allow myself to build AUR packages
+if [[ -n "$SUDO_USER" && "$(stat -c '%U' /srv/pkgrepo/aur)" != "$SUDO_USER" ]]; then
+    chown -R "$SUDO_USER:$SUDO_USER" /srv/pkgrepo/aur
+fi
+
+if ! grep -q '\[aur\]' /etc/pacman.conf; then
+    # Add repo to pacman configuration
+    cat <<EOF >> /etc/pacman.conf
+# aurutils repo
+[aur]
+SigLevel = Optional TrustAll
+Server = file:///srv/pkgrepo/aur/
+EOF
+fi
+
+# Install aurutils if not yet present
+if [[ -n "$SUDO_USER" ]] && ! command -v aur &> /dev/null; then
+    sudo -u "$SUDO_USER" bash <<'EOF'
+set -xeuo pipefail
+BDIR="$(mktemp -d --tmpdir aurutils.XXXXXXXX)"
+echo "Building in $BDIR"
+cd "$BDIR"
+git clone --depth=1 "https://aur.archlinux.org/aurutils.git"
+cd aurutils
+makepkg --noconfirm --nocheck -rsi
+EOF
+fi
+
+# Configure aurutils
+if [[ ! -e "/etc/aurutils/pacman-aur.conf" ]]; then
+    install -pm644 /usr/share/devtools/pacman-extra.conf "/etc/aurutils/pacman-aur.conf"
+    cat <<EOF >> "/etc/aurutils/pacman-aur.conf"
+# aurutils repo
+[aur]
+SigLevel = Optional TrustAll
+Server = file:///srv/pkgrepo/aur/
+EOF
+fi
+
+aur_packages=(
+    wcal-git
+    otf-vollkorn
+    ttf-fira-go
+    tela-icon-theme
+    plata-theme
+    # dust
+    pscs-cyberjack
+    # git-gone
+    # nb
+    # todo.txt
+    # wally
+    # git-delta
+    # dracut-hook-uefi
+)
+
+if [[ -n "$SUDO_USER" ]]; then
+    # Build AUR packages and install them
+    sudo -u "$SUDO_USER" --preserve-env=AUR_PAGER,PACKAGER aur sync -daur -cRT "${aur_packages[@]}"
+    pacman --needed -Syu "${aur_packages[@]}"
+fi
