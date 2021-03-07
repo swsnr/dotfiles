@@ -348,12 +348,12 @@ aur_packages=(
     plata-theme
     # dust
     pcsc-cyberjack
-    # git-gone
+    git-gone
     # nb
     # todo.txt
     # wally
     # git-delta
-    # dracut-hook-uefi
+    dracut-hook-uefi
 )
 
 if [[ -n "$SUDO_USER" ]]; then
