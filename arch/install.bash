@@ -81,6 +81,9 @@ packages=(
     p7zip
     zip
     jq
+    pandoc
+    shellcheck
+    shfmt
     # Development tools
     code
     hub
@@ -171,7 +174,7 @@ optdeps=(
     binutils
     elfutils
     # nb: rendered notes
-    #w3m
+    w3m
     # libva: intel drivers
     intel-media-driver
     # ripgrep-all: additional search adapters
@@ -349,15 +352,21 @@ aur_packages=(
     # dust
     pcsc-cyberjack
     git-gone
-    # nb
-    # todo.txt
+    nb
+    todotxt
     # wally
     # git-delta
     dracut-hook-uefi
 )
 
+aur_optdeps=(
+    # nb: Cleanup contents of bookmarks
+    readability-cli
+)
+
 if [[ -n "$SUDO_USER" ]]; then
     # Build AUR packages and install them
-    sudo -u "$SUDO_USER" --preserve-env=AUR_PAGER,PACKAGER aur sync -daur -cRT "${aur_packages[@]}"
+    sudo -u "$SUDO_USER" --preserve-env=AUR_PAGER,PACKAGER aur sync -daur -cRT "${aur_packages[@]}" "${aur_optdeps[@]}"
     pacman --needed -Syu "${aur_packages[@]}"
+    pacman --needed -S --asdeps "${aur_optdeps[@]}"
 fi
