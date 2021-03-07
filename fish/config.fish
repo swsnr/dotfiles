@@ -1,4 +1,4 @@
-# Copyright 2018-2019 Sebastian Wiesner <sebastian@swsnr.de>
+# Copyright Sebastian Wiesner <sebastian@swsnr.de>
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may not
 # use this file except in compliance with the License. You may obtain a copy of
@@ -80,6 +80,12 @@ if status --is-interactive
 
     # diff prog, e.g. for pacdiff
     set -x DIFFPROG 'nvim -d'
+
+    # To view files in aur-sync
+    set -x AUR_PAGER nnn
+
+    # Packager ID for makepkg
+    set -x PACKAGER "Sebastian Wiesner <sebastian@swsnr.de>"
 
     # Abbreviations (unlike aliases, these are expanded before running)
     # Fast one or two letter abbrevs
