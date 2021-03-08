@@ -43,7 +43,6 @@ packages=(
     lsof
     # System services
     fwupd
-    thermald
     # Networking
     networkmanager
     avahi
@@ -189,8 +188,6 @@ pacman -S --needed --asdeps "${optdeps[@]}"
 
 # Desktop manager
 systemctl enable gdm.service
-# Thermal control for intel systems
-systemctl enable thermald.service
 # Periodically trim all filesystems
 systemctl enable fstrim.timer
 # Pacman cache cleanup and file database updates
@@ -376,3 +373,8 @@ if [[ -n "$SUDO_USER" ]]; then
     pacman --needed -Syu "${aur_packages[@]}"
     pacman --needed -S --asdeps "${aur_optdeps[@]}"
 fi
+
+
+# Cleanup old stuff
+systemctl disable --now thermald.service || true
+pacman -Rs thermald
