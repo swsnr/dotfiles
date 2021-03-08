@@ -265,11 +265,6 @@ flatpaks=(
     org.keepassxc.KeePassXC
     org.libreoffice.LibreOffice
     org.videolan.VLC
-    # Themes
-    org.gtk.Gtk3theme.Plata
-    org.gtk.Gtk3theme.Plata-Noir
-    org.gtk.Gtk3theme.Plata-Compact
-    org.gtk.Gtk3theme.Plata-Noir-Compact
 )
 
 flatpak install --or-update --noninteractive "${flatpaks[@]}"
