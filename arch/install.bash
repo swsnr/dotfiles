@@ -320,6 +320,7 @@ if ! grep -q '\[aur\]' /etc/pacman.conf; then
 SigLevel = Optional TrustAll
 Server = file:///srv/pkgrepo/aur/
 EOF
+    pacman -Sy
 fi
 
 # Install aurutils if not yet present
