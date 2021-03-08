@@ -369,8 +369,3 @@ if [[ -n "$SUDO_USER" ]]; then
     pacman --needed -Syu "${aur_packages[@]}"
     pacman --needed -S --asdeps "${aur_optdeps[@]}"
 fi
-
-
-# Cleanup old stuff
-systemctl disable --now thermald.service || true
-pacman -Rs thermald
