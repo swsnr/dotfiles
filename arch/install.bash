@@ -253,6 +253,7 @@ done
 
 # Apps
 flatpaks=(
+    org.mozilla.firefox
     com.github.tchx84.Flatseal
     de.bund.ausweisapp.ausweisapp2
     org.gnome.meld
