@@ -267,6 +267,7 @@ flatpaks=(
     org.keepassxc.KeePassXC
     org.libreoffice.LibreOffice
     org.videolan.VLC
+    org.signal.Signal
 )
 
 flatpak install --or-update --noninteractive "${flatpaks[@]}"
@@ -288,7 +289,6 @@ if [[ "${HOSTNAME}" == kasterl* ]]; then
         org.jitsi.jitsi-meet
         org.kde.digikam
         org.stellarium.Stellarium
-        org.signal.Signal
         re.chiaki.Chiaki
         org.wesnoth.Wesnoth
         com.github.geigi.cozy
