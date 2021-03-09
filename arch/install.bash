@@ -224,6 +224,9 @@ if [[ -n "$SUDO_USER" ]]; then
     usermod --add-subuids 165536-231072 --add-subgids 165536-231072 "$SUDO_USER"
 fi
 
+# Configure account locking
+install -pm644 "$DIR/etc/faillock.conf" /etc/security/faillock.conf
+
 # Sudo settings
 install -dm700 /etc/sudoers.d/
 install -pm600 -t/etc/sudoers.d "$DIR"/etc/sudoers.d/*
@@ -232,7 +235,6 @@ install -pm644 -t/etc/udev/rules.d "$DIR"/etc/udev/*.rules
 install -pm644 "$DIR/etc/modprobe-lunaryorn.conf" /etc/modprobe.d/modprobe-lunaryorn.conf
 install -pm644 "$DIR/etc/sysctl-lunaryorn.conf" /etc/sysctl.d/90-lunaryorn.conf
 install -pm644 "$DIR/etc/lunaryorn-dracut.conf" /etc/dracut.conf.d/50-lunaryorn.conf
-# TODO: Configure faillock?
 # TODO: nssswitch for mdns
 
 # Install or update, and then configure the bootloader
