@@ -132,25 +132,17 @@
     org.gnome.desktop.wm.preferences:
       num-workspaces: 4
     org.gnome.desktop.wm.keybindings:
-      close: [<Alt>F4, <Super>F4, <Super>q]
-      # Replace app switching with window switching
-      switch-applications: []
-      switch-applications-backward: []
-      switch-windows: ['<Super>Tab', '<Alt>Tab']
-      switch-windows-backward: ['<Shift><Super>Tab', '<Shift><Alt>Tab']
-      # Toggle fullscreen mode for apps
-      toggle-fullscreen: ['<Super>Return']
       # Keep on top above all other windows
       always-on-top: ['<Shift><Super>t']
       toggle-on-all-workspaces: ['<Super>period']
       # Disable input method switching wtih Super+Space
       switch-input-source: ['XF86Keyboard']
       switch-input-source-backward: ['<Shift>XF86Keyboard']
-      switch-to-workspace-1: ['<Super>1', <Super>Home]
+      switch-to-workspace-1: ['<Super>1']
       switch-to-workspace-2: ['<Super>2']
       switch-to-workspace-3: ['<Super>3']
       switch-to-workspace-4: ['<Super>4']
-      move-to-workspace-1: ['<Shift><Super>1', <Super>Home]
+      move-to-workspace-1: ['<Shift><Super>1']
       move-to-workspace-2: ['<Shift><Super>2']
       move-to-workspace-3: ['<Shift><Super>3']
       move-to-workspace-4: ['<Shift><Super>4']
