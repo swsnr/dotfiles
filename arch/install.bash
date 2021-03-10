@@ -358,7 +358,7 @@ aur_packages=(
     # wally
     # git-delta
     dracut-hook-uefi
-    gnome-shell-extension-pop-shell-bin
+    gnome-shell-extension-pop-shell
 )
 
 aur_optdeps=(
