@@ -48,10 +48,6 @@ function fish_prompt -d 'My personal prompt'
 
     # Time
     echo -sn (set_color -o) ' at ' (set_color -o cyan) (date '+%H:%M') (set_color normal)
-    if command -q wcal && test 120 -le $COLUMNS
-        # And a small week calender if terminal size permits
-        echo -sn ' (' (wcal -cC | tail -n1) ')'
-    end
 
     # Current kubectl context if there are multiple
     set -l contexts (kubectl config get-contexts -oname)
