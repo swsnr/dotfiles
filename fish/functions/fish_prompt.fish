@@ -58,6 +58,12 @@ function fish_prompt -d 'My personal prompt'
         echo -sn ' (' (wcal -cC | tail -n1) ')'
     end
 
+    # Current kubectl context if there are multiple
+    set -l contexts (kubectl config get-contexts -oname)
+    if [ 1 -lt (count $contexts) ]
+        echo -sn (set_color -o) ' k8s:' (set_color -o cyan) (kubectl config current-context) (set_color normal)
+    end
+
     # Battery if present and supported
     set -l battery (prompt_battery)
     if string length -q $battery $battery
