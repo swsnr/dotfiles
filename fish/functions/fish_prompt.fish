@@ -46,11 +46,6 @@ function fish_prompt -d 'My personal prompt'
     echo -sn (set_color -o cyan) (prompt_pwd) (set_color normal)
     echo -sn (set_color -o) (__fish_git_prompt " on  %s")
 
-    # Python virtualenv if any
-    if set -q VIRTUAL_ENV
-        echo -sn (set_color -o) ' via ' (set_color -o cyan) (basename $VIRTUAL_ENV) (set_color normal)
-    end
-
     # Time
     echo -sn (set_color -o) ' at ' (set_color -o cyan) (date '+%H:%M') (set_color normal)
     if command -q wcal && test 120 -le $COLUMNS
@@ -62,6 +57,11 @@ function fish_prompt -d 'My personal prompt'
     set -l contexts (kubectl config get-contexts -oname)
     if [ 1 -lt (count $contexts) ]
         echo -sn (set_color -o) ' k8s:' (set_color -o cyan) (kubectl config current-context) (set_color normal)
+    end
+
+    # Python virtualenv if any
+    if set -q VIRTUAL_ENV
+        echo -sn (set_color -o) ' venv:' (set_color -o cyan) (basename $VIRTUAL_ENV) (set_color normal)
     end
 
     # Battery if present and supported
