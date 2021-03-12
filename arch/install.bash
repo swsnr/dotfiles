@@ -375,5 +375,12 @@ if [[ -n "$SUDO_USER" ]]; then
 fi
 
 # Cleanup old stuff
-# TODO: Remove from AUR repo as well
-pacman -Rs tela-icon-theme plata-theme
+packages_to_remove=(
+    tela-icon-theme
+    plata-theme
+)
+pacman -Rs "${packages_to_remove[@]}"
+for package in "${packages_to_remove[@]}"; do
+    rm -f /srv/pkgrepo/aur/"$package"-*
+done
+repo-remove /srv/pkgrepo/aur/aur.db.tar.zst "${packages_to_remove[@]}"
