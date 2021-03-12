@@ -131,6 +131,9 @@ packages=(
     ttf-ubuntu-font-family
     ttf-fira-mono
     ttf-fira-sans
+    # Themes
+    papirus-icon-theme
+    arc-gtk-theme
     # Gnome
     gdm
     gnome-characters
@@ -348,8 +351,6 @@ aur_packages=(
     wcal-git
     otf-vollkorn
     ttf-fira-go
-    tela-icon-theme
-    plata-theme
     # dust
     pcsc-cyberjack
     git-gone
