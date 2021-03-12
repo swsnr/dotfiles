@@ -373,3 +373,7 @@ if [[ -n "$SUDO_USER" ]]; then
     pacman --needed -Syu "${aur_packages[@]}"
     pacman --needed -S --asdeps "${aur_optdeps[@]}"
 fi
+
+# Cleanup old stuff
+# TODO: Remove from AUR repo as well
+pacman -Rs tela-icon-theme plata-theme
