@@ -351,6 +351,8 @@ EOF
 fi
 
 aur_packages=(
+    1password
+    1password-cli
     wcal-git
     otf-vollkorn
     ttf-fira-go
