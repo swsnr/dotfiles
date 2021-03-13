@@ -90,6 +90,9 @@ packages=(
     rustup
     hexyl
     oxipng
+    cargo-audit
+    cargo-outdated
+    cargo-udeps
     # Containers, kubernetes & cloud
     podman
     toolbox
