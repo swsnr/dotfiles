@@ -29,7 +29,7 @@ function update-theme -d 'Read the current terminal background and update our en
             if test -x ~/.local/bin/xtermbg
                 set background (xtermbg -t)
             end
-            if [ -z $background ]
+            if [ -z $background[1] ]
                 set background dark
             end
         case '*'
