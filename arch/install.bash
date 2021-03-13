@@ -384,7 +384,7 @@ packages_to_remove=(
     tela-icon-theme
     plata-theme
 )
-pacman -Rs "${packages_to_remove[@]}"
+pacman -Rs "${packages_to_remove[@]}" || true
 for package in "${packages_to_remove[@]}"; do
     rm -f /srv/pkgrepo/aur/"$package"-*
 done
