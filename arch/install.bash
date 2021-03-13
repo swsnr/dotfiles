@@ -386,4 +386,6 @@ pacman -Rs "${packages_to_remove[@]}"
 for package in "${packages_to_remove[@]}"; do
     rm -f /srv/pkgrepo/aur/"$package"-*
 done
-repo-remove /srv/pkgrepo/aur/aur.db.tar.zst "${packages_to_remove[@]}"
+if [[ -n "$SUDO_USER" ]]; then
+    sudo -u "$SUDO_USER" repo-remove /srv/pkgrepo/aur/aur.db.tar.zst "${packages_to_remove[@]}"
+fi
