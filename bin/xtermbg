@@ -19,6 +19,7 @@ import os
 import termios
 import tty
 import re
+from select import epoll, EPOLLIN, EPOLLONESHOT
 from contextlib import contextmanager
 from functools import partial
 from argparse import ArgumentParser
@@ -35,14 +36,21 @@ def raw(filelike):
 
 
 def read_background_colour(tty):
-    with open(tty, 'wb', buffering=0) as sink:
-        with raw(sink):
-            sink.write(b'\033]11;?\007')
-            sink.flush()
-            with open(tty, 'rb', buffering=0) as source:
-                answer = b''.join(list(iter(partial(source.read, 1), b'\007')))
-
-    return answer.removeprefix(b'\033]11;')
+    with open(tty, 'rb', buffering=0) as source:
+        with epoll() as poll:
+            poll.register(source.fileno(), EPOLLONESHOT | EPOLLIN)
+            with open(tty, 'wb', buffering=0) as sink:
+                with raw(sink):
+                    sink.write(b'\033]11;?\007')
+                    sink.flush()
+                    # Check if the terminal replied; some terminals (VSCode looking at you)
+                    # report being xterm but never answer the escape sequences
+                    if poll.poll(0.1):
+                        # Read all bytes up to terminator
+                        buffer = list(iter(partial(source.read, 1), b'\007'))
+                        return b''.join(buffer).removeprefix(b'\033]11;')
+                    else:
+                        return None
 
 
 def luminance(r, g, b):
@@ -62,9 +70,10 @@ def main():
 
     term = os.environ.get('TERM', '')
     if 'xterm' not in term.lower():
-        print(f'Not an xterm: {term}', file=sys.stderr)
-        sys.exit(1)
+        sys.exit(f'Terminal reports no xterm compatibility ($TERM={term})')
     colour = read_background_colour(os.ctermid())
+    if not colour:
+        sys.exit('Terminal did not report colour')
 
     if args.theme:
         match = re.search(
