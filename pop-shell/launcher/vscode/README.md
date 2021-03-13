@@ -4,7 +4,12 @@ Searches recent VSCode workspaces.
 
 ## Installation
 
-Clone this repo to `$HOME/.local/share/pop-shell/launcher/vscode`.
+Clone this repo to `$HOME/.local/share/pop-shell/launcher/vscode` and login again.
+
+You need Python 3.9 and PyGObject.
+Install [python-systemd] for better user journal logging  for debugging purposes.
+
+[1]: https://github.com/systemd/python-systemd
 
 ## License
 
