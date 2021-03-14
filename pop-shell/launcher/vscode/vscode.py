@@ -31,7 +31,7 @@ from typing import Any, TypedDict, Optional
 
 from gi.repository import Gio  # pylint: disable=import-error
 
-log = logging.getLogger("pop-shell-vscode")
+log = logging.getLogger("pop-shell-launcher-vscode")
 
 
 @dataclass
