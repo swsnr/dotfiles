@@ -3,5 +3,5 @@
     "description": "Search recent projects from Jetbrains IDEs",
     "pattern": ".*",
     "exec": "jetbrains.py",
-    "icon": ""
+    "icon": "jetbrains-toolbox"
 }
