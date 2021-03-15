@@ -30,3 +30,13 @@ jobs:
         pip install pylint
     - name: Lint code
       run: pylint vscode.py -f colorized -sno --disable=R
+
+  typecheck:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+    - name: Install pyright
+      run: npm install -g pyright
+    - name: Check types
+      run: pyright vscode.py
