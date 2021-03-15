@@ -307,16 +307,7 @@ class RecentProjectOfProduct:
         """
         The icon.
         """
-        icon = self.app.get_icon()
-        if isinstance(icon, Gio.ThemedIcon):
-            return icon.get_names()[0]
-        # FIXME: Currently there's no way for selections to use a file-path as icon,
-        # see <https://github.com/pop-os/shell/issues/905>
-        # elif isinstance(icon, Gio.FileIcon):
-        #     return icon.get_file().get_path()
-        else:
-            # Fallback to a generic default icon
-            return "applications-development"
+        return self.app.get_icon().to_string()
 
     def launch(self):
         """

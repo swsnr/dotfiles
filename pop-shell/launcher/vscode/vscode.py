@@ -75,13 +75,7 @@ class VSCodeApp:
         """
         Get the icon name of this VSCode app.
         """
-        icon = self.app_info.get_icon()
-        if isinstance(icon, Gio.FileIcon):
-            return icon.get_file().get_path()
-        elif isinstance(icon, Gio.ThemedIcon):
-            return icon.get_names()[0]
-        else:
-            raise ValueError(f"Cannot get icon name for {icon!r}")
+        return self.app_info.get_icon().to_string()
 
     @property
     def storage_file(self) -> Path:
