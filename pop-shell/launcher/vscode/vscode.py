@@ -90,7 +90,7 @@ class VSCodeApp:
         """
         return self.config_dir / "storage.json"
 
-    def get_recent_workspaces(self) -> [str]:
+    def get_recent_workspaces(self) -> list[str]:
         """
         Get the recent workspaces of this VSCode app.
 
@@ -156,7 +156,7 @@ class Selection(TypedDict):
     content_type: Optional[str]
 
 
-def queried(selections: [Selection]) -> Event:
+def queried(selections: list[Selection]) -> Event:
     """
     A list of search results to display.
     """
@@ -201,7 +201,7 @@ class EventHandlers:
 
     _vscode: VSCodeApp
 
-    def __init__(self, vscode: VSCodeApp, recent_items: [str]):
+    def __init__(self, vscode: VSCodeApp, recent_items: list[str]):
         """
         Create new Event handlers.
         """
