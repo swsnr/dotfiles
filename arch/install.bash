@@ -22,6 +22,8 @@ fi
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
+
+
 packages=(
     # Basic packages
     base
@@ -350,6 +352,9 @@ Server = file:///srv/pkgrepo/aur/
 EOF
 fi
 
+# Remove old dracut hook package
+pacman -Rs dracut-hook-uefi || true
+
 aur_packages=(
     1password
     1password-cli
@@ -363,7 +368,7 @@ aur_packages=(
     todotxt
     # wally
     # git-delta
-    dracut-hook-uefi
+    dracut-hook-uefi-systemd
     gnome-shell-extension-pop-shell
 )
 
