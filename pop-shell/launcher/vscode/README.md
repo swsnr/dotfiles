@@ -7,7 +7,7 @@ Searches recent VSCode workspaces.
 Clone this repo to `$HOME/.local/share/pop-shell/launcher/vscode` and login again.
 
 You need Python 3.9 and PyGObject.
-Install [python-systemd] for better user journal logging  for debugging purposes.
+Install [python-systemd][1] for better user journal logging  for debugging purposes.
 
 [1]: https://github.com/systemd/python-systemd
 
