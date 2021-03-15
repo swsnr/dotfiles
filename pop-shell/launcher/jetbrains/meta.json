@@ -1,0 +1,7 @@
+{
+    "name": "Jetbrains",
+    "description": "Search recent projects from Jetbrains IDEs",
+    "pattern": ".*",
+    "exec": "jetbrains.py",
+    "icon": ""
+}
