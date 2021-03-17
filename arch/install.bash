@@ -119,6 +119,8 @@ packages=(
     # Applications (only stuff that's not flatpaked)
     youtube-dl
     mediathekview
+    # Latex
+    texlive-most
     # Fonts
     noto-fonts
     noto-fonts-extra
