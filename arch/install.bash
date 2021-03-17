@@ -141,7 +141,6 @@ packages=(
     ttf-fira-sans
     # Themes
     papirus-icon-theme
-    arc-gtk-theme
     # Gnome
     gdm
     gnome-characters
@@ -401,6 +400,7 @@ fi
 packages_to_remove=(
     tela-icon-theme
     plata-theme
+    arc-gtk-theme
 )
 pacman -Rs "${packages_to_remove[@]}" || true
 for package in "${packages_to_remove[@]}"; do
