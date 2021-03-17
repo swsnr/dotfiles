@@ -359,8 +359,9 @@ fi
 pacman -Rs dracut-hook-uefi || true
 
 aur_packages=(
-    # Tiling window manager for Gnome
-    gnome-shell-extension-pop-shell
+    # Tiling window manager for Gnome.  Use git build until next release:
+    # <https://github.com/pop-os/shell/issues/905>
+    gnome-shell-extension-pop-shell-git
     # Dracut hook to build kernel images for systemd boot
     dracut-hook-uefi-systemd
     # Password manager
