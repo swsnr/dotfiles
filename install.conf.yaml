@@ -172,6 +172,10 @@
       name: Start Terminal
       command: gnome-terminal --tab
       binding: <Super>t
+    toggle-theme:
+      name: Toggle UI theme
+      command: ui-theme toggle
+      binding: "<Super>apostrophe"
 
 - shell:
   - description: Install fisher
