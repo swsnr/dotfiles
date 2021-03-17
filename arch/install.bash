@@ -379,6 +379,9 @@ aur_packages=(
     todotxt
     wcal-git
     # wally
+    # Missing dependencies for latexindent
+    # See <https://bugs.archlinux.org/task/60210>
+    texlive-latexindent-meta
 )
 
 aur_optdeps=(
