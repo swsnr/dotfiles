@@ -108,6 +108,7 @@ packages=(
     xdg-user-dirs
     xdg-utils
     flatpak
+    flatpak-builder
     pcsclite
     cups
     system-config-printer
