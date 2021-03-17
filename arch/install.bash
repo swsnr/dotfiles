@@ -359,20 +359,26 @@ fi
 pacman -Rs dracut-hook-uefi || true
 
 aur_packages=(
+    # Tiling window manager for Gnome
+    gnome-shell-extension-pop-shell
+    # Dracut hook to build kernel images for systemd boot
+    dracut-hook-uefi-systemd
+    # Password manager
     1password
     1password-cli
-    wcal-git
+    # Additional fonts
     otf-vollkorn
     ttf-fira-go
-    # dust
+    # Card reader driver for eID
     pcsc-cyberjack
+    # Additional tools
     git-gone
+    # git-delta
+    # dust
     nb
     todotxt
+    wcal-git
     # wally
-    # git-delta
-    dracut-hook-uefi-systemd
-    gnome-shell-extension-pop-shell
 )
 
 aur_optdeps=(
