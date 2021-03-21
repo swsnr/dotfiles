@@ -149,6 +149,7 @@ packages=(
     gnome-software
     gnome-shell
     gnome-shell-extensions
+    gnome-shell-extension-appindicator
     gnome-system-monitor
     gnome-control-center
     gnome-terminal
@@ -361,6 +362,9 @@ aur_packages=(
     # Tiling window manager for Gnome.  Use git build until next release:
     # <https://github.com/pop-os/shell/issues/905>
     gnome-shell-extension-pop-shell-git
+    gnome-shell-extension-jetbrains-search-provider
+    gnome-shell-extension-vscode-search-provider
+    gnome-shell-extension-nasa-apod
     # Dracut hook to build kernel images for systemd boot
     dracut-hook-uefi-systemd
     # Password manager

@@ -12,10 +12,10 @@
 # License for the spec
 
 function fish_user_key_bindings
-    fish_hybrid_key_bindings
+    fish_default_key_bindings
 
-    if test "$fish_key_bindings" = "fish_vi_key_bindings"
-        or test "$fish_key_bindings" = "fish_hybrid_key_bindings"
+    if test "$fish_key_bindings" = fish_vi_key_bindings
+        or test "$fish_key_bindings" = fish_hybrid_key_bindings
 
         # Get back to normal mode with jk
         bind -M insert -m default jk force-repaint
