@@ -95,6 +95,7 @@ packages=(
     cargo-audit
     cargo-outdated
     cargo-udeps
+    ruby-bundler
     # Containers, kubernetes & cloud
     podman
     toolbox
