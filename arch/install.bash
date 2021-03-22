@@ -243,7 +243,6 @@ install -pm644 "$DIR/etc/faillock.conf" /etc/security/faillock.conf
 install -dm700 /etc/sudoers.d/
 install -pm600 -t/etc/sudoers.d "$DIR"/etc/sudoers.d/*
 
-install -pm644 -t/etc/udev/rules.d "$DIR"/etc/udev/*.rules
 install -pm644 "$DIR/etc/modprobe-lunaryorn.conf" /etc/modprobe.d/modprobe-lunaryorn.conf
 install -pm644 "$DIR/etc/sysctl-lunaryorn.conf" /etc/sysctl.d/90-lunaryorn.conf
 install -pm644 "$DIR/etc/lunaryorn-dracut.conf" /etc/dracut.conf.d/50-lunaryorn.conf
@@ -383,10 +382,11 @@ aur_packages=(
     nb
     todotxt
     wcal-git
-    # wally
     # Missing dependencies for latexindent
     # See <https://bugs.archlinux.org/task/60210>
     texlive-latexindent-meta
+    # Keyboard flashing tool
+    zsa-wally
 )
 
 aur_optdeps=(
@@ -414,3 +414,6 @@ done
 if [[ -n "$SUDO_USER" ]]; then
     sudo -u "$SUDO_USER" repo-remove /srv/pkgrepo/aur/aur.db.tar.zst "${packages_to_remove[@]}"
 fi
+
+# Old udev rules for ZSA wally; replaced by AUR package
+rm -f /etc/udev/rules.d/{50-wally,50-oryx}.rules
