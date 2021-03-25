@@ -359,6 +359,8 @@ fi
 pacman -Rs dracut-hook-uefi || true
 
 aur_packages=(
+    # AUR helper
+    aurutils
     # Tiling window manager for Gnome.  Use git build until next release:
     # <https://github.com/pop-os/shell/issues/905>
     gnome-shell-extension-pop-shell-git
