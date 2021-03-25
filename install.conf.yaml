@@ -123,6 +123,9 @@
     org.gnome.desktop.peripherals.keyboard:
       remember-numlock-state: false
       numlock-state: true
+    org.gnome.desktop.input-sources:
+      # Set compose key according to my moonlander layout
+      xkb-options: ['compose:menu']
     org.gnome.desktop.calendar:
       # Show week numbers in calendar
       show-weekdate: true
