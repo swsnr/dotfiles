@@ -253,7 +253,7 @@ install -pm644 "$DIR/etc/lunaryorn-dracut.conf" /etc/dracut.conf.d/50-lunaryorn.
 
 # Install or update, and then configure the bootloader
 if ! [[ -e /efi/EFI/BOOT/BOOTX64.EFI ]]; then
-    bootctl --esp-path=/efi install
+    bootctl install
 else
     bootctl update
 fi
