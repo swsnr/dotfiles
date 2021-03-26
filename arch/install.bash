@@ -92,6 +92,8 @@ packages=(
     cargo-outdated
     cargo-udeps
     ruby-bundler
+    # VMs
+    libvirt
     # Containers, kubernetes & cloud
     podman
     toolbox
@@ -151,6 +153,7 @@ packages=(
     gnome-control-center
     gnome-terminal
     gnome-tweaks
+    gnome-boxes
     xdg-user-dirs-gtk
     file-roller
     yelp
@@ -184,6 +187,10 @@ optdeps=(
     w3m
     # libva: intel drivers
     intel-media-driver
+    # libvirt: SSH management
+    openbsd-netcat
+    # libvirt: NAT networking
+    dnsmasq etables
     # ripgrep-all: additional search adapters
     # tesseract
     # graphicsmagick
