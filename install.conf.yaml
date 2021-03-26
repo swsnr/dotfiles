@@ -25,17 +25,6 @@
       path: fish/functions/*.fish
       glob: true
 
-    # Systemd user services
-    ~/.local/share/systemd/user:
-      path: systemd/user/*
-      glob: true
-
-    # Sway
-    ~/.config/sway/config: sway/config
-    ~/.config/sway/config.d:
-      path: sway/config.d/*
-      glob: true
-
     # Binaries
     ~/.local/bin:
       path: bin/*
