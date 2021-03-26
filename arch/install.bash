@@ -22,8 +22,6 @@ fi
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-
-
 packages=(
     # Basic packages
     base
@@ -33,8 +31,6 @@ packages=(
     btrfs-progs
     linux
     linux-lts
-    linux-headers
-    linux-lts-headers
     lsb-release
     sudo
     efibootmgr
