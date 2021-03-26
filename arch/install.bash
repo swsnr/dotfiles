@@ -190,7 +190,7 @@ optdeps=(
     # libvirt: SSH management
     openbsd-netcat
     # libvirt: NAT networking
-    dnsmasq etables
+    dnsmasq ebtables
     # ripgrep-all: additional search adapters
     # tesseract
     # graphicsmagick
