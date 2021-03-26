@@ -2,7 +2,6 @@
 Host aur aur.archlinux.org
     User aur
     Hostname aur.archlinux.org
-    IdentityFile ~/.ssh/aur
 
 # Github
 Host github.com
