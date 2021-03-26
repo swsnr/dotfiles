@@ -1,6 +1,3 @@
-# Show hostkeys visually
-VisualHostKey yes
-
 # Include other config files, for local system or system-specific ones.
 #
 # KEEP THIS LINE AT THE TOP; otherwise it's conditional by the first `Host`
