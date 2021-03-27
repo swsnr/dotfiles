@@ -368,9 +368,6 @@ Server = file:///srv/pkgrepo/aur/
 EOF
 fi
 
-# Remove old dracut hook package
-pacman -Rs dracut-hook-uefi || true
-
 aur_packages=(
     # AUR helper
     aurutils
@@ -415,22 +412,3 @@ if [[ -n "$SUDO_USER" ]]; then
     pacman --needed -Syu "${aur_packages[@]}"
     pacman --needed -S --asdeps "${aur_optdeps[@]}"
 fi
-
-# Cleanup old stuff
-packages_to_remove=(
-    tela-icon-theme
-    plata-theme
-    arc-gtk-theme
-    materia-gtk-theme
-    npm
-)
-pacman -Rs "${packages_to_remove[@]}" || true
-for package in "${packages_to_remove[@]}"; do
-    rm -f /srv/pkgrepo/aur/"$package"-*
-done
-if [[ -n "$SUDO_USER" ]]; then
-    sudo -u "$SUDO_USER" repo-remove /srv/pkgrepo/aur/aur.db.tar.zst "${packages_to_remove[@]}"
-fi
-
-# Old udev rules for ZSA wally; replaced by AUR package
-rm -f /etc/udev/rules.d/{50-wally,50-oryx}.rules
