@@ -201,6 +201,16 @@ optdeps=(
 
 pacman -S --needed --asdeps "${optdeps[@]}"
 
+# Schedule scrubbing of relevant filesystems
+for mountpoint in / /home /home/"$SUDO_USER"; do
+    if findmnt -n -o SOURCE -M "$mountpoint" -v >/dev/null; then
+        device="$(findmnt -n -o SOURCE -M "$mountpoint" -v)"
+        if [[ "$(lsblk -no FSTYPE "$device")" == "btrfs" ]]; then
+            systemctl enable "btrfs-scrub@$(systemd-escape -p "$mountpoint").timer"
+        fi
+    fi
+done
+
 # Desktop manager
 systemctl enable gdm.service
 # Periodically trim all filesystems
