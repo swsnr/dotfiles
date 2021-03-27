@@ -94,6 +94,7 @@ packages=(
     ruby-bundler
     # VMs
     libvirt
+    virt-manager
     # Containers, kubernetes & cloud
     podman
     toolbox
