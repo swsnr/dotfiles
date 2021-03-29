@@ -27,7 +27,7 @@ if [[ $EUID != 0 ]]; then
     exec sudo "$0" "$@"
 fi
 
-dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+dir="$( cd "$( dirname "${BASH_SOURCE[0]}")"  >/dev/null 2>&1 && pwd)"
 
 desired_version="2020.06"
 installed_version="$(grep -E '^version' /boot/loader/entries/grml.conf | cut -d' ' -f2 || true)"

@@ -20,7 +20,7 @@ if [[ $EUID != 0 ]]; then
     exec sudo --preserve-env=AUR_PAGER,PACKAGER "$0" "$@"
 fi
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}")"  >/dev/null 2>&1 && pwd)"
 
 packages=(
     # Basic packages
@@ -336,7 +336,7 @@ fi
 
 if ! grep -q '\[aur\]' /etc/pacman.conf; then
     # Add repo to pacman configuration
-    cat <<EOF >> /etc/pacman.conf
+    cat <<EOF >>/etc/pacman.conf
 # aurutils repo
 [aur]
 SigLevel = Optional TrustAll
@@ -346,7 +346,7 @@ EOF
 fi
 
 # Install aurutils if not yet present
-if [[ -n "$SUDO_USER" ]] && ! command -v aur &> /dev/null; then
+if [[ -n "$SUDO_USER" ]] && ! command -v aur &>/dev/null; then
     sudo -u "$SUDO_USER" bash <<'EOF'
 set -xeuo pipefail
 BDIR="$(mktemp -d --tmpdir aurutils.XXXXXXXX)"
@@ -361,7 +361,7 @@ fi
 # Configure aurutils
 if [[ ! -e "/etc/aurutils/pacman-aur.conf" ]]; then
     install -pm644 /usr/share/devtools/pacman-extra.conf "/etc/aurutils/pacman-aur.conf"
-    cat <<EOF >> "/etc/aurutils/pacman-aur.conf"
+    cat <<EOF >>"/etc/aurutils/pacman-aur.conf"
 # aurutils repo
 [aur]
 SigLevel = Optional TrustAll
