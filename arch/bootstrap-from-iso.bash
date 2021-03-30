@@ -63,10 +63,10 @@ if [[ "${#args[@]}" -ne 0 ]]; then
     exit 2
 fi
 
-# if [[ "$UID" -ne 0 ]]; then
-#     echo "This script needs to be run as root!" >&2
-#     exit 3
-# fi
+if [[ "$UID" -ne 0 ]]; then
+    echo "This script needs to be run as root!" >&2
+    exit 3
+fi
 
 read -rp "THIS SCRIPT WILL OVERWRITE ALL CONTENTS OF ${target_device}. Type uppercase yes to continue: " confirmed
 
