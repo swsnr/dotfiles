@@ -80,7 +80,7 @@ sgdisk \
     -n1:0:+500M  -t1:ef00 -c1:EFISYSTEM \
     -n2:0:+1000M -t2:ea00 -c2:XBOOTLDR \
     -N3          -t3:8304 -c3:linux \
-    /dev/vda
+    "$target_device"
 
 # Encrypt root if desired
 if [[ "$use_luks" == "yes" ]]; then
