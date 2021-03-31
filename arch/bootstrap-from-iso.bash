@@ -136,7 +136,7 @@ cat <<EOF >/etc/hosts
 EOF
 
 # Switch into chroot
-cat <<'EOF' | arch-chroot
+cat <<'EOF' | arch-chroot /mnt
 set -xeuo pipefail
 # Generate locales
 locale-gen
