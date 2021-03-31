@@ -82,6 +82,9 @@ sgdisk \
     -N3          -t3:8304 -c3:linux \
     "$target_device"
 
+# Reload partition table
+partprobe "$target_device"
+
 # Encrypt root if desired
 if [[ "$use_luks" == "yes" ]]; then
     cryptsetup luksFormat /dev/disk/by-partlabel/linux
