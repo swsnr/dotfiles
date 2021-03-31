@@ -264,7 +264,30 @@ install -pm600 -t/etc/sudoers.d "$DIR"/etc/sudoers.d/*
 install -pm644 "$DIR/etc/modprobe-lunaryorn.conf" /etc/modprobe.d/modprobe-lunaryorn.conf
 install -pm644 "$DIR/etc/sysctl-lunaryorn.conf" /etc/sysctl.d/90-lunaryorn.conf
 install -pm644 "$DIR/etc/lunaryorn-dracut.conf" /etc/dracut.conf.d/50-lunaryorn.conf
-# TODO: nssswitch for mdns
+# See /usr/share/factory/etc/nsswitch.conf for the Arch Linux factory defaults.
+# We add mdns hostnames (from Avahi), and also shuffle things around
+# to follow the recommendations in nss-resolve(8) which Arch Linux deliberately doesn't
+# do by default, see e.g. https://bugs.archlinux.org/task/57852
+NSS_HOSTS=(
+    # Resolves containers managed by systemd-machined
+    mymachines
+    # Resolves local mDNS hostnames in the .local domain through Avahi, and
+    # stops resolving immediately if the .local name isn't found, see
+    # https://wiki.archlinux.org/index.php/Avahi#Hostname_resolution
+    mdns_minimal '[NOTFOUND=return]'
+    # Resolve everything else with systemd-resolved and bail out if resolved
+    # doesn't find hostname.  Everything after this stanza is just fallback in
+    # case resolved is down
+    resolve '[!UNAVAIL=return]'
+    # Resolve hosts from /etc/hosts (systemd-resolved handles /etc/hosts as well
+    # so this comes after resolve)
+    files
+    # Resolves gethostname(), i.e. /etc/hostname
+    myhostname
+    # Resolves from DNS
+    dns
+    )
+sed -i '/^hosts: /s/^hosts: .*/'"hosts: ${NSS_HOSTS[*]}/" /etc/nsswitch.conf
 
 # Allow bridge network access for qemu user sessions
 if ip link show virbr0 >& /dev/null; then
