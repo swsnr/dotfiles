@@ -262,6 +262,16 @@ install -pm644 "$DIR/etc/sysctl-lunaryorn.conf" /etc/sysctl.d/90-lunaryorn.conf
 install -pm644 "$DIR/etc/lunaryorn-dracut.conf" /etc/dracut.conf.d/50-lunaryorn.conf
 # TODO: nssswitch for mdns
 
+# Allow bridge network access for qemu user sessions
+if ip link show virbr0 >& /dev/null; then
+    install -dm755 /etc/qemu/
+
+    if ! grep -q 'allow virbr0' /etc/qemu/bridge.conf; then
+        echo 'allow virbr0' >> /etc/qemu/bridge.conf
+        chmod 644 /etc/qemu/bridge.conf
+    fi
+fi
+
 # Install or update, and then configure the bootloader
 if ! [[ -e /efi/EFI/BOOT/BOOTX64.EFI ]]; then
     bootctl install
