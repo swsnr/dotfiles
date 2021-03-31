@@ -143,7 +143,7 @@ set -xeuo pipefail
 # Generate locales
 locale-gen
 # Install dracut opt deps required to build unified kernel images
-pacman -S --asdeps binutils elfutils
+pacman -S --noconfirm --asdeps binutils elfutils
 for kver in /lib/modules/*; do dracut -f --uefi --kver "${kver##*/}"; done
 # Install bootloader
 bootctl install
