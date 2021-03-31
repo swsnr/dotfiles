@@ -192,6 +192,8 @@ optdeps=(
     openbsd-netcat
     # libvirt: NAT networking
     dnsmasq ebtables
+    # libvirt: DMI info support (whatever that is, but it fixes a warning in libvirtd logs)
+    dmidecode
     # ripgrep-all: additional search adapters
     # tesseract
     # graphicsmagick
