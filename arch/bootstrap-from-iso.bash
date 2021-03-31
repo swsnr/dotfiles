@@ -98,7 +98,7 @@ fi
 # Create file systems
 mkfs.fat -F32 -n EFISYSTEM /dev/disk/by-partlabel/EFISYSTEM
 mkfs.fat -F32 -n XBOOTLDR /dev/disk/by-partlabel/XBOOTLDR
-mkfs.btrfs -L linux "$root_device"
+mkfs.btrfs -f -L linux "$root_device"
 
 # Create default "arch" subvolume
 mount "$root_device" /mnt
