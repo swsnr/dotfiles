@@ -142,14 +142,15 @@ cat <<'EOF' | arch-chroot /mnt
 set -xeuo pipefail
 # Generate locales
 locale-gen
-echo "Set root password"
-passwd root
 # Install dracut opt deps required to build unified kernel images
 pacman -S --asdeps binutils elfutils
 for kver in /lib/modules/*; do dracut -f --uefi --kver "${kver##*/}"; done
 # Install bootloader
 bootctl install
 EOF
+
+echo "Set root password"
+passwd -R /mnt root
 
 # Finish things
 echo "BOOTSTRAPPING FINISHED"
