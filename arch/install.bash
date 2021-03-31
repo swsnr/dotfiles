@@ -241,6 +241,8 @@ systemctl enable cups.service
 systemctl enable bluetooth.service
 # Smartcard services for ausweisapp2
 systemctl enable pcscd.socket
+# Virtualization (mostly for networking, see below; my machines usally run in the user session)
+systemctl enable libvirtd.socket
 
 if [[ ! -f /etc/subuid ]]; then touch /etc/subuid; fi
 if [[ ! -f /etc/subgid ]]; then touch /etc/subgid; fi
