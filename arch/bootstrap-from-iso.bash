@@ -29,7 +29,7 @@ do
 
     case "$arg" in
         "--not-encrypted")
-            use_luks="yes"
+            use_luks="no"
             shift
             ;;
         "--device")
