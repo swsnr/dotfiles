@@ -265,12 +265,14 @@ install -pm644 "$DIR/etc/modprobe-lunaryorn.conf" /etc/modprobe.d/modprobe-lunar
 install -pm644 "$DIR/etc/sysctl-lunaryorn.conf" /etc/sysctl.d/90-lunaryorn.conf
 install -pm644 "$DIR/etc/lunaryorn-dracut.conf" /etc/dracut.conf.d/50-lunaryorn.conf
 # See /usr/share/factory/etc/nsswitch.conf for the Arch Linux factory defaults.
-# We add mdns hostnames (from Avahi), and also shuffle things around
+# We add mdns hostnames (from Avahi) and libvirtd names, and also shuffle things around
 # to follow the recommendations in nss-resolve(8) which Arch Linux deliberately doesn't
 # do by default, see e.g. https://bugs.archlinux.org/task/57852
 NSS_HOSTS=(
     # Resolves containers managed by systemd-machined
     mymachines
+    # libvirtd machines (by DHCP announced hostname)
+    libvirt
     # Resolves local mDNS hostnames in the .local domain through Avahi, and
     # stops resolving immediately if the .local name isn't found, see
     # https://wiki.archlinux.org/index.php/Avahi#Hostname_resolution
