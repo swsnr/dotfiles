@@ -124,8 +124,13 @@ pacstrap /mnt base linux linux-lts linux-firmware intel-ucode btrfs-progs dracut
 
 # Configure timezone, locale, keymap
 ln -sf /usr/share/zoneinfo/Europe/Berlin /mnt/etc/localtime
-echo 'LANG=de_DE.UTF-8' >/mnt/etc/locale.conf
+sed -i \
+    -e '/^#en_GB.UTF-8/s/^#//' \
+    -e '/^#de_DE.UTF-8/s/^#//' \
+    /etc/locale.gen
+echo 'LANG=en_GB.UTF-8' >/mnt/etc/locale.conf
 echo 'KEYMAP=us' >/mnt/etc/vconsole.conf
+
 # Basic network configuration
 echo "$new_hostname" >/mnt/etc/hostname
 cat <<EOF >/etc/hosts
