@@ -22,6 +22,9 @@ fi
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}")"  >/dev/null 2>&1 && pwd)"
 
+# Remove packages I no longer use
+pacman -Rs --noconfirm gnome-boxes || true
+
 packages=(
     # Basic packages
     base
@@ -95,6 +98,7 @@ packages=(
     # VMs
     libvirt
     virt-manager
+    virt-viewer
     # Containers, kubernetes & cloud
     podman
     toolbox
@@ -154,7 +158,6 @@ packages=(
     gnome-control-center
     gnome-terminal
     gnome-tweaks
-    gnome-boxes
     xdg-user-dirs-gtk
     file-roller
     yelp
