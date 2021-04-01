@@ -194,6 +194,8 @@ optdeps=(
     dnsmasq ebtables
     # libvirt: DMI info support (whatever that is, but it fixes a warning in libvirtd logs)
     dmidecode
+    # libvirt: KVM support
+    qemu
     # ripgrep-all: additional search adapters
     # tesseract
     # graphicsmagick
