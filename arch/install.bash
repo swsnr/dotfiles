@@ -99,6 +99,7 @@ packages=(
     libvirt
     virt-manager
     virt-viewer
+    edk2-ovmf
     # Containers, kubernetes & cloud
     podman
     toolbox
