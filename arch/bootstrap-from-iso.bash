@@ -141,6 +141,7 @@ cat <<EOF >/mnt/etc/hosts
 ::1 localhost
 127.0.1.1 $new_hostname.localdomain $new_hostname
 EOF
+ln -sf /run/systemd/resolve/stub-resolv.conf /mnt/etc/resolve.conf
 
 # Switch into chroot
 cat <<'EOF' | arch-chroot /mnt
@@ -152,6 +153,8 @@ pacman -S --noconfirm --asdeps binutils elfutils
 for kver in /lib/modules/*; do dracut -f --uefi --kver "${kver##*/}"; done
 # Install bootloader
 bootctl install
+# Enable resolved
+systemctl enable systemd-resolved
 EOF
 
 echo "Set root password"
