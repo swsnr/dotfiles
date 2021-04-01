@@ -133,7 +133,7 @@ echo 'KEYMAP=us' >/mnt/etc/vconsole.conf
 
 # Basic network configuration
 echo "$new_hostname" >/mnt/etc/hostname
-cat <<EOF >/etc/hosts
+cat <<EOF >/mnt/etc/hosts
 # Static table lookup for hostnames.
 # See hosts(5) for details.
 
