@@ -275,6 +275,11 @@ install -pm600 -t/etc/sudoers.d "$DIR"/etc/sudoers.d/*
 install -pm644 "$DIR/etc/modprobe-lunaryorn.conf" /etc/modprobe.d/modprobe-lunaryorn.conf
 install -pm644 "$DIR/etc/sysctl-lunaryorn.conf" /etc/sysctl.d/90-lunaryorn.conf
 install -pm644 "$DIR/etc/lunaryorn-dracut.conf" /etc/dracut.conf.d/50-lunaryorn.conf
+if [[ -f /usr/share/secureboot/keys/db/db.key ]] && [[ -f /usr/share/secureboot/keys/db/db.pem ]]; then
+    install -pm644 "$DIR/etc/lunaryorn-dracut-sbctl.conf" /etc/dracut.conf.d/90-lunaryorn-sbctl-signing.conf
+else
+    rm -f /etc/dracut.conf.d/90-lunaryorn-sbctl-signing.conf
+fi
 # See /usr/share/factory/etc/nsswitch.conf for the Arch Linux factory defaults.
 # We add mdns hostnames (from Avahi) and libvirtd names, and also shuffle things around
 # to follow the recommendations in nss-resolve(8) which Arch Linux deliberately doesn't
@@ -319,6 +324,11 @@ else
     bootctl update
 fi
 install -pm644 "$DIR/etc/loader.conf" /efi/loader/loader.conf
+
+# Update secureboot signatures
+if command -v sbctl > /dev/null; then
+    sbctl sign-all
+fi
 
 # Global font configuration
 for file in 10-hinting-slight 10-sub-pixel-rgb 11-lcdfilter-default; do
