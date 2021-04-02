@@ -17,6 +17,11 @@
 
 set -xeuo pipefail
 
+if bootctl status | grep -q 'Secure Boot: enabled'; then
+    echo "Secure boot enabled, but not yet supported!" 1>&2
+    exit 2
+fi
+
 BOOTPATH="$(bootctl -x)"
 
 if ! mountpoint -q "$BOOTPATH"; then
