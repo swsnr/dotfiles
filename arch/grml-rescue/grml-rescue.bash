@@ -40,7 +40,7 @@ fi
 iso="grml64-small_${desired_version}.iso"
 mirror="https://ftp.halifax.rwth-aachen.de//grml/"
 
-download_dir="$(mktemp -d --tmpdir grml-rescue.XXXXXX)"
+download_dir="$(mktemp --directory --tmpdir=/var/tmp grml-rescue.XXXXXX)"
 trap '{ rm -rf -- "$download_dir"; }' EXIT
 
 curl -Lf   --tlsv1.2 --proto '=https' -o "${download_dir}/${iso}"     "${mirror}/${iso}"
