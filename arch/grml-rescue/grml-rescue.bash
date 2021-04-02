@@ -17,8 +17,10 @@
 
 set -xeuo pipefail
 
-if ! mountpoint -q /boot; then
-    echo 'Extended boot not mounted at /boot' 1>&2
+BOOTPATH="$(bootctl -x)"
+
+if ! mountpoint -q "$BOOTPATH"; then
+    echo "Extended boot not mounted at $BOOTPATH" 1>&2
     exit 1
 fi
 
@@ -30,7 +32,7 @@ fi
 dir="$( cd "$( dirname "${BASH_SOURCE[0]}")"  >/dev/null 2>&1 && pwd)"
 
 desired_version="2020.06"
-installed_version="$(grep -E '^version' /boot/loader/entries/grml.conf | cut -d' ' -f2 || true)"
+installed_version="$(grep -E '^version' "$BOOTPATH/loader/entries/grml.conf" | cut -d' ' -f2 || true)"
 
 if [[ $desired_version == "${installed_version:-}" ]]; then
     echo "Already installed"
@@ -52,11 +54,18 @@ relevant_files=(
     boot/grml64small/vmlinuz
     boot/grml64small/initrd.img
 )
-7z e -o/boot/grml "${download_dir}/${iso}" -- "${relevant_files[@]}"
+7z e -o"${download_dir}" "${download_dir}/${iso}" -- "${relevant_files[@]}"
 
-mkdir -p /boot/loader/entries
+# Install the squashed filesystem
+install -pm600 -D -t "$BOOTPATH/grml" \
+    "${download_dir}/grml64-small.squashfs" \
+    "${download_dir}/vmlinuz" \
+    "${download_dir}/initrd.img"
 
-cat >/boot/loader/entries/grml.conf <<EOF
+# Create a standard type #1 boot loader entry for systemd-boot
+mkdir -p "$BOOTPATH/loader/entries"
+
+cat >"$BOOTPATH/loader/entries/grml.conf" <<EOF
 title   Grml Live Linux
 version ${desired_version}
 linux   /grml/vmlinuz
