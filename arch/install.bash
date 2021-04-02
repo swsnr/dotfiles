@@ -40,6 +40,7 @@ packages=(
     lsb-release
     sudo
     efibootmgr # Manage EFI boot menu
+    sbctl # Manage secure boot binaries and sign binaries
     # System monitoring
     powertop
     iotop
@@ -190,9 +191,8 @@ optdeps=(
     crda
     # poppler: data files
     poppler-data
-    # dracut: uefi support and stripping
-    binutils
-    elfutils
+    # dracut: --uefi, stripping, and efi signing
+    binutils elfutils sbsigntools
     # nb: rendered notes
     w3m
     # libva: intel drivers
