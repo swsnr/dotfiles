@@ -1,0 +1,7 @@
+{
+    "name": "1password",
+    "description": "Search 1password entries",
+    "pattern": "^(?:op|1pw?)(.*)",
+    "exec": "1password.py",
+    "icon": "1password"
+}
