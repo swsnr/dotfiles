@@ -23,12 +23,15 @@ fi
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}")"  >/dev/null 2>&1 && pwd)"
 
 # Remove packages I no longer use
-pacman -Rs --noconfirm gnome-boxes || true
+to_remove=(gnome-boxes archlinux-contrib)
+for pkg in "${to_remove[@]}"; do
+    pacman --noconfirm -Rs "$pkg" || true
+done
 
 packages=(
     # Basic packages
     base
-    dracut
+    dracut # Build initrd & unified EFI images
     linux-firmware
     intel-ucode
     btrfs-progs
@@ -36,16 +39,20 @@ packages=(
     linux-lts
     lsb-release
     sudo
-    efibootmgr
+    efibootmgr # Manage EFI boot menu
     # System monitoring
     powertop
     iotop
     htop
     lsof
     # System services
-    fwupd
+    fwupd # Firmware updates
     # Networking
     networkmanager
+    # mDNS/DNS-SD, mostly for printers, i.e. CUPS
+    # While systemd-resolved handles mDNS hostname lookups it doesn't support DNS-SD,
+    # and thus doesn't support CUPS printer discovery, see
+    # https://github.com/apple/cups/issues/5452
     avahi
     nss-mdns
     # USB and USB storage file systems
@@ -53,15 +60,13 @@ packages=(
     exfat-utils
     usbutils
     # Arch tools & infrastructure
-    archlinux-contrib
-    pacman-contrib
-    reflector
-    pkgfile
+    pacman-contrib # paccache, checkupdates, pacsearch, and others
+    reflector # Weekly mirrorlist updates
+    pkgfile # command-not-found for fish
     # Build packages
     base-devel
     namcap
-    devtools
-    aurpublish
+    aurpublish # Publish AUR packages from Git subtrees
     # Shell & tools
     man-db
     man-pages
@@ -70,8 +75,8 @@ packages=(
     toolbox
     neovim
     exa
-    fd
-    sd
+    fd # Simpler find
+    sd # Simpler sed
     ripgrep
     bat
     mdcat
@@ -105,7 +110,7 @@ packages=(
     toolbox
     kubectl
     helm
-    hcloud
+    hcloud # Hetzner Cloud CLI
     # Desktop tools
     wl-clipboard
     dconf-editor
@@ -113,14 +118,14 @@ packages=(
     xdg-user-dirs
     xdg-utils
     flatpak
-    flatpak-builder
-    pcsclite
+    flatpak-builder # To build flatpaks
+    pcsclite # Smartcard daemon, for e-ID
     cups
     system-config-printer
     hplip
     bluez
     sane
-    pipewire-pulse
+    pipewire-pulse # Pipewire-based pulse-audio, replaces pulseaudio
     # Applications (only stuff that's not flatpaked)
     youtube-dl
     mediathekview
@@ -161,7 +166,7 @@ packages=(
     gnome-tweaks
     xdg-user-dirs-gtk
     file-roller
-    yelp
+    yelp # Online help system
     nautilus
     gvfs-afc
     gvfs-goa
@@ -170,9 +175,9 @@ packages=(
     gvfs-mtp
     gvfs-nfs
     gvfs-smb
-    sushi
-    evince
-    eog
+    sushi # Previewer for nautilus
+    evince # Document viewer
+    eog # Image viewer
     simple-scan
 )
 
@@ -450,6 +455,8 @@ aur_packages=(
 aur_optdeps=(
     # nb: Cleanup contents of bookmarks
     readability-cli
+    # aur-utils: chroot support
+    devtools
 )
 
 if [[ -n "$SUDO_USER" ]]; then
