@@ -341,6 +341,9 @@ if command -v sbctl > /dev/null; then
 
     # Update all secureboot signatures
     sbctl sign-all
+
+    # Dump signing state just to be on the safe side
+    sbctl verify
 fi
 
 # Global font configuration
