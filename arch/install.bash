@@ -40,6 +40,7 @@ packages=(
     lsb-release
     sudo
     efibootmgr # Manage EFI boot menu
+    efitools # Low-level EFI tools (just in case, also provides the EFI Keytool binary)
     sbctl # Manage secure boot binaries and sign binaries
     # System monitoring
     powertop
@@ -337,6 +338,18 @@ if command -v sbctl > /dev/null; then
     # Generate signing firmware updater
     if ! sbctl list-files | grep -q /usr/lib/fwupd/efi/fwupdx64.efi; then
         sbctl sign -s -o /usr/lib/fwupd/efi/fwupdx64.efi.signed /usr/lib/fwupd/efi/fwupdx64.efi
+    fi
+
+    # Install keytool
+    BOOT="$(bootctl -x)"
+    if [[ ! -f "$BOOT/loader/entries/keytool.conf" ]]; then
+        cat > "$BOOT/loader/entries/keytool.conf" <<EOF
+title EFI Keytool
+efi /EFI/KeyTool.efi
+EOF
+    fi
+    if ! sbctl list-files | grep -q /usr/share/efitools/efi/KeyTool.efi; then
+        sbctl sign -s -o "$BOOT/EFI/KeyTool.efi" /usr/share/efitools/efi/KeyTool.efi
     fi
 
     # Update all secureboot signatures
