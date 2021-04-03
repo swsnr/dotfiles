@@ -29,16 +29,24 @@ for pkg in "${to_remove[@]}"; do
 done
 
 packages=(
-    # Basic packages
+    # Basic packages & system tools
     base
     dracut # Build initrd & unified EFI images
     linux-firmware
     intel-ucode
-    btrfs-progs
     linux
     linux-lts
     lsb-release
     sudo
+    # File systems
+    ntfs-3g
+    exfat-utils
+    btrfs-progs
+    # Hardware tools
+    fwupd # Firmware updates
+    usbutils
+    nvme-cli
+    # EFI & secure boot
     efibootmgr # Manage EFI boot menu
     efitools # Low-level EFI tools (just in case, also provides the EFI Keytool binary)
     sbctl # Manage secure boot binaries and sign binaries
@@ -47,8 +55,6 @@ packages=(
     iotop
     htop
     lsof
-    # System services
-    fwupd # Firmware updates
     # Networking
     networkmanager
     # mDNS/DNS-SD, mostly for printers, i.e. CUPS
@@ -57,10 +63,6 @@ packages=(
     # https://github.com/apple/cups/issues/5452
     avahi
     nss-mdns
-    # USB and USB storage file systems
-    ntfs-3g
-    exfat-utils
-    usbutils
     # Arch tools & infrastructure
     pacman-contrib # paccache, checkupdates, pacsearch, and others
     reflector # Weekly mirrorlist updates
