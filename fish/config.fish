@@ -27,8 +27,11 @@ end
 # Environment variables.  Use absolute path to nvim because it's likely in a
 # non-standard location where sudoedit won't pick it up if it's just the name.
 set -x EDITOR (type -p nvim)
-set -x PAGER 'less'
-set -x BROWSER 'xdg-open'
+set -x PAGER less
+set -x BROWSER xdg-open
+
+# Leave my $HOME alone, go
+set -x GOPATH $HOME/Code/go
 
 # Default less options:
 #
