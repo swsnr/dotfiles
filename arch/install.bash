@@ -273,8 +273,12 @@ install -pm644 "$DIR/etc/faillock.conf" /etc/security/faillock.conf
 install -dm700 /etc/sudoers.d/
 install -pm600 -t/etc/sudoers.d "$DIR"/etc/sudoers.d/*
 
+# Module & system settings
 install -pm644 "$DIR/etc/modprobe-lunaryorn.conf" /etc/modprobe.d/modprobe-lunaryorn.conf
 install -pm644 "$DIR/etc/sysctl-lunaryorn.conf" /etc/sysctl.d/90-lunaryorn.conf
+
+# Initrd and early boot
+install -pm644 -T "$DIR/etc/plymouthd.conf" /etc/plymouth/plymouthd.conf
 install -pm644 "$DIR/etc/lunaryorn-dracut.conf" /etc/dracut.conf.d/50-lunaryorn.conf
 if [[ -f /usr/share/secureboot/keys/db/db.key ]] && [[ -f /usr/share/secureboot/keys/db/db.pem ]]; then
     install -pm644 "$DIR/etc/lunaryorn-dracut-sbctl.conf" /etc/dracut.conf.d/90-lunaryorn-sbctl-signing.conf
@@ -461,6 +465,8 @@ fi
 aur_packages=(
     # AUR helper
     aurutils
+    # Splash screen at boot
+    plymouth
     # Tiling window manager for Gnome.  Use git build until next release:
     # <https://github.com/pop-os/shell/issues/905>
     gnome-shell-extension-pop-shell-git
