@@ -332,7 +332,7 @@ fi
 install -pm644 "$DIR/etc/loader.conf" /efi/loader/loader.conf
 
 # If we have secureboot tooling in place
-if command -v sbctl > /dev/null; then
+if command -v sbctl > /dev/null && [[ -f /usr/share/secureboot/keys/db/db.key ]]; then
     # Generate initial secureboot signatures for systemd-boot
     for file in /efi/EFI/BOOT/BOOTX64.EFI /efi/EFI/systemd/systemd-bootx64.efi; do
         if ! sbctl list-files | grep -q "$file"; then
