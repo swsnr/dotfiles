@@ -503,6 +503,8 @@ aur_optdeps=(
     readability-cli
     # aur-utils: chroot support
     devtools
+    # plymouth: truetype fonts
+    ttf-dejavu cantarell-fonts
 )
 
 if [[ -n "$SUDO_USER" ]]; then
