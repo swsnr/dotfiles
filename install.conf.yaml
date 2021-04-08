@@ -119,38 +119,18 @@
       # Show week numbers in calendar
       show-weekdate: true
     org.gnome.mutter:
-      dynamic-workspaces: false
-    org.gnome.shell.keybindings:
-      # Disable quick shortcuts for applications; I switch workspaces instead
-      switch-to-application-1: []
-      switch-to-application-2: []
-      switch-to-application-3: []
-      switch-to-application-4: []
-      switch-to-application-5: []
-      switch-to-application-6: []
-      switch-to-application-7: []
-      switch-to-application-8: []
-      switch-to-application-9: []
+      dynamic-workspaces: true
     org.gnome.desktop.wm.preferences:
       # Font for window titles of non-CSD windows
       titlebar-font: 'Ubuntu Bold 11'
-      # Use four static workspaces
-      num-workspaces: 4
     org.gnome.desktop.wm.keybindings:
+      close: ['<Super>q', '<Alt>F4']
       # Keep on top above all other windows
       always-on-top: ['<Shift><Super>t']
       toggle-on-all-workspaces: ['<Super>period']
       # Disable input method switching wtih Super+Space
       switch-input-source: ['XF86Keyboard']
       switch-input-source-backward: ['<Shift>XF86Keyboard']
-      switch-to-workspace-1: ['<Super>1']
-      switch-to-workspace-2: ['<Super>2']
-      switch-to-workspace-3: ['<Super>3']
-      switch-to-workspace-4: ['<Super>4']
-      move-to-workspace-1: ['<Shift><Super>1']
-      move-to-workspace-2: ['<Shift><Super>2']
-      move-to-workspace-3: ['<Shift><Super>3']
-      move-to-workspace-4: ['<Shift><Super>4']
 - gnome_terminal_profile:
     audible-bell: false
     bold-is-bright: false
