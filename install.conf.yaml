@@ -71,10 +71,6 @@
       path: gnome/extensions/home@swsnr.de
       if: "uname -s | grep -qi linux"
 
-    # Pop Shell launcher plugins
-    ~/.local/share/pop-shell/launcher/vscode: pop-shell/launcher/vscode
-    ~/.local/share/pop-shell/launcher/jetbrains: pop-shell/launcher/jetbrains
-
     # ZIM style configuration
     ~/.config/zim/style.conf: misc/zim-style.conf
     # Make python keyring pick the proper backend

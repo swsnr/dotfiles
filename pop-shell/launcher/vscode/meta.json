@@ -1,7 +1,0 @@
-{
-    "name": "VSCode",
-    "description": "Search recent vscode workspaces",
-    "pattern": ".*",
-    "exec": "vscode.py",
-    "icon": "com.visualstudio.code.oss"
-}
