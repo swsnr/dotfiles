@@ -23,7 +23,17 @@ fi
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}")"  >/dev/null 2>&1 && pwd)"
 
 # Remove packages I no longer use
-to_remove=(gnome-boxes archlinux-contrib)
+to_remove=(
+    # boxes is nice for quick VMs, but I prefer virt-manager for its greater power
+    gnome-boxes
+    # I don't need anything from this
+    archlinux-contrib
+    # With Gnome 40 the standard Gnome workflow is good enough for me
+    gnome-shell-extension-pop-shell-git
+    # These extension aren't compatible with Gnome 40
+    gnome-shell-extension-jetbrains-search-provider
+    gnome-shell-extension-vscode-search-provider
+)
 for pkg in "${to_remove[@]}"; do
     pacman --noconfirm -Rs "$pkg" || true
 done
@@ -468,11 +478,7 @@ aur_packages=(
     aurutils
     # Splash screen at boot
     plymouth
-    # Tiling window manager for Gnome.  Use git build until next release:
-    # <https://github.com/pop-os/shell/issues/905>
-    # gnome-shell-extension-pop-shell-git
-    gnome-shell-extension-jetbrains-search-provider
-    gnome-shell-extension-vscode-search-provider
+    # Gnome extensions
     gnome-shell-extension-nasa-apod
     # Dracut hook to build kernel images for systemd boot
     dracut-hook-uefi-systemd
