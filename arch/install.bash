@@ -502,6 +502,7 @@ aur_packages=(
     texlive-latexindent-meta
     # Keyboard flashing tool
     zsa-wally
+    zsa-wally-cli-git
 )
 
 aur_optdeps=(
