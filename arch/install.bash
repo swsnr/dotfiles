@@ -480,6 +480,8 @@ aur_packages=(
     plymouth
     # Gnome extensions
     gnome-shell-extension-nasa-apod
+    # Gnome tools
+    gnome-search-providers-jetbrains
     # Dracut hook to build kernel images for systemd boot
     dracut-hook-uefi-systemd
     # Password manager
