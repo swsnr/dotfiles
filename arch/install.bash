@@ -150,6 +150,7 @@ packages=(
     # Fonts
     noto-fonts
     noto-fonts-extra
+    noto-fonts-cjk
     noto-fonts-emoji
     ttf-liberation
     ttf-caladea
