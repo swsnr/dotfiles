@@ -93,16 +93,18 @@ packages=(
     sd # Simpler sed
     ripgrep
     bat
-    mdcat
     nnn
     rsync
     curl
     p7zip
     zip
     jq
-    pandoc
     shellcheck
     shfmt
+    # Document processing and rendering
+    pandoc
+    mdcat
+    asciidoctor
     # Development tools
     code
     hub
