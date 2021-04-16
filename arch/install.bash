@@ -492,6 +492,8 @@ aur_packages=(
     gnome-search-providers-jetbrains
     # Dracut hook to build kernel images for systemd boot
     dracut-hook-uefi-systemd
+    # Swap on zram
+    zram-generator
     # Password manager
     1password
     1password-cli
@@ -529,4 +531,7 @@ if [[ -n "$SUDO_USER" ]]; then
     sudo -u "$SUDO_USER" --preserve-env=AUR_PAGER,PACKAGER aur sync -daur -cRT "${aur_packages[@]}" "${aur_optdeps[@]}"
     pacman --needed -Syu "${aur_packages[@]}"
     pacman --needed -S --asdeps "${aur_optdeps[@]}"
+
+    # Swap on zram
+    install -Dpm644 "$DIR/etc/zram-generator.conf" /etc/systemd/zram-generator.conf
 fi
