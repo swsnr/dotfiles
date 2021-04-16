@@ -241,6 +241,11 @@ for mountpoint in / /home /home/"$SUDO_USER"; do
     fi
 done
 
+# systemd configuration
+install -Dpm644 "$DIR/etc/system-lunaryorn.conf" /etc/systemd/system.conf.d/50-lunaryorn.conf
+
+# Userspace OOM killer from systemd; kills more selectively than the kernel
+systemctl enable systemd-oomd.service
 # Desktop manager
 systemctl enable gdm.service
 # Periodically trim all filesystems
