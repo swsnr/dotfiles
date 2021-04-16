@@ -103,6 +103,7 @@ mkfs.btrfs -f -L linux "$root_device"
 
 # Create default "arch" subvolume
 mount "$root_device" /mnt
+btrfs property set / compression zstd
 btrfs subvolume create /mnt/arch
 btrfs subvolume set-default /mnt/arch
 umount /mnt

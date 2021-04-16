@@ -231,12 +231,15 @@ optdeps=(
 
 pacman -S --needed --asdeps "${optdeps[@]}"
 
-# Schedule scrubbing of relevant filesystems
+# Configure btrfs filesystems.
+#
+# Setup regular scrubbing and enable zstd compression
 for mountpoint in / /home /home/"$SUDO_USER"; do
     if findmnt -n -o SOURCE -M "$mountpoint" -v >/dev/null; then
         device="$(findmnt -n -o SOURCE -M "$mountpoint" -v)"
         if [[ "$(lsblk -no FSTYPE "$device")" == "btrfs" ]]; then
             systemctl enable "btrfs-scrub@$(systemd-escape -p "$mountpoint").timer"
+            btrfs property set "$mountpoint" compression zstd
         fi
     fi
 done
