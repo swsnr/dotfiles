@@ -387,7 +387,7 @@ fi
 
 # Global font configuration
 for file in 10-hinting-slight 10-sub-pixel-rgb 11-lcdfilter-default; do
-    ln -sf /etc/fonts/conf.avail/$file.conf /etc/fonts/conf.d/$file.conf
+    ln -sf /usr/share/fontconfig/conf.avail/$file.conf /etc/fonts/conf.d/$file.conf
 done
 
 # Apps
