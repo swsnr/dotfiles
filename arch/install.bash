@@ -493,6 +493,7 @@ aur_packages=(
     gnome-shell-extension-nasa-apod
     # Gnome tools
     gnome-search-providers-jetbrains
+    gnome-search-providers-vscode
     # Dracut hook to build kernel images for systemd boot
     dracut-hook-uefi-systemd
     # Swap on zram
