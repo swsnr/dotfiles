@@ -78,8 +78,7 @@ fi
 # Partition
 sgdisk -Z /dev/vda
 sgdisk \
-    -n1:0:+500M  -t1:ef00 -c1:EFISYSTEM \
-    -n2:0:+1000M -t2:ea00 -c2:XBOOTLDR \
+    -n1:0:+550M  -t1:ef00 -c1:EFISYSTEM \
     -N3          -t3:8304 -c3:linux \
     "$target_device"
 
@@ -98,7 +97,6 @@ fi
 
 # Create file systems
 mkfs.fat -F32 -n EFISYSTEM /dev/disk/by-partlabel/EFISYSTEM
-mkfs.fat -F32 -n XBOOTLDR /dev/disk/by-partlabel/XBOOTLDR
 mkfs.btrfs -f -L linux "$root_device"
 
 # Create default "arch" subvolume
@@ -110,14 +108,13 @@ umount /mnt
 
 # Mount arch subvolume and create additional subvolumes for rootfs
 mount "$root_device" /mnt
-mkdir /mnt/{boot,efi}
+mkdir /mnt/efi
 for subvol in var var/log var/cache var/tmp srv home; do
     btrfs subvolume create "/mnt/$subvol"
 done
 
 # Mount additional partitions
 mount /dev/disk/by-partlabel/EFISYSTEM /mnt/efi
-mount /dev/disk/by-partlabel/XBOOTLDR /mnt/boot
 
 # Bootstrap new chroot
 reflector --save /etc/pacman.d/mirrorlist --protocol https --country Germany --latest 5 --sort age
