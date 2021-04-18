@@ -535,7 +535,11 @@ if [[ -n "$SUDO_USER" ]]; then
     sudo -u "$SUDO_USER" --preserve-env=AUR_PAGER,PACKAGER aur sync -daur -cRT "${aur_packages[@]}" "${aur_optdeps[@]}"
     pacman --needed -Syu "${aur_packages[@]}"
     pacman --needed -S --asdeps "${aur_optdeps[@]}"
-
-    # Swap on zram
-    install -Dpm644 "$DIR/etc/zram-generator.conf" /etc/systemd/zram-generator.conf
 fi
+
+if command -v plymouth-set-default-theme > /dev/null; then
+    plymouth-set-default-theme bgrt
+fi
+
+# Swap on zram
+install -Dpm644 "$DIR/etc/zram-generator.conf" /etc/systemd/zram-generator.conf
