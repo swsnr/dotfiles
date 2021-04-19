@@ -367,15 +367,14 @@ if command -v sbctl > /dev/null && [[ -f /usr/share/secureboot/keys/db/db.key ]]
     fi
 
     # Install keytool
-    BOOT="$(bootctl -x)"
-    if [[ ! -f "$BOOT/loader/entries/keytool.conf" ]]; then
-        cat > "$BOOT/loader/entries/keytool.conf" <<EOF
+    if [[ ! -f "/efi/loader/entries/keytool.conf" ]]; then
+        cat > "/efi/loader/entries/keytool.conf" <<EOF
 title EFI Keytool
 efi /EFI/KeyTool.efi
 EOF
     fi
     if ! sbctl list-files | grep -q /usr/share/efitools/efi/KeyTool.efi; then
-        sbctl sign -s -o "$BOOT/EFI/KeyTool.efi" /usr/share/efitools/efi/KeyTool.efi
+        sbctl sign -s -o "/efi/EFI/KeyTool.efi" /usr/share/efitools/efi/KeyTool.efi
     fi
 
     # Update all secureboot signatures
