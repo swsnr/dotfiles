@@ -24,6 +24,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}")"  >/dev/null 2>&1 && pwd)"
 
 # Remove packages I no longer use
 to_remove=(
+    # I prefer Yaru
+    papirus-icon-theme
     # boxes is nice for quick VMs, but I prefer virt-manager for its greater power
     gnome-boxes
     # I don't need anything from this
@@ -488,6 +490,9 @@ aur_packages=(
     aurutils
     # Splash screen at boot
     plymouth
+    # Gtk themes
+    yaru-gtk-theme
+    yaru-icon-theme
     # Gnome extensions
     gnome-shell-extension-nasa-apod
     # Gnome tools

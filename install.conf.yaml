@@ -86,8 +86,9 @@
 - gsettings:
     org.gnome.desktop.interface:
       # Style
-      gtk-theme: 'Adwaita'
-      icon-theme: 'Papirus'
+      gtk-theme: 'Yaru'
+      icon-theme: 'Yaru'
+      cursor-theme: 'Yaru'
       font-name: 'Ubuntu 11'
       document-font-name: 'Ubuntu 11'
       monospace-font-name: 'PragmataPro Liga 10'
