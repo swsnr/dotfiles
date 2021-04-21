@@ -111,7 +111,7 @@
       numlock-state: true
     org.gnome.desktop.input-sources:
       # Set compose key according to my moonlander layout
-      xkb-options: ['compose:menu']
+      xkb-options: ['compose:ralt']
     org.gnome.desktop.calendar:
       # Show week numbers in calendar
       show-weekdate: true
