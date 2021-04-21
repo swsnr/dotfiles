@@ -159,8 +159,6 @@ packages=(
     ttf-ubuntu-font-family
     ttf-fira-mono
     ttf-fira-sans
-    # Themes
-    papirus-icon-theme
     # Gnome
     gdm
     gnome-characters
