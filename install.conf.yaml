@@ -122,6 +122,13 @@
       titlebar-font: 'Ubuntu Bold 11'
     org.gnome.desktop.wm.keybindings:
       close: ['<Super>q', '<Alt>F4']
+      # Switch windows not applications
+      switch-applications: []
+      switch-applications-backward: []
+      switch-group: []
+      switch-group-backward: []
+      switch-windows: ['<Super>Tab', '<Alt>Tab']
+      switch-windows-backward: ['<Shift><Super>Tab', '<Shift><Alt>Tab']
       # Keep on top above all other windows
       always-on-top: ['<Shift><Super>t']
       toggle-on-all-workspaces: ['<Super>period']
