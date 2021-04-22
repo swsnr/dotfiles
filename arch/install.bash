@@ -135,7 +135,9 @@ packages=(
     bluez
     sane
     pipewire-pulse # Pipewire-based pulse-audio, replaces pulseaudio
-    # Applications (only stuff that's not flatpaked)
+    # Applications (only stuff that's not flatpaked or sucks being flatpaked)
+    firefox
+    firefox-i18n-de
     youtube-dl
     mediathekview
     # Latex
@@ -380,9 +382,15 @@ for file in 10-hinting-slight 10-sub-pixel-rgb 11-lcdfilter-default; do
     ln -sf /usr/share/fontconfig/conf.avail/$file.conf /etc/fonts/conf.d/$file.conf
 done
 
+# Not quite there yet flatpaks ;)
+flatpaks_to_remove=(
+    # Firefox doesn't get proxy settings from dconf, and has a few other nuisances
+    org.mozilla.firefox
+)
+flatpak uninstall --noninteractive "${flatpaks_to_remove[@]}"
+
 # Apps
 flatpaks=(
-    org.mozilla.firefox
     com.github.tchx84.Flatseal
     de.bund.ausweisapp.ausweisapp2
     org.gnome.meld
@@ -401,8 +409,7 @@ flatpaks=(
 )
 
 flatpak install --or-update --noninteractive "${flatpaks[@]}"
-# Force firefox onto wayland
-flatpak override --socket=wayland --env=MOZ_ENABLE_WAYLAND=1 org.mozilla.firefox
+
 # Fix https://github.com/flathub/com.skype.Client/issues/126
 flatpak override --talk-name=org.freedesktop.ScreenSaver
 # Fix https://github.com/flathub/org.gnome.Lollypop/issues/109 (perhaps already fixed)

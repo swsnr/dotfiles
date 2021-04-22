@@ -33,6 +33,9 @@ set -x BROWSER xdg-open
 # Leave my $HOME alone, go
 set -x GOPATH $HOME/Code/go
 
+# Make firefox use wayland
+set -x MOZ_ENABLE_WAYLAND 1
+
 # Default less options:
 #
 # -q: Do not beep
