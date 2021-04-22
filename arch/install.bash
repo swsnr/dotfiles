@@ -382,13 +382,6 @@ for file in 10-hinting-slight 10-sub-pixel-rgb 11-lcdfilter-default; do
     ln -sf /usr/share/fontconfig/conf.avail/$file.conf /etc/fonts/conf.d/$file.conf
 done
 
-# Not quite there yet flatpaks ;)
-flatpaks_to_remove=(
-    # Firefox doesn't get proxy settings from dconf, and has a few other nuisances
-    org.mozilla.firefox
-)
-flatpak uninstall --noninteractive "${flatpaks_to_remove[@]}"
-
 # Apps
 flatpaks=(
     com.github.tchx84.Flatseal
