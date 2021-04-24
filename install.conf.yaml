@@ -79,8 +79,10 @@
     ~/.gnupg/gpg.conf: misc/gpg.conf
     # Alacritty terminal
     ~/.config/alacritty/alacritty.yml: misc/alacritty.yml
-    # nb note taking tool & todo CLI
+    # nb note taking tool
     ~/.nbrc: misc/nbrc
+    ~/.local/bin/nb: submodules/nb/nb
+    # TODOs
     ~/.todo/config: misc/todo-config
 
 - gsettings:

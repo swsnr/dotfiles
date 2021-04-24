@@ -26,6 +26,9 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}")"  >/dev/null 2>&1 && pwd)"
 to_remove=(
     # I prefer Yaru
     papirus-icon-theme
+    # I use these from my dotfiles
+    todotxt
+    nb
 )
 for pkg in "${to_remove[@]}"; do
     pacman --noconfirm -Rs "$pkg" || true
@@ -503,8 +506,6 @@ aur_packages=(
     git-gone
     # git-delta
     # dust
-    nb
-    todotxt
     wcal-git
     # Missing dependencies for latexindent
     # See <https://bugs.archlinux.org/task/60210>
@@ -512,11 +513,11 @@ aur_packages=(
     # Keyboard flashing tool
     zsa-wally
     zsa-wally-cli-git
+    # nb: Cleanup contents of bookmarks
+    readability-cli
 )
 
 aur_optdeps=(
-    # nb: Cleanup contents of bookmarks
-    readability-cli
     # aur-utils: chroot support
     devtools
     # plymouth: truetype fonts
@@ -528,6 +529,12 @@ if [[ -n "$SUDO_USER" ]]; then
     sudo -u "$SUDO_USER" --preserve-env=AUR_PAGER,PACKAGER aur sync -daur -cRT "${aur_packages[@]}" "${aur_optdeps[@]}"
     pacman --needed -Syu "${aur_packages[@]}"
     pacman --needed -S --asdeps "${aur_optdeps[@]}"
+
+    remove_from_repo=(nb todotxt)
+    for pkg in "${remove_from_repo[@]}"; do
+        rm -f "/srv/pkgrepo/aur/${pkg}-*.pkg.tar.*"
+    done
+    repo-remove /srv/pkgrepo/aur.db.tar.zst "${remove_from_repo[@]}"
 fi
 
 if command -v plymouth-set-default-theme > /dev/null; then
