@@ -82,6 +82,7 @@ packages=(
     man-pages
     fish
     git
+    tig # Curses git interfaces
     toolbox
     neovim
     exa
@@ -97,6 +98,7 @@ packages=(
     jq
     shellcheck
     shfmt
+    nmap # For the occasional port scan and ncat for nb
     # Document processing and rendering
     pandoc
     mdcat
