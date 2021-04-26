@@ -536,7 +536,7 @@ if [[ -n "$SUDO_USER" ]]; then
     for pkg in "${remove_from_repo[@]}"; do
         rm -f "/srv/pkgrepo/aur/${pkg}-*.pkg.tar.*"
     done
-    repo-remove /srv/pkgrepo/aur/aur.db.tar.zst "${remove_from_repo[@]}"
+    sudo -u "$SUDO_USER" repo-remove /srv/pkgrepo/aur/aur.db.tar.zst "${remove_from_repo[@]}"
 fi
 
 if command -v plymouth-set-default-theme > /dev/null; then
