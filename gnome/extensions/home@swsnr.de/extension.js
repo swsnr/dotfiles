@@ -25,7 +25,7 @@ const Me = imports.misc.extensionUtils.getCurrentExtension();
 const PanelMenu = imports.ui.panelMenu;
 const PopupMenuItem = imports.ui.popupMenu.PopupMenuItem;
 
-const l = message => log(`${Me.metadata.name}: ${message}`);
+const l = message => log(`${Me.metadata.uuid}: ${message}`);
 
 /**
  * Spawn command.
@@ -62,7 +62,6 @@ const execCommand = argv =>
 
 const getRoutes = () =>
   execCommand(["home"]).then(output => {
-    l(`Got routes: ${output}`);
     return output.trim().split("\n");
   });
 
@@ -87,7 +86,6 @@ const HomeIndicator = GObject.registerClass(
     }
 
     showRoutes(routes) {
-      l(`showing routes: ${routes}`);
       this.menu.removeAll();
       if (routes) {
         this.label.set_text(routes[0]);
