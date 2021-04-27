@@ -400,7 +400,6 @@ flatpaks=(
     org.gnome.clocks
     org.gnome.dfeet
     org.gnome.seahorse.Application
-    org.keepassxc.KeePassXC
     org.libreoffice.LibreOffice
     org.videolan.VLC
     org.signal.Signal
