@@ -83,14 +83,15 @@ packages=(
     fish
     git
     tig # Curses git interfaces
-    toolbox
+    toolbox # Lightweight persistent containers for development environments
     neovim
-    exa
+    exa # Better ls (with git support)
     fd # Simpler find
     sd # Simpler sed
+    dua-cli # Disk space analyzer
     ripgrep
     bat
-    nnn
+    nnn # Command line file manager (also a good pager for aurutils)
     rsync
     curl
     p7zip
@@ -103,14 +104,14 @@ packages=(
     pandoc
     mdcat
     asciidoctor
-    zathura
+    zathura # Lightweight document viewer
     # Development tools
     code
     hub
     github-cli
     rustup
-    hexyl
-    oxipng
+    hexyl # hex viewer
+    oxipng # Optimize PNGs for size
     cargo-audit
     cargo-outdated
     cargo-udeps
@@ -208,8 +209,6 @@ optdeps=(
     poppler-data
     # dracut: --uefi, stripping, and efi signing
     binutils elfutils sbsigntools
-    # nb: rendered notes
-    w3m
     # zathura: PDF support
     zathura-pdf-mupdf
     # libva: intel drivers
@@ -508,8 +507,8 @@ aur_packages=(
     pcsc-cyberjack
     # Additional tools
     git-gone
+    readability-cli # Remove cruft from HTML, for better content capture in nb
     # git-delta
-    # dust
     wcal-git
     # Missing dependencies for latexindent
     # See <https://bugs.archlinux.org/task/60210>
