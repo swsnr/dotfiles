@@ -103,6 +103,7 @@ packages=(
     pandoc
     mdcat
     asciidoctor
+    zathura
     # Development tools
     code
     hub
@@ -209,6 +210,8 @@ optdeps=(
     binutils elfutils sbsigntools
     # nb: rendered notes
     w3m
+    # zathura: PDF support
+    zathura-pdf-mupdf
     # libva: intel drivers
     intel-media-driver
     # libvirt: SSH management
