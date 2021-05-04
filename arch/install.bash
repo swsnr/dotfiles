@@ -510,6 +510,7 @@ aur_packages=(
     readability-cli # Remove cruft from HTML, for better content capture in nb
     # git-delta
     wcal-git
+    coursier-native
     # Missing dependencies for latexindent
     # See <https://bugs.archlinux.org/task/60210>
     texlive-latexindent-meta
