@@ -2,8 +2,8 @@
 import $ivy.`io.circe::circe-generic:0.13.0`
 import $ivy.`io.circe::circe-parser:0.13.0`
 // STTP for the quick HTTP request
-import $ivy.`com.softwaremill.sttp.client::core:2.1.1`
-import $ivy.`com.softwaremill.sttp.client::circe:2.1.1`
+import $ivy.`com.softwaremill.sttp.client3::core:3.3.0`
+import $ivy.`com.softwaremill.sttp.client3::circe:3.3.0`
 
 // Load ammonite-shell for this ammonite version
 interp.load.ivy(
@@ -29,3 +29,6 @@ repl.prompt.bind {
   s"$shortpwd at $now\nλ "
 }
 interp.colors().prompt() = fansi.Color.LightMagenta
+
+// Handy imports
+import java.time._
