@@ -44,6 +44,7 @@ packages=(
     linux-lts
     lsb-release
     sudo
+    zram-generator # swap on compressed RAM
     # File systems
     ntfs-3g
     exfat-utils
@@ -246,6 +247,8 @@ done
 
 # systemd configuration
 install -Dpm644 "$DIR/etc/system-lunaryorn.conf" /etc/systemd/system.conf.d/50-lunaryorn.conf
+# Swap on zram
+install -Dpm644 "$DIR/etc/zram-generator.conf" /etc/systemd/zram-generator.conf
 
 # Userspace OOM killer from systemd; kills more selectively than the kernel
 systemctl enable systemd-oomd.service
@@ -495,8 +498,6 @@ aur_packages=(
     gnome-search-providers-vscode
     # Dracut hook to build kernel images for systemd boot
     dracut-hook-uefi-systemd
-    # Swap on zram
-    zram-generator
     # Password manager
     1password
     1password-cli
@@ -534,7 +535,11 @@ if [[ -n "$SUDO_USER" ]]; then
     pacman --needed -Syu "${aur_packages[@]}"
     pacman --needed -S --asdeps "${aur_optdeps[@]}"
 
-    remove_from_repo=(nb todotxt)
+    remove_from_repo=(
+        zram-generator # Moved to community
+        nb # Added as a submodule
+        todotxt # Unused
+    )
     for pkg in "${remove_from_repo[@]}"; do
         rm -f "/srv/pkgrepo/aur/${pkg}-*.pkg.tar.*"
     done
@@ -544,6 +549,3 @@ fi
 if command -v plymouth-set-default-theme > /dev/null; then
     plymouth-set-default-theme bgrt
 fi
-
-# Swap on zram
-install -Dpm644 "$DIR/etc/zram-generator.conf" /etc/systemd/zram-generator.conf
