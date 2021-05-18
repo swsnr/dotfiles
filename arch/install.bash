@@ -517,7 +517,7 @@ aur_packages=(
     texlive-latexindent-meta
     # Keyboard flashing tool
     zsa-wally
-    zsa-wally-cli-git
+    zsa-wally-cli
     # nb: Cleanup contents of bookmarks
     readability-cli
 )
