@@ -35,6 +35,8 @@ set -x GOPATH $HOME/Code/go
 
 # Make firefox use wayland
 set -x MOZ_ENABLE_WAYLAND 1
+# ... and fix remoting (see https://wiki.archlinux.org/title/firefox#Applications_on_Wayland_can_not_launch_Firefox)
+set -x MOZ_DBUS_REMOTE 1
 
 # Default less options:
 #
