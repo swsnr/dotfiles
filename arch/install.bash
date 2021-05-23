@@ -228,6 +228,8 @@ optdeps=(
     # tesseract: data models
     # tesseract-data-deu
     # tesseract-data-eng
+    # gnome-shell-extension-appindicator: Gtk3 apps
+    libappindicator-gtk3
 )
 
 pacman -S --needed --asdeps "${optdeps[@]}"
