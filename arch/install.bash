@@ -116,6 +116,7 @@ packages=(
     cargo-audit
     cargo-outdated
     cargo-udeps
+    cargo-release
     ruby-bundler
     # VMs
     libvirt
