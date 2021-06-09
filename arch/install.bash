@@ -207,6 +207,8 @@ pacman -D --asdeps pipewire-pulse
 optdeps=(
     # linux: wireless frequency policies
     crda
+    # pipewire: zeroconf support
+    pipewire-zeroconf
     # poppler: data files
     poppler-data
     # dracut: --uefi, stripping, and efi signing
