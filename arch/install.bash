@@ -413,6 +413,7 @@ flatpaks=(
     org.libreoffice.LibreOffice
     org.videolan.VLC
     org.signal.Signal
+    io.github.seadve.Kooha
 )
 
 flatpak install --or-update --noninteractive "${flatpaks[@]}"
