@@ -66,7 +66,7 @@ def main():
     except GLib.Error:
         env['LC_MESSAGES'] = 'de_DE.utf8'
     # Open todays journal page
-    Popen(['zim', get_zim_notebook_name(), f'Journal:{page}'],
+    Popen(['flatpak', 'run', 'org.zim_wiki.Zim', get_zim_notebook_name(), f'Journal:{page}'],
           env=env, stdout=DEVNULL, stderr=DEVNULL)
 
 
