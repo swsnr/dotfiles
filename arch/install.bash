@@ -61,6 +61,7 @@ packages=(
     powertop
     iotop
     htop
+    procs
     lsof
     # Networking
     networkmanager
@@ -70,6 +71,7 @@ packages=(
     # https://github.com/apple/cups/issues/5452
     avahi
     nss-mdns
+    xh # HTTP requests on the command line
     # Arch tools & infrastructure
     pacman-contrib # paccache, checkupdates, pacsearch, and others
     reflector # Weekly mirrorlist updates
