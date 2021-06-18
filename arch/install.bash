@@ -127,6 +127,7 @@ packages=(
     edk2-ovmf
     # Containers, kubernetes & cloud
     podman
+    buildah
     toolbox
     kubectl
     helm
