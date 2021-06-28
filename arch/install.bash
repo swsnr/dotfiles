@@ -166,8 +166,8 @@ packages=(
     ttf-fira-mono
     ttf-fira-sans
     adobe-source-code-pro-fonts
-    adobe-source-sans-pro-fonts
-    adobe-source-serif-pro-fonts
+    adobe-source-sans-fonts
+    adobe-source-serif-fonts
     ttf-roboto
     ttf-ubuntu-font-family
     ttf-fira-mono
