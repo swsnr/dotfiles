@@ -505,7 +505,7 @@ aur_packages=(
     gnome-search-providers-jetbrains
     gnome-search-providers-vscode
     # Dracut hook to build kernel images for systemd boot
-    dracut-hook-uefi-systemd
+    dracut-hook-uefi
     # Password manager
     1password
     1password-cli
