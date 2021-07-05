@@ -526,8 +526,6 @@ aur_packages=(
     # Keyboard flashing tool
     zsa-wally
     zsa-wally-cli
-    # nb: Cleanup contents of bookmarks
-    readability-cli
 )
 
 aur_optdeps=(
