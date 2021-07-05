@@ -526,6 +526,8 @@ aur_packages=(
     # Keyboard flashing tool
     zsa-wally
     zsa-wally-cli
+    # A small adventure for your shell
+    rpg-cli
 )
 
 aur_optdeps=(
