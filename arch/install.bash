@@ -547,6 +547,7 @@ if [[ -n "$SUDO_USER" ]]; then
         zram-generator # Moved to community
         nb # Added as a submodule
         todotxt # Unused
+        dracut-hook-uefi-systemd # Replaced by dracut-hook-uefi
     )
     for pkg in "${remove_from_repo[@]}"; do
         rm -f "/srv/pkgrepo/aur/${pkg}-*.pkg.tar.*"
