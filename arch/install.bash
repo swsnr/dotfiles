@@ -17,7 +17,7 @@ set -xeuo pipefail
 
 if [[ $EUID != 0 ]]; then
     echo 'Elevating privileges'
-    exec sudo --preserve-env=AUR_PAGER,PACKAGER "$0" "$@"
+    exec sudo --preserve-env=AUR_PAGER,PACKAGER,EDITOR "$0" "$@"
 fi
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}")"  >/dev/null 2>&1 && pwd)"
@@ -539,7 +539,7 @@ aur_optdeps=(
 
 if [[ -n "$SUDO_USER" ]]; then
     # Build AUR packages and install them
-    sudo -u "$SUDO_USER" --preserve-env=AUR_PAGER,PACKAGER aur sync -daur -cRT "${aur_packages[@]}" "${aur_optdeps[@]}"
+    sudo -u "$SUDO_USER" --preserve-env=AUR_PAGER,PACKAGER,EDITOR aur sync -daur -cRT "${aur_packages[@]}" "${aur_optdeps[@]}"
     pacman --needed -Syu "${aur_packages[@]}"
     pacman --needed -S --asdeps "${aur_optdeps[@]}"
 
