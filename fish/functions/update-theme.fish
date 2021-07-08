@@ -26,7 +26,7 @@ function update-theme -d 'Read the current terminal background and update our en
         case dark
             set background dark
         case auto
-            if test -x ~/.local/bin/xtermbg
+            if command -q xtermbg
                 set background (xtermbg -t)
             end
             if [ -z $background[1] ]
@@ -43,10 +43,10 @@ function update-theme -d 'Read the current terminal background and update our en
     # Adapt shell environment to background color
     if string match -q light $LY_TERM_BACKGROUND
         set -gx BAT_THEME 'Monokai Extended Light'
-        set VIVID_THEME 'ayu'
+        set VIVID_THEME ayu
     else
         set -gx BAT_THEME 'Monokai Extended'
-        set VIVID_THEME 'molokai'
+        set VIVID_THEME molokai
     end
 
     # Sync color theme with other tools
