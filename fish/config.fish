@@ -90,7 +90,7 @@ if status --is-interactive
     set -x DIFFPROG 'nvim -d'
 
     # To view files in aur-sync
-    set -x AUR_PAGER nnn
+    set -x AUR_PAGER 'nnn -e'
 
     # Packager ID for makepkg
     set -x PACKAGER "Sebastian Wiesner <sebastian@swsnr.de>"
