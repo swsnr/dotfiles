@@ -546,7 +546,7 @@ if [[ -n "$SUDO_USER" ]]; then
         rpg-cli # Unused
     )
     for pkg in "${remove_from_repo[@]}"; do
-        rm -f "/srv/pkgrepo/aur/${pkg}-*.pkg.tar.*"
+        rm -f "/srv/pkgrepo/aur/${pkg}-"*.pkg.tar.*
     done
     sudo -u "$SUDO_USER" repo-remove /srv/pkgrepo/aur/aur.db.tar.zst "${remove_from_repo[@]}"
 fi
