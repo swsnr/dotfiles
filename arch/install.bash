@@ -24,11 +24,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}")"  >/dev/null 2>&1 && pwd)"
 
 # Remove packages I no longer use
 to_remove=(
-    # I prefer Yaru
-    papirus-icon-theme
-    # I use these from my dotfiles
-    todotxt
-    nb
+    # Not so funny
+    rpg-cli
 )
 for pkg in "${to_remove[@]}"; do
     pacman --noconfirm -Rs "$pkg" || true
@@ -526,8 +523,6 @@ aur_packages=(
     # Keyboard flashing tool
     zsa-wally
     zsa-wally-cli
-    # A small adventure for your shell
-    rpg-cli
 )
 
 aur_optdeps=(
@@ -548,6 +543,7 @@ if [[ -n "$SUDO_USER" ]]; then
         nb # Added as a submodule
         todotxt # Unused
         dracut-hook-uefi-systemd # Replaced by dracut-hook-uefi
+        rpg-cli # Unused
     )
     for pkg in "${remove_from_repo[@]}"; do
         rm -f "/srv/pkgrepo/aur/${pkg}-*.pkg.tar.*"
