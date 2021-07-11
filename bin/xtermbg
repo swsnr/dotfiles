@@ -41,14 +41,22 @@ def read_background_colour(tty):
             poll.register(source.fileno(), EPOLLONESHOT | EPOLLIN)
             with open(tty, 'wb', buffering=0) as sink:
                 with raw(sink):
-                    sink.write(b'\033]11;?\007')
+                    sink.write(b'\x1b]11;?\x1b\\')
                     sink.flush()
                     # Check if the terminal replied; some terminals (VSCode looking at you)
                     # report being xterm but never answer the escape sequences
                     if poll.poll(0.1):
+                        buffer = []
                         # Read all bytes up to terminator
-                        buffer = list(iter(partial(source.read, 1), b'\007'))
-                        return b''.join(buffer).removeprefix(b'\033]11;')
+                        while True:
+                            c = source.read(1)
+                            # If we see a backslash check the preceding character to
+                            # figure out if we've seen \x1b\\, that is, ST, which denotes
+                            # the end of the reply.
+                            if c == b'\\' and buffer and buffer[-1] == b'\x1b':
+                                return b''.join(buffer).removeprefix(b'\x1b]11;').removesuffix(b'\x1b')
+                            else:
+                                buffer.append(c)
                     else:
                         return None
 
