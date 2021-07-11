@@ -75,6 +75,8 @@
     ~/.config/zim/style.conf: misc/zim-style.conf
     # Make python keyring pick the proper backend
     ~/.config/python_keyring/keyringrc.cfg: misc/keyringrc.cfg
+    # Wezterm
+    ~/.config/wezterm/wezterm.lua: misc/wezterm.lua
     # GPG configuration (because its defaults are as bad as the software itself)
     ~/.gnupg/gpg.conf: misc/gpg.conf
     # nb note taking tool

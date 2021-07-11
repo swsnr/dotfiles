@@ -77,7 +77,8 @@ packages=(
     base-devel
     namcap
     aurpublish # Publish AUR packages from Git subtrees
-    # Shell & tools
+    # Terminal, shell & tools
+    wezterm
     man-db
     man-pages
     fish
