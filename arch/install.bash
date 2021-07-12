@@ -273,11 +273,9 @@ systemctl enable reflector.timer
 ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 install -Dpm644 "$DIR/etc/resolved-lunaryorn.conf" /etc/systemd/resolved.conf.d/50-lunaryorn.conf
 systemctl enable systemd-resolved.service
-systemctl restart systemd-resolved.service
 # Time synchronization
 install -Dpm644 "$DIR/etc/timesyncd-lunaryorn.conf" /etc/systemd/timesyncd.conf.d/50-lunaryorn.conf
 systemctl enable systemd-timesyncd.service
-systemctl restart systemd-timesyncd.service
 # Networking
 systemctl enable NetworkManager.service
 systemctl enable avahi-daemon.service
