@@ -26,6 +26,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}")"  >/dev/null 2>&1 && pwd)"
 to_remove=(
     # Not so funny
     rpg-cli
+    # Superfluous
+    gnome-software
 )
 for pkg in "${to_remove[@]}"; do
     pacman --noconfirm -Rs "$pkg" || true
@@ -118,6 +120,8 @@ packages=(
     cargo-udeps
     cargo-release
     ruby-bundler
+    meld # Graphical diff tool
+    d-feet # Graphical DBus viewer
     # VMs
     libvirt
     virt-manager
@@ -144,11 +148,18 @@ packages=(
     bluez
     sane
     pipewire-pulse # Pipewire-based pulse-audio, replaces pulseaudio
-    # Applications (only stuff that's not flatpaked or sucks being flatpaked)
+    # Applications
     firefox
     firefox-i18n-de
     youtube-dl
     mediathekview
+    evolution # Mails
+    deja-dup # Backup
+    vlc # Video viewer
+    qalculate-gtk # Scientific calculator
+    gimp # Image editor
+    inkscape # SVG editor
+    signal-desktop # Messenger
     # Latex
     texlive-most
     # Fonts
@@ -175,7 +186,10 @@ packages=(
     gnome-characters
     gnome-keyring
     gnome-screenshot
-    gnome-software
+    gnome-maps
+    gnome-clocks
+    gnome-weather
+    gnome-calculator
     gnome-shell
     gnome-shell-extensions
     gnome-shell-extension-appindicator
@@ -198,6 +212,7 @@ packages=(
     evince # Document viewer
     eog # Image viewer
     simple-scan
+    seahorse # Credential manager
 )
 
 pacman -Syu --needed "${packages[@]}"
@@ -225,14 +240,10 @@ optdeps=(
     dmidecode
     # libvirt: KVM support
     qemu
-    # ripgrep-all: additional search adapters
-    # tesseract
-    # graphicsmagick
-    # tesseract: data models
-    # tesseract-data-deu
-    # tesseract-data-eng
     # gnome-shell-extension-appindicator: Gtk3 apps
     libappindicator-gtk3
+    # libva: intel support
+    intel-media-driver
 )
 
 pacman -S --needed --asdeps "${optdeps[@]}"
@@ -395,23 +406,31 @@ for file in 10-hinting-slight 10-sub-pixel-rgb 11-lcdfilter-default; do
     ln -sf /usr/share/fontconfig/conf.avail/$file.conf /etc/fonts/conf.d/$file.conf
 done
 
-# Apps
-flatpaks=(
-    com.github.tchx84.Flatseal
-    de.bund.ausweisapp.ausweisapp2
-    org.gnome.meld
-    org.gnome.DejaDup
+flatpaks_to_remove=(
     org.gnome.Evolution
     org.gnome.Extensions
     org.gnome.Maps
     org.gnome.Weather
     org.gnome.clocks
+    org.gnome.DejaDup
     org.gnome.dfeet
+    org.gnome.Calculator
     org.gnome.seahorse.Application
     org.libreoffice.LibreOffice
     org.videolan.VLC
-    org.signal.Signal
+    de.bund.ausweisapp.ausweisapp2
+    org.gnome.meld
+    io.github.Qalculate
+    org.gimp.GIMP
     io.github.seadve.Kooha
+    org.signal.Signal
+)
+
+flatpak remove --noninteractive "${flatpaks_to_remove[@]}"
+
+# Apps
+flatpaks=(
+    com.github.tchx84.Flatseal
 )
 
 flatpak install --or-update --noninteractive "${flatpaks[@]}"
@@ -426,7 +445,6 @@ if [[ "${HOSTNAME}" == kasterl* ]]; then
         com.skype.Client
         com.valvesoftware.Steam
         org.atheme.audacious
-        org.gimp.GIMP
         org.gnome.Lollypop
         org.gnucash.GnuCash
         org.jitsi.jitsi-meet
@@ -505,6 +523,8 @@ aur_packages=(
     # Password manager
     1password
     1password-cli
+    # Personal notes (the AUR package isn't well maintained currently)
+    # standardnotes-desktop
     # Additional fonts
     otf-vollkorn
     ttf-fira-go
