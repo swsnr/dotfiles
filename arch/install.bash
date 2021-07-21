@@ -160,6 +160,9 @@ packages=(
     gimp # Image editor
     inkscape # SVG editor
     signal-desktop # Messenger
+    # Office
+    libreoffice-fresh
+    libreoffice-fresh-de
     # Latex
     texlive-most
     # Fonts
