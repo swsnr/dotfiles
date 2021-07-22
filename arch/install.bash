@@ -422,16 +422,19 @@ flatpak remove --noninteractive "${flatpaks_to_remove[@]}"
 
 # Apps
 flatpaks=(
-    com.github.tchx84.Flatseal
-    org.gnome.Evolution
+    com.github.tchx84.Flatseal # Manage flatpak permissions
+    org.gnome.Evolution # Mails
     org.gnome.DejaDup # Backups of personal data
     io.github.Qalculate # Scientific calculator
     io.github.seadve.Kooha # Screen recorder
-    org.signal.Signal
-    org.gimp.GIMP
-    org.videolan.VLC
+    org.signal.Signal # Messenger
+    org.gimp.GIMP # Image editor
+    org.inkscape.Inkscape # SVG editor
+    org.videolan.VLC # Videos
     de.bund.ausweisapp.ausweisapp2 # e-ID
-    org.libreoffice.LibreOffice
+    org.libreoffice.LibreOffice # Office
+    org.standardnotes.standardnotes # Personal notes
+    org.stellarium.Stellarium # Stars and the sky
 )
 
 flatpak install --or-update --noninteractive "${flatpaks[@]}"
@@ -443,17 +446,16 @@ flatpak override --talk-name=org.freedesktop.ScreenSaver
 
 if [[ "${HOSTNAME}" == kasterl* ]]; then
     personal_flatpaks=(
-        com.skype.Client
-        com.valvesoftware.Steam
-        org.atheme.audacious
-        org.gnome.Lollypop
-        org.gnucash.GnuCash
-        org.jitsi.jitsi-meet
-        org.kde.digikam
-        org.stellarium.Stellarium
-        re.chiaki.Chiaki
+        com.skype.Client # Sadly necessary
+        org.jitsi.jitsi-meet # Secure video chats
+        org.atheme.audacious # Audio player
+        org.gnome.Lollypop # Music manager
+        com.github.geigi.cozy # Audio player
+        org.gnucash.GnuCash # Personal finances
+        org.kde.digikam # Photo collection
+        re.chiaki.Chiaki # PSN remote play client
+        com.valvesoftware.Steam # Gaming
         org.wesnoth.Wesnoth
-        com.github.geigi.cozy
     )
 
     flatpak install --or-update --noninteractive "${personal_flatpaks[@]}"
