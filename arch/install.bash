@@ -33,8 +33,8 @@ to_remove=(
     gimp
     inkscape
     signal-desktop
-    libreoffice-fresh
     libreoffice-fresh-de
+    libreoffice-fresh
     evolution
 )
 for pkg in "${to_remove[@]}"; do
