@@ -71,8 +71,6 @@
       path: gnome/extensions/home@swsnr.de
       if: "uname -s | grep -qi linux"
 
-    # ZIM style configuration
-    ~/.config/zim/style.conf: misc/zim-style.conf
     # Make python keyring pick the proper backend
     ~/.config/python_keyring/keyringrc.cfg: misc/keyringrc.cfg
     # Wezterm
