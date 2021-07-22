@@ -413,7 +413,6 @@ flatpaks_to_remove=(
     org.gnome.Maps
     org.gnome.Weather
     org.gnome.clocks
-    org.gnome.DejaDup
     org.gnome.Calculator
     org.gnome.seahorse.Application
     org.gnome.meld
@@ -425,6 +424,7 @@ flatpak remove --noninteractive "${flatpaks_to_remove[@]}"
 flatpaks=(
     com.github.tchx84.Flatseal
     org.gnome.Evolution
+    org.gnome.DejaDup # Backups of personal data
     io.github.Qalculate # Scientific calculator
     io.github.seadve.Kooha # Screen recorder
     org.signal.Signal
