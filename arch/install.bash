@@ -26,8 +26,16 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}")"  >/dev/null 2>&1 && pwd)"
 to_remove=(
     # Not so funny
     rpg-cli
-    # Superfluous
-    gnome-software
+    # Moved to flatpak
+    vlc
+    deja-dup
+    qalculate-gtk
+    gimp
+    inkscape
+    signal-desktop
+    libreoffice-fresh
+    libreoffice-fresh-de
+    evolution
 )
 for pkg in "${to_remove[@]}"; do
     pacman --noconfirm -Rs "$pkg" || true
@@ -120,8 +128,7 @@ packages=(
     cargo-udeps
     cargo-release
     ruby-bundler
-    meld # Graphical diff tool
-    d-feet # Graphical DBus viewer
+    meld # Graphical diff tool (not via flatpak for git diff-tool -g)
     # VMs
     libvirt
     virt-manager
@@ -148,21 +155,12 @@ packages=(
     bluez
     sane
     pipewire-pulse # Pipewire-based pulse-audio, replaces pulseaudio
-    # Applications
+    # Applications.  Normally I use flatpak, but some core apps work better this
+    # way and others just aren't flatpakked yet
     firefox
     firefox-i18n-de
     youtube-dl
     mediathekview
-    evolution # Mails
-    deja-dup # Backup
-    vlc # Video viewer
-    qalculate-gtk # Scientific calculator
-    gimp # Image editor
-    inkscape # SVG editor
-    signal-desktop # Messenger
-    # Office
-    libreoffice-fresh
-    libreoffice-fresh-de
     # Latex
     texlive-most
     # Fonts
@@ -200,6 +198,7 @@ packages=(
     gnome-control-center
     gnome-terminal
     gnome-tweaks
+    gnome-software
     xdg-user-dirs-gtk
     file-roller
     yelp # Online help system
@@ -410,23 +409,14 @@ for file in 10-hinting-slight 10-sub-pixel-rgb 11-lcdfilter-default; do
 done
 
 flatpaks_to_remove=(
-    org.gnome.Evolution
     org.gnome.Extensions
     org.gnome.Maps
     org.gnome.Weather
     org.gnome.clocks
     org.gnome.DejaDup
-    org.gnome.dfeet
     org.gnome.Calculator
     org.gnome.seahorse.Application
-    org.libreoffice.LibreOffice
-    org.videolan.VLC
-    de.bund.ausweisapp.ausweisapp2
     org.gnome.meld
-    io.github.Qalculate
-    org.gimp.GIMP
-    io.github.seadve.Kooha
-    org.signal.Signal
 )
 
 flatpak remove --noninteractive "${flatpaks_to_remove[@]}"
@@ -434,6 +424,14 @@ flatpak remove --noninteractive "${flatpaks_to_remove[@]}"
 # Apps
 flatpaks=(
     com.github.tchx84.Flatseal
+    org.gnome.Evolution
+    io.github.Qalculate # Scientific calculator
+    io.github.seadve.Kooha # Screen recorder
+    org.signal.Signal
+    org.gimp.GIMP
+    org.videolan.VLC
+    de.bund.ausweisapp.ausweisapp2 # e-ID
+    org.libreoffice.LibreOffice
 )
 
 flatpak install --or-update --noninteractive "${flatpaks[@]}"
@@ -526,8 +524,6 @@ aur_packages=(
     # Password manager
     1password
     1password-cli
-    # Personal notes (the AUR package isn't well maintained currently)
-    # standardnotes-desktop
     # Additional fonts
     otf-vollkorn
     ttf-fira-go
