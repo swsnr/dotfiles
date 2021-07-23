@@ -7,6 +7,3 @@
 [submodule ".dotbot/dotbot"]
 	path = .dotbot/dotbot
 	url = ../../anishathalye/dotbot.git
-[submodule "submodules/nb"]
-	path = submodules/nb
-	url = ../../xwmx/nb.git

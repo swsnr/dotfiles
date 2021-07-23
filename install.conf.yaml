@@ -77,11 +77,6 @@
     ~/.config/wezterm/wezterm.lua: misc/wezterm.lua
     # GPG configuration (because its defaults are as bad as the software itself)
     ~/.gnupg/gpg.conf: misc/gpg.conf
-    # nb note taking tool
-    ~/.nbrc: misc/nbrc
-    ~/.local/bin/nb: submodules/nb/nb
-    # TODOs
-    ~/.todo/config: misc/todo-config
 
 - gsettings:
     org.gnome.desktop.interface:
