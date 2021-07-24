@@ -433,6 +433,7 @@ flatpaks=(
     org.libreoffice.LibreOffice # Office
     org.standardnotes.standardnotes # Personal notes
     org.stellarium.Stellarium # Stars and the sky
+    io.freetubeapp.FreeTube # A privacy focused youtube client
 )
 
 flatpak install --or-update --noninteractive "${flatpaks[@]}"
