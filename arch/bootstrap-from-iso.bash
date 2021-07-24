@@ -131,14 +131,6 @@ echo 'KEYMAP=us' >/mnt/etc/vconsole.conf
 
 # Basic network configuration
 echo "$new_hostname" >/mnt/etc/hostname
-cat <<EOF >/mnt/etc/hosts
-# Static table lookup for hostnames.
-# See hosts(5) for details.
-
-127.0.0.1 localhost
-::1 localhost
-127.0.1.1 $new_hostname.localdomain $new_hostname
-EOF
 ln -sf /run/systemd/resolve/stub-resolv.conf /mnt/etc/resolve.conf
 
 # Switch into chroot
