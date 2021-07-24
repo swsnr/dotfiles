@@ -36,6 +36,13 @@ to_remove=(
     libreoffice-fresh-de
     libreoffice-fresh
     evolution
+    # Not used currently
+    buildah
+    toolbox
+    nmap
+    ruby-bundler
+    hcloud
+    system-config-printer
 )
 for pkg in "${to_remove[@]}"; do
     pacman --noconfirm -Rs "$pkg" || true
@@ -94,7 +101,6 @@ packages=(
     fish
     git
     tig # Curses git interfaces
-    toolbox # Lightweight persistent containers for development environments
     neovim
     exa # Better ls (with git support)
     fd # Simpler find
@@ -110,7 +116,6 @@ packages=(
     jq
     shellcheck
     shfmt
-    nmap # For the occasional port scan and ncat for nb
     # Document processing and rendering
     pandoc
     mdcat
@@ -127,7 +132,6 @@ packages=(
     cargo-outdated
     cargo-udeps
     cargo-release
-    ruby-bundler
     meld # Graphical diff tool (not via flatpak for git diff-tool -g)
     # VMs
     libvirt
@@ -135,11 +139,8 @@ packages=(
     edk2-ovmf
     # Containers, kubernetes & cloud
     podman
-    buildah
-    toolbox
     kubectl
     helm
-    hcloud # Hetzner Cloud CLI
     # Desktop tools
     wl-clipboard
     dconf-editor
@@ -150,7 +151,6 @@ packages=(
     flatpak-builder # To build flatpaks
     pcsclite # Smartcard daemon, for e-ID
     cups
-    system-config-printer
     hplip
     bluez
     sane
