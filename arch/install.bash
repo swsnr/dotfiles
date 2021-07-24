@@ -244,8 +244,6 @@ optdeps=(
     qemu
     # gnome-shell-extension-appindicator: Gtk3 apps
     libappindicator-gtk3
-    # libva: intel support
-    intel-media-driver
 )
 
 pacman -S --needed --asdeps "${optdeps[@]}"
