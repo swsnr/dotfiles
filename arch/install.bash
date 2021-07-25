@@ -434,6 +434,7 @@ flatpaks=(
     org.standardnotes.standardnotes # Personal notes
     org.stellarium.Stellarium # Stars and the sky
     io.freetubeapp.FreeTube # A privacy focused youtube client
+    com.gitlab.newsflash # News reader und miniflux client
 )
 
 flatpak install --or-update --noninteractive "${flatpaks[@]}"
