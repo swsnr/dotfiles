@@ -43,6 +43,7 @@ to_remove=(
     ruby-bundler
     hcloud
     system-config-printer
+    gnome-calculator # qalculate instead
 )
 for pkg in "${to_remove[@]}"; do
     pacman --noconfirm -Rs "$pkg" || true
@@ -190,7 +191,6 @@ packages=(
     gnome-maps
     gnome-clocks
     gnome-weather
-    gnome-calculator
     gnome-shell
     gnome-shell-extensions
     gnome-shell-extension-appindicator
@@ -200,6 +200,7 @@ packages=(
     gnome-tweaks
     gnome-software
     xdg-user-dirs-gtk
+    evolution
     file-roller
     yelp # Online help system
     nautilus
@@ -421,7 +422,6 @@ flatpak remove --noninteractive "${flatpaks_to_remove[@]}"
 # Apps
 flatpaks=(
     com.github.tchx84.Flatseal # Manage flatpak permissions
-    org.gnome.Evolution # Mails
     org.gnome.DejaDup # Backups of personal data
     io.github.Qalculate # Scientific calculator
     io.github.seadve.Kooha # Screen recorder
