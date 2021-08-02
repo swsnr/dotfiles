@@ -23,28 +23,7 @@ fi
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}")"  >/dev/null 2>&1 && pwd)"
 
 # Remove packages I no longer use
-to_remove=(
-    # Not so funny
-    rpg-cli
-    # Moved to flatpak
-    vlc
-    deja-dup
-    qalculate-gtk
-    gimp
-    inkscape
-    signal-desktop
-    libreoffice-fresh-de
-    libreoffice-fresh
-    evolution
-    # Not used currently
-    buildah
-    toolbox
-    nmap
-    ruby-bundler
-    hcloud
-    system-config-printer
-    gnome-calculator # qalculate instead
-)
+to_remove=()
 for pkg in "${to_remove[@]}"; do
     pacman --noconfirm -Rs "$pkg" || true
 done
@@ -558,13 +537,7 @@ if [[ -n "$SUDO_USER" ]]; then
     pacman --needed -Syu "${aur_packages[@]}"
     pacman --needed -S --asdeps "${aur_optdeps[@]}"
 
-    remove_from_repo=(
-        zram-generator # Moved to community
-        nb # Added as a submodule
-        todotxt # Unused
-        dracut-hook-uefi-systemd # Replaced by dracut-hook-uefi
-        rpg-cli # Unused
-    )
+    remove_from_repo=()
     for pkg in "${remove_from_repo[@]}"; do
         rm -f "/srv/pkgrepo/aur/${pkg}-"*.pkg.tar.*
     done
