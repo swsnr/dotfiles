@@ -21,10 +21,21 @@ if [[ -f "$ENV_FILE" ]]; then
     source "$ENV_FILE"
 fi
 
+# Check if the stored terminal screen actually exists; otherwise start a fresh screen
 if busctl --user tree "$GNOME_TERMINAL_SERVICE" --list | grep -Fq "$GNOME_TERMINAL_SCREEN"; then
     export GNOME_TERMINAL_SERVICE
     export GNOME_TERMINAL_SCREEN
     gnome-terminal --tab -p > "$ENV_FILE"
+
+    # Activate the terminal window; we don't need to do this when starting a fresh terminal
+    # server because in this case it'll activate itself automatically
+    gdbus call \
+    --session \
+    --dest org.gnome.Shell \
+    --object-path /org/gnome/Shell \
+    --method org.gnome.Shell.Eval "
+    const window = global.get_window_actors().map(a=>a.meta_window).find(w=>w.get_wm_class() === 'gnome-terminal-server')
+    window && window.activate(0)"
 else
     unset GNOME_TERMINAL_SERVICE
     unset GNOME_TERMINAL_SCREEN
