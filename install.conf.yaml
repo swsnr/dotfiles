@@ -141,7 +141,7 @@
 - gnome_bindings:
     terminal:
       name: Start Terminal
-      command: gnome-terminal --tab
+      command: gnome-terminal-new-tab
       binding: <Super>t
     toggle-theme:
       name: Toggle UI theme
