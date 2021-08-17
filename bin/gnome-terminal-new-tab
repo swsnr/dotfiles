@@ -18,14 +18,16 @@ set -euo pipefail
 ENV_FILE="${XDG_RUNTIME_DIR}/lunaryorn-gnome-terminal-env"
 
 if [[ -f "$ENV_FILE" ]]; then
+    # Load stored terminal server connection data
     source "$ENV_FILE"
 fi
 
 # Check if the stored terminal screen actually exists; otherwise start a fresh screen
 if busctl --user tree "$GNOME_TERMINAL_SERVICE" --list | grep -Fq "$GNOME_TERMINAL_SCREEN"; then
+    # Export the server connection info and create a new tab on that terminal server
     export GNOME_TERMINAL_SERVICE
     export GNOME_TERMINAL_SCREEN
-    gnome-terminal --tab -p > "$ENV_FILE"
+    gnome-terminal --tab -p
 
     # Activate the terminal window; we don't need to do this when starting a fresh terminal
     # server because in this case it'll activate itself automatically
@@ -37,6 +39,7 @@ if busctl --user tree "$GNOME_TERMINAL_SERVICE" --list | grep -Fq "$GNOME_TERMIN
     const window = global.get_window_actors().map(a=>a.meta_window).find(w=>w.get_wm_class() === 'gnome-terminal-server')
     window && window.activate(0)"
 else
+    # Create a new terminal server and store its connection data in the runtime dir
     unset GNOME_TERMINAL_SERVICE
     unset GNOME_TERMINAL_SCREEN
     gnome-terminal -p > "$ENV_FILE"
