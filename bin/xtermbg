@@ -45,7 +45,7 @@ def read_background_colour(tty):
                     sink.flush()
                     # Check if the terminal replied; some terminals (VSCode looking at you)
                     # report being xterm but never answer the escape sequences
-                    if poll.poll(0.1):
+                    if poll.poll(0.5):
                         buffer = []
                         # Read all bytes up to terminator
                         while True:
