@@ -140,7 +140,8 @@ packages=(
     firefox
     firefox-i18n-de
     youtube-dl
-    mediathekview
+    mediathekview # Browse public broadcasting video libraries from Germany
+    gpsprune # GPS Track editor
     # Latex
     texlive-most
     # Fonts
