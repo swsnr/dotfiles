@@ -11,9 +11,22 @@ Defaults   !visiblepw
 # env_reset is disabled or HOME is present in the env_keep list.
 #
 Defaults    always_set_home
+
+#
+# Provide password input feedback.
+#
+Defaults pwfeedback
+
+#
+# Lookup sudoers groups by ID instead of looking up user groups by name;
+# we only have one or two groups in this config so looking up by ID is more
+# effective.
+#
 Defaults    match_group_by_gid
 
-# Keep a bunch of locale settings and other stuff
+#
+# Keep a bunch of locale settings and other stuff.
+#
 Defaults    env_reset
 Defaults    env_keep =  "COLORS HOSTNAME HISTSIZE LS_COLORS"
 Defaults    env_keep += "MAIL LANG LC_ADDRESS LC_CTYPE"
