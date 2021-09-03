@@ -89,6 +89,7 @@ packages=(
     ripgrep
     bat
     nnn # Command line file manager (also a good pager for aurutils)
+    renameutils # qmv is super nice
     rsync
     curl
     p7zip
