@@ -402,7 +402,6 @@ flatpak remove --noninteractive "${flatpaks_to_remove[@]}"
 # Apps
 flatpaks=(
     com.github.tchx84.Flatseal # Manage flatpak permissions
-    org.gnome.DejaDup # Backups of personal data
     io.github.Qalculate # Scientific calculator
     io.github.seadve.Kooha # Screen recorder
     org.signal.Signal # Messenger
@@ -426,6 +425,7 @@ flatpak override --talk-name=org.freedesktop.ScreenSaver
 
 if [[ "${HOSTNAME}" == kasterl* ]]; then
     personal_flatpaks=(
+        org.gnome.DejaDup # Backups of personal data
         com.skype.Client # Sadly necessary
         org.jitsi.jitsi-meet # Secure video chats
         org.atheme.audacious # Audio player
