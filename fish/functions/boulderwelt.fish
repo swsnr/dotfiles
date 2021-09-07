@@ -13,6 +13,6 @@
 # the License.
 
 function boulderwelt -d 'Boulderwelt Queue'
-    http -f post 'https://www.boulderwelt-muenchen-west.de/wp-admin/admin-ajax.php' action=cxo_get_crowd_indicator |
-    jq -r '@text "\(.percent)% (\(.level) von \(.flevel), \(.queue) warten)"'
+    xh -f POST 'https://www.boulderwelt-muenchen-west.de/wp-admin/admin-ajax.php' action=cxo_get_crowd_indicator |
+        jq -r '@text "\(.level)%"'
 end
