@@ -23,7 +23,10 @@ fi
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}")"  >/dev/null 2>&1 && pwd)"
 
 # Remove packages I no longer use
-to_remove=()
+to_remove=(
+    # Use vscodium instead
+    code
+)
 for pkg in "${to_remove[@]}"; do
     pacman --noconfirm -Rs "$pkg" || true
 done
@@ -103,7 +106,6 @@ packages=(
     asciidoctor
     zathura # Lightweight document viewer
     # Development tools
-    code
     hub
     github-cli
     rustup
@@ -492,6 +494,8 @@ fi
 aur_packages=(
     # AUR helper
     aurutils
+    # Editor
+    vscodium-bin
     # Splash screen at boot
     plymouth
     # Gtk themes
