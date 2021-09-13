@@ -98,6 +98,7 @@ if status --is-interactive
     # Abbreviations (unlike aliases, these are expanded before running)
     # Fast one or two letter abbrevs
     abbr --global --add _ sudo
+    abbr --global --add code vscodium
     abbr --global --add dc docker-compose
     abbr --global --add e eval '$EDITOR'
     abbr --global --add g git
