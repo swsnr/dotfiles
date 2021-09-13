@@ -47,7 +47,7 @@ SETTINGS = {
 
 
 def update_config():
-    config_file = Path.home() / '.config' / 'Code' / 'User' / 'settings.json'
+    config_file = Path.home() / '.config' / 'VSCodium' / 'User' / 'settings.json'
     settings = {}
     if config_file.is_file():
         with config_file.open() as source:
