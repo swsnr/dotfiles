@@ -86,6 +86,19 @@ if status --is-interactive
         rbenv init - | source
     end
 
+    # Automatically enable NVM and SDK versions for the current directory;
+    # this is not a lazy-loaded function because it needs to register on PWD
+    # changes immediately.
+    function auto_sdk_nvm --on-variable PWD
+        if test -e .nvmrc
+            nvm use
+        end
+
+        if test -e .sdkmanrc
+            sdk env
+        end
+    end
+
     # diff prog, e.g. for pacdiff
     set -x DIFFPROG 'nvim -d'
 
