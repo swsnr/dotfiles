@@ -294,7 +294,7 @@ fi
 install -pm644 "$DIR/etc/faillock.conf" /etc/security/faillock.conf
 
 # Sudo settings
-install -dm700 /etc/sudoers.d/
+install -dm750 /etc/sudoers.d/
 install -pm600 -t/etc/sudoers.d "$DIR"/etc/sudoers.d/*
 
 # Module & system settings
