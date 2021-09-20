@@ -40,6 +40,7 @@ SETTINGS = {
     ],
     "files.trimTrailingWhitespace": True,
     "files.insertFinalNewline": True,
+    "files.autoSave": "onFocusChange",
     # Version control
     "git.confirmSync": False,
     "git.autofetch": True,
