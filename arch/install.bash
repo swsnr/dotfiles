@@ -26,10 +26,25 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}")"  >/dev/null 2>&1 && pwd)"
 to_remove=(
     # Use vscodium instead
     code
+    # Virtualbox works better for Windows, and the rest's well served with systemd containers
+    libvirt
+    virt-manager
+    edk2-ovmf
+    # libvirt: SSH management
+    openbsd-netcat
+    # libvirt: NAT networking
+    dnsmasq ebtables
+    # libvirt: DMI info support (whatever that is, but it fixes a warning in libvirtd logs)
+    dmidecode
+    # libvirt: KVM support
+    qemu
 )
 for pkg in "${to_remove[@]}"; do
     pacman --noconfirm -Rs "$pkg" || true
 done
+
+# Remove old qemu settings
+rm -rf /etc/qemu /etc/libvirt
 
 packages=(
     # Basic packages & system tools
@@ -116,10 +131,6 @@ packages=(
     cargo-udeps
     cargo-release
     meld # Graphical diff tool (not via flatpak for git diff-tool -g)
-    # VMs
-    libvirt
-    virt-manager
-    edk2-ovmf
     # Containers, kubernetes & cloud
     podman
     kubectl
@@ -218,14 +229,6 @@ optdeps=(
     zathura-pdf-mupdf
     # libva: intel drivers
     intel-media-driver
-    # libvirt: SSH management
-    openbsd-netcat
-    # libvirt: NAT networking
-    dnsmasq ebtables
-    # libvirt: DMI info support (whatever that is, but it fixes a warning in libvirtd logs)
-    dmidecode
-    # libvirt: KVM support
-    qemu
     # gnome-shell-extension-appindicator: Gtk3 apps
     libappindicator-gtk3
 )
@@ -279,8 +282,6 @@ systemctl enable cups.service
 systemctl enable bluetooth.service
 # Smartcard services for ausweisapp2
 systemctl enable pcscd.socket
-# Virtualization (mostly for networking, see below; my machines usally run in the user session)
-systemctl enable libvirtd.socket
 
 if [[ ! -f /etc/subuid ]]; then touch /etc/subuid; fi
 if [[ ! -f /etc/subgid ]]; then touch /etc/subgid; fi
@@ -315,8 +316,6 @@ fi
 NSS_HOSTS=(
     # Resolves containers managed by systemd-machined
     mymachines
-    # libvirtd machines (by DHCP announced hostname)
-    libvirt
     # Resolves local mDNS hostnames in the .local domain through Avahi, and
     # stops resolving immediately if the .local name isn't found, see
     # https://wiki.archlinux.org/index.php/Avahi#Hostname_resolution
@@ -334,16 +333,6 @@ NSS_HOSTS=(
     dns
     )
 sed -i '/^hosts: /s/^hosts: .*/'"hosts: ${NSS_HOSTS[*]}/" /etc/nsswitch.conf
-
-# Allow bridge network access for qemu user sessions
-if ip link show virbr0 >& /dev/null; then
-    install -dm755 /etc/qemu/
-
-    if ! grep -q 'allow virbr0' /etc/qemu/bridge.conf; then
-        echo 'allow virbr0' >> /etc/qemu/bridge.conf
-        chmod 644 /etc/qemu/bridge.conf
-    fi
-fi
 
 # Install or update, and then configure the bootloader
 if ! [[ -e /efi/EFI/BOOT/BOOTX64.EFI ]]; then
