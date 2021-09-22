@@ -38,6 +38,8 @@ to_remove=(
     dmidecode
     # libvirt: KVM support
     qemu
+    # resolved resolves mDNS hostnames
+    nss-mdns
 )
 for pkg in "${to_remove[@]}"; do
     pacman --noconfirm -Rs "$pkg" || true
@@ -77,12 +79,8 @@ packages=(
     lsof
     # Networking
     networkmanager
-    # mDNS/DNS-SD, mostly for printers, i.e. CUPS
-    # While systemd-resolved handles mDNS hostname lookups it doesn't support DNS-SD,
-    # and thus doesn't support CUPS printer discovery, see
-    # https://github.com/apple/cups/issues/5452
+    # DNS-SD, mostly for printers, i.e. CUPS. mDNS resolution is handled by Avahi
     avahi
-    nss-mdns
     xh # HTTP requests on the command line
     # Arch tools & infrastructure
     pacman-contrib # paccache, checkupdates, pacsearch, and others
@@ -275,6 +273,7 @@ systemctl enable systemd-resolved.service
 install -Dpm644 "$DIR/etc/timesyncd-lunaryorn.conf" /etc/systemd/timesyncd.conf.d/50-lunaryorn.conf
 systemctl enable systemd-timesyncd.service
 # Networking
+install -Dpm644 "$DIR/etc/networkmanager-mdns.conf" /etc/NetworkManager/conf.d/50-mdns.conf
 systemctl enable NetworkManager.service
 systemctl enable avahi-daemon.service
 # Printing and other desktop services
@@ -316,10 +315,6 @@ fi
 NSS_HOSTS=(
     # Resolves containers managed by systemd-machined
     mymachines
-    # Resolves local mDNS hostnames in the .local domain through Avahi, and
-    # stops resolving immediately if the .local name isn't found, see
-    # https://wiki.archlinux.org/index.php/Avahi#Hostname_resolution
-    mdns_minimal '[NOTFOUND=return]'
     # Resolve everything else with systemd-resolved and bail out if resolved
     # doesn't find hostname.  Everything after this stanza is just fallback in
     # case resolved is down
