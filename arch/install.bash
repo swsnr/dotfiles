@@ -24,29 +24,12 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}")"  >/dev/null 2>&1 && pwd)"
 
 # Remove packages I no longer use
 to_remove=(
-    # Use vscodium instead
-    code
-    # Virtualbox works better for Windows, and the rest's well served with systemd containers
-    libvirt
-    virt-manager
-    edk2-ovmf
-    # libvirt: SSH management
-    openbsd-netcat
-    # libvirt: NAT networking
-    dnsmasq ebtables
-    # libvirt: DMI info support (whatever that is, but it fixes a warning in libvirtd logs)
-    dmidecode
-    # libvirt: KVM support
-    qemu
     # resolved resolves mDNS hostnames
     nss-mdns
 )
 for pkg in "${to_remove[@]}"; do
     pacman --noconfirm -Rs "$pkg" || true
 done
-
-# Remove old qemu settings
-rm -rf /etc/qemu /etc/libvirt
 
 packages=(
     # Basic packages & system tools
@@ -373,18 +356,6 @@ fi
 for file in 10-hinting-slight 10-sub-pixel-rgb 11-lcdfilter-default; do
     ln -sf /usr/share/fontconfig/conf.avail/$file.conf /etc/fonts/conf.d/$file.conf
 done
-
-flatpaks_to_remove=(
-    org.gnome.Extensions
-    org.gnome.Maps
-    org.gnome.Weather
-    org.gnome.clocks
-    org.gnome.Calculator
-    org.gnome.seahorse.Application
-    org.gnome.meld
-)
-
-flatpak remove --noninteractive "${flatpaks_to_remove[@]}"
 
 # Apps
 flatpaks=(
