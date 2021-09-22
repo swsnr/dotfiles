@@ -55,14 +55,17 @@ packages=(
     efitools # Low-level EFI tools (just in case, also provides the EFI Keytool binary)
     sbctl # Manage secure boot binaries and sign binaries
     # System monitoring
-    powertop
     iotop
     htop
     procs
     lsof
+    # Power management
+    powertop
+    power-profiles-daemon
     # Networking
     networkmanager
-    # DNS-SD, mostly for printers, i.e. CUPS. mDNS resolution is handled by Avahi
+    # DNS-SD, mostly for printers, i.e. CUPS. Service discovery is handled by Avahi,
+    # name resolution by systemd-resolved.
     avahi
     xh # HTTP requests on the command line
     # Arch tools & infrastructure
@@ -248,17 +251,19 @@ systemctl enable fwupd-refresh.timer
 # Periodic mirrorlist updates
 install -Dpm644 "$DIR/etc/reflector.conf" /etc/xdg/reflector/reflector.conf
 systemctl enable reflector.timer
-# DNS stub daemon
+# Power management
+systemctl enable power-profiles-daemon.service
+# DNS resolver daemon (w/ caching)
 ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 install -Dpm644 "$DIR/etc/resolved-lunaryorn.conf" /etc/systemd/resolved.conf.d/50-lunaryorn.conf
 systemctl enable systemd-resolved.service
-# Time synchronization
-install -Dpm644 "$DIR/etc/timesyncd-lunaryorn.conf" /etc/systemd/timesyncd.conf.d/50-lunaryorn.conf
-systemctl enable systemd-timesyncd.service
 # Networking
 install -Dpm644 "$DIR/etc/networkmanager-mdns.conf" /etc/NetworkManager/conf.d/50-mdns.conf
 systemctl enable NetworkManager.service
 systemctl enable avahi-daemon.service
+# Time synchronization
+install -Dpm644 "$DIR/etc/timesyncd-lunaryorn.conf" /etc/systemd/timesyncd.conf.d/50-lunaryorn.conf
+systemctl enable systemd-timesyncd.service
 # Printing and other desktop services
 systemctl enable cups.service
 systemctl enable bluetooth.service
