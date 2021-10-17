@@ -26,6 +26,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}")"  >/dev/null 2>&1 && pwd)"
 to_remove=(
     # resolved resolves mDNS hostnames
     nss-mdns
+    # I don't use nb anymore
+    readability-cli
 )
 for pkg in "${to_remove[@]}"; do
     pacman --noconfirm -Rs "$pkg" || true
@@ -478,7 +480,6 @@ aur_packages=(
     pcsc-cyberjack
     # Additional tools
     git-gone
-    readability-cli # Remove cruft from HTML, for better content capture in nb
     # git-delta
     wcal-git
     coursier-native
@@ -503,7 +504,7 @@ if [[ -n "$SUDO_USER" ]]; then
     pacman --needed -Syu "${aur_packages[@]}"
     pacman --needed -S --asdeps "${aur_optdeps[@]}"
 
-    remove_from_repo=()
+    remove_from_repo=(readability-cli)
     for pkg in "${remove_from_repo[@]}"; do
         rm -f "/srv/pkgrepo/aur/${pkg}-"*.pkg.tar.*
     done
