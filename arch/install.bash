@@ -473,6 +473,8 @@ aur_packages=(
     # Password manager
     1password
     1password-cli
+    # Research manager
+    zotero
     # Additional fonts
     otf-vollkorn
     ttf-fira-go
@@ -492,7 +494,7 @@ aur_packages=(
 )
 
 aur_optdeps=(
-    # aur-utils: chroot support
+    # aurutils: chroot support
     devtools
     # plymouth: truetype fonts
     ttf-dejavu cantarell-fonts
