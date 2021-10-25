@@ -28,6 +28,8 @@ to_remove=(
     nss-mdns
     # I don't use nb anymore
     readability-cli
+    # Nice software but terrible sync and library options
+    zotero
 )
 for pkg in "${to_remove[@]}"; do
     pacman --noconfirm -Rs "$pkg" || true
@@ -379,6 +381,7 @@ flatpaks=(
     org.stellarium.Stellarium # Stars and the sky
     io.freetubeapp.FreeTube # A privacy focused youtube client
     com.gitlab.newsflash # News reader und miniflux client
+    org.jabref.jabref # Research manager
 )
 
 flatpak install --or-update --noninteractive "${flatpaks[@]}"
@@ -473,8 +476,6 @@ aur_packages=(
     # Password manager
     1password
     1password-cli
-    # Research manager
-    zotero
     # Additional fonts
     otf-vollkorn
     ttf-fira-go
@@ -506,7 +507,7 @@ if [[ -n "$SUDO_USER" ]]; then
     pacman --needed -Syu "${aur_packages[@]}"
     pacman --needed -S --asdeps "${aur_optdeps[@]}"
 
-    remove_from_repo=(readability-cli)
+    remove_from_repo=(readability-cli zotero)
     for pkg in "${remove_from_repo[@]}"; do
         rm -f "/srv/pkgrepo/aur/${pkg}-"*.pkg.tar.*
     done
