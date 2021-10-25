@@ -143,8 +143,12 @@
       binding: false
     toggle-theme:
       name: Toggle UI theme
-      command: ui-theme toggle
+      command: "ui-theme toggle"
       binding: "<Super>apostrophe"
+    onepassword-quick:
+      name: 1Password quick access
+      command: "1password --quick-access"
+      binding: "<Super>o"
 
 - shell:
   - description: Install fisher
