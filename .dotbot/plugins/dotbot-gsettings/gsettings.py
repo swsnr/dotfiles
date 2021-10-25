@@ -138,7 +138,8 @@ class GnomeCustomBindings(Plugin):
             if path not in custom_bindings:
                 custom_bindings.append(path)
         for path in removed_bindings:
-            custom_bindings.remove(path)
+            if path in custom_bindings:
+                custom_bindings.remove(path)
         media_keys.set_strv('custom-keybindings', custom_bindings)
 
         return True
