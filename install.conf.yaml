@@ -71,8 +71,6 @@
       path: gnome/extensions/home@swsnr.de
       if: "uname -s | grep -qi linux"
 
-    # Make python keyring pick the proper backend
-    ~/.config/python_keyring/keyringrc.cfg: misc/keyringrc.cfg
     # Wezterm
     ~/.config/wezterm/wezterm.lua: misc/wezterm.lua
     # GPG configuration (because its defaults are as bad as the software itself)
