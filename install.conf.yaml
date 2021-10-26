@@ -73,8 +73,6 @@
 
     # Wezterm
     ~/.config/wezterm/wezterm.lua: misc/wezterm.lua
-    # GPG configuration (because its defaults are as bad as the software itself)
-    ~/.gnupg/gpg.conf: misc/gpg.conf
 
 - gsettings:
     org.gnome.desktop.interface:
