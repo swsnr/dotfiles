@@ -86,6 +86,7 @@ packages=(
     man-pages
     fish
     git
+    git-lfs
     tig # Curses git interfaces
     neovim
     exa # Better ls (with git support)
