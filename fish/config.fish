@@ -108,6 +108,9 @@ if status --is-interactive
     # Packager ID for makepkg
     set -x PACKAGER "Sebastian Wiesner <sebastian@swsnr.de>"
 
+    # Make rclone use my password from 1password
+    set -x RCLONE_PASSWORD_COMMAND 'op get item "rclone configuration password" --fields password'
+
     # Abbreviations (unlike aliases, these are expanded before running)
     # Fast one or two letter abbrevs
     abbr --global --add _ sudo
