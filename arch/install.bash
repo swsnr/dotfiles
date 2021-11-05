@@ -476,6 +476,8 @@ aur_packages=(
     # Password manager
     1password
     1password-cli
+    # Zettelkasten
+    zettlr-bin
     # Additional fonts
     otf-vollkorn
     ttf-fira-go
