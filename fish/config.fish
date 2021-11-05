@@ -122,7 +122,6 @@ if status --is-interactive
     abbr --global --add s sbt
     abbr --global --add sc systemctl
     abbr --global --add scu systemctl --user
-    abbr --global --add t todo.sh
     abbr --global --add y yarn
 
     # Default args for some commands
