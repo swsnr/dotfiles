@@ -71,6 +71,9 @@
       path: gnome/extensions/home@swsnr.de
       if: "uname -s | grep -qi linux"
 
+    # Custom compose key sequences
+    ~/.XCompose: misc/XCompose
+
     # Wezterm
     ~/.config/wezterm/wezterm.lua: misc/wezterm.lua
 
