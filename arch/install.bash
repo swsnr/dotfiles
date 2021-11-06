@@ -393,7 +393,7 @@ flatpak override --talk-name=org.freedesktop.ScreenSaver
 # Fix https://github.com/flathub/org.gnome.Lollypop/issues/109 (perhaps already fixed)
 # flatpak override --filesystem=/tmp org.gnome.Lollypop
 
-if [[ "${HOSTNAME}" == kasterl* ]]; then
+if [[ "${HOSTNAME}" == *kasterl ]]; then
     personal_flatpaks=(
         org.gnome.DejaDup # Backups of personal data
         com.skype.Client # Sadly necessary
