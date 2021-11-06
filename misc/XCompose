@@ -4,5 +4,5 @@ include "%S/en_US.UTF-8/Compose"
 <Multi_key> <period> <less> <3> <parenright> : "😍"
 <Multi_key> <period> <less> <3> <period> : "❤️"
 <Multi_key> <period> <less> <3> <asterisk> : "😘"
-
-
+<Multi_key> <period> <backslash> <slash> : "🤷"
+<Multi_key> <period> <colon> <backslash> <slash> : "🤔"
