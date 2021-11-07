@@ -54,6 +54,9 @@ packages=(
     fwupd # Firmware updates
     usbutils
     nvme-cli
+    # Keyboard flashing tool
+    zsa-wally
+    zsa-wally-cli
     # EFI & secure boot
     efibootmgr # Manage EFI boot menu
     efitools # Low-level EFI tools (just in case, also provides the EFI Keytool binary)
@@ -493,9 +496,6 @@ aur_packages=(
     # Missing dependencies for latexindent
     # See <https://bugs.archlinux.org/task/60210>
     texlive-latexindent-meta
-    # Keyboard flashing tool
-    zsa-wally
-    zsa-wally-cli
 )
 
 aur_optdeps=(
@@ -511,7 +511,7 @@ if [[ -n "$SUDO_USER" ]]; then
     pacman --needed -Syu "${aur_packages[@]}"
     pacman --needed -S --asdeps "${aur_optdeps[@]}"
 
-    remove_from_repo=(readability-cli zotero)
+    remove_from_repo=(readability-cli zotero zsa-wally zsa-wally-cli)
     for pkg in "${remove_from_repo[@]}"; do
         rm -f "/srv/pkgrepo/aur/${pkg}-"*.pkg.tar.*
     done
