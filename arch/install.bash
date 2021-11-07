@@ -396,25 +396,6 @@ flatpak override --talk-name=org.freedesktop.ScreenSaver
 # Fix https://github.com/flathub/org.gnome.Lollypop/issues/109 (perhaps already fixed)
 # flatpak override --filesystem=/tmp org.gnome.Lollypop
 
-if [[ "${HOSTNAME}" == *kasterl ]]; then
-    # Install some personal flatpaks
-    personal_flatpaks=(
-        org.gnome.DejaDup # Backups of personal data
-        com.skype.Client # Sadly necessary
-        org.jitsi.jitsi-meet # Secure video chats
-        org.atheme.audacious # Audio player
-        org.gnome.Lollypop # Music manager
-        com.github.geigi.cozy # Audio player
-        org.gnucash.GnuCash # Personal finances
-        org.kde.digikam # Photo collection
-        re.chiaki.Chiaki # PSN remote play client
-        com.valvesoftware.Steam # Gaming
-        org.wesnoth.Wesnoth
-    )
-
-    flatpak install --or-update --noninteractive "${personal_flatpaks[@]}"
-fi
-
 # Initialize AUR repo
 if [[ ! -d /srv/pkgrepo/aur/ ]]; then
     install -m755 -d /srv/pkgrepo
@@ -521,4 +502,8 @@ fi
 
 if command -v plymouth-set-default-theme > /dev/null; then
     plymouth-set-default-theme bgrt
+fi
+
+if [[ "${HOSTNAME}" == *kasterl ]]; then
+    source "${DIR}/install.kasterl.bash"
 fi
