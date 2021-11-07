@@ -242,9 +242,9 @@ for mountpoint in / /home /home/"$SUDO_USER"; do
 done
 
 # systemd configuration
-install -Dpm644 "$DIR/etc/system-lunaryorn.conf" /etc/systemd/system.conf.d/50-lunaryorn.conf
+install -Dpm644 "$DIR/etc/systemd/system-lunaryorn.conf" /etc/systemd/system.conf.d/50-lunaryorn.conf
 # Swap on zram
-install -Dpm644 "$DIR/etc/zram-generator.conf" /etc/systemd/zram-generator.conf
+install -Dpm644 "$DIR/etc/systemd/zram-generator.conf" /etc/systemd/zram-generator.conf
 
 # Userspace OOM killer from systemd; kills more selectively than the kernel
 systemctl enable systemd-oomd.service
@@ -264,14 +264,14 @@ systemctl enable reflector.timer
 systemctl enable power-profiles-daemon.service
 # DNS resolver daemon (w/ caching)
 ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
-install -Dpm644 "$DIR/etc/resolved-lunaryorn.conf" /etc/systemd/resolved.conf.d/50-lunaryorn.conf
+install -Dpm644 "$DIR/etc/systemd/resolved-lunaryorn.conf" /etc/systemd/resolved.conf.d/50-lunaryorn.conf
 systemctl enable systemd-resolved.service
 # Networking
 install -Dpm644 "$DIR/etc/networkmanager-mdns.conf" /etc/NetworkManager/conf.d/50-mdns.conf
 systemctl enable NetworkManager.service
 systemctl enable avahi-daemon.service
 # Time synchronization
-install -Dpm644 "$DIR/etc/timesyncd-lunaryorn.conf" /etc/systemd/timesyncd.conf.d/50-lunaryorn.conf
+install -Dpm644 "$DIR/etc/systemd/timesyncd-lunaryorn.conf" /etc/systemd/timesyncd.conf.d/50-lunaryorn.conf
 systemctl enable systemd-timesyncd.service
 # Printing and other desktop services
 systemctl enable cups.service
@@ -397,6 +397,7 @@ flatpak override --talk-name=org.freedesktop.ScreenSaver
 # flatpak override --filesystem=/tmp org.gnome.Lollypop
 
 if [[ "${HOSTNAME}" == *kasterl ]]; then
+    # Install some personal flatpaks
     personal_flatpaks=(
         org.gnome.DejaDup # Backups of personal data
         com.skype.Client # Sadly necessary
