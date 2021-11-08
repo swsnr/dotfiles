@@ -2,11 +2,18 @@ include "%S/en_US.UTF-8/Compose"
 
 # Faces start with :
 <Multi_key> <colon> <less> <3> <parenright> : "😍"
-<Multi_key> <colon> <less> <3> <asterisk> : "😘"
+<Multi_key> <colon> <semicolon> <asterisk> : "😘"
 <Multi_key> <colon> <backslash> <slash> : "🤔"
+<Multi_key> <colon> <o> <parenright>: "😊"
 <Multi_key> <colon> <parenright>: "🙂"
 <Multi_key> <colon> <colon>: "😬"
 <Multi_key> <colon> <o> <colon>: "😇"
+<Multi_key> <colon> <semicolon> <parenright>: "😉"
+<Multi_key> <colon> <l>: "😒"
+
+# Convenience aliases
+<Multi_key> <semicolon> <parenright>: "😉"
+<Multi_key> <semicolon> <asterisk> : "😘"
 
 # Other symbols need a space after :
 <Multi_key> <colon> <space> <less> <3> : "❤️"
