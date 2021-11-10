@@ -151,6 +151,7 @@ packages=(
     youtube-dl
     mediathekview # Browse public broadcasting video libraries from Germany
     gpsprune # GPS Track editor
+    zim # Notes, Journal & Zettelkasten (works better as package)
     # Latex
     texlive-most
     # Fonts
@@ -389,7 +390,6 @@ flatpaks=(
     io.freetubeapp.FreeTube # A privacy focused youtube client
     com.gitlab.newsflash # News reader und miniflux client
     org.jabref.jabref # Research manager
-    org.zim_wiki.Zim # Notes, Journal & Zettelkasten
 )
 
 flatpak install --or-update --noninteractive "${flatpaks[@]}"
