@@ -1,0 +1,15 @@
+# Files not to backup in $HOME
+# The cache directory
+$HOME/.cache/
+# Downloaded files
+$HOME/Downloads/
+# All these are trivial to restore from the internet
+$HOME/.cargo/
+$HOME/.local/share/nvm/
+$HOME/.npm/
+$HOME/.rustup/
+$HOME/.local/share/libvirt/iso
+# Containers are ephemeral anyway
+$HOME/.local/share/containers/
+# Build results are ephemeral as well
+$HOME/Code/**/target/
