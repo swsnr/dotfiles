@@ -30,6 +30,8 @@ to_remove=(
     readability-cli
     # Nice software but terrible sync and library options
     zotero
+    # Zim's much better
+    zettlr-bin
 )
 for pkg in "${to_remove[@]}"; do
     pacman --noconfirm -Rs "$pkg" || true
@@ -387,6 +389,7 @@ flatpaks=(
     io.freetubeapp.FreeTube # A privacy focused youtube client
     com.gitlab.newsflash # News reader und miniflux client
     org.jabref.jabref # Research manager
+    org.zim_wiki.Zim # Notes, Journal & Zettelkasten
 )
 
 flatpak install --or-update --noninteractive "${flatpaks[@]}"
@@ -463,8 +466,6 @@ aur_packages=(
     # Password manager
     1password
     1password-cli
-    # Zettelkasten
-    zettlr-bin
     # Additional fonts
     otf-vollkorn
     ttf-fira-go
@@ -493,7 +494,7 @@ if [[ -n "$SUDO_USER" ]]; then
     pacman --needed -Syu "${aur_packages[@]}"
     pacman --needed -S --asdeps "${aur_optdeps[@]}"
 
-    remove_from_repo=(readability-cli zotero zsa-wally zsa-wally-cli)
+    remove_from_repo=(readability-cli zotero zsa-wally zsa-wally-cli zettlr-bin)
     for pkg in "${remove_from_repo[@]}"; do
         rm -f "/srv/pkgrepo/aur/${pkg}-"*.pkg.tar.*
     done
