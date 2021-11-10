@@ -104,6 +104,7 @@ packages=(
     renameutils # qmv is super nice
     rsync
     rclone # rsync for clouds
+    restic # Backups
     curl
     p7zip
     zip
