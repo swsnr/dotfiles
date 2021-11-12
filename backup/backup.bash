@@ -20,6 +20,7 @@ set -xeuo pipefail
 exec restic -r sftp:basti@kasterl.local:restic backup ~ \
     --one-file-system \
     --tag basti \
+    --tag dotfiles-script \
     --exclude-caches \
     --exclude-file "$DIR/excludes" \
     --verbose
