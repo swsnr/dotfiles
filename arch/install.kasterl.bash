@@ -16,7 +16,6 @@
 
 # Install some personal flatpaks
 personal_flatpaks=(
-    org.gnome.DejaDup # Backups of personal data
     com.skype.Client # Sadly necessary
     org.jitsi.jitsi-meet # Secure video chats
     org.atheme.audacious # Audio player
