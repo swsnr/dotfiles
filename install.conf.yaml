@@ -77,9 +77,6 @@
     # Wezterm
     ~/.config/wezterm/wezterm.lua: misc/wezterm.lua
 
-    # Excludes list for restic backups
-    ~/.restic-exclude: misc/restic-exclude
-
 - gsettings:
     org.gnome.desktop.interface:
       # Style

@@ -5,6 +5,7 @@ $HOME/.cache/
 $HOME/Downloads/
 # All these are trivial to restore from the internet
 $HOME/.cargo/
+$HOME/.sdkman/candidates/
 $HOME/.local/share/nvm/
 $HOME/.npm/
 $HOME/.rustup/
@@ -13,3 +14,5 @@ $HOME/.local/share/libvirt/iso
 $HOME/.local/share/containers/
 # Build results are ephemeral as well
 $HOME/Code/**/target/
+# Jetbrains toolbox apps are redundant as well
+$HOME/.local/share/JetBrains/Toolbox/apps/
