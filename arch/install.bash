@@ -77,6 +77,7 @@ packages=(
     # name resolution by systemd-resolved.
     avahi
     xh # HTTP requests on the command line
+    step-cli # Create CA & leaf certificates
     # Arch tools & infrastructure
     pacman-contrib # paccache, checkupdates, pacsearch, and others
     reflector # Weekly mirrorlist updates
