@@ -12,6 +12,7 @@ include "%S/en_US.UTF-8/Compose"
 <Multi_key> <colon> <semicolon> <parenright>: "😉"
 <Multi_key> <colon> <l>: "😒"
 <Multi_key> <colon> <p>: "😛"
+<Multi_key> <colon> <D>: "😄️"
 
 # Convenience aliases
 <Multi_key> <semicolon> <parenright>: "😉"
