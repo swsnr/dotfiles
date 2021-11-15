@@ -22,5 +22,6 @@ exec restic -r sftp:basti@kastl.local:restic backup ~ \
     --tag basti \
     --tag dotfiles-script \
     --exclude-caches \
-    --exclude-file "$DIR/excludes" \
-    --verbose
+    --exclude-file "$DIR/linux.exclude" \
+    --verbose \
+    "$@"
