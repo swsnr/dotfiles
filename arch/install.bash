@@ -506,6 +506,6 @@ if command -v plymouth-set-default-theme > /dev/null; then
     plymouth-set-default-theme bgrt
 fi
 
-if [[ "${HOSTNAME}" == *kasterl ]]; then
-    source "${DIR}/install.kasterl.bash"
+if [[ "${HOSTNAME}" == *kastl ]]; then
+    source "${DIR}/install.kastl.bash"
 fi

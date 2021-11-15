@@ -17,7 +17,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}")"  >/dev/null 2>&1 && pwd)"
 
 set -xeuo pipefail
 
-exec restic -r sftp:basti@kasterl.local:restic backup ~ \
+exec restic -r sftp:basti@kastl.local:restic backup ~ \
     --one-file-system \
     --tag basti \
     --tag dotfiles-script \
