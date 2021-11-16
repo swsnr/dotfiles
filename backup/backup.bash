@@ -13,8 +13,6 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}")"  >/dev/null 2>&1 && pwd)"
-
 set -xeuo pipefail
 
 exec restic -r sftp:basti@kastl.local:restic backup ~ \
@@ -22,6 +20,6 @@ exec restic -r sftp:basti@kastl.local:restic backup ~ \
     --tag basti \
     --tag dotfiles-script \
     --exclude-caches \
-    --exclude-file "$DIR/linux.exclude" \
+    --exclude-file "$HOME/.config/restic/linux.exclude" \
     --verbose \
     "$@"
