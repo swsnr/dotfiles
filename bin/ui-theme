@@ -38,10 +38,10 @@ echo "$theme"
 
 case "$theme" in
 light)
-    gsettings set org.gnome.desktop.interface gtk-theme 'Yaru'
+    gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita'
     ;;
 dark)
-    gsettings set org.gnome.desktop.interface gtk-theme 'Yaru-dark'
+    gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
     ;;
 *)
     echo "Unsupported theme: $theme" 1>&2
