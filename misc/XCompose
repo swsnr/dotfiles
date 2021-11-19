@@ -23,6 +23,7 @@ include "%S/en_US.UTF-8/Compose"
 # Other symbols need a space after :
 <Multi_key> <colon> <space> <less> <3> : "❤️"
 <Multi_key> <colon> <space> <backslash> <slash> : "🤷"
+<Multi_key> <colon> <space> <slash> <backslash> : "🙏"
 <Multi_key> <colon> <space> <p> <r> <a> <y> : "🙏"
 <Multi_key> <colon> <space> <minus> <1>: "👎"
 <Multi_key> <colon> <space> <plus> <1>: "👍️"
