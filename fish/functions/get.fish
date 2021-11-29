@@ -14,7 +14,7 @@
 
 function get -d 'Download from a remote URL'
     if command -q curl
-        curl --continue-at - --location --progress-bar --remote-name --remote-time --remote-header-name $argv
+        curl --location --progress-bar --remote-name --remote-time --remote-header-name $argv
     else if command -q wget
         wget --continue --progress=bar --timestamping $argv
     else
