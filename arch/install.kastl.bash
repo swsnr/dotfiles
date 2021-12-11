@@ -25,7 +25,6 @@ personal_flatpaks=(
     org.kde.digikam # Photo collection
     re.chiaki.Chiaki # PSN remote play client
     com.valvesoftware.Steam # Gaming
-    org.wesnoth.Wesnoth
 )
 
 flatpak install --or-update --noninteractive "${personal_flatpaks[@]}"
