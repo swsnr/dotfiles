@@ -81,11 +81,6 @@ if status --is-interactive
     # Update colours (ls, bat, etc.)
     update-theme
 
-    if command -q rbenv
-        # Initialize rbenv for ruby
-        rbenv init - | source
-    end
-
     # Automatically enable NVM and SDK versions for the current directory;
     # this is not a lazy-loaded function because it needs to register on PWD
     # changes immediately.
