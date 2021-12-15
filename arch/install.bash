@@ -100,6 +100,7 @@ packages=(
     sd # Simpler sed
     dua-cli # Disk space analyzer
     ripgrep
+    ripgrep-all
     bat
     nnn # Command line file manager (also a good pager for aurutils)
     renameutils # qmv is super nice
