@@ -23,16 +23,7 @@ fi
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}")"  >/dev/null 2>&1 && pwd)"
 
 # Remove packages I no longer use
-to_remove=(
-    # resolved resolves mDNS hostnames
-    nss-mdns
-    # I don't use nb anymore
-    readability-cli
-    # Nice software but terrible sync and library options
-    zotero
-    # Zim's much better
-    zettlr-bin
-)
+to_remove=()
 for pkg in "${to_remove[@]}"; do
     pacman --noconfirm -Rs "$pkg" || true
 done
@@ -497,7 +488,7 @@ if [[ -n "$SUDO_USER" ]]; then
     pacman --needed -Syu "${aur_packages[@]}"
     pacman --needed -S --asdeps "${aur_optdeps[@]}"
 
-    remove_from_repo=(readability-cli zotero zsa-wally zsa-wally-cli zettlr-bin)
+    remove_from_repo=()
     for pkg in "${remove_from_repo[@]}"; do
         rm -f "/srv/pkgrepo/aur/${pkg}-"*.pkg.tar.*
     done
