@@ -329,7 +329,7 @@ sed -i '/^hosts: /s/^hosts: .*/'"hosts: ${NSS_HOSTS[*]}/" /etc/nsswitch.conf
 if ! [[ -e /efi/EFI/BOOT/BOOTX64.EFI ]]; then
     bootctl install
 else
-    bootctl update
+    bootctl update || true
 fi
 install -pm644 "$DIR/etc/loader.conf" /efi/loader/loader.conf
 
