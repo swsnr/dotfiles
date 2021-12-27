@@ -23,7 +23,15 @@ fi
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}")"  >/dev/null 2>&1 && pwd)"
 
 # Remove packages I no longer use
-to_remove=(plymouth)
+to_remove=(
+    # With TPM-based unlocking there's no need to show a fancy boot splash;
+    # we can boot straight to GDM with the firmware splash screen.
+    plymouth
+    # Remove low-level efi tools; I no longer require EFI Key Tool
+    efitools
+    # The firmware UI is good enough for the few cases where this actually matters
+    efibootmgr
+)
 for pkg in "${to_remove[@]}"; do
     pacman --noconfirm -Rs "$pkg" || true
 done
@@ -42,7 +50,8 @@ packages=(
     linux-lts
     lsb-release
     sudo
-    zram-generator # swap on compressed RAM
+    zram-generator # swap on compressed RAM, mostly to support systemd-oomd
+    sbctl # Manage secure boot binaries and sign binaries
     # File systems
     ntfs-3g
     exfat-utils
@@ -54,10 +63,6 @@ packages=(
     # Keyboard flashing tool
     zsa-wally
     zsa-wally-cli
-    # EFI & secure boot
-    efibootmgr # Manage EFI boot menu
-    efitools # Low-level EFI tools (just in case, also provides the EFI Keytool binary)
-    sbctl # Manage secure boot binaries and sign binaries
     # System monitoring
     iotop
     htop
