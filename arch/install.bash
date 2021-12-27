@@ -23,7 +23,7 @@ fi
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}")"  >/dev/null 2>&1 && pwd)"
 
 # Remove packages I no longer use
-to_remove=()
+to_remove=(plymouth)
 for pkg in "${to_remove[@]}"; do
     pacman --noconfirm -Rs "$pkg" || true
 done
@@ -446,8 +446,6 @@ aur_packages=(
     aurutils
     # Editor
     vscodium-bin
-    # Splash screen at boot
-    plymouth
     # Gtk themes
     yaru-gtk-theme
     yaru-icon-theme
@@ -479,8 +477,6 @@ aur_packages=(
 aur_optdeps=(
     # aurutils: chroot support
     devtools
-    # plymouth: truetype fonts
-    ttf-dejavu cantarell-fonts
 )
 
 if [[ -n "$SUDO_USER" ]]; then
@@ -489,15 +485,11 @@ if [[ -n "$SUDO_USER" ]]; then
     pacman --needed -Syu "${aur_packages[@]}"
     pacman --needed -S --asdeps "${aur_optdeps[@]}"
 
-    remove_from_repo=()
+    remove_from_repo=(plymouth)
     for pkg in "${remove_from_repo[@]}"; do
         rm -f "/srv/pkgrepo/aur/${pkg}-"*.pkg.tar.*
     done
     sudo -u "$SUDO_USER" repo-remove /srv/pkgrepo/aur/aur.db.tar.zst "${remove_from_repo[@]}"
-fi
-
-if command -v plymouth-set-default-theme > /dev/null; then
-    plymouth-set-default-theme bgrt
 fi
 
 if [[ "${HOSTNAME}" == *kastl ]]; then
