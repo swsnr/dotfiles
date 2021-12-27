@@ -31,7 +31,11 @@ done
 packages=(
     # Basic packages & system tools
     base
-    dracut # Build initrd & unified EFI images
+    # FIXME: We currently use dracut git for some crucial MRs which haven't been released yet:
+    # - <https://github.com/dracutdevs/dracut/pull/1526>: tpm2-tss module dependencies have a typo
+    # - <https://github.com/dracutdevs/dracut/pull/1658>: TPM2 user wasn't created because sysusers didn't run
+    # When dracut 56 gets to arch go back to packaged dracut
+    #dracut # Build initrd & unified EFI images
     linux-firmware
     intel-ucode
     linux
@@ -444,6 +448,8 @@ fi
 aur_packages=(
     # AUR helper
     aurutils
+    # initramfs
+    dracut-git
     # Editor
     vscodium-bin
     # Gtk themes
