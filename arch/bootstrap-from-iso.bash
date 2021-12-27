@@ -147,6 +147,8 @@ EOF
 
 echo "Enable resolved"
 systemctl --root /mnt enable systemd-resolved
+echo "Enable homed"
+systemctl --root /mnt enable systemd-homed
 
 echo "Set root password"
 passwd -R /mnt root

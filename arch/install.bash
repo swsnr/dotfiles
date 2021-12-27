@@ -243,6 +243,8 @@ install -Dpm644 "$DIR/etc/systemd/system-lunaryorn.conf" /etc/systemd/system.con
 # Swap on zram
 install -Dpm644 "$DIR/etc/systemd/zram-generator.conf" /etc/systemd/zram-generator.conf
 
+# homed for user management and home areas
+systemctl enable systemd-homed.service
 # Userspace OOM killer from systemd; kills more selectively than the kernel
 systemctl enable systemd-oomd.service
 # Desktop manager
