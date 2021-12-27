@@ -351,22 +351,17 @@ if command -v sbctl > /dev/null && [[ -f /usr/share/secureboot/keys/db/db.key ]]
         sbctl sign -s -o /usr/lib/fwupd/efi/fwupdx64.efi.signed /usr/lib/fwupd/efi/fwupdx64.efi
     fi
 
-    # Install keytool
-    if [[ ! -f "/efi/loader/entries/keytool.conf" ]]; then
-        cat > "/efi/loader/entries/keytool.conf" <<EOF
-title EFI Keytool
-efi /EFI/KeyTool.efi
-EOF
-    fi
-    if ! sbctl list-files | grep -q /usr/share/efitools/efi/KeyTool.efi; then
-        sbctl sign -s -o "/efi/EFI/KeyTool.efi" /usr/share/efitools/efi/KeyTool.efi
-    fi
-
     # Update all secureboot signatures
     sbctl sign-all
 
     # Dump signing state just to be on the safe side
     sbctl verify
+fi
+
+# Remove EFI keytool (recent sbctl versions can enroll keys flawlessly so we no longer need keytool)
+if [[ -f "/efi/loader/entries/keytool.conf" ]]; then
+    sbctl remove-file /usr/share/efitools/efi/KeyTool.efi
+    rm /efi/loader/entries/keytool.conf
 fi
 
 # Global font configuration
