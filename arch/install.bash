@@ -383,7 +383,6 @@ flatpaks=(
     org.stellarium.Stellarium # Stars and the sky
     io.freetubeapp.FreeTube # A privacy focused youtube client
     com.gitlab.newsflash # News reader und miniflux client
-    org.jabref.jabref # Research manager
 )
 
 flatpak install --or-update --noninteractive "${flatpaks[@]}"

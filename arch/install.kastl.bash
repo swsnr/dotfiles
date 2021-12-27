@@ -18,9 +18,8 @@
 personal_flatpaks=(
     com.skype.Client # Sadly necessary
     org.jitsi.jitsi-meet # Secure video chats
-    org.atheme.audacious # Audio player
     org.gnome.Lollypop # Music manager
-    com.github.geigi.cozy # Audio player
+    com.github.geigi.cozy # Audiobook player
     org.gnucash.GnuCash # Personal finances
     org.kde.digikam # Photo collection
     re.chiaki.Chiaki # PSN remote play client
