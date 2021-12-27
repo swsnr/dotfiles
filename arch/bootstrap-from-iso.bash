@@ -143,9 +143,10 @@ pacman -S --noconfirm --asdeps binutils elfutils
 for kver in /lib/modules/*; do dracut -f --uefi --kver "${kver##*/}"; done
 # Install bootloader
 bootctl install
-# Enable resolved
-systemctl enable systemd-resolved
 EOF
+
+echo "Enable resolved"
+systemctl --root /mnt enable systemd-resolved
 
 echo "Set root password"
 passwd -R /mnt root
