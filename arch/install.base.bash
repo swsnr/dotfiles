@@ -13,6 +13,8 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
+# Install my basic Arch system
+
 set -xeuo pipefail
 
 if [[ $EUID != 0 ]]; then
@@ -378,28 +380,6 @@ done
 # https://help.gnome.org/admin/system-admin-guide/stable/login-banner.html.en
 install -Dpm644 "$DIR/etc/gdm-profile" /etc/dconf/profile/gdm
 
-# Apps
-flatpaks=(
-    com.github.tchx84.Flatseal # Manage flatpak permissions
-    io.github.Qalculate # Scientific calculator
-    io.github.seadve.Kooha # Screen recorder
-    org.signal.Signal # Messenger
-    org.gimp.GIMP # Image editor
-    org.inkscape.Inkscape # SVG editor
-    org.videolan.VLC # Videos
-    de.bund.ausweisapp.ausweisapp2 # e-ID
-    org.libreoffice.LibreOffice # Office
-    org.standardnotes.standardnotes # Personal notes
-    org.stellarium.Stellarium # Stars and the sky
-    io.freetubeapp.FreeTube # A privacy focused youtube client
-    com.gitlab.newsflash # News reader und miniflux client
-)
-
-flatpak install --or-update --noninteractive "${flatpaks[@]}"
-
-# Fix https://github.com/flathub/com.skype.Client/issues/126
-flatpak override --talk-name=org.freedesktop.ScreenSaver
-
 # Initialize AUR repo
 if [[ ! -d /srv/pkgrepo/aur/ ]]; then
     install -m755 -d /srv/pkgrepo
@@ -498,8 +478,4 @@ if [[ -n "$SUDO_USER" ]]; then
         rm -f "/srv/pkgrepo/aur/${pkg}-"*.pkg.tar.*
     done
     sudo -u "$SUDO_USER" repo-remove /srv/pkgrepo/aur/aur.db.tar.zst "${remove_from_repo[@]}"
-fi
-
-if [[ "${HOSTNAME}" == *kastl ]]; then
-    source "${DIR}/install.kastl.bash"
 fi
