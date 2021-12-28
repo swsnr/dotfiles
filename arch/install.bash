@@ -374,6 +374,10 @@ for file in 10-hinting-slight 10-sub-pixel-rgb 11-lcdfilter-default; do
     ln -sf /usr/share/fontconfig/conf.avail/$file.conf /etc/fonts/conf.d/$file.conf
 done
 
+# GDM dconf profile, for global GDM configuration, see
+# https://help.gnome.org/admin/system-admin-guide/stable/login-banner.html.en
+install -Dpm644 "$DIR/etc/gdm-profile" /etc/dconf/profile/gdm
+
 # Apps
 flatpaks=(
     com.github.tchx84.Flatseal # Manage flatpak permissions
