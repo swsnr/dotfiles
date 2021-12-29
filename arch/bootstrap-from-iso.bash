@@ -83,8 +83,9 @@ sgdisk \
     "$target_device"
 
 # Reload partition table
-sleep 1
+sleep 3
 partprobe -s "$target_device"
+sleep 3
 
 # Encrypt root if desired
 if [[ "$use_luks" == "yes" ]]; then
