@@ -436,9 +436,6 @@ aur_packages=(
     dracut-git
     # Editor
     vscodium-bin
-    # Gtk themes
-    yaru-gtk-theme
-    yaru-icon-theme
     # Gnome extensions
     gnome-shell-extension-nasa-apod
     # Gnome tools
@@ -472,7 +469,7 @@ if [[ -n "$SUDO_USER" ]]; then
     pacman --needed -Syu "${aur_packages[@]}"
     pacman --needed -S --asdeps "${aur_optdeps[@]}"
 
-    remove_from_repo=(plymouth)
+    remove_from_repo=(plymouth yaru-gtk-theme yaru-icon-theme)
     for pkg in "${remove_from_repo[@]}"; do
         rm -f "/srv/pkgrepo/aur/${pkg}-"*.pkg.tar.*
     done
