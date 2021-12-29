@@ -76,7 +76,7 @@ if [[ "$confirmed" != "YES" ]]; then
 fi
 
 # Partition
-sgdisk -Z /dev/vda
+sgdisk -Z "$target_device"
 sgdisk \
     -n1:0:+550M  -t1:ef00 -c1:EFISYSTEM \
     -N3          -t3:8304 -c3:linux \
