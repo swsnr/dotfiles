@@ -319,6 +319,7 @@ if [[ -f /usr/share/secureboot/keys/db/db.key ]] && [[ -f /usr/share/secureboot/
 else
     rm -f /etc/dracut.conf.d/90-lunaryorn-sbctl-signing.conf
 fi
+
 # See /usr/share/factory/etc/nsswitch.conf for the Arch Linux factory defaults.
 # We add mdns hostnames (from Avahi) and libvirtd names, and also shuffle things around
 # to follow the recommendations in nss-resolve(8) which Arch Linux deliberately doesn't
@@ -368,6 +369,13 @@ if command -v sbctl > /dev/null && [[ -f /usr/share/secureboot/keys/db/db.key ]]
     # Dump signing state just to be on the safe side
     sbctl verify
 fi
+
+# Locale settings
+localectl set-locale de_DE.UTF-8
+# --no-convert stops localectl from trying to apply the text console layout to
+# X11/Wayland and vice versa
+localectl set-keymap --no-convert us
+localectl set-x11-keymap --no-convert us,de pc105 mac,
 
 # Remove EFI keytool (recent sbctl versions can enroll keys flawlessly so we no longer need keytool)
 if [[ -f "/efi/loader/entries/keytool.conf" ]]; then
