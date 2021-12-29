@@ -127,7 +127,7 @@ ln -sf /usr/share/zoneinfo/Europe/Berlin /mnt/etc/localtime
 sed -i \
     -e '/^#en_GB.UTF-8/s/^#//' \
     -e '/^#de_DE.UTF-8/s/^#//' \
-    /etc/locale.gen
+    /mnt/etc/locale.gen
 echo 'LANG=en_GB.UTF-8' >/mnt/etc/locale.conf
 echo 'KEYMAP=us' >/mnt/etc/vconsole.conf
 
