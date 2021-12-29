@@ -79,7 +79,7 @@ fi
 sgdisk -Z "$target_device"
 sgdisk \
     -n1:0:+550M  -t1:ef00 -c1:EFISYSTEM \
-    -N3          -t3:8304 -c3:linux \
+    -N2          -t2:8304 -c2:linux \
     "$target_device"
 
 # Reload partition table
