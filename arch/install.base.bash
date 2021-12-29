@@ -241,7 +241,7 @@ pacman -S --needed --asdeps "${optdeps[@]}"
 # Configure btrfs filesystems.
 #
 # Setup regular scrubbing and enable zstd compression
-for mountpoint in / /home /home/"$SUDO_USER"; do
+for mountpoint in / /home /home/"${SUDO_USER-}"; do
     if findmnt -n -o SOURCE -M "$mountpoint" -v >/dev/null; then
         device="$(findmnt -n -o SOURCE -M "$mountpoint" -v)"
         if [[ "$(lsblk -no FSTYPE "$device")" == "btrfs" ]]; then
@@ -295,7 +295,7 @@ if [[ ! -f /etc/subuid ]]; then touch /etc/subuid; fi
 if [[ ! -f /etc/subgid ]]; then touch /etc/subgid; fi
 
 # Allow myself to use rootless container
-if [[ -n "$SUDO_USER" ]]; then
+if [[ -n "${SUDO_USER-}" ]]; then
     usermod --add-subuids 165536-231072 --add-subgids 165536-231072 "$SUDO_USER"
 fi
 
@@ -390,7 +390,7 @@ if [[ ! -d /srv/pkgrepo/aur/ ]]; then
 fi
 
 # Allow myself to build AUR packages
-if [[ -n "$SUDO_USER" && "$(stat -c '%U' /srv/pkgrepo/aur)" != "$SUDO_USER" ]]; then
+if [[ -n "${SUDO_USER-}" && "$(stat -c '%U' /srv/pkgrepo/aur)" != "$SUDO_USER" ]]; then
     chown -R "$SUDO_USER:$SUDO_USER" /srv/pkgrepo/aur
 fi
 
@@ -406,7 +406,7 @@ EOF
 fi
 
 # Install aurutils if not yet present
-if [[ -n "$SUDO_USER" ]] && ! command -v aur &>/dev/null; then
+if [[ -n "${SUDO_USER-}" ]] && ! command -v aur &>/dev/null; then
     sudo -u "$SUDO_USER" bash <<'EOF'
 set -xeuo pipefail
 BDIR="$(mktemp -d --tmpdir aurutils.XXXXXXXX)"
@@ -463,7 +463,7 @@ aur_packages=(
 
 aur_optdeps=()
 
-if [[ -n "$SUDO_USER" ]]; then
+if [[ -n "${SUDO_USER-}" ]]; then
     # Build AUR packages and install them
     sudo -u "$SUDO_USER" --preserve-env=AUR_PAGER,PACKAGER,EDITOR aur sync -daur -cRT "${aur_packages[@]}" "${aur_optdeps[@]}"
     pacman --needed -Syu "${aur_packages[@]}"
