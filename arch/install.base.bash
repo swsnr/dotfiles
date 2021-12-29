@@ -232,6 +232,8 @@ optdeps=(
     intel-media-driver
     # gnome-shell-extension-appindicator: Gtk3 apps
     libappindicator-gtk3
+    # aurutils: chroot support
+    devtools
 )
 
 pacman -S --needed --asdeps "${optdeps[@]}"
@@ -462,10 +464,7 @@ aur_packages=(
     texlive-latexindent-meta
 )
 
-aur_optdeps=(
-    # aurutils: chroot support
-    devtools
-)
+aur_optdeps=()
 
 if [[ -n "$SUDO_USER" ]]; then
     # Build AUR packages and install them
