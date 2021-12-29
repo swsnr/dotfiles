@@ -467,13 +467,19 @@ aur_optdeps=()
 
 if [[ -n "${SUDO_USER-}" ]]; then
     # Build AUR packages and install them
-    sudo -u "$SUDO_USER" --preserve-env=AUR_PAGER,PACKAGER,EDITOR aur sync -daur -cRT "${aur_packages[@]}" "${aur_optdeps[@]}"
-    pacman --needed -Syu "${aur_packages[@]}"
-    pacman --needed -S --asdeps "${aur_optdeps[@]}"
+    if [[ ${#aur_packages} -gt 0 ]]; then
+        sudo -u "$SUDO_USER" --preserve-env=AUR_PAGER,PACKAGER,EDITOR aur sync -daur -cRT "${aur_packages[@]}" "${aur_optdeps[@]}"
+        pacman --needed -Syu "${aur_packages[@]}"
+    fi
+    if [[ ${#aur_optdeps[@]} -gt 0 ]]; then
+        pacman --needed -S --asdeps "${aur_optdeps[@]}"
+    fi
 
     remove_from_repo=(plymouth yaru-gtk-theme yaru-icon-theme)
-    for pkg in "${remove_from_repo[@]}"; do
-        rm -f "/srv/pkgrepo/aur/${pkg}-"*.pkg.tar.*
-    done
-    sudo -u "$SUDO_USER" repo-remove /srv/pkgrepo/aur/aur.db.tar.zst "${remove_from_repo[@]}"
+    if [[ ${#remove_from_repo[@]} -gt 0 ]]; then
+        for pkg in "${remove_from_repo[@]}"; do
+            rm -f "/srv/pkgrepo/aur/${pkg}-"*.pkg.tar.*
+        done
+        sudo -u "$SUDO_USER" repo-remove /srv/pkgrepo/aur/aur.db.tar.zst "${remove_from_repo[@]}"
+    fi
 fi
