@@ -19,6 +19,8 @@ if [[ $EUID -eq 0 ]]; then
     exit 1
 fi
 
+flatpak --user remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrep
+
 common_flatpaks=(
     com.github.tchx84.Flatsecal # Manage flatpak permissions
     io.github.Qalculate # Scientific calculator
