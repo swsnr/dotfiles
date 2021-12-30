@@ -19,7 +19,7 @@ if [[ $EUID -eq 0 ]]; then
     exit 1
 fi
 
-if [[ "${HOSTNAME}" == *kastl ]]; then
+if [[ "${HOSTNAME}" != *kastl ]]; then
     echo "This is not a kastl host"
     exit 1
 fi
