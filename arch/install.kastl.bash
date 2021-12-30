@@ -39,3 +39,17 @@ flatpaks=(
 )
 
 flatpak install --system --or-update --noninteractive "${flatpaks[@]}"
+
+# Adapt filesystem permissions for Steam: Add access to downloads for backup
+# imports, but deny access to Music and Pictures
+flatpak override --user \
+    --filesystem xdg-download:ro \
+    --nofilesystem xdg-music \
+    --nofilesystem xdg-pictures \
+    com.valvesoftware.Steam
+
+# Reduce access of Cozy
+flatpak override --user \
+    --filesystem ~/Hörbücher \
+    --nofilesystem host \
+    com.github.geigi.cozy
