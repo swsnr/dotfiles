@@ -89,7 +89,7 @@ sleep 3
 
 # Encrypt root if desired
 if [[ "$use_luks" == "yes" ]]; then
-    cryptsetup luksFormat /dev/disk/by-partlabel/linux
+    cryptsetup luksFormat --type luks2 /dev/disk/by-partlabel/linux
     cryptsetup luksOpen /dev/disk/by-partlabel/linux root
     root_device="/dev/mapper/root"
 else
