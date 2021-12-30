@@ -392,6 +392,24 @@ done
 # https://help.gnome.org/admin/system-admin-guide/stable/login-banner.html.en
 install -Dpm644 "$DIR/etc/gdm-profile" /etc/dconf/profile/gdm
 
+# Common applications
+flatpaks=(
+    com.github.tchx84.Flatsecal # Manage flatpak permissions
+    io.github.Qalculate # Scientific calculator
+    io.github.seadve.Kooha # Screen recorder
+    org.signal.Signal # Messenger
+    org.gimp.GIMP # Image editor
+    org.inkscape.Inkscape # SVG editor
+    org.videolan.VLC # Videos
+    org.libreoffice.LibreOffice # Office
+    org.standardnotes.standardnotes # Personal notes
+    org.stellarium.Stellarium # Stars and the sky
+    io.freetubeapp.FreeTube # A privacy focused youtube client
+    com.gitlab.newsflash # News reader und miniflux client
+    org.gnome.Lollypop # Music manager
+)
+flatpak install --system --or-update --noninteractive "${flatpaks[@]}"
+
 # Initialize AUR repo
 if [[ ! -d /srv/pkgrepo/aur/ ]]; then
     install -m755 -d /srv/pkgrepo
