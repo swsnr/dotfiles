@@ -53,7 +53,4 @@ if [[ "${HOSTNAME}" == *kastl ]]; then
     )
 
     flatpak install --user --or-update --noninteractive "${personal_flatpaks[@]}"
-
-    # Fix https://github.com/flathub/com.skype.Client/issues/126
-    flatpak override --user --talk-name=org.freedesktop.ScreenSaver com.skype.Client
 fi
