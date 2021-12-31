@@ -151,6 +151,7 @@ packages=(
     bluez
     sane
     pipewire-pulse # Pipewire-based pulse-audio, replaces pulseaudio
+    wireplumber # Recommended pipewire session & policy manager
     # Applications.  Normally I use flatpak, but some core apps work better this
     # way and others just aren't flatpakked yet
     firefox
@@ -217,7 +218,8 @@ packages=(
 
 pacman -Syu --needed "${packages[@]}"
 
-pacman -D --asdeps pipewire-pulse
+# Make pipewire as optdeps to cleanly uninstall them once they are no longer needed.
+pacman -D --asdeps pipewire-pulse wireplumber
 
 optdeps=(
     # linux: wireless frequency policies
