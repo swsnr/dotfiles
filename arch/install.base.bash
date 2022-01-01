@@ -345,24 +345,20 @@ NSS_HOSTS=(
     )
 sed -i '/^hosts: /s/^hosts: .*/'"hosts: ${NSS_HOSTS[*]}/" /etc/nsswitch.conf
 
-# Install or update, and then configure the bootloader
-if ! [[ -e /efi/EFI/BOOT/BOOTX64.EFI ]]; then
-    bootctl install
-else
-    bootctl update || true
-fi
-install -pm644 "$DIR/etc/loader.conf" /efi/loader/loader.conf
-
 # If we have secureboot tooling in place
 if command -v sbctl > /dev/null && [[ -f /usr/share/secureboot/keys/db/db.key ]]; then
-    # Generate initial secureboot signatures for systemd-boot
+    # Remove legacy signing for bootloader.
     for file in /efi/EFI/BOOT/BOOTX64.EFI /efi/EFI/systemd/systemd-bootx64.efi; do
-        if ! sbctl list-files | grep -q "$file"; then
-            sbctl sign -s "$file"
-        fi
+        sbctl remove-file "$file"
     done
 
-    # Generate signing firmware updater
+    # Generate signed bootloader image
+    if ! sbctl list-files | grep -q /usr/lib/systemd/boot/efi/systemd-bootx64.efi; then
+        sbctl sign -s -o /usr/lib/systemd/boot/efi/systemd-bootx64.efi.signed /usr/lib/systemd/boot/efi/systemd-bootx64.efi
+        bootctl update
+    fi
+
+    # Generate signed firmware updater
     if ! sbctl list-files | grep -q /usr/lib/fwupd/efi/fwupdx64.efi; then
         sbctl sign -s -o /usr/lib/fwupd/efi/fwupdx64.efi.signed /usr/lib/fwupd/efi/fwupdx64.efi
     fi
@@ -373,6 +369,16 @@ if command -v sbctl > /dev/null && [[ -f /usr/share/secureboot/keys/db/db.key ]]
     # Dump signing state just to be on the safe side
     sbctl verify
 fi
+
+# Install or update, and then configure the bootloader.
+# Do this AFTER signing the boot loader with sbctl, see above, to make sure we
+# install the signed loader.
+if ! [[ -e /efi/EFI/BOOT/BOOTX64.EFI ]]; then
+    bootctl install
+else
+    bootctl update || true
+fi
+install -pm644 "$DIR/etc/loader.conf" /efi/loader/loader.conf
 
 # Locale settings
 localectl set-locale de_DE.UTF-8
