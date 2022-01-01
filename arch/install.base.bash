@@ -26,9 +26,6 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}")"  >/dev/null 2>&1 && pwd)"
 
 # Remove packages I no longer use
 to_remove=(
-    # With TPM-based unlocking there's no need to show a fancy boot splash;
-    # we can boot straight to GDM with the firmware splash screen.
-    plymouth
     # Remove low-level efi tools; I no longer require EFI Key Tool
     efitools
     # The firmware UI is good enough for the few cases where this actually matters
@@ -471,6 +468,8 @@ aur_packages=(
     dracut-git
     # Editor
     vscodium-bin
+    # Splash screen at boot
+    plymouth
     # Gnome extensions
     gnome-shell-extension-nasa-apod
     # Gnome tools
@@ -496,7 +495,10 @@ aur_packages=(
     texlive-latexindent-meta
 )
 
-aur_optdeps=()
+aur_optdeps=(
+    # plymouth: truetype fonts
+    ttf-dejavu cantarell-fonts
+)
 
 if [[ -n "${SUDO_USER:-}" ]]; then
     # Build AUR packages and install them
@@ -515,4 +517,9 @@ if [[ -n "${SUDO_USER:-}" ]]; then
         done
         sudo -u "$SUDO_USER" repo-remove /srv/pkgrepo/aur/aur.db.tar.zst "${remove_from_repo[@]}"
     fi
+fi
+
+# Set plymouth theme
+if command -v plymouth-set-default-theme > /dev/null; then
+    plymouth-set-default-theme bgrt
 fi
