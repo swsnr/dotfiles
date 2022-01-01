@@ -76,9 +76,6 @@
 -a never,user -F subj_type=crond_t
 -a never,exit -F subj_type=crond_t
 
-## This prevents chrony from overwhelming the logs
--a never,exit -F arch=b64 -S adjtimex -F auid=unset -F uid=chrony -F subj_type=chronyd_t
-
 ## This is not very interesting and wastes a lot of space if the server is public facing
 -a always,exclude -F msgtype=CRYPTO_KEY_USER
 
@@ -133,8 +130,8 @@
 -a always,exit -F arch=b32 -S swapon -S swapoff -F auid!=-1 -k swap
 
 ## Time
--a always,exit -F arch=b32 -F uid!=ntp -S adjtimex -S settimeofday -S clock_settime -k time
--a always,exit -F arch=b64 -F uid!=ntp -S adjtimex -S settimeofday -S clock_settime -k time
+-a always,exit -F arch=b32 -F uid!=systemd-timesync -S adjtimex -S settimeofday -S clock_settime -k time
+-a always,exit -F arch=b64 -F uid!=systemd-timesync -S adjtimex -S settimeofday -S clock_settime -k time
 ### Local time zone
 -w /etc/localtime -p wa -k localtime
 
@@ -199,9 +196,6 @@
 
 ### Changes to other files
 -w /etc/hosts -p wa -k network_modifications
--w /etc/sysconfig/network -p wa -k network_modifications
--w /etc/sysconfig/network-scripts -p w -k network_modifications
--w /etc/network/ -p wa -k network
 -a always,exit -F dir=/etc/NetworkManager/ -F perm=wa -k network_modifications
 
 ### Changes to issue
@@ -418,16 +412,6 @@
 -w /usr/bin/pip3 -p x -k software_mgmt
 
 # Special Software ------------------------------------------------------------
-
-## GDS specific secrets
--w /etc/puppet/ssl -p wa -k puppet_ssl
-
-## IBM Bigfix BESClient
--a always,exit -F arch=b64 -S open -F dir=/opt/BESClient -F success=0 -k soft_besclient
--w /var/opt/BESClient/ -p wa -k soft_besclient
-
-## CHEF https://www.chef.io/chef/
--w /etc/chef -p wa -k soft_chef
 
 ## Docker
 -w /usr/bin/dockerd -k docker
