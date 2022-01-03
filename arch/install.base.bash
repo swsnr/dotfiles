@@ -350,7 +350,7 @@ if command -v sbctl > /dev/null && [[ -f /usr/share/secureboot/keys/db/db.key ]]
     # Generate signed bootloader image
     if ! sbctl list-files | grep -q /usr/lib/systemd/boot/efi/systemd-bootx64.efi; then
         sbctl sign -s -o /usr/lib/systemd/boot/efi/systemd-bootx64.efi.signed /usr/lib/systemd/boot/efi/systemd-bootx64.efi
-        bootctl update
+        bootctl update --graceful
     fi
 
     # Generate signed firmware updater
@@ -371,7 +371,7 @@ fi
 if ! [[ -e /efi/EFI/BOOT/BOOTX64.EFI ]]; then
     bootctl install
 else
-    bootctl update || true
+    bootctl update --graceful
 fi
 install -pm644 "$DIR/etc/loader.conf" /efi/loader/loader.conf
 
