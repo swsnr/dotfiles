@@ -452,7 +452,7 @@ fi
 
 # Configure aurutils
 if [[ ! -e "/etc/aurutils/pacman-aur.conf" ]]; then
-    install -pm644 /usr/share/devtools/pacman-extra.conf "/etc/aurutils/pacman-aur.conf"
+    install -Dpm644 /usr/share/devtools/pacman-extra.conf "/etc/aurutils/pacman-aur.conf"
     cat <<EOF >>"/etc/aurutils/pacman-aur.conf"
 # aurutils repo
 [aur]
