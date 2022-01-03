@@ -344,7 +344,7 @@ sed -i '/^hosts: /s/^hosts: .*/'"hosts: ${NSS_HOSTS[*]}/" /etc/nsswitch.conf
 if command -v sbctl > /dev/null && [[ -f /usr/share/secureboot/keys/db/db.key ]]; then
     # Remove legacy signing for bootloader.
     for file in /efi/EFI/BOOT/BOOTX64.EFI /efi/EFI/systemd/systemd-bootx64.efi; do
-        sbctl remove-file "$file"
+        sbctl remove-file "$file" || true
     done
 
     # Generate signed bootloader image
