@@ -103,10 +103,14 @@ mkfs.btrfs -f -L linux "$root_device"
 # Mount arch subvolume and create additional subvolumes for rootfs
 mount "$root_device" /mnt
 mkdir /mnt/efi
-btrfs property set "/mnt" compression zstd
 for subvol in var var/log var/cache var/tmp srv home; do
     btrfs subvolume create "/mnt/$subvol"
 done
+# Disable CoW for /home due to large loopback files by systemd-homed
+chattr +C /mnt/home
+# Compress /usr/ to save some space
+mkdir -m755 /mnt/usr
+btrfs prop set /mnt/usr compression zstd
 
 # Mount additional partitions
 mount /dev/disk/by-partlabel/EFISYSTEM /mnt/efi
