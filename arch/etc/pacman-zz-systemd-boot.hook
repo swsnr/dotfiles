@@ -1,0 +1,11 @@
+# Update bootloader when systemd gets updated
+# See <https://wiki.archlinux.org/title/Systemd-boot#Automatic_update>
+[Trigger]
+Type = Package
+Operation = Upgrade
+Target = systemd
+
+[Action]
+Description = Gracefully upgrading systemd-boot...
+When = PostTransaction
+Exec = /usr/bin/systemctl restart systemd-boot-update.service

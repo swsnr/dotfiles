@@ -35,6 +35,10 @@ for pkg in "${to_remove[@]}"; do
     pacman --noconfirm -Rs "$pkg" || true
 done
 
+# Configure pacman to update systemd-boot after systemd updates
+# Doesn't play well with sbctl currently, see https://github.com/Foxboron/sbctl/issues/119
+# install -Dpm644 "$DIR/etc/pacman-zz-systemd-boot.hook" /etc/pacman.d/hooks/zz-systemd-boot.hook
+
 packages=(
     # Basic packages & system tools
     base
