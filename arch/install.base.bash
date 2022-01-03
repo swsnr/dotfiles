@@ -261,11 +261,6 @@ install -Dpm644 "$DIR/etc/systemd/zram-generator.conf" /etc/systemd/zram-generat
 systemctl enable systemd-homed.service
 # Userspace OOM killer from systemd; kills more selectively than the kernel
 systemctl enable systemd-oomd.service
-# Audit framework
-install -Dpm644 "$DIR/etc/lunaryorn-audit.rules" /etc/audit/rules.d/lunaryorn-audit.rules
-augenrules --check
-augenrules --load
-systemctl enable auditd.service
 # Desktop manager
 systemctl enable gdm.service
 # Periodically trim all filesystems
