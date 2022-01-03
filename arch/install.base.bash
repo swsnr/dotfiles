@@ -244,7 +244,7 @@ optdeps=(
 pacman -S --needed --asdeps "${optdeps[@]}"
 
 # Setup regular scrubbing on btrfs
-systemctl enable
+systemctl enable "btrfs-scrub@$(systemd-escape -p /).timer"
 if [[ -n "${SUDO_USER:-}" ]]; then
     systemctl enable "btrfs-scrub@$(systemd-escape -p "/home/${SUDO_USER}").timer"
 fi
