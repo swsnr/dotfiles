@@ -198,6 +198,7 @@ packages=(
     gnome-terminal
     gnome-tweaks
     gnome-software
+    gnome-backgrounds
     xdg-user-dirs-gtk
     evolution
     file-roller
