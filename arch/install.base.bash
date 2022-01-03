@@ -243,18 +243,11 @@ optdeps=(
 
 pacman -S --needed --asdeps "${optdeps[@]}"
 
-# Configure btrfs filesystems.
-#
-# Setup regular scrubbing and enable zstd compression
-for mountpoint in / /home /home/"${SUDO_USER:-}"; do
-    if findmnt -n -o SOURCE -M "$mountpoint" -v >/dev/null; then
-        device="$(findmnt -n -o SOURCE -M "$mountpoint" -v)"
-        if [[ "$(lsblk -no FSTYPE "$device")" == "btrfs" ]]; then
-            systemctl enable "btrfs-scrub@$(systemd-escape -p "$mountpoint").timer"
-            btrfs property set "$mountpoint" compression zstd
-        fi
-    fi
-done
+# Setup regular scrubbing on btrfs
+systemctl enable
+if [[ -n "${SUDO_USER:-}" ]]; then
+    systemctl enable "btrfs-scrub@$(systemd-escape -p "/home/${SUDO_USER}").timer"
+fi
 
 # systemd configuration
 install -Dpm644 "$DIR/etc/systemd/system-lunaryorn.conf" /etc/systemd/system.conf.d/50-lunaryorn.conf

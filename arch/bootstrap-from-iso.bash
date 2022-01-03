@@ -100,19 +100,12 @@ fi
 mkfs.fat -F32 -n EFISYSTEM /dev/disk/by-partlabel/EFISYSTEM
 mkfs.btrfs -f -L linux "$root_device"
 
-# Create default "arch" subvolume
-mount "$root_device" /mnt
-btrfs property set /mnt compression zstd
-btrfs subvolume create /mnt/arch
-btrfs subvolume set-default /mnt/arch
-umount /mnt
-
 # Mount arch subvolume and create additional subvolumes for rootfs
 mount "$root_device" /mnt
 mkdir /mnt/efi
+btrfs property set "/mnt" compression zstd
 for subvol in var var/log var/cache var/tmp srv home; do
     btrfs subvolume create "/mnt/$subvol"
-    btrfs property set "/mnt/$subvol" compression zstd
 done
 
 # Mount additional partitions
