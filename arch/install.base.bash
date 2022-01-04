@@ -218,6 +218,10 @@ packages=(
     eog # Image viewer
     simple-scan
     seahorse # Credential manager
+    # Multimedia for gnome
+    gst-plugins-good
+    gst-plugins-bad
+    gst-plugins-ugly
 )
 
 pacman -Syu --needed "${packages[@]}"
