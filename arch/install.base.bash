@@ -30,6 +30,8 @@ to_remove=(
     efitools
     # The firmware UI is good enough for the few cases where this actually matters
     efibootmgr
+    # I don't build flatpaks currently
+    flatpak-builder
     # Let's use the standard Arch kernel
     linux-lts
 )
@@ -146,7 +148,6 @@ packages=(
     xdg-user-dirs
     xdg-utils
     flatpak
-    flatpak-builder # To build flatpaks
     pcsclite # Smartcard daemon, for e-ID
     cups
     hplip
