@@ -117,7 +117,7 @@ mount /dev/disk/by-partlabel/EFISYSTEM /mnt/efi
 
 # Bootstrap new chroot
 reflector --save /etc/pacman.d/mirrorlist --protocol https --country Germany --latest 5 --sort age
-pacstrap /mnt base linux linux-lts linux-firmware intel-ucode btrfs-progs dracut neovim
+pacstrap /mnt base linux linux-firmware intel-ucode btrfs-progs dracut neovim
 
 # Configure timezone, locale, keymap
 ln -sf /usr/share/zoneinfo/Europe/Berlin /mnt/etc/localtime

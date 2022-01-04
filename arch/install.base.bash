@@ -30,6 +30,8 @@ to_remove=(
     efitools
     # The firmware UI is good enough for the few cases where this actually matters
     efibootmgr
+    # Let's use the standard Arch kernel
+    linux-lts
 )
 for pkg in "${to_remove[@]}"; do
     pacman --noconfirm -Rs "$pkg" || true
@@ -50,7 +52,6 @@ packages=(
     linux-firmware
     intel-ucode
     linux
-    linux-lts
     lsb-release
     sudo
     zram-generator # swap on compressed RAM, mostly to support systemd-oomd
