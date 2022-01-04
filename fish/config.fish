@@ -75,9 +75,6 @@ if status --is-interactive
     # of the entire desktop, since GDM starts the session through a login shell
     set -x LC_MESSAGES 'en_GB.utf8'
 
-    # python -m venv shouldn't change my prompt.
-    set -x VIRTUAL_ENV_DISABLE_PROMPT 1
-
     # Update colours (ls, bat, etc.)
     update-theme
 
@@ -105,6 +102,13 @@ if status --is-interactive
 
     # Make rclone use my password from 1password
     set -x RCLONE_PASSWORD_COMMAND 'op get item "rclone configuration password" --fields password'
+
+    # Make Podman persist authentication tokens across login
+    # The default puts tokens in XDG_RUNTIME_DIR which gets lost at shutdown.
+    set -x REGISTRY_AUTH_FILE ~/.config/containers/auth.json
+
+    # python -m venv shouldn't change my prompt.
+    set -x VIRTUAL_ENV_DISABLE_PROMPT 1
 
     # Abbreviations (unlike aliases, these are expanded before running)
     # Fast one or two letter abbrevs
