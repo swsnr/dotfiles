@@ -18,14 +18,19 @@ import os
 from pathlib import Path
 from datetime import date, timedelta
 from configparser import ConfigParser
-from subprocess import Popen, DEVNULL
+from subprocess import Popen, DEVNULL, run
 from locale import LC_MESSAGES
 from gi.repository import Gio, GLib
 
+FLATPAK = 'org.zim_wiki.Zim'
 
-def get_zim_notebook_name():
-    config_home = Path(os.environ.get(
-        'XDG_CONFIG_HOME', Path.home() / '.config'))
+
+def get_zim_notebook_name(flatpak):
+    if flatpak:
+        config_home = Path.home() / '.var' / 'app' / FLATPAK / 'config'
+    else:
+        config_home = Path(os.environ.get(
+            'XDG_CONFIG_HOME', Path.home() / '.config'))
     notebooks_list = config_home / 'zim' / 'notebooks.list'
     config = ConfigParser(interpolation=None)
     config.read(notebooks_list)
@@ -54,12 +59,24 @@ def next_workday(date):
         return date + timedelta(days=8-weekday)
 
 
+def use_flatpak():
+    try:
+        result = run(['flatpak', 'info', '-l', FLATPAK],
+                     stdin=DEVNULL, stdout=DEVNULL, stderr=DEVNULL)
+        return result.returncode == 0
+    except Exception:
+        return false
+
+
 def main():
     from argparse import ArgumentParser
 
     parser = ArgumentParser()
-    parser.add_argument('date', choices=['today', 'tomorrow', 'next_workday'], nargs=1)
+    parser.add_argument(
+        'date', choices=['today', 'tomorrow', 'next_workday'], nargs=1)
     args = parser.parse_args()
+
+    flatpak = use_flatpak()
 
     page = {
         'today': date.today(),
@@ -75,8 +92,10 @@ def main():
     except GLib.Error:
         env['LC_MESSAGES'] = 'de_DE.utf8'
     # Open todays journal page
-    Popen(['zim', get_zim_notebook_name(), f'Journal:{page}'],
-          env=env, stdout=DEVNULL, stderr=DEVNULL)
+    command = ['flatpak', 'run', 'org.zim_wiki.Zim'] if flatpak else ['zim']
+    command.append(get_zim_notebook_name(flatpak))
+    command.append(f'Journal:{page}')
+    Popen(command, env=env, stdout=DEVNULL, stderr=DEVNULL)
 
 
 if __name__ == "__main__":
