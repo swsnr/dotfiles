@@ -245,6 +245,8 @@ optdeps=(
     libappindicator-gtk3
     # aurutils: chroot support
     devtools
+    # zim: spell checking
+    gtkspell3
 )
 
 pacman -S --needed --asdeps "${optdeps[@]}"
