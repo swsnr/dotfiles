@@ -125,6 +125,11 @@ packages=(
     mdcat
     asciidoctor
     zathura # Lightweight document viewer
+    # Spellchecking
+    hunspell
+    hunspell-de
+    hunspell-en_gb
+    hunspell-en_us
     # Development tools
     hub
     github-cli
