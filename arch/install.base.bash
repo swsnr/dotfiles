@@ -24,6 +24,8 @@ fi
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}")"  >/dev/null 2>&1 && pwd)"
 
+PRODUCT_NAME="$(< /sys/class/dmi/id/product_name)"
+
 # Remove packages I no longer use
 to_remove=(
     # Remove low-level efi tools; I no longer require EFI Key Tool
@@ -319,9 +321,14 @@ install -pm644 "$DIR/etc/faillock.conf" /etc/security/faillock.conf
 install -dm750 /etc/sudoers.d/
 install -pm600 -t/etc/sudoers.d "$DIR"/etc/sudoers.d/*
 
-# Module & system settings
-install -pm644 "$DIR/etc/modprobe-lunaryorn.conf" /etc/modprobe.d/modprobe-lunaryorn.conf
+# System settings and module parameters
 install -pm644 "$DIR/etc/sysctl-lunaryorn.conf" /etc/sysctl.d/90-lunaryorn.conf
+install -pm644 "$DIR/etc/modprobe-lunaryorn.conf" /etc/modprobe.d/modprobe-lunaryorn.conf
+if [[ $PRODUCT_NAME == "TUXEDO InfinityBook 14 v2" ]]; then
+    install -pm644 "$DIR/etc/modprobe-lunaryorn-tuxedo.conf" /etc/modprobe.d/modprobe-lunaryorn-tuxedo.conf
+else
+    /etc/modprobe.d/modprobe-lunaryorn-tuxedo.conf
+fi
 
 # Initrd and early boot
 install -pm644 "$DIR/etc/lunaryorn-dracut.conf" /etc/dracut.conf.d/50-lunaryorn.conf
