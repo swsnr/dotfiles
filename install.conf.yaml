@@ -62,6 +62,7 @@
     ~/.config/bat/config: misc/bat
     # SSH
     ~/.ssh/config: ssh/config
+    ~/.ssh/lunaryorn/known-hosts: ssh/lunaryorn-known-hosts
     ~/.ssh/config.d/:
       path: ssh/config.d/*
       glob: true
