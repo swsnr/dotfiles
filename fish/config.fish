@@ -103,6 +103,9 @@ if status --is-interactive
     # Make rclone use my password from 1password
     set -x RCLONE_PASSWORD_COMMAND 'op get item "rclone configuration password" --fields password'
 
+    # Make restic use my password from 1password
+    set -x RESTIC_PASSWORD_COMMAND 'op get item "restic repo key" --fields password'
+
     # Make Podman persist authentication tokens across login
     # The default puts tokens in XDG_RUNTIME_DIR which gets lost at shutdown.
     set -x REGISTRY_AUTH_FILE ~/.config/containers/auth.json
