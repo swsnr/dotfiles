@@ -68,6 +68,13 @@ if status --is-interactive
     # Set cursor shape for vi
     set fish_cursor_insert underscore
 
+    # Cleanup on exit
+    function cleanup-tokens --on-event fish_exit
+        # Remove a few security tokens for the current terminal
+        op signout
+        sudo -K
+    end
+
     # Give me English messages in an interface shell in a TTY; these messages
     # are just so much better than the translations!
     #
