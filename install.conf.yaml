@@ -155,3 +155,7 @@
 - shell:
   - description: Install fisher
     command: fish -c 'type -q fisher || begin; curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher; end'
+  - description: rclone completions
+    command: "rclone completion fish > $HOME/.config/fish/completions/rclone.fish"
+  - description: restic completions
+    command: "restic generate --fish-completion ~/.config/fish/completions/restic.fish"
