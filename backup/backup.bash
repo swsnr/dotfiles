@@ -15,7 +15,7 @@
 
 set -xeuo pipefail
 
-exec restic -r "sftp:$USERNAME@kastl.local:restic-$USERNAME" backup ~ \
+exec restic -r "rclone:kastl:restic-$USERNAME" backup ~ \
     --one-file-system \
     --tag basti \
     --tag dotfiles-script \
