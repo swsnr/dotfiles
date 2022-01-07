@@ -327,7 +327,7 @@ install -pm644 "$DIR/etc/modprobe-lunaryorn.conf" /etc/modprobe.d/modprobe-lunar
 if [[ $PRODUCT_NAME == "TUXEDO InfinityBook 14 v2" ]]; then
     install -pm644 "$DIR/etc/modprobe-lunaryorn-tuxedo.conf" /etc/modprobe.d/modprobe-lunaryorn-tuxedo.conf
 else
-    /etc/modprobe.d/modprobe-lunaryorn-tuxedo.conf
+    rm -f /etc/modprobe.d/modprobe-lunaryorn-tuxedo.conf
 fi
 
 # Initrd and early boot
