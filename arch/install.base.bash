@@ -232,7 +232,7 @@ packages=(
 
 pacman -Syu --needed "${packages[@]}"
 
-# Make pipewire as optdeps to cleanly uninstall them once they are no longer needed.
+# Mark pipewire as optdeps to cleanly uninstall them once they are no longer needed.
 pacman -D --asdeps pipewire-pulse wireplumber
 
 optdeps=(
