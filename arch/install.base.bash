@@ -257,6 +257,7 @@ optdeps=(
 )
 
 pacman -S --needed --asdeps "${optdeps[@]}"
+pacman -D --asdeps "${optdeps[@]}"
 
 # Setup regular scrubbing on btrfs
 systemctl enable "btrfs-scrub@$(systemd-escape -p /).timer"
@@ -528,6 +529,7 @@ if [[ -n "${SUDO_USER:-}" ]]; then
     fi
     if [[ ${#aur_optdeps[@]} -gt 0 ]]; then
         pacman --needed -S --asdeps "${aur_optdeps[@]}"
+        pacman -D --asdeps "${aur_optdeps[@]}"
     fi
 
     remove_from_repo=(plymouth yaru-gtk-theme yaru-icon-theme)
