@@ -58,8 +58,6 @@ packages=(
     lsb-release
     sudo
     zram-generator # swap on compressed RAM, mostly to support systemd-oomd
-    # FIXME: The following should be an optdepends of dracut, see https://aur.archlinux.org/packages/dracut-git/#comment-843836
-    tpm2-tools # TPM2 CLI tools, notably for dracut's tpm2-tss module
     sbctl # Manage secure boot binaries and sign binaries
     # File systems
     ntfs-3g
@@ -244,6 +242,8 @@ optdeps=(
     poppler-data
     # dracut: --uefi, stripping, and efi signing
     binutils elfutils sbsigntools
+    # dracut: tpm2-tss
+    tpm2-tools
     # zathura: PDF support
     zathura-pdf-mupdf
     # libva: intel drivers
