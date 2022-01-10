@@ -15,7 +15,8 @@
 
 set -xeuo pipefail
 
-exec restic -r "rclone:kastl:restic-$USERNAME" backup ~ \
+exec systemd-inhibit --who backup.bash --why='Ongoing backup' \
+    restic -r "rclone:kastl:restic-$USERNAME" backup ~ \
     --one-file-system \
     --tag basti \
     --tag dotfiles-script \
