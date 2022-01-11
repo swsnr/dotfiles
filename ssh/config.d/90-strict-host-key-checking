@@ -1,3 +1,6 @@
+# Defaults must come last, because SSH always uses the _first_ value for each
+# setting
+
 # Disable TOFU checking in favour of an explicit list of known hosts
 # See https://blog.g3rt.nl/ssh-host-key-validation-strict-yet-user-friendly.html
 Host *
