@@ -28,12 +28,6 @@ PRODUCT_NAME="$(< /sys/class/dmi/id/product_name)"
 
 # Remove packages I no longer use
 to_remove=(
-    # Remove low-level efi tools; I no longer require EFI Key Tool
-    efitools
-    # The firmware UI is good enough for the few cases where this actually matters
-    efibootmgr
-    # I don't build flatpaks currently
-    flatpak-builder
     # Remove linux-lts; I'm now using the standard kernel
     linux-lts
 )
@@ -536,7 +530,7 @@ if [[ -n "${SUDO_USER:-}" ]]; then
         pacman -D --asdeps "${aur_optdeps[@]}"
     fi
 
-    remove_from_repo=(plymouth yaru-gtk-theme yaru-icon-theme)
+    remove_from_repo=()
     if [[ ${#remove_from_repo[@]} -gt 0 ]]; then
         for pkg in "${remove_from_repo[@]}"; do
             rm -f "/srv/pkgrepo/aur/${pkg}-"*.pkg.tar.*
