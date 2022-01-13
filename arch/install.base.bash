@@ -275,6 +275,9 @@ systemctl enable systemd-boot-update.service
 # homed for user management and home areas
 systemctl enable systemd-homed.service
 # Userspace OOM killer from systemd; kills more selectively than the kernel
+install -Dpm644 "$DIR/etc/systemd/oomd-lunaryorn.conf" /etc/systemd/oomd.conf.d/oomd-lunaryorn.conf
+install -Dpm644 "$DOR/etc/systemd/root-slice-oomd-lunaryorn.conf" /etc/systemd/-.slice.d/50-oomd-lunaryorn.conf
+install -Dpm644 "$DOR/etc/systemd/user-service-oomd-lunaryorn.conf" /etc/systemd/user@.service.d/50-oomd-lunaryorn.conf
 systemctl enable systemd-oomd.service
 # Desktop manager
 systemctl enable gdm.service
