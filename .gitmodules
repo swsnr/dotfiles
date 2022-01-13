@@ -1,9 +1,9 @@
 [submodule "submodules/nvim/vim-toml"]
 	path = submodules/nvim/vim-toml
-	url = ../../cespare/vim-toml.git
+	url = https://github.com/cespare/vim-toml.git
 [submodule "submodules/nvim/vim-fish"]
 	path = submodules/nvim/vim-fish
-	url = ../../blankname/vim-fish.git
+	url = https://github.com/blankname/vim-fish.git
 [submodule ".dotbot/dotbot"]
 	path = .dotbot/dotbot
-	url = ../../anishathalye/dotbot.git
+	url = https://github.com/anishathalye/dotbot.git
