@@ -34,6 +34,8 @@ to_remove=(
     efibootmgr
     # I don't build flatpaks currently
     flatpak-builder
+    # Remove linux-lts; I'm now using the standard kernel
+    linux-lts
 )
 for pkg in "${to_remove[@]}"; do
     pacman --noconfirm -Rs "$pkg" || true
@@ -54,7 +56,6 @@ packages=(
     linux-firmware
     intel-ucode
     linux
-    linux-lts
     lsb-release
     sudo
     zram-generator # swap on compressed RAM, mostly to support systemd-oomd
