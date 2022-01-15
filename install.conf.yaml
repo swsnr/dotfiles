@@ -83,13 +83,6 @@
 
 - gsettings:
     org.gnome.desktop.interface:
-      # Style
-      gtk-theme: 'Adwaita'
-      icon-theme: 'Adwaita'
-      cursor-theme: 'Adwaita'
-      font-name: 'Ubuntu 11'
-      document-font-name: 'Ubuntu 11'
-      monospace-font-name: 'PragmataPro Liga 10'
       # Disable hot corner
       enable-hot-corners: false
       # Show date and weekday in clock
@@ -115,9 +108,6 @@
       show-weekdate: true
     org.gnome.mutter:
       dynamic-workspaces: true
-    org.gnome.desktop.wm.preferences:
-      # Font for window titles of non-CSD windows
-      titlebar-font: 'Ubuntu Bold 11'
     org.gnome.desktop.wm.keybindings:
       close: ['<Super>q', '<Alt>F4']
       # Switch windows not applications
