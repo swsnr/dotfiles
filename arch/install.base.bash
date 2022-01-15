@@ -415,9 +415,14 @@ done
 # https://help.gnome.org/admin/system-admin-guide/stable/login-banner.html.en
 install -Dpm644 "$DIR/etc/gdm-profile" /etc/dconf/profile/gdm
 
+# Apps to try:
+# - https://flathub.org/apps/details/com.github.flxzt.rnote
+# - https://github.com/sonnyp/tangram
+
 # Common applications
 flatpaks=(
     com.github.tchx84.Flatsecal # Manage flatpak permissions
+    org.gnome.World.Secrets # Keepass database access
     io.github.Qalculate # Scientific calculator
     io.github.seadve.Kooha # Screen recorder
     org.signal.Signal # Messenger
@@ -430,6 +435,7 @@ flatpaks=(
     io.freetubeapp.FreeTube # A privacy focused youtube client
     com.gitlab.newsflash # News reader und miniflux client
     org.gnome.Lollypop # Music manager
+    org.gaphor.Gaphor # UML editor
 )
 flatpak install --system --or-update --noninteractive "${flatpaks[@]}"
 
