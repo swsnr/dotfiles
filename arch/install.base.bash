@@ -416,7 +416,6 @@ done
 install -Dpm644 "$DIR/etc/gdm-profile" /etc/dconf/profile/gdm
 
 # Apps to try:
-# - https://flathub.org/apps/details/com.github.flxzt.rnote
 # - https://github.com/sonnyp/tangram
 
 # Common applications
@@ -436,6 +435,7 @@ flatpaks=(
     com.gitlab.newsflash # News reader und miniflux client
     org.gnome.Lollypop # Music manager
     org.gaphor.Gaphor # UML editor
+    com.github.xournalpp.xournalpp # Handwritten note taking (for Wacom tablet)
 )
 flatpak install --system --or-update --noninteractive "${flatpaks[@]}"
 
