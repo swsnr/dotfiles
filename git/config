@@ -29,8 +29,12 @@
 # Commit and tag settings
 [commit]
 	verbose = true
+	# Sign commits (though we use SSH, see above)
+	gpgSign = true
 [tag]
 	sort = -version:refname
+	# Sign tags (again, SSH, not GPG)
+	gpgSign = true
 # Rebasing and merging
 [rebase]
 	# Automatically squash with certain commit message prefixes
@@ -78,6 +82,8 @@
 [push]
 	# Push annotated tag reachable from pushed commits
 	followTags = true
+	# Sign pushes if the server asks for it
+	gpgSign = if-asked
 # UI
 [color]
 	diff = auto
