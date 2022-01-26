@@ -43,6 +43,7 @@
     # Git config files and tools
     ~/.config/git/config: git/config
     ~/.config/git/ignore: git/ignore
+    ~/.config/git/allowed-signers: git/allowed-signers
     ~/.config/git/attributes: git/attributes
     ~/.config/git/config.linux:
       path: git/config.linux

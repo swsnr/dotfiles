@@ -2,6 +2,14 @@
 [user]
 	name = Sebastian Wiesner
 	useconfigonly = true
+	# Use the local SSH key for signing by default
+	signingKey = ~/.ssh/id_ed25519.pub
+[gpg]
+	# SSH keys are so much easier to use than the abomination that is GPG
+	format = ssh
+[gpg.ssh]
+	# Set a default file for me to keep my trustlist at
+	allowedSignersFile = ~/.config/git/allowed-signers
 [core]
 	preloadIndex = true
 [init]
