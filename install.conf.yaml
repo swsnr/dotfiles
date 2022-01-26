@@ -123,6 +123,8 @@
       # Disable input method switching wtih Super+Space
       switch-input-source: ['XF86Keyboard']
       switch-input-source-backward: ['<Shift>XF86Keyboard']
+      # Toogle fullscreen
+      toggle-fullscreen: ['<Super>Return']
 - gnome_terminal_profile:
     audible-bell: false
     bold-is-bright: false
