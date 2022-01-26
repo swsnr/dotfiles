@@ -139,8 +139,6 @@
 [url "https://"]
 	# Force HTTPS URLs
 	insteadOf = http://
-[hub]
-	protocol = https
 # Includes
 [include]
 	# Platform specific settings
