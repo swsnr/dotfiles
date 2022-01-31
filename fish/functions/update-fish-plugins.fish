@@ -17,11 +17,11 @@ function update-fish-plugins -d 'Update my fish plugins'
 
     set -l current_head (git -C $git_dir rev-parse HEAD)
 
-    git -C $git_dir subtree pull --prefix fish/plugins/z https://github.com/jethrokuan/z.git master
-    git -C $git_dir subtree pull --prefix fish/plugins/nvm/ https://github.com/jorgebucaran/nvm.fish.git master
-    git -C $git_dir subtree pull --prefix fish/plugins/autopair https://github.com/jorgebucaran/autopair.fish.git master
-    git -C $git_dir subtree pull --prefix fish/plugins/sdkman https://github.com/reitzig/sdkman-for-fish.git master
-    git -C $git_dir subtree pull --prefix fish/plugins/kubectl-completions https://github.com/evanlucas/fish-kubectl-completions.git master
+    git -C $git_dir subtree pull --squash --prefix fish/plugins/z https://github.com/jethrokuan/z.git master
+    git -C $git_dir subtree pull --squash --prefix fish/plugins/nvm/ https://github.com/jorgebucaran/nvm.fish.git main
+    git -C $git_dir subtree pull --squash --prefix fish/plugins/autopair https://github.com/jorgebucaran/autopair.fish.git main
+    git -C $git_dir subtree pull --squash --prefix fish/plugins/sdkman https://github.com/reitzig/sdkman-for-fish.git master
+    git -C $git_dir subtree pull --squash --prefix fish/plugins/kubectl-completions https://github.com/evanlucas/fish-kubectl-completions.git main
 
     git -C $git_dir diff $current_head HEAD -- fish/plugins/
 end
