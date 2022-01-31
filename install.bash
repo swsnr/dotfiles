@@ -30,7 +30,7 @@ ln -fs -t ~/.config/fish/conf.d "$DIR"/fish/plugins/*/conf.d/*.fish
 ln -fs -t ~/.config/fish/functions "$DIR"/fish/plugins/*/functions/*.fish
 ln -fs -t ~/.config/fish/completions "$DIR"/fish/plugins/*/completions/*.fish
 # Remove fisher
-rm ~/.config/fish/functions/fisher.fish
+rm -f ~/.config/fish/functions/fisher.fish ~/.config/fish/completions/fisher.fish
 
 # Vim
 ln -fs "$DIR/vim/ideavimrc" ~/.ideavimrc
@@ -82,6 +82,3 @@ command -v rclone >& /dev/null &&
     rclone completion fish > ~/.config/fish/completions/rclone.fish
 command -v restic >& /dev/null &&
     restic generate --fish-completion ~/.config/fish/completions/restic.fish
-
-# TODO: Drop fisher in favourite of git subtrees
-fish -c 'type -q fisher || begin; curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher; end'
