@@ -25,6 +25,12 @@ ln -fs -t ~/.local/bin/ "$DIR/bin/"*
 mkdir -p ~/.config/fish/functions
 ln -fs -t ~/.config/fish "$DIR/fish/config.fish" "$DIR/fish/fish_plugins"
 ln -fs -t ~/.config/fish/functions "$DIR/fish/functions/"*.fish
+# Fish plugins (per fisher scheme)
+ln -fs -t ~/.config/fish/conf.d "$DIR"/fish/plugins/*/conf.d/*.fish
+ln -fs -t ~/.config/fish/functions "$DIR"/fish/plugins/*/functions/*.fish
+ln -fs -t ~/.config/fish/completions "$DIR"/fish/plugins/*/completions/*.fish
+# Remove fisher
+rm ~/.config/fish/functions/fisher.fish
 
 # Vim
 ln -fs "$DIR/vim/ideavimrc" ~/.ideavimrc
