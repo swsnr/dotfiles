@@ -51,7 +51,7 @@ ln -fs -t ~/.ssh/known-hosts "$DIR/ssh/known-hosts/"*
 ln -fs -t ~/.ssh/config.d "$DIR/ssh/config.d/"*
 
 # Scala configuration
-mkdir -p ~/.ammonite ~/sbt/1.0/plugins/project
+mkdir -p ~/.ammonite ~/.sbt/1.0/plugins/project
 ln -fs "$DIR/scala/ammonite-predef.sc" ~/.ammonite/predef.sc
 ln -fs "$DIR/scala/settings.sbt" ~/.sbt/1.0/settings.sbt
 ln -fs -t ~/.sbt/1.0/plugins "$DIR/scala/"{plugins,sbt-updates}.sbt
