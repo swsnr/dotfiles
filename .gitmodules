@@ -4,6 +4,3 @@
 [submodule "submodules/nvim/vim-fish"]
 	path = submodules/nvim/vim-fish
 	url = https://github.com/blankname/vim-fish.git
-[submodule ".dotbot/dotbot"]
-	path = .dotbot/dotbot
-	url = https://github.com/anishathalye/dotbot.git
