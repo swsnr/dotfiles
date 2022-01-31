@@ -14,5 +14,5 @@
 
 function boulderwelt -d 'Boulderwelt Queue'
     xh -f POST 'https://www.boulderwelt-muenchen-west.de/wp-admin/admin-ajax.php' action=cxo_get_crowd_indicator |
-        jq -r '@text "\(.level)%"'
+        jq -r '@text "\(.percent)% (\(.level) von \(.flevel), \(.queue) warten)"'
 end
