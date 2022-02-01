@@ -5,7 +5,7 @@
 	sshcommand = C:/Windows/System32/OpenSSH/ssh.exe
 # Credential helper
 [credential]
-	helper = manager
+	helper = manager-core
 # Use winmerge (<http://winmerge.org/>) as merge tool on Windows
 [diff]
 	tool = winmerge
