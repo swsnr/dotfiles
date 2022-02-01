@@ -23,7 +23,7 @@ ln -fs -t ~/.local/bin/ "$DIR/bin/"*
 
 # Fish shell config files and functions
 mkdir -p ~/.config/fish/functions
-ln -fs -t ~/.config/fish "$DIR/fish/config.fish" "$DIR/fish/fish_plugins"
+ln -fs -t ~/.config/fish "$DIR/fish/config.fish"
 ln -fs -t ~/.config/fish/functions "$DIR/fish/functions/"*.fish
 # Fish plugins (per fisher scheme)
 ln -fs -t ~/.config/fish/conf.d "$DIR"/fish/plugins/*/conf.d/*.fish
