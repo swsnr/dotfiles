@@ -2,7 +2,7 @@
 	# Make git cope with CRLF line endings
 	autocrlf = input
 	# Use Windows built-in SSH client
-    sshcommand = C:/Windows/System32/OpenSSH/ssh.exe
+	sshcommand = C:/Windows/System32/OpenSSH/ssh.exe
 # Credential helper
 [credential]
 	helper = manager
