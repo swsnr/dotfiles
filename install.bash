@@ -82,3 +82,6 @@ command -v rclone >& /dev/null &&
     rclone completion fish > ~/.config/fish/completions/rclone.fish
 command -v restic >& /dev/null &&
     restic generate --fish-completion ~/.config/fish/completions/restic.fish
+
+# Configure Codium
+command -v codium >& /dev/null && ./misc/codium-settings.py

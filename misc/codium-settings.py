@@ -20,8 +20,7 @@ from pathlib import Path
 
 SETTINGS = {
     # Disable telemetry
-    "telemetry.enableCrashReporter": False,
-    "telemetry.enableTelemetry": False,
+    "telemetry.telemetryLevel": "off",
     # Colors (follow the system on colors)
     "window.autoDetectColorScheme": True,
     # Fonts
@@ -38,13 +37,36 @@ SETTINGS = {
         120,
         160
     ],
+    "editor.formatOnPaste": False,
+    "editor.formatOnSave": True,
     "files.trimTrailingWhitespace": True,
     "files.insertFinalNewline": True,
     "files.autoSave": "onFocusChange",
     # Version control
     "git.confirmSync": False,
     "git.autofetch": True,
+    # File explorer
+    "explorer.confirmDragAndDrop": False,
+    "explorer.confirmDelete": False,
 }
+
+
+EXTENSIONS = [
+    'bmalehorn.vscode-fish',
+    'James-Yu.latex-workshop',
+    'matklad.rust-analyzer',
+    'panekj.powershell-preview',
+    'serayuzgur.crates',
+    'tamasfe.even-better-toml',
+    'timonwong.shellcheck'
+]
+
+
+def install_extensions():
+    installed = set(run(['codium', '--list-extensions'], text=True, capture_output=True).stdout.splitlines())
+    for extension in EXTENSIONS:
+        if extension not in installed:
+            run(['codium', '--install-extension', extension])
 
 
 def update_config():
@@ -60,6 +82,7 @@ def update_config():
 
 def main():
     update_config()
+    install_extensions()
 
 
 if __name__ == '__main__':
