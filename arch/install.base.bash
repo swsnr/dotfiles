@@ -95,6 +95,7 @@ packages=(
     fish
     git
     git-lfs
+    git-filter-repo
     tig # Curses git interfaces
     neovim
     exa # Better ls (with git support)
