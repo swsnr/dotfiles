@@ -423,7 +423,7 @@ install -Dpm644 "$DIR/etc/gdm-profile" /etc/dconf/profile/gdm
 
 # Common applications
 flatpaks=(
-    com.github.tchx84.Flatsecal # Manage flatpak permissions
+    com.github.tchx84.Flatseal # Manage flatpak permissions
     org.gnome.World.Secrets # Keepass database access
     io.github.Qalculate # Scientific calculator
     io.github.seadve.Kooha # Screen recorder
