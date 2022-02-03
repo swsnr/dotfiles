@@ -30,6 +30,9 @@ PRODUCT_NAME="$(< /sys/class/dmi/id/product_name)"
 to_remove=(
     # Remove linux-lts; I'm now using the standard kernel
     linux-lts
+    # I don't really use Github so often anymore
+    hub
+    github-cli
 )
 for pkg in "${to_remove[@]}"; do
     pacman --noconfirm -Rs "$pkg" || true
@@ -127,8 +130,6 @@ packages=(
     hunspell-en_gb
     hunspell-en_us
     # Development tools
-    hub
-    github-cli
     rustup
     hexyl # hex viewer
     oxipng # Optimize PNGs for size
