@@ -202,6 +202,7 @@ packages=(
     gnome-tweaks
     gnome-software
     gnome-backgrounds
+    gnome-themes-extra # For adwaita-dark
     xdg-user-dirs-gtk
     evolution
     file-roller
