@@ -40,8 +40,9 @@ SETTINGS = {
         'numlock-state': True
     },
     'org.gnome.desktop.input-sources': {
-        # Set compose key according to my moonlander layout
-        'xkb-options': ['compose:ralt']
+        # compose:ralt: Set compose key to right alt key, according to my moonlander layout
+        # numpad:mac: Always use numpad for nummeric keys, never for arrows and stuff
+        'xkb-options': ['compose:ralt', 'numpad:mac']
     },
     'org.gnome.desktop.calendar': {
         # Show week numbers in calendar
