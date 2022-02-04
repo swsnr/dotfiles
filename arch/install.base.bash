@@ -97,7 +97,6 @@ packages=(
     man-pages
     fish
     git
-    git-lfs
     git-filter-repo
     tig # Curses git interfaces
     neovim
@@ -138,10 +137,6 @@ packages=(
     cargo-udeps
     cargo-release
     meld # Graphical diff tool (not via flatpak for git diff-tool -g)
-    # Containers, kubernetes & cloud
-    podman
-    kubectl
-    helm
     # Desktop tools
     wl-clipboard
     dconf-editor
