@@ -36,7 +36,7 @@ SETTINGS = {
         'enabled': True
     },
     'org.gnome.desktop.peripherals.keyboard': {
-        'remember-numlock-state': False,
+        'remember-numlock-state': True,
         'numlock-state': True
     },
     'org.gnome.desktop.input-sources': {
