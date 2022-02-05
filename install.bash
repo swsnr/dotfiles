@@ -21,6 +21,10 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}")"  >/dev/null 2>&1 && pwd)"
 mkdir -p ~/.local/bin
 ln -fs -t ~/.local/bin/ "$DIR/bin/"*
 
+# Environment variables
+mkdir -p ~/.config/environment.d
+ln -fs -t ~/.config/environment.d "$DIR"/environment/*.conf
+
 # Fish shell config files and functions
 mkdir -p ~/.config/fish/functions
 ln -fs -t ~/.config/fish "$DIR/fish/config.fish"
