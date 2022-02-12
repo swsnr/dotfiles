@@ -87,5 +87,9 @@ command -v rclone >& /dev/null &&
 command -v restic >& /dev/null &&
     restic generate --fish-completion ~/.config/fish/completions/restic.fish
 
+# Flatpak setup
+command -v flatpak >& /dev/null &&
+    flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
 # Configure Codium
 command -v codium >& /dev/null && ./misc/codium-settings.py
