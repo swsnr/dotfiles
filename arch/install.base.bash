@@ -98,6 +98,7 @@ packages=(
     fish
     git
     git-filter-repo
+    tea # CLI for gitea servers
     tig # Curses git interfaces
     neovim
     exa # Better ls (with git support)

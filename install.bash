@@ -86,6 +86,7 @@ command -v rclone >& /dev/null &&
     rclone completion fish > ~/.config/fish/completions/rclone.fish
 command -v restic >& /dev/null &&
     restic generate --fish-completion ~/.config/fish/completions/restic.fish
+command -v tea >& /dev/null && tea autocomplete fish --install
 
 # Flatpak setup
 command -v flatpak >& /dev/null &&
