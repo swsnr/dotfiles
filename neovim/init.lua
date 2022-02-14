@@ -12,6 +12,20 @@
 -- License for the specific language governing permissions and limitations under
 -- the License.
 
+-- Initialize plugin manager
+local paq_dir = string.format('%s/site/pack/paqs/start/paq-nvim', vim.fn.stdpath('data'))
+
+if vim.fn.empty(vim.fn.glob(paq_dir)) > 0 then
+  vim.fn.system {'git', 'clone', '--depth=1', 'https://github.com/savq/paq-nvim.git', paq_dir}
+end
+
+-- Load plugins
+require 'paq' {
+  'nvim-lua/plenary.nvim', -- Dependency of telescope
+  'nvim-telescope/telescope.nvim', -- Fuzzy file finder
+  'nvim-telescope/telescope-ui-select.nvim', -- Make UI select use telescope
+}
+
 -- Enable lua filetypes
 vim.g.do_filetype_lua = 1
 
@@ -32,6 +46,16 @@ vim.opt.splitbelow = true -- split downwards
 vim.opt.ignorecase = true -- Ignore case when searching…
 vim.opt.smartcase = true -- …for all lowercase patterns
 
+-- Plugins
+require('telescope').setup{
+  mappings = {
+    i = {
+      ["jk"] = '<ESC>',
+    }
+  }
+}
+require("telescope").load_extension("ui-select")
+
 -- Bindings
 vim.g.mapleader = ' '
 
@@ -44,11 +68,14 @@ function nnoremap(lhs, rhs)
 end
 
 inoremap('jk', '<ESC>')
+nnoremap('<leader> ', ':Telescope commands<cr>')
 
--- Reload neovim configuration
+-- Files and finding
 nnoremap('<leader>fR', ':source $MYVIMRC<cr>')
+nnoremap('<leader>fh', ':Telescope help_tags<cr>')
 
--- Window bindings
+-- Buffer and window bindings
+nnoremap('<leader>bb', ':Telescope buffers<cr>')
 nnoremap('<leader>w/', ':vsplit<cr>')
 nnoremap('<leader>w-', ':split<cr>')
 nnoremap('<leader>wq', ':q<cr>')
