@@ -38,14 +38,9 @@ rm -f ~/.config/fish/functions/fisher.fish ~/.config/fish/completions/fisher.fis
 
 # Vim
 ln -fs "$DIR/vim/ideavimrc" ~/.ideavimrc
-mkdir -p ~/.config/nvim/after
-mkdir -p ~/.local/share/nvim/site/pack/dotfiles/start
-ln -fs "$DIR/vim/init.vim" ~/.config/nvim/init.vim
-ln -fs -t ~/.config/nvim/after "$DIR/vim/after/"*
-# Vim plugins
-for plugin in vim-toml vim-fish; do
-    ln -fs -T "$DIR/submodules/nvim/$plugin" "$HOME/.local/share/nvim/site/pack/dotfiles/start/$plugin"
-done
+
+# Neovim
+ln -fs "$DIR/neovim/init.lua" ~/.config/nvim/init.lua
 
 # Git configuration
 mkdir -p ~/.config/git
