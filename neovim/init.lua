@@ -12,19 +12,8 @@
 -- License for the specific language governing permissions and limitations under
 -- the License.
 
--- Initialize plugin manager
-local paq_dir = string.format('%s/site/pack/paqs/start/paq-nvim', vim.fn.stdpath('data'))
-
-if vim.fn.empty(vim.fn.glob(paq_dir)) > 0 then
-  vim.fn.system {'git', 'clone', '--depth=1', 'https://github.com/savq/paq-nvim.git', paq_dir}
-end
-
 -- Load plugins
-require 'paq' {
-  'nvim-lua/plenary.nvim', -- Dependency of telescope
-  'nvim-telescope/telescope.nvim', -- Fuzzy file finder
-  'nvim-telescope/telescope-ui-select.nvim', -- Make UI select use telescope
-}
+require('user.plugins')
 
 -- Enable lua filetypes
 vim.g.do_filetype_lua = 1
@@ -49,16 +38,6 @@ vim.opt.splitbelow = true -- split downwards
 -- Options for searching
 vim.opt.ignorecase = true -- Ignore case when searching…
 vim.opt.smartcase = true -- …for all lowercase patterns
-
--- Plugins
-require('telescope').setup{
-  mappings = {
-    i = {
-      ["jk"] = '<ESC>',
-    }
-  }
-}
-require("telescope").load_extension("ui-select")
 
 -- Bindings
 vim.g.mapleader = ' '

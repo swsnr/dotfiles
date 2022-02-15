@@ -40,7 +40,9 @@ rm -f ~/.config/fish/functions/fisher.fish ~/.config/fish/completions/fisher.fis
 ln -fs "$DIR/vim/ideavimrc" ~/.ideavimrc
 
 # Neovim
-ln -fs "$DIR/neovim/init.lua" ~/.config/nvim/init.lua
+mkdir -p ~/.config/nvim/lua/user
+ln -fs -t ~/.config/nvim "$DIR"/neovim/init.lua
+ln -fs -t ~/.config/nvim/lua/user "$DIR"/neovim/plugins.lua
 
 # Git configuration
 mkdir -p ~/.config/git
@@ -89,3 +91,7 @@ command -v flatpak >& /dev/null &&
 
 # Configure Codium
 command -v codium >& /dev/null && ./misc/codium-settings.py
+
+# Setup neovim plugins
+command -v nvim >& /dev/null &&
+    nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
