@@ -29,6 +29,10 @@ require 'paq' {
 -- Enable lua filetypes
 vim.g.do_filetype_lua = 1
 
+-- Options for the general user interface
+vim.opt.showmode = false -- Don't show mode message in message line
+vim.opt.signcolumn = 'yes' -- Always show sign column
+
 -- Options for text editing
 vim.opt.number = true -- Enable line numbers…
 vim.opt.relativenumber = true -- … relative to the current line.
