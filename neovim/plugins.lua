@@ -24,11 +24,28 @@ if not status_ok then
   return
 end
 
+
+-- TODO: Plugins to try:
+--
+-- - https://github.com/kyazdani42/nvim-tree.lua
+-- - https://github.com/ggandor/lightspeed.nvim
+-- - https://github.com/ms-jpq/coq_nvim
+-- - https://github.com/nvim-treesitter/nvim-treesitter
+-- - https://github.com/kosayoda/nvim-lightbulb
+-- - https://github.com/lewis6991/gitsigns.nvim
+-- - https://github.com/neovim/nvim-lspconfig
+-- - https://github.com/simrat39/rust-tools.nvim
+-- - https://github.com/glepnir/lspsaga.nvim
+-- - https://github.com/nvim-lualine/lualine.nvim
+-- - https://github.com/scalameta/nvim-metals
+--
+-- https://github.com/rockerBOO/awesome-neovim is a great source of inspiration.
+
 return packer.startup(function(use)
-  -- Packer can manage itself
+  -- This package manager: https://github.com/wbthomason/packer.nvim
   use 'wbthomason/packer.nvim'
 
-  -- Fuzzy finder
+  -- Fuzzy finder: https://github.com/nvim-telescope/telescope.nvim
   use {
     'nvim-telescope/telescope.nvim',
     requires = { {'nvim-lua/plenary.nvim'} },
@@ -42,8 +59,8 @@ return packer.startup(function(use)
       }
     end
   }
-
   -- Redirect vim's ui select to telescope
+  -- https://github.com/nvim-telescope/telescope-ui-select.nvim
   use {
     'nvim-telescope/telescope-ui-select.nvim',
     config = function()

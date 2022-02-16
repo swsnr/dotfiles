@@ -12,6 +12,12 @@
 -- License for the specific language governing permissions and limitations under
 -- the License.
 
+-- Neovim initialization in Lua, because VimL is a nightmare.
+--
+-- See https://learnxinyminutes.com/docs/lua/ for a very nice and brief intro to
+-- Lua, and https://github.com/medwatt/Notes/blob/main/Lua/Lua_Quick_Guide.ipynb
+-- and https://github.com/nanotee/nvim-lua-guide for info about Lua in Neovim.
+
 -- Load plugins
 require('user.plugins')
 
