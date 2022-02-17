@@ -18,6 +18,11 @@ from gi.repository import Gio
 
 SETTINGS = {
     'org.gnome.desktop.interface': {
+        # Themes and fonts
+        'icon-theme': 'Arc',
+        'gtk-theme': 'Arc-Darker',
+        'font-name': 'Ubuntu 10',
+        'document-font-name': 'Ubuntu 10',
         # Disable hot corner
         'enable-hot-corners': False,
         # Show date and weekday in clock
@@ -50,6 +55,9 @@ SETTINGS = {
     },
     'org.gnome.mutter': {
         'dynamic-workspaces': True
+    },
+    'org.gnome.desktop.wm.preferences': {
+        'titlebar-font': 'Ubuntu Bold 10'
     },
     'org.gnome.desktop.wm.keybindings': {
         'close': ['<Super>q', '<Alt>F4'],

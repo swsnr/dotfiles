@@ -162,7 +162,9 @@ packages=(
     zim # Notes, Journal & Zettelkasten (works better as package)
     # Latex
     texlive-most
-    # Fonts
+    # Fonts & themes
+    arc-gtk-theme
+    arc-icon-theme
     noto-fonts
     noto-fonts-extra
     noto-fonts-cjk
