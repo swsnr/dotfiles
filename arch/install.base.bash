@@ -102,6 +102,7 @@ packages=(
     tig # Curses git interfaces
     neovim
     exa # Better ls (with git support)
+    vivid # Creates themes for dircolors
     fd # Simpler find
     sd # Simpler sed
     dua-cli # Disk space analyzer
