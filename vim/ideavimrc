@@ -5,7 +5,15 @@ set incsearch " Search incrementally
 set visualbell " Don't beep please
 set showmode
 
-set surround " Surround text with quotes, parens, etc.
+" Enable some emulated plugins, see https://github.com/JetBrains/ideavim/wiki/Emulated-plugins
+" for more information
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+Plug 'vim-scripts/argtextobj.vim'
+Plug 'machakann/vim-highlightedyank'
+Plug 'michaeljsmith/vim-indent-object'
+Plug 'terryma/vim-multiple-cursors'
+packadd matchit
 
 " Quickly go to normal mode
 inoremap jk <esc>
