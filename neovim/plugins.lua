@@ -71,7 +71,10 @@ return packer.startup(function(use)
   -- Dracula colour scheme: https://github.com/Mofiqul/dracula.nvim
   use {
     'Mofiqul/dracula.nvim',
-    config = function() vim.cmd('colorscheme dracula') end
+    config = function()
+      vim.g.dracula_italic_comment = true
+      vim.cmd('colorscheme dracula')
+    end
   }
 
   -- Automatically setup configuration after cloning packer
