@@ -91,7 +91,3 @@ command -v flatpak >& /dev/null &&
 
 # Configure Codium
 command -v codium >& /dev/null && ./misc/codium-settings.py
-
-# Setup neovim plugins
-command -v nvim >& /dev/null &&
-    nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
