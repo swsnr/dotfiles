@@ -4,6 +4,7 @@ set hlsearch " Highlight last search results
 set incsearch " Search incrementally
 set visualbell " Don't beep please
 set showmode
+set ideajoin " Use IDEA's join lines, because it understands code semantics better
 
 " Enable some emulated plugins, see https://github.com/JetBrains/ideavim/wiki/Emulated-plugins
 " for more information
