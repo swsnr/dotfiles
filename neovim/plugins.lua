@@ -27,7 +27,6 @@ end
 
 -- TODO: Plugins to try:
 --
--- - https://github.com/lukas-reineke/indent-blankline.nvim
 -- - https://github.com/romgrk/barbar.nvim
 -- - https://github.com/akinsho/bufferline.nvim
 -- - https://github.com/kyazdani42/nvim-tree.lua
@@ -128,6 +127,18 @@ return packer.startup(function(use)
 
   -- Very convenient and fast motions: https://github.com/ggandor/lightspeed.nvim
   use { 'ggandor/lightspeed.nvim' }
+
+  -- Indent guides: https://github.com/lukas-reineke/indent-blankline.nvim
+  use {
+    'lukas-reineke/indent-blankline.nvim',
+    config = function()
+      require("indent_blankline").setup {
+        use_treesitter = true,
+        show_current_context = true,
+        show_current_context_start = true,
+      }
+    end
+  }
 
   -- Automatically setup configuration after cloning packer
   if packer_bootstrap then
