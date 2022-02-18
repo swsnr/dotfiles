@@ -48,7 +48,7 @@ return packer.startup(function(use)
   -- Fuzzy finder: https://github.com/nvim-telescope/telescope.nvim
   use {
     'nvim-telescope/telescope.nvim',
-    requires = { {'nvim-lua/plenary.nvim'} },
+    requires = {'nvim-lua/plenary.nvim'},
     config = function()
       require('telescope').setup{
         mappings = {
