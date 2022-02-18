@@ -79,3 +79,14 @@ augroup global
   au TextYankPost * silent! lua vim.highlight.on_yank()
 augroup END
 ]]
+
+--Language specific autocommands
+vim.cmd[[
+augroup vc_git
+  au!
+  " Automatically start insert mode in a new first line in Git commit messages,
+  " to that I can start typing my message right away without having to press i
+  " first
+  autocmd BufRead COMMIT_EDITMSG execute "normal! gg" | execute "normal! O" | startinsert
+augroup END
+]]
