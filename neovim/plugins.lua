@@ -32,7 +32,6 @@ end
 -- - https://github.com/akinsho/bufferline.nvim
 -- - https://github.com/kyazdani42/nvim-tree.lua
 -- - https://github.com/ms-jpq/coq_nvim
--- - https://github.com/nvim-treesitter/nvim-treesitter
 -- - https://github.com/kosayoda/nvim-lightbulb
 -- - https://github.com/lewis6991/gitsigns.nvim
 -- - https://github.com/neovim/nvim-lspconfig
@@ -70,6 +69,53 @@ return packer.startup(function(use)
       require('telescope').load_extension('ui-select')
     end
   }
+
+  -- Modern syntax highlighting: https://github.com/nvim-treesitter/nvim-treesitter
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    -- Make sure parsers are up to date
+    run = ':TSUpdate',
+    config = function()
+      require('nvim-treesitter.configs').setup {
+        -- Install all maintained parsers
+        ensure_installed = 'maintained',
+        -- Enable tree sitter highlighting
+        highlight = {enable = true},
+        -- Enable incremental selection
+        incremental_selection = {
+          enable = true,
+          keymaps = {
+            init_selection = "gnn",
+            node_incremental = "grn",
+            scope_incremental = "grc",
+            node_decremental = "grm",
+          },
+        },
+        -- Configure text objects
+        textobjects = {
+          select = {
+            enable = true,
+            -- Selecting text objects
+            keymaps = {
+              ['aa'] = '@parameter.outer', ['ia'] = '@parameter.inner',
+              ['af'] = '@function.outer', ['if'] = '@function.inner',
+              ['ac'] = '@class.outer', ['ic'] = '@class.inner',
+            },
+          },
+          move = {
+            enable = true,
+            goto_next_start = {[']a'] = '@parameter.inner', [']f'] = '@function.outer', [']c'] = '@class.outer'},
+            goto_next_end = {[']A'] = '@parameter.inner', [']F'] = '@function.outer', [']C'] = '@class.outer'},
+            goto_previous_start = {['[a'] = '@parameter.inner', ['[f'] = '@function.outer', ['[c'] = '@class.outer'},
+            goto_previous_end = {['[A'] = '@parameter.inner', ['[F'] = '@function.outer', ['[C'] = '@class.outer'},
+          },
+          -- TODO: Check out https://github.com/nvim-treesitter/nvim-treesitter-textobjects#textobjects-lsp-interop after configuring LSP
+        },
+      }
+    end
+  }
+  -- Text objects for treesitter, configured above, see https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+  use { 'nvim-treesitter/nvim-treesitter-textobjects' }
 
   -- Dracula colour scheme: https://github.com/Mofiqul/dracula.nvim
   use {
