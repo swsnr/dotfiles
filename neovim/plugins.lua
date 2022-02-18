@@ -63,6 +63,7 @@ return packer.startup(function(use)
   -- https://github.com/nvim-telescope/telescope-ui-select.nvim
   use {
     'nvim-telescope/telescope-ui-select.nvim',
+    requires = {'nvim-telescope/telescope.nvim'},
     config = function()
       require('telescope').load_extension('ui-select')
     end
