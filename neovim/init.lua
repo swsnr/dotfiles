@@ -21,8 +21,16 @@
 -- Load plugins
 require('user.plugins')
 
+-- neovide settings
+vim.g.neovide_cursor_vfx_mode = 'pixiedust'
+vim.g.neovide_remember_window_size = true
+
 -- Enable lua filetypes
 vim.g.do_filetype_lua = 1
+
+-- Gui settings: Pragmata Pro as standard font, and Noto for emojis
+vim.opt.guifont = 'PragmataPro Liga,Note Color Emoji:h10'
+vim.opt.mouse = 'nv' -- Enable mouse in normal and visual mode
 
 -- Options for the general user interface
 vim.opt.showmode = false -- Don't show mode message in message line

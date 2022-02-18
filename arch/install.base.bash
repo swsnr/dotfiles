@@ -495,6 +495,7 @@ aur_packages=(
     dracut-git
     # Editor
     vscodium-bin
+    neovide-git
     # Splash screen at boot
     plymouth
     # Gnome extensions
