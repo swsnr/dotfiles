@@ -45,8 +45,8 @@ function update-theme -d 'Read the current terminal background and update our en
         set -gx BAT_THEME 'Monokai Extended Light'
         set VIVID_THEME ayu
     else
-        set -gx BAT_THEME 'Monokai Extended'
-        set VIVID_THEME molokai
+        set -gx BAT_THEME 'Dracula'
+        set VIVID_THEME dracula
     end
 
     # Sync color theme with other tools
