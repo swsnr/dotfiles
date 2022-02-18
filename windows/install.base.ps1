@@ -22,7 +22,7 @@ $packages = @(
 )
 
 foreach ($package in $packages) {
-    winget install -id $package -e --source winget
+    winget install --id $package -e --source winget
 }
 
 # TODO: Enable SSH server Windows feature!
