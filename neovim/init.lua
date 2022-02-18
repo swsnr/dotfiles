@@ -60,8 +60,8 @@ inoremap('jk', '<ESC>')
 nnoremap('<leader> ', ':Telescope commands<cr>')
 
 -- Files and finding
-nnoremap('<leader>ff', ':Telescope find_files')
-nnoremap('<leader>fg', ':Telescope git_files')
+nnoremap('<leader>ff', ':Telescope find_files<cr>')
+nnoremap('<leader>fg', ':Telescope git_files<cr>')
 nnoremap('<leader>fR', ':source $MYVIMRC<cr>')
 nnoremap('<leader>fh', ':Telescope help_tags<cr>')
 
