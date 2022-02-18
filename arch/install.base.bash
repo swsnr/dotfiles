@@ -59,7 +59,7 @@ packages=(
     sbctl # Manage secure boot binaries and sign binaries
     # File systems
     ntfs-3g
-    exfat-utils
+    exfatprogs
     btrfs-progs
     # Hardware tools
     fwupd # Firmware updates
