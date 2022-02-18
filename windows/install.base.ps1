@@ -18,7 +18,7 @@ $packages = @(
     "Microsoft.WindowsTerminal",
     "Microsoft.PowerShell"
     "Git.Git",
-    "AgileBits.1Password",
+    "AgileBits.1Password"
 )
 
 foreach ($package in $packages) {
