@@ -27,8 +27,10 @@ end
 
 -- TODO: Plugins to try:
 --
+-- - https://github.com/lukas-reineke/indent-blankline.nvim
+-- - https://github.com/romgrk/barbar.nvim
+-- - https://github.com/akinsho/bufferline.nvim
 -- - https://github.com/kyazdani42/nvim-tree.lua
--- - https://github.com/ggandor/lightspeed.nvim
 -- - https://github.com/ms-jpq/coq_nvim
 -- - https://github.com/nvim-treesitter/nvim-treesitter
 -- - https://github.com/kosayoda/nvim-lightbulb
@@ -77,6 +79,9 @@ return packer.startup(function(use)
       vim.cmd('colorscheme dracula')
     end
   }
+
+  -- Very convenient and fast motions: https://github.com/ggandor/lightspeed.nvim
+  use { 'ggandor/lightspeed.nvim' }
 
   -- Automatically setup configuration after cloning packer
   if packer_bootstrap then
