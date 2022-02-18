@@ -59,11 +59,14 @@ end
 inoremap('jk', '<ESC>')
 nnoremap('<leader> ', ':Telescope commands<cr>')
 
+-- Help
+nnoremap('<leader>hh', ':Telescope help_tags<cr>')
+nnoremap('<leader>hk', ':Telescope keymaps<cr>')
+
 -- Files and finding
 nnoremap('<leader>ff', ':Telescope find_files<cr>')
 nnoremap('<leader>fg', ':Telescope git_files<cr>')
 nnoremap('<leader>fR', ':source $MYVIMRC<cr>')
-nnoremap('<leader>fh', ':Telescope help_tags<cr>')
 
 -- Buffer and window bindings
 nnoremap('<leader>bb', ':Telescope buffers<cr>')
