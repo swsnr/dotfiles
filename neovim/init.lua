@@ -70,3 +70,12 @@ nnoremap('<leader>bb', ':Telescope buffers<cr>')
 nnoremap('<leader>w/', ':vsplit<cr>')
 nnoremap('<leader>w-', ':split<cr>')
 nnoremap('<leader>wq', ':q<cr>')
+
+-- Global autocommands
+vim.cmd[[
+augroup global
+  au!
+  " Highlight yanked text, see https://github.com/neovim/neovim/pull/12279#issuecomment-879142040
+  au TextYankPost * silent! lua vim.highlight.on_yank()
+augroup END
+]]
