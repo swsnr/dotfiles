@@ -65,22 +65,29 @@ function nnoremap(lhs, rhs)
 end
 
 inoremap('jk', '<ESC>')
-nnoremap('<leader> ', ':Telescope commands<cr>')
+nnoremap('<leader> ', '<cmd>Telescope commands<cr>')
 
 -- Help
-nnoremap('<leader>hh', ':Telescope help_tags<cr>')
-nnoremap('<leader>hk', ':Telescope keymaps<cr>')
+nnoremap('<leader>hh', '<cmd>Telescope help_tags<cr>')
+nnoremap('<leader>hk', '<cmd>Telescope keymaps<cr>')
+nnoremap('<leader>hm', '<cmd>Telescope man_pages<cr>')
 
 -- Files and finding
-nnoremap('<leader>ff', ':Telescope find_files<cr>')
-nnoremap('<leader>fg', ':Telescope git_files<cr>')
-nnoremap('<leader>fR', ':source $MYVIMRC<cr>')
+nnoremap('<leader>ff', '<cmd>Telescope find_files<cr>')
+nnoremap('<leader>fg', '<cmd>Telescope git_files<cr>')
+nnoremap('<leader>fR', '<cmd>source $MYVIMRC<cr>')
+
+-- Lists
+nnoremap('<leader>ll', '<cmd>Telescope loclist<cr>')
+nnoremap('<leader>lq', '<cmd>Telescope quickfix<cr>')
+nnoremap('<leader>lj', '<cmd>Telescope jumplist<cr>')
+nnoremap('<leader>le', '<cmd>Telescope registers<cr>')
 
 -- Buffer and window bindings
-nnoremap('<leader>bb', ':Telescope buffers<cr>')
-nnoremap('<leader>w/', ':vsplit<cr>')
-nnoremap('<leader>w-', ':split<cr>')
-nnoremap('<leader>wq', ':q<cr>')
+nnoremap('<leader>bb', '<cmd>Telescope buffers<cr>')
+nnoremap('<leader>w/', '<cmd>vsplit<cr>')
+nnoremap('<leader>w-', '<cmd>split<cr>')
+nnoremap('<leader>wq', '<cmd>q<cr>')
 
 -- Global autocommands
 vim.cmd[[
