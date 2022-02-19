@@ -28,8 +28,8 @@ nnoremap [b :action PreviousTab<cr>
 nnoremap ]b :action NextTab<cr>
 nnoremap [c :action VcsShowPrevChangeMarker<cr>
 nnoremap ]c :action VcsShowNextChangeMarker<cr>
-nnoremap [m :action MethodUp<cr>
-nnoremap ]m :action MethodDown<cr>
+nnoremap [f :action MethodUp<cr>
+nnoremap ]f :action MethodDown<cr>
 nnoremap [q :action GotoPreviousError<cr>
 nnoremap ]q :action GotoNextError<cr>
 
