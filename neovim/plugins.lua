@@ -43,7 +43,6 @@ end
 --
 -- LSP utilties:
 --
--- - https://github.com/kosayoda/nvim-lightbulb
 -- - https://github.com/folke/trouble.nvim
 -- - https://github.com/glepnir/lspsaga.nvim
 --
@@ -256,6 +255,19 @@ return packer.startup(function(use)
     'j-hui/fidget.nvim',
     config = function()
       require('fidget').setup()
+    end
+  }
+
+  -- Indicators for LSP code actions: https://github.com/kosayoda/nvim-lightbulb
+  use {
+    'kosayoda/nvim-lightbulb',
+    config = function()
+      vim.cmd [[
+      augroup lightbulb
+        au!
+        autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
+      augroup END
+      ]]
     end
   }
 
