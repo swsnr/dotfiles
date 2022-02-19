@@ -231,7 +231,7 @@ return packer.startup(function(use)
         -- Telescope bindings in LSP buffers
         map('n', '<localleader>ta', '<cmd>Telescope lsp_code_actions<cr>')
         map('n', '<localleader>td', '<cmd>Telescope lsp_definitions<cr>')
-        map('n', '<localleader>tD', '<cmd>Telescope lsp_diagnostics<cr>')
+        map('n', '<localleader>tD', '<cmd>Telescope diagnostics<cr>')
         map('n', '<localleader>ti', '<cmd>Telescope lsp_implementations<cr>')
         map('n', '<localleader>tr', '<cmd>Telescope lsp_references<cr>')
         map('n', '<localleader>ts', '<cmd>Telescope lsp_document_symbols<cr>')
