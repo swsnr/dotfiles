@@ -35,6 +35,9 @@ vim.opt.mouse = 'nv' -- Enable mouse in normal and visual mode
 -- Options for the general user interface
 vim.opt.showmode = false -- Don't show mode message in message line
 vim.opt.signcolumn = 'yes' -- Always show sign column
+-- Always keep some context
+vim.opt.sidescrolloff = 8
+vim.opt.scrolloff = 8
 
 -- Completion: Always show a menu even if there's just one candidate, never
 -- insert automatically and never preselect an entry in the completion menuselect.
