@@ -36,23 +36,68 @@ end
 
 -- TODO: Plugins to try:
 --
+-- Rust setup:
+--
+-- - https://github.com/simrat39/rust-tools.nvim
+-- - https://github.com/Saecki/crates.nvim
+--
+-- LSP utilties:
+--
+-- - https://github.com/kosayoda/nvim-lightbulb
+-- - https://github.com/folke/trouble.nvim
+-- - https://github.com/glepnir/lspsaga.nvim
+--
+-- UI:
+--
 -- - https://github.com/romgrk/barbar.nvim
 -- - https://github.com/akinsho/bufferline.nvim
 -- - https://github.com/kyazdani42/nvim-tree.lua
--- - https://github.com/ms-jpq/coq_nvim
--- - https://github.com/kosayoda/nvim-lightbulb
--- - https://github.com/simrat39/rust-tools.nvim
--- - https://github.com/Saecki/crates.nvim
--- - https://github.com/glepnir/lspsaga.nvim
 -- - https://github.com/nvim-lualine/lualine.nvim
+--
+-- Other languages:
+--
 -- - https://github.com/scalameta/nvim-metals
+--
+-- Misc:
+--
+-- - https://github.com/ms-jpq/coq_nvim
 -- - https://github.com/nvim-telescope/telescope-symbols.nvim
+-- - https://github.com/airblade/vim-rooter
 --
 -- https://github.com/rockerBOO/awesome-neovim is a great source of inspiration.
 
 return packer.startup(function(use)
   -- This package manager: https://github.com/wbthomason/packer.nvim
   use 'wbthomason/packer.nvim'
+
+  -- Dracula colour scheme: https://github.com/Mofiqul/dracula.nvim
+  use {
+    'Mofiqul/dracula.nvim',
+    config = function()
+      vim.g.dracula_italic_comment = true
+      vim.cmd('colorscheme dracula')
+    end
+  }
+
+  -- Lualine: https://github.com/nvim-lualine/lualine.nvim
+  use {
+    'nvim-lualine/lualine.nvim',
+    requires = {
+      { 'kyazdani42/nvim-web-devicons', opt = true },
+      'SmiteshP/nvim-gps',
+    },
+    config = function()
+      local gps = require('nvim-gps')
+      require('lualine').setup {
+        sections = {
+          lualine_c = {
+            'filename',
+            { gps.get_location, cond = gps.is_available },
+          },
+        }
+      }
+    end
+  }
 
   -- Fuzzy finder: https://github.com/nvim-telescope/telescope.nvim
   use {
@@ -141,6 +186,15 @@ return packer.startup(function(use)
   -- Text objects for treesitter, configured above, see https://github.com/nvim-treesitter/nvim-treesitter-textobjects
   use { 'nvim-treesitter/nvim-treesitter-textobjects' }
 
+  -- Treesitter for the status line: https://github.com/SmiteshP/nvim-gps
+  use {
+    'SmiteshP/nvim-gps',
+    requires = "nvim-treesitter/nvim-treesitter",
+    config = function()
+      require('nvim-gps').setup()
+    end
+  }
+
   -- LSP: https://github.com/neovim/nvim-lspconfig
   use {
     'neovim/nvim-lspconfig',
@@ -188,12 +242,11 @@ return packer.startup(function(use)
     end
   }
 
-  -- Dracula colour scheme: https://github.com/Mofiqul/dracula.nvim
+  -- LSP progress messages: https://github.com/j-hui/fidget.nvim
   use {
-    'Mofiqul/dracula.nvim',
+    'j-hui/fidget.nvim',
     config = function()
-      vim.g.dracula_italic_comment = true
-      vim.cmd('colorscheme dracula')
+      require('fidget').setup()
     end
   }
 
