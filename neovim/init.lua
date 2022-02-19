@@ -84,11 +84,12 @@ nnoremap('<leader>wq', '<cmd>q<cr>')
 vim.cmd[[
 augroup flausch
   au!
+  au TermOpen * setlocal nonumber norelativenumber signcolumn=no
   " Highlight yanked text, see https://github.com/neovim/neovim/pull/12279#issuecomment-879142040
   au TextYankPost * silent! lua vim.highlight.on_yank{ timeout = 200, on_visual = false }
   " Automatically start insert mode in a new first line in Git commit messages,
   " to that I can start typing my message right away without having to press i
   " first
-  autocmd BufRead COMMIT_EDITMSG execute "normal! gg" | execute "normal! O" | startinsert
+  au BufRead COMMIT_EDITMSG execute "normal! gg" | execute "normal! O" | startinsert
 augroup END
 ]]
