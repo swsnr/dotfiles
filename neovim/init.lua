@@ -73,6 +73,9 @@ nnoremap('<leader>hh', '<cmd>Telescope help_tags<cr>')
 nnoremap('<leader>hk', '<cmd>Telescope keymaps<cr>')
 nnoremap('<leader>hm', '<cmd>Telescope man_pages<cr>')
 
+-- Jumping
+nnoremap('<leader>jt', '<cmd>Telescope treesitter<cr>')
+
 -- Files and finding
 nnoremap('<leader>ff', '<cmd>Telescope find_files<cr>')
 nnoremap('<leader>fg', '<cmd>Telescope git_files<cr>')
