@@ -99,6 +99,15 @@ return packer.startup(function(use)
     end
   }
 
+  -- Autopairs: https://github.com/windwp/nvim-autopairs
+  use {
+    'windwp/nvim-autopairs',
+    config = function() require('nvim-autopairs').setup() end
+  }
+
+  -- Edit pairs: https://github.com/machakann/vim-sandwich
+  use { 'machakann/vim-sandwich' }
+
   -- Fuzzy finder: https://github.com/nvim-telescope/telescope.nvim
   use {
     'nvim-telescope/telescope.nvim',
