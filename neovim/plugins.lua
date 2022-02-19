@@ -41,12 +41,12 @@ end
 -- - https://github.com/kyazdani42/nvim-tree.lua
 -- - https://github.com/ms-jpq/coq_nvim
 -- - https://github.com/kosayoda/nvim-lightbulb
--- - https://github.com/lewis6991/gitsigns.nvim
--- - https://github.com/neovim/nvim-lspconfig
 -- - https://github.com/simrat39/rust-tools.nvim
+-- - https://github.com/Saecki/crates.nvim
 -- - https://github.com/glepnir/lspsaga.nvim
 -- - https://github.com/nvim-lualine/lualine.nvim
 -- - https://github.com/scalameta/nvim-metals
+-- - https://github.com/nvim-telescope/telescope-symbols.nvim
 --
 -- https://github.com/rockerBOO/awesome-neovim is a great source of inspiration.
 
@@ -140,6 +140,53 @@ return packer.startup(function(use)
   }
   -- Text objects for treesitter, configured above, see https://github.com/nvim-treesitter/nvim-treesitter-textobjects
   use { 'nvim-treesitter/nvim-treesitter-textobjects' }
+
+  -- LSP: https://github.com/neovim/nvim-lspconfig
+  use {
+    'neovim/nvim-lspconfig',
+    config = function()
+      -- Navigate diagnostics.
+      map('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
+      map('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
+
+      local function on_attach(client, bufnr)
+        -- Make omnicomplete use LSP completions
+        vim.bo.omnifunc = 'v:lua.vim.lsp.omnifunc'
+
+        local function map(mode, lhs, rhs, opt)
+          buf_map(bufnr, mode, lhs, rhs, opt)
+        end
+
+        -- Define some direct keybindings for LSP
+        map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>')
+        map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>')
+        map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>')
+        map('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<cr>')
+        map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>')
+        map('n', '<localleader>lf', '<cmd>lua vim.lsp.buf.formatting()<cr>')
+        map('n', '<localleader>lr', '<cmd>lua vim.lsp.buf.rename()<cr>')
+        -- Telescope bindings in LSP buffers
+        map('n', '<localleader>ta', '<cmd>Telescope lsp_code_actions<cr>')
+        map('n', '<localleader>td', '<cmd>Telescope lsp_definitions<cr>')
+        map('n', '<localleader>tD', '<cmd>Telescope lsp_diagnostics<cr>')
+        map('n', '<localleader>ti', '<cmd>Telescope lsp_implementations<cr>')
+        map('n', '<localleader>tr', '<cmd>Telescope lsp_references<cr>')
+        map('n', '<localleader>ts', '<cmd>Telescope lsp_document_symbols<cr>')
+        map('n', '<localleader>tS', '<cmd>Telescope lsp_dynamic_workspace_symbols<cr>')
+        map('n', '<localleader>tt', '<cmd>Telescope lsp_type_definitions<cr>')
+      end
+
+      local servers = { 'rust_analyzer' }
+      for _, lsp in pairs(servers) do
+        require('lspconfig')[lsp].setup {
+          on_attach = on_attach,
+          flags = {
+            debounce_text_changes = 150
+          }
+        }
+      end
+    end
+  }
 
   -- Dracula colour scheme: https://github.com/Mofiqul/dracula.nvim
   use {
