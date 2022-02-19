@@ -298,6 +298,17 @@ return packer.startup(function(use)
   -- Very convenient and fast motions: https://github.com/ggandor/lightspeed.nvim
   use { 'ggandor/lightspeed.nvim' }
 
+  -- Commenting: https://github.com/b3nj5m1n/kommentary
+  use {
+    'b3nj5m1n/kommentary',
+    config = function()
+      require('which-key').register{
+        ['gc'] = {name='+comment'},
+        ['gcc'] = 'Toggle line',
+      }
+    end
+  }
+
   -- Git signs: https://github.com/lewis6991/gitsigns.nvim
   use {
     'lewis6991/gitsigns.nvim',
