@@ -24,6 +24,10 @@ if not status_ok then
   return
 end
 
+function buf_map(bufnr, mode, lhs, rhs, opts)
+  opts = vim.tbl_extend('force', {noremap = true, silent = true}, opts or {})
+  vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
+end
 
 -- TODO: Plugins to try:
 --
@@ -103,10 +107,10 @@ return packer.startup(function(use)
           },
           move = {
             enable = true,
-            goto_next_start = {[']a'] = '@parameter.inner', [']f'] = '@function.outer', [']c'] = '@class.outer'},
-            goto_next_end = {[']A'] = '@parameter.inner', [']F'] = '@function.outer', [']C'] = '@class.outer'},
-            goto_previous_start = {['[a'] = '@parameter.inner', ['[f'] = '@function.outer', ['[c'] = '@class.outer'},
-            goto_previous_end = {['[A'] = '@parameter.inner', ['[F'] = '@function.outer', ['[C'] = '@class.outer'},
+            goto_next_start = {[']a'] = '@parameter.inner', [']f'] = '@function.outer'},
+            goto_next_end = {[']A'] = '@parameter.inner', [']F'] = '@function.outer'},
+            goto_previous_start = {['[a'] = '@parameter.inner', ['[f'] = '@function.outer'},
+            goto_previous_end = {['[A'] = '@parameter.inner', ['[F'] = '@function.outer'},
           },
           -- TODO: Check out https://github.com/nvim-treesitter/nvim-treesitter-textobjects#textobjects-lsp-interop after configuring LSP
         },
@@ -127,6 +131,44 @@ return packer.startup(function(use)
 
   -- Very convenient and fast motions: https://github.com/ggandor/lightspeed.nvim
   use { 'ggandor/lightspeed.nvim' }
+
+  -- Git signs: https://github.com/lewis6991/gitsigns.nvim
+  use {
+    'lewis6991/gitsigns.nvim',
+    requires = { 'nvim-lua/plenary.nvim' },
+    config = function()
+      require('gitsigns').setup {
+        on_attach = function(bufnr)
+          local function map(mode, lhs, rhs, opts)
+            return buf_map(bufnr, mode, lhs, rhs, opts)
+          end
+
+          -- Navigation
+          map('n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", {expr=true})
+          map('n', '[c', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", {expr=true})
+
+          -- Actions
+          map('n', '<localleader>gs', '<cmd>Gitsigns stage_hunk<CR>')
+          map('v', '<localleader>gs', '<cmd>Gitsigns stage_hunk<CR>')
+          map('n', '<localleader>gr', '<cmd>Gitsigns reset_hunk<CR>')
+          map('v', '<localleader>gr', '<cmd>Gitsigns reset_hunk<CR>')
+          map('n', '<localleader>gS', '<cmd>Gitsigns stage_buffer<CR>')
+          map('n', '<localleader>gu', '<cmd>Gitsigns undo_stage_hunk<CR>')
+          map('n', '<localleader>gR', '<cmd>Gitsigns reset_buffer<CR>')
+          map('n', '<localleader>gp', '<cmd>Gitsigns preview_hunk<CR>')
+          map('n', '<localleader>gB', '<cmd>lua require"gitsigns".blame_line{full=true}<CR>')
+          map('n', '<localleader>gb', '<cmd>Gitsigns toggle_current_line_blame<CR>')
+          map('n', '<localleader>gd', '<cmd>Gitsigns diffthis<CR>')
+          map('n', '<localleader>gD', '<cmd>lua require"gitsigns".diffthis("~")<CR>')
+          map('n', '<localleader>gd', '<cmd>Gitsigns toggle_deleted<CR>')
+
+          -- Text object
+          map('o', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+          map('x', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+        end
+      }
+    end
+  }
 
   -- Indent guides: https://github.com/lukas-reineke/indent-blankline.nvim
   use {
