@@ -36,6 +36,11 @@ vim.opt.mouse = 'nv' -- Enable mouse in normal and visual mode
 vim.opt.showmode = false -- Don't show mode message in message line
 vim.opt.signcolumn = 'yes' -- Always show sign column
 
+-- Completion: Always show a menu even if there's just one candidate, never
+-- insert automatically and never preselect an entry in the completion menuselect.
+vim.opt.completeopt = {'menuone', 'noinsert', 'noselect'}
+vim.opt.shortmess:append({ c = true })
+
 -- Options for text editing
 vim.opt.number = true -- Enable line numbers…
 vim.opt.relativenumber = true -- … relative to the current line.
