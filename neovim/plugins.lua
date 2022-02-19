@@ -71,6 +71,8 @@ return packer.startup(function(use)
       map('n', '<leader>tm', '<cmd>Telescope man_pages<cr>')
       map('n', '<leader>tq', '<cmd>Telescope quickfix<cr>')
       map('n', '<leader>tr', '<cmd>Telescope registers<cr>')
+      map('n', '<leader>ts', '<cmd>Telescope grep_string<cr>')
+      map('n', '<leader>tS', '<cmd>Telescope live_grep<cr>')
       map('n', '<leader>tt', '<cmd>Telescope treesitter<cr>')
 
       require('telescope').setup{
