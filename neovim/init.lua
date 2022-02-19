@@ -35,6 +35,7 @@ vim.opt.mouse = 'nv' -- Enable mouse in normal and visual mode
 -- Options for the general user interface
 vim.opt.showmode = false -- Don't show mode message in message line
 vim.opt.signcolumn = 'yes' -- Always show sign column
+vim.opt.timeoutlen = 500 -- Key timeout after 500, for which key
 -- Always keep some context
 vim.opt.sidescrolloff = 8
 vim.opt.scrolloff = 8
@@ -63,22 +64,14 @@ vim.opt.smartcase = true -- …for all lowercase patterns
 
 -- Bindings
 vim.g.mapleader = ' '
-vim.g.maplocalleader = '\\'
 
 function inoremap(lhs, rhs)
   vim.api.nvim_set_keymap('i', lhs, rhs, {noremap = true})
 end
 
-function nnoremap(lhs, rhs)
-  vim.api.nvim_set_keymap('n', lhs, rhs, {noremap = true})
-end
-
+-- Back to normal mode the fast way.  See which key in plugins.lua for the rest
+-- of the bindings.
 inoremap('jk', '<ESC>')
-
--- Buffer and window bindings
-nnoremap('<leader>w/', '<cmd>vsplit<cr>')
-nnoremap('<leader>w-', '<cmd>split<cr>')
-nnoremap('<leader>wq', '<cmd>q<cr>')
 
 -- Autocmds
 vim.cmd[[

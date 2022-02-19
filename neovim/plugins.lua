@@ -24,16 +24,6 @@ if not status_ok then
   return
 end
 
-function map(mode, lhs, rhs, opts)
-  opts = vim.tbl_extend('force', {noremap = true, silent = true}, opts or {})
-  vim.api.nvim_set_keymap(mode, lhs, rhs, opts)
-end
-
-function buf_map(bufnr, mode, lhs, rhs, opts)
-  opts = vim.tbl_extend('force', {noremap = true, silent = true}, opts or {})
-  vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
-end
-
 -- TODO: Plugins to try:
 --
 -- Rust setup:
@@ -68,6 +58,53 @@ end
 return packer.startup(function(use)
   -- This package manager: https://github.com/wbthomason/packer.nvim
   use 'wbthomason/packer.nvim'
+
+  -- Documented keybindings: https://github.com/folke/which-key.nvim
+  use {
+    "folke/which-key.nvim",
+    config = function()
+      local wk = require("which-key")
+      wk.setup()
+      wk.register{
+        ['[d'] = {'<cmd>lua vim.diagnostic.goto_prev()<cr>', 'Previous diagnostic'},
+        [']d'] = {'<cmd>lua vim.diagnostic.goto_next()<cr>', 'Next diagnostic'},
+        -- Global bindings
+        ['<leader> '] = {'<cmd>Telescope commands<cr>', 'Commands'},
+        -- Buffers
+        ['<leader>b'] = {name='+buffers'},
+        ['<leader>bb'] = {'<cmd>Telescope buffers<cr>', 'List buffers'},
+        -- Editing
+        ['<leader>e'] = {name='+edit'},
+        ['<leader>er'] = {'<cmd>Telescope registers<cr>', 'Paste register'},
+        -- Files
+        ['<leader>f'] = {name='+files'},
+        ['<leader>ff'] = {'<cmd>Telescope find_files<cr>', 'Find files'},
+        -- Git
+        ['<leader>g'] = {name='+git'},
+        ['<leader>gf'] = {'<cmd>Telescope git_files<cr>', 'Git files'},
+        -- Help
+        ['<leader>h'] = {name='+help'},
+        ['<leader>hh'] = {'<cmd>Telescope help_tags<cr>', 'Tags'},
+        ['<leader>hk'] = {'<cmd>Telescope keymaps<cr>', 'Keys'},
+        ['<leader>hm'] = {'<cmd>Telescope man_pages<cr>', 'Man pages'},
+        -- Jumping
+        ['<leader>j'] = {name='+jump'},
+        ['<leader>jl'] = {'<cmd>Telescope jumplist<cr>', 'Jumplist'},
+        ['<leader>jl'] = {'<cmd>Telescope loclist<cr>', 'Location list'},
+        ['<leader>jq'] = {'<cmd>Telescope quickfix<cr>', 'Quickfix list'},
+        ['<leader>jm'] = {'<cmd>Telescope marks<cr>', 'Marks'},
+        -- Search
+        ['<leader>s'] = {name='+search'},
+        ['<leader>sg'] = {'<cmd>Telescope live_grep<cr>', 'Live grep'},
+        ['<leader>sc'] = {'<cmd>Telescope grep_string<cr>', 'Grep under cursor'},
+        -- Windows
+        ['<leader>w'] = {name='+windows'},
+        ['<leader>w/'] = {'<cmd>vsplit<cr>', 'Split vertical'},
+        ['<leader>w-'] = {'<cmd>split<cr>', 'Split horizontal'},
+        ['<leader>wq'] = {'<cmd>q<cr>', 'Quit'}
+      }
+    end
+  }
 
   -- Dracula colour scheme: https://github.com/Mofiqul/dracula.nvim
   use {
@@ -112,22 +149,6 @@ return packer.startup(function(use)
     'nvim-telescope/telescope.nvim',
     requires = {'nvim-lua/plenary.nvim'},
     config = function()
-      map('n', '<leader> ', '<cmd>Telescope commands<cr>')
-      map('n', '<leader>tb', '<cmd>Telescope buffers<cr>')
-      map('n', '<leader>tc', '<cmd>Telescope commands<cr>')
-      map('n', '<leader>tf', '<cmd>Telescope find_files<cr>')
-      map('n', '<leader>tg', '<cmd>Telescope git_files<cr>')
-      map('n', '<leader>th', '<cmd>Telescope help_tags<cr>')
-      map('n', '<leader>tj', '<cmd>Telescope jumplist<cr>')
-      map('n', '<leader>tk', '<cmd>Telescope keymaps<cr>')
-      map('n', '<leader>tl', '<cmd>Telescope loclist<cr>')
-      map('n', '<leader>tm', '<cmd>Telescope man_pages<cr>')
-      map('n', '<leader>tq', '<cmd>Telescope quickfix<cr>')
-      map('n', '<leader>tr', '<cmd>Telescope registers<cr>')
-      map('n', '<leader>ts', '<cmd>Telescope grep_string<cr>')
-      map('n', '<leader>tS', '<cmd>Telescope live_grep<cr>')
-      map('n', '<leader>tt', '<cmd>Telescope treesitter<cr>')
-
       require('telescope').setup{
         mappings = {
           i = {
@@ -186,8 +207,22 @@ return packer.startup(function(use)
             goto_previous_start = {['[a'] = '@parameter.inner', ['[f'] = '@function.outer'},
             goto_previous_end = {['[A'] = '@parameter.inner', ['[F'] = '@function.outer'},
           },
-          -- TODO: Check out https://github.com/nvim-treesitter/nvim-treesitter-textobjects#textobjects-lsp-interop after configuring LSP
         },
+      }
+
+      require('which-key').register{
+        ['gnn'] = 'Init selection',
+        ['grn'] = 'Increase selection by node',
+        ['grc'] = 'Increase selection by scope',
+        ['grm'] = 'Decrement selection by node',
+        [']a'] = 'Next start of parameter',
+        [']A'] = 'Next end of parameter',
+        [']f'] = 'Next start of function',
+        [']F'] = 'Next end of function',
+        ['[a'] = 'Previous start of parameter',
+        ['[A'] = 'Previous end of parameter',
+        ['[f'] = 'Previous start of function',
+        ['[F'] = 'Previous end of function',
       }
     end
   }
@@ -207,35 +242,24 @@ return packer.startup(function(use)
   use {
     'neovim/nvim-lspconfig',
     config = function()
-      -- Navigate diagnostics.
-      map('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
-      map('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
-
       local function on_attach(client, bufnr)
         -- Make omnicomplete use LSP completions
         vim.bo.omnifunc = 'v:lua.vim.lsp.omnifunc'
 
-        local function map(mode, lhs, rhs, opt)
-          buf_map(bufnr, mode, lhs, rhs, opt)
-        end
-
-        -- Define some direct keybindings for LSP
-        map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>')
-        map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>')
-        map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>')
-        map('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<cr>')
-        map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>')
-        map('n', '<localleader>lf', '<cmd>lua vim.lsp.buf.formatting()<cr>')
-        map('n', '<localleader>lr', '<cmd>lua vim.lsp.buf.rename()<cr>')
-        -- Telescope bindings in LSP buffers
-        map('n', '<localleader>ta', '<cmd>Telescope lsp_code_actions<cr>')
-        map('n', '<localleader>td', '<cmd>Telescope lsp_definitions<cr>')
-        map('n', '<localleader>tD', '<cmd>Telescope diagnostics<cr>')
-        map('n', '<localleader>ti', '<cmd>Telescope lsp_implementations<cr>')
-        map('n', '<localleader>tr', '<cmd>Telescope lsp_references<cr>')
-        map('n', '<localleader>ts', '<cmd>Telescope lsp_document_symbols<cr>')
-        map('n', '<localleader>tS', '<cmd>Telescope lsp_dynamic_workspace_symbols<cr>')
-        map('n', '<localleader>tt', '<cmd>Telescope lsp_type_definitions<cr>')
+        require('which-key').register({
+          ['gD'] = {'<cmd>Telescope lsp_type_definitions<cr>', 'Goto type definition'},
+          ['gd'] = {'<cmd>Telescope lsp_definitions<cr>', 'Goto definition'},
+          ['gi'] = {'<cmd>Telescope lsp_implementations', 'Goto implementation'},
+          ['<C-k>'] = {'<cmd>lua vim.lsp.buf.signature_help()<cr>', 'Signature help'},
+          ['K'] = {'<cmd>lua vim.lsp.buf.hover()<cr>', 'Hover'},
+          ['<leader>ea'] = {'<cmd>Telescope lsp_code_actions<cr>', 'Code action'},
+          ['<leader>ef'] = {'<cmd>lua vim.lsp.buf.formatting()<cr>', 'Format'},
+          ['<leader>eR'] = {'<cmd>lua vim.lsp.buf.rename()<cr>', 'Rename symbol'},
+          ['<leader>jS'] = {'<cmd>Telescope lsp_dynamic_workspace_symbols<cr>', 'Jump to workspace symbol'},
+          ['<leader>js'] = {'<cmd>Telescope lsp_document_symbols<cr>', 'Jump to workspace symbol'},
+          ['<leader>jr'] = {'<cmd>Telescope lsp_references<cr>', 'Jump to reference'},
+          ['<leader>jd'] = {'<cmd>Telescope diagnostics<cr>', 'Jump to diagnostic'},
+        }, {buffer = bufnr})
       end
 
       local servers = { 'rust_analyzer' }
@@ -281,32 +305,29 @@ return packer.startup(function(use)
     config = function()
       require('gitsigns').setup {
         on_attach = function(bufnr)
-          local function map(mode, lhs, rhs, opts)
-            return buf_map(bufnr, mode, lhs, rhs, opts)
-          end
+          local wk = require('which-key')
+          wk.register({
+            [']c'] = {"&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", 'Next git hunk', expr=true},
+            ['[c'] = {"&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", 'Previous git hunk', expr=true},
+            ['<leader>gb'] = {'<cmd>lua require"gitsigns".blame_line{full=true}<CR>', 'Blame current line'},
+            ['<leader>gd'] = {'<cmd>Gitsigns diffthis<cr>', 'Diff against index'},
+            ['<leader>gD'] = {'<cmd>Gitsigns toggle_deleted<cr>', 'Toggle deleted lines'},
+            ['<leader>gp'] = {'<cmd>Gitsigns preview_hunk<cr>', 'Preview hunk' },
+            ['<leader>gR'] = {'<cmd>Gitsigns reset_buffer<cr>', 'Reset buffer to staged' },
+            ['<leader>gr'] = {'<cmd>Gitsigns reset_hunk<cr>', 'Reset hunk to staged' },
+            ['<leader>gS'] = {'<cmd>Gitsigns stage_buffer<cr>', 'Stage buffer' },
+            ['<leader>gs'] = {'<cmd>Gitsigns stage_hunk<cr>', 'Stage hunk' },
+            ['<leader>gu'] = {'<cmd>Gitsigns undo_stage_hunk<cr>', 'Undo staged hunk' },
+          }, {buffer = bufnr})
 
-          -- Navigation
-          map('n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", {expr=true})
-          map('n', '[c', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", {expr=true})
+          wk.register({
+            ['<leader>gr'] = {'<cmd>Gitsigns reset_hunk<cr>', 'Reset hunk to staged' },
+            ['<leader>gs'] = {'<cmd>Gitsigns stage_hunk<cr>', 'Stage hunk' },
+          }, {buffer = bufnr, mode = 'v'})
 
-          -- Actions
-          map('n', '<localleader>gs', '<cmd>Gitsigns stage_hunk<CR>')
-          map('v', '<localleader>gs', '<cmd>Gitsigns stage_hunk<CR>')
-          map('n', '<localleader>gr', '<cmd>Gitsigns reset_hunk<CR>')
-          map('v', '<localleader>gr', '<cmd>Gitsigns reset_hunk<CR>')
-          map('n', '<localleader>gS', '<cmd>Gitsigns stage_buffer<CR>')
-          map('n', '<localleader>gu', '<cmd>Gitsigns undo_stage_hunk<CR>')
-          map('n', '<localleader>gR', '<cmd>Gitsigns reset_buffer<CR>')
-          map('n', '<localleader>gp', '<cmd>Gitsigns preview_hunk<CR>')
-          map('n', '<localleader>gB', '<cmd>lua require"gitsigns".blame_line{full=true}<CR>')
-          map('n', '<localleader>gb', '<cmd>Gitsigns toggle_current_line_blame<CR>')
-          map('n', '<localleader>gd', '<cmd>Gitsigns diffthis<CR>')
-          map('n', '<localleader>gD', '<cmd>lua require"gitsigns".diffthis("~")<CR>')
-          map('n', '<localleader>gd', '<cmd>Gitsigns toggle_deleted<CR>')
-
-          -- Text object
-          map('o', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
-          map('x', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+          -- Text object; TODO: Migrate to which-key
+          --map('o', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+          --map('x', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
         end
       }
     end
