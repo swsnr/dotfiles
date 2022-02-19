@@ -24,6 +24,11 @@ if not status_ok then
   return
 end
 
+function map(mode, lhs, rhs, opts)
+  opts = vim.tbl_extend('force', {noremap = true, silent = true}, opts or {})
+  vim.api.nvim_set_keymap(mode, lhs, rhs, opts)
+end
+
 function buf_map(bufnr, mode, lhs, rhs, opts)
   opts = vim.tbl_extend('force', {noremap = true, silent = true}, opts or {})
   vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
@@ -54,6 +59,20 @@ return packer.startup(function(use)
     'nvim-telescope/telescope.nvim',
     requires = {'nvim-lua/plenary.nvim'},
     config = function()
+      map('n', '<leader> ', '<cmd>Telescope commands<cr>')
+      map('n', '<leader>tb', '<cmd>Telescope buffers<cr>')
+      map('n', '<leader>tc', '<cmd>Telescope commands<cr>')
+      map('n', '<leader>tf', '<cmd>Telescope find_files<cr>')
+      map('n', '<leader>tg', '<cmd>Telescope git_files<cr>')
+      map('n', '<leader>th', '<cmd>Telescope help_tags<cr>')
+      map('n', '<leader>tj', '<cmd>Telescope jumplist<cr>')
+      map('n', '<leader>tk', '<cmd>Telescope keymaps<cr>')
+      map('n', '<leader>tl', '<cmd>Telescope loclist<cr>')
+      map('n', '<leader>tm', '<cmd>Telescope man_pages<cr>')
+      map('n', '<leader>tq', '<cmd>Telescope quickfix<cr>')
+      map('n', '<leader>tr', '<cmd>Telescope registers<cr>')
+      map('n', '<leader>tt', '<cmd>Telescope treesitter<cr>')
+
       require('telescope').setup{
         mappings = {
           i = {
