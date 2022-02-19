@@ -55,6 +55,7 @@ vim.opt.smartcase = true -- …for all lowercase patterns
 
 -- Bindings
 vim.g.mapleader = ' '
+vim.g.maplocalleader = '\\'
 
 function inoremap(lhs, rhs)
   vim.api.nvim_set_keymap('i', lhs, rhs, {noremap = true})
