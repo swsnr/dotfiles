@@ -6,12 +6,6 @@ function file_exists(name)
    if f ~= nil then io.close(f) return true else return false end
 end
 
--- A helper function for my fallback fonts
-function font_with_fallback(name, params)
-  local names = {name, "Noto Color Emoji"}
-  return wezterm.font_with_fallback(names, params)
-end
-
 -- Determine what to set $TERM to
 local term
 if file_exists(os.getenv('HOME') .. '/.terminfo/w/wezterm') then
@@ -23,7 +17,7 @@ end
 return {
   term = term,
   color_scheme = "Dracula",
-  font = font_with_fallback('PragmataPro Liga'),
+  font = wezterm.font('PragmataPro Liga'),
   font_size = 12.0,
   -- Default initial window size
   initial_rows = 40,
