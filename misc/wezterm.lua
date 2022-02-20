@@ -39,4 +39,8 @@ return {
     fade_out_function = "EaseOut",
     fade_out_duration_ms = 150,
   },
+  keys = {
+    {key='_', mods='CMD', action=wezterm.action{SplitVertical={domain="CurrentPaneDomain"}}},
+    {key='|', mods='CMD', action=wezterm.action{SplitHorizontal={domain="CurrentPaneDomain"}}},
+  }
 }
