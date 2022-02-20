@@ -33,6 +33,7 @@ vim.opt.guifont = 'JetBrains Mono,Note Color Emoji:h11'
 vim.opt.mouse = 'nv' -- Enable mouse in normal and visual mode
 
 -- Options for the general user interface
+vim.opt.updatetime = 300 -- Update faster
 vim.opt.showmode = false -- Don't show mode message in message line
 vim.opt.signcolumn = 'yes' -- Always show sign column
 vim.opt.timeoutlen = 500 -- Key timeout after 500, for which key
