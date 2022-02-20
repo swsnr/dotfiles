@@ -85,6 +85,18 @@ command -v restic >& /dev/null &&
     restic generate --fish-completion ~/.config/fish/completions/restic.fish
 command -v tea >& /dev/null && tea autocomplete fish --install
 
+# Install terminfo for wezterm
+function install_wezterm_terminfo {
+  if [[ ! -f ~/.terminfo/w/wezterm ]]; then
+    local tempfile
+    tempfile="$(mktemp)"
+    trap 'rm -f -- "${tempfile}"' EXIT
+    curl -o "$tempfile" https://raw.githubusercontent.com/wez/wezterm/master/termwiz/data/wezterm.terminfo 
+    tic -x -o ~/.terminfo "$tempfile"
+  fi
+}
+install_wezterm_terminfo
+
 # Flatpak setup
 command -v flatpak >& /dev/null &&
     flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo

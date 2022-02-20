@@ -1,12 +1,27 @@
 local wezterm = require 'wezterm';
 
+-- Check whether the given file exists
+function file_exists(name)
+   local f = io.open(name, "r")
+   if f ~= nil then io.close(f) return true else return false end
+end
+
 -- A helper function for my fallback fonts
 function font_with_fallback(name, params)
   local names = {name, "Noto Color Emoji"}
   return wezterm.font_with_fallback(names, params)
 end
 
+-- Determine what to set $TERM to
+local term
+if file_exists(os.getenv('HOME') .. '/.terminfo/w/wezterm') then
+  term = 'wezterm'
+else
+  term = 'xterm-256color'
+end
+
 return {
+  term = term,
   color_scheme = "Dracula",
   font = font_with_fallback('PragmataPro Liga'),
   font_size = 12.0,
