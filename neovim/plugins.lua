@@ -24,11 +24,31 @@ if not status_ok then
   return
 end
 
+-- Common setup for  LSP client buffers.
+function lsp_attach(client, bufnr)
+  -- Make omnicomplete use LSP completions
+  vim.bo.omnifunc = 'v:lua.vim.lsp.omnifunc'
+
+  require('which-key').register({
+    ['gD'] = {'<cmd>Telescope lsp_type_definitions<cr>', 'Goto type definition'},
+    ['gd'] = {'<cmd>Telescope lsp_definitions<cr>', 'Goto definition'},
+    ['gi'] = {'<cmd>Telescope lsp_implementations', 'Goto implementation'},
+    ['<C-k>'] = {'<cmd>lua vim.lsp.buf.signature_help()<cr>', 'Signature help'},
+    ['K'] = {'<cmd>lua vim.lsp.buf.hover()<cr>', 'Hover'},
+    ['<leader>ea'] = {'<cmd>Telescope lsp_code_actions<cr>', 'Code action'},
+    ['<leader>ef'] = {'<cmd>lua vim.lsp.buf.formatting()<cr>', 'Format'},
+    ['<leader>eR'] = {'<cmd>lua vim.lsp.buf.rename()<cr>', 'Rename symbol'},
+    ['<leader>jS'] = {'<cmd>Telescope lsp_dynamic_workspace_symbols<cr>', 'Jump to workspace symbol'},
+    ['<leader>js'] = {'<cmd>Telescope lsp_document_symbols<cr>', 'Jump to workspace symbol'},
+    ['<leader>jr'] = {'<cmd>Telescope lsp_references<cr>', 'Jump to reference'},
+    ['<leader>jd'] = {'<cmd>Telescope diagnostics<cr>', 'Jump to diagnostic'},
+  }, {buffer = bufnr})
+end
+
 -- TODO: Plugins to try:
 --
 -- Rust setup:
 --
--- - https://github.com/simrat39/rust-tools.nvim
 -- - https://github.com/Saecki/crates.nvim
 --
 -- UI:
@@ -97,7 +117,9 @@ return packer.startup(function(use)
         ['<leader>w'] = {name='+windows'},
         ['<leader>w/'] = {'<cmd>vsplit<cr>', 'Split vertical'},
         ['<leader>w-'] = {'<cmd>split<cr>', 'Split horizontal'},
-        ['<leader>wq'] = {'<cmd>q<cr>', 'Quit'}
+        ['<leader>wq'] = {'<cmd>q<cr>', 'Quit'},
+        -- Execute things
+        ['<leader>x'] = {name='+execute'},
       }
     end
   }
@@ -271,30 +293,10 @@ return packer.startup(function(use)
   use {
     'neovim/nvim-lspconfig',
     config = function()
-      local function on_attach(client, bufnr)
-        -- Make omnicomplete use LSP completions
-        vim.bo.omnifunc = 'v:lua.vim.lsp.omnifunc'
-
-        require('which-key').register({
-          ['gD'] = {'<cmd>Telescope lsp_type_definitions<cr>', 'Goto type definition'},
-          ['gd'] = {'<cmd>Telescope lsp_definitions<cr>', 'Goto definition'},
-          ['gi'] = {'<cmd>Telescope lsp_implementations', 'Goto implementation'},
-          ['<C-k>'] = {'<cmd>lua vim.lsp.buf.signature_help()<cr>', 'Signature help'},
-          ['K'] = {'<cmd>lua vim.lsp.buf.hover()<cr>', 'Hover'},
-          ['<leader>ea'] = {'<cmd>Telescope lsp_code_actions<cr>', 'Code action'},
-          ['<leader>ef'] = {'<cmd>lua vim.lsp.buf.formatting()<cr>', 'Format'},
-          ['<leader>eR'] = {'<cmd>lua vim.lsp.buf.rename()<cr>', 'Rename symbol'},
-          ['<leader>jS'] = {'<cmd>Telescope lsp_dynamic_workspace_symbols<cr>', 'Jump to workspace symbol'},
-          ['<leader>js'] = {'<cmd>Telescope lsp_document_symbols<cr>', 'Jump to workspace symbol'},
-          ['<leader>jr'] = {'<cmd>Telescope lsp_references<cr>', 'Jump to reference'},
-          ['<leader>jd'] = {'<cmd>Telescope diagnostics<cr>', 'Jump to diagnostic'},
-        }, {buffer = bufnr})
-      end
-
       local servers = { 'rust_analyzer' }
       for _, lsp in pairs(servers) do
         require('lspconfig')[lsp].setup {
-          on_attach = on_attach,
+          on_attach = lsp_attach,
           flags = {
             debounce_text_changes = 150
           }
@@ -353,6 +355,40 @@ return packer.startup(function(use)
         ['gc'] = {name='+comment'},
         ['gcc'] = 'Toggle line',
       }
+    end
+  }
+
+  -- Rust helpers: https://github.com/simrat39/rust-tools.nvim
+  use {
+    'simrat39/rust-tools.nvim',
+    config = function()
+      local function rust_attach(client, bufnr)
+        -- Default setup for LSP buffers
+        lsp_attach(client, bufnr)
+
+        -- And some Rust extras
+        require('which-key').register({
+          ['<leader>xr'] = {'<cmd>RustRunnables<cr>', 'Run rust'},
+          ['<leader>xd'] = {'<cmd>RustDebuggables<cr>', 'Debug rust'},
+          ['<leader>jp'] = {'<cmd>RustParentModule<cr>', 'Jump to parent rust module'},
+          ['<leader>fc'] = {'<cmd>RustOpenCargo<cr>', 'Open Cargo.toml'},
+          ['<leader>eJ'] = {'<cmd>RustJoinLines<cr>', 'Join rust lines'},
+          ['<leader>ej'] = {'<cmd>RustMoveItemDown<cr>', 'Move Rust item down'},
+          ['<leader>ek'] = {'<cmd>RustMoveItemUp<cr>', 'Move Rust item up'},
+          ['<leader>ex'] = {'<cmd>RustExpandMacro<cr>', 'Expand Rust macro'},
+          -- Is this a good idea?
+          ['J'] = {'<cmd>RustJoinLines<cr>', 'Join rust lines'}
+        }, {buffer=bufnr})
+      end
+
+      require('rust-tools').setup({
+        server = {
+          on_attach = rust_attach,
+          flags = {
+            debounce_text_changes = 150
+          }
+        }
+      })
     end
   }
 
