@@ -39,7 +39,7 @@ function lsp_attach(client, bufnr)
     ['<leader>ef'] = {'<cmd>lua vim.lsp.buf.formatting()<cr>', 'Format'},
     ['<leader>eR'] = {'<cmd>lua vim.lsp.buf.rename()<cr>', 'Rename symbol'},
     ['<leader>jS'] = {'<cmd>Telescope lsp_dynamic_workspace_symbols<cr>', 'Jump to workspace symbol'},
-    ['<leader>js'] = {'<cmd>Telescope lsp_document_symbols<cr>', 'Jump to workspace symbol'},
+    ['<leader>js'] = {'<cmd>Telescope lsp_document_symbols<cr>', 'Jump to document symbol'},
     ['<leader>jr'] = {'<cmd>Telescope lsp_references<cr>', 'Jump to reference'},
     ['<leader>jd'] = {'<cmd>Telescope diagnostics<cr>', 'Jump to diagnostic'},
   }, {buffer = bufnr})
