@@ -17,8 +17,8 @@ end
 return {
   term = term,
   color_scheme = "Dracula",
-  font = wezterm.font('PragmataPro Liga'),
-  font_size = 12.0,
+  font = wezterm.font('JetBrains Mono'),
+  font_size = 11.0,
   -- Default initial window size
   initial_rows = 40,
   initial_cols = 120,

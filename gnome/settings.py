@@ -23,6 +23,7 @@ SETTINGS = {
         'gtk-theme': 'Arc-Darker',
         'font-name': 'Ubuntu 11',
         'document-font-name': 'Ubuntu 11',
+        'monospace-font-name': 'JetBrains Mono 11',
         # Disable hot corner
         'enable-hot-corners': False,
         # Show date and weekday in clock
@@ -84,7 +85,7 @@ TERMINAL_PROFILE = {
     'bold-is-bright': False,
     'default-size-columns': 120,
     'default-size-rows': 40,
-    'font': 'PragmataPro Mono Liga 11',
+    'font': 'JetBrains Mono 11',
     'use-system-font': False,
     'visible-name': 'Shell',
     # Enable dracula theme for terminal

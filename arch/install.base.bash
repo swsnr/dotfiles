@@ -33,6 +33,14 @@ to_remove=(
     # I don't really use Github so often anymore
     hub
     github-cli
+    # Remove a bunch of fonts I no longer need
+    ttf-fira-code
+    ttf-fira-mono
+    ttf-fira-sans
+    adobe-source-sans-fonts
+    adobe-source-serif-fonts
+    adobe-source-code-pro-fonts
+    ttf-roboto
 )
 for pkg in "${to_remove[@]}"; do
     pacman --noconfirm -Rs "$pkg" || true
@@ -166,24 +174,19 @@ packages=(
     # Fonts & themes
     arc-gtk-theme
     arc-icon-theme
+    # Fallback font with huge coverage and colored emojis
     noto-fonts
     noto-fonts-extra
     noto-fonts-cjk
     noto-fonts-emoji
+    # Microsoft compatibility fonts
     ttf-liberation
     ttf-caladea
     ttf-carlito
     ttf-cascadia-code
-    ttf-fira-code
-    ttf-fira-mono
-    ttf-fira-sans
-    adobe-source-code-pro-fonts
-    adobe-source-sans-fonts
-    adobe-source-serif-fonts
-    ttf-roboto
+    # My user interface fonts
     ttf-ubuntu-font-family
-    ttf-fira-mono
-    ttf-fira-sans
+    ttf-jetbrains-mono
     # Gnome
     gdm
     gnome-characters
@@ -509,8 +512,9 @@ aur_packages=(
     1password
     1password-cli
     # Additional fonts
-    otf-vollkorn
-    ttf-fira-go
+    nerd-fonts-jetbrains-mono # Nerd font for vim & terminal
+    otf-vollkorn # My favorite serif font for documents
+    ttf-fira-go # A nice font for presentations
     # Card reader driver for eID
     pcsc-cyberjack
     # Additional tools

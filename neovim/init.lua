@@ -29,7 +29,7 @@ vim.g.neovide_remember_window_size = true
 vim.g.do_filetype_lua = 1
 
 -- Gui settings: Pragmata Pro as standard font, and Noto for emojis
-vim.opt.guifont = 'PragmataPro Liga,Note Color Emoji:h10'
+vim.opt.guifont = 'JetBrains Mono,Note Color Emoji:h11'
 vim.opt.mouse = 'nv' -- Enable mouse in normal and visual mode
 
 -- Options for the general user interface
