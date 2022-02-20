@@ -55,6 +55,10 @@ vim.opt.expandtab = true -- No tabs
 vim.opt.shiftwidth = 2 -- Indent with two spaces by default
 vim.opt.cursorline = true -- Highlight line of cursor
 
+-- Folding
+vim.opt.foldmethod = 'indent' -- Fold by indentation by default
+vim.opt.foldlevelstart = 10 -- Fold deeply nested indents automatically
+
 -- Options for buffers and windows
 vim.opt.splitright = true -- vsplit rightwards
 vim.opt.splitbelow = true -- split downwards
