@@ -232,6 +232,10 @@ return packer.startup(function(use)
     -- Make sure parsers are up to date
     run = ':TSUpdate',
     config = function()
+      -- Use treesitter folding
+      vim.opt.foldmethod = 'expr'
+      vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+
       require('nvim-treesitter.configs').setup {
         -- Install all maintained parsers
         ensure_installed = 'maintained',
