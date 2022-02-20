@@ -304,7 +304,7 @@ return packer.startup(function(use)
   use {
     'neovim/nvim-lspconfig',
     config = function()
-      local servers = { 'rust_analyzer' }
+      local servers = { }
       for _, lsp in pairs(servers) do
         require('lspconfig')[lsp].setup {
           on_attach = lsp_attach,
