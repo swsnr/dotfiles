@@ -8,8 +8,8 @@ end
 
 return {
   color_scheme = "Dracula",
-  font = font_with_fallback('PragmataPro Mono Liga'),
-  font_size = 11.0,
+  font = font_with_fallback('PragmataPro Liga'),
+  font_size = 12.0,
   initial_rows = 40,
   initial_cols = 120,
   enable_wayland = true,
