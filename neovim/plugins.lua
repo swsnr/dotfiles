@@ -165,10 +165,7 @@ return packer.startup(function(use)
   -- Lualine: https://github.com/nvim-lualine/lualine.nvim
   use {
     'nvim-lualine/lualine.nvim',
-    requires = {
-      { 'kyazdani42/nvim-web-devicons', opt = true },
-      'SmiteshP/nvim-gps',
-    },
+    requires = { 'kyazdani42/nvim-web-devicons', 'SmiteshP/nvim-gps' },
     config = function()
       local gps = require('nvim-gps')
       require('lualine').setup {
