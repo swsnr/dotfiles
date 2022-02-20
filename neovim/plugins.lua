@@ -32,7 +32,7 @@ function lsp_attach(client, bufnr)
   require('which-key').register({
     ['gD'] = {'<cmd>Telescope lsp_type_definitions<cr>', 'Goto type definition'},
     ['gd'] = {'<cmd>Telescope lsp_definitions<cr>', 'Goto definition'},
-    ['gi'] = {'<cmd>Telescope lsp_implementations', 'Goto implementation'},
+    ['gi'] = {'<cmd>Telescope lsp_implementations<cr>', 'Goto implementation'},
     ['<C-k>'] = {'<cmd>lua vim.lsp.buf.signature_help()<cr>', 'Signature help'},
     ['K'] = {'<cmd>lua vim.lsp.buf.hover()<cr>', 'Hover'},
     ['<leader>ea'] = {'<cmd>Telescope lsp_code_actions<cr>', 'Code action'},
