@@ -21,8 +21,8 @@ SETTINGS = {
         # Themes and fonts
         'icon-theme': 'Arc',
         'gtk-theme': 'Arc-Darker',
-        'font-name': 'Ubuntu 10',
-        'document-font-name': 'Ubuntu 10',
+        'font-name': 'Ubuntu 11',
+        'document-font-name': 'Ubuntu 11',
         # Disable hot corner
         'enable-hot-corners': False,
         # Show date and weekday in clock
@@ -57,7 +57,7 @@ SETTINGS = {
         'dynamic-workspaces': True
     },
     'org.gnome.desktop.wm.preferences': {
-        'titlebar-font': 'Ubuntu Bold 10'
+        'titlebar-font': 'Ubuntu Bold 11'
     },
     'org.gnome.desktop.wm.keybindings': {
         'close': ['<Super>q', '<Alt>F4'],
