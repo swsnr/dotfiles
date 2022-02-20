@@ -200,24 +200,6 @@ return packer.startup(function(use)
     end
   }
 
-  -- Fuzzy finder: https://github.com/nvim-telescope/telescope.nvim
-  use {
-    'nvim-telescope/telescope.nvim',
-    requires = {'nvim-lua/plenary.nvim'},
-    config = function()
-      require('telescope').setup()
-    end
-  }
-  -- Redirect vim's ui select to telescope
-  -- https://github.com/nvim-telescope/telescope-ui-select.nvim
-  use {
-    'nvim-telescope/telescope-ui-select.nvim',
-    requires = {'nvim-telescope/telescope.nvim'},
-    config = function()
-      require('telescope').load_extension('ui-select')
-    end
-  }
-
   -- Modern syntax highlighting: https://github.com/nvim-treesitter/nvim-treesitter
   use {
     'nvim-treesitter/nvim-treesitter',
@@ -421,6 +403,32 @@ return packer.startup(function(use)
         show_current_context = true,
         show_current_context_start = true,
       }
+    end
+  }
+
+  -- Fuzzy finder: https://github.com/nvim-telescope/telescope.nvim
+  use {
+    'nvim-telescope/telescope.nvim',
+    requires = {'nvim-lua/plenary.nvim'},
+    config = function()
+      local trouble = require("trouble.providers.telescope")
+      require('telescope').setup {
+        defaults = {
+          mappings = {
+            i = { ["<c-t>"] = trouble.open_with_trouble },
+            n = { ["<c-t>"] = trouble.open_with_trouble },
+          }
+        }
+      }
+    end
+  }
+  -- Redirect vim's ui select to telescope
+  -- https://github.com/nvim-telescope/telescope-ui-select.nvim
+  use {
+    'nvim-telescope/telescope-ui-select.nvim',
+    requires = {'nvim-telescope/telescope.nvim'},
+    config = function()
+      require('telescope').load_extension('ui-select')
     end
   }
 
