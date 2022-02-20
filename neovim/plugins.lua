@@ -105,6 +105,57 @@ return packer.startup(function(use)
     end
   }
 
+  -- A few extra mappings: https://github.com/tpope/vim-unimpaired
+  use {
+    'tpope/vim-unimpaired',
+    config = function()
+      -- Document all of unimpaired bindings
+      require('which-key').register({
+        ['yo'] = 'Toggle option',
+        ['[ '] = 'Blank line up',
+        ['] '] = 'Blank line down',
+        ['[B'] = 'First buffer',
+        [']B'] = 'Last buffer',
+        ['[b'] = 'Previous buffer',
+        [']b'] = 'Next buffer',
+        ['[C'] = 'Encode C string',
+        [']C'] = 'Decode C string',
+        ['[e'] = 'Move line up',
+        [']e'] = 'Move line down',
+        ['[f'] = 'Previous file in directory',
+        [']f'] = 'Next file in directory',
+        ['[L'] = 'First location',
+        [']L'] = 'Last location',
+        ['[l'] = 'Previous location',
+        ['[<C-L>'] = 'Location in previous file',
+        [']<C-L>'] = 'Location in next file',
+        [']l'] = 'Next location',
+        ['[n'] = 'Previous conflict marker',
+        [']n'] = 'Next conflict marker',
+        ['[o'] = 'Enable option',
+        [']o'] = 'Disable option',
+        ['[q'] = 'Previous error',
+        [']q'] = 'Next error',
+        ['[Q'] = 'First error',
+        [']Q'] = 'Last error',
+        ['[<C-Q>'] = 'Error in previous file',
+        [']<C-Q>'] = 'Error in next file',
+        ['[t'] = 'Previous tag',
+        [']t'] = 'Next tag',
+        ['[T'] = 'First tag',
+        [']T'] = 'Last tag',
+        ['[<C-T>'] = 'Tag in previous file',
+        [']<C-T>'] = 'Tag in next file',
+        ['[u'] = 'URL encode',
+        [']u'] = 'URL decode',
+        ['[x'] = 'XML encode',
+        [']x'] = 'XML decode',
+        ['[y'] = 'Encode C string',
+        [']y'] = 'Decode C string',
+      })
+    end
+  }
+
   -- Dracula colour scheme: https://github.com/Mofiqul/dracula.nvim
   use {
     'Mofiqul/dracula.nvim',
