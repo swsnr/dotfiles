@@ -46,6 +46,7 @@ vim.opt.completeopt = {'menuone', 'noinsert', 'noselect'}
 vim.opt.shortmess:append({ c = true })
 
 -- Options for text editing
+vim.opt.wrap = false -- Don't wrap long lines
 vim.opt.number = true -- Enable line numbers…
 vim.opt.relativenumber = true -- … relative to the current line.
 vim.opt.textwidth = 80 -- 80 characters per line by default
