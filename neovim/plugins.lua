@@ -222,6 +222,13 @@ return packer.startup(function(use)
   -- Modern syntax highlighting: https://github.com/nvim-treesitter/nvim-treesitter
   use {
     'nvim-treesitter/nvim-treesitter',
+    -- Require a few extra plugins and extensions for treesitter
+    requires = {
+      -- Text objects for treesitter, configured above, see https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+      'nvim-treesitter/nvim-treesitter-textobjects',
+      -- Automatically change comment string according to current context
+      'JoosepAlviste/nvim-ts-context-commentstring',
+    },
     -- Make sure parsers are up to date
     run = ':TSUpdate',
     config = function()
@@ -240,6 +247,8 @@ return packer.startup(function(use)
             node_decremental = "grm",
           },
         },
+        -- Automatically update comment string
+        context_commentstring = { enable = true },
         -- Configure text objects
         textobjects = {
           select = {
@@ -277,8 +286,6 @@ return packer.startup(function(use)
       }
     end
   }
-  -- Text objects for treesitter, configured above, see https://github.com/nvim-treesitter/nvim-treesitter-textobjects
-  use { 'nvim-treesitter/nvim-treesitter-textobjects' }
 
   -- Treesitter for the status line: https://github.com/SmiteshP/nvim-gps
   use {
