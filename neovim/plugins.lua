@@ -31,11 +31,6 @@ end
 -- - https://github.com/simrat39/rust-tools.nvim
 -- - https://github.com/Saecki/crates.nvim
 --
--- LSP utilties:
---
--- - https://github.com/folke/trouble.nvim
--- - https://github.com/glepnir/lspsaga.nvim
---
 -- UI:
 --
 -- - https://github.com/romgrk/barbar.nvim
@@ -92,6 +87,8 @@ return packer.startup(function(use)
         ['<leader>jl'] = {'<cmd>Telescope loclist<cr>', 'Location list'},
         ['<leader>jq'] = {'<cmd>Telescope quickfix<cr>', 'Quickfix list'},
         ['<leader>jm'] = {'<cmd>Telescope marks<cr>', 'Marks'},
+        -- Lists
+        ['<leader>l'] = {name='+lists'},
         -- Search
         ['<leader>s'] = {name='+search'},
         ['<leader>sg'] = {'<cmd>Telescope live_grep<cr>', 'Live grep'},
@@ -338,6 +335,24 @@ return packer.startup(function(use)
     'j-hui/fidget.nvim',
     config = function()
       require('fidget').setup()
+    end
+  }
+
+  -- Pretty diagnostics list: https://github.com/folke/trouble.nvim
+  use {
+    "folke/trouble.nvim",
+    requires = "kyazdani42/nvim-web-devicons",
+    config = function()
+      require("trouble").setup()
+
+      require('which-key').register{
+        ['<leader>lx'] = {'<cmd>TroubleToggle<cr>', 'Toggle diagnostics list'},
+        ['<leader>lw'] = {'<cmd>TroubleToggle workspace_diagnostics<cr>', 'Toggle workspace diagnostics'},
+        ['<leader>ld'] = {'<cmd>TroubleToggle document_diagnostics<cr>', 'Toggle document diagnostics'},
+        ['<leader>lq'] = {'<cmd>TroubleToggle quickfix<cr>', 'Toggle quickfix list'},
+        ['<leader>ll'] = {'<cmd>TroubleToggle loclist<cr>', 'Toggle location list'},
+        ['<leader>lr'] = {'<cmd>TroubleToggle lsp_references<cr>', 'Toggle references list'},
+      }
     end
   }
 
