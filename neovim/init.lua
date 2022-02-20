@@ -48,11 +48,11 @@ vim.opt.shortmess:append({ c = true })
 -- Options for text editing
 vim.opt.number = true -- Enable line numbers…
 vim.opt.relativenumber = true -- … relative to the current line.
-vim.opt.textwidth = 80
-vim.opt.colorcolumn = '+1'
+vim.opt.textwidth = 80 -- 80 characters per line by default
+vim.opt.colorcolumn = '+1' -- Add marker for overlong lines
 vim.opt.expandtab = true -- No tabs
-vim.opt.shiftwidth = 2
-vim.opt.cursorline = true
+vim.opt.shiftwidth = 2 -- Indent with two spaces by default
+vim.opt.cursorline = true -- Highlight line of cursor
 
 -- Options for buffers and windows
 vim.opt.splitright = true -- vsplit rightwards
