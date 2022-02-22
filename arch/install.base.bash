@@ -33,6 +33,8 @@ to_remove=(
     # neovim's just so much better
     vscodium-bin
     gnome-search-providers-vscode
+    # Removed in favour of wezterm
+    gnome-terminal
     # I don't really use Github so often anymore
     hub
     github-cli
@@ -203,7 +205,6 @@ packages=(
     gnome-shell-extension-appindicator
     gnome-system-monitor
     gnome-control-center
-    gnome-terminal
     gnome-tweaks
     gnome-software
     gnome-backgrounds
