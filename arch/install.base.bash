@@ -30,6 +30,9 @@ PRODUCT_NAME="$(< /sys/class/dmi/id/product_name)"
 to_remove=(
     # Remove linux-lts; I'm now using the standard kernel
     linux-lts
+    # neovim's just so much better
+    vscodium-bin
+    gnome-search-providers-vscode
     # I don't really use Github so often anymore
     hub
     github-cli
@@ -497,7 +500,6 @@ aur_packages=(
     # initramfs
     dracut-git
     # Editor
-    vscodium-bin
     neovide-git
     # Splash screen at boot
     plymouth
@@ -505,7 +507,6 @@ aur_packages=(
     gnome-shell-extension-nasa-apod
     # Gnome tools
     gnome-search-providers-jetbrains
-    gnome-search-providers-vscode
     # Dracut hook to build kernel images for systemd boot
     dracut-hook-uefi
     # Password manager
@@ -543,7 +544,7 @@ if [[ -n "${SUDO_USER:-}" ]]; then
         pacman -D --asdeps "${aur_optdeps[@]}"
     fi
 
-    remove_from_repo=()
+    remove_from_repo=(vscodium-bin gnome-search-providers-vscode)
     if [[ ${#remove_from_repo[@]} -gt 0 ]]; then
         for pkg in "${remove_from_repo[@]}"; do
             rm -f "/srv/pkgrepo/aur/${pkg}-"*.pkg.tar.*
