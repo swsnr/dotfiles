@@ -175,14 +175,22 @@ return packer.startup(function(use)
     end
   }
 
-  -- Dracula colour scheme: https://github.com/Mofiqul/dracula.nvim
+  -- Solarized light color schema: https://github.com/ishan9299/nvim-solarized-lua
   use {
+    'ishan9299/nvim-solarized-lua',
+    config = function()
+      vim.cmd('colorscheme solarized')
+    end
+
+  }
+  -- Dracula colour scheme: https://github.com/Mofiqul/dracula.nvim
+  --[[ use {
     'Mofiqul/dracula.nvim',
     config = function()
       vim.g.dracula_italic_comment = true
       vim.cmd('colorscheme dracula')
     end
-  }
+  } ]]
 
   -- Lualine: https://github.com/nvim-lualine/lualine.nvim
   use {
