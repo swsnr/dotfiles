@@ -31,6 +31,10 @@ vim.g.do_filetype_lua = 1
 -- Gui settings: Pragmata Pro as standard font, and Noto for emojis
 vim.opt.guifont = 'JetBrains Mono,Note Color Emoji:h11'
 vim.opt.mouse = 'nv' -- Enable mouse in normal and visual mode
+if vim.g['neovide'] then
+  -- In neovide use a light background by default
+  vim.opt.background = 'light'
+end
 
 -- Terminal options
 -- Enable 24bit RGB colours for terminals; this enables perfect color theme
