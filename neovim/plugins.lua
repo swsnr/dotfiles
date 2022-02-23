@@ -199,6 +199,7 @@ return packer.startup(function(use)
     config = function()
       local gps = require('nvim-gps')
       require('lualine').setup {
+        theme = 'solarized',
         sections = {
           lualine_c = {
             'filename',
