@@ -32,6 +32,12 @@ vim.g.do_filetype_lua = 1
 vim.opt.guifont = 'JetBrains Mono,Note Color Emoji:h11'
 vim.opt.mouse = 'nv' -- Enable mouse in normal and visual mode
 
+-- Terminal options
+-- Enable 24bit RGB colours for terminals; this enables perfect color theme
+-- colours, but requires a modern terminal.  But then again we're using a modern
+-- neovim, so we'll also have a modern terminal 8)
+vim.opt.termguicolors = true
+
 -- Options for the general user interface
 vim.opt.updatetime = 300 -- Update faster
 vim.opt.showmode = false -- Don't show mode message in message line
