@@ -16,7 +16,8 @@ end
 
 return {
   term = term,
-  color_scheme = "Dracula",
+  -- color_scheme = "Dracula",
+  color_scheme = 'Builtin Solarized Light',
   font = wezterm.font('JetBrains Mono'),
   font_size = 11.0,
   -- Default initial window size
