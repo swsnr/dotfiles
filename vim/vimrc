@@ -1,0 +1,63 @@
+" Copyright Sebastian Wiesner <sebastian@swsnr.de>
+"
+" Licensed under the Apache License, Version 2.0 (the "License"); you may not
+" use this file except in compliance with the License. You may obtain a copy of
+" the License at
+"
+"     http://www.apache.org/licenses/LICENSE-2.0
+"
+" Unless required by applicable law or agreed to in writing, software
+" distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+" WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+" License for the specific language governing permissions and limitations under
+" the License.
+
+" Simple vim configuration to make old vim behave sensibly, for servers and old
+" systems where neovim is not available.
+
+" Backported neovim defaults
+set nocompatible
+
+syntax on " Enable syntax highlight
+filetype plugin indent on " Enable filetype detection
+
+set autoindent
+set autoread
+set backspace=indent,eol,start
+set complete=-i
+set display=lastline
+set encoding=utf-8
+set hlsearch
+set incsearch
+set laststatus=2
+set mouse=a
+set smarttab
+set ttyfast
+set viminfo+=!
+set wildmenu
+set ttymouse=xterm2
+
+" My defaults; there's are sometimes different from my neovim defaults, because
+" in neovim I'm often covered by plugins.
+set number
+set relativenumber
+set cursorline
+set shortmess+=atOIc
+set smartcase
+set ignorecase
+set textwidth=80
+set colorcolum='+1'
+set shiftwidth=4
+set expandtab
+set scrolloff=8
+set sidescrolloff=8
+set splitright
+set splitbelow
+set foldmethod=indent
+set foldlevelstart=10
+set hidden
+set showmatch
+set completeopt=menuone,noinsert,noselect
+
+" escape sucks
+inoremap jk <ESC>
