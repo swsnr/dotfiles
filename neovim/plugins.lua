@@ -415,6 +415,16 @@ return packer.startup(function(use)
     end
   }
 
+  -- Fugitive: https://github.com/tpope/vim-fugitive
+  use {
+    'tpope/vim-fugitive',
+    config = function()
+      require('which-key').register {
+        ['<leader>gg'] = {'<cmd>Git<cr>', 'Git status'}
+      }
+    end
+  }
+
   -- Git signs: https://github.com/lewis6991/gitsigns.nvim
   use {
     'lewis6991/gitsigns.nvim',
