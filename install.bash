@@ -100,6 +100,3 @@ install_wezterm_terminfo
 # Flatpak setup
 command -v flatpak >& /dev/null &&
     flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-
-# Configure Codium
-command -v codium >& /dev/null && ./misc/codium-settings.py
