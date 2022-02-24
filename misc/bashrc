@@ -21,20 +21,20 @@ HISTCONTROL="erasedups:ignoreboth"
 
 # Enable incremental history search with up/down arrows (also Readline goodness)
 # Learn more about this here: http://codeinthehole.com/writing/the-most-important-command-line-tip-incremental-history-searching-with-inputrc/
-bind '"\e[A": history-search-backward'
-bind '"\e[B": history-search-forward'
-bind '"\e[C": forward-char'
-bind '"\e[D": backward-char'
+bind '"\e[A": history-search-backward' 2> /dev/null
+bind '"\e[B": history-search-forward' 2> /dev/null
+bind '"\e[C": forward-char' 2> /dev/null
+bind '"\e[D": backward-char' 2> /dev/null
 
 ## SMARTER TAB-COMPLETION (Readline bindings) ##
 # Perform file completion in a case insensitive fashion
-bind "set completion-ignore-case on"
+bind "set completion-ignore-case on" 2> /dev/null
 # Treat hyphens and underscores as equivalent
-bind "set completion-map-case on"
+bind "set completion-map-case on" 2> /dev/null
 # Display matches for ambiguous patterns at first tab press
-bind "set show-all-if-ambiguous on"
+bind "set show-all-if-ambiguous on" 2> /dev/null
 # Immediately add a trailing slash when autocompleting symlinks to directories
-bind "set mark-symlinked-directories on"
+bind "set mark-symlinked-directories on" 2> /dev/null
 
 # Prepend cd to directory names automatically
 shopt -s autocd 2> /dev/null
