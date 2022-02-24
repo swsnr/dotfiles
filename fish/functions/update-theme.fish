@@ -13,7 +13,6 @@
 # the License.
 
 function update-theme -d 'Read the current terminal background and update our environment'
-
     set -l mode $argv[1]
     if [ -z $mode ]
         set mode auto
@@ -30,7 +29,7 @@ function update-theme -d 'Read the current terminal background and update our en
                 set background (xtermbg -t)
             end
             if [ -z $background[1] ]
-                set background dark
+                set background unknown
             end
         case '*'
             echo "Unknown background mode: $mode"
@@ -41,19 +40,23 @@ function update-theme -d 'Read the current terminal background and update our en
     set -gx LY_TERM_BACKGROUND $background
 
     # Adapt shell environment to background color
-    if string match -q light $LY_TERM_BACKGROUND
-        set -gx BAT_THEME 'Monokai Extended Light'
-        set VIVID_THEME ayu
-    else
+    switch $LY_TERM_BACKGROUND
+      case light
+        set -gx BAT_THEME 'Solarized (light)'
+        set VIVID_THEME solarized-light
+      case dark
         set -gx BAT_THEME 'Dracula'
         set VIVID_THEME dracula
+      case unknown
+        # If we don't know about the terminal background, default to the
+        # standard 8 bit theme in Bat
+        set -gx BAT_THEME 'ansi'
     end
 
-    # Sync color theme with other tools
-    set -gx NB_SYNTAX_THEME $BAT_THEME
-
     # dircolors, by vidid <https://github.com/sharkdp/vivid>
-    if command -q vivid
+    # Only if we can determine background colours, otherwise leave dircolors
+    # alone.
+    if command -q vivid && set -q VIVID_THEME
         set -gx LS_COLORS (vivid generate $VIVID_THEME)
     end
 end
