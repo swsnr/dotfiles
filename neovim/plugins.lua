@@ -365,7 +365,11 @@ return packer.startup(function(use)
   }
 
   -- Very convenient and fast motions: https://github.com/ggandor/lightspeed.nvim
-  use { 'ggandor/lightspeed.nvim' }
+  use {
+    'ggandor/lightspeed.nvim',
+    -- Work around https://github.com/ggandor/lightspeed.nvim/issues/127
+    commit = '4d8359a30b26ee5316d0e7c79af08b10cb17a57b'
+  }
 
   -- Strip trailing whitespace the clever way: https://github.com/axelf4/vim-strip-trailing-whitespace
   use { 'axelf4/vim-strip-trailing-whitespace' }
