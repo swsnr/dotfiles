@@ -47,10 +47,6 @@ end
 
 -- TODO: Plugins to try:
 --
--- Rust setup:
---
--- - https://github.com/Saecki/crates.nvim
---
 -- UI:
 --
 -- - https://github.com/romgrk/barbar.nvim
@@ -416,6 +412,16 @@ return packer.startup(function(use)
           }
         }
       })
+    end
+  }
+
+  -- Manage crates in Cargo.toml: https://github.co/Saecki/crates.nvim
+  use {
+    'Saecki/crates.nvim',
+    -- Load lazily when visiting cargo files
+    event = { "BufRead Cargo.toml" },
+    config = function()
+      require('crates').setup()
     end
   }
 
