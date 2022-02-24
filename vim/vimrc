@@ -24,7 +24,7 @@ filetype plugin indent on " Enable filetype detection
 set autoindent
 set autoread
 set backspace=indent,eol,start
-set complete=-i
+set complete-=i
 set display=lastline
 set encoding=utf-8
 set hlsearch
@@ -46,7 +46,6 @@ set shortmess+=atOIc
 set smartcase
 set ignorecase
 set textwidth=80
-set colorcolum='+1'
 set shiftwidth=4
 set expandtab
 set scrolloff=8
@@ -57,7 +56,7 @@ set foldmethod=indent
 set foldlevelstart=10
 set hidden
 set showmatch
-set completeopt=menuone,noinsert,noselect
+set completeopt=menuone
 
 " escape sucks
 inoremap jk <ESC>
