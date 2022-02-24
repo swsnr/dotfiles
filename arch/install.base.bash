@@ -44,12 +44,13 @@ to_remove=(
     ttf-fira-sans
     adobe-source-sans-fonts
     adobe-source-serif-fonts
-    adobe-source-code-pro-fonts
     ttf-roboto
 )
 for pkg in "${to_remove[@]}"; do
     pacman --noconfirm -Rs "$pkg" || true
 done
+# Source Code pro is required by Gnome
+pacman -D --asdeps adobe-source-code-pro-fonts || true
 
 # Configure pacman to update systemd-boot after systemd updates
 # Doesn't play well with sbctl currently, see https://github.com/Foxboron/sbctl/issues/119
