@@ -109,10 +109,6 @@ packages=(
     man-db
     man-pages
     fish
-    git
-    git-filter-repo
-    tea # CLI for gitea servers
-    tig # Curses git interfaces
     neovim
     exa # Better ls (with git support)
     vivid # Creates themes for dircolors
@@ -130,9 +126,6 @@ packages=(
     curl
     p7zip
     zip
-    jq
-    shellcheck
-    shfmt
     # Document processing and rendering
     pandoc
     mdcat
@@ -143,15 +136,25 @@ packages=(
     hunspell-de
     hunspell-en_gb
     hunspell-en_us
-    # Development tools
+    # Git and related tools
+    git
+    git-filter-repo
+    tea # CLI for gitea servers
+    tig # Curses git interfaces
+    # Rust tooling
     rustup
-    hexyl # hex viewer
-    oxipng # Optimize PNGs for size
+    rust-analyzer
     cargo-audit
     cargo-outdated
     cargo-udeps
     cargo-release
+    # Other development tools
     meld # Graphical diff tool (not via flatpak for git diff-tool -g)
+    hexyl # hex viewer
+    oxipng # Optimize PNGs for size
+    jq
+    shellcheck
+    shfmt
     # Desktop tools
     wl-clipboard
     dconf-editor
