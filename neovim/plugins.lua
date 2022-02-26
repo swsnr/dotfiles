@@ -467,6 +467,13 @@ return packer.startup(function(use)
     end
   }
 
+  -- Merging with vim: https://github.com/samoshkin/vim-mergetool
+  use {
+    'https://github.com/samoshkin/vim-mergetool',
+    opt = true,
+    cmd = {'MergetoolStart', 'MergetoolToggle'}
+  }
+
   -- Indent guides: https://github.com/lukas-reineke/indent-blankline.nvim
   use {
     'lukas-reineke/indent-blankline.nvim',

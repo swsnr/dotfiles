@@ -44,6 +44,8 @@
 [merge]
 	# Include summary commit messages in git merge commit message
 	log = true
+	# Include base revision in conflicts, for vim-mergetool
+	conflictStyle = diff3
 [mergetool]
 	# Do not prompt before every single merge and do not keep *.orig files
 	# around after the merge
