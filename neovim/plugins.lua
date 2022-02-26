@@ -425,7 +425,9 @@ return packer.startup(function(use)
   -- Fugitive: https://github.com/tpope/vim-fugitive
   use {
     'tpope/vim-fugitive',
-    config = function()
+    opt = true,
+    cmd = {'Git', 'Gvdiffsplit', 'Ghdiffsplit', 'Gdiffsplit'},
+    setup = function()
       require('which-key').register {
         ['<leader>gg'] = {'<cmd>Git<cr>', 'Git status'}
       }
