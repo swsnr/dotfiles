@@ -14,7 +14,8 @@
 
 function ll --description 'List files verbosely'
     if command -q 'exa'
-        exa --long --git $argv
+        set args '--long' '--git' '--icons'
+        exa $args $argv
     else
         ls -l $argv
     end
