@@ -113,7 +113,7 @@ return packer.startup(function(use)
         ['<leader>w'] = {name='+windows'},
         ['<leader>w/'] = {'<cmd>vsplit<cr>', 'Split vertical'},
         ['<leader>w-'] = {'<cmd>split<cr>', 'Split horizontal'},
-        ['<leader>wq'] = {'<cmd>only<cr>', 'Only current window'},
+        ['<leader>wo'] = {'<cmd>only<cr>', 'Only current window'},
         ['<leader>wq'] = {'<cmd>q<cr>', 'Quit'},
         -- Execute things
         ['<leader>x'] = {name='+execute'},
