@@ -44,7 +44,7 @@ function fish_prompt -d 'My personal prompt'
     end
     # Working directory and git prompt
     echo -sn (set_color cyan) (prompt_pwd) (set_color normal)
-    echo -sn (__fish_git_prompt " on  %s")
+    echo -sn (fish_git_prompt " on  %s")
 
     # Time
     echo -sn ' at ' (set_color cyan) (date '+%H:%M') (set_color normal)
