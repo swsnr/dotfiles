@@ -34,32 +34,32 @@ function fish_prompt -d 'My personal prompt'
         if [ $USER = root ]
             set color red
         end
-        echo -sn (set_color -o $color) $USER (set_color -o normal)
+        echo -sn (set_color $color) $USER (set_color normal)
 
         if set -q SSH_CONNECTION
-            echo -sn '@' (set_color -o green) (prompt_hostname) (set_color -o normal) ' in '
+            echo -sn '@' (set_color green) (prompt_hostname) (set_color normal) ' in '
         else
             echo ' in '
         end
     end
     # Working directory and git prompt
-    echo -sn (set_color -o cyan) (prompt_pwd) (set_color normal)
-    echo -sn (set_color -o) (__fish_git_prompt " on  %s")
+    echo -sn (set_color cyan) (prompt_pwd) (set_color normal)
+    echo -sn (__fish_git_prompt " on  %s")
 
     # Time
-    echo -sn (set_color -o) ' at ' (set_color -o cyan) (date '+%H:%M') (set_color normal)
+    echo -sn ' at ' (set_color cyan) (date '+%H:%M') (set_color normal)
 
     # Current kubectl context if there are multiple
     if command -q kubectl
         set -l contexts (kubectl config get-contexts -oname)
         if [ 1 -lt (count $contexts) ]
-            echo -sn (set_color -o) ' k8s:' (set_color -o cyan) (kubectl config current-context) (set_color normal)
+            echo -sn ' k8s:' (set_color cyan) (kubectl config current-context) (set_color normal)
         end
     end
 
     # Python virtualenv if any
     if set -q VIRTUAL_ENV
-        echo -sn (set_color -o) ' venv:' (set_color -o cyan) (basename $VIRTUAL_ENV) (set_color normal)
+        printf ' %b%s%s%s' '\ue73c' (set_color cyan) (basename $VIRTUAL_ENV) (set_color normal)
     end
 
     # Battery if present and supported
@@ -80,14 +80,14 @@ function fish_prompt -d 'My personal prompt'
 
     # Private mode
     if set -q fish_private_mode
-        echo -sn (set_color -o red) "⦸" (set_color normal) ' '
+        printf '%s%b%s ' (set_color red) '\uf023' (set_color normal)
     end
 
     # Indicate exit code of last command
     if test $last_exit_code -eq 0
-        echo -sn (set_color -o green)
+        echo -sn (set_color green)
     else
-        echo -sn (set_color -o red)
+        echo -sn (set_color red)
     end
     echo -sn "→ " (set_color normal)
 end
