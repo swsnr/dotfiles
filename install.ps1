@@ -1,4 +1,3 @@
-#!/bin/bash
 # Copyright Sebastian Wiesner <sebastian@swsnr.de>
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may not
