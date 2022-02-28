@@ -51,7 +51,6 @@ end
 --
 -- - https://github.com/romgrk/barbar.nvim
 -- - https://github.com/akinsho/bufferline.nvim
--- - https://github.com/kyazdani42/nvim-tree.lua
 --
 -- Other languages:
 --
