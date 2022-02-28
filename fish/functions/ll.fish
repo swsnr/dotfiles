@@ -13,8 +13,8 @@
 # the License.
 
 function ll --description 'List files verbosely'
-    if command -q 'exa'
-        set args '--long' '--git' '--icons'
+    if command -q exa
+        set args --long --git --icons
         exa $args $argv
     else
         ls -l $argv

@@ -12,5 +12,5 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
-function fish_greeting -d 'Silence'
+function fish_greeting -d Silence
 end

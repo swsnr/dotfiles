@@ -39,12 +39,12 @@ function prompt_battery_upower -d 'upower battery info in prompt'
     # Parse the state into a colour to use in the prompt and a state symbol
     # to indicate the battery state.
     switch $state
-        case 'fully-charged'
+        case fully-charged
             # Bail out if the battery is fully charged. In this case battery
             # information is really redundant, and we do not want to show
             # anything.
             return 0
-        case 'charging'
+        case charging
             set -l time_to_full (string match -r '^time to full:\s+(.+)' $battery_info)[2]
             if test -n "$time_to_full"
                 set level "|$time_to_full"
@@ -53,7 +53,7 @@ function prompt_battery_upower -d 'upower battery info in prompt'
             end
             set colour (set_color 'green')
             set state_symbol '↑'
-        case 'discharging'
+        case discharging
             set -l time_to_empty (string match -r '^time to empty:\s+(.+)' $battery_info)[2]
             if test -n "$time_to_empty"
                 set level "|$time_to_empty"
@@ -62,13 +62,13 @@ function prompt_battery_upower -d 'upower battery info in prompt'
             end
             set -l warning_level (string match -r '^warning-level:\s+(.+)' $battery_info)[2]
             switch $warning_level
-                case 'none'
+                case none
                     set state_symbol '↓'
                     set colour (set_color 'green')
-                case 'low'
+                case low
                     set state_symbol '↡'
                     set colour (set_color 'yellow')
-                case 'critical'
+                case critical
                     set state_symbol '↡'
                     set colour (set_color -b 'red' -o 'white')
                 case '*'

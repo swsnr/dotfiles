@@ -50,7 +50,7 @@ function prompt_battery_macos -d 'macOS Battery info in prompt'
     # Parse the state into a colour to use in the prompt and a state symbol
     # to indicate the battery state.
     switch $state
-        case 'charged'
+        case charged
             # Bail out if the battery is fully charged. In this case battery
             # information is really redundant, and we do not want to show
             # anything.
@@ -62,17 +62,17 @@ function prompt_battery_macos -d 'macOS Battery info in prompt'
             # A special state when the AC adapter is freshly plugged but macOS
             # hasn't yet started to charge the battery
             set colour (set_color 'green')
-            set state_symbol '-'
-        case 'charging'
+            set state_symbol -
+        case charging
             set colour (set_color 'green')
             set state_symbol '↑'
-        case 'discharging'
+        case discharging
             # When the battery is discharging check the output again for
             # a potential warning about low battery level
             set -l matches (string match -r 'Battery Warning: (\\S+)' $battery_status)
             if test (count $matches) -gt 0
                 switch $matches[2]
-                    case 'Early'
+                    case Early
                         set state_symbol '↡'
                         set colour (set_color 'red')
                     case '*'

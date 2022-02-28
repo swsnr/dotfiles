@@ -41,16 +41,16 @@ function update-theme -d 'Read the current terminal background and update our en
 
     # Adapt shell environment to background color
     switch $LY_TERM_BACKGROUND
-      case light
-        set -gx BAT_THEME 'Solarized (light)'
-        set VIVID_THEME solarized-light
-      case dark
-        set -gx BAT_THEME 'Dracula'
-        set VIVID_THEME dracula
-      case unknown
-        # If we don't know about the terminal background, default to the
-        # standard 8 bit theme in Bat
-        set -gx BAT_THEME 'ansi'
+        case light
+            set -gx BAT_THEME 'Solarized (light)'
+            set VIVID_THEME solarized-light
+        case dark
+            set -gx BAT_THEME Dracula
+            set VIVID_THEME dracula
+        case unknown
+            # If we don't know about the terminal background, default to the
+            # standard 8 bit theme in Bat
+            set -gx BAT_THEME ansi
     end
 
     # dircolors, by vidid <https://github.com/sharkdp/vivid>
