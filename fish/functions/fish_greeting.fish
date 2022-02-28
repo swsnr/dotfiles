@@ -13,4 +13,5 @@
 # the License.
 
 function fish_greeting -d Silence
+    auto_sdk_nvm
 end
