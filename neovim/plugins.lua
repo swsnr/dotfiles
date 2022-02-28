@@ -330,6 +330,30 @@ return packer.startup(function(use)
     end
   }
 
+  -- Dummy language server for a bunch of local tools:
+  -- https://github.com/jose-elias-alvarez/null-ls.nvim
+  use {
+    'jose-elias-alvarez/null-ls.nvim',
+    requires = { 'nvim-lua/plenary.nvim' },
+    config =  function()
+      local null_ls = require('null-ls')
+      local sources = {
+        -- Auto-formatting for fish
+        null_ls.builtins.formatting.fish_indent,
+        -- Linting and formatting for Bash
+        null_ls.builtins.diagnostics.shellcheck,
+        null_ls.builtins.formatting.shfmt.with {
+          -- Indent bash with four spaces
+          extra_args = {'-i', '4'}
+        }
+      }
+      null_ls.setup {
+        sources = sources,
+        on_attach = lsp_attach,
+      }
+    end
+  }
+
   -- Pretty diagnostics list: https://github.com/folke/trouble.nvim
   use {
     "folke/trouble.nvim",
