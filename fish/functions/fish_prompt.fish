@@ -65,7 +65,7 @@ function fish_prompt -d 'My personal prompt'
     # Battery if present and supported
     set -l battery (prompt_battery)
     if string length -q $battery $battery
-        echo -sn (set_color -o) ' ⚡' $battery
+        echo -sn ' ' $battery
     end
 
     # New line
