@@ -450,8 +450,6 @@ install -Dpm644 "$DIR/etc/gdm-profile" /etc/dconf/profile/gdm
 # Common applications
 flatpaks=(
     com.github.tchx84.Flatseal # Manage flatpak permissions
-    org.standardnotes.standardnotes # Personal notes
-    org.stellarium.Stellarium # Stars and the sky
     io.freetubeapp.FreeTube # A privacy focused youtube client
     org.gaphor.Gaphor # UML editor
 )
@@ -469,6 +467,8 @@ flatpaks_to_prune=(
     org.gnome.Lollypop # Music manager
     com.github.xournalpp.xournalpp # Handwritten note taking (for Wacom tablet)
     org.signal.Signal # Messenger
+    org.stellarium.Stellarium # Stars and the sky
+    org.standardnotes.standardnotes # Personal notes
 )
 for flatpak in "${flatpaks_to_prune[@]}"; do
     flatpak remove -y --noninteractive "${flatpak}" || true
