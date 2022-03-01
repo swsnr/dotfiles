@@ -35,6 +35,8 @@ to_remove=(
     # neovim's just so much better
     vscodium-bin
     gnome-search-providers-vscode
+    # Removed in favour of kdiff3
+    meld
     # Removed in favour of wezterm
     gnome-terminal
     # I don't really use Github so often anymore
@@ -148,7 +150,6 @@ packages=(
     cargo-udeps
     cargo-release
     # Other development tools
-    meld # Graphical diff tool
     hexyl # hex viewer
     oxipng # Optimize PNGs for size
     jq
@@ -188,6 +189,8 @@ packages=(
     newsflash # RSS reader
     xournalpp # Handwriting tool
     signal-desktop # Secure mobile messenger
+    kdiff3 # Diff & merge tool
+    d-feet # DBus inspector
     # Latex
     texlive-most
     # Fonts & themes
