@@ -24,6 +24,13 @@ if [[ "${HOSTNAME}" != *kastl ]]; then
     exit 1
 fi
 
+packages=(
+  digikam # Digital photos
+  gnucash # Personal finances
+  gnucash-docs
+)
+pacman -Syu --needed "${packages[@]}"
+
 flatpak --user remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrep
 
 # Install some personal flatpaks
@@ -31,8 +38,6 @@ flatpaks=(
     com.skype.Client # Sadly necessary
     org.jitsi.jitsi-meet # Secure video chats
     com.github.geigi.cozy # Audiobook player
-    org.gnucash.GnuCash # Personal finances
-    org.kde.digikam # Photo collection
     re.chiaki.Chiaki # PSN remote play client
     com.valvesoftware.Steam # Gaming
     de.bund.ausweisapp.ausweisapp2 # e-ID

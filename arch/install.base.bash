@@ -148,7 +148,7 @@ packages=(
     cargo-udeps
     cargo-release
     # Other development tools
-    meld # Graphical diff tool (not via flatpak for git diff-tool -g)
+    meld # Graphical diff tool
     hexyl # hex viewer
     oxipng # Optimize PNGs for size
     jq
@@ -168,14 +168,26 @@ packages=(
     sane
     pipewire-pulse # Pipewire-based pulse-audio, replaces pulseaudio
     wireplumber # Recommended pipewire session & policy manager
-    # Applications.  Normally I use flatpak, but some core apps work better this
-    # way and others just aren't flatpakked yet
+    # Applications.  Some others, especially proprietary ones,
+    # come from flatpak, but for stuff that arch packages it's
+    # just convenient to rely on pacman.
     firefox
     firefox-i18n-de
     youtube-dl
     mediathekview # Browse public broadcasting video libraries from Germany
     gpsprune # GPS Track editor
     zim # Notes, Journal & Zettelkasten (works better as package)
+    vlc # Video player
+    inkscape # Vector graphics
+    gimp # Pixel graphics
+    qalculate-gtk # Powerful calculator
+    kooha # Simple screen recorder
+    libreoffice-fresh
+    libreoffice-fresh-de
+    lollypop # Music player
+    newsflash # RSS reader
+    xournalpp # Handwriting tool
+    signal-desktop # Secure mobile messenger
     # Latex
     texlive-most
     # Fonts & themes
@@ -438,23 +450,31 @@ install -Dpm644 "$DIR/etc/gdm-profile" /etc/dconf/profile/gdm
 # Common applications
 flatpaks=(
     com.github.tchx84.Flatseal # Manage flatpak permissions
-    org.gnome.World.Secrets # Keepass database access
-    io.github.Qalculate # Scientific calculator
-    io.github.seadve.Kooha # Screen recorder
-    org.signal.Signal # Messenger
-    org.gimp.GIMP # Image editor
-    org.inkscape.Inkscape # SVG editor
-    org.videolan.VLC # Videos
-    org.libreoffice.LibreOffice # Office
     org.standardnotes.standardnotes # Personal notes
     org.stellarium.Stellarium # Stars and the sky
     io.freetubeapp.FreeTube # A privacy focused youtube client
-    com.gitlab.newsflash # News reader und miniflux client
-    org.gnome.Lollypop # Music manager
     org.gaphor.Gaphor # UML editor
-    com.github.xournalpp.xournalpp # Handwritten note taking (for Wacom tablet)
 )
 flatpak install --system --or-update --noninteractive "${flatpaks[@]}"
+
+flatpaks_to_prune=(
+    org.videolan.VLC # Videos
+    org.gimp.GIMP # Image editor
+    org.inkscape.Inkscape # SVG editor
+    org.gnome.World.Secrets # Keepass database access
+    io.github.Qalculate # Scientific calculator
+    io.github.seadve.Kooha # Screen recorder
+    org.libreoffice.LibreOffice # Office
+    com.gitlab.newsflash # News reader und miniflux client
+    org.gnome.Lollypop # Music manager
+    com.github.xournalpp.xournalpp # Handwritten note taking (for Wacom tablet)
+    org.signal.Signal # Messenger
+)
+for flatpak in "${flatpaks_to_prune[@]}"; do
+    flatpak remove -y --noninteractive "${flatpak}" || true
+done
+
+flatpak remove --unused || true
 
 # Initialize AUR repo
 if [[ ! -d /srv/pkgrepo/aur/ ]]; then
