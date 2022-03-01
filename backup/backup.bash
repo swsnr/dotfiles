@@ -19,6 +19,8 @@ INHIBITOR_APP_ID=""
 
 if [[ -n ${GNOME_TERMINAL_SERVICE:-} ]]; then
     INHIBITOR_APP_ID=org.gnome.Terminal.desktop
+elif [[ ${TERM_PROGRAM} == "WezTerm" ]]; then
+    INHIBITOR_APP_ID=org.wezfurlong.wezterm.desktop
 fi
 
 if [[ -z "$INHIBITOR_APP_ID" ]]; then
