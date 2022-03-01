@@ -100,7 +100,8 @@ augroup flausch
   " to that I can start typing my message right away without having to press i
   " first
   au BufRead COMMIT_EDITMSG execute "normal! gg" | execute "normal! O" | startinsert
-  " Update indentation settings for fish shell
+  " Update indentation settings for fish shell and bash
   au FileType fish setlocal shiftwidth=4 formatoptions-=t
+  au FileType bash setlocal shiftwidth=4 formatoptions-=t
 augroup END
 ]]
