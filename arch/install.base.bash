@@ -30,6 +30,8 @@ PRODUCT_NAME="$(< /sys/class/dmi/id/product_name)"
 to_remove=(
     # Remove linux-lts; I'm now using the standard kernel
     linux-lts
+    # Remove dracut-git; dracut 056 has all required fixes.
+    dracut-git
     # neovim's just so much better
     vscodium-bin
     gnome-search-providers-vscode
@@ -59,11 +61,7 @@ pacman -D --asdeps adobe-source-code-pro-fonts || true
 packages=(
     # Basic packages & system tools
     base
-    # FIXME: We currently use dracut git for some crucial MRs which haven't been released yet:
-    # - <https://github.com/dracutdevs/dracut/pull/1526>: tpm2-tss module dependencies have a typo
-    # - <https://github.com/dracutdevs/dracut/pull/1658>: TPM2 user wasn't created because sysusers didn't run
-    # When dracut 56 gets to arch go back to packaged dracut
-    #dracut # Build initrd & unified EFI images
+    dracut # Build initrd & unified EFI images
     linux-firmware
     intel-ucode
     linux
@@ -262,10 +260,16 @@ optdeps=(
     devtools
     # zim: spell checking
     gtkspell3
+    # inkscape: optimized SVGs
+    scour
 )
 
 pacman -S --needed --asdeps "${optdeps[@]}"
 pacman -D --asdeps "${optdeps[@]}"
+
+# Currently dracut is missing an optdepends on tpm2-tools, see
+# https://bugs.archlinux.org/task/73229
+pacman -D --asexplicit tpm2-tools
 
 # Setup regular scrubbing on btrfs
 systemctl enable "btrfs-scrub@$(systemd-escape -p /).timer"
@@ -502,8 +506,6 @@ fi
 aur_packages=(
     # AUR helper
     aurutils
-    # initramfs
-    dracut-git
     # Editor
     neovide-git
     # Splash screen at boot
@@ -549,7 +551,7 @@ if [[ -n "${SUDO_USER:-}" ]]; then
         pacman -D --asdeps "${aur_optdeps[@]}"
     fi
 
-    remove_from_repo=(vscodium-bin gnome-search-providers-vscode)
+    remove_from_repo=(vscodium-bin gnome-search-providers-vscode dracut-git)
     if [[ ${#remove_from_repo[@]} -gt 0 ]]; then
         for pkg in "${remove_from_repo[@]}"; do
             rm -f "/srv/pkgrepo/aur/${pkg}-"*.pkg.tar.*
