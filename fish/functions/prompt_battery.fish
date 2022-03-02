@@ -41,7 +41,7 @@ function prompt_battery -d 'Battery information for prompt'
 
     switch $state
         case fully-charged
-            set state_symbol '\uf578'
+            set state_symbol '\uf573'
             set colour 'green'
         case charging
             set -l time_to_full (string match -r '^time to full:\s+(.+)' $battery_info)[2]
