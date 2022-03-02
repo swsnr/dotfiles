@@ -59,7 +59,7 @@ function fish_prompt -d 'My personal prompt'
 
     # Python virtualenv if any
     if set -q VIRTUAL_ENV
-        printf ' %s%b%s%s' (set_color cyan) '\ue73c' (basename $VIRTUAL_ENV) (set_color normal)
+        printf ' %s%b%s%s' (set_color cyan) '\uf81f@' (realpath --relative-to=$PWD $VIRTUAL_ENV) (set_color normal)
     end
 
     if command -q vboxmanage
