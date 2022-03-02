@@ -42,6 +42,7 @@ function prompt_battery -d 'Battery information for prompt'
     switch $state
         case fully-charged
             set state_symbol '\uf578'
+            set colour 'green'
         case charging
             set -l time_to_full (string match -r '^time to full:\s+(.+)' $battery_info)[2]
             if test -n "$time_to_full"
@@ -50,7 +51,7 @@ function prompt_battery -d 'Battery information for prompt'
                 set level " $percentage"
             end
 
-            set colour (set_color 'green')
+            set colour 'green'
             # Nerd fonts fucked up the charging icons, see https://github.com/ryanoasis/nerd-fonts/issues/279
             # Icons for 10%, 50% and 70% are missing, but for whatever insane
             # reason 30% exists, so we cannot compute an icon elegantly either
@@ -84,7 +85,7 @@ function prompt_battery -d 'Battery information for prompt'
 
             if test $stepwise_level -eq 0
                 set state_symbol '\uf582'
-                set colour (set_color -b 'red' -o 'white')
+                set colour -b 'red' -o 'white'
             else if test $stepwise_level -eq 10
                 set state_symbol '\uf578'
             else
@@ -94,20 +95,20 @@ function prompt_battery -d 'Battery information for prompt'
             set -l warning_level (string match -r '^warning-level:\s+(.+)' $battery_info)[2]
             switch $warning_level
                 case none
-                    set colour (set_color 'green')
+                    set colour 'green'
                 case low
-                    set colour (set_color 'yellow')
+                    set colour 'yellow'
                 case critical
                     set state_symbol '\uf582'
-                    set colour (set_color -b 'red' -o 'white')
+                    set colour -b 'red' -o 'white'
                 case '*'
-                    set colour (set_color -b 'red')
+                    set colour -b 'red'
                     set state_symbol '\uf590'
             end
         case '*'
             set level UNKNOWN
-            set colour (set_color -o red)
+            set colour -o red
             set state_symbol '\uf590'
     end
-    printf '%s%b%s%s' $colour $state_symbol $level (set_color normal)
+    printf '%s%b%s%s' (set_color $colour) $state_symbol $level (set_color normal)
 end
