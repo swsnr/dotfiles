@@ -16,6 +16,8 @@ end
 
 return {
   term = term,
+  -- Do not start a login shell
+  default_prog = { os.getenv('SHELL') },
   -- color_scheme = "Dracula",
   color_scheme = 'Builtin Solarized Light',
   font = wezterm.font('JetBrains Mono'),
