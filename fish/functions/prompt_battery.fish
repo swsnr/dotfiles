@@ -13,6 +13,10 @@
 # the License.
 
 function prompt_battery -d 'Battery information for prompt'
+    if not command -q upower
+        return
+    end
+
     set -l battery_info
     set -l battery_info_start_index
 
