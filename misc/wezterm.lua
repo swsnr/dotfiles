@@ -20,7 +20,7 @@ return {
   default_prog = { os.getenv('SHELL') },
   -- color_scheme = "Dracula",
   color_scheme = 'Builtin Solarized Light',
-  font = wezterm.font('JetBrains Mono'),
+  font = wezterm.font('JetBrainsMono Nerd Font'),
   font_size = 11.0,
   -- Default initial window size
   initial_rows = 40,
