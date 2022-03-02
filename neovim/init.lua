@@ -102,6 +102,6 @@ augroup flausch
   au BufRead COMMIT_EDITMSG execute "normal! gg" | execute "normal! O" | startinsert
   " Update indentation settings for fish shell and bash
   au FileType fish setlocal shiftwidth=4 formatoptions-=t
-  au FileType bash setlocal shiftwidth=4 formatoptions-=t
+  au FileType sh setlocal shiftwidth=4 formatoptions-=t
 augroup END
 ]]
