@@ -17,6 +17,10 @@ set -xeuo pipefail
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}")"  >/dev/null 2>&1 && pwd)"
 
+clean-recursively() {
+    find "$@" -xtype l -delete
+}
+
 # Binaries
 mkdir -p ~/.local/bin
 ln -fs -t ~/.local/bin/ "$DIR/bin/"*
@@ -24,11 +28,13 @@ ln -fs -t ~/.local/bin/ "$DIR/bin/"*
 # Environment variables
 mkdir -p ~/.config/environment.d
 ln -fs -t ~/.config/environment.d "$DIR"/environment/*.conf
+clean-recursively ~/.config/environment.d
 
 # Fish shell config files and functions
 mkdir -p ~/.config/fish/functions
 ln -fs -t ~/.config/fish "$DIR/fish/config.fish"
 ln -fs -t ~/.config/fish/functions "$DIR/fish/functions/"*.fish
+clean-recursively ~/.config/fish/functions ~/.config/fish/conf.d
 # Fish plugins (per fisher scheme)
 ln -fs -t ~/.config/fish/conf.d "$DIR"/fish/plugins/*/conf.d/*.fish
 ln -fs -t ~/.config/fish/functions "$DIR"/fish/plugins/*/functions/*.fish
@@ -56,6 +62,7 @@ chmod 0700 ~/.ssh ~/.ssh/{config.d,known-hosts}
 ln -fs "$DIR/ssh/config" ~/.ssh/config
 ln -fs -t ~/.ssh/known-hosts "$DIR/ssh/known-hosts/"*
 ln -fs -t ~/.ssh/config.d "$DIR/ssh/config.d/"*
+clean-recursively ~/.ssh/config.d ~/.ssh/known-hosts
 
 # Scala configuration
 mkdir -p ~/.ammonite ~/.sbt/1.0/plugins/project
