@@ -62,13 +62,6 @@ function fish_prompt -d 'My personal prompt'
         printf ' %s%b%s%s' (set_color cyan) '\uf81f@' (realpath --relative-to=$PWD $VIRTUAL_ENV) (set_color normal)
     end
 
-    if command -q vboxmanage
-        set -l no_vms (vboxmanage list runningvms | wc -l)
-        if test $no_vms -gt 0
-            printf ' %s%b%s%s' (set_color cyan) '\uf98a' $no_vms (set_color normal)
-        end
-    end
-
     # Battery if present and supported
     set -l battery (prompt_battery)
     if string length -q $battery $battery
