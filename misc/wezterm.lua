@@ -6,12 +6,16 @@ function file_exists(name)
    if f ~= nil then io.close(f) return true else return false end
 end
 
+function wezterm_terminfo_installed()
+  return file_exists(os.getenv('HOME') .. '/.terminfo/w/wezterm')
+end
+
 -- Determine what to set $TERM to
-local term
-if file_exists(os.getenv('HOME') .. '/.terminfo/w/wezterm') then
-  term = 'wezterm'
-else
-  term = 'xterm-256color'
+function determine_term_value()
+  if wezterm_terminfo_installed() then
+    return 'wezterm'
+  end
+  return 'xterm-256color'
 end
 
 function ends_with(str, ending)
@@ -53,7 +57,7 @@ wezterm.on("update-right-status", function(window, pane)
 end)
 
 return {
-  term = term,
+  term = determine_term_value(),
   -- Do not start a login shell
   default_prog = { os.getenv('SHELL') },
   color_scheme = 'Builtin Solarized Light',
