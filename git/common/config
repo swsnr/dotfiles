@@ -10,8 +10,6 @@
 [gpg.ssh]
 	# Set a default file for me to keep my trustlist at
 	allowedSignersFile = ~/.config/git/allowed-signers
-[core]
-	preloadIndex = true
 [init]
 	# No masters no more
 	defaultBranch = main
@@ -57,17 +55,18 @@
 	enabled = true
 # Diffing and logging
 [diff]
+	# Use more mnemonic path prefixes for either side of the diff
 	mnemonicprefix = true
-	algorithm = patience
-	# Use blank lines as diff boundary to improve diffs
-	compactionHeuristic = true
+	# This algorithm generates better diffs in my opinion.
+	# See https://stackoverflow.com/a/32367597/355252
+	algorithm = histogram
 [diff "rust"]
 	xfuncname = "^[ \t]*(pub|)[ \t]*((fn|struct|enum|impl|trait|mod)[^;]*)$"
 [log]
-	# Use mailmap files to map author information
-	mailmap = true
 	# Abbreviate hashes in git log
 	abbrevCommit = true
+	# Always show signatures
+	showSignature = true
 [pretty]
 	fancy = %C(bold)Commit:%C(reset) %C(green)%H%C(red)%d%n%C(bold)Author:%C(reset) %C(cyan)%an <%ae>%n%C(bold)Date:%C(reset)   %C(blue)%ai (%ar)%C(reset)%n%+B
 	overview = %C(green)%h%C(reset) %s%n%C(blue)(%ar by %an)%C(red)%d%C(reset)%n
@@ -79,8 +78,9 @@
 [remote]
 	pushDefault = origin
 [fetch]
-	# Always prune dead branches from remotes
+	# Always prune dead branches and tags from remotes
 	prune = true
+	pruneTags = true
 [push]
 	# Push annotated tag reachable from pushed commits
 	followTags = true
