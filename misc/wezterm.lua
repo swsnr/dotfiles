@@ -14,11 +14,48 @@ else
   term = 'xterm-256color'
 end
 
+function ends_with(str, ending)
+   return ending == "" or str:sub(-#ending) == ending
+end
+
+-- Query UI color on Gnome, see
+-- https://wezfurlong.org/wezterm/config/lua/window/get_appearance.html
+function query_appearance_gnome()
+  local success, stdout = wezterm.run_child_process(
+    {"gsettings", "get", "org.gnome.desktop.interface", "gtk-theme"}
+  )
+  stdout = stdout:lower():gsub("%s+", "")
+  -- lowercase and remove whitespace
+  if ends_with(stdout, "dark'") then
+     return "Dark"
+  end
+  return "Light"
+end
+
+function scheme_for_appearance(appearance)
+  if appearance:find("Dark") then
+    return "Builtin Solarized Dark"
+  else
+    return "Builtin Solarized Light"
+  end
+end
+
+-- Hook into right status polling to switch UI theme if the desktop theme
+-- changed, see https://wezfurlong.org/wezterm/config/lua/window/get_appearance.html
+wezterm.on("update-right-status", function(window, pane)
+  local overrides = window:get_config_overrides() or {}
+  local appearance = query_appearance_gnome()
+  local scheme = scheme_for_appearance(appearance)
+  if overrides.color_scheme ~= scheme then
+    overrides.color_scheme = scheme
+    window:set_config_overrides(overrides)
+  end
+end)
+
 return {
   term = term,
   -- Do not start a login shell
   default_prog = { os.getenv('SHELL') },
-  -- color_scheme = "Dracula",
   color_scheme = 'Builtin Solarized Light',
   font = wezterm.font('JetBrainsMono Nerd Font'),
   font_size = 11.0,
