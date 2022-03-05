@@ -89,6 +89,12 @@ return {
     {key="UpArrow", mods="SHIFT", action=wezterm.action{ScrollToPrompt=-1}},
     {key="DownArrow", mods="SHIFT", action=wezterm.action{ScrollToPrompt=1}},
   },
+  mouse_bindings = {
+    { event={Down={streak=3, button="Left"}},
+      action={SelectTextAtMouseCursor="SemanticZone"},
+      mods="NONE"
+    },
+  },
   hyperlink_rules = {
     -- Linkify things that look like URLs
     -- This is actually the default if you don't specify any hyperlink_rules
