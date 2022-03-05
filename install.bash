@@ -31,9 +31,10 @@ ln -fs -t ~/.config/environment.d "$DIR"/environment/*.conf
 clean-recursively ~/.config/environment.d
 
 # Fish shell config files and functions
-mkdir -p ~/.config/fish/functions
+mkdir -p ~/.config/fish/functions ~/.config/fish/conf.d
 ln -fs -t ~/.config/fish "$DIR/fish/config.fish"
 ln -fs -t ~/.config/fish/functions "$DIR/fish/functions/"*.fish
+ln -fs -t ~/.config/fish/conf.d "$DIR/fish/conf.d/"*.fish
 clean-recursively ~/.config/fish/functions ~/.config/fish/conf.d
 # Fish plugins (per fisher scheme)
 ln -fs -t ~/.config/fish/conf.d "$DIR"/fish/plugins/*/conf.d/*.fish

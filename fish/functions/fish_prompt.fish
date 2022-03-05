@@ -89,5 +89,5 @@ function fish_prompt -d 'My personal prompt'
     else
         echo -sn (set_color red)
     end
-    echo -sn "→ " (set_color normal)
+    printf "→ %b\033]133;B\007" (set_color normal)
 end

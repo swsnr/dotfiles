@@ -35,5 +35,6 @@ function demo-prompt -d 'Switch to a simple prompt for demo purposes'
         echo -n '$'
         set_color normal
         echo -n ' '
+        printf "\033]133;B\007"
     end
 end
