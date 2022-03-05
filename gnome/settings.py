@@ -19,11 +19,11 @@ from gi.repository import Gio
 SETTINGS = {
     'org.gnome.desktop.interface': {
         # Themes and fonts
-        'icon-theme': 'Arc',
-        'gtk-theme': 'Arc-Darker',
-        'font-name': 'Ubuntu 11',
-        'document-font-name': 'Ubuntu 11',
-        'monospace-font-name': 'JetBrains Mono 11',
+        'icon-theme': None,
+        'gtk-theme': None,
+        'font-name': None,
+        'document-font-name': None,
+        'monospace-font-name': None,
         # Disable hot corner
         'enable-hot-corners': False,
         # Show date and weekday in clock
@@ -60,7 +60,7 @@ SETTINGS = {
         'dynamic-workspaces': True
     },
     'org.gnome.desktop.wm.preferences': {
-        'titlebar-font': 'Ubuntu Bold 11'
+        'titlebar-font': None
     },
     'org.gnome.desktop.wm.keybindings': {
         'close': ['<Super>q', '<Alt>F4'],
@@ -132,7 +132,9 @@ BINDINGS = {
 
 
 def set_pytype(settings, key, value):
-    if isinstance(value, str):
+    if value is None:
+        settings.reset(key)
+    elif isinstance(value, str):
         settings.set_string(key, value)
     elif isinstance(value, bool):
         settings.set_boolean(key, value)

@@ -49,6 +49,9 @@ to_remove=(
     adobe-source-sans-fonts
     adobe-source-serif-fonts
     ttf-roboto
+    # Let's stick to Adwaita
+    arc-gtk-theme
+    arc-icon-theme
 )
 for pkg in "${to_remove[@]}"; do
     pacman --noconfirm -Rs "$pkg" || true
@@ -194,8 +197,6 @@ packages=(
     # Latex
     texlive-most
     # Fonts & themes
-    arc-gtk-theme
-    arc-icon-theme
     # Fallback font with huge coverage and colored emojis
     noto-fonts
     noto-fonts-extra
