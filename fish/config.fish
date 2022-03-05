@@ -22,6 +22,7 @@ if status --is-interactive
         # Remove a few security tokens for the current terminal
         op signout 2>/dev/null
         sudo -K 2>/dev/null
+        return 0
     end
 
     # Give me English messages in an interface shell in a TTY; these messages
