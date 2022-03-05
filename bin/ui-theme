@@ -19,7 +19,7 @@ set -e
 
 case "$1" in
 toggle)
-    if gsettings get org.gnome.desktop.interface gtk-theme | grep -qi "dark'"; then
+    if gsettings get org.gnome.desktop.interface gtk-theme | grep -qi 'dark'; then
         theme=light
     else
         theme=dark
@@ -38,10 +38,10 @@ echo "$theme"
 
 case "$theme" in
 light)
-    gsettings set org.gnome.desktop.interface gtk-theme 'Arc-Darker'
+    gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita'
     ;;
 dark)
-    gsettings set org.gnome.desktop.interface gtk-theme 'Arc-Dark'
+    gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
     ;;
 *)
     echo "Unsupported theme: $theme" 1>&2
