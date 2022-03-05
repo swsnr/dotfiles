@@ -86,6 +86,8 @@ return {
   keys = {
     {key='_', mods='CMD', action=wezterm.action{SplitVertical={domain="CurrentPaneDomain"}}},
     {key='|', mods='CMD', action=wezterm.action{SplitHorizontal={domain="CurrentPaneDomain"}}},
+    {key="UpArrow", mods="SHIFT", action=wezterm.action{ScrollToPrompt=-1}},
+    {key="DownArrow", mods="SHIFT", action=wezterm.action{ScrollToPrompt=1}},
   },
   hyperlink_rules = {
     -- Linkify things that look like URLs
