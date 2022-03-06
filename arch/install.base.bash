@@ -232,6 +232,7 @@ packages=(
     file-roller
     yelp # Online help system
     nautilus
+    python-nautilus
     gvfs-afc
     gvfs-goa
     gvfs-google
