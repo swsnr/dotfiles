@@ -58,8 +58,8 @@ end)
 
 return {
   term = determine_term_value(),
-  -- Do not start a login shell
-  default_prog = { os.getenv('SHELL') },
+  -- Use fish as standard interactive shell
+  default_prog = { '/usr/bin/fish' },
   color_scheme = 'Builtin Solarized Light',
   font = wezterm.font('JetBrainsMono Nerd Font'),
   font_size = 11.0,
