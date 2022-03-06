@@ -84,7 +84,7 @@ ln -fs "$DIR/misc/XCompose" ~/.XCompose
 mkdir -p ~/.local/share/gnome-shell/extensions
 ln -fs -t ~/.local/share/gnome-shell/extensions "$DIR/gnome/extensions/home@swsnr.de"
 mkdir -p ~/.local/share/nautilus-python/extensions
-ln -fs -t ~/.local/share/nautilus-python/extensions "$DIR/gnome/wezterm-nautilus.py"
+ln -fs -t ~/.local/share/nautilus-python/extensions "$DIR"/gnome/nautilus-extensions/*.py
 "$DIR/gnome/settings.py"
 
 # Generate additional fish completions
