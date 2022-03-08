@@ -79,6 +79,7 @@ return packer.startup(function(use)
         [']d'] = {'<cmd>lua vim.diagnostic.goto_next()<cr>', 'Next diagnostic'},
         -- Global bindings
         ['<leader> '] = {'<cmd>Telescope commands<cr>', 'Commands'},
+        ['<leader>?'] = {'<cmd>Telescope<cr>', 'Pickers'},
         -- Buffers
         ['<leader>b'] = {name='+buffers'},
         ['<leader>bb'] = {'<cmd>Telescope buffers<cr>', 'List buffers'},
