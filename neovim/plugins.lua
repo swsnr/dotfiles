@@ -309,7 +309,9 @@ return packer.startup(function(use)
   use {
     'neovim/nvim-lspconfig',
     config = function()
-      local servers = { }
+      local servers = {
+        'bashls'
+      }
       for _, lsp in pairs(servers) do
         require('lspconfig')[lsp].setup {
           on_attach = lsp_attach,

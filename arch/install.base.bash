@@ -152,12 +152,14 @@ packages=(
     cargo-outdated
     cargo-udeps
     cargo-release
+    # Bash tool
+    bash-language-server
+    shellcheck
+    shfmt
     # Other development tools
     hexyl # hex viewer
     oxipng # Optimize PNGs for size
     jq
-    shellcheck
-    shfmt
     # Desktop tools
     wl-clipboard
     dconf-editor
