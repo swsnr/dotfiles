@@ -23,6 +23,7 @@ clean-recursively() {
 
 # Binaries
 mkdir -p ~/.local/bin
+clean-recursively ~/.local/bin
 ln -fs -t ~/.local/bin/ "$DIR/bin/"*
 
 # Environment variables
