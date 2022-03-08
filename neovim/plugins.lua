@@ -99,7 +99,7 @@ return packer.startup(function(use)
         ['<leader>hm'] = {'<cmd>Telescope man_pages<cr>', 'Man pages'},
         -- Jumping
         ['<leader>j'] = {name='+jump'},
-        ['<leader>jl'] = {'<cmd>Telescope jumplist<cr>', 'Jumplist'},
+        ['<leader>jj'] = {'<cmd>Telescope jumplist<cr>', 'Jumplist'},
         ['<leader>jl'] = {'<cmd>Telescope loclist<cr>', 'Location list'},
         ['<leader>jq'] = {'<cmd>Telescope quickfix<cr>', 'Quickfix list'},
         ['<leader>jm'] = {'<cmd>Telescope marks<cr>', 'Marks'},
