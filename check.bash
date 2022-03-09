@@ -1,3 +1,4 @@
+#!/bin/bash
 # Copyright Sebastian Wiesner <sebastian@swsnr.de>
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -12,6 +13,8 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
-shellcheck -S info **/*.bash bin/ui-theme
+set -exuo pipefail
+
+shellcheck -S info ./**/*.bash bin/ui-theme
 
 fish_indent -w fish/config.fish fish/functions/*.fish
