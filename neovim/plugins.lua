@@ -430,6 +430,15 @@ return packer.startup(function(use)
       require('rust-tools').setup({
         server = {
           on_attach = rust_attach,
+          settings = {
+            -- See https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
+            ["rust-analyzer"] = {
+                -- Run clippy on save
+                checkOnSave = {
+                    command = "clippy"
+                },
+            }
+          },
           flags = {
             debounce_text_changes = 150
           }
