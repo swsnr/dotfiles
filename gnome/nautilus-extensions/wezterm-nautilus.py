@@ -30,8 +30,8 @@ class OpenInWezTermAction(GObject.GObject, Nautilus.MenuProvider):
             "/org/freedesktop/systemd1",
             "org.freedesktop.systemd1.Manager", None)
 
-    def _open_terminal(self, file):
-        cmd = ['wezterm', 'start', '--cwd', file.get_location().get_path()]
+    def _open_terminal(self, path):
+        cmd = ['wezterm', 'start', '--cwd', path]
         child = Gio.Subprocess.new(cmd, Gio.SubprocessFlags.NONE)
         pid = int(child.get_identifier())
         props = [("PIDs", GLib.Variant('au', [pid])),
@@ -41,30 +41,35 @@ class OpenInWezTermAction(GObject.GObject, Nautilus.MenuProvider):
         self._systemd.call_sync( 'StartTransientUnit', args,
                 Gio.DBusCallFlags.NO_AUTO_START, 500, None)
 
-    def _menu_activate_cb(self, _menu, file):
-        self._open_terminal(file)
+    def _menu_item_activated(self, _menu, paths):
+        for path in paths:
+            self._open_terminal(path)
 
-    def _make_item(self, file, name):
-        if file.is_directory and file.get_location().get_path():
-            item = Nautilus.MenuItem(name=name, label='Open in WezTerm',
-                    icon='org.wezfurlong.wezterm')
-            item.connect('activate', self._menu_activate_cb, file)
-            return item
-        else:
-            return None
+    def _make_item(self, name, paths):
+        item = Nautilus.MenuItem(name=name, label='Open in WezTerm',
+            icon='org.wezfurlong.wezterm')
+        item.connect('activate', self._menu_item_activated, paths)
+        return item
+
+    def _paths_to_open(self, files):
+        paths = []
+        for file in files:
+            if file.is_directory():
+                path = file.get_location().get_path()
+                if path and path not in paths:
+                    paths.append(path)
+        return paths
 
     def get_file_items(self, window, files):
-        items = []
-        for file in files:
-            item = self._make_item(file, name='WezTermNautilus::open_in_wezterm')
-            if item:
-                items.append(item)
-        return items
+        paths = self._paths_to_open(files)
+        if paths:
+            return [self._make_item(name='WezTermNautilus::open_in_wezterm', paths=paths)]
+        else:
+            return []
 
     def get_background_items(self, window, file):
-        item = self._make_item(file,
-                name='WezTermNautilus::open_folder_in_wezterm')
-        if item:
-            return [item]
+        paths = self._paths_to_open([file])
+        if paths:
+            return [self._make_item(name='WezTermNautilus::open_folder_in_wezterm', paths=paths)]
         else:
-            return None
+            return []
