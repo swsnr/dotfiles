@@ -54,6 +54,7 @@ class OpenInWezTermAction(GObject.GObject, Nautilus.MenuProvider):
     def _paths_to_open(self, files):
         paths = []
         for file in files:
+            # TODO: If it's not a directory, open its containing directory?
             if file.is_directory():
                 path = file.get_location().get_path()
                 if path and path not in paths:
