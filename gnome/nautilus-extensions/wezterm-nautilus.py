@@ -54,12 +54,17 @@ class OpenInWezTermAction(GObject.GObject, Nautilus.MenuProvider):
     def _paths_to_open(self, files):
         paths = []
         for file in files:
-            # TODO: If it's not a directory, open its containing directory?
-            if file.is_directory():
-                path = file.get_location().get_path()
-                if path and path not in paths:
-                    paths.append(path)
-        return paths
+            location = file.get_location() if file.is_directory() else file.get_parent_location()
+            path = location.get_path()
+            if path and path not in paths:
+                paths.append(path)
+        if 10 < len(paths):
+            # Let's not open anything if the user selected a lot of directories,
+            # to avoid accidentally spamming their desktop with dozends of
+            # new windows or tabs.  Ten is a totally arbitrary limit :)
+            return []
+        else:
+            return paths
 
     def get_file_items(self, window, files):
         paths = self._paths_to_open(files)
