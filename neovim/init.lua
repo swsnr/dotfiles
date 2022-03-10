@@ -19,7 +19,7 @@
 -- and https://github.com/nanotee/nvim-lua-guide for info about Lua in Neovim.
 
 -- Load plugins
-require('user.plugins')
+require('flausch.plugins')
 
 -- neovide settings
 vim.g.neovide_cursor_vfx_mode = 'pixiedust'

@@ -48,9 +48,12 @@ rm -f ~/.config/fish/functions/fisher.fish ~/.config/fish/completions/fisher.fis
 ln -fs "$DIR/vim/ideavimrc" ~/.ideavimrc
 
 # Neovim
-mkdir -p ~/.config/nvim/lua/user
+mkdir -p ~/.config/nvim/lua/
 ln -fs -t ~/.config/nvim "$DIR"/neovim/init.lua
-ln -fs -t ~/.config/nvim/lua/user "$DIR"/neovim/plugins.lua
+ln -fs "$DIR"/neovim/lua/flausch ~/.config/nvim/lua/flausch
+# Cleanup some old setup stuff
+rm -f ~/.config/nvim/lua/user/plugins.lua
+rmdir ~/.config/nvim/lua/user
 
 # Git configuration
 mkdir -p ~/.config/git
