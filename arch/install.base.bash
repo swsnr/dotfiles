@@ -273,7 +273,7 @@ optdeps=(
     zathura-pdf-mupdf
     # libva: intel drivers
     intel-media-driver
-    # gnome-shell-extension-appindicator: Gtk3 apps
+    # gnome-shell-extension-appindicator: GTK3 apps
     libappindicator-gtk3
     # aurutils: chroot support
     devtools
@@ -281,6 +281,8 @@ optdeps=(
     gtkspell3
     # inkscape: optimized SVGs
     scour
+    # kiconthemes: Additional icons for KDE apps
+    breeze-icons
 )
 
 pacman -S --needed --asdeps "${optdeps[@]}"
