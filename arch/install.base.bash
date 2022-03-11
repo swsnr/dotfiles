@@ -27,37 +27,10 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}")"  >/dev/null 2>&1 && pwd)"
 PRODUCT_NAME="$(< /sys/class/dmi/id/product_name)"
 
 # Remove packages I no longer use
-to_remove=(
-    # Remove linux-lts; I'm now using the standard kernel
-    linux-lts
-    # Remove dracut-git; dracut 056 has all required fixes.
-    dracut-git
-    # neovim's just so much better
-    vscodium-bin
-    gnome-search-providers-vscode
-    # Removed in favour of kdiff3
-    meld
-    # Removed in favour of wezterm
-    gnome-terminal
-    # I don't really use Github so often anymore
-    hub
-    github-cli
-    # Remove a bunch of fonts I no longer need
-    ttf-fira-code
-    ttf-fira-mono
-    ttf-fira-sans
-    adobe-source-sans-fonts
-    adobe-source-serif-fonts
-    ttf-roboto
-    # Let's stick to Adwaita
-    arc-gtk-theme
-    arc-icon-theme
-)
+to_remove=()
 for pkg in "${to_remove[@]}"; do
     pacman --noconfirm -Rs "$pkg" || true
 done
-# Source Code pro is required by Gnome
-pacman -D --asdeps adobe-source-code-pro-fonts || true
 
 # Configure pacman to update systemd-boot after systemd updates
 # Doesn't play well with sbctl currently, see https://github.com/Foxboron/sbctl/issues/119
@@ -463,26 +436,6 @@ flatpaks=(
     org.gaphor.Gaphor # UML editor
 )
 flatpak install --system --or-update --noninteractive "${flatpaks[@]}"
-
-flatpaks_to_prune=(
-    org.videolan.VLC # Videos
-    org.gimp.GIMP # Image editor
-    org.inkscape.Inkscape # SVG editor
-    org.gnome.World.Secrets # Keepass database access
-    io.github.Qalculate # Scientific calculator
-    io.github.seadve.Kooha # Screen recorder
-    org.libreoffice.LibreOffice # Office
-    com.gitlab.newsflash # News reader und miniflux client
-    org.gnome.Lollypop # Music manager
-    com.github.xournalpp.xournalpp # Handwritten note taking (for Wacom tablet)
-    org.signal.Signal # Messenger
-    org.stellarium.Stellarium # Stars and the sky
-    org.standardnotes.standardnotes # Personal notes
-)
-for flatpak in "${flatpaks_to_prune[@]}"; do
-    flatpak remove -y --noninteractive "${flatpak}" || true
-done
-
 flatpak remove --unused || true
 
 # Initialize AUR repo
@@ -580,7 +533,7 @@ if [[ -n "${SUDO_USER:-}" ]]; then
         pacman -D --asdeps "${aur_optdeps[@]}"
     fi
 
-    remove_from_repo=(vscodium-bin gnome-search-providers-vscode dracut-git)
+    remove_from_repo=()
     if [[ ${#remove_from_repo[@]} -gt 0 ]]; then
         for pkg in "${remove_from_repo[@]}"; do
             rm -f "/srv/pkgrepo/aur/${pkg}-"*.pkg.tar.*
