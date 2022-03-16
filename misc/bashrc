@@ -42,3 +42,8 @@ shopt -s autocd 2> /dev/null
 shopt -s dirspell 2> /dev/null
 # Correct spelling errors in arguments supplied to cd
 shopt -s cdspell 2> /dev/null
+
+# Include additional configuration snippets
+for file in ~/.bashrc.d/*.bash; do
+    source "$file"
+done
