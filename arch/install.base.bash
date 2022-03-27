@@ -220,6 +220,7 @@ packages=(
     eog # Image viewer
     simple-scan
     seahorse # Credential manager
+    baobab # Disk space analyser
     # Multimedia for gnome
     gst-plugins-good
     gst-plugins-bad
