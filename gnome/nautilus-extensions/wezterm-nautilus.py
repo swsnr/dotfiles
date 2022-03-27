@@ -14,32 +14,61 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+import os.path
 
 from gi import require_version
 require_version('Nautilus', '3.0')
 from gi.repository import Nautilus, GObject, Gio, GLib
 
 
-class OpenInWezTermAction(GObject.GObject, Nautilus.MenuProvider):
-    def __init__(self):
-        super().__init__()
-        session = Gio.bus_get_sync(Gio.BusType.SESSION, None)
-        self._systemd = Gio.DBusProxy.new_sync(session, Gio.DBusProxyFlags.NONE,
-            None,
-            "org.freedesktop.systemd1",
-            "/org/freedesktop/systemd1",
-            "org.freedesktop.systemd1.Manager", None)
+def sd_booted():
+    """
+    Check if this system runs under systemd, per sd_booted(3).
+    """
+    return os.path.isdir('/run/systemd/system/')
 
-    def _open_terminal(self, path):
-        cmd = ['wezterm', 'start', '--cwd', path]
-        child = Gio.Subprocess.new(cmd, Gio.SubprocessFlags.NONE)
-        pid = int(child.get_identifier())
+
+class SystemdManager():
+    def __init__(self, proxy):
+        self._proxy = proxy
+
+    def move_to_dedicated_scope(self, pid):
         props = [("PIDs", GLib.Variant('au', [pid])),
             ('CollectMode', GLib.Variant('s', 'inactive-or-failed'))]
         name = f'app-nautilus-org.wezfurlong.wezterm-{pid}.scope'
         args = GLib.Variant('(ssa(sv)a(sa(sv)))', (name, 'fail', props, []))
-        self._systemd.call_sync( 'StartTransientUnit', args,
+        self._proxy.call_sync('StartTransientUnit', args,
                 Gio.DBusCallFlags.NO_AUTO_START, 500, None)
+
+    @classmethod
+    def try_connect(cls, bus):
+        if sd_booted():
+            proxy = Gio.DBusProxy.new_sync(bus,
+                    Gio.DBusProxyFlags.NONE,
+                    None,
+                    "org.freedesktop.systemd1",
+                    "/org/freedesktop/systemd1",
+                    "org.freedesktop.systemd1.Manager", None)
+            return cls(proxy)
+        else:
+            return None
+
+
+class OpenInWezTermAction(GObject.GObject, Nautilus.MenuProvider):
+    def __init__(self):
+        super().__init__()
+        self._systemd = SystemdManager.try_connect(Gio.bus_get_sync(Gio.BusType.SESSION, None))
+
+    def _open_terminal(self, path):
+        cmd = ['wezterm', 'start', '--cwd', path]
+        child = Gio.Subprocess.new(cmd, Gio.SubprocessFlags.NONE)
+        if self._systemd:
+            # Move new terminal into a dedicated systemd scope to make systemd
+            # track the terminal separately; in particular this makes systemd
+            # keep a separate CPU and memory account for Wezterm which in turn
+            # ensures that oomd doesn't take nautilus down if a process in
+            # wezterm consumes a lot of memory.
+            self._systemd.move_to_dedicated_scope(int(child.get_identifier()))
 
     def _menu_item_activated(self, _menu, paths):
         for path in paths:
