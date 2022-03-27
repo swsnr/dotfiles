@@ -96,8 +96,8 @@ return {
     fade_out_duration_ms = 150,
   },
   keys = {
-    {key='_', mods='CMD', action=wezterm.action{SplitVertical={domain="CurrentPaneDomain"}}},
-    {key='|', mods='CMD', action=wezterm.action{SplitHorizontal={domain="CurrentPaneDomain"}}},
+    {key='_', mods='CMD|SHIFT', action=wezterm.action{SplitVertical={domain="CurrentPaneDomain"}}},
+    {key='|', mods='CMD|SHIFT', action=wezterm.action{SplitHorizontal={domain="CurrentPaneDomain"}}},
     {key="UpArrow", mods="SHIFT", action=wezterm.action{ScrollToPrompt=-1}},
     {key="DownArrow", mods="SHIFT", action=wezterm.action{ScrollToPrompt=1}},
   },
