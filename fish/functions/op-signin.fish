@@ -13,15 +13,18 @@
 # the License.
 
 function op-signin -d 'Signin to 1Password'
-    if not set -q OP_ACCOUNT_SHORTHAND
-        echo '1Password account not set; export $OP_ACCOUNT_SHORTHAND'
+    set -l  uuid (op account list --format json |
+        jq -r '.[] | select(.email == $EMAIL) | .user_uuid' --arg EMAIL $EMAIL)
+    if test -z $uuid
+        echo 'UUID not found for' $EMAIL 1>&2
         return 1
     end
-    set -l session_var OP_SESSION_$OP_ACCOUNT_SHORTHAND
-    if not set -q $session_var
-        eval (op signin --account swsnr)
-    else
-        # Ensure the session is still valid and refresh it otherwise
+
+    set -l session_var OP_SESSION_$uuid
+
+    if set -q $session_var
         eval (op signin --session $$session_var)
+    else
+        eval (op signin --account $uuid)
     end
 end
