@@ -14,6 +14,7 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+import time
 import os.path
 
 from gi import require_version
@@ -54,12 +55,25 @@ class SystemdManager():
             return None
 
 
+def _open_in_existing_terminal(path):
+    cmd = ['wezterm', 'cli', 'spawn', '--cwd', path]
+    child = Gio.Subprocess.new(cmd, Gio.SubprocessFlags.NONE)
+    child.wait_check()
+
+def _wezterm_running():
+    cmd = ['wezterm', 'cli', 'list']
+    flags = Gio.SubprocessFlags.STDOUT_SILENCE | Gio.SubprocessFlags.STDERR_SILENCE
+    child = Gio.Subprocess.new(cmd, flags)
+    child.wait()
+    return child.get_if_exited() and child.get_exit_status() == 0
+
+
 class OpenInWezTermAction(GObject.GObject, Nautilus.MenuProvider):
     def __init__(self):
         super().__init__()
         self._systemd = SystemdManager.try_connect(Gio.bus_get_sync(Gio.BusType.SESSION, None))
 
-    def _open_terminal(self, path):
+    def _open_new_terminal(self, path):
         cmd = ['wezterm', 'start', '--cwd', path]
         child = Gio.Subprocess.new(cmd, Gio.SubprocessFlags.NONE)
         if self._systemd:
@@ -70,9 +84,18 @@ class OpenInWezTermAction(GObject.GObject, Nautilus.MenuProvider):
             # wezterm consumes a lot of memory.
             self._systemd.move_to_dedicated_scope(int(child.get_identifier()))
 
+    def _open_paths_in_new_or_existing_terminal(self, paths):
+        if _wezterm_running():
+            for path in paths:
+                _open_in_existing_terminal(path)
+        else:
+            self._open_new_terminal(paths[0])
+            time.sleep(0.5)
+            for path in paths[1:]:
+                _open_in_existing_terminal(path)
+
     def _menu_item_activated(self, _menu, paths):
-        for path in paths:
-            self._open_terminal(path)
+        self._open_paths_in_new_or_existing_terminal(paths)
 
     def _make_item(self, name, paths):
         item = Nautilus.MenuItem(name=name, label='Open in WezTerm',
