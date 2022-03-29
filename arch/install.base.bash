@@ -501,7 +501,6 @@ aur_packages=(
     dracut-hook-uefi
     # Password manager
     1password
-    1password-cli
     # Additional fonts
     nerd-fonts-jetbrains-mono # Nerd font for vim & terminal
     otf-vollkorn # My favorite serif font for documents

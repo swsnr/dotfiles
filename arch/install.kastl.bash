@@ -58,3 +58,22 @@ flatpak override --user \
     --filesystem ~/Hörbücher \
     --nofilesystem host \
     com.github.geigi.cozy
+
+aur_packages=(
+    # CLI for 1password
+    1password-cli
+)
+
+aur_optdeps=()
+
+if [[ -n "${SUDO_USER:-}" ]]; then
+    # Build AUR packages and install them
+    if [[ ${#aur_packages} -gt 0 ]]; then
+        sudo -u "$SUDO_USER" --preserve-env=AUR_PAGER,PACKAGER,EDITOR aur sync -daur -cRT "${aur_packages[@]}" "${aur_optdeps[@]}"
+        pacman --needed -Syu "${aur_packages[@]}"
+    fi
+    if [[ ${#aur_optdeps[@]} -gt 0 ]]; then
+        pacman --needed -S --asdeps "${aur_optdeps[@]}"
+        pacman -D --asdeps "${aur_optdeps[@]}"
+    fi
+fi
