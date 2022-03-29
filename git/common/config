@@ -78,9 +78,8 @@
 [remote]
 	pushDefault = origin
 [fetch]
-	# Always prune dead branches and tags from remotes
+	# Always prune dead branches
 	prune = true
-	pruneTags = true
 [push]
 	# Push annotated tag reachable from pushed commits
 	followTags = true
