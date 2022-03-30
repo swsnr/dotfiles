@@ -20,7 +20,7 @@ if status --is-interactive
     # Cleanup on exit
     function cleanup-tokens --on-event fish_exit
         # Remove a few security tokens for the current terminal
-        if string length -q (op account list)
+        if command -q op && string length -q (op account list)
             op signout --all 2>/dev/null
         end
         sudo -K 2>/dev/null
