@@ -233,8 +233,8 @@ pacman -Syu --needed "${packages[@]}"
 pacman -D --asdeps pipewire-pulse wireplumber
 
 optdeps=(
-    # linux: wireless frequency policies
-    crda
+    # linux: wireless frequency policies (provided as crda)
+    wireless-regdb
     # pipewire: zeroconf support
     pipewire-zeroconf
     # poppler: data files
