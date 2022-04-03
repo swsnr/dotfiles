@@ -27,7 +27,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}")"  >/dev/null 2>&1 && pwd)"
 PRODUCT_NAME="$(< /sys/class/dmi/id/product_name)"
 
 # Remove packages I no longer use
-to_remove=()
+to_remove=(youtube-dl)
 for pkg in "${to_remove[@]}"; do
     pacman --noconfirm -Rs "$pkg" || true
 done
@@ -152,7 +152,7 @@ packages=(
     # just convenient to rely on pacman.
     firefox
     firefox-i18n-de
-    youtube-dl
+    yt-dlp # youtube-dl with extra features
     mediathekview # Browse public broadcasting video libraries from Germany
     gpsprune # GPS Track editor
     zim # Notes, Journal & Zettelkasten (works better as package)
