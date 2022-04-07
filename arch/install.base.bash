@@ -198,6 +198,7 @@ packages=(
     gnome-shell
     gnome-shell-extensions
     gnome-shell-extension-appindicator
+    gnome-remote-desktop
     gnome-system-monitor
     gnome-control-center
     gnome-tweaks
