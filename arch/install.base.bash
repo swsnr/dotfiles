@@ -27,7 +27,10 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}")"  >/dev/null 2>&1 && pwd)"
 PRODUCT_NAME="$(< /sys/class/dmi/id/product_name)"
 
 # Remove packages I no longer use
-to_remove=(youtube-dl)
+to_remove=(
+    youtube-dl
+    kooha # Gnome 42 has this built in
+)
 for pkg in "${to_remove[@]}"; do
     pacman --noconfirm -Rs "$pkg" || true
 done
@@ -160,7 +163,6 @@ packages=(
     inkscape # Vector graphics
     gimp # Pixel graphics
     qalculate-gtk # Powerful calculator
-    kooha # Simple screen recorder
     libreoffice-fresh
     libreoffice-fresh-de
     lollypop # Music player
