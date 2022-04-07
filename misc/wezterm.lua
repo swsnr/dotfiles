@@ -26,11 +26,11 @@ end
 -- https://wezfurlong.org/wezterm/config/lua/window/get_appearance.html
 function query_appearance_gnome()
   local success, stdout = wezterm.run_child_process(
-    {"gsettings", "get", "org.gnome.desktop.interface", "gtk-theme"}
+    {"gsettings", "get", "org.gnome.desktop.interface", "color-scheme"}
   )
   stdout = stdout:lower():gsub("%s+", "")
   -- lowercase and remove whitespace
-  if ends_with(stdout, "dark'") then
+  if stdout == "'prefer-dark'" then
      return "Dark"
   end
   return "Light"
