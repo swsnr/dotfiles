@@ -71,6 +71,7 @@ packages=(
     power-profiles-daemon
     # Networking
     networkmanager
+    firewalld
     # DNS-SD, mostly for printers, i.e. CUPS. Service discovery is handled by Avahi,
     # name resolution by systemd-resolved.
     avahi
@@ -311,6 +312,7 @@ systemctl enable systemd-resolved.service
 install -Dpm644 "$DIR/etc/networkmanager-mdns.conf" /etc/NetworkManager/conf.d/50-mdns.conf
 systemctl enable NetworkManager.service
 systemctl enable avahi-daemon.service
+systemctl enable firewalld.service
 # Time synchronization
 install -Dpm644 "$DIR/etc/systemd/timesyncd-lunaryorn.conf" /etc/systemd/timesyncd.conf.d/50-lunaryorn.conf
 systemctl enable systemd-timesyncd.service
@@ -372,6 +374,16 @@ NSS_HOSTS=(
     dns
     )
 sed -i '/^hosts: /s/^hosts: .*/'"hosts: ${NSS_HOSTS[*]}/" /etc/nsswitch.conf
+
+# Firewall rules
+firewall-cmd --permanent --zone=home \
+    --add-service=upnp-client \
+    --add-service=rdp \
+    --add-service=ssh
+# Don't allow incoming SSH connections on public networks (this is a weird
+# default imho).
+firewall-cmd --permanent --zone=public --remove-service=ssh
+firewall-cmd --reload
 
 # If we have secureboot tooling in place
 if command -v sbctl > /dev/null && [[ -f /usr/share/secureboot/keys/db/db.key ]]; then
