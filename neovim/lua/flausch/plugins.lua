@@ -234,7 +234,28 @@ return packer.startup(function(use)
 
       require('nvim-treesitter.configs').setup {
         -- Install all maintained parsers
-        ensure_installed = 'maintained',
+        ensure_installed = {
+          'bash',
+          'bibtex',
+          'c',
+          'comment',
+          'css',
+          'dockerfile',
+          'dot',
+          'graphql',
+          'hocon',
+          'javascript',
+          'json',
+          'json5',
+          'latex',
+          'lua',
+          'rust',
+          'scala',
+          'toml',
+          'typescript',
+          'vim',
+          'yaml',
+        },
         -- Enable tree sitter highlighting
         highlight = {enable = true},
         -- Enable incremental selection
