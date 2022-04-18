@@ -30,6 +30,7 @@ PRODUCT_NAME="$(< /sys/class/dmi/id/product_name)"
 to_remove=(
     youtube-dl
     kooha # Gnome 42 has this built in
+    gnome-software # Serves no real purpose
 )
 for pkg in "${to_remove[@]}"; do
     pacman --noconfirm -Rs "$pkg" || true
@@ -203,7 +204,6 @@ packages=(
     gnome-system-monitor
     gnome-control-center
     gnome-tweaks
-    gnome-software
     gnome-backgrounds
     gnome-themes-extra # For adwaita-dark
     xdg-user-dirs-gtk
