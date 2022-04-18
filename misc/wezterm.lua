@@ -38,7 +38,7 @@ end
 
 function scheme_for_appearance(appearance)
   if appearance:find("Dark") then
-    return "Builtin Solarized Dark"
+    return "Builtin Tango Dark"
   else
     return "Builtin Tango Light"
   end
