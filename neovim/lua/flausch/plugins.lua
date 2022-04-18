@@ -152,13 +152,24 @@ return packer.startup(function(use)
   }
 
   -- Solarized light color schema: https://github.com/ishan9299/nvim-solarized-lua
-  use {
+  --[[ use {
     'ishan9299/nvim-solarized-lua',
     config = function()
       vim.cmd('colorscheme solarized')
     end
 
+  } ]]
+
+  use {
+    'Mofiqul/vscode.nvim',
+    config = function()
+      vim.g.vscode_italic_comment = 1
+      -- FIXME: Why doesn't it do this automatically?
+      vim.g.vscode_style = vim.opt.background
+      vim.cmd('colorscheme vscode')
+    end
   }
+
   -- Dracula colour scheme: https://github.com/Mofiqul/dracula.nvim
   --[[ use {
     'Mofiqul/dracula.nvim',
@@ -175,7 +186,7 @@ return packer.startup(function(use)
     config = function()
       local gps = require('nvim-gps')
       require('lualine').setup {
-        theme = 'solarized',
+        theme = 'vscode',
         sections = {
           lualine_c = {
             'filename',
