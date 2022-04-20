@@ -161,12 +161,9 @@ return packer.startup(function(use)
   } ]]
 
   use {
-    'Mofiqul/vscode.nvim',
+    'folke/tokyonight.nvim',
     config = function()
-      vim.g.vscode_italic_comment = 1
-      -- FIXME: Why doesn't it do this automatically?
-      vim.g.vscode_style = vim.opt.background
-      vim.cmd('colorscheme vscode')
+      vim.cmd[[colorscheme tokyonight]]
     end
   }
 
@@ -186,7 +183,7 @@ return packer.startup(function(use)
     config = function()
       local gps = require('nvim-gps')
       require('lualine').setup {
-        theme = 'vscode',
+        theme = 'tokyonight',
         sections = {
           lualine_c = {
             'filename',
