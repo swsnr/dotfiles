@@ -312,7 +312,8 @@ systemctl enable systemd-resolved.service
 install -Dpm644 "$DIR/etc/networkmanager-mdns.conf" /etc/NetworkManager/conf.d/50-mdns.conf
 systemctl enable NetworkManager.service
 systemctl enable avahi-daemon.service
-systemctl enable firewalld.service
+# Start firewalld immediately so as to modify its rules below
+systemctl enable --now firewalld.service
 # Time synchronization
 install -Dpm644 "$DIR/etc/systemd/timesyncd-lunaryorn.conf" /etc/systemd/timesyncd.conf.d/50-lunaryorn.conf
 systemctl enable systemd-timesyncd.service
