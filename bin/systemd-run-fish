@@ -1,0 +1,9 @@
+#!/bin/bash
+
+name="fish-$(openssl rand --hex 20)"
+if [[ -n "$WEZTERM_PANE" ]]; then
+    name="wezterm-${WEZTERM_PANE}-${name}"
+fi
+exec /usr/bin/systemd-run \
+    --unit="$name" --user --scope --description="fish shell" \
+        --same-dir --collect /usr/bin/fish

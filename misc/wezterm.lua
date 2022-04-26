@@ -59,19 +59,7 @@ end)
 return {
   term = determine_term_value(),
   -- Use fish as standard interactive shell
-  default_prog = {
-    '/usr/bin/systemd-run',
-    -- TODO: Use --unit to set name of scope for easier identification.
-    -- This needs a change in wezterm to allow functions for default_prog in
-    -- order to generate a random suffix for the name because we cannot reuse
-    -- the same name.
-    '--user',
-    '--scope',
-    '--description=Shell started by wezterm',
-    '--same-dir',
-    '--collect',
-    '/usr/bin/fish'
-  },
+  default_prog = { os.getenv('HOME') .. '/.local/bin/systemd-run-fish' },
   color_scheme = 'Builtin Solarized Light',
   -- This doesn't work well with Solarized; it just makes all bold stuff grey :|
   bold_brightens_ansi_colors = false,
