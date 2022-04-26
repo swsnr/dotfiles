@@ -53,7 +53,7 @@ ln -fs -t ~/.config/nvim "$DIR"/neovim/init.lua
 ln -fs -t ~/.config/nvim/lua "$DIR"/neovim/lua/flausch
 # Cleanup some old setup stuff
 rm -f ~/.config/nvim/lua/user/plugins.lua
-rmdir ~/.config/nvim/lua/user
+rmdir ~/.config/nvim/lua/user || true
 
 # Git configuration
 mkdir -p ~/.config/git
