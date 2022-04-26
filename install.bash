@@ -50,7 +50,7 @@ ln -fs "$DIR/vim/ideavimrc" ~/.ideavimrc
 # Neovim
 mkdir -p ~/.config/nvim/lua/
 ln -fs -t ~/.config/nvim "$DIR"/neovim/init.lua
-ln -fs "$DIR"/neovim/lua/flausch ~/.config/nvim/lua/flausch
+ln -fs -t ~/.config/nvim/lua "$DIR"/neovim/lua/flausch
 # Cleanup some old setup stuff
 rm -f ~/.config/nvim/lua/user/plugins.lua
 rmdir ~/.config/nvim/lua/user
