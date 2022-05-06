@@ -13,7 +13,7 @@
 # the License.
 
 function op-signin -d 'Signin to 1Password'
-    set -l  uuid (op account list --format json |
+    set -l uuid (op account list --format json |
         jq -r '.[] | select(.email == $EMAIL) | .user_uuid' --arg EMAIL $EMAIL)
     if test -z $uuid
         echo 'UUID not found for' $EMAIL 1>&2
