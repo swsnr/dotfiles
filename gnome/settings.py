@@ -36,8 +36,6 @@ SETTINGS = {
     'org.gnome.shell.app-switcher': {
         # Limit app and window switcher to current workspace
         'current-workspace-only': True,
-        # Switch workspaces only on primary screen
-        'workspaces-only-on-primary': True,
     },
     'org.gnome.system.location': {
         # Enable location service
@@ -57,7 +55,9 @@ SETTINGS = {
         'show-weekdate': True
     },
     'org.gnome.mutter': {
-        'dynamic-workspaces': True
+        'dynamic-workspaces': True,
+        # Switch workspaces on all screens
+        'workspaces-only-on-primary': False,
     },
     'org.gnome.desktop.wm.preferences': {
         'titlebar-font': None
