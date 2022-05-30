@@ -33,6 +33,7 @@ to_remove=(
     gnome-software # Serves no real purpose
     nerd-fonts-jetbrains-mono # I no longer use patched fonts
     neovim # I no longer use vim
+    neovide-git
 )
 for pkg in "${to_remove[@]}"; do
     pacman --noconfirm -Rs "$pkg" || true
@@ -508,7 +509,7 @@ aur_packages=(
     # AUR helper
     aurutils
     # Editor
-    neovide-git
+
     # Splash screen at boot
     plymouth
     # Gnome extensions
@@ -553,6 +554,7 @@ if [[ -n "${SUDO_USER:-}" ]]; then
 
     remove_from_repo=(
         nerd-fonts-jetbrains-mono # I no longer use patched fonts
+        neovide-git # I no longer use neovim
     )
     if [[ ${#remove_from_repo[@]} -gt 0 ]]; then
         for pkg in "${remove_from_repo[@]}"; do
