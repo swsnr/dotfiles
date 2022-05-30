@@ -24,10 +24,10 @@ SETTINGS = {
     # Colors (follow the system on colors)
     "window.autoDetectColorScheme": True,
     # Fonts
-    "editor.fontFamily": '"PragmataPro Liga","Noto Color Emoji"',
+    "editor.fontFamily": '"Jetbrains Mono","Noto Color Emoji"',
     "editor.fontLigatures": True,
     "editor.fontSize": 14,
-    "terminal.integrated.fontFamily": "PragmataPro Mono Liga",
+    "terminal.integrated.fontFamily": "Jetbrains Mono",
     "terminal.integrated.fontSize": 14,
     # Fix terminal colours; this a really stupid default imho
     "terminal.integrated.drawBoldTextInBrightColors": False,
@@ -53,24 +53,24 @@ SETTINGS = {
 
 EXTENSIONS = [
     'bmalehorn.vscode-fish',
-    'James-Yu.latex-workshop',
-    'matklad.rust-analyzer',
-    'panekj.powershell-preview',
-    'serayuzgur.crates',
-    'tamasfe.even-better-toml',
+    # 'James-Yu.latex-workshop',
+    # 'matklad.rust-analyzer',
+    # 'panekj.powershell-preview',
+    # 'serayuzgur.crates',
+    # 'tamasfe.even-better-toml',
     'timonwong.shellcheck'
 ]
 
 
 def install_extensions():
-    installed = set(run(['codium', '--list-extensions'], text=True, capture_output=True).stdout.splitlines())
+    installed = set(run(['code', '--list-extensions'], text=True, capture_output=True).stdout.splitlines())
     for extension in EXTENSIONS:
         if extension not in installed:
-            run(['codium', '--install-extension', extension])
+            run(['code', '--install-extension', extension])
 
 
 def update_config():
-    config_file = Path.home() / '.config' / 'VSCodium' / 'User' / 'settings.json'
+    config_file = Path.home() / '.config' / 'Code - OSS' / 'User' / 'settings.json'
     settings = {}
     if config_file.is_file():
         with config_file.open() as source:
