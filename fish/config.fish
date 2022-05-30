@@ -50,9 +50,6 @@ if status --is-interactive
         end
     end
 
-    # diff prog, e.g. for pacdiff
-    set -x DIFFPROG 'nvim -d'
-
     # python -m venv shouldn't change my prompt.
     set -x VIRTUAL_ENV_DISABLE_PROMPT 1
 
