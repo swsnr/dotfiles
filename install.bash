@@ -78,11 +78,13 @@ ln -fs -t ~/.sbt/1.0/plugins/project/ "$DIR/scala/sbt-updates.sbt"
 
 # Misc files
 mkdir -p ~/.config/{bat,latexmk,wezterm,restic}
+ln -fs "$DIR/backup/linux.exclude" ~/.config/restic/linux.exclude
 ln -fs "$DIR/latex/latexmkrc" ~/.config/latexmk/latexmkrc
 ln -fs "$DIR/misc/bat" ~/.config/bat/config
 ln -fs "$DIR/misc/wezterm.lua" ~/.config/wezterm/wezterm.lua
-ln -fs "$DIR/backup/linux.exclude" ~/.config/restic/linux.exclude
 ln -fs "$DIR/misc/XCompose" ~/.XCompose
+ln -fs "$DIR/misc/electron-flags.conf" ~/.config/electron-flags.conf
+ln -fs "$DIR/misc/electron-flags.conf" ~/.config/electron17-flags.conf
 
 # Gnome
 mkdir -p ~/.local/share/gnome-shell/extensions
@@ -104,7 +106,7 @@ function install_wezterm_terminfo {
     local tempfile
     tempfile="$(mktemp)"
     trap 'rm -f -- "${tempfile}"' EXIT
-    curl -o "$tempfile" https://raw.githubusercontent.com/wez/wezterm/master/termwiz/data/wezterm.terminfo 
+    curl -o "$tempfile" https://raw.githubusercontent.com/wez/wezterm/master/termwiz/data/wezterm.terminfo
     tic -x -o ~/.terminfo "$tempfile"
   fi
 }
