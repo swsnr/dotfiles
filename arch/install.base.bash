@@ -31,6 +31,8 @@ to_remove=(
     youtube-dl
     kooha # Gnome 42 has this built in
     gnome-software # Serves no real purpose
+    nerd-fonts-jetbrains-mono # I no longer use patched fonts
+    neovim # I no longer use vim
 )
 for pkg in "${to_remove[@]}"; do
     pacman --noconfirm -Rs "$pkg" || true
@@ -91,7 +93,7 @@ packages=(
     man-db
     man-pages
     fish
-    neovim
+    code
     exa # Better ls (with git support)
     vivid # Creates themes for dircolors
     fd # Simpler find
@@ -513,12 +515,12 @@ aur_packages=(
     gnome-shell-extension-nasa-apod
     # Gnome tools
     gnome-search-providers-jetbrains
+    gnome-search-providers-vscode
     # Dracut hook to build kernel images for systemd boot
     dracut-hook-uefi
     # Password manager
     1password
     # Additional fonts
-    nerd-fonts-jetbrains-mono # Nerd font for vim & terminal
     otf-vollkorn # My favorite serif font for documents
     ttf-fira-go # A nice font for presentations
     # Card reader driver for eID
@@ -549,7 +551,9 @@ if [[ -n "${SUDO_USER:-}" ]]; then
         pacman -D --asdeps "${aur_optdeps[@]}"
     fi
 
-    remove_from_repo=()
+    remove_from_repo=(
+        nerd-fonts-jetbrains-mono # I no longer use patched fonts
+    )
     if [[ ${#remove_from_repo[@]} -gt 0 ]]; then
         for pkg in "${remove_from_repo[@]}"; do
             rm -f "/srv/pkgrepo/aur/${pkg}-"*.pkg.tar.*
