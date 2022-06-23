@@ -389,6 +389,10 @@ firewall-cmd --permanent --zone=home \
 firewall-cmd --permanent --zone=public --remove-service=ssh
 firewall-cmd --reload
 
+# Automatically turn on all bluetooth adapters; rfkill state is preserved by systemd, see
+# https://github.com/bluez/bluez/issues/328
+sed -i 's/^#AutoEnable=false$/AutoEnable=true/g' /etc/bluetooth/main.conf
+
 # If we have secureboot tooling in place
 if command -v sbctl > /dev/null && [[ -f /usr/share/secureboot/keys/db/db.key ]]; then
     # Remove legacy signing for bootloader.
