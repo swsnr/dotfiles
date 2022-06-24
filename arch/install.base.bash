@@ -518,6 +518,7 @@ aur_packages=(
     plymouth
     # Gnome extensions
     gnome-shell-extension-nasa-apod
+    gnome-shell-extension-sound-output-device-chooser # choose audio devices from shell
     # Gnome tools
     gnome-search-providers-jetbrains
     gnome-search-providers-vscode
