@@ -1,0 +1,11 @@
+{
+  "name": "Space Time Formats",
+  "description": "Show some useful date formats for space operations",
+  "uuid": "spacetimeformats@swsnr.de",
+  "version": "1",
+  "shell-version": [
+    "40",
+    "41",
+    "42"
+  ]
+}
