@@ -80,27 +80,34 @@ const HomeIndicator = GObject.registerClass(
 
       this.routes = null;
 
-      this.label = new St.Label({ text: "🚆 n.a." });
-      this.label.clutter_text.y_align = Clutter.ActorAlign.CENTER;
-      this.add_child(this.label);
+      this._label = new St.Label({ text: "🚆 n.a." });
+      this._label.clutter_text.y_align = Clutter.ActorAlign.CENTER;
+      this.add_child(this._label);
+    }
+
+    _onDestroy() {
+      this._routes = null;
+      this.remove_child(this._label);
+      this._label.destroy();
+      super._onDestroy();
     }
 
     showRoutes(routes) {
       this.menu.removeAll();
       if (routes) {
-        this.label.set_text(routes[0]);
+        this._label.set_text(routes[0]);
         routes.slice(1).forEach(route => {
           this.menu.addMenuItem(new PopupMenuItem(route));
         });
       } else {
-        this.label.set_text("🚆 n.a.");
+        this._label.set_text("🚆 n.a.");
         this.menu.addMenuItem(new PopupMenuItem("no more routes"));
       }
     }
 
     showError(error) {
       l(`error: ${error}`);
-      this.label.set_text(`Error: ${error}`);
+      this._label.set_text(`Error: ${error}`);
       this.menu.removeAll();
     }
   }

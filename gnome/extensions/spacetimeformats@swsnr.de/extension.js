@@ -49,6 +49,7 @@ const SpaceTimesIndicator = GObject.registerClass(
       this._label.destroy();
       this._clock.disconnect(this._clockNotifyId);
       this._clock.destroy();
+      super._onDestroy();
     }
 
     _updateLabel() {
