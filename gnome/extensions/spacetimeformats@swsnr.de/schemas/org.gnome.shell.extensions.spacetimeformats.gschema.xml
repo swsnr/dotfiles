@@ -1,0 +1,10 @@
+<schemalist gettext-domain="gnome-shell-extensions">
+
+    <schema id="org.gnome.shell.extensions.spacetimeformats" path="/org/gnome/shell/extensions/spacetimeformats/">
+        <key name="uri-to-open-on-click" type="s">
+            <default>""</default>
+            <summary>URI to open when indicator is clicked.</summary>
+            <description>Open this URI when the user clicks on the indicator. An empty string disables this feature.</description>
+        </key>
+    </schema>
+</schemalist>
