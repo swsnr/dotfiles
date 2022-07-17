@@ -85,6 +85,7 @@ packages=(
     pacman-contrib # paccache, checkupdates, pacsearch, and others
     reflector # Weekly mirrorlist updates
     pkgfile # command-not-found for fish
+    kernel-modules-hook # Keep kernel modules on kernel updates
     # Build packages
     base-devel
     namcap
