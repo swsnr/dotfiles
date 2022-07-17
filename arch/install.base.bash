@@ -133,6 +133,7 @@ packages=(
     cargo-outdated
     cargo-udeps
     cargo-release
+    cargo-deny
     # Bash tool
     bash-language-server
     shellcheck
