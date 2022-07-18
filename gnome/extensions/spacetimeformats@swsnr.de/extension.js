@@ -81,7 +81,6 @@ const SpaceTimesIndicator = GObject.registerClass(
     _onSettingsChanged() {
       // Enable clicking the indicator only of a URI was configured
       this.setSensitive(!!this._get_uri_to_open());
-      this.setSensitive(true);
     }
 
     _updateLabel() {
