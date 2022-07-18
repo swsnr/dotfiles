@@ -85,7 +85,7 @@ const SpaceTimesIndicator = GObject.registerClass(
 
     _updateLabel() {
       const now = GLib.DateTime.new_now_utc();
-      this._label.set_text(now.format('DOY %j  CW %V  %H:%MZ'));
+      this._label.set_text(now.format('%j/%H:%MZ CW %V'));
     }
   }
 );
