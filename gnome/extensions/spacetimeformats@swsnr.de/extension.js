@@ -102,8 +102,6 @@ class Extension {
       Main.panel.addToStatusArea(
         `${Me.metadata.name} Indicator`,
         this.indicator,
-        1,
-        'center'
       );
     }
   }
