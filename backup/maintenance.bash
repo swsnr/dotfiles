@@ -29,10 +29,13 @@ if [[ -z "$INHIBITOR_APP_ID" ]]; then
 fi
 
 inhibit() {
+    local reason
+    reason="$1"
+    shift
     # See backup.bash about why we have to use gnome-session-inhibit with an
     # actual application.
     gnome-session-inhibit \
-        --app-id "$INHIBITOR_APP_ID" --reason 'Pruning backup' \
+        --app-id "$INHIBITOR_APP_ID" --reason "$reason" \
         --inhibit "logout:suspend" \
         "$@"
 }
@@ -40,13 +43,16 @@ inhibit() {
 # Cleanup snapshots made by the dotfiles script:  Definitely keep the last ten
 # snapshots, and# everything within the last six months.  For the last two years
 # keep montly snapshots, and keep a yearly snapshot for like forever.
-inhibit restic -r "rclone:kastl:restic-$USERNAME" forget \
+inhibit "Deleting old backup snapshots" \
+    restic -r "rclone:kastl:restic-$USERNAME" forget \
     --tag basti,dotfiles-script \
     --keep-last 10 \
     --keep-within 6m \
     --keep-monthly 24 \
     --keep-yearly 20
 # Prune unused data after deleting snapshots
-inhibit nice restic -r "rclone:kastl:restic-$USERNAME" prune
+inhibit "Pruning unused backup data" \
+    nice restic -r "rclone:kastl:restic-$USERNAME" prune
 # Check that the data is still valid
-inhibit nice restic -r "rclone:kastl:restic-$USERNAME" check --read-data-subset '10%'
+inhibit "Verifying backups" \
+    nice restic -r "rclone:kastl:restic-$USERNAME" check --read-data-subset '10%'
