@@ -34,14 +34,13 @@ to_remove=(
     nerd-fonts-jetbrains-mono # I no longer use patched fonts
     neovim # I no longer use vim
     neovide-git
+    # Unused development packages, mostly for vim
+    bash-language-server
+    newsflash # The website's okay
 )
 for pkg in "${to_remove[@]}"; do
     pacman --noconfirm -Rs "$pkg" || true
 done
-
-# Configure pacman to update systemd-boot after systemd updates
-# Doesn't play well with sbctl currently, see https://github.com/Foxboron/sbctl/issues/119
-# install -Dpm644 "$DIR/etc/pacman-zz-systemd-boot.hook" /etc/pacman.d/hooks/zz-systemd-boot.hook
 
 packages=(
     # Basic packages & system tools
@@ -136,13 +135,12 @@ packages=(
     cargo-release
     cargo-deny
     # Bash tool
-    bash-language-server
     shellcheck
     shfmt
     # Other development tools
     hexyl # hex viewer
     oxipng # Optimize PNGs for size
-    jq
+    jq # Process JSON on command line
     # Desktop tools
     wl-clipboard
     dconf-editor
@@ -165,7 +163,7 @@ packages=(
     yt-dlp # youtube-dl with extra features
     mediathekview # Browse public broadcasting video libraries from Germany
     gpsprune # GPS Track editor
-    zim # Notes, Journal & Zettelkasten (works better as package)
+    zim # Notes, Journal & Zettelkasten
     vlc # Video player
     inkscape # Vector graphics
     gimp # Pixel graphics
@@ -173,7 +171,6 @@ packages=(
     libreoffice-fresh
     libreoffice-fresh-de
     lollypop # Music player
-    newsflash # RSS reader
     xournalpp # Handwriting tool
     signal-desktop # Secure mobile messenger
     kdiff3 # Diff & merge tool
@@ -514,8 +511,6 @@ fi
 aur_packages=(
     # AUR helper
     aurutils
-    # Editor
-
     # Splash screen at boot
     plymouth
     # Gnome extensions
