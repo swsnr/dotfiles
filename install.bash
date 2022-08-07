@@ -92,7 +92,7 @@ ln -fs -t ~/.local/share/gnome-shell/extensions \
   "$DIR/gnome/extensions/home@swsnr.de" \
   "$DIR/gnome/extensions/spacetimeformats@swsnr.de"
 clean-recursively ~/.local/share/nautilus-python/extensions || true
-"$DIR/gnome/settings.py"
+"$DIR/gnome/settings.py" || true
 
 # Generate additional fish completions
 mkdir -p ~/.config/fish/completions
