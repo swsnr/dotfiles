@@ -29,14 +29,14 @@ ln -fs -t ~/.local/bin/ "$DIR/bin/"*
 # Environment variables
 mkdir -p ~/.config/environment.d
 ln -fs -t ~/.config/environment.d "$DIR"/environment/*.conf
-clean-recursively ~/.config/environment.d
+clean-recursively ~/.config/environment.d || true
 
 # Fish shell config files and functions
 mkdir -p ~/.config/fish/functions ~/.config/fish/conf.d
 ln -fs -t ~/.config/fish "$DIR/fish/config.fish"
 ln -fs -t ~/.config/fish/functions "$DIR/fish/functions/"*.fish
 ln -fs -t ~/.config/fish/conf.d "$DIR/fish/conf.d/"*.fish
-clean-recursively ~/.config/fish/functions ~/.config/fish/conf.d
+clean-recursively ~/.config/fish/functions ~/.config/fish/conf.d || true
 # Fish plugins (per fisher scheme)
 ln -fs -t ~/.config/fish/conf.d "$DIR"/fish/plugins/*/conf.d/*.fish
 ln -fs -t ~/.config/fish/functions "$DIR"/fish/plugins/*/functions/*.fish
@@ -67,7 +67,7 @@ chmod 0700 ~/.ssh ~/.ssh/{config.d,known-hosts}
 ln -fs "$DIR/ssh/config" ~/.ssh/config
 ln -fs -t ~/.ssh/known-hosts "$DIR/ssh/known-hosts/"*
 ln -fs -t ~/.ssh/config.d "$DIR/ssh/config.d/"*
-clean-recursively ~/.ssh/config.d ~/.ssh/known-hosts
+clean-recursively ~/.ssh/config.d ~/.ssh/known-hosts || true
 
 # Scala configuration
 mkdir -p ~/.ammonite ~/.sbt/1.0/plugins/project
@@ -91,7 +91,7 @@ mkdir -p ~/.local/share/gnome-shell/extensions
 ln -fs -t ~/.local/share/gnome-shell/extensions \
   "$DIR/gnome/extensions/home@swsnr.de" \
   "$DIR/gnome/extensions/spacetimeformats@swsnr.de"
-clean-recursively ~/.local/share/nautilus-python/extensions
+clean-recursively ~/.local/share/nautilus-python/extensions || true
 "$DIR/gnome/settings.py"
 
 # Generate additional fish completions
