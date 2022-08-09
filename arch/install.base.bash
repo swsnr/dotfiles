@@ -35,7 +35,8 @@ to_remove=(
     neovim # I no longer use vim
     neovide-git
     # Unused development packages, mostly for vim
-    bash-language-server
+    bash-language-server  # No longer need this
+    rust-analyzer  # The VSCode extension downloads this automatically
     newsflash # The website's okay
 )
 for pkg in "${to_remove[@]}"; do
@@ -128,7 +129,6 @@ packages=(
     tig # Curses git interfaces
     # Rust tooling
     rustup
-    rust-analyzer
     cargo-audit
     cargo-outdated
     cargo-udeps
