@@ -1,5 +1,24 @@
 local wezterm = require 'wezterm';
 
+local charset = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890"
+math.randomseed(os.time())
+
+function random_string(length)
+	local ret = {}
+	local r
+	for i = 1, length do
+		r = math.random(1, #charset)
+		table.insert(ret, charset:sub(r, r))
+	end
+	return table.concat(ret)
+end
+
+-- Get the basename of a Unix path
+function basename(str)
+	local name = string.gsub(str, "(.*/)(.*)", "%2")
+	return name
+end
+
 -- Check whether the given file exists
 function file_exists(name)
    local f = io.open(name, "r")
@@ -58,8 +77,41 @@ end)
 
 return {
   term = determine_term_value(),
+  default_prog = { '/usr/bin/fish' },
+  exec_domains = {
+    wezterm.exec_domain("scoped", function(cmd)
+      wezterm.log_info(cmd)
+
+      local env = cmd.set_environment_variables
+      local ident = ''
+      if env.WEZTERM_UNIX_SOCKET then
+        ident = "wezterm-pane-" .. env.WEZTERM_PANE .. "-on-" .. basename(env.WEZTERM_UNIX_SOCKET)
+      else
+        -- Sometimes there's no wezterm socket; in this case let's use a random string.
+        ident = "wezterm-pane-" .. env.WEZTERM_PANE .. "-" .. random_string(10)
+      end
+
+      local wrapped = {
+        '/usr/bin/systemd-run',
+        '--user',
+        '--scope',
+        '--description=Shell started by wezterm',
+        '--same-dir',
+        '--collect',
+        '--unit=' .. ident,
+      }
+
+      for _, arg in ipairs(cmd.args or {os.getenv("SHELL")}) do
+        table.insert(wrapped, arg)
+      end
+
+      cmd.args = wrapped
+
+      return cmd
+    end),
+  },
+  default_domain = "scoped",
   -- Use fish as standard interactive shell
-  default_prog = { os.getenv('HOME') .. '/.local/bin/systemd-run-fish' },
   color_scheme = 'Builtin Solarized Light',
   -- This doesn't work well with Solarized; it just makes all bold stuff grey :|
   bold_brightens_ansi_colors = false,
