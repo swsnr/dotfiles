@@ -41,20 +41,6 @@ function ends_with(str, ending)
    return ending == "" or str:sub(-#ending) == ending
 end
 
--- Query UI color on Gnome, see
--- https://wezfurlong.org/wezterm/config/lua/window/get_appearance.html
-function query_appearance_gnome()
-  local success, stdout = wezterm.run_child_process(
-    {"gsettings", "get", "org.gnome.desktop.interface", "color-scheme"}
-  )
-  stdout = stdout:lower():gsub("%s+", "")
-  -- lowercase and remove whitespace
-  if stdout == "'prefer-dark'" then
-     return "Dark"
-  end
-  return "Light"
-end
-
 function scheme_for_appearance(appearance)
   if appearance:find("Dark") then
     return "Builtin Tango Dark"
@@ -63,17 +49,19 @@ function scheme_for_appearance(appearance)
   end
 end
 
--- Hook into right status polling to switch UI theme if the desktop theme
--- changed, see https://wezfurlong.org/wezterm/config/lua/window/get_appearance.html
-wezterm.on("update-right-status", function(window, pane)
+
+-- Automatically switch colour scheme if dark mode settings change, see
+-- https://wezfurlong.org/wezterm/config/lua/window/get_appearance.html
+wezterm.on('window-config-reloaded', function(window, pane)
   local overrides = window:get_config_overrides() or {}
-  local appearance = query_appearance_gnome()
+  local appearance = window:get_appearance()
   local scheme = scheme_for_appearance(appearance)
   if overrides.color_scheme ~= scheme then
     overrides.color_scheme = scheme
     window:set_config_overrides(overrides)
   end
 end)
+
 
 return {
   term = determine_term_value(),
@@ -112,7 +100,7 @@ return {
   },
   default_domain = "scoped",
   -- Use fish as standard interactive shell
-  color_scheme = 'Builtin Solarized Light',
+  color_scheme = scheme_for_appearance(wezterm.gui.get_appearance()),
   -- This doesn't work well with Solarized; it just makes all bold stuff grey :|
   bold_brightens_ansi_colors = false,
   font = wezterm.font('JetBrains Mono'),
