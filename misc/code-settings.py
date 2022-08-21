@@ -48,6 +48,20 @@ SETTINGS = {
     # File explorer
     "explorer.confirmDragAndDrop": False,
     "explorer.confirmDelete": False,
+    # Extension settings: Disable telemetry and remote-controlled experiments
+    "redhat.telemetry.enabled": False,
+    "jupyter.experiments.enabled": False,
+    # Build latex w/ latexmk only
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "latexmk (latexmkrc)",
+            "tools": [
+                "latexmk_rconly"
+            ]
+        },
+    ],
+    # Preview latex documents in a tab
+    "latex-workshop.view.pdf.viewer": "tab",
 }
 
 
