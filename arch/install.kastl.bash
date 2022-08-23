@@ -35,6 +35,7 @@ packages=(
   digikam # Digital photos
   gnucash # Personal finances
   gnucash-docs
+  picard # Audio tag editor
 )
 pacman -Syu --needed "${packages[@]}"
 
