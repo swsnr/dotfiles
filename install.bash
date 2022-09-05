@@ -62,12 +62,12 @@ ln -fs -t ~/.config/git "$DIR/git/config.linux"
 
 # SSH configuration
 mkdir -p ~/.ssh
-mkdir -p ~/.ssh/{config.d,known-hosts}
-chmod 0700 ~/.ssh ~/.ssh/{config.d,known-hosts}
+mkdir -p ~/.ssh/{config.d,known-hosts.d}
+chmod 0700 ~/.ssh ~/.ssh/{config.d,known-hosts.d}
 ln -fs "$DIR/ssh/config" ~/.ssh/config
-ln -fs -t ~/.ssh/known-hosts "$DIR/ssh/known-hosts/"*
+ln -fs -t ~/.ssh/known-hosts.d "$DIR/ssh/known-hosts.d/"*
 ln -fs -t ~/.ssh/config.d "$DIR/ssh/config.d/"*
-clean-recursively ~/.ssh/config.d ~/.ssh/known-hosts || true
+clean-recursively ~/.ssh/config.d ~/.ssh/known-hosts.d || true
 
 # Scala configuration
 mkdir -p ~/.ammonite ~/.sbt/1.0/plugins/project

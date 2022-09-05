@@ -5,7 +5,7 @@
 # See https://blog.g3rt.nl/ssh-host-key-validation-strict-yet-user-friendly.html
 Host *
     # Explicitly managed host files
-    GlobalKnownHostsFile ~/.ssh/known-hosts/lunaryorn ~/.ssh/known-hosts/local
+    GlobalKnownHostsFile ~/.ssh/known-hosts.d/lunaryorn ~/.ssh/known-hosts.d/local
     # Never ask to trust a host key
     StrictHostKeyChecking yes
     # Don't write a host key file
