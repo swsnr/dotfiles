@@ -68,8 +68,6 @@ return {
   default_prog = { '/usr/bin/fish' },
   exec_domains = {
     wezterm.exec_domain("scoped", function(cmd)
-      wezterm.log_info(cmd)
-
       local env = cmd.set_environment_variables
       local ident = ''
       if env.WEZTERM_UNIX_SOCKET then
