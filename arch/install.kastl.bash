@@ -54,6 +54,8 @@ flatpak install --system --or-update --noninteractive "${flatpaks[@]}"
 aur_packages=(
     # CLI for 1password
     1password-cli
+    # Connect phone and desktop system
+    gnome-shell-extension-gsconnect
 )
 
 aur_optdeps=()

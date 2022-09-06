@@ -516,7 +516,6 @@ aur_packages=(
     # Gnome extensions
     gnome-shell-extension-nasa-apod
     gnome-shell-extension-sound-output-device-chooser # Choose audio devices from shell
-    gnome-shell-extension-gsconnect # Connect to android phones
     # Gnome tools
     gnome-search-providers-jetbrains
     gnome-search-providers-vscode
