@@ -27,18 +27,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}")"  >/dev/null 2>&1 && pwd)"
 PRODUCT_NAME="$(< /sys/class/dmi/id/product_name)"
 
 # Remove packages I no longer use
-to_remove=(
-    youtube-dl
-    kooha # Gnome 42 has this built in
-    gnome-software # Serves no real purpose
-    nerd-fonts-jetbrains-mono # I no longer use patched fonts
-    neovim # I no longer use vim
-    neovide-git
-    # Unused development packages, mostly for vim
-    bash-language-server  # No longer need this
-    rust-analyzer  # The VSCode extension downloads this automatically
-    newsflash # The website's okay
-)
+to_remove=()
 for pkg in "${to_remove[@]}"; do
     pacman --noconfirm -Rs "$pkg" || true
 done
@@ -550,10 +539,7 @@ if [[ -n "${SUDO_USER:-}" ]]; then
         pacman -D --asdeps "${aur_optdeps[@]}"
     fi
 
-    remove_from_repo=(
-        nerd-fonts-jetbrains-mono # I no longer use patched fonts
-        neovide-git # I no longer use neovim
-    )
+    remove_from_repo=()
     if [[ ${#remove_from_repo[@]} -gt 0 ]]; then
         for pkg in "${remove_from_repo[@]}"; do
             rm -f "/srv/pkgrepo/aur/${pkg}-"*.pkg.tar.*
