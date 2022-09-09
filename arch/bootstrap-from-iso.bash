@@ -130,7 +130,7 @@ echo 'KEYMAP=us' >/mnt/etc/vconsole.conf
 
 # Basic network configuration
 echo "$new_hostname" >/mnt/etc/hostname
-ln -sf /run/systemd/resolve/stub-resolv.conf /mnt/etc/resolve.conf
+ln -sf /run/systemd/resolve/stub-resolv.conf /mnt/etc/resolv.conf
 
 # Switch into chroot
 cat <<'EOF' | arch-chroot /mnt
