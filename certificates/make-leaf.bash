@@ -14,4 +14,3 @@ step-cli certificate create \
   --ca "./$intermediate.crt" --ca-key "./$intermediate.key" \
   --not-after=4383h \
   "${@}"
-
