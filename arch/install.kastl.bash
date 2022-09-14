@@ -61,22 +61,6 @@ aur_packages=(
 aur_optdeps=()
 
 if [[ -n "${SUDO_USER:-}" ]]; then
-    sudo -u "$SUDO_USER" flatpak --user remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrep
-
-    # Adapt filesystem permissions for Steam: Add access to downloads for backup
-    # imports, but deny access to Music and Pictures
-    sudo -u "$SUDO_USER" flatpak override --user \
-        --filesystem xdg-download:ro \
-        --nofilesystem xdg-music \
-        --nofilesystem xdg-pictures \
-        com.valvesoftware.Steam
-
-    # Reduce access of Cozy
-    sudo -u "$SUDO_USER" flatpak override --user \
-        --filesystem ~/Hörbücher \
-        --nofilesystem host \
-        com.github.geigi.cozy
-
     # Build AUR packages and install them
     if [[ ${#aur_packages} -gt 0 ]]; then
         sudo -u "$SUDO_USER" --preserve-env=AUR_PAGER,PACKAGER,EDITOR aur sync -daur -cRT "${aur_packages[@]}" "${aur_optdeps[@]}"
