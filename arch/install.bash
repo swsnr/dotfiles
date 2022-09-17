@@ -28,6 +28,13 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}")"  >/dev/null 2>&1 && pwd)"
 
 PRODUCT_NAME="$(< /sys/class/dmi/id/product_name)"
 
+# Configure pacman
+install -pm644 "$DIR/etc/pacman/pacman.conf" /etc/pacman.conf
+install -pm644 -Dt /etc/pacman.d/conf.d \
+    "$DIR/etc/pacman/00-global-options.conf" \
+    "$DIR/etc/pacman/50-core-repositories.conf" \
+    "$DIR/etc/pacman/60-aurutils-repository.conf"
+
 # Remove packages I no longer use
 to_remove=()
 for pkg in "${to_remove[@]}"; do
@@ -432,17 +439,6 @@ fi
 # Allow myself to build AUR packages
 if [[ -n "${SUDO_USER:-}" && "$(stat -c '%U' /srv/pkgrepo/aur)" != "$SUDO_USER" ]]; then
     chown -R "$SUDO_USER:$SUDO_USER" /srv/pkgrepo/aur
-fi
-
-if ! grep -q '\[aur\]' /etc/pacman.conf; then
-    # Add repo to pacman configuration
-    cat <<EOF >>/etc/pacman.conf
-# aurutils repo
-[aur]
-SigLevel = Optional TrustAll
-Server = file:///srv/pkgrepo/aur/
-EOF
-    pacman -Sy
 fi
 
 # Bootstrap aurutils
