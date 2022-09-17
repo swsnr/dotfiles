@@ -318,9 +318,7 @@ return packer.startup(function(use)
   use {
     'neovim/nvim-lspconfig',
     config = function()
-      local servers = {
-        'bashls'
-      }
+      local servers = {}
       for _, lsp in pairs(servers) do
         require('lspconfig')[lsp].setup {
           on_attach = require('flausch.lsp').lsp_attach,
