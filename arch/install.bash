@@ -35,6 +35,11 @@ install -pm644 -Dt /etc/pacman.d/conf.d \
     "$DIR/etc/pacman/50-core-repositories.conf" \
     "$DIR/etc/pacman/60-aurutils-repository.conf"
 
+if [[ "$HOSTNAME" == *kastl* ]]; then
+    # Enable multiple for Stream
+    install -pm644 -t /etc/pacman.d/conf.d "$DIR/etc/pacman/55-multilib-repository.conf"
+fi
+
 # Remove packages I no longer use
 to_remove=()
 for pkg in "${to_remove[@]}"; do
