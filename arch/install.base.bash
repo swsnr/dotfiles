@@ -314,14 +314,6 @@ systemctl enable bluetooth.service
 # Smartcard services for ausweisapp2
 systemctl enable pcscd.socket
 
-if [[ ! -f /etc/subuid ]]; then touch /etc/subuid; fi
-if [[ ! -f /etc/subgid ]]; then touch /etc/subgid; fi
-
-# Allow myself to use rootless container
-if [[ -n "${SUDO_USER:-}" ]]; then
-    usermod --add-subuids 165536-231072 --add-subgids 165536-231072 "$SUDO_USER"
-fi
-
 # Configure account locking
 install -pm644 "$DIR/etc/faillock.conf" /etc/security/faillock.conf
 
