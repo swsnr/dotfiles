@@ -17,9 +17,11 @@
 
 set -xeuo pipefail
 
+PRESERVE_ENV=AUR_PAGER,PACKAGER,EDITOR
+
 if [[ $EUID != 0 ]]; then
     echo 'Elevating privileges'
-    exec sudo --preserve-env=AUR_PAGER,PACKAGER,EDITOR "$0" "$@"
+    exec sudo --preserve-env="${PRESERVE_ENV}" "$0" "$@"
 fi
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}")"  >/dev/null 2>&1 && pwd)"
@@ -136,6 +138,7 @@ packages=(
     # Desktop services
     xdg-user-dirs
     xdg-utils
+    xdg-desktop-portal
     pcsclite # Smartcard daemon, for e-ID
     cups
     hplip
@@ -146,8 +149,6 @@ packages=(
     firefox # Browser
     firefox-i18n-de
     yt-dlp # youtube-dl with extra features
-    mediathekview # Browse public broadcasting video libraries from Germany
-    gpsprune # GPS Track editor
     zim # Notes, Journal & Zettelkasten
     vlc # Video player
     inkscape # Vector graphics
@@ -193,7 +194,6 @@ packages=(
     gnome-tweaks
     gnome-backgrounds
     gnome-themes-extra # For adwaita-dark
-    xdg-desktop-portal
     xdg-desktop-portal-gnome # Desktop portals
     xdg-user-dirs-gtk
     evolution
@@ -220,6 +220,17 @@ packages=(
     gst-plugins-ugly
 )
 
+if [[ "$HOSTNAME" == *kastl* ]]; then
+    packages+=(
+        digikam # Digital photos
+        gnucash # Personal finances
+        gnucash-docs
+        picard # Audio tag editor
+        mediathekview # Browse public broadcasting video libraries from Germany
+        gpsprune # GPS Track editor
+    )
+fi
+
 pacman -Syu --needed "${packages[@]}"
 
 # Mark pipewire as optdeps to cleanly uninstall them once they are no longer needed.
@@ -232,10 +243,11 @@ optdeps=(
     pipewire-zeroconf
     # poppler: data files
     poppler-data
-    # dracut: --uefi, stripping, and efi signing
-    binutils elfutils sbsigntools
-    # dracut: tpm2-tss
-    tpm2-tools
+    # dracut:
+    binutils # --uefi
+    elfutils # stripping
+    sbsigntools # efi signing
+    tpm2-tools # tpm2-tss
     # zathura: PDF support
     zathura-pdf-mupdf
     # libva: intel drivers
@@ -259,82 +271,40 @@ pacman -D --asdeps "${optdeps[@]}"
 # https://bugs.archlinux.org/task/73229
 pacman -D --asexplicit tpm2-tools
 
-# Setup regular scrubbing on btrfs
-systemctl enable "btrfs-scrub@$(systemd-escape -p /).timer"
+services=(
+    # Core system services
+    systemd-boot-update.service # Update boot loader automatically
+    systemd-homed.service # homed for user management and home areas
+    systemd-oomd.service # Userspace OOM killer
+    systemd-timesyncd.service # Time sync
+    systemd-resolved.service # DNS resolution
+    # Other system services
+    firewalld.service # Firewall
+    # Timers
+    fstrim.timer # Periodically trim file systems…
+    "btrfs-scrub@$(systemd-escape -p /).timer" # scrub root filesystem…
+    paccache.timer # clean pacman cache…
+    pkgfile-update.timer # update pkgfile list…
+    fwupd-refresh.timer # check for firmware updates…
+    reflector.timer # and update the mirrorlist.
+    # Desktop services
+    gdm.service # Desktop manager
+    power-profiles-daemon.service # Power profile management
+    NetworkManager.service # Network manager for desktops
+    avahi-daemon.service # Local network service discovery (for WLAN printers)
+    cups.service # Printing
+    bluetooth.service # Bluetooth
+    pcscd.socket # Smartcards, mostly eID
+)
+
 if [[ -n "${SUDO_USER:-}" ]]; then
-    systemctl enable "btrfs-scrub@$(systemd-escape -p "/home/${SUDO_USER}").timer"
+    # Scrub home directory of my user account
+    services+=("btrfs-scrub@$(systemd-escape -p "/home/${SUDO_USER}").timer")
 fi
 
-# systemd configuration
-install -Dpm644 "$DIR/etc/systemd/system-lunaryorn.conf" /etc/systemd/system.conf.d/50-lunaryorn.conf
-# Swap on zram
-install -Dpm644 "$DIR/etc/systemd/zram-generator.conf" /etc/systemd/zram-generator.conf
-
-# Update boot loader automatically
-systemctl enable systemd-boot-update.service
-# homed for user management and home areas
-systemctl enable systemd-homed.service
-# Userspace OOM killer from systemd; kills more selectively than the kernel
-install -Dpm644 "$DIR/etc/systemd/oomd-lunaryorn.conf" /etc/systemd/oomd.conf.d/oomd-lunaryorn.conf
-install -Dpm644 "$DIR/etc/systemd/root-slice-oomd-lunaryorn.conf" /etc/systemd/system/-.slice.d/50-oomd-lunaryorn.conf
-install -Dpm644 "$DIR/etc/systemd/user-service-oomd-lunaryorn.conf" /etc/systemd/system/user@.service.d/50-oomd-lunaryorn.conf
-systemctl enable systemd-oomd.service
-# Desktop manager
-systemctl enable gdm.service
-# Periodically trim all filesystems
-systemctl enable fstrim.timer
-# Pacman cache cleanup and file database updates
-systemctl enable paccache.timer
-systemctl enable pkgfile-update.timer
-# Look for firmware updates
-systemctl enable fwupd-refresh.timer
-# Periodic mirrorlist updates
-install -Dpm644 "$DIR/etc/reflector.conf" /etc/xdg/reflector/reflector.conf
-systemctl enable reflector.timer
-# Power management
-systemctl enable power-profiles-daemon.service
-# DNS resolver daemon (w/ caching)
-ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
-install -Dpm644 "$DIR/etc/systemd/resolved-lunaryorn.conf" /etc/systemd/resolved.conf.d/50-lunaryorn.conf
-systemctl enable systemd-resolved.service
-# Networking
-install -Dpm644 "$DIR/etc/networkmanager-mdns.conf" /etc/NetworkManager/conf.d/50-mdns.conf
-systemctl enable NetworkManager.service
-systemctl enable avahi-daemon.service
-# Start firewalld immediately so as to modify its rules below
-systemctl enable --now firewalld.service
-# Time synchronization
-install -Dpm644 "$DIR/etc/systemd/timesyncd-lunaryorn.conf" /etc/systemd/timesyncd.conf.d/50-lunaryorn.conf
-systemctl enable systemd-timesyncd.service
-# Printing and other desktop services
-systemctl enable cups.service
-systemctl enable bluetooth.service
-# Smartcard services for ausweisapp2
-systemctl enable pcscd.socket
-
-# Configure account locking
-install -pm644 "$DIR/etc/faillock.conf" /etc/security/faillock.conf
-
-# Sudo settings
-install -dm750 /etc/sudoers.d/
-install -pm600 -t/etc/sudoers.d "$DIR"/etc/sudoers.d/*
-
-# System settings and module parameters
-install -pm644 "$DIR/etc/sysctl-lunaryorn.conf" /etc/sysctl.d/90-lunaryorn.conf
-install -pm644 "$DIR/etc/modprobe-lunaryorn.conf" /etc/modprobe.d/modprobe-lunaryorn.conf
-if [[ $PRODUCT_NAME == "TUXEDO InfinityBook 14 v2" ]]; then
-    install -pm644 "$DIR/etc/modprobe-lunaryorn-tuxedo.conf" /etc/modprobe.d/modprobe-lunaryorn-tuxedo.conf
-else
-    rm -f /etc/modprobe.d/modprobe-lunaryorn-tuxedo.conf
-fi
-
-# Initrd and early boot
-install -pm644 "$DIR/etc/lunaryorn-dracut.conf" /etc/dracut.conf.d/50-lunaryorn.conf
-if [[ -f /usr/share/secureboot/keys/db/db.key ]] && [[ -f /usr/share/secureboot/keys/db/db.pem ]]; then
-    install -pm644 "$DIR/etc/lunaryorn-dracut-sbctl.conf" /etc/dracut.conf.d/90-lunaryorn-sbctl-signing.conf
-else
-    rm -f /etc/dracut.conf.d/90-lunaryorn-sbctl-signing.conf
-fi
+for service in "${services[@]}"; do
+    systemctl enable "$service"
+done
 
 # See /usr/share/factory/etc/nsswitch.conf for the Arch Linux factory defaults.
 # We add mdns hostnames (from Avahi) and libvirtd names, and also shuffle things around
@@ -357,7 +327,65 @@ NSS_HOSTS=(
     )
 sed -i '/^hosts: /s/^hosts: .*/'"hosts: ${NSS_HOSTS[*]}/" /etc/nsswitch.conf
 
-# Firewall rules
+# Bootloader and initrd configuration
+install -pm644 "$DIR/etc/lunaryorn-dracut.conf" /etc/dracut.conf.d/50-lunaryorn.conf
+install -pm644 "$DIR/etc/loader.conf" /efi/loader/loader.conf
+if [[ -f /usr/share/secureboot/keys/db/db.key ]] && [[ -f /usr/share/secureboot/keys/db/db.pem ]]; then
+    install -pm644 "$DIR/etc/lunaryorn-dracut-sbctl.conf" /etc/dracut.conf.d/90-lunaryorn-sbctl-signing.conf
+else
+    rm -f /etc/dracut.conf.d/90-lunaryorn-sbctl-signing.conf
+fi
+
+# System configuration
+install -pm644 "$DIR/etc/faillock.conf" /etc/security/faillock.conf
+install -pm644 "$DIR/etc/sysctl-lunaryorn.conf" /etc/sysctl.d/90-lunaryorn.conf
+install -pm644 "$DIR/etc/modprobe-lunaryorn.conf" /etc/modprobe.d/modprobe-lunaryorn.conf
+if [[ $PRODUCT_NAME == "TUXEDO InfinityBook 14 v2" ]]; then
+    install -pm644 "$DIR/etc/modprobe-lunaryorn-tuxedo.conf" /etc/modprobe.d/modprobe-lunaryorn-tuxedo.conf
+    install -D -m644 "$DIR/etc/systemd/system/btrfs-scrub-io.conf" \
+        "/etc/systemd/system/btrfs-scrub@.service.d/lunaryorn-kastl-limit-io.conf"
+else
+    rm -f \
+        /etc/modprobe.d/modprobe-lunaryorn-tuxedo.conf \
+        /etc/systemd/system/btrfs-scrub@.service.d/lunaryorn-kastl-limit-io.conf
+fi
+
+# sudo configuration
+install -dm750 /etc/sudoers.d/
+install -pm600 -t/etc/sudoers.d "$DIR"/etc/sudoers.d/*
+
+# Systemd configuration
+ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
+install -Dpm644 "$DIR/etc/systemd/system-lunaryorn.conf" /etc/systemd/system.conf.d/50-lunaryorn.conf
+install -Dpm644 "$DIR/etc/systemd/timesyncd-lunaryorn.conf" /etc/systemd/timesyncd.conf.d/50-lunaryorn.conf
+install -Dpm644 "$DIR/etc/systemd/resolved-lunaryorn.conf" /etc/systemd/resolved.conf.d/50-lunaryorn.conf
+install -Dpm644 "$DIR/etc/systemd/zram-generator.conf" /etc/systemd/zram-generator.conf
+install -Dpm644 "$DIR/etc/systemd/oomd-lunaryorn.conf" /etc/systemd/oomd.conf.d/oomd-lunaryorn.conf
+install -Dpm644 "$DIR/etc/systemd/root-slice-oomd-lunaryorn.conf" /etc/systemd/system/-.slice.d/50-oomd-lunaryorn.conf
+install -Dpm644 "$DIR/etc/systemd/user-service-oomd-lunaryorn.conf" /etc/systemd/system/user@.service.d/50-oomd-lunaryorn.conf
+
+# Services configuration
+install -Dpm644 "$DIR/etc/networkmanager-mdns.conf" /etc/NetworkManager/conf.d/50-mdns.conf
+install -Dpm644 "$DIR/etc/reflector.conf" /etc/xdg/reflector/reflector.conf
+
+# Global font configuration
+for file in 10-hinting-slight 10-sub-pixel-rgb 11-lcdfilter-default; do
+    ln -sf /usr/share/fontconfig/conf.avail/$file.conf /etc/fonts/conf.d/$file.conf
+done
+
+# Locale settings
+localectl set-locale de_DE.UTF-8
+# --no-convert stops localectl from trying to apply the text console layout to
+# X11/Wayland and vice versa
+localectl set-keymap --no-convert us
+localectl set-x11-keymap --no-convert us,de pc105 mac,
+
+# GDM dconf profile, for global GDM configuration, see
+# https://help.gnome.org/admin/system-admin-guide/stable/login-banner.html.en
+install -Dpm644 "$DIR/etc/gdm-profile" /etc/dconf/profile/gdm
+
+# Start firewalld and configure it
+systemctl start firewalld.service
 firewall-cmd --permanent --zone=home \
     --add-service=upnp-client \
     --add-service=rdp \
@@ -367,13 +395,8 @@ firewall-cmd --permanent --zone=home \
 firewall-cmd --permanent --zone=public --remove-service=ssh
 firewall-cmd --reload
 
-# If we have secureboot tooling in place
+# Setup secure boot
 if command -v sbctl > /dev/null && [[ -f /usr/share/secureboot/keys/db/db.key ]]; then
-    # Remove legacy signing for bootloader.
-    for file in /efi/EFI/BOOT/BOOTX64.EFI /efi/EFI/systemd/systemd-bootx64.efi; do
-        sbctl remove-file "$file" || true
-    done
-
     # Generate signed bootloader image
     if ! sbctl list-files | grep -q /usr/lib/systemd/boot/efi/systemd-bootx64.efi; then
         sbctl sign -s -o /usr/lib/systemd/boot/efi/systemd-bootx64.efi.signed /usr/lib/systemd/boot/efi/systemd-bootx64.efi
@@ -385,11 +408,8 @@ if command -v sbctl > /dev/null && [[ -f /usr/share/secureboot/keys/db/db.key ]]
         sbctl sign -s -o /usr/lib/fwupd/efi/fwupdx64.efi.signed /usr/lib/fwupd/efi/fwupdx64.efi
     fi
 
-    # Update all secureboot signatures
     sbctl sign-all
-
-    # Dump signing state just to be on the safe side
-    sbctl verify
+    sbctl verify  # Safety check
 fi
 
 # Install or update, and then configure the bootloader.
@@ -400,29 +420,6 @@ if ! [[ -e /efi/EFI/BOOT/BOOTX64.EFI ]]; then
 else
     bootctl update --graceful
 fi
-install -pm644 "$DIR/etc/loader.conf" /efi/loader/loader.conf
-
-# Locale settings
-localectl set-locale de_DE.UTF-8
-# --no-convert stops localectl from trying to apply the text console layout to
-# X11/Wayland and vice versa
-localectl set-keymap --no-convert us
-localectl set-x11-keymap --no-convert us,de pc105 mac,
-
-# Remove EFI keytool (recent sbctl versions can enroll keys flawlessly so we no longer need keytool)
-if [[ -f "/efi/loader/entries/keytool.conf" ]]; then
-    sbctl remove-file /usr/share/efitools/efi/KeyTool.efi
-    rm /efi/loader/entries/keytool.conf
-fi
-
-# Global font configuration
-for file in 10-hinting-slight 10-sub-pixel-rgb 11-lcdfilter-default; do
-    ln -sf /usr/share/fontconfig/conf.avail/$file.conf /etc/fonts/conf.d/$file.conf
-done
-
-# GDM dconf profile, for global GDM configuration, see
-# https://help.gnome.org/admin/system-admin-guide/stable/login-banner.html.en
-install -Dpm644 "$DIR/etc/gdm-profile" /etc/dconf/profile/gdm
 
 # Initialize AUR repo
 if [[ ! -d /srv/pkgrepo/aur/ ]]; then
@@ -447,7 +444,7 @@ EOF
     pacman -Sy
 fi
 
-# Install aurutils if not yet present
+# Bootstrap aurutils
 if [[ -n "${SUDO_USER:-}" ]] && ! command -v aur &>/dev/null; then
     sudo -u "$SUDO_USER" bash <<'EOF'
 set -xeuo pipefail
@@ -484,8 +481,9 @@ aur_packages=(
     gnome-search-providers-vscode
     # Dracut hook to build kernel images for systemd boot
     dracut-hook-uefi
-    # Password manager
+    # Personal password manager
     1password
+    1password-cli
     # Additional fonts
     otf-vollkorn # My favorite serif font for documents
     ttf-fira-go # A nice font for presentations
@@ -501,6 +499,15 @@ aur_packages=(
     texlive-latexindent-meta
 )
 
+if [[ "$HOSTNAME" == *kastl* ]]; then
+    aur_packages+=(
+        chiaki  # Remote play for PS4
+        ausweisapp2  # eID app
+        cozy-audiobooks  # Audiobook player
+        gnome-shell-extension-gsconnect  # Connect phone and desktop system
+    )
+fi
+
 aur_optdeps=(
     # plymouth: truetype fonts
     ttf-dejavu cantarell-fonts
@@ -509,7 +516,8 @@ aur_optdeps=(
 if [[ -n "${SUDO_USER:-}" ]]; then
     # Build AUR packages and install them
     if [[ ${#aur_packages} -gt 0 ]]; then
-        sudo -u "$SUDO_USER" --preserve-env=AUR_PAGER,PACKAGER,EDITOR aur sync -daur -cRT "${aur_packages[@]}" "${aur_optdeps[@]}"
+        sudo -u "$SUDO_USER" --preserve-env="${PRESERVE_ENV}" \
+            aur sync -daur -cRT "${aur_packages[@]}" "${aur_optdeps[@]}"
         pacman --needed -Syu "${aur_packages[@]}"
     fi
     if [[ ${#aur_optdeps[@]} -gt 0 ]]; then
