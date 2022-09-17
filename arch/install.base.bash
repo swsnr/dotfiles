@@ -136,7 +136,6 @@ packages=(
     # Desktop services
     xdg-user-dirs
     xdg-utils
-    flatpak
     pcsclite # Smartcard daemon, for e-ID
     cups
     hplip
@@ -144,10 +143,7 @@ packages=(
     sane
     pipewire-pulse # Pipewire-based pulse-audio, replaces pulseaudio
     wireplumber # Recommended pipewire session & policy manager
-    # Applications.  Some others, especially proprietary ones,
-    # come from flatpak, but for stuff that arch packages it's
-    # just convenient to rely on pacman.
-    firefox
+    firefox # Browser
     firefox-i18n-de
     yt-dlp # youtube-dl with extra features
     mediathekview # Browse public broadcasting video libraries from Germany
@@ -197,6 +193,8 @@ packages=(
     gnome-tweaks
     gnome-backgrounds
     gnome-themes-extra # For adwaita-dark
+    xdg-desktop-portal
+    xdg-desktop-portal-gnome # Desktop portals
     xdg-user-dirs-gtk
     evolution
     file-roller
@@ -425,18 +423,6 @@ done
 # GDM dconf profile, for global GDM configuration, see
 # https://help.gnome.org/admin/system-admin-guide/stable/login-banner.html.en
 install -Dpm644 "$DIR/etc/gdm-profile" /etc/dconf/profile/gdm
-
-# Apps to try:
-# - https://github.com/sonnyp/tangram
-
-# Common applications
-flatpaks=(
-    com.github.tchx84.Flatseal # Manage flatpak permissions
-    io.freetubeapp.FreeTube # A privacy focused youtube client
-    org.gaphor.Gaphor # UML editor
-)
-flatpak install --system --or-update --noninteractive "${flatpaks[@]}"
-flatpak remove --unused || true
 
 # Initialize AUR repo
 if [[ ! -d /srv/pkgrepo/aur/ ]]; then

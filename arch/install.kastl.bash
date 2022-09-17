@@ -39,23 +39,12 @@ packages=(
 )
 pacman -Syu --needed "${packages[@]}"
 
-# Install some personal flatpaks
-flatpaks=(
-    com.skype.Client # Sadly necessary
-    org.jitsi.jitsi-meet # Secure video chats
-    com.github.geigi.cozy # Audiobook player
-    re.chiaki.Chiaki # PSN remote play client
-    com.valvesoftware.Steam # Gaming
-    de.bund.ausweisapp.ausweisapp2 # e-ID
-)
-
-flatpak install --system --or-update --noninteractive "${flatpaks[@]}"
-
 aur_packages=(
-    # CLI for 1password
-    1password-cli
-    # Connect phone and desktop system
-    gnome-shell-extension-gsconnect
+    chiaki  # Remote play for PS4
+    ausweisapp2  # eID app
+    1password-cli  # CLI for 1password
+    cozy-audiobooks  # Audiobook player
+    gnome-shell-extension-gsconnect  # Connect phone and desktop system
 )
 
 aur_optdeps=()
