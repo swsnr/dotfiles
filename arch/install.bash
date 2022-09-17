@@ -235,6 +235,7 @@ packages=(
 
 if [[ "$HOSTNAME" == *kastl* ]]; then
     packages+=(
+        steam # Gaming
         digikam # Digital photos
         gnucash # Personal finances
         gnucash-docs
