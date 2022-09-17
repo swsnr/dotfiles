@@ -310,9 +310,7 @@ if [[ -n "${SUDO_USER:-}" ]]; then
     services+=("btrfs-scrub@$(systemd-escape -p "/home/${SUDO_USER}").timer")
 fi
 
-for service in "${services[@]}"; do
-    systemctl enable "$service"
-done
+systemctl enable "${services[@]}"
 
 # See /usr/share/factory/etc/nsswitch.conf for the Arch Linux factory defaults.
 # We add mdns hostnames (from Avahi) and libvirtd names, and also shuffle things around
