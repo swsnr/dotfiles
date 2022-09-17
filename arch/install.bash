@@ -87,6 +87,7 @@ packages=(
     man-pages
     fish
     code
+    neovim
     exa # Better ls (with git support)
     vivid # Creates themes for dircolors
     fd # Simpler find
