@@ -517,7 +517,7 @@ if [[ -n "${SUDO_USER:-}" ]]; then
     # Build AUR packages and install them
     if [[ ${#aur_packages} -gt 0 ]]; then
         sudo -u "$SUDO_USER" --preserve-env="${PRESERVE_ENV}" \
-            aur sync -daur -cRT "${aur_packages[@]}" "${aur_optdeps[@]}"
+            nice aur sync -daur -cRT "${aur_packages[@]}" "${aur_optdeps[@]}"
         pacman --needed -Syu "${aur_packages[@]}"
     fi
     if [[ ${#aur_optdeps[@]} -gt 0 ]]; then
