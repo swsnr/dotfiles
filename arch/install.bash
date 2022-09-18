@@ -503,6 +503,7 @@ aur_packages=(
 
 if [[ "$HOSTNAME" == *kastl* ]]; then
     aur_packages+=(
+        ja2-stracciatella  # JA2 engine
         chiaki  # Remote play for PS4
         ausweisapp2  # eID app
         cozy-audiobooks  # Audiobook player
