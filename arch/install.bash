@@ -133,12 +133,13 @@ packages=(
     tig # Curses git interfaces
     # Rust tooling
     rustup
+    rust-analyzer
     cargo-audit
     cargo-outdated
     cargo-udeps
     cargo-release
     cargo-deny
-    # Bash tool
+    # Bash tools
     shellcheck
     shfmt
     # Other development tools
