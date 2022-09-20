@@ -234,24 +234,9 @@ packages=(
     gst-plugins-ugly
 )
 
-if [[ "$HOSTNAME" == *kastl* ]]; then
-    packages+=(
-        steam # Gaming
-        digikam # Digital photos
-        gnucash # Personal finances
-        gnucash-docs
-        picard # Audio tag editor
-        mediathekview # Browse public broadcasting video libraries from Germany
-        gpsprune # GPS Track editor
-    )
-fi
-
-pacman -Syu --needed "${packages[@]}"
-
-# Mark pipewire as optdeps to cleanly uninstall them once they are no longer needed.
-pacman -D --asdeps pipewire-pulse wireplumber
-
 optdeps=(
+    # pipewire
+    pipewire-pulse wireplumber
     # linux: wireless frequency policies (provided as crda)
     wireless-regdb
     # pipewire: zeroconf support
@@ -279,6 +264,57 @@ optdeps=(
     breeze-icons
 )
 
+case "$HOSTNAME" in
+    *kastl*)
+        packages+=(
+            steam # Gaming
+            digikam # Digital photos
+            gnucash # Personal finances
+            gnucash-docs
+            picard # Audio tag editor
+            mediathekview # Browse public broadcasting video libraries from Germany
+            gpsprune # GPS Track editor
+        )
+        ;;
+    *RB*)
+        packages+=(
+            virtualbox-host-modules-arch
+            virtualbox-guest-iso
+            virtualbox
+            # .NET development
+            dotnet-sdk
+            # Containers, kubernetes & cloud
+            podman
+            kubectl
+            helm
+            # Large file storage
+            git-lfs
+            # VPN
+            networkmanager-vpnc
+            networkmanager-openconnect
+            # Networking and debugging tools
+            lftp # Powerful FTP client
+            websocat # Debug websockets on the CLI
+            lnav # Log file analyzer
+            # Additional applications
+            filezilla # FTP client
+            keepassxc # Keepass
+            evolution-ews # Exchange for evolution
+            gnome-calendar # Simple calendar view and notifications
+            remmina # Remote desktop
+            mattermost-desktop # Chat
+        )
+
+        optdeps+=(
+            # virtualbox: Kernel modules
+            virtualbox-host-modules-arch
+            # libproxy: Proxy autoconfiguration URLs, for Gnome and Glib
+            libproxy-webkit
+        )
+        ;;
+esac
+
+pacman -Syu --needed "${packages[@]}"
 pacman -S --needed --asdeps "${optdeps[@]}"
 pacman -D --asdeps "${optdeps[@]}"
 
@@ -501,15 +537,23 @@ aur_packages=(
     texlive-latexindent-meta
 )
 
-if [[ "$HOSTNAME" == *kastl* ]]; then
-    aur_packages+=(
-        ja2-stracciatella  # JA2 engine
-        chiaki  # Remote play for PS4
-        ausweisapp2  # eID app
-        cozy-audiobooks  # Audiobook player
-        gnome-shell-extension-gsconnect  # Connect phone and desktop system
-    )
-fi
+case "$HOSTNAME" in
+    *kastl*)
+        aur_packages+=(
+            ja2-stracciatella  # JA2 engine
+            chiaki  # Remote play for PS4
+            ausweisapp2  # eID app
+            cozy-audiobooks  # Audiobook player
+            gnome-shell-extension-gsconnect  # Connect phone and desktop system
+        )
+        ;;
+    *RB*)
+        aur_packages+=(
+            # Chat
+            rocketchat-desktop
+        )
+        ;;
+esac
 
 aur_optdeps=(
     # plymouth: truetype fonts
