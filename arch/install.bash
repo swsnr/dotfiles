@@ -333,6 +333,8 @@ services=(
     systemd-oomd.service # Userspace OOM killer
     systemd-timesyncd.service # Time sync
     systemd-resolved.service # DNS resolution
+    # auditing
+    auditd.service
     # Other system services
     firewalld.service # Firewall
     # Timers
@@ -416,6 +418,11 @@ install -Dpm644 "$DIR/etc/systemd/zram-generator.conf" /etc/systemd/zram-generat
 install -Dpm644 "$DIR/etc/systemd/oomd-lunaryorn.conf" /etc/systemd/oomd.conf.d/oomd-lunaryorn.conf
 install -Dpm644 "$DIR/etc/systemd/root-slice-oomd-lunaryorn.conf" /etc/systemd/system/-.slice.d/50-oomd-lunaryorn.conf
 install -Dpm644 "$DIR/etc/systemd/user-service-oomd-lunaryorn.conf" /etc/systemd/system/user@.service.d/50-oomd-lunaryorn.conf
+
+# Audit rules
+install -Dpm644 "$DIR/etc/audit/lunaryorn.rules" "/etc/audit/rules.d/00-lunaryorn.rules"
+augenrules
+augenrules --load
 
 # Services configuration
 install -Dpm644 "$DIR/etc/networkmanager-mdns.conf" /etc/NetworkManager/conf.d/50-mdns.conf

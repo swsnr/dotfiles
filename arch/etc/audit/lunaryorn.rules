@@ -1,0 +1,68 @@
+# Personal auditd rules
+#
+# For inspiration, see
+#
+# * https://github.com/linux-audit/audit-userspace/tree/master/rules
+# * https://github.com/Neo23x0/auditd/blob/master/audit.rules
+
+# Useful commands to extend this list:
+# - sudo aureport --start today -i -e --summary
+# - sudo aureport --start today -i -x --summary
+
+# Startup
+# Remove existing rules, increase buffers and wait time, log failures to syslog,
+# and continue in case of errors
+-D
+-b 8192
+--backlog_wait_time 60000
+-f 1
+-c
+
+# Self-auditing
+-w /var/log/audit/ -p wra -k self-audit
+-w /etc/audit/ -p wa -k self-audit
+-w /etc/libaudit.conf -p wa -k self-audit
+-w /etc/audisp/ -p wa -k self-audit
+-w /sbin/auditctl -p x -k self-audit
+-w /sbin/auditd -p x -k self-audit
+-w /usr/sbin/auditd -p x -k self-audit
+-w /usr/sbin/augenrules -p x -k self-audit
+-a always,exit -F path=/usr/sbin/ausearch -F perm=x -k self-audit
+-a always,exit -F path=/usr/sbin/aureport -F perm=x -k self-audit
+-a always,exit -F path=/usr/sbin/aulast -F perm=x -k self-audit
+-a always,exit -F path=/usr/sbin/aulastlogin -F perm=x -k self-audit
+-a always,exit -F path=/usr/sbin/auvirt -F perm=x -k self-audit
+
+# Ignore stuff:
+# Ignore SELinux AVC records
+-a always,exclude -F msgtype=AVC
+# Ignore current working directory records
+-a always,exclude -F msgtype=CWD
+
+# Install software
+-a always,exit -F perm=x -F path=/usr/bin/pacman -F key=pacman
+-w /etc/pacman.conf -p wa -k pacman-config
+-w /etc/pacman.d -p wa -k pacman-config
+
+# kexec (disabled, but be extra safe here)
+-a always,exit -F arch=b64 -S kexec_load -k kexec
+-a always,exit -F arch=b32 -S sys_kexec_load -k kexec
+
+# Sudo configuration changed
+-w /etc/sudoers -p wa -k sudoers
+-w /etc/sudoers.d/ -p wa -k sudoers
+
+# Conventional user/group modification
+-w /usr/sbin/groupadd -p x -k user-group
+-w /usr/sbin/groupmod -p x -k user-group
+-w /usr/sbin/addgroup -p x -k user-group
+-w /usr/sbin/useradd -p x -k user-group
+-w /usr/sbin/userdel -p x -k user-group
+-w /usr/sbin/usermod -p x -k user-group
+-w /usr/sbin/adduser -p x -k user-group
+
+# homectl
+-w /usr/bin/homectl -p x -k homectl
+
+# systemd reconfiguration
+-w /etc/systemd -p wa -k systemd-config
