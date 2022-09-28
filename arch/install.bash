@@ -41,7 +41,12 @@ if [[ "$HOSTNAME" == *kastl* ]]; then
 fi
 
 # Remove packages I no longer use
-to_remove=()
+to_remove=(
+    # Build into Gnome Shell 43
+    gnome-shell-extension-sound-output-device-chooser
+    # Available through rustup
+    rust-analyzer
+)
 for pkg in "${to_remove[@]}"; do
     pacman --noconfirm -Rs "$pkg" || true
 done
@@ -133,7 +138,6 @@ packages=(
     tig # Curses git interfaces
     # Rust tooling
     rustup
-    rust-analyzer
     cargo-audit
     cargo-outdated
     cargo-udeps
@@ -513,7 +517,6 @@ aur_packages=(
     plymouth
     # Gnome extensions
     gnome-shell-extension-nasa-apod
-    gnome-shell-extension-sound-output-device-chooser # Choose audio devices from shell
     # Gnome tools
     gnome-search-providers-jetbrains
     gnome-search-providers-vscode
@@ -572,7 +575,7 @@ if [[ -n "${SUDO_USER:-}" ]]; then
         pacman -D --asdeps "${aur_optdeps[@]}"
     fi
 
-    remove_from_repo=()
+    remove_from_repo=(gnome-shell-extension-sound-output-device-chooser)
     if [[ ${#remove_from_repo[@]} -gt 0 ]]; then
         for pkg in "${remove_from_repo[@]}"; do
             rm -f "/srv/pkgrepo/aur/${pkg}-"*.pkg.tar.*
