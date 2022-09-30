@@ -561,6 +561,8 @@ case "$HOSTNAME" in
         aur_packages+=(
             # Chat
             rocketchat-desktop
+            # The legacy
+            python2
         )
         ;;
 esac
