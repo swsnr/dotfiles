@@ -1,2 +1,0 @@
-%aurutils ALL = (root) NOPASSWD: SETENV: /usr/bin/makechrootpkg
-%aurutils ALL = (root) NOPASSWD: /usr/bin/mkarchroot, /usr/bin/arch-nspawn

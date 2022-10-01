@@ -1,0 +1,2 @@
+basti ALL = (root) NOPASSWD: SETENV: /usr/bin/makechrootpkg
+basti ALL = (root) NOPASSWD: /usr/bin/mkarchroot, /usr/bin/arch-nspawn

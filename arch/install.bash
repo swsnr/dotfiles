@@ -411,6 +411,8 @@ fi
 # sudo configuration
 install -dm750 /etc/sudoers.d/
 install -pm600 -t/etc/sudoers.d "$DIR"/etc/sudoers.d/*
+# Remove old sudo configuration files
+rm -f /etc/sudoers.d/50-aurutils
 
 # Systemd configuration
 ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
