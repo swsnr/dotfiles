@@ -90,6 +90,7 @@ packages=(
     xh # HTTP requests on the command line
     step-cli # Create CA & leaf certificates
     # Arch tools & infrastructure
+    asp # Obtain PKGBUILDs for ABS
     pacman-contrib # paccache, checkupdates, pacsearch, and others
     reflector # Weekly mirrorlist updates
     pkgfile # command-not-found for fish
