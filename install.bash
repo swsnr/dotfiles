@@ -73,6 +73,10 @@ ln -fs "$DIR/scala/settings.sbt" ~/.sbt/1.0/settings.sbt
 ln -fs -t ~/.sbt/1.0/plugins "$DIR/scala/"{plugins,sbt-updates}.sbt
 ln -fs -t ~/.sbt/1.0/plugins/project/ "$DIR/scala/sbt-updates.sbt"
 
+# GPG
+mkdir -p ~/.gnupg
+ln -fs -t ~/.gnupg "$DIR/gnupg/"*.conf
+
 # Misc files
 mkdir -p ~/.config/{bat,latexmk,wezterm,restic}
 ln -fs "$DIR/backup/linux.exclude" ~/.config/restic/linux.exclude
