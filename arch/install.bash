@@ -600,7 +600,7 @@ if [[ -n "${SUDO_USER:-}" ]]; then
         export GPGKEY=B8ADA38BC94C48C4E7AABE4F7548C2CC396B57FC
         sudo -u "$SUDO_USER" --preserve-env="${PRESERVE_ENV}" \
             nice \
-            aur sync -daur --nocheck -cRTS "${aur_packages[@]}" "${aur_optdeps[@]}"
+            aur sync -daur --nocheck -cRS "${aur_packages[@]}" "${aur_optdeps[@]}"
         pacman --needed -Syu "${aur_packages[@]}"
     fi
     if [[ ${#aur_optdeps[@]} -gt 0 ]]; then
