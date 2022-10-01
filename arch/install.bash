@@ -571,7 +571,7 @@ aur_packages=(
 case "$HOSTNAME" in
     *kastl*)
         aur_packages+=(
-            ja2-stracciatella  # JA2 engine
+            ja2-stracciatella-git  # JA2 engine
             chiaki  # Remote play for PS4
             ausweisapp2  # eID app
             cozy-audiobooks  # Audiobook player
