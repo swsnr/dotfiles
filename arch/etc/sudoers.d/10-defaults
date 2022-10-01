@@ -33,3 +33,8 @@ Defaults    env_keep += "MAIL LANG LC_ADDRESS LC_CTYPE"
 Defaults    env_keep += "LC_COLLATE LC_IDENTIFICATION LC_MEASUREMENT LC_MESSAGES"
 Defaults    env_keep += "LC_MONETARY LC_NAME LC_NUMERIC LC_PAPER LC_TELEPHONE"
 Defaults    env_keep += "LC_TIME LC_ALL LANGUAGE LINGUAS _XKB_CHARSET XAUTHORITY"
+
+#
+# Keep some variables for building arch packages in chroot
+#
+Defaults    env_keep += "AUR_PAGER PACKAGER GPGKEY"
