@@ -30,14 +30,16 @@ PRODUCT_NAME="$(< /sys/class/dmi/id/product_name)"
 
 # Configure pacman
 install -pm644 "$DIR/etc/pacman/pacman.conf" /etc/pacman.conf
+# Remove outdated config files
+rm -f /etc/pacman.d/conf.d/{60-aurutils-repository.conf,55-multilib-repository.conf}
+# Configure core pacman options and official repositories
 install -pm644 -Dt /etc/pacman.d/conf.d \
     "$DIR/etc/pacman/00-global-options.conf" \
-    "$DIR/etc/pacman/50-core-repositories.conf" \
-    "$DIR/etc/pacman/60-aurutils-repository.conf"
+    "$DIR/etc/pacman/50-core-repositories.conf"
 
 if [[ "$HOSTNAME" == *kastl* ]]; then
     # Enable multiple for Stream
-    install -pm644 -t /etc/pacman.d/conf.d "$DIR/etc/pacman/55-multilib-repository.conf"
+    install -pm644 -t /etc/pacman.d/conf.d "$DIR/etc/pacman/51-multilib-repository.conf"
 fi
 
 # Remove packages I no longer use
@@ -482,17 +484,40 @@ else
     bootctl update --graceful
 fi
 
-# Initialize AUR repo
-if [[ ! -d /srv/pkgrepo/aur/ ]]; then
-    install -m755 -d /srv/pkgrepo
-    btrfs subvolume create /srv/pkgrepo/aur
-    repo-add /srv/pkgrepo/aur/aur.db.tar.zst
-fi
+setup-repo() {
+    local repo
+    local cfgfile
+    repo="$1"
+    cfgfile="$2"
+    if [[ -z "$repo" || -z "$cfgfile" ]]; then
+        return 1
+    fi
 
-# Allow myself to build AUR packages
-if [[ -n "${SUDO_USER:-}" && "$(stat -c '%U' /srv/pkgrepo/aur)" != "$SUDO_USER" ]]; then
-    chown -R "$SUDO_USER:$SUDO_USER" /srv/pkgrepo/aur
-fi
+    if [[ ! -d "/srv/pkgrepo/${repo}" ]]; then
+        install -m755 -d /srv/pkgrepo
+        btrfs subvolume create "/srv/pkgrepo/${repo}"
+        repo-add "/srv/pkgrepo/${repo}/${repo}.db.tar.zst"
+    fi
+
+    # Allow myself to build packages to the repository
+    if [[ -n "${SUDO_USER:-}" && "$(stat -c '%U' "/srv/pkgrepo/${repo}")" != "$SUDO_USER" ]]; then
+        chown -R "$SUDO_USER:$SUDO_USER" "/srv/pkgrepo/${repo}"
+    fi
+
+    # Configure pacman to use this repository
+    install -pm644 -Dt /etc/pacman.d/conf.d "${cfgfile}"
+
+    # Configure aurutils to support building to this repo
+    install -Dpm644 /usr/share/devtools/pacman-extra.conf "/etc/aurutils/pacman-${repo}.conf"
+    cat <"${cfgfile}" >>"/etc/aurutils/pacman-${repo}.conf"
+}
+
+# Create and configure custom package repositories:
+#
+# aur: AUR packages
+# abs: Modified packages from core, extra, or community
+setup-repo aur "$DIR/etc/pacman/60-aur-repository.conf"
+setup-repo abs "$DIR/etc/pacman/55-abs-repository.conf"
 
 # Bootstrap aurutils
 if [[ -n "${SUDO_USER:-}" ]] && ! command -v aur &>/dev/null; then
@@ -504,17 +529,6 @@ cd "$BDIR"
 git clone --depth=1 "https://aur.archlinux.org/aurutils.git"
 cd aurutils
 makepkg --noconfirm --nocheck -rsi
-EOF
-fi
-
-# Configure aurutils
-if [[ ! -e "/etc/aurutils/pacman-aur.conf" ]]; then
-    install -Dpm644 /usr/share/devtools/pacman-extra.conf "/etc/aurutils/pacman-aur.conf"
-    cat <<EOF >>"/etc/aurutils/pacman-aur.conf"
-# aurutils repo
-[aur]
-SigLevel = Optional TrustAll
-Server = file:///srv/pkgrepo/aur/
 EOF
 fi
 
