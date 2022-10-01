@@ -42,6 +42,10 @@ if [[ "$HOSTNAME" == *kastl* ]]; then
     install -pm644 -t /etc/pacman.d/conf.d "$DIR/etc/pacman/51-multilib-repository.conf"
 fi
 
+# Update pacman keyring with additional keys
+pacman-key -a "$DIR/etc/pacman/keys/personal.asc"
+pacman-key --lsign-key B8ADA38BC94C48C4E7AABE4F7548C2CC396B57FC
+
 # Remove packages I no longer use
 to_remove=(
     # Build into Gnome Shell 43
