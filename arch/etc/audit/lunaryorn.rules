@@ -44,10 +44,6 @@
 -w /etc/pacman.conf -p wa -k pacman-config
 -w /etc/pacman.d -p wa -k pacman-config
 
-# kexec (disabled, but be extra safe here)
--a always,exit -F arch=b64 -S kexec_load -k kexec
--a always,exit -F arch=b32 -S sys_kexec_load -k kexec
-
 # Sudo configuration changed
 -w /etc/sudoers -p wa -k sudoers
 -w /etc/sudoers.d/ -p wa -k sudoers
