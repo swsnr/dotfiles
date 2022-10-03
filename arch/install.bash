@@ -52,6 +52,8 @@ to_remove=(
     gnome-shell-extension-sound-output-device-chooser
     # Available through rustup
     rust-analyzer
+    # Not using this anymore
+    aurpublish
 )
 for pkg in "${to_remove[@]}"; do
     pacman --noconfirm -Rs "$pkg" || true
@@ -104,7 +106,6 @@ packages=(
     # Build packages
     base-devel
     namcap
-    aurpublish # Publish AUR packages from Git subtrees
     # Terminal, shell & tools
     wezterm
     man-db
