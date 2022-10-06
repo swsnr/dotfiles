@@ -75,6 +75,7 @@ ln -fs -t ~/.sbt/1.0/plugins/project/ "$DIR/scala/sbt-updates.sbt"
 
 # GPG
 mkdir -p ~/.gnupg
+clean-recursively ~/.gnupg || true
 ln -fs -t ~/.gnupg "$DIR/gnupg/"*.conf
 
 # Misc files
