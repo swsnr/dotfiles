@@ -49,6 +49,11 @@ if status --is-interactive
     # python -m venv shouldn't change my prompt.
     set -x VIRTUAL_ENV_DISABLE_PROMPT 1
 
+    # Setup automatic node version management
+    if command -q fnm
+        fnm env --use-on-cd | source
+    end
+
     # Abbreviations (unlike aliases, these are expanded before running)
     # Fast one or two letter abbrevs
     abbr --global --add _ sudo

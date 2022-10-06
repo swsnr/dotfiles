@@ -593,6 +593,9 @@ case "$HOSTNAME" in
             rocketchat-desktop
             # The legacy
             python2
+            # Node version management
+            #fnm
+            fnm-bin
         )
         ;;
 esac
