@@ -28,6 +28,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}")"  >/dev/null 2>&1 && pwd)"
 
 PRODUCT_NAME="$(< /sys/class/dmi/id/product_name)"
 
+PACKAGE_SIGNING_KEY="B8ADA38BC94C48C4E7AABE4F7548C2CC396B57FC"
+
 # Configure pacman
 install -pm644 "$DIR/etc/pacman/pacman.conf" /etc/pacman.conf
 # Remove outdated config files
@@ -503,12 +505,18 @@ setup-repo() {
     if [[ ! -d "/srv/pkgrepo/${repo}" ]]; then
         install -m755 -d /srv/pkgrepo
         btrfs subvolume create "/srv/pkgrepo/${repo}"
-        repo-add "/srv/pkgrepo/${repo}/${repo}.db.tar.zst"
     fi
 
     # Allow myself to build packages to the repository
     if [[ -n "${SUDO_USER:-}" && "$(stat -c '%U' "/srv/pkgrepo/${repo}")" != "$SUDO_USER" ]]; then
         chown -R "$SUDO_USER:$SUDO_USER" "/srv/pkgrepo/${repo}"
+    fi
+
+    # Create the package database file, under my own account to be able to access the required key
+    if [[ -n "${SUDO_USER:-}" ]]; then
+        sudo -u "${SUDO_USER}" \
+            repo-add --sign --key "${PACKAGE_SIGNING_KEY}" \
+            "/srv/pkgrepo/${repo}/${repo}.db.tar.zst"
     fi
 
     # Configure pacman to use this repository
@@ -598,7 +606,7 @@ if [[ -n "${SUDO_USER:-}" ]]; then
     # Build AUR packages and install them
     if [[ ${#aur_packages} -gt 0 ]]; then
         # Tell aur-build about the GPG key to use for package signing
-        export GPGKEY=B8ADA38BC94C48C4E7AABE4F7548C2CC396B57FC
+        export GPGKEY="$PACKAGE_SIGNING_KEY"
         sudo -u "$SUDO_USER" --preserve-env="${PRESERVE_ENV}" \
             nice \
             aur sync -daur --nocheck -cRS "${aur_packages[@]}" "${aur_optdeps[@]}"
