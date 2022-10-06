@@ -68,6 +68,7 @@ packages=(
     linux-firmware
     intel-ucode
     linux
+    linux-zen
     lsb-release
     sudo
     zram-generator # swap on compressed RAM, mostly to support systemd-oomd
@@ -392,14 +393,26 @@ NSS_HOSTS=(
     )
 sed -i '/^hosts: /s/^hosts: .*/'"hosts: ${NSS_HOSTS[*]}/" /etc/nsswitch.conf
 
-# Bootloader and initrd configuration
+# Initrd configuration
 install -pm644 "$DIR/etc/lunaryorn-dracut.conf" /etc/dracut.conf.d/50-lunaryorn.conf
-install -pm644 "$DIR/etc/loader.conf" /efi/loader/loader.conf
 if [[ -f /usr/share/secureboot/keys/db/db.key ]] && [[ -f /usr/share/secureboot/keys/db/db.pem ]]; then
     install -pm644 "$DIR/etc/lunaryorn-dracut-sbctl.conf" /etc/dracut.conf.d/90-lunaryorn-sbctl-signing.conf
 else
     rm -f /etc/dracut.conf.d/90-lunaryorn-sbctl-signing.conf
 fi
+
+# Boot loader configuration
+case "$HOSTNAME" in
+    *kastl*)
+        # On personal systems use zen kernel
+        install -pm644 "$DIR/etc/loader-default-zen.conf" /efi/loader/loader.conf
+        ;;
+    *)
+        # Otherwise install a standard loader.conf which disables the loader menu
+        install -pm644 "$DIR/etc/loader.conf" /efi/loader/loader.conf
+        ;;
+esac
+
 
 # System configuration
 install -pm644 "$DIR/etc/faillock.conf" /etc/security/faillock.conf
