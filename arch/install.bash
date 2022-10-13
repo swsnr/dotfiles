@@ -48,12 +48,15 @@ fi
 pacman-key -a "$DIR/etc/pacman/keys/personal.asc"
 pacman-key --lsign-key B8ADA38BC94C48C4E7AABE4F7548C2CC396B57FC
 
-# Remove packages I no longer use
-to_remove=(
-)
+# Mark packages I no longer use as dependencies
+to_remove=()
 for pkg in "${to_remove[@]}"; do
-    pacman --noconfirm -Rs "$pkg" || true
+    pacman --noconfirm -D --asdeps "$pkg" || true
 done
+
+# Automatically remove unneeded dependencies; this automatically uninstalls
+# unneeded packages
+pacman -Qtdq | pacman -Rs -
 
 packages=(
     # Basic packages & system tools
