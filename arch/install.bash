@@ -616,7 +616,6 @@ aur_packages=(
     git-gone
     # git-delta
     wcal-git
-    coursier-native
     # Missing dependencies for latexindent
     # See <https://bugs.archlinux.org/task/60210>
     texlive-latexindent-meta
@@ -662,7 +661,14 @@ if [[ -n "${SUDO_USER:-}" ]]; then
         pacman -D --asdeps "${aur_optdeps[@]}"
     fi
 
-    remove_from_repo=()
+    remove_from_repo=(
+        # Things moved to flatpak
+        cozy-audiobooks
+        ausweisapp2
+        chiaki
+        # Things I no longer use
+        coursier-native
+    )
     if [[ ${#remove_from_repo[@]} -gt 0 ]]; then
         for pkg in "${remove_from_repo[@]}"; do
             rm -f "/srv/pkgrepo/aur/${pkg}-"*.pkg.tar.*
