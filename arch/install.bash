@@ -340,6 +340,7 @@ pacman -D --asexplicit tpm2-tools
 
 # Flatpaks
 flatpaks=(
+    com.github.tchx84.Flatseal # Flatpak permissions
     org.zim_wiki.Zim # Desktop Wiki
     org.signal.Signal # Mobile messenger
     org.gnome.Lollypop # Music player
