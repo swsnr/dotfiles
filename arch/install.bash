@@ -562,7 +562,7 @@ setup-repo() {
     fi
 
     # Create the package database file, under my own account to be able to access the required key
-    if [[ -n "${SUDO_USER:-}" ]]; then
+    if [[ -n "${SUDO_USER:-}" && ! -e /srv/pkgrepo/${repo}/${repo}.db.tar.zst ]]; then
         sudo -u "${SUDO_USER}" \
             repo-add --sign --key "${PACKAGE_SIGNING_KEY}" \
             "/srv/pkgrepo/${repo}/${repo}.db.tar.zst"
