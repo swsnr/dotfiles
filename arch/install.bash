@@ -33,16 +33,11 @@ PACKAGE_SIGNING_KEY="B8ADA38BC94C48C4E7AABE4F7548C2CC396B57FC"
 # Configure pacman
 install -pm644 "$DIR/etc/pacman/pacman.conf" /etc/pacman.conf
 # Remove outdated config files
-rm -f /etc/pacman.d/conf.d/{60-aurutils-repository.conf,55-multilib-repository.conf}
+rm -f /etc/pacman.d/conf.d/{60-aurutils-repository.conf,55-multilib-repository.conf,51-multilib-repository.conf}
 # Configure core pacman options and official repositories
 install -pm644 -Dt /etc/pacman.d/conf.d \
     "$DIR/etc/pacman/00-global-options.conf" \
     "$DIR/etc/pacman/50-core-repositories.conf"
-
-if [[ "$HOSTNAME" == *kastl* ]]; then
-    # Enable multiple for Stream
-    install -pm644 -t /etc/pacman.d/conf.d "$DIR/etc/pacman/51-multilib-repository.conf"
-fi
 
 # Update pacman keyring with additional keys
 pacman-key -a "$DIR/etc/pacman/keys/personal.asc"
@@ -83,6 +78,7 @@ to_remove=(
     zim
     gnucash
     gnucash-docs
+    steam
 )
 for pkg in "${to_remove[@]}"; do
     pacman --noconfirm -D --asdeps "$pkg" || true
@@ -287,7 +283,6 @@ optdeps=(
 case "$HOSTNAME" in
     *kastl*)
         packages+=(
-            steam # Gaming
             mediathekview # Browse public broadcasting video libraries from Germany
             gpsprune # GPS Track editor
         )
@@ -356,6 +351,7 @@ flatpaks=(
 case "$HOSTNAME" in
     *kastl*)
         flatpaks+=(
+            com.valvesoftware.Steam # Gaming
             org.gnucash.GnuCash # Personal finances
             org.kde.digikam # Digital photos
             org.musicbrainz.Picard # Audio tag editor
