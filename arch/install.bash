@@ -176,6 +176,7 @@ packages=(
     wl-clipboard
     dconf-editor
     # Desktop services
+    flatpak
     pcsclite # Smartcard daemon, for e-ID
     cups
     hplip
