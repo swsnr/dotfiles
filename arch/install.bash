@@ -49,7 +49,23 @@ pacman-key -a "$DIR/etc/pacman/keys/personal.asc"
 pacman-key --lsign-key B8ADA38BC94C48C4E7AABE4F7548C2CC396B57FC
 
 # Mark packages I no longer use as dependencies
-to_remove=()
+to_remove=(
+    # /etc/os-release is much better
+    lsb-release
+    # I use Gnome tools directly; the XDG stuff should come as a dependencies
+    # if required.  Also many of these tools are poorly maintainted
+    xdg-utils
+    xdg-user-dirs
+    xdg-user-dirs-gtk
+    # These are required as dependency if needed
+    xdg-desktop-portal-gnome
+    xdg-desktop-portal
+    # Things I no longer use
+    tea
+    gnome-remote-desktop
+    gnome-screenshot
+    gnome-themes-extra
+    )
 for pkg in "${to_remove[@]}"; do
     pacman --noconfirm -D --asdeps "$pkg" || true
 done
@@ -66,7 +82,6 @@ packages=(
     intel-ucode
     linux
     linux-zen
-    lsb-release
     sudo
     zram-generator # swap on compressed RAM, mostly to support systemd-oomd
     sbctl # Manage secure boot binaries and sign binaries
@@ -142,7 +157,6 @@ packages=(
     # Git and related tools
     git
     git-filter-repo
-    tea # CLI for gitea servers
     tig # Curses git interfaces
     # Rust tooling
     rustup
@@ -162,9 +176,6 @@ packages=(
     wl-clipboard
     dconf-editor
     # Desktop services
-    xdg-user-dirs
-    xdg-utils
-    xdg-desktop-portal
     pcsclite # Smartcard daemon, for e-ID
     cups
     hplip
@@ -207,21 +218,16 @@ packages=(
     gdm
     gnome-characters
     gnome-keyring
-    gnome-screenshot
     gnome-maps
     gnome-clocks
     gnome-weather
     gnome-shell
     gnome-shell-extensions
     gnome-shell-extension-appindicator
-    gnome-remote-desktop
     gnome-system-monitor
     gnome-control-center
     gnome-tweaks
     gnome-backgrounds
-    gnome-themes-extra # For adwaita-dark
-    xdg-desktop-portal-gnome # Desktop portals
-    xdg-user-dirs-gtk
     evolution
     file-roller
     yelp # Online help system
