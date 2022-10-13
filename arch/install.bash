@@ -69,7 +69,15 @@ to_remove=(
     chiaki
     ausweisapp2
     cozy-audiobooks
-    )
+    vlc
+    inkscape
+    gimp
+    libreoffice-fresh-de
+    libreoffice-fresh
+    xournalpp
+    d-feet
+    picard
+)
 for pkg in "${to_remove[@]}"; do
     pacman --noconfirm -D --asdeps "$pkg" || true
 done
@@ -192,17 +200,9 @@ packages=(
     firefox-i18n-de
     yt-dlp # youtube-dl with extra features
     zim # Notes, Journal & Zettelkasten
-    vlc # Video player
-    inkscape # Vector graphics
-    gimp # Pixel graphics
-    qalculate-gtk # Powerful calculator
-    libreoffice-fresh
-    libreoffice-fresh-de
     lollypop # Music player
-    xournalpp # Handwriting tool
     signal-desktop # Secure mobile messenger
     kdiff3 # Diff & merge tool
-    d-feet # DBus inspector
     # Latex
     texlive-most
     # Fonts & themes
@@ -294,7 +294,6 @@ case "$HOSTNAME" in
             digikam # Digital photos
             gnucash # Personal finances
             gnucash-docs
-            picard # Audio tag editor
             mediathekview # Browse public broadcasting video libraries from Germany
             gpsprune # GPS Track editor
         )
@@ -346,11 +345,20 @@ pacman -D --asdeps "${optdeps[@]}"
 pacman -D --asexplicit tpm2-tools
 
 # Flatpaks
-flatpaks=()
+flatpaks=(
+    org.videolan.VLC # Video player
+    org.inkscape.Inkscape # Vector graphics
+    org.gimp.GIMP # Pixel graphics
+    io.github.Qalculate # Powerful calculator
+    org.libreoffice.LibreOffice # Office suite
+    com.github.xournalpp.xournalpp # Hand-writing & notes
+    org.gnome.dfeet # DBus inspector
+)
 
 case "$HOSTNAME" in
     *kastl*)
         flatpaks+=(
+            org.musicbrainz.Picard # Audio tag editor
             re.chiaki.Chiaki # Remote play for PS4
             de.bund.ausweisapp.ausweisapp2 # eID app
             com.github.geigi.cozy # Audiobook player
@@ -358,6 +366,9 @@ case "$HOSTNAME" in
     ;;
 esac
 
+# Configure flatpak languages to install in addition to system locale
+flatpak config --system --set extra-languages 'en;en_GB;de;de_DE'
+# Install all flatpaks
 flatpak install --system --app --noninteractive "${flatpaks[@]}"
 # Removed unused runtimes
 flatpak uninstall --system --noninteractive --unused
