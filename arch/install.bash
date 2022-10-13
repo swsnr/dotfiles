@@ -65,6 +65,10 @@ to_remove=(
     gnome-remote-desktop
     gnome-screenshot
     gnome-themes-extra
+    # Things moved to flatpak
+    chiaki
+    ausweisapp2
+    cozy-audiobooks
     )
 for pkg in "${to_remove[@]}"; do
     pacman --noconfirm -D --asdeps "$pkg" || true
@@ -72,7 +76,7 @@ done
 
 # Automatically remove unneeded dependencies; this automatically uninstalls
 # unneeded packages
-pacman -Qtdq | pacman --noconfirm -Rs -
+pacman -Qtdq | pacman --noconfirm -Rs - || true
 
 packages=(
     # Basic packages & system tools
@@ -341,6 +345,23 @@ pacman -D --asdeps "${optdeps[@]}"
 # https://bugs.archlinux.org/task/73229
 pacman -D --asexplicit tpm2-tools
 
+# Flatpaks
+flatpaks=()
+
+case "$HOSTNAME" in
+    *kastl*)
+        flatpaks+=(
+            re.chiaki.Chiaki # Remote play for PS4
+            de.bund.ausweisapp.ausweisapp2 # eID app
+            com.github.geigi.cozy # Audiobook player
+        )
+    ;;
+esac
+
+flatpak install --system --app --noninteractive "${flatpaks[@]}"
+# Removed unused runtimes
+flatpak uninstall --system --noninteractive --unused
+
 services=(
     # Core system services
     systemd-boot-update.service # Update boot loader automatically
@@ -598,9 +619,6 @@ case "$HOSTNAME" in
     *kastl*)
         aur_packages+=(
             ja2-stracciatella-git  # JA2 engine
-            chiaki  # Remote play for PS4
-            ausweisapp2  # eID app
-            cozy-audiobooks  # Audiobook player
             gnome-shell-extension-gsconnect  # Connect phone and desktop system
         )
         ;;
