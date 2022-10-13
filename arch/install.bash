@@ -47,6 +47,8 @@ pacman-key --lsign-key B8ADA38BC94C48C4E7AABE4F7548C2CC396B57FC
 to_remove=(
     # /etc/os-release is much better
     lsb-release
+    # Solves a problem I don't have :)
+    kernel-modules-hook
     # I use Gnome tools directly; the XDG stuff should come as a dependencies
     # if required.  Also many of these tools are poorly maintainted
     xdg-utils
@@ -131,7 +133,6 @@ packages=(
     pacman-contrib # paccache, checkupdates, pacsearch, and others
     reflector # Weekly mirrorlist updates
     pkgfile # command-not-found for fish
-    kernel-modules-hook # Keep kernel modules on kernel updates
     # Build packages
     base-devel
     namcap
