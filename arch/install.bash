@@ -77,6 +77,9 @@ to_remove=(
     xournalpp
     d-feet
     picard
+    digikam
+    signal-desktop
+    lollypop
 )
 for pkg in "${to_remove[@]}"; do
     pacman --noconfirm -D --asdeps "$pkg" || true
@@ -200,8 +203,6 @@ packages=(
     firefox-i18n-de
     yt-dlp # youtube-dl with extra features
     zim # Notes, Journal & Zettelkasten
-    lollypop # Music player
-    signal-desktop # Secure mobile messenger
     kdiff3 # Diff & merge tool
     # Latex
     texlive-most
@@ -279,19 +280,12 @@ optdeps=(
     libappindicator-gtk3
     # aurutils: chroot support
     devtools
-    # zim: spell checking
-    gtkspell3
-    # inkscape: optimized SVGs
-    scour
-    # kiconthemes: Additional icons for KDE apps
-    breeze-icons
 )
 
 case "$HOSTNAME" in
     *kastl*)
         packages+=(
             steam # Gaming
-            digikam # Digital photos
             gnucash # Personal finances
             gnucash-docs
             mediathekview # Browse public broadcasting video libraries from Germany
@@ -346,6 +340,8 @@ pacman -D --asexplicit tpm2-tools
 
 # Flatpaks
 flatpaks=(
+    org.signal.Signal # Mobile messenger
+    org.gnome.Lollypop # Music player
     org.videolan.VLC # Video player
     org.inkscape.Inkscape # Vector graphics
     org.gimp.GIMP # Pixel graphics
@@ -358,6 +354,7 @@ flatpaks=(
 case "$HOSTNAME" in
     *kastl*)
         flatpaks+=(
+            org.kde.digikam # Digital photos
             org.musicbrainz.Picard # Audio tag editor
             re.chiaki.Chiaki # Remote play for PS4
             de.bund.ausweisapp.ausweisapp2 # eID app
