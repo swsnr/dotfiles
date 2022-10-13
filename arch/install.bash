@@ -50,12 +50,6 @@ pacman-key --lsign-key B8ADA38BC94C48C4E7AABE4F7548C2CC396B57FC
 
 # Remove packages I no longer use
 to_remove=(
-    # Build into Gnome Shell 43
-    gnome-shell-extension-sound-output-device-chooser
-    # Available through rustup
-    rust-analyzer
-    # Not using this anymore
-    aurpublish
 )
 for pkg in "${to_remove[@]}"; do
     pacman --noconfirm -Rs "$pkg" || true
@@ -633,7 +627,7 @@ if [[ -n "${SUDO_USER:-}" ]]; then
         pacman -D --asdeps "${aur_optdeps[@]}"
     fi
 
-    remove_from_repo=(gnome-shell-extension-sound-output-device-chooser)
+    remove_from_repo=()
     if [[ ${#remove_from_repo[@]} -gt 0 ]]; then
         for pkg in "${remove_from_repo[@]}"; do
             rm -f "/srv/pkgrepo/aur/${pkg}-"*.pkg.tar.*
