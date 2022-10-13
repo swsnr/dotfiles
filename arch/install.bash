@@ -80,6 +80,9 @@ to_remove=(
     digikam
     signal-desktop
     lollypop
+    zim
+    gnucash
+    gnucash-docs
 )
 for pkg in "${to_remove[@]}"; do
     pacman --noconfirm -D --asdeps "$pkg" || true
@@ -202,7 +205,6 @@ packages=(
     firefox # Browser
     firefox-i18n-de
     yt-dlp # youtube-dl with extra features
-    zim # Notes, Journal & Zettelkasten
     kdiff3 # Diff & merge tool
     # Latex
     texlive-most
@@ -286,8 +288,6 @@ case "$HOSTNAME" in
     *kastl*)
         packages+=(
             steam # Gaming
-            gnucash # Personal finances
-            gnucash-docs
             mediathekview # Browse public broadcasting video libraries from Germany
             gpsprune # GPS Track editor
         )
@@ -340,6 +340,7 @@ pacman -D --asexplicit tpm2-tools
 
 # Flatpaks
 flatpaks=(
+    org.zim_wiki.Zim # Desktop Wiki
     org.signal.Signal # Mobile messenger
     org.gnome.Lollypop # Music player
     org.videolan.VLC # Video player
@@ -354,6 +355,7 @@ flatpaks=(
 case "$HOSTNAME" in
     *kastl*)
         flatpaks+=(
+            org.gnucash.GnuCash # Personal finances
             org.kde.digikam # Digital photos
             org.musicbrainz.Picard # Audio tag editor
             re.chiaki.Chiaki # Remote play for PS4
