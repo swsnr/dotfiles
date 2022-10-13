@@ -72,7 +72,7 @@ done
 
 # Automatically remove unneeded dependencies; this automatically uninstalls
 # unneeded packages
-pacman -Qtdq | pacman -Rs -
+pacman -Qtdq | pacman --noconfirm -Rs -
 
 packages=(
     # Basic packages & system tools
