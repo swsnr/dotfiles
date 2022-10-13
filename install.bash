@@ -116,5 +116,24 @@ function install_wezterm_terminfo {
 }
 install_wezterm_terminfo
 
+# Flatpak setup
+if command -v flatpak >& /dev/null; then
+    flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+    # Adapt filesystem permissions for Steam: Add access to downloads for backup
+    # imports, but deny access to Music and Pictures
+    flatpak override --user \
+        --filesystem xdg-download:ro \
+        --nofilesystem xdg-music \
+        --nofilesystem xdg-pictures \
+        com.valvesoftware.Steam
+
+    # Reduce access of Cozy
+    flatpak override --user \
+        --filesystem ~/Hörbücher \
+        --nofilesystem host \
+        com.github.geigi.cozy
+fi
+
 # Configure Code OSS
 command -v code >& /dev/null && ./misc/code-settings.py
