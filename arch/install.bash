@@ -174,6 +174,7 @@ packages=(
     git
     git-filter-repo
     tig # Curses git interfaces
+    github-cli
     # Rust tooling
     rustup
     cargo-audit
