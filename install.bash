@@ -56,9 +56,6 @@ ln -fs -t ~/.config/nvim/lua "$DIR"/neovim/lua/flausch
 mkdir -p ~/.config/git
 ln -fs -t ~/.config/git "$DIR/git/common/"*
 ln -fs -t ~/.config/git "$DIR/git/config.linux"
-if [[ "$HOSTNAME" == *kastl* ]]; then
-  ln -fs -t ~/.config/git "$DIR/git/config.1password-signing"
-fi
 
 # SSH configuration
 mkdir -p ~/.ssh
@@ -98,6 +95,14 @@ ln -fs -t ~/.local/share/gnome-shell/extensions \
   "$DIR/gnome/extensions/spacetimeformats@swsnr.de"
 clean-recursively ~/.local/share/nautilus-python/extensions || true
 "$DIR/gnome/settings.py" || true
+
+# On personal systems use 1password for SSH and commit signing
+if [[ "$HOSTNAME" == *kastl* ]]; then
+  ln -fs -t ~/.config/git "$DIR/git/config.1password-signing"
+  # This file deliberately lies outside of "$DIR/ssh/config.d" because we
+  # install all files from config.d above
+  ln -fs -t ~/.ssh/config.d "$DIR/ssh/90-1password-ssh-agent"
+fi
 
 # Generate additional fish completions
 mkdir -p ~/.config/fish/completions
