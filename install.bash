@@ -56,6 +56,9 @@ ln -fs -t ~/.config/nvim/lua "$DIR"/neovim/lua/flausch
 mkdir -p ~/.config/git
 ln -fs -t ~/.config/git "$DIR/git/common/"*
 ln -fs -t ~/.config/git "$DIR/git/config.linux"
+if [[ "$HOSTNAME" == *kastl* ]]; then
+  ln -fs -t ~/.config/git "$DIR/git/config.1password-signing"
+fi
 
 # SSH configuration
 mkdir -p ~/.ssh

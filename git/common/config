@@ -148,6 +148,8 @@
 	insteadOf = http://
 # Includes
 [include]
+	# 1password commit signing
+	path = config.1password-signing
 	# Platform specific settings
 	path = config.linux
 	path = config.windows
