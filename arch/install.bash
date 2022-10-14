@@ -371,6 +371,8 @@ flatpak config --system --set extra-languages 'en;en_GB;de;de_DE'
 flatpak install --system --app --noninteractive "${flatpaks[@]}"
 # Removed unused runtimes
 flatpak uninstall --system --noninteractive --unused
+# Update installed flatpaks
+flatpak update --system --noninteractive
 
 services=(
     # Core system services
