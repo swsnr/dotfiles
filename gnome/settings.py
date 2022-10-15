@@ -54,6 +54,11 @@ SETTINGS = {
         # Show week numbers in calendar
         'show-weekdate': True
     },
+    'org.gnome.desktop.media-handling': {
+        # Disable auto-mounting in Gnome; this is just a nuisance
+        'automount': False,
+        'automount-open': False
+    },
     'org.gnome.mutter': {
         'dynamic-workspaces': True,
         # Switch workspaces on all screens
