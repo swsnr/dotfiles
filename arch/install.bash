@@ -49,6 +49,8 @@ mark_as_dependency=(
     lsb-release
     # Solves a problem I don't have :)
     kernel-modules-hook
+    # Pacman has this built-in with pacman -Fy
+    pkgfile
     # I use Gnome tools directly; the XDG stuff should come as a dependencies
     # if required.  Also many of these tools are poorly maintainted
     xdg-utils
@@ -133,7 +135,6 @@ packages=(
     aurpublish # Publish workflow for AUR multirepos
     pacman-contrib # paccache, checkupdates, pacsearch, and others
     reflector # Weekly mirrorlist updates
-    pkgfile # command-not-found for fish
     # Build packages
     base-devel
     namcap
@@ -374,6 +375,10 @@ flatpak uninstall --system --noninteractive --unused
 # Update installed flatpaks
 flatpak update --system --noninteractive
 
+# Remove pkgfile; we install a timer for pacman -Fy instead
+systemctl disable pkgfile-update.timer
+rm -rf /var/cache/pkgfile/
+
 services=(
     # Core system services
     systemd-boot-update.service # Update boot loader automatically
@@ -389,7 +394,7 @@ services=(
     fstrim.timer # Periodically trim file systems…
     "btrfs-scrub@$(systemd-escape -p /).timer" # scrub root filesystem…
     paccache.timer # clean pacman cache…
-    pkgfile-update.timer # update pkgfile list…
+    pacman-filesdb-refresh.timer # update pacman's file database…
     fwupd-refresh.timer # check for firmware updates…
     reflector.timer # and update the mirrorlist.
     # Desktop services
