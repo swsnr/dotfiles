@@ -44,7 +44,7 @@ pacman-key -a "$DIR/etc/pacman/keys/personal.asc"
 pacman-key --lsign-key B8ADA38BC94C48C4E7AABE4F7548C2CC396B57FC
 
 # Mark packages I no longer use as dependencies
-to_remove=(
+mark_as_dependency=(
     # /etc/os-release is much better
     lsb-release
     # Solves a problem I don't have :)
@@ -82,7 +82,7 @@ to_remove=(
     gnucash-docs
     steam
 )
-for pkg in "${to_remove[@]}"; do
+for pkg in "${mark_as_dependency[@]}"; do
     pacman --noconfirm -D --asdeps "$pkg" || true
 done
 
