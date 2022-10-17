@@ -44,49 +44,7 @@ pacman-key -a "$DIR/etc/pacman/keys/personal.asc"
 pacman-key --lsign-key B8ADA38BC94C48C4E7AABE4F7548C2CC396B57FC
 
 # Mark packages I no longer use as dependencies
-mark_as_dependency=(
-    # /etc/os-release is much better
-    lsb-release
-    # Solves a problem I don't have :)
-    kernel-modules-hook
-    # Pacman has this built-in with pacman -Fy
-    pkgfile
-    # I use Gnome tools directly; the XDG stuff should come as a dependencies
-    # if required.  Also many of these tools are poorly maintainted
-    xdg-utils
-    xdg-user-dirs
-    xdg-user-dirs-gtk
-    # These are required as dependency if needed
-    xdg-desktop-portal-gnome
-    xdg-desktop-portal
-    # Things I no longer use
-    tea
-    gnome-remote-desktop
-    gnome-screenshot
-    gnome-themes-extra
-    # Things moved to flatpak
-    chiaki
-    ausweisapp2
-    cozy-audiobooks
-    vlc
-    inkscape
-    gimp
-    libreoffice-fresh-de
-    libreoffice-fresh
-    xournalpp
-    d-feet
-    picard
-    digikam
-    signal-desktop
-    lollypop
-    zim
-    gnucash
-    gnucash-docs
-    steam
-    filezilla
-    remmina
-    mattermost-desktop
-)
+mark_as_dependency=()
 for pkg in "${mark_as_dependency[@]}"; do
     pacman --noconfirm -D --asdeps "$pkg" || true
 done
@@ -384,10 +342,6 @@ flatpak uninstall --system --noninteractive --unused
 # Update installed flatpaks
 flatpak update --system --noninteractive
 
-# Remove pkgfile; we install a timer for pacman -Fy instead
-systemctl disable pkgfile-update.timer
-rm -rf /var/cache/pkgfile/
-
 services=(
     # Core system services
     systemd-boot-update.service # Update boot loader automatically
@@ -649,8 +603,6 @@ case "$HOSTNAME" in
         ;;
     *RB*)
         aur_packages+=(
-            # Chat
-            rocketchat-desktop
             # The legacy
             python2
             # Node version management
