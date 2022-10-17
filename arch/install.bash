@@ -83,6 +83,9 @@ mark_as_dependency=(
     gnucash
     gnucash-docs
     steam
+    filezilla
+    remmina
+    mattermost-desktop
 )
 for pkg in "${mark_as_dependency[@]}"; do
     pacman --noconfirm -D --asdeps "$pkg" || true
@@ -312,12 +315,9 @@ case "$HOSTNAME" in
             websocat # Debug websockets on the CLI
             lnav # Log file analyzer
             # Additional applications
-            filezilla # FTP client
             keepassxc # Keepass
             evolution-ews # Exchange for evolution
             gnome-calendar # Simple calendar view and notifications
-            remmina # Remote desktop
-            mattermost-desktop # Chat
         )
 
         optdeps+=(
@@ -363,7 +363,16 @@ case "$HOSTNAME" in
             de.bund.ausweisapp.ausweisapp2 # eID app
             com.github.geigi.cozy # Audiobook player
         )
-    ;;
+        ;;
+    RB-*)
+        flatpaks+=(
+            # Chat apps
+            chat.rocket.RocketChat
+            com.mattermost.Desktop
+            org.filezillaproject.Filezilla # File transfer
+            org.remmina.Remmina # Remote desktop
+        )
+        ;;
 esac
 
 # Configure flatpak languages to install in addition to system locale
