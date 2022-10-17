@@ -144,6 +144,8 @@ packages=(
     cargo-udeps
     cargo-release
     cargo-deny
+    # rustup doesn't ship a proxy for this yet, see https://bugs.archlinux.org/task/76050
+    rust-analyzer
     # Bash tools
     shellcheck
     shfmt
