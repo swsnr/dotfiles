@@ -460,7 +460,7 @@ case "$HOSTNAME" in
         ;;
     *)
         # Otherwise install a standard loader.conf which disables the loader menu
-        install -pm644 "$DIR/etc/loader.conf" /efi/loader/loader.conf
+        install -pm644 "$DIR/etc/loader-default-arch.conf" /efi/loader/loader.conf
         ;;
 esac
 
