@@ -258,6 +258,7 @@ case "$HOSTNAME" in
         ;;
     *RB*)
         packages+=(
+            # Virtualisation
             virtualbox-host-modules-arch
             virtualbox-guest-iso
             virtualbox
@@ -267,8 +268,9 @@ case "$HOSTNAME" in
             podman
             kubectl
             helm
-            # Large file storage
-            git-lfs
+            # Git and forges
+            git-lfs # Large file storage
+            glab # Gitlab CLI
             # VPN
             networkmanager-vpnc
             networkmanager-openconnect
