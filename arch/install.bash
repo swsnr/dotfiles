@@ -102,6 +102,7 @@ packages=(
     # Build packages
     base-devel
     namcap
+    debuginfod # Remote debug info
     # Terminal, shell & tools
     wezterm
     man-db
