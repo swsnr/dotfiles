@@ -141,6 +141,12 @@ if command -v flatpak >& /dev/null; then
         --filesystem ~/Hörbücher \
         --nofilesystem host \
         com.github.geigi.cozy
+
+    # Wayland for Chiaki, see https://github.com/flathub/re.chiaki.Chiaki/issues/3
+    # and https://github.com/flathub/re.chiaki.Chiaki/pull/4
+    flatpak override --user \
+      --socket=wayland --socket=fallback-x11 --nosocket=x11 \
+      re.chiaki.Chiaki
 fi
 
 # Configure Code OSS
