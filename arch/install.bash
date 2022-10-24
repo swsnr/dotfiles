@@ -259,8 +259,12 @@ case "$HOSTNAME" in
         ;;
     *RB*)
         packages+=(
+            # Kernel headers for DKMS
+            linux-headers
+            linux-lts-headers
+            linux-zen-headers
             # Virtualisation
-            virtualbox-host-modules-arch
+            virtualbox-host-dkms
             virtualbox-guest-iso
             virtualbox
             # .NET development
@@ -287,7 +291,7 @@ case "$HOSTNAME" in
 
         optdeps+=(
             # virtualbox: Kernel modules
-            virtualbox-host-modules-arch
+            virtualbox-host-dkms
             # libproxy: Proxy autoconfiguration URLs, for Gnome and Glib
             libproxy-webkit
         )
