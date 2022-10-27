@@ -581,6 +581,8 @@ aur_packages=(
     aurutils
     # Splash screen at boot
     plymouth
+    # Jetbrains products
+    jetbrains-toolbox
     # Gnome extensions
     gnome-shell-extension-nasa-apod
     # Gnome tools
