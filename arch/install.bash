@@ -139,6 +139,7 @@ packages=(
     # Git and related tools
     git
     git-filter-repo
+    git-lfs
     tig # Curses git interfaces
     github-cli
     # Rust tooling
@@ -273,9 +274,8 @@ case "$HOSTNAME" in
             podman
             kubectl
             helm
-            # Git and forges
-            git-lfs # Large file storage
-            glab # Gitlab CLI
+            # Git and related tools
+            glab
             # VPN
             networkmanager-vpnc
             networkmanager-openconnect
