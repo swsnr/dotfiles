@@ -310,6 +310,7 @@ pacman -D --asexplicit tpm2-tools
 flatpaks=(
     com.github.tchx84.Flatseal # Flatpak permissions
     org.zim_wiki.Zim # Desktop Wiki
+    com.github.jeromerobert.pdfarranger # Arrange pdf files
     org.signal.Signal # Mobile messenger
     org.gnome.Lollypop # Music player
     org.videolan.VLC # Video player
