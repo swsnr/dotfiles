@@ -32,8 +32,6 @@ PACKAGE_SIGNING_KEY="B8ADA38BC94C48C4E7AABE4F7548C2CC396B57FC"
 
 # Configure pacman
 install -pm644 "$DIR/etc/pacman/pacman.conf" /etc/pacman.conf
-# Remove outdated config files
-rm -f /etc/pacman.d/conf.d/{60-aurutils-repository.conf,55-multilib-repository.conf,51-multilib-repository.conf}
 # Configure core pacman options and official repositories
 install -pm644 -Dt /etc/pacman.d/conf.d \
     "$DIR/etc/pacman/00-global-options.conf" \
