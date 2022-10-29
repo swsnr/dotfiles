@@ -32,6 +32,8 @@ PACKAGE_SIGNING_KEY="B8ADA38BC94C48C4E7AABE4F7548C2CC396B57FC"
 
 # Configure pacman
 install -pm644 "$DIR/etc/pacman/pacman.conf" /etc/pacman.conf
+# Remove outdated config files
+rm -f /etc/pacman.d/conf.d/55-abs-repository.conf
 # Configure core pacman options and official repositories
 install -pm644 -Dt /etc/pacman.d/conf.d \
     "$DIR/etc/pacman/00-global-options.conf" \
@@ -569,7 +571,7 @@ setup-repo() {
 # aur: AUR packages
 # abs: Modified packages from core, extra, or community
 setup-repo aur "$DIR/etc/pacman/60-aur-repository.conf"
-setup-repo abs "$DIR/etc/pacman/55-abs-repository.conf"
+setup-repo abs "$DIR/etc/pacman/40-abs-repository.conf"
 
 # Bootstrap aurutils
 if [[ -n "${SUDO_USER:-}" ]] && ! command -v aur &>/dev/null; then
