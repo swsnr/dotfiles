@@ -320,6 +320,7 @@ flatpaks=(
     com.github.xournalpp.xournalpp # Hand-writing & notes
     org.gnome.dfeet # DBus inspector
 )
+flatpaks_to_remove=()
 
 case "$HOSTNAME" in
     *kastl*)
@@ -327,10 +328,14 @@ case "$HOSTNAME" in
             com.valvesoftware.Steam # Gaming
             org.gnucash.GnuCash # Personal finances
             org.kde.digikam # Digital photos
-            org.musicbrainz.Picard # Audio tag editor
+            org.nickvision.tagger # Audio tag editor
             re.chiaki.Chiaki # Remote play for PS4
             de.bund.ausweisapp.ausweisapp2 # eID app
             com.github.geigi.cozy # Audiobook player
+            de.schmidhuberj.Flare # Unofficial Gtk signal client
+        )
+        flatpaks_to_remove+=(
+            org.musicbrainz.Picard
         )
         ;;
     RB-*)
@@ -348,6 +353,10 @@ esac
 flatpak config --system --set extra-languages 'en;en_GB;de;de_DE'
 # Install all flatpaks
 flatpak install --system --app --noninteractive "${flatpaks[@]}"
+# Remove unused flatpaks; one by one because uninstall fails on missing refs :|
+for flatpak in "${flatpaks_to_remove[@]}"; do
+    flatpak uninstall --system --noninteractive --app "$flatpak" || true
+done
 # Removed unused runtimes
 flatpak uninstall --system --noninteractive --unused
 # Update installed flatpaks
