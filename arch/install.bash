@@ -203,6 +203,8 @@ packages=(
     gnome-control-center
     gnome-tweaks
     gnome-backgrounds
+    xdg-user-dirs-gtk
+    xdg-desktop-portal-gnome
     evolution
     file-roller
     yelp # Online help system
