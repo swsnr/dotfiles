@@ -321,6 +321,7 @@ flatpaks=(
     org.libreoffice.LibreOffice # Office suite
     com.github.xournalpp.xournalpp # Hand-writing & notes
     org.gnome.dfeet # DBus inspector
+    com.gitlab.newsflash # Desktop RSS reader
 )
 flatpaks_to_remove=()
 
