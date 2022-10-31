@@ -161,6 +161,7 @@ packages=(
     wl-clipboard
     dconf-editor
     # Desktop services
+    xdg-user-dirs # Determine user directories in scripts with xdg-user-dir
     flatpak
     pcsclite # Smartcard daemon, for e-ID
     cups
