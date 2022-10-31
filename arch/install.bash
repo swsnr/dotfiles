@@ -47,6 +47,8 @@ pacman-key --lsign-key B8ADA38BC94C48C4E7AABE4F7548C2CC396B57FC
 mark_as_dependency=(
     # I don't use this
     cargo-udeps
+    # Replaced by flatpak
+    mediathekview
 )
 for pkg in "${mark_as_dependency[@]}"; do
     pacman --noconfirm -D --asdeps "$pkg" || true
@@ -257,7 +259,6 @@ optdeps=(
 case "$HOSTNAME" in
     *kastl*)
         packages+=(
-            mediathekview # Browse public broadcasting video libraries from Germany
             gpsprune # GPS Track editor
         )
         ;;
@@ -337,6 +338,9 @@ case "$HOSTNAME" in
             de.bund.ausweisapp.ausweisapp2 # eID app
             com.github.geigi.cozy # Audiobook player
             de.schmidhuberj.Flare # Unofficial Gtk signal client
+            # Pending https://github.com/flathub/flathub/pull/3616
+            # Meanwhile, see https://github.com/lunaryorn/de.mediathekview.MediathekView/releases for bundles
+            # de.mediathekview.MediathekView # Mediatheken
         )
         flatpaks_to_remove+=(
             org.musicbrainz.Picard
