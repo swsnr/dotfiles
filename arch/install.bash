@@ -48,6 +48,7 @@ mark_as_dependency=(
     cargo-udeps # I don't use this
     gpsprune # Replaced w/ viking from flatpak
     mediathekview # Replaced by flatpak
+    aurpublish # I don't use this anymore because it doesn't maintain commit signatures
 )
 for pkg in "${mark_as_dependency[@]}"; do
     pacman --noconfirm -D --asdeps "$pkg" || true
@@ -97,7 +98,6 @@ packages=(
     step-cli # Create CA & leaf certificates
     # Arch tools & infrastructure
     asp # Obtain PKGBUILDs for ABS
-    aurpublish # Publish workflow for AUR multirepos
     pacman-contrib # paccache, checkupdates, pacsearch, and others
     reflector # Weekly mirrorlist updates
     # Build packages
