@@ -196,6 +196,7 @@ packages=(
     gnome-characters
     gnome-keyring
     gnome-maps
+    gnome-calendar
     gnome-clocks
     gnome-weather
     gnome-shell
@@ -287,7 +288,6 @@ case "$HOSTNAME" in
             # Additional applications
             keepassxc # Keepass
             evolution-ews # Exchange for evolution
-            gnome-calendar # Simple calendar view and notifications
         )
 
         optdeps+=(
