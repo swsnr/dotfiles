@@ -309,20 +309,26 @@ pacman -D --asexplicit tpm2-tools
 
 # Flatpaks
 flatpaks=(
-    com.github.tchx84.Flatseal # Flatpak permissions
-    org.zim_wiki.Zim # Desktop Wiki
-    com.github.jeromerobert.pdfarranger # Arrange pdf files
+    # Messaging
     org.signal.Signal # Mobile messenger
+    # Multimedia
     org.gnome.Lollypop # Music player
     org.videolan.VLC # Video player
+    # Graphics tools
     org.inkscape.Inkscape # Vector graphics
     org.gimp.GIMP # Pixel graphics
     io.github.Qalculate # Powerful calculator
+    # Documents
+    com.github.jeromerobert.pdfarranger # Arrange pdf files
     org.libreoffice.LibreOffice # Office suite
     com.github.xournalpp.xournalpp # Hand-writing & notes
+    # Other apps
+    com.gitlab.newsflash # Desktop RSS reader
+    com.github.tchx84.Flatseal # Flatpak permissions
+    org.zim_wiki.Zim # Desktop Wiki
+    # Development tools
     org.gnome.dfeet # DBus inspector
     org.gnome.Devhelp # Gnome development docs
-    com.gitlab.newsflash # Desktop RSS reader
 )
 flatpaks_to_remove=()
 
