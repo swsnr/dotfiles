@@ -71,7 +71,7 @@ if status --is-interactive
 
     # Default args for some commands
     abbr --global --add df df -kh
-    abbr --global --add du du -kh
+    abbr --global --add du du -h
 
     # And some shortcuts
     abbr --global --add mdc mdcat
