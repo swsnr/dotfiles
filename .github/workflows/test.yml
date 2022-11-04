@@ -5,5 +5,14 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
-      - run: shellcheck --version
-      - run: shellcheck -S info **/*.bash bin/ui-theme
+      - run: 'shellcheck --version'
+      - run: 'shellcheck -S info **/*.bash bin/ui-theme'
+  check-fish:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - run: 'sudo apt-add-repository ppa:fish-shell/release-3'
+      - run: 'sudo apt-get update -y'
+      - run: 'sudo apt-get install -y fish'
+      - run: 'fish --version'
+      - run: 'fish_indent -c fish/conf.d/*.fish fish/functions/*.fish fish/config.fish'
