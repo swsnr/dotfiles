@@ -335,13 +335,18 @@ flatpaks_to_remove=()
 case "$HOSTNAME" in
     *kastl*)
         flatpaks+=(
-            com.valvesoftware.Steam # Gaming
+            # Gaming
+            com.valvesoftware.Steam
+            io.github.sharkwouter.Minigalaxy # GoG Game Client
+            re.chiaki.Chiaki # Remote play for PS4
+            # Finances and office
             org.gnucash.GnuCash # Personal finances
+            de.bund.ausweisapp.ausweisapp2 # eID app
+            # Multimedia
             org.kde.digikam # Digital photos
             org.nickvision.tagger # Audio tag editor
-            re.chiaki.Chiaki # Remote play for PS4
-            de.bund.ausweisapp.ausweisapp2 # eID app
             com.github.geigi.cozy # Audiobook player
+            # Misc apps
             de.schmidhuberj.Flare # Unofficial Gtk signal client
             org.viking.Viking # GPS Track editor
             # Pending https://github.com/flathub/flathub/pull/3616
