@@ -352,7 +352,6 @@ case "$HOSTNAME" in
             com.github.geigi.cozy # Audiobook player
             de.mediathekview.MediathekView # Mediatheken
             # Misc apps
-            de.schmidhuberj.Flare # Unofficial Gtk signal client
             org.viking.Viking # GPS Track editor
         )
         flatpaks_to_remove+=(
