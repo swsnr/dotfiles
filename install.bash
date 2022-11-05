@@ -128,6 +128,9 @@ install_wezterm_terminfo
 if command -v flatpak >& /dev/null; then
     flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
+    # Gnome nightlies
+    flatpak remote-add --user --if-not-exists gnome-nightly https://nightly.gnome.org/gnome-nightly.flatpakrepo
+
     # Adapt filesystem permissions for Steam: Add access to downloads for backup
     # imports, but deny access to Music and Pictures
     flatpak override --user \
