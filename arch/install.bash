@@ -313,6 +313,8 @@ pacman -D --asexplicit tpm2-tools
 flatpaks=(
     # Messaging
     org.signal.Signal # Mobile messenger
+    com.github.eneshecan.WhatsAppForLinux # Whatsapp client
+    ch.threema.threema-web-desktop # Threema client
     # Multimedia
     org.gnome.Lollypop # Music player
     org.videolan.VLC # Video player
