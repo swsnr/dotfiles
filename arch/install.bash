@@ -348,12 +348,10 @@ case "$HOSTNAME" in
             org.kde.digikam # Digital photos
             org.nickvision.tagger # Audio tag editor
             com.github.geigi.cozy # Audiobook player
+            de.mediathekview.MediathekView # Mediatheken
             # Misc apps
             de.schmidhuberj.Flare # Unofficial Gtk signal client
             org.viking.Viking # GPS Track editor
-            # Pending https://github.com/flathub/flathub/pull/3616
-            # Meanwhile, see https://github.com/lunaryorn/de.mediathekview.MediathekView/releases for bundles
-            # de.mediathekview.MediathekView # Mediatheken
         )
         flatpaks_to_remove+=(
             org.musicbrainz.Picard
