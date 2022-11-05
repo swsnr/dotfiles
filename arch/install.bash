@@ -254,6 +254,8 @@ optdeps=(
     libappindicator-gtk3
     # aurutils: chroot support
     devtools
+    # gnome-control-center: app permissions
+    malcontent
 )
 
 case "$HOSTNAME" in
