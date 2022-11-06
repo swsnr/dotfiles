@@ -81,8 +81,10 @@ vim.opt.smartcase = true -- …for all lowercase patterns
 -- Bindings
 vim.g.mapleader = ' '
 
+local v = vim.api
+
 function inoremap(lhs, rhs)
-  vim.api.nvim_set_keymap('i', lhs, rhs, {noremap = true})
+  v.nvim_set_keymap('i', lhs, rhs, {noremap = true})
 end
 
 -- Back to normal mode the fast way.  See which key in plugins.lua for the rest
@@ -90,18 +92,35 @@ end
 inoremap('jk', '<ESC>')
 
 -- Autocmds
-vim.cmd[[
-augroup lunaryorn
-  au!
-  au TermOpen * setlocal nonumber norelativenumber signcolumn=no
-  " Highlight yanked text, see https://github.com/neovim/neovim/pull/12279#issuecomment-879142040
-  au TextYankPost * silent! lua vim.highlight.on_yank{ timeout = 200, on_visual = false }
-  " Automatically start insert mode in a new first line in Git commit messages,
-  " to that I can start typing my message right away without having to press i
-  " first
-  au BufRead COMMIT_EDITMSG execute "normal! gg" | execute "normal! O" | startinsert
-  " Update indentation settings for fish shell and bash
-  au FileType fish setlocal shiftwidth=4 formatoptions-=t
-  au FileType sh setlocal shiftwidth=4 formatoptions-=t
-augroup END
-]]
+
+local ly_group = v.nvim_create_augroup('lunaryorn', { clear = true })
+v.nvim_create_autocmd({'TermOpen'}, {
+  callback = function()
+    vim.opt_local.number = false
+    vim.opt_local.relativenumber = false
+    vim.opt_local.signcolumn = 'no'
+  end,
+  group = ly_group
+})
+-- Highlight yanked text, see https://github.com/neovim/neovim/pull/12279#issuecomment-879142040
+v.nvim_create_autocmd({'TextYankPost'}, {
+  callback = function() vim.highlight.on_yank{ timeout = 200, on_visual = false } end,
+  group = ly_group
+})
+-- Automatically start insert mode in a new first line in Git commit messages,
+-- to that I can start typing my message right away without having to press i
+-- first
+v.nvim_create_autocmd({'BufRead'}, {
+  pattern = 'COMMIT_EDITMSG',
+  command = 'execute "normal! gg" | execute "normal! O" | startinsert',
+  group = ly_group
+})
+-- Update indentation settings for fish shell and bash
+v.nvim_create_autocmd({'FileType'}, {
+  pattern = {'fish', 'sh'},
+  callback = function()
+    vim.opt_local.shiftwidth = 4
+    vim.opt_local.formatoptions:remove('t')
+  end,
+  group = ly_group
+})

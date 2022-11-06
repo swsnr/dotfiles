@@ -384,12 +384,12 @@ return packer.startup(function(use)
   use {
     'kosayoda/nvim-lightbulb',
     config = function()
-      vim.cmd [[
-      augroup lightbulb
-        au!
-        autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
-      augroup END
-      ]]
+      local lb = require('nvim-lightbulb')
+      local group = vim.api.nvim_create_augroup('lightbulb', { clear = true })
+      vim.api.nvim_create_autocmd({'CursorHold', 'CursorHoldI'}, {
+        callback = lb.update_lightbulb,
+        group = group
+      })
     end
   }
 
@@ -407,6 +407,11 @@ return packer.startup(function(use)
         ['gc'] = {name='+comment'},
         ['gcc'] = 'Toggle line',
       }
+
+      local k = require('kommentary.config')
+      k.configure_language('default', {
+        prefer_single_line_comments = true
+      })
     end
   }
 
