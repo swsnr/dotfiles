@@ -470,6 +470,7 @@ return packer.startup(function(use)
     cmd = {'Git', 'Gvdiffsplit', 'Ghdiffsplit', 'Gdiffsplit'},
     setup = function()
       require('which-key').register {
+        ['<leader>gc'] = {'<cmd>Git commit<cr>', 'Git commit'},
         ['<leader>gg'] = {'<cmd>Git<cr>', 'Git status'}
       }
     end
