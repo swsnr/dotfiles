@@ -54,8 +54,8 @@ return packer.startup(function(use)
       local wk = require("which-key")
       wk.setup()
       wk.register{
-        ['[d'] = {'<cmd>lua vim.diagnostic.goto_prev()<cr>', 'Previous diagnostic'},
-        [']d'] = {'<cmd>lua vim.diagnostic.goto_next()<cr>', 'Next diagnostic'},
+        ['[d'] = {vim.diagnostic.goto_prev, 'Previous diagnostic'},
+        [']d'] = {vim.diagnostic.goto_next, 'Next diagnostic'},
         -- Global bindings
         ['<leader> '] = {'<cmd>Telescope commands<cr>', 'Commands'},
         ['<leader>?'] = {'<cmd>Telescope<cr>', 'Pickers'},
@@ -487,7 +487,7 @@ return packer.startup(function(use)
           wk.register({
             [']c'] = {"&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", 'Next git hunk', expr=true},
             ['[c'] = {"&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", 'Previous git hunk', expr=true},
-            ['<leader>gb'] = {'<cmd>lua require"gitsigns".blame_line{full=true}<CR>', 'Blame current line'},
+            ['<leader>gb'] = {function() require('gitsigns').blame_line{full=true} end, 'Blame current line'},
             ['<leader>gd'] = {'<cmd>Gitsigns diffthis<cr>', 'Diff against index'},
             ['<leader>gD'] = {'<cmd>Gitsigns toggle_deleted<cr>', 'Toggle deleted lines'},
             ['<leader>gp'] = {'<cmd>Gitsigns preview_hunk<cr>', 'Preview hunk' },
