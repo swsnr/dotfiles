@@ -164,6 +164,7 @@ packages=(
     # Desktop services
     xdg-user-dirs # Determine user directories in scripts with xdg-user-dir
     flatpak
+    flatpak-builder # Build flatpaks
     pcsclite # Smartcard daemon, for e-ID
     cups
     hplip
