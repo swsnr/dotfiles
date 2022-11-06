@@ -122,8 +122,6 @@ return {
   -- Default initial window size
   initial_rows = 40,
   initial_cols = 120,
-  -- Run on native wayland by default
-  enable_wayland = true,
   -- Scrollback
   scrollback_lines = 10000,
   enable_scroll_bar = true,
