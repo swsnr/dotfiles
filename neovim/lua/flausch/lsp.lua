@@ -19,19 +19,21 @@ function M.lsp_attach(client, bufnr)
   -- Make omnicomplete use LSP completions
   vim.bo.omnifunc = 'v:lua.vim.lsp.omnifunc'
 
+  local tb = require('telescope.builtin')
+
   require('which-key').register({
-    ['gD'] = {'<cmd>Telescope lsp_type_definitions<cr>', 'Goto type definition'},
-    ['gd'] = {'<cmd>Telescope lsp_definitions<cr>', 'Goto definition'},
-    ['gi'] = {'<cmd>Telescope lsp_implementations<cr>', 'Goto implementation'},
-    ['<C-k>'] = {'<cmd>lua vim.lsp.buf.signature_help()<cr>', 'Signature help'},
-    ['K'] = {'<cmd>lua vim.lsp.buf.hover()<cr>', 'Hover'},
-    ['<leader>ea'] = {'<cmd>Telescope lsp_code_actions<cr>', 'Code action'},
-    ['<leader>ef'] = {'<cmd>lua vim.lsp.buf.formatting()<cr>', 'Format'},
-    ['<leader>eR'] = {'<cmd>lua vim.lsp.buf.rename()<cr>', 'Rename symbol'},
-    ['<leader>jS'] = {'<cmd>Telescope lsp_dynamic_workspace_symbols<cr>', 'Jump to workspace symbol'},
-    ['<leader>js'] = {'<cmd>Telescope lsp_document_symbols<cr>', 'Jump to document symbol'},
-    ['<leader>jr'] = {'<cmd>Telescope lsp_references<cr>', 'Jump to reference'},
-    ['<leader>jd'] = {'<cmd>Telescope diagnostics<cr>', 'Jump to diagnostic'},
+    ['gD'] = {tb.lsp_type_definitions, 'Goto type definition'},
+    ['gd'] = {tb.lsp_definitions, 'Goto definition'},
+    ['gi'] = {tb.lsp_implementations, 'Goto implementation'},
+    ['<C-k>'] = {vim.lsp.buf.signature_help, 'Signature help'},
+    ['K'] = {vim.lsp.buf.hover, 'Hover'},
+    ['<leader>ea'] = {tb.lsp_code_actions, 'Code action'},
+    ['<leader>ef'] = {function() vim.lsp.buf.format{async = true} end, 'Format'},
+    ['<leader>eR'] = {vim.lsp.buf.rename, 'Rename symbol'},
+    ['<leader>jS'] = {tb.lsp_dynamic_workspace_symbols, 'Jump to workspace symbol'},
+    ['<leader>js'] = {tb.lsp_document_symbols, 'Jump to document symbol'},
+    ['<leader>jr'] = {tb.lsp_references, 'Jump to reference'},
+    ['<leader>jd'] = {tb.diagnostics, 'Jump to diagnostic'},
   }, {buffer = bufnr})
 end
 
