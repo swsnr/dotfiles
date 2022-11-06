@@ -19,7 +19,7 @@
 -- and https://github.com/nanotee/nvim-lua-guide for info about Lua in Neovim.
 
 -- Load plugins
-require('flausch.plugins')
+require('lunaryorn.plugins')
 
 -- neovide settings
 vim.g.neovide_cursor_vfx_mode = 'pixiedust'
@@ -91,7 +91,7 @@ inoremap('jk', '<ESC>')
 
 -- Autocmds
 vim.cmd[[
-augroup flausch
+augroup lunaryorn
   au!
   au TermOpen * setlocal nonumber norelativenumber signcolumn=no
   " Highlight yanked text, see https://github.com/neovim/neovim/pull/12279#issuecomment-879142040

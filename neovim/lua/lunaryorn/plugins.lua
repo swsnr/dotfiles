@@ -321,7 +321,7 @@ return packer.startup(function(use)
       local servers = {}
       for _, lsp in pairs(servers) do
         require('lspconfig')[lsp].setup {
-          on_attach = require('flausch.lsp').lsp_attach,
+          on_attach = require('lunaryorn.lsp').lsp_attach,
           flags = {
             debounce_text_changes = 150
           }
@@ -357,7 +357,7 @@ return packer.startup(function(use)
       }
       null_ls.setup {
         sources = sources,
-        on_attach = require('flausch.lsp').lsp_attach,
+        on_attach = require('lunaryorn.lsp').lsp_attach,
       }
     end
   }
@@ -416,7 +416,7 @@ return packer.startup(function(use)
     config = function()
       local function rust_attach(client, bufnr)
         -- Default setup for LSP buffers
-        require('flausch.lsp').lsp_attach(client, bufnr)
+        require('lunaryorn.lsp').lsp_attach(client, bufnr)
 
         -- And some Rust extras
         require('which-key').register({

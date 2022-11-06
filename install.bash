@@ -50,7 +50,8 @@ ln -fs "$DIR/vim/ideavimrc" ~/.ideavimrc
 # Neovim
 mkdir -p ~/.config/nvim/lua/
 ln -fs -t ~/.config/nvim "$DIR"/neovim/init.lua
-ln -fs -t ~/.config/nvim/lua "$DIR"/neovim/lua/flausch
+clean-recursively ~/.config/nvim/lua || true
+ln -fs -t ~/.config/nvim/lua "$DIR"/neovim/lua/lunaryorn
 
 # Git configuration
 mkdir -p ~/.config/git
