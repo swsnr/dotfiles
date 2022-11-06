@@ -4,25 +4,25 @@ local charset = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890"
 math.randomseed(os.time())
 
 function random_string(length)
-	local ret = {}
-	local r
-	for i = 1, length do
-		r = math.random(1, #charset)
-		table.insert(ret, charset:sub(r, r))
-	end
-	return table.concat(ret)
+  local ret = {}
+  local r
+  for i = 1, length do
+    r = math.random(1, #charset)
+    table.insert(ret, charset:sub(r, r))
+  end
+  return table.concat(ret)
 end
 
 -- Get the basename of a Unix path
 function basename(str)
-	local name = string.gsub(str, "(.*/)(.*)", "%2")
-	return name
+  local name = string.gsub(str, "(.*/)(.*)", "%2")
+  return name
 end
 
 -- Check whether the given file exists
 function file_exists(name)
-   local f = io.open(name, "r")
-   if f ~= nil then io.close(f) return true else return false end
+  local f = io.open(name, "r")
+  if f ~= nil then io.close(f) return true else return false end
 end
 
 function wezterm_terminfo_installed()
@@ -38,7 +38,7 @@ function determine_term_value()
 end
 
 function ends_with(str, ending)
-   return ending == "" or str:sub(-#ending) == ending
+  return ending == "" or str:sub(-#ending) == ending
 end
 
 function scheme_for_appearance(appearance)
