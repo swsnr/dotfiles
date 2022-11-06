@@ -79,38 +79,41 @@ wezterm.on('window-config-reloaded', function(window, pane)
 end)
 
 
+function wrap_in_systemd_scope(cmd)
+  local env = cmd.set_environment_variables
+  local ident = ''
+  if env.WEZTERM_UNIX_SOCKET then
+    ident = "wezterm-pane-" .. env.WEZTERM_PANE .. "-on-" .. basename(env.WEZTERM_UNIX_SOCKET)
+  else
+    -- Sometimes there's no wezterm socket; in this case let's use a random string.
+    ident = "wezterm-pane-" .. env.WEZTERM_PANE .. "-" .. random_string(10)
+  end
+
+  local wrapped = {
+    '/usr/bin/systemd-run',
+    '--user',
+    '--scope',
+    '--description=Shell started by wezterm',
+    '--same-dir',
+    '--collect',
+    '--unit=' .. ident,
+  }
+
+  for _, arg in ipairs(cmd.args or {os.getenv("SHELL")}) do
+    table.insert(wrapped, arg)
+  end
+
+  cmd.args = wrapped
+
+  return cmd
+end
+
+
 return {
   term = determine_term_value(),
   default_prog = { '/usr/bin/fish' },
   exec_domains = {
-    wezterm.exec_domain("scoped", function(cmd)
-      local env = cmd.set_environment_variables
-      local ident = ''
-      if env.WEZTERM_UNIX_SOCKET then
-        ident = "wezterm-pane-" .. env.WEZTERM_PANE .. "-on-" .. basename(env.WEZTERM_UNIX_SOCKET)
-      else
-        -- Sometimes there's no wezterm socket; in this case let's use a random string.
-        ident = "wezterm-pane-" .. env.WEZTERM_PANE .. "-" .. random_string(10)
-      end
-
-      local wrapped = {
-        '/usr/bin/systemd-run',
-        '--user',
-        '--scope',
-        '--description=Shell started by wezterm',
-        '--same-dir',
-        '--collect',
-        '--unit=' .. ident,
-      }
-
-      for _, arg in ipairs(cmd.args or {os.getenv("SHELL")}) do
-        table.insert(wrapped, arg)
-      end
-
-      cmd.args = wrapped
-
-      return cmd
-    end),
+    wezterm.exec_domain("scoped", wrap_in_systemd_scope),
   },
   default_domain = "scoped",
   -- Use fish as standard interactive shell
