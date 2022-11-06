@@ -83,10 +83,16 @@ function wrap_in_systemd_scope(cmd)
   local env = cmd.set_environment_variables
   local ident = ''
   if env.WEZTERM_UNIX_SOCKET then
-    ident = "wezterm-pane-" .. env.WEZTERM_PANE .. "-on-" .. basename(env.WEZTERM_UNIX_SOCKET)
+    ident = "wezterm-pane-"
+    .. env.WEZTERM_PANE
+    .. "-on-"
+    .. basename(env.WEZTERM_UNIX_SOCKET)
   else
     -- Sometimes there's no wezterm socket; in this case let's use a random string.
-    ident = "wezterm-pane-" .. env.WEZTERM_PANE .. "-" .. random_string(10)
+    ident = "wezterm-pane-"
+    .. env.WEZTERM_PANE
+    .. "-"
+    .. random_string(10)
   end
 
   local wrapped = {
