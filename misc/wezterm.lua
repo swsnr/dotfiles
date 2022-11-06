@@ -115,8 +115,6 @@ return {
   default_domain = "scoped",
   -- Use fish as standard interactive shell
   color_scheme = scheme_for_appearance(wezterm.gui.get_appearance()),
-  -- This doesn't work well with Solarized; it just makes all bold stuff grey :|
-  bold_brightens_ansi_colors = false,
   font = wezterm.font('JetBrains Mono'),
   font_size = 11.0,
   -- Default initial window size
