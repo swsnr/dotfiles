@@ -314,8 +314,6 @@ pacman -D --asexplicit tpm2-tools
 flatpaks=(
     # Messaging
     org.signal.Signal # Mobile messenger
-    com.github.eneshecan.WhatsAppForLinux # Whatsapp client
-    ch.threema.threema-web-desktop # Threema client
     # Multimedia
     org.gnome.Lollypop # Music player
     org.videolan.VLC # Video player
@@ -344,6 +342,9 @@ case "$HOSTNAME" in
             com.valvesoftware.Steam
             io.github.sharkwouter.Minigalaxy # GoG Game Client
             re.chiaki.Chiaki # Remote play for PS4
+            # Messaging
+            com.github.eneshecan.WhatsAppForLinux # Whatsapp client
+            ch.threema.threema-web-desktop # Threema client
             # Finances and office
             org.gnucash.GnuCash # Personal finances
             de.bund.ausweisapp.ausweisapp2 # eID app
