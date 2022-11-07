@@ -153,6 +153,11 @@ if command -v flatpak >& /dev/null; then
     flatpak override --user \
         --socket=wayland --socket=fallback-x11 --nosocket=x11 \
         re.chiaki.Chiaki
+
+    # Allow tellico to access my documents folder
+    flatpak override --user \
+        --filesystem xdg-documents \
+        org.kde.tellico
 fi
 
 # Configure Code OSS
