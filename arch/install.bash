@@ -644,7 +644,6 @@ aur_packages=(
 case "$HOSTNAME" in
     *kastl*)
         aur_packages+=(
-            ja2-stracciatella-git  # JA2 engine
             gnome-shell-extension-gsconnect  # Connect phone and desktop system
         )
         ;;
@@ -684,6 +683,8 @@ if [[ -n "${SUDO_USER:-}" ]]; then
         cozy-audiobooks
         ausweisapp2
         chiaki
+        ja2-stracciatella
+        ja2-stracciatella-git
         # Things I no longer use
         coursier-native
     )
