@@ -615,7 +615,9 @@ aur_packages=(
     # Jetbrains products
     jetbrains-toolbox
     # Gnome extensions
-    gnome-shell-extension-nasa-apod
+    # Currently incompatible with Gnome 43, see
+    # https://github.com/Elinvention/gnome-shell-extension-nasa-apod/issues/50
+    #gnome-shell-extension-nasa-apod
     # Gnome tools
     gnome-search-providers-jetbrains
     gnome-search-providers-vscode
