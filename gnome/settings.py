@@ -33,6 +33,19 @@ SETTINGS = {
         # IntelliJs Ctrl shortcut to add multiple cursors
         'locate-pointer': False
     },
+    'org.gnome.shell.keybindings': {
+        # Disable default shortcuts for application launchers (Super+<number>)
+        # I prefer to have these for workspace switching
+        'switch-to-application-1': [],
+        'switch-to-application-2': [],
+        'switch-to-application-3': [],
+        'switch-to-application-4': [],
+        'switch-to-application-5': [],
+        'switch-to-application-6': [],
+        'switch-to-application-7': [],
+        'switch-to-application-8': [],
+        'switch-to-application-9': [],
+    },
     'org.gnome.shell.app-switcher': {
         # Limit app and window switcher to current workspace
         'current-workspace-only': True,
@@ -83,7 +96,20 @@ SETTINGS = {
         'switch-input-source': ['XF86Keyboard'],
         'switch-input-source-backward': ['<Shift>XF86Keyboard'],
         # Toogle fullscreen
-        'toggle-fullscreen': ['<Super>Return']
+        'toggle-fullscreen': ['<Super>Return'],
+        # Switch to and move workspaces
+        'switch-to-workspace-1': ['<Super>1'],
+        'switch-to-workspace-2': ['<Super>2'],
+        'switch-to-workspace-3': ['<Super>3'],
+        'switch-to-workspace-4': ['<Super>4'],
+        'switch-to-workspace-5': ['<Super>5'],
+        'switch-to-workspace-6': ['<Super>6'],
+        'move-to-workspace-1': ['<Shift><Super>1'],
+        'move-to-workspace-2': ['<Shift><Super>2'],
+        'move-to-workspace-3': ['<Shift><Super>3'],
+        'move-to-workspace-4': ['<Shift><Super>4'],
+        'move-to-workspace-5': ['<Shift><Super>5'],
+        'move-to-workspace-6': ['<Shift><Super>6'],
     }
 }
 
