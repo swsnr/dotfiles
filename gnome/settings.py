@@ -56,7 +56,6 @@ SETTINGS = {
     },
     'org.gnome.desktop.peripherals.keyboard': {
         'remember-numlock-state': True,
-        'numlock-state': True
     },
     'org.gnome.desktop.input-sources': {
         # compose:ralt: Set compose key to right alt key, according to my moonlander layout
