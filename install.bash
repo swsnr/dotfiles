@@ -158,6 +158,12 @@ if command -v flatpak >& /dev/null; then
     flatpak override --user \
         --filesystem xdg-documents \
         org.kde.tellico
+
+    # Fix https://github.com/flathub/org.gnome.Lollypop/issues/109 and
+    # https://gitlab.gnome.org/World/lollypop/-/issues/2892
+    flatpak override --user \
+        --filesystem=/tmp \
+        org.gnome.Lollypop
 fi
 
 # Configure Code OSS
