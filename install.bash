@@ -164,6 +164,11 @@ if command -v flatpak >& /dev/null; then
     flatpak override --user \
         --filesystem=/tmp \
         org.gnome.Lollypop
+
+    # Run JA2 on Wayland natively
+    flatpak override --user \
+        --env=SDL_VIDEODRIVER=wayland \
+        io.github.ja2-stracciatella
 fi
 
 # Configure Code OSS
