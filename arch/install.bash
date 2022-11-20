@@ -326,6 +326,7 @@ flatpaks=(
     com.github.xournalpp.xournalpp # Hand-writing & notes
     org.cvfosammmm.Setzer # Fancy Gnome LaTeX editor
     com.github.jeromerobert.pdfarranger # Arrange pdf files
+    com.belmoussaoui.Obfuscate # Obfuscate information in images
     # Other apps
     com.gitlab.newsflash # Desktop RSS reader
     com.github.tchx84.Flatseal # Flatpak permissions
