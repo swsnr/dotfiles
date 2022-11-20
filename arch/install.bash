@@ -44,12 +44,7 @@ pacman-key -a "$DIR/etc/pacman/keys/personal.asc"
 pacman-key --lsign-key B8ADA38BC94C48C4E7AABE4F7548C2CC396B57FC
 
 # Mark packages I no longer use as dependencies
-mark_as_dependency=(
-    cargo-udeps # I don't use this
-    gpsprune # Replaced w/ viking from flatpak
-    mediathekview # Replaced by flatpak
-    aurpublish # I don't use this anymore because it doesn't maintain commit signatures
-)
+mark_as_dependency=()
 for pkg in "${mark_as_dependency[@]}"; do
     pacman --noconfirm -D --asdeps "$pkg" || true
 done
@@ -677,14 +672,6 @@ if [[ -n "${SUDO_USER:-}" ]]; then
     fi
 
     remove_from_repo=(
-        # Things moved to flatpak
-        cozy-audiobooks
-        ausweisapp2
-        chiaki
-        ja2-stracciatella
-        ja2-stracciatella-git
-        # Things I no longer use
-        coursier-native
         # Let's just use the app image here
         jetbrains-toolbox
     )
