@@ -615,8 +615,6 @@ aur_packages=(
     aurutils
     # Splash screen at boot
     plymouth
-    # Jetbrains products
-    jetbrains-toolbox
     # Gnome extensions
     # Currently incompatible with Gnome 43, see
     # https://github.com/Elinvention/gnome-shell-extension-nasa-apod/issues/50
@@ -689,6 +687,8 @@ if [[ -n "${SUDO_USER:-}" ]]; then
         ja2-stracciatella-git
         # Things I no longer use
         coursier-native
+        # Let's just use the app image here
+        jetbrains-toolbox
     )
     if [[ ${#remove_from_repo[@]} -gt 0 ]]; then
         for pkg in "${remove_from_repo[@]}"; do
