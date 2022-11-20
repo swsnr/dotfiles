@@ -616,9 +616,7 @@ aur_packages=(
     # Splash screen at boot
     plymouth
     # Gnome extensions
-    # Currently incompatible with Gnome 43, see
-    # https://github.com/Elinvention/gnome-shell-extension-nasa-apod/issues/50
-    #gnome-shell-extension-nasa-apod
+    gnome-shell-extension-nasa-apod
     # Gnome tools
     gnome-search-providers-jetbrains
     gnome-search-providers-vscode
