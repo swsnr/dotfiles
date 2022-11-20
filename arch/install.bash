@@ -322,9 +322,10 @@ flatpaks=(
     org.gimp.GIMP # Pixel graphics
     io.github.Qalculate # Powerful calculator
     # Documents
-    com.github.jeromerobert.pdfarranger # Arrange pdf files
     org.libreoffice.LibreOffice # Office suite
     com.github.xournalpp.xournalpp # Hand-writing & notes
+    org.cvfosammmm.Setzer # Fancy Gnome LaTeX editor
+    com.github.jeromerobert.pdfarranger # Arrange pdf files
     # Other apps
     com.gitlab.newsflash # Desktop RSS reader
     com.github.tchx84.Flatseal # Flatpak permissions
