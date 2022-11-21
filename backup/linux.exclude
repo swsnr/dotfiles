@@ -10,6 +10,7 @@ $HOME/.local/share/nvm/
 $HOME/.npm/
 $HOME/.rustup/
 $HOME/.local/share/libvirt/iso
+$HOME/.jdks/
 # Containers are ephemeral anyway
 $HOME/.local/share/containers/
 # Build results are ephemeral as well
