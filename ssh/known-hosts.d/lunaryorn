@@ -15,7 +15,5 @@ aur.archlinux.org ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEuBKrPzbawxA/k2g6NcyV5jmq
 codeberg.org ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIVIC02vnjFyL+I4RHfvIGNtOgJMe769VTF1VR4EB3ZB
 # See https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/githubs-ssh-key-fingerprints (only fingerprints)
 github.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl
-# ssh-keyscan; haven't found an online source for these keys.
-gitlab.gnome.org ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILea/LjYthan6borZjKls7BD3xcicNP+uK1hZMFkGAbm
 # My home NAS (ssh-keyscan; it's a trusted network anyways)
 kastl.local ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF7Bb/GAgd9K57GzEGyyXul/eNf0WhzrGKoeyD21kcKE
