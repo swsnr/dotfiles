@@ -92,8 +92,7 @@ ln -fs "$DIR/misc/electron-flags.conf" ~/.config/electron17-flags.conf
 # Gnome
 mkdir -p ~/.local/share/gnome-shell/extensions
 ln -fs -t ~/.local/share/gnome-shell/extensions \
-  "$DIR/gnome/extensions/home@swsnr.de" \
-  "$DIR/gnome/extensions/spacetimeformats@swsnr.de"
+  "$DIR/gnome/extensions/"{home@swsnr.de,spacetimeformats@swsnr.de,touchpad-toggle@swsnr.de}
 clean-recursively ~/.local/share/nautilus-python/extensions || true
 "$DIR/gnome/settings.py" || true
 
