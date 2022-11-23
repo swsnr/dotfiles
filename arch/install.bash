@@ -351,6 +351,9 @@ case "$HOSTNAME" in
             org.nickvision.tagger # Audio tag editor
             com.github.geigi.cozy # Audiobook player
             de.mediathekview.MediathekView # Mediatheken
+            fr.handbrake.ghb # Video transcoder (incl. hardware decode support)
+            fr.handbrake.ghb.Plugin.IntelMediaSDK
+            com.makemkv.MakeMKV # Commerial DVD/BlueRay decoder
             # Misc apps
             org.viking.Viking # GPS Track editor
         )
