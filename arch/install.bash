@@ -466,6 +466,7 @@ esac
 install -pm644 "$DIR/etc/faillock.conf" /etc/security/faillock.conf
 install -pm644 "$DIR/etc/sysctl-lunaryorn.conf" /etc/sysctl.d/90-lunaryorn.conf
 install -pm644 "$DIR/etc/modprobe-lunaryorn.conf" /etc/modprobe.d/modprobe-lunaryorn.conf
+install -pm644 "$DIR/etc/modules-load-lunaryorn.conf" /etc/modules-load.d/lunaryorn.conf
 if [[ $PRODUCT_NAME == "TUXEDO InfinityBook 14 v2" ]]; then
     install -pm644 "$DIR/etc/modprobe-lunaryorn-tuxedo.conf" /etc/modprobe.d/modprobe-lunaryorn-tuxedo.conf
     install -D -m644 "$DIR/etc/systemd/system/btrfs-scrub-io.conf" \
