@@ -256,7 +256,10 @@ optdeps=(
 
 case "$HOSTNAME" in
     *kastl*)
-        packages+=()
+        packages+=(
+            # Game mode
+            gamemode
+        )
         ;;
     *RB*)
         packages+=(
