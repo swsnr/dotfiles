@@ -367,9 +367,6 @@ case "$HOSTNAME" in
             # Misc apps
             org.viking.Viking # GPS Track editor
         )
-        flatpaks_to_remove+=(
-            org.musicbrainz.Picard
-        )
         ;;
     RB-*)
         flatpaks+=(
