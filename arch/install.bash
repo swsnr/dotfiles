@@ -326,6 +326,7 @@ flatpaks=(
     com.gitlab.newsflash # Desktop RSS reader
     com.github.tchx84.Flatseal # Flatpak permissions
     org.zim_wiki.Zim # Desktop Wiki
+    com.usebottles.bottles # Run Windows software in Wine
     # Development tools
     org.gnome.dfeet # DBus inspector
     org.gnome.Devhelp # Gnome development docs
