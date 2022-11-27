@@ -331,14 +331,16 @@ flatpaks=(
     org.gnome.dfeet # DBus inspector
     org.gnome.Devhelp # Gnome development docs
 )
-flatpaks_to_remove=()
+flatpaks_to_remove=(
+    # Bottles has much better Wine support
+    io.github.sharkwouter.Minigalaxy
+)
 
 case "$HOSTNAME" in
     *kastl*)
         flatpaks+=(
             # Gaming
             com.valvesoftware.Steam
-            io.github.sharkwouter.Minigalaxy # GoG Game Client
             re.chiaki.Chiaki # Remote play for PS4
             # Messaging
             com.github.eneshecan.WhatsAppForLinux # Whatsapp client
