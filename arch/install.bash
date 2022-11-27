@@ -312,6 +312,7 @@ pacman -D --asexplicit tpm2-tools
 flatpaks=(
     # Messaging
     org.signal.Signal # Mobile messenger
+    io.github.NhekoReborn.Nheko # Matrix client
     # Multimedia
     org.gnome.Lollypop # Music player
     org.videolan.VLC # Video player
