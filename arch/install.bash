@@ -354,6 +354,9 @@ case "$HOSTNAME" in
             fr.handbrake.ghb # Video transcoder (incl. hardware decode support)
             fr.handbrake.ghb.Plugin.IntelMediaSDK
             com.makemkv.MakeMKV # Commerial DVD/BlueRay decoder
+            # VLC plugins for blurays and dvds
+            org.videolan.VLC.Plugin.bdj
+            org.videolan.VLC.Plugin.makemkv
             # Misc apps
             org.viking.Viking # GPS Track editor
         )
