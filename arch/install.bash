@@ -496,7 +496,7 @@ install -Dpm644 "$DIR/etc/systemd/system-lunaryorn.conf" /etc/systemd/system.con
 install -Dpm644 "$DIR/etc/systemd/timesyncd-lunaryorn.conf" /etc/systemd/timesyncd.conf.d/50-lunaryorn.conf
 install -Dpm644 "$DIR/etc/systemd/resolved-lunaryorn.conf" /etc/systemd/resolved.conf.d/50-lunaryorn.conf
 install -Dpm644 "$DIR/etc/systemd/zram-generator.conf" /etc/systemd/zram-generator.conf
-rm /etc/systemd/oomd.conf.d/oomd-lunaryorn.conf # Remove misnamed-configuration file
+rm -f /etc/systemd/oomd.conf.d/oomd-lunaryorn.conf # Remove misnamed-configuration file
 install -Dpm644 "$DIR/etc/systemd/oomd-lunaryorn.conf" /etc/systemd/oomd.conf.d/50-lunaryorn.conf
 install -Dpm644 "$DIR/etc/systemd/root-slice-oomd-lunaryorn.conf" /etc/systemd/system/-.slice.d/50-oomd-lunaryorn.conf
 install -Dpm644 "$DIR/etc/systemd/user-service-oomd-lunaryorn.conf" /etc/systemd/system/user@.service.d/50-oomd-lunaryorn.conf
