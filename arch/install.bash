@@ -106,6 +106,7 @@ packages=(
     fish
     code
     neovim
+    neovide
     exa # Better ls (with git support)
     vivid # Creates themes for dircolors
     fd # Simpler find
