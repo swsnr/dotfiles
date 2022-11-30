@@ -357,14 +357,15 @@ case "$HOSTNAME" in
             com.github.geigi.cozy # Audiobook player
             de.mediathekview.MediathekView # Mediatheken
             fr.handbrake.ghb # Video transcoder (incl. hardware decode support)
-            fr.handbrake.ghb.Plugin.IntelMediaSDK
             com.makemkv.MakeMKV # Commerial DVD/BlueRay decoder
-            # VLC plugins for blurays and dvds
-            org.videolan.VLC.Plugin.bdj
-            org.videolan.VLC.Plugin.makemkv
             # Misc apps
             org.viking.Viking # GPS Track editor
         )
+        # TODO: Find a way to install these extensions automatically in the
+        # appropriate version, without being prompted
+        # fr.handbrake.ghb.Plugin.IntelMediaSDK
+        # org.videolan.VLC.Plugin.makemkv
+        # org.videolan.VLC.Plugin.bdj
         ;;
     RB-*)
         flatpaks+=(
