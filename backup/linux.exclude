@@ -17,5 +17,3 @@ $HOME/.local/share/containers/
 $HOME/Code/**/target/
 # Jetbrains toolbox apps are redundant as well
 $HOME/.local/share/JetBrains/Toolbox/apps/
-# Flatpak only stores metadata here
-$HOME/.local/share/flatpak/
