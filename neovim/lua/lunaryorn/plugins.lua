@@ -543,7 +543,7 @@ return packer.startup(function(use)
       require'nvim-tree'.setup {}
 
       require('which-key').register {
-        ['<leader>ft'] = {'<cmd>NvimTreeFindFileToggle<cr>', 'Show current file in tre,e'},
+        ['<leader>ft'] = {'<cmd>NvimTreeFindFileToggle<cr>', 'Show current file in tree'},
         ['<leader>fT'] = {'<cmd>NvimTreeFocus<cr>', 'Open file explorer'},
       }
     end
