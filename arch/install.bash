@@ -174,6 +174,7 @@ packages=(
     kdiff3 # Diff & merge tool
     # Latex
     texlive-most
+    biber
     # Fonts & themes
     # Fallback font with huge coverage and colored emojis
     noto-fonts
