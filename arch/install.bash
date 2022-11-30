@@ -336,10 +336,7 @@ flatpaks=(
     org.gnome.dfeet # DBus inspector
     org.gnome.Devhelp # Gnome development docs
 )
-flatpaks_to_remove=(
-    # Bottles has much better Wine support
-    io.github.sharkwouter.Minigalaxy
-)
+flatpaks_to_remove=()
 
 case "$HOSTNAME" in
     *kastl*)
