@@ -19,7 +19,7 @@
 -- and https://github.com/nanotee/nvim-lua-guide for info about Lua in Neovim.
 
 -- Load plugins
-require('lunaryorn.plugins')
+require('swsnr.plugins')
 
 -- neovide settings
 vim.g.neovide_cursor_vfx_mode = 'pixiedust'
@@ -93,7 +93,7 @@ inoremap('jk', '<ESC>')
 
 -- Autocmds
 
-local ly_group = v.nvim_create_augroup('lunaryorn', { clear = true })
+local ly_group = v.nvim_create_augroup('swsnr', { clear = true })
 v.nvim_create_autocmd({'TermOpen'}, {
   callback = function()
     vim.opt_local.number = false
