@@ -33,7 +33,7 @@ def main():
     args = parser.parse_args()
 
     message = GLib.Variant.new_string(args.message)
-    target = Path('/etc/dconf/db/gdm.d/01-dotfiles-lunaryorn-banner-message')
+    target = Path('/etc/dconf/db/gdm.d/01-swsnr-dotfiles-banner-message')
     target.parent.mkdir(parents=True, exist_ok=True)
 
     content = f"""\
