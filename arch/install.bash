@@ -449,11 +449,11 @@ NSS_HOSTS=(
 sed -i '/^hosts: /s/^hosts: .*/'"hosts: ${NSS_HOSTS[*]}/" /etc/nsswitch.conf
 
 # Initrd configuration
-install -pm644 "$DIR/etc/lunaryorn-dracut.conf" /etc/dracut.conf.d/50-lunaryorn.conf
+install -pm644 "$DIR/etc/dracut-swsnr.conf" /etc/dracut.conf.d/50-swsnr.conf
 if [[ -f /usr/share/secureboot/keys/db/db.key ]] && [[ -f /usr/share/secureboot/keys/db/db.pem ]]; then
-    install -pm644 "$DIR/etc/lunaryorn-dracut-sbctl.conf" /etc/dracut.conf.d/90-lunaryorn-sbctl-signing.conf
+    install -pm644 "$DIR/etc/dracut-swsnr-sbctl.conf" /etc/dracut.conf.d/90-swsnr-sbctl.conf
 else
-    rm -f /etc/dracut.conf.d/90-lunaryorn-sbctl-signing.conf
+    rm -f /etc/dracut.conf.d/90-swsnr-sbctl.conf
 fi
 
 # Boot loader configuration
@@ -471,17 +471,17 @@ esac
 
 # System configuration
 install -pm644 "$DIR/etc/faillock.conf" /etc/security/faillock.conf
-install -pm644 "$DIR/etc/sysctl-lunaryorn.conf" /etc/sysctl.d/90-lunaryorn.conf
-install -pm644 "$DIR/etc/modprobe-lunaryorn.conf" /etc/modprobe.d/modprobe-lunaryorn.conf
-install -pm644 "$DIR/etc/modules-load-lunaryorn.conf" /etc/modules-load.d/lunaryorn.conf
+install -pm644 "$DIR/etc/sysctl-swsnr.conf" /etc/sysctl.d/90-swsnr.conf
+install -pm644 "$DIR/etc/modprobe-swsnr.conf" /etc/modprobe.d/modprobe-swsnr.conf
+install -pm644 "$DIR/etc/modules-load-swsnr.conf" /etc/modules-load.d/swsnr.conf
 if [[ $PRODUCT_NAME == "TUXEDO InfinityBook 14 v2" ]]; then
-    install -pm644 "$DIR/etc/modprobe-lunaryorn-tuxedo.conf" /etc/modprobe.d/modprobe-lunaryorn-tuxedo.conf
+    install -pm644 "$DIR/etc/modprobe-swsnr-tuxedo.conf" /etc/modprobe.d/modprobe-swsnr-tuxedo.conf
     install -D -m644 "$DIR/etc/systemd/system/btrfs-scrub-io.conf" \
-        "/etc/systemd/system/btrfs-scrub@.service.d/lunaryorn-kastl-limit-io.conf"
+        "/etc/systemd/system/btrfs-scrub@.service.d/swsnr-kastl-limit-io.conf"
 else
     rm -f \
-        /etc/modprobe.d/modprobe-lunaryorn-tuxedo.conf \
-        /etc/systemd/system/btrfs-scrub@.service.d/lunaryorn-kastl-limit-io.conf
+        /etc/modprobe.d/modprobe-swsnr-tuxedo.conf \
+        /etc/systemd/system/btrfs-scrub@.service.d/swsnr-kastl-limit-io.conf
 fi
 
 # sudo configuration
@@ -492,23 +492,24 @@ rm -f /etc/sudoers.d/50-aurutils
 
 # Systemd configuration
 ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
-install -Dpm644 "$DIR/etc/systemd/system-lunaryorn.conf" /etc/systemd/system.conf.d/50-lunaryorn.conf
-install -Dpm644 "$DIR/etc/systemd/timesyncd-lunaryorn.conf" /etc/systemd/timesyncd.conf.d/50-lunaryorn.conf
-install -Dpm644 "$DIR/etc/systemd/resolved-lunaryorn.conf" /etc/systemd/resolved.conf.d/50-lunaryorn.conf
+install -Dpm644 "$DIR/etc/systemd/system-swsnr.conf" /etc/systemd/system.conf.d/50-swsnr.conf
+install -Dpm644 "$DIR/etc/systemd/timesyncd-swsnr.conf" /etc/systemd/timesyncd.conf.d/50-swsnr.conf
+install -Dpm644 "$DIR/etc/systemd/resolved-swsnr.conf" /etc/systemd/resolved.conf.d/50-swsnr.conf
 install -Dpm644 "$DIR/etc/systemd/zram-generator.conf" /etc/systemd/zram-generator.conf
 rm -f /etc/systemd/oomd.conf.d/oomd-lunaryorn.conf # Remove misnamed-configuration file
-install -Dpm644 "$DIR/etc/systemd/oomd-lunaryorn.conf" /etc/systemd/oomd.conf.d/50-lunaryorn.conf
-install -Dpm644 "$DIR/etc/systemd/root-slice-oomd-lunaryorn.conf" /etc/systemd/system/-.slice.d/50-oomd-lunaryorn.conf
-install -Dpm644 "$DIR/etc/systemd/user-service-oomd-lunaryorn.conf" /etc/systemd/system/user@.service.d/50-oomd-lunaryorn.conf
+install -Dpm644 "$DIR/etc/systemd/oomd-swsnr.conf" /etc/systemd/oomd.conf.d/50-swsnr.conf
+install -Dpm644 "$DIR/etc/systemd/root-slice-oomd-swsnr.conf" /etc/systemd/system/-.slice.d/50-oomd-swsnr.conf
+install -Dpm644 "$DIR/etc/systemd/user-service-oomd-swsnr.conf" /etc/systemd/system/user@.service.d/50-oomd-swsnr.conf
 
 # Audit rules
-install -Dpm644 "$DIR/etc/audit/lunaryorn.rules" "/etc/audit/rules.d/00-lunaryorn.rules"
-augenrules
-augenrules --load
+install -Dpm644 "$DIR/etc/audit/swsnr.rules" "/etc/audit/rules.d/00-swsnr.rules"
 
 # Services configuration
 install -Dpm644 "$DIR/etc/networkmanager-mdns.conf" /etc/NetworkManager/conf.d/50-mdns.conf
 install -Dpm644 "$DIR/etc/reflector.conf" /etc/xdg/reflector/reflector.conf
+
+# Remove outdated configuration files
+find /etc/ -name '*lunaryorn*' -delete
 
 # Global font configuration
 for file in 10-hinting-slight 10-sub-pixel-rgb 11-lcdfilter-default; do
@@ -521,6 +522,10 @@ localectl set-locale de_DE.UTF-8
 # X11/Wayland and vice versa
 localectl set-keymap --no-convert us
 localectl set-x11-keymap --no-convert us,de pc105 mac,
+
+# Regenerate and update audit rules
+augenrules
+augenrules --load
 
 # GDM dconf profile, for global GDM configuration, see
 # https://help.gnome.org/admin/system-admin-guide/stable/login-banner.html.en
