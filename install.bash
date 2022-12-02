@@ -44,6 +44,18 @@ ln -fs -t ~/.config/fish/completions "$DIR"/fish/plugins/*/completions/*.fish
 # Remove fisher
 rm -f ~/.config/fish/functions/fisher.fish ~/.config/fish/completions/fisher.fish
 
+# Remove profile.  I set up environment variables through systemd, so let's
+# clear profile files from distributions, etc. which mess up my $PATH.
+rm -f ~/.profile
+
+# Bash configuration.  I prefer fish but if it's not available bash is the
+# fallback, but its default settings are unbearable.  Also make sure we have no
+# custom profile; some tools (JetBrains toolbox, looking at you) think it's a
+# good idea to mess with the profile files in order to override $PATH.
+for file in bashrc bash_logout bash_profile; do
+    ln -fs "$DIR/bash/${file}" "${HOME}/.${file}"
+done
+
 # Vim
 ln -fs "$DIR/vim/ideavimrc" ~/.ideavimrc
 

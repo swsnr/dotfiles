@@ -1,3 +1,4 @@
+#!/bin/bash
 # Copyright Sebastian Wiesner <sebastian@swsnr.de>
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -12,12 +13,19 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
 set -o noclobber
 
 shopt -s histappend
 HISTSIZE=500000
+HISTFILE="${XDG_STATE_HOME:-${HOME}/.local/state}"/bash/history
 HISTFILESIZE=100000
 HISTCONTROL="erasedups:ignoreboth"
+
+# Create the bash state directory
+mkdir -p "${HISTFILE%/*}"
 
 # Enable incremental history search with up/down arrows (also Readline goodness)
 # Learn more about this here: http://codeinthehole.com/writing/the-most-important-command-line-tip-incremental-history-searching-with-inputrc/
@@ -44,6 +52,9 @@ shopt -s dirspell 2> /dev/null
 shopt -s cdspell 2> /dev/null
 
 # Include additional configuration snippets
-for file in ~/.bashrc.d/*.bash; do
-    source "$file"
-done
+bashd="${XDG_CONFIG_HOME:-${HOME}/.config}/bash"
+if [[ -d "${bashd}" ]]; then
+    for file in "${bashd}/"*.bash; do
+        source "$file"
+    done
+fi
