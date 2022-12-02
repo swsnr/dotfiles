@@ -79,6 +79,11 @@ mkdir -p ~/.gnupg
 clean-recursively ~/.gnupg || true
 ln -fs -t ~/.gnupg "$DIR/gnupg/"*.conf
 
+# Python
+mkdir -p ~/.config/python
+# Personal startup file, see environment/50-python.conf
+ln -fs "$DIR/python/startup.py" ~/.config/python/startup.py
+
 # Misc files
 mkdir -p ~/.config/{bat,latexmk,wezterm,restic}
 ln -fs "$DIR/backup/linux.exclude" ~/.config/restic/linux.exclude
