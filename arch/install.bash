@@ -44,7 +44,10 @@ pacman-key -a "$DIR/etc/pacman/keys/personal.asc"
 pacman-key --lsign-key B8ADA38BC94C48C4E7AABE4F7548C2CC396B57FC
 
 # Mark packages I no longer use as dependencies
-mark_as_dependency=()
+mark_as_dependency=(
+    # Let's get rid of ruby
+    asciidoctor
+    )
 for pkg in "${mark_as_dependency[@]}"; do
     pacman --noconfirm -D --asdeps "$pkg" || true
 done
@@ -126,7 +129,6 @@ packages=(
     # Document processing and rendering
     pandoc
     mdcat
-    asciidoctor
     zathura # Lightweight document viewer
     # Spellchecking
     hunspell
