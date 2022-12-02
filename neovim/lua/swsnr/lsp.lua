@@ -27,7 +27,7 @@ function M.lsp_attach(client, bufnr)
     ['gi'] = {tb.lsp_implementations, 'Goto implementation'},
     ['<C-k>'] = {vim.lsp.buf.signature_help, 'Signature help'},
     ['K'] = {vim.lsp.buf.hover, 'Hover'},
-    ['<leader>ea'] = {tb.lsp_code_actions, 'Code action'},
+    ['<leader>ea'] = {vim.lsp.buf.code_action, 'Code action'},
     ['<leader>ef'] = {function() vim.lsp.buf.format{async = true} end, 'Format'},
     ['<leader>eR'] = {vim.lsp.buf.rename, 'Rename symbol'},
     ['<leader>jS'] = {tb.lsp_dynamic_workspace_symbols, 'Jump to workspace symbol'},
