@@ -26,10 +26,12 @@ def _interactive_hook():
             # want to ignore the exception.
             pass
 
-        default_cache_directory = os.path.join(os.path.expanduser('~'), '.cache')
-        cache_directory = os.environ.get('XDG_CACHE_HOME', default_cache_directory)
+        default_state_directory = os.path.join(os.path.expanduser('~'),
+                                               '.local', 'state')
+        state_directory = os.environ.get('XDG_STATE_HOME',
+                                         default_state_directory)
 
-        histfile = os.path.join(cache_directory, 'python', 'python_history')
+        histfile = os.path.join(state_directory, 'python', 'python_history')
         try:
             readline.read_history_file(histfile)
             readline.set_history_length(10000)
