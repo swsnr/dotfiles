@@ -107,8 +107,9 @@ fi
 mkfs.fat -F32 -n EFISYSTEM /dev/disk/by-partlabel/EFISYSTEM
 mkfs.btrfs -f -L linux "$root_device"
 
-# Mount arch subvolume and create additional subvolumes for rootfs
-mount "$root_device" /mnt
+# Mount arch subvolume and create additional subvolumes for rootfs.  Enable
+# compression for the bootstrap process.
+mount -o 'compress=zstd:1' "$root_device" /mnt
 mkdir /mnt/efi
 for subvol in var var/log var/cache var/tmp srv home; do
     btrfs subvolume create "/mnt/$subvol"
