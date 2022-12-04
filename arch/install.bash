@@ -152,6 +152,8 @@ packages=(
     # Bash tools
     shellcheck
     shfmt
+    # Python
+    pyright # Language server for neovim
     # Other development tools
     hexyl # hex viewer
     oxipng # Optimize PNGs for size

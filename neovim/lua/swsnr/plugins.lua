@@ -246,6 +246,7 @@ return packer.startup(function(use)
           'json5',
           'latex',
           'lua',
+          'python',
           'rust',
           'scala',
           'toml',
@@ -318,7 +319,7 @@ return packer.startup(function(use)
   use {
     'neovim/nvim-lspconfig',
     config = function()
-      local servers = {}
+      local servers = {'pyright'}
       for _, lsp in pairs(servers) do
         require('lspconfig')[lsp].setup {
           on_attach = require('swsnr.lsp').lsp_attach,
