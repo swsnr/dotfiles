@@ -89,7 +89,14 @@ sleep 3
 
 # Encrypt root if desired
 if [[ "$use_luks" == "yes" ]]; then
-    cryptsetup luksFormat --type luks2 /dev/disk/by-partlabel/linux
+    # Enable discards and disable workqueues, see
+    # https://wiki.archlinux.org/title/Dm-crypt/Specialties#Discard/TRIM_support_for_solid_state_drives_(SSD)
+    # and
+    # https://wiki.archlinux.org/title/Dm-crypt/Specialties#Disable_workqueue_for_increased_solid_state_drive_(SSD)_performance
+    cryptsetup luksFormat --type luks2 \
+        --allow-discards \
+        --perf-no_read_workqueue --perf-no_write_workqueue \
+        /dev/disk/by-partlabel/linux
     cryptsetup luksOpen /dev/disk/by-partlabel/linux root
     root_device="/dev/mapper/root"
 else
