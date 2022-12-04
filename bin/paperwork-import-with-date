@@ -1,0 +1,128 @@
+#!/usr/bin/env python3
+# Copyright Sebastian Wiesner <sebastian@swsnr.de>
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may not
+# use this file except in compliance with the License. You may obtain a copy of
+# the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations under
+# the License.
+
+import sys
+import re
+import json
+import logging
+from pathlib import Path
+from subprocess import run, PIPE
+from argparse import ArgumentParser
+from datetime import date
+
+
+LOG = logging.getLogger()
+
+
+class ColoredFormatter(logging.Formatter):
+    _grey = '\x1b[37m'
+    _green = '\x1b[32m'
+    _yellow = '\x1b[33m'
+    _red = '\x1b[31m'
+    _bold_red = '\x1b[31m'
+    _reset = '\x1b[0m'
+    _format = '{message}'
+
+    FORMATS = {
+        logging.DEBUG: _grey + _format + _reset,
+        logging.INFO: _green + _format + _reset,
+        logging.WARNING: _yellow + _format + _reset,
+        logging.ERROR: _red + _format + _reset,
+        logging.CRITICAL: _bold_red + _format + _reset
+    }
+
+    def format(self, record):
+        log_fmt = self.FORMATS.get(record.levelno)
+        formatter = logging.Formatter(fmt=log_fmt, style='{')
+        return formatter.format(record)
+
+
+def run_paperwork(command: list[str]):
+    full_command = ['flatpak', 'run', '--command=paperwork-json', 'work.openpaper.Paperwork']
+    full_command.extend(command)
+    LOG.debug(f'Running command {full_command}')
+    child = run(full_command, stdout=PIPE)
+    results = json.loads(child.stdout)
+    LOG.debug(f'Command {full_command} exited with {child.returncode} and returned {results}')
+    if child.returncode != 0:
+        reason = results['reason']
+        raise ValueError(f'paperwork failed with exit code {child.returncode}: {reason}')
+    return results
+
+
+def guess_date_from_file(path: Path) -> date:
+    base = path.name
+    match = re.search(r'^(\d{4})-(\d{2})-(\d{2})[^0-9]+', base)
+    if match:
+        year, month, day = match.groups()
+        return date(int(year), int(month), int(day))
+    else:
+        raise ValueError(f'Could not guess date from {path}')
+
+
+def get_labels(docid: str) -> set[str]:
+    return set(l[0] for l in run_paperwork(['label', 'show', docid])[docid])
+
+
+def import_file_with_labels_and_date(file: Path, docdate: date, labels: set[str]):
+    LOG.info(f'Importing {file} with date {docdate} and labels {labels}')
+    import_result = run_paperwork(['import', str(file.absolute())])
+    if import_result['ignored']:
+        LOG.warning(f'{file} ignored, already imported?')
+        return
+    docid = import_result['new_docs'][0]
+    LOG.debug(f'Document {docid} imported from {file}')
+    guessed_labels = get_labels(docid)
+    LOG.debug(f'Document {docid} imported with labels {guessed_labels}')
+    for label in (guessed_labels - labels):
+        LOG.debug(f'Removing undesired label {label} from document {docid}')
+        run_paperwork(['label', 'remove', docid, label])
+    for label in (labels - guessed_labels):
+        LOG.debug(f'Adding desired label {label} to document {docid}')
+        run_paperwork(['label', 'add', docid, label])
+    new_id = '_'.join([docdate.strftime('%Y%m%d'), docid.split('_', 1)[1]])
+    LOG.debug(f'Renaming imported document {docid} to {new_id} to set date to {docdate}')
+    run_paperwork(['rename', docid, new_id])
+    LOG.info(f'File {file} successfully imported to {new_id}')
+    return True
+
+
+def main():
+    parser = ArgumentParser()
+    parser.add_argument('-l', '--label', action='append')
+    parser.add_argument('file', nargs='+', type=Path)
+    parser.add_argument('-v', '--verbose', action='store_true')
+    parser.add_argument('--trash', action='store_true')
+
+    args = parser.parse_args()
+
+    LOG.setLevel(logging.DEBUG if args.verbose else logging.INFO)
+    stderr = logging.StreamHandler(stream=sys.stderr)
+    stderr.setLevel(logging.DEBUG)
+    stderr.setFormatter(ColoredFormatter())
+    logging.getLogger().addHandler(stderr)
+
+    LOG.debug(f'Arguments: {args}')
+
+    for file in args.file:
+        docdate = guess_date_from_file(file)
+        was_imported = import_file_with_labels_and_date(file, docdate, set(args.label))
+        if was_imported and args.trash:
+            LOG.info(f'Moving imported file {file} to trash')
+            run(['gio', 'trash', str(file)], check=True)
+
+
+if __name__ == '__main__':
+    main()
