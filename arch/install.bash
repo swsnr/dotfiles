@@ -169,6 +169,7 @@ packages=(
     cups
     bluez
     sane
+    sane-airscan
     pipewire-pulse # Pipewire-based pulse-audio, replaces pulseaudio
     wireplumber # Recommended pipewire session & policy manager
     firefox # Browser
