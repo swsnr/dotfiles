@@ -167,7 +167,6 @@ packages=(
     flatpak-builder # Build flatpaks
     pcsclite # Smartcard daemon, for e-ID
     cups
-    hplip
     bluez
     sane
     pipewire-pulse # Pipewire-based pulse-audio, replaces pulseaudio
