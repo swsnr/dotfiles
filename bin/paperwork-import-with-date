@@ -17,6 +17,7 @@ import sys
 import re
 import json
 import logging
+from operator import itemgetter
 from pathlib import Path
 from subprocess import run, PIPE
 from argparse import ArgumentParser
@@ -105,6 +106,7 @@ def main():
     parser.add_argument('file', nargs='+', type=Path)
     parser.add_argument('-v', '--verbose', action='store_true')
     parser.add_argument('--trash', action='store_true')
+    parser.add_argument('--execute', action='store_true')
 
     args = parser.parse_args()
 
@@ -116,8 +118,13 @@ def main():
 
     LOG.debug(f'Arguments: {args}')
 
-    for file in args.file:
-        docdate = guess_date_from_file(file)
+    files = [(file, guess_date_from_file(file)) for file in args.file]
+    if not args.execute:
+        for (file, docdate) in sorted(files, key=itemgetter(1)):
+            print(f'{docdate}: {file}')
+        if input('Continue? [Yn] ') != 'Y':
+            sys.exit(2)
+    for (file, docdate) in files:
         was_imported = import_file_with_labels_and_date(file, docdate, set(args.label))
         if was_imported and args.trash:
             LOG.info(f'Moving imported file {file} to trash')
