@@ -17,6 +17,7 @@ import sys
 import re
 import json
 import logging
+from typing import Literal
 from operator import itemgetter
 from pathlib import Path
 from subprocess import run, PIPE
@@ -63,7 +64,7 @@ def run_paperwork(command: list[str]):
     return results
 
 
-def guess_date_from_file(path: Path) -> date:
+def guess_date_from_filename(path: Path) -> date:
     base = path.name
     match = re.search(r'^(\d{4})-(\d{2})-(\d{2})[^0-9]+', base)
     if match:
@@ -71,6 +72,28 @@ def guess_date_from_file(path: Path) -> date:
         return date(int(year), int(month), int(day))
     else:
         raise ValueError(f'Could not guess date from {path}')
+
+
+def get_pdf_creation_date(path: Path) -> date:
+    command = ['pdfinfo', '-isodates', str(path)]
+    LOG.debug(f'Running {command}')
+    result = run(command, capture_output=True, text=True)
+    LOG.debug(f'Command {command} finished with exit code {result.returncode}')
+    if result.returncode != 0:
+        raise ValueError(f'{path} may not be a PDF file: {result.stderr}')
+    for line in result.stdout.splitlines():
+        if line.startswith('CreationDate:'):
+            return date.fromisoformat(line.split(':', 1)[1].strip().split('T', 1)[0])
+    else:
+        raise ValueError(f'Failed to find creation date for {path} in {result.stdout}')
+
+
+def get_docdate_for_file(path: Path,
+                         mode: Literal['pdf_creation_date', 'filename']) -> date:
+    if mode == 'pdf_creation_date':
+        return get_pdf_creation_date(path)
+    else:
+        return guess_date_from_filename(path)
 
 
 def get_labels(docid: str) -> set[str]:
@@ -106,6 +129,7 @@ def main():
     parser.add_argument('file', nargs='+', type=Path)
     parser.add_argument('-v', '--verbose', action='store_true')
     parser.add_argument('--trash', action='store_true')
+    parser.add_argument('--pdf-creation-date', action='store_true')
     parser.add_argument('--execute', action='store_true')
 
     args = parser.parse_args()
@@ -118,7 +142,8 @@ def main():
 
     LOG.debug(f'Arguments: {args}')
 
-    files = [(file, guess_date_from_file(file)) for file in args.file]
+    mode = 'pdf_creation_date' if args.pdf_creation_date else 'filename'
+    files = [(file, get_docdate_for_file(file, mode)) for file in args.file]
     if not args.execute:
         for (file, docdate) in sorted(files, key=itemgetter(1)):
             print(f'{docdate}: {file}')
