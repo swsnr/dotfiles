@@ -358,6 +358,7 @@ case "$HOSTNAME" in
             org.gnucash.GnuCash # Personal finances
             de.bund.ausweisapp.ausweisapp2 # eID app
             org.kde.tellico # Book collections
+            work.openpaper.Paperwork # Collect and index (scanned) documents
             # Multimedia
             org.kde.digikam # Digital photos
             org.nickvision.tagger # Audio tag editor
