@@ -332,10 +332,12 @@ flatpaks=(
     org.cvfosammmm.Setzer # Fancy Gnome LaTeX editor
     com.github.jeromerobert.pdfarranger # Arrange pdf files
     com.belmoussaoui.Obfuscate # Obfuscate information in images
+    # Knowledge management
+    org.jabref.jabref # Bibliography tool, paper manager
+    org.zim_wiki.Zim # Desktop Wiki
     # Other apps
     com.gitlab.newsflash # Desktop RSS reader
     com.github.tchx84.Flatseal # Flatpak permissions
-    org.zim_wiki.Zim # Desktop Wiki
     com.usebottles.bottles # Run Windows software in Wine
     # Development tools
     org.gnome.dfeet # DBus inspector
