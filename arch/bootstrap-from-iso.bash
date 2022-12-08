@@ -131,7 +131,7 @@ bootstrap_packages=(
     )
 pacstrap -K "$SYSROOT" "${bootstrap_packages[@]}"
 # Install optional dependencies required by dracut to generate UKI2
-pacman --sysroot "$SYSROOT" -S --no-confirm --asdeps binutils elfutils
+pacman --sysroot "$SYSROOT" -S --noconfirm --asdeps binutils elfutils
 
 echo "Setting up locales"
 sed -i \
