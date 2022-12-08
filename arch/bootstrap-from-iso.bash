@@ -107,55 +107,64 @@ fi
 mkfs.fat -F32 -n EFISYSTEM /dev/disk/by-partlabel/EFISYSTEM
 mkfs.btrfs -f -L linux "$root_device"
 
+SYSROOT="/mnt"
+
 # Mount arch subvolume and create additional subvolumes for rootfs.  Enable
 # compression for the bootstrap process.
-mount -o 'compress=zstd:1' "$root_device" /mnt
-mkdir /mnt/efi
+mount -o 'compress=zstd:1' "$root_device" "$SYSROOT"
+mkdir "$SYSROOT"/efi
 for subvol in var var/log var/cache var/tmp srv home; do
-    btrfs subvolume create "/mnt/$subvol"
+    btrfs subvolume create "$SYSROOT/$subvol"
 done
 # Disable CoW for /home due to large loopback files by systemd-homed
-chattr +C /mnt/home
+chattr +C "$SYSROOT/home"
 
 # Mount additional partitions
-mount /dev/disk/by-partlabel/EFISYSTEM /mnt/efi
+mount /dev/disk/by-partlabel/EFISYSTEM "$SYSROOT/efi"
 
-# Bootstrap new chroot
+# Generate mirrorlist on the host system for my country
+# (The live disk runs reflector, but with global mirror selection).
+# pacstrap then copies this mirrorlist to the new root
 reflector --save /etc/pacman.d/mirrorlist --protocol https --country Germany --latest 5 --sort age
-pacstrap /mnt base linux linux-firmware intel-ucode btrfs-progs dracut neovim
+bootstrap_packages=(
+    base
+    linux
+    linux-firmware
+    intel-ucode
+    btrfs-progs
+    dracut
+    # We need a text editor
+    neovim
+    )
+pacstrap -K "$SYSROOT" "${bootstrap_packages[@]}"
+# Install optional dependencies required by dracut to generate UKI2
+pacman --sysroot "$SYSROOT" -S --no-confirm --asdeps binutils elfutils
 
 # Configure timezone, locale, keymap
-ln -sf /usr/share/zoneinfo/Europe/Berlin /mnt/etc/localtime
+ln -sf /usr/share/zoneinfo/Europe/Berlin "$SYSROOT"/etc/localtime
 sed -i \
     -e '/^#en_GB.UTF-8/s/^#//' \
     -e '/^#de_DE.UTF-8/s/^#//' \
-    /mnt/etc/locale.gen
-echo 'LANG=en_GB.UTF-8' >/mnt/etc/locale.conf
-echo 'KEYMAP=us' >/mnt/etc/vconsole.conf
+    "$SYSROOT"/etc/locale.gen
+echo 'LANG=en_GB.UTF-8' >"$SYSROOT"/etc/locale.conf
+echo 'KEYMAP=us' >"$SYSROOT"/etc/vconsole.conf
 
 # Basic network configuration
-echo "$new_hostname" >/mnt/etc/hostname
-ln -sf /run/systemd/resolve/stub-resolv.conf /mnt/etc/resolv.conf
+echo "$new_hostname" >"$SYSROOT"/etc/hostname
+ln -sf /run/systemd/resolve/stub-resolv.conf "$SYSROOT"/etc/resolv.conf
 
-# Switch into chroot
-cat <<'EOF' | arch-chroot /mnt
-set -xeuo pipefail
-# Generate locales
-locale-gen
-# Install dracut opt deps required to build unified kernel images
-pacman -S --noconfirm --asdeps binutils elfutils
-for kver in /lib/modules/*; do dracut -f --uefi --kver "${kver##*/}"; done
-# Install bootloader
-bootctl install
-EOF
+echo "Generating locales"
+arch-chroot "$SYSROOT" locale-gen
+echo "Building UKIs"
+arch-chroot "$SYSROOT" dracut -f --uefi --regenerate-all
+echo "Install bootloader"
+bootctl --root "$SYSROOT" install
 
-echo "Enable resolved"
-systemctl --root /mnt enable systemd-resolved
-echo "Enable homed"
-systemctl --root /mnt enable systemd-homed
+echo "Enable systemd services"
+systemctl --root "$SYSROOT" enable systemd-resolved systemd-homed
 
 echo "Set root password"
-passwd -R /mnt root
+passwd -R "$SYSROOT" root
 
 # Finish things
 echo "BOOTSTRAPPING FINISHED"
