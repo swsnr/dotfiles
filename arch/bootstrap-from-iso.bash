@@ -21,7 +21,6 @@ args=()
 
 use_luks="yes"
 target_device=""
-new_hostname=""
 
 while [[ $# -gt 0 ]]
 do
@@ -37,11 +36,6 @@ do
             shift
             shift
             ;;
-        "--hostname")
-            new_hostname="$2"
-            shift
-            shift
-            ;;
         *)
             args+=("$arg")
             shift;
@@ -50,11 +44,6 @@ done
 
 if [[ -z "$target_device" ]]; then
     echo "Missing --device <device> argument" >&2
-    exit 2;
-fi
-
-if [[ -z "$new_hostname" ]]; then
-    echo "Missing --hostname <hostname> argument" >&2
     exit 2;
 fi
 
@@ -125,6 +114,7 @@ mount /dev/disk/by-partlabel/EFISYSTEM "$SYSROOT/efi"
 # Generate mirrorlist on the host system for my country
 # (The live disk runs reflector, but with global mirror selection).
 # pacstrap then copies this mirrorlist to the new root
+echo "Bootstrapping"
 reflector --save /etc/pacman.d/mirrorlist --protocol https --country Germany --latest 5 --sort age
 bootstrap_packages=(
     base
@@ -140,17 +130,16 @@ pacstrap -K "$SYSROOT" "${bootstrap_packages[@]}"
 # Install optional dependencies required by dracut to generate UKI2
 pacman --sysroot "$SYSROOT" -S --no-confirm --asdeps binutils elfutils
 
-# Configure timezone, locale, keymap
-ln -sf /usr/share/zoneinfo/Europe/Berlin "$SYSROOT"/etc/localtime
+echo "Setting up locales"
 sed -i \
     -e '/^#en_GB.UTF-8/s/^#//' \
     -e '/^#de_DE.UTF-8/s/^#//' \
     "$SYSROOT"/etc/locale.gen
-echo 'LANG=en_GB.UTF-8' >"$SYSROOT"/etc/locale.conf
-echo 'KEYMAP=us' >"$SYSROOT"/etc/vconsole.conf
+echo "Configuring for first boot"
+systemd-firstboot --root "$SYSROOT" \
+    --keymap=us --locale=en_GB.UTF-8 \
+    --prompt-timezone --prompt-root-password --prompt-hostname
 
-# Basic network configuration
-echo "$new_hostname" >"$SYSROOT"/etc/hostname
 ln -sf /run/systemd/resolve/stub-resolv.conf "$SYSROOT"/etc/resolv.conf
 
 echo "Generating locales"
@@ -163,10 +152,7 @@ bootctl --root "$SYSROOT" install
 echo "Enable systemd services"
 systemctl --root "$SYSROOT" enable systemd-resolved systemd-homed
 
-echo "Set root password"
-passwd -R "$SYSROOT" root
-
 # Finish things
 echo "BOOTSTRAPPING FINISHED"
-echo "Feel free to perform further setup with 'arch-chroot /mnt'."
+echo "Feel free to perform further setup with 'arch-chroot $SYSROOT'."
 echo "Eventually run 'reboot' to boot into the new system."
