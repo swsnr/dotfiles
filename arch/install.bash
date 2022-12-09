@@ -269,6 +269,9 @@ case "$PRODUCT_NAME" in
     'XPS 9315')
         packages+=(
             sof-firmware # Firmware for XPS audio devices
+            # We require dkms modules for some hardware, hence we need headers
+            linux-headers
+            linux-zen-headers
         )
         ;;
 esac
@@ -684,6 +687,14 @@ aur_packages=(
     # See <https://bugs.archlinux.org/task/60210>
     texlive-latexindent-meta
 )
+
+case "$PRODUCT_NAME" in
+    'XPS 9315')
+        aur_packages+=(
+            intel-ipu6ep-camera-hal-git
+        )
+        ;;
+esac
 
 case "$HOSTNAME" in
     *kastl*)
