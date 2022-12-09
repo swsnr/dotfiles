@@ -67,6 +67,7 @@ packages=(
     sudo
     zram-generator # swap on compressed RAM, mostly to support systemd-oomd
     sbctl # Manage secure boot binaries and sign binaries
+    alsa-utils # ALSA control
     # File systems
     ntfs-3g
     exfatprogs
