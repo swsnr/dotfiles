@@ -570,8 +570,14 @@ if command -v sbctl > /dev/null && [[ -f /usr/share/secureboot/keys/db/db.key ]]
         sbctl sign -s -o /usr/lib/fwupd/efi/fwupdx64.efi.signed /usr/lib/fwupd/efi/fwupdx64.efi
     fi
 
+    # Since we sign the firmware updater directly we do not require shim for
+    # firmware updates.
+    install -m644 "$DIR/etc/fwupd-uefi_capsule_secure_boot.conf" \
+        /etc/fwupd/uefi_capsule.conf
+
     sbctl sign-all
     sbctl verify  # Safety check
+
 fi
 
 # Install or update, and then configure the bootloader.
