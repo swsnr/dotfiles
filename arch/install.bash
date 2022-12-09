@@ -464,9 +464,9 @@ NSS_HOSTS=(
 sed -i '/^hosts: /s/^hosts: .*/'"hosts: ${NSS_HOSTS[*]}/" /etc/nsswitch.conf
 
 # Initrd configuration
-install -pm644 "$DIR/etc/dracut-swsnr.conf" /etc/dracut.conf.d/50-swsnr.conf
+install -pm644 "$DIR/etc/dracut/50-swsnr.conf" /etc/dracut.conf.d/50-swsnr.conf
 if [[ -f /usr/share/secureboot/keys/db/db.key ]] && [[ -f /usr/share/secureboot/keys/db/db.pem ]]; then
-    install -pm644 "$DIR/etc/dracut-swsnr-sbctl.conf" /etc/dracut.conf.d/90-swsnr-sbctl.conf
+    install -pm644 "$DIR/etc/dracut/90-swsnr-sbctl.conf" /etc/dracut.conf.d/90-swsnr-sbctl.conf
 else
     rm -f /etc/dracut.conf.d/90-swsnr-sbctl.conf
 fi
