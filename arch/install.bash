@@ -618,14 +618,15 @@ setup-repo abs "$DIR/etc/pacman/40-abs-repository.conf"
 
 # Bootstrap aurutils
 if [[ -n "${SUDO_USER:-}" ]] && ! command -v aur &>/dev/null; then
-    sudo -u "$SUDO_USER" bash <<'EOF'
+    export GPGKEY="$PACKAGE_SIGNING_KEY"
+    sudo -u "$SUDO_USER" --preserve-env="${PRESERVE_ENV}" bash <<'EOF'
 set -xeuo pipefail
 BDIR="$(mktemp -d --tmpdir aurutils.XXXXXXXX)"
 echo "Building in $BDIR"
 cd "$BDIR"
 git clone --depth=1 "https://aur.archlinux.org/aurutils.git"
 cd aurutils
-makepkg --noconfirm --nocheck -rsi
+makepkg --noconfirm --nocheck -rsi --sign
 EOF
 fi
 
