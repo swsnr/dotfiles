@@ -260,6 +260,14 @@ optdeps=(
     malcontent
 )
 
+case "$PRODUCT_NAME" in
+    'XPS 9315')
+        packages+=(
+            sof-firmware # Firmware for XPS audio devices
+        )
+        ;;
+esac
+
 case "$HOSTNAME" in
     *kastl*)
         packages+=(
