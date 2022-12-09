@@ -615,6 +615,8 @@ setup-repo() {
 # abs: Modified packages from core, extra, or community
 setup-repo aur "$DIR/etc/pacman/60-aur-repository.conf"
 setup-repo abs "$DIR/etc/pacman/40-abs-repository.conf"
+# Refresh package databases
+pacman -Sy
 
 # Bootstrap aurutils
 if [[ -n "${SUDO_USER:-}" ]] && ! command -v aur &>/dev/null; then
