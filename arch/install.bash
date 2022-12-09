@@ -706,6 +706,10 @@ if [[ -n "${SUDO_USER:-}" ]]; then
         pacman -D --asdeps "${aur_optdeps[@]}"
     fi
 
+    # Allow gsconnect in home zone after gsconnect is installed (the service
+    # definition comes from the gsconnect package).
+    firewall-cmd --permanent --zone=home --add-service=gsconnect || true
+
     remove_from_repo=(
         # Let's just use the app image here
         jetbrains-toolbox
