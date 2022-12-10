@@ -236,6 +236,8 @@ packages=(
 )
 
 optdeps=(
+    # vulkan-icd-loader: vulkan driver
+    vulkan-intel
     # pipewire
     pipewire-pulse wireplumber
     # linux: wireless frequency policies (provided as crda)
