@@ -661,6 +661,7 @@ aur_packages=(
     # Gnome tools
     gnome-search-providers-jetbrains
     gnome-search-providers-vscode
+    firefox-gnome-search-provider
     # Dracut hook to build kernel images for systemd boot
     dracut-hook-uefi
     # Personal password manager
