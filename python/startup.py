@@ -31,8 +31,10 @@ def _interactive_hook():
                                                '.local', 'state')
         state_directory = os.environ.get('XDG_STATE_HOME',
                                          default_state_directory)
+        python_state_directory = os.path.join(state_directory, 'python')
+        os.makedirs(python_state_directory, exist_ok=True)
 
-        histfile = os.path.join(state_directory, 'python', 'python_history')
+        histfile = os.path.join(python_state_directory, 'python_history')
         try:
             readline.read_history_file(histfile)
             readline.set_history_length(10000)
