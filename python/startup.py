@@ -8,6 +8,7 @@ def _interactive_hook():
     def _configure_readline():
         import readline
         import atexit
+        import rlcompleter
 
         # Reading the initialization (config) file may not be enough to set a
         # completion key, so we set one first and then read the file.
