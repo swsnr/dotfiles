@@ -141,6 +141,25 @@ function install_wezterm_terminfo {
 }
 install_wezterm_terminfo
 
+# Setup firefox user.js
+python <<'EOF' | xargs -0 -n1 ln -sf "$DIR"/misc/user.js
+from pathlib import Path
+from configparser import ConfigParser
+firefox = Path.home() / '.mozilla' / 'firefox'
+config = ConfigParser()
+config.read_string((firefox / 'profiles.ini').read_text())
+paths = []
+for section in config:
+    if section.startswith('Profile'):
+        path = config[section]['Path']
+        user_js = Path(path) / 'user.js'
+        if config[section].get('IsRelative', '0') == '1':
+            paths.append(str(firefox / user_js))
+        else:
+            paths.append(str(user_js))
+print('\0'.join(paths), end='')
+EOF
+
 # Flatpak setup
 if command -v flatpak >& /dev/null; then
     flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
