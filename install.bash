@@ -105,6 +105,7 @@ ln -fs "$DIR/misc/wezterm.lua" ~/.config/wezterm/wezterm.lua
 ln -fs "$DIR/misc/XCompose" ~/.XCompose
 ln -fs "$DIR/misc/electron-flags.conf" ~/.config/electron-flags.conf
 ln -fs "$DIR/misc/electron-flags.conf" ~/.config/electron17-flags.conf
+ln -fs "$DIR/misc/gamemode.ini" ~/.config/gamemode.ini
 
 # Gnome
 mkdir -p ~/.local/share/gnome-shell/extensions

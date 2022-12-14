@@ -1,0 +1,60 @@
+#!/bin/bash
+# Copyright 2020 Sebastian Wiesner <sebastian@swsnr.de>
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may not
+# use this file except in compliance with the License. You may obtain a copy of
+# the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations under
+# the License.
+
+# Gets run by gamemode whenever it's toggled on or off
+
+set -euo pipefail
+
+notify() {
+    notify-send --transient --expire-time=1000 \
+        --icon=applications-games-symbolic \
+        "$@"
+}
+
+disable_while_typing() {
+    gsettings set \
+        org.gnome.desktop.peripherals.touchpad disable-while-typing "$1"
+}
+
+show_banners() {
+    gsettings set org.gnome.desktop.notifications show-banners "$1"
+}
+
+game_mode_on() {
+    disable_while_typing false
+    # Wait until the notification disappeared, otherwise the subsequent Do Not
+    # Disturb toggle hides it immediately, rendering it pointless.
+    notify --wait "Game Mode On"
+    show_banners false
+}
+
+game_mode_off() {
+    disable_while_typing true
+    show_banners true
+    notify "Game Mode Off"
+}
+
+main() {
+    case "$1" in
+        on)
+            game_mode_on
+            ;;
+        off)
+            game_mode_off
+            ;;
+    esac
+}
+
+main "$@"
