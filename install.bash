@@ -191,11 +191,8 @@ if command -v flatpak >& /dev/null; then
         --nofilesystem host --filesystem xdg-music \
         org.nickvision.tagger
 
-    # Wayland for Chiaki, see https://github.com/flathub/re.chiaki.Chiaki/issues/3
-    # and https://github.com/flathub/re.chiaki.Chiaki/pull/4
-    flatpak override --user \
-        --socket=wayland --socket=fallback-x11 --nosocket=x11 \
-        re.chiaki.Chiaki
+    # Remove overrides for chiaki; it now uses wayland natively.
+    flatpak override --user --reset re.chiaki.Chiaki
 
     # Allow tellico to access my documents folder
     flatpak override --user \
@@ -210,7 +207,7 @@ if command -v flatpak >& /dev/null; then
 
     # Run JA2 on Wayland natively
     flatpak override --user \
-        --env=SDL_VIDEODRIVER=wayland \
+        --socket=wayland --env=SDL_VIDEODRIVER=wayland \
         io.github.ja2-stracciatella
 fi
 
