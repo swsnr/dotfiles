@@ -109,9 +109,16 @@ ln -fs "$DIR/misc/electron-flags.conf" ~/.config/electron17-flags.conf
 # Gnome
 mkdir -p ~/.local/share/gnome-shell/extensions
 ln -fs -t ~/.local/share/gnome-shell/extensions \
-  "$DIR/gnome/extensions/"{home@swsnr.de,spacetimeformats@swsnr.de,touchpad-toggle@swsnr.de}
+  "$DIR/gnome/extensions/home@swsnr.de" \
+  "$DIR/gnome/extensions/spacetimeformats@swsnr.de" \
+  "$DIR/gnome/extensions/touchpad-toggle@swsnr.de" \
+  "$DIR/gnome/extensions/disable-extension-updates@swsnr.de"
 clean-recursively ~/.local/share/nautilus-python/extensions || true
 "$DIR/gnome/settings.py" || true
+
+# Attempt to enable extensions; this will fail for extensions that were just
+# installed, but we try nonetheless
+gnome-extensions enable 'disable-extension-updates@swsnr.de' || true
 
 # On personal systems use 1password for SSH and commit signing
 if [[ "$HOSTNAME" == *kastl* ]]; then
