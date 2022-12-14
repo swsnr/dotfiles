@@ -400,19 +400,11 @@ return packer.startup(function(use)
   -- Strip trailing whitespace the clever way: https://github.com/axelf4/vim-strip-trailing-whitespace
   use { 'axelf4/vim-strip-trailing-whitespace' }
 
-  -- Commenting: https://github.com/b3nj5m1n/kommentary
+  -- Commenting: https://github.com/numToStr/Comment.nvim
   use {
-    'b3nj5m1n/kommentary',
+    'numToStr/Comment.nvim',
     config = function()
-      require('which-key').register{
-        ['gc'] = {name='+comment'},
-        ['gcc'] = 'Toggle line',
-      }
-
-      local k = require('kommentary.config')
-      k.configure_language('default', {
-        prefer_single_line_comments = true
-      })
+      require('Comment').setup()
     end
   }
 
