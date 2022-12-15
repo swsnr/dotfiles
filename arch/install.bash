@@ -484,6 +484,13 @@ else
     rm -f /etc/dracut.conf.d/90-swsnr-sbctl.conf
 fi
 
+case "$PRODUCT_NAME" in
+    'XPS 9315')
+        install -pm644 -t /etc/dracut.conf.d/ \
+            "$DIR"/etc/dracut/51-swsnr-xps-9315.conf
+        ;;
+esac
+
 # Boot loader configuration
 case "$HOSTNAME" in
     *kastl*)
