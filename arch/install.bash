@@ -679,6 +679,7 @@ aur_packages=(
     git-gone
     # git-delta
     wcal-git
+    wev # Wayland event testing
     # Missing dependencies for latexindent
     # See <https://bugs.archlinux.org/task/60210>
     texlive-latexindent-meta
