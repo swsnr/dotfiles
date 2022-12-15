@@ -109,6 +109,13 @@ SETTINGS = {
         'move-to-workspace-4': ['<Shift><Super>4'],
         'move-to-workspace-5': ['<Shift><Super>5'],
         'move-to-workspace-6': ['<Shift><Super>6'],
+    },
+    'org.gnome.software': {
+        # Don't educate me Gnome
+        'show-nonfree-ui': False,
+        'prompt-for-nonfree': False,
+        # I'll handle this myself
+        'enable-repos-dialog': False,
     }
 }
 

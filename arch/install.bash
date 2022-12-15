@@ -198,6 +198,7 @@ packages=(
     ttf-jetbrains-mono
     # Gnome
     gdm
+    gnome-software # Monitor software updates
     gnome-characters
     gnome-keyring
     gnome-calendar
