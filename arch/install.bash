@@ -269,7 +269,9 @@ case "$PRODUCT_NAME" in
     'XPS 9315')
         packages+=(
             sof-firmware # Firmware for XPS audio devices
-            # We require dkms modules for some hardware, hence we need headers
+        )
+        optdeps+=(
+            # dkms: Build kernel modules
             linux-headers
             linux-zen-headers
         )
