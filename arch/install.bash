@@ -47,6 +47,8 @@ pacman-key --lsign-key B8ADA38BC94C48C4E7AABE4F7548C2CC396B57FC
 mark_as_dependency=(
     # Let's get rid of ruby
     asciidoctor
+    # We can use flatpak instead if we need this
+    gnome-maps
     )
 for pkg in "${mark_as_dependency[@]}"; do
     pacman --noconfirm -D --asdeps "$pkg" || true
@@ -198,7 +200,6 @@ packages=(
     gdm
     gnome-characters
     gnome-keyring
-    gnome-maps
     gnome-calendar
     gnome-clocks
     gnome-weather
