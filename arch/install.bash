@@ -694,6 +694,7 @@ case "$PRODUCT_NAME" in
     'XPS 9315')
         aur_packages+=(
             intel-ipu6ep-camera-hal-git
+            icamerasrc-git
         )
         ;;
 esac
