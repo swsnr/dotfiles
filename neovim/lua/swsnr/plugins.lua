@@ -52,6 +52,8 @@ return packer.startup(function(use)
     "folke/which-key.nvim",
     config = function()
       local wk = require("which-key")
+      local tools = require('swsnr.tools')
+
       wk.setup()
       wk.register{
         ['[d'] = {vim.diagnostic.goto_prev, 'Previous diagnostic'},
@@ -65,6 +67,7 @@ return packer.startup(function(use)
         -- Editing
         ['<leader>e'] = {name='+edit'},
         ['<leader>er'] = {'<cmd>Telescope registers<cr>', 'Paste register'},
+        ['<leader>ed'] = {tools.iso_utc_to_register, 'ISO UTC timestamp to register a'},
         -- Files
         ['<leader>f'] = {name='+files'},
         ['<leader>ff'] = {'<cmd>Telescope find_files<cr>', 'Find files'},
