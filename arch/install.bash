@@ -38,9 +38,6 @@ rm -f /etc/pacman.d/conf.d/55-abs-repository.conf
 install -pm644 -Dt /etc/pacman.d/conf.d \
     "$DIR/etc/pacman/00-global-options.conf" \
     "$DIR/etc/pacman/50-core-repositories.conf"
-# Install my own pacman hooks
-install -pm644 -Dt /etc/pacman.d/hooks "$DIR/etc/pacman/hooks/"*.hook
-install -pm755 -Dt /etc/pacman.d/scripts "$DIR/etc/pacman/scripts/"*
 
 # Update pacman keyring with additional keys
 pacman-key -a "$DIR/etc/pacman/keys/personal.asc"
@@ -663,6 +660,8 @@ EOF
 fi
 
 aur_packages=(
+    # pacman hook for kernel-install
+    pacman-hook-kernel-install
     # kernel-install hook to build a UKI with dracut
     kernel-install-dracut-uki
     # AUR helper
