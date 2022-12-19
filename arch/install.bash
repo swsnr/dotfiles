@@ -476,8 +476,6 @@ sed -i '/^hosts: /s/^hosts: .*/'"hosts: ${NSS_HOSTS[*]}/" /etc/nsswitch.conf
 
 # initrd and kernel image configuration
 install -pm644 "$DIR/etc/kernel-install.conf" /etc/kernel/install.conf
-install -pm755 "$DIR/etc/kernel-install-dracut-uki.install" \
-    /etc/kernel/install.d/50-swsnr-dracut-uki.install
 # Disable the standard dracut hooks explicitly because dracut doesn't play nice
 # and chooses to blatantly ignore kernel-install configuration :|
 # See https://github.com/dracutdevs/dracut/pull/2132,
@@ -665,6 +663,8 @@ EOF
 fi
 
 aur_packages=(
+    # kernel-install hook to build a UKI with dracut
+    kernel-install-dracut-uki
     # AUR helper
     aurutils
     # Splash screen at boot
