@@ -1,0 +1,19 @@
+[Trigger]
+Type = Path
+Operation = Install
+Operation = Upgrade
+Operation = Remove
+Target = usr/lib/kernel/install.*
+Target = etc/kernel/install.*
+
+[Trigger]
+Type = Path
+Operation = Upgrade
+Operation = Remove
+Target = usr/lib/modules/*/vmlinuz
+
+[Action]
+Description = Removing kernel and initrd from $BOOT... (kernel-install)
+When = PostTransaction
+Exec = /etc/pacman.d/scripts/kernel-install remove
+NeedsTargets

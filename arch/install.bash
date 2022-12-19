@@ -38,6 +38,9 @@ rm -f /etc/pacman.d/conf.d/55-abs-repository.conf
 install -pm644 -Dt /etc/pacman.d/conf.d \
     "$DIR/etc/pacman/00-global-options.conf" \
     "$DIR/etc/pacman/50-core-repositories.conf"
+# Install my own pacman hooks
+install -pm644 -Dt /etc/pacman.d/hooks "$DIR/etc/pacman/hooks/"*.hook
+install -pm755 -Dt /etc/pacman.d/scripts "$DIR/etc/pacman/scripts/"*
 
 # Update pacman keyring with additional keys
 pacman-key -a "$DIR/etc/pacman/keys/personal.asc"
@@ -49,6 +52,8 @@ mark_as_dependency=(
     asciidoctor
     # We can use flatpak instead if we need this
     gnome-maps
+    # We use kernel-install instead.
+    dracut-hook-uefi
     )
 for pkg in "${mark_as_dependency[@]}"; do
     pacman --noconfirm -D --asdeps "$pkg" || true
@@ -469,15 +474,20 @@ NSS_HOSTS=(
     )
 sed -i '/^hosts: /s/^hosts: .*/'"hosts: ${NSS_HOSTS[*]}/" /etc/nsswitch.conf
 
-# Initrd configuration
+# initrd and kernel image configuration
+install -pm644 "$DIR/etc/kernel-install.conf" /etc/kernel/install.conf
+install -pm755 "$DIR/etc/kernel-install-dracut-uki.install" \
+    /etc/kernel/install.d/50-swsnr-dracut-uki.install
+# Disable the standard dracut hooks explicitly because dracut doesn't play nice
+# and chooses to blatantly ignore kernel-install configuration :|
+# See https://github.com/dracutdevs/dracut/pull/2132,
+# https://github.com/dracutdevs/dracut/pull/1825, and
+# https://github.com/dracutdevs/dracut/pull/1691
+ln -sf /dev/null /etc/kernel/install.d/50-dracut.install
+ln -sf /dev/null /etc/kernel/install.d/51-dracut-rescue.install
 install -pm644 -t /etc/dracut.conf.d/ \
     "$DIR/etc/dracut/50-swsnr.conf" \
     "$DIR/etc/dracut/51-swsnr-intel.conf"
-if [[ -f /usr/share/secureboot/keys/db/db.key ]] && [[ -f /usr/share/secureboot/keys/db/db.pem ]]; then
-    install -pm644 "$DIR/etc/dracut/90-swsnr-sbctl.conf" /etc/dracut.conf.d/90-swsnr-sbctl.conf
-else
-    rm -f /etc/dracut.conf.d/90-swsnr-sbctl.conf
-fi
 
 # Boot loader configuration
 case "$HOSTNAME" in
@@ -665,8 +675,6 @@ aur_packages=(
     gnome-search-providers-jetbrains
     gnome-search-providers-vscode
     firefox-gnome-search-provider
-    # Dracut hook to build kernel images for systemd boot
-    dracut-hook-uefi
     # Personal password manager
     1password
     1password-cli
@@ -729,6 +737,8 @@ if [[ -n "${SUDO_USER:-}" ]]; then
     remove_from_repo=(
         # Let's just use the app image here
         jetbrains-toolbox
+        # We use kernel-install instead.
+        dracut-hook-uefi
     )
     if [[ ${#remove_from_repo[@]} -gt 0 ]]; then
         for pkg in "${remove_from_repo[@]}"; do
