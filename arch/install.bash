@@ -38,6 +38,8 @@ rm -f /etc/pacman.d/conf.d/55-abs-repository.conf
 install -pm644 -Dt /etc/pacman.d/conf.d \
     "$DIR/etc/pacman/00-global-options.conf" \
     "$DIR/etc/pacman/50-core-repositories.conf"
+# Directory for custom pacman hooks
+install -m755 -d /etc/pacman.d/hooks
 
 # Update pacman keyring with additional keys
 pacman-key -a "$DIR/etc/pacman/keys/personal.asc"
@@ -49,11 +51,23 @@ mark_as_dependency=(
     asciidoctor
     # We can use flatpak instead if we need this
     gnome-maps
-    # We use kernel-install instead.
+    # We're now using mkinitpcio again
     dracut-hook-uefi
+    dracut
+    tpm2-tools
+    kernel-install-dracut-uki
     )
 for pkg in "${mark_as_dependency[@]}"; do
     pacman --noconfirm -D --asdeps "$pkg" || true
+done
+
+remove_explicitly=(
+    # We use mkinitcpio again
+    dracut
+    )
+
+for pkg in "${remove_explicitly[@]}"; do
+    pacman --noconfirm -Rs "$pkg" || true
 done
 
 # Automatically remove unneeded dependencies; this automatically uninstalls
@@ -63,7 +77,6 @@ pacman -Qtdq | pacman --noconfirm -Rs - || true
 packages=(
     # Basic packages & system tools
     base
-    dracut # Build initrd & unified EFI images
     linux-firmware
     intel-ucode
     linux
@@ -250,11 +263,6 @@ optdeps=(
     pipewire-zeroconf
     # poppler: data files
     poppler-data
-    # dracut:
-    binutils # --uefi
-    elfutils # stripping
-    sbsigntools # efi signing
-    tpm2-tools # tpm2-tss
     # zathura: PDF support
     zathura-pdf-mupdf
     # libva: intel drivers
@@ -324,10 +332,6 @@ esac
 pacman -Syu --needed "${packages[@]}"
 pacman -S --needed --asdeps "${optdeps[@]}"
 pacman -D --asdeps "${optdeps[@]}"
-
-# Currently dracut is missing an optdepends on tpm2-tools, see
-# https://bugs.archlinux.org/task/73229
-pacman -D --asexplicit tpm2-tools
 
 # Flatpaks
 flatpaks=(
@@ -471,18 +475,16 @@ NSS_HOSTS=(
     )
 sed -i '/^hosts: /s/^hosts: .*/'"hosts: ${NSS_HOSTS[*]}/" /etc/nsswitch.conf
 
+# Stub out pacman hooks of mkinitcpio; we use kernel-install instead
+ln -sf /dev/null /etc/pacman.d/hooks/60-mkinitcpio-remove.hook
+ln -sf /dev/null /etc/pacman.d/hooks/90-mkinitcpio-install.hook
+
 # initrd and kernel image configuration
-install -pm644 "$DIR/etc/kernel-install.conf" /etc/kernel/install.conf
-# Disable the standard dracut hooks explicitly because dracut doesn't play nice
-# and chooses to blatantly ignore kernel-install configuration :|
-# See https://github.com/dracutdevs/dracut/pull/2132,
-# https://github.com/dracutdevs/dracut/pull/1825, and
-# https://github.com/dracutdevs/dracut/pull/1691
-ln -sf /dev/null /etc/kernel/install.d/50-dracut.install
-ln -sf /dev/null /etc/kernel/install.d/51-dracut-rescue.install
-install -pm644 -t /etc/dracut.conf.d/ \
-    "$DIR/etc/dracut/50-swsnr.conf" \
-    "$DIR/etc/dracut/51-swsnr-intel.conf"
+install -pm644 "$DIR/etc/kernel/install.conf" /etc/kernel/install.conf
+install -pm644 "$DIR/etc/kernel/cmdline" /etc/kernel/cmdline
+install -pm644 "$DIR/etc/mkinitcpio.conf" /etc/mkinitcpio.conf
+sudo rm -f /etc/kernel/install.d/*dracut*
+sudo rm -f /etc/dracut.conf.d/*swsnr*
 
 # Boot loader configuration
 case "$HOSTNAME" in
@@ -565,6 +567,11 @@ firewall-cmd --permanent --zone=home \
     --add-service=upnp-client \
     --add-service=rdp \
     --add-service=ssh
+# Define a service for PS remote play
+# firewall-cmd --permanent --new-service=ps-remote-play
+firewall-cmd --permanent --service=ps-remote-play --set-short='PS Remote Play'
+firewall-cmd --permanent --service=ps-remote-play --add-port=9303/udp
+firewall-cmd --permanent --zone=home --add-service=ps-remote-play
 # Don't allow incoming SSH connections on public networks (this is a weird
 # default imho).
 firewall-cmd --permanent --zone=public --remove-service=ssh
@@ -662,8 +669,6 @@ fi
 aur_packages=(
     # pacman hook for kernel-install
     pacman-hook-kernel-install
-    # kernel-install hook to build a UKI with dracut
-    kernel-install-dracut-uki
     # AUR helper
     aurutils
     # Splash screen at boot
@@ -736,8 +741,9 @@ if [[ -n "${SUDO_USER:-}" ]]; then
     remove_from_repo=(
         # Let's just use the app image here
         jetbrains-toolbox
-        # We use kernel-install instead.
+        # We use kernel-install and mkinitpcio instead
         dracut-hook-uefi
+        kernel-install-dracut-uki
     )
     if [[ ${#remove_from_repo[@]} -gt 0 ]]; then
         for pkg in "${remove_from_repo[@]}"; do

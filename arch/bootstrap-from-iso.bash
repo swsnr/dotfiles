@@ -125,13 +125,10 @@ bootstrap_packages=(
     linux-firmware
     intel-ucode
     btrfs-progs
-    dracut
     # We need a text editor
     neovim
     )
 pacstrap -K "$SYSROOT" "${bootstrap_packages[@]}"
-# Install optional dependencies required by dracut to generate UKI2
-arch-chroot "$SYSROOT" pacman -S --noconfirm --asdeps binutils elfutils
 
 echo "Setting up locales"
 sed -i \
@@ -148,6 +145,7 @@ ln -sf /run/systemd/resolve/stub-resolv.conf "$SYSROOT"/etc/resolv.conf
 echo "Generating locales"
 arch-chroot "$SYSROOT" locale-gen
 echo "Building UKIs"
+# TODO: Do this with mkinitcpio
 arch-chroot "$SYSROOT" dracut -f --uefi --regenerate-all
 echo "Install bootloader"
 bootctl --root "$SYSROOT" install
