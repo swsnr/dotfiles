@@ -82,5 +82,11 @@ user_pref("browser.formfill.enable", false);
 user_pref("signon.autofillForms", false);
 user_pref("signon.formlessCapture.enabled", false);
 
+// Hardware acceleration for firefox, see https://discourse.flathub.org/t/how-to-enable-video-hardware-acceleration-on-flatpak-firefox/3125
+user_pref("gfx.webrender.all", true);
+user_pref("media.ffmpeg.vaapi.enabled", true);
+user_pref("media.ffvpx.enabled", false);
+user_pref("media.av1.enabled", false);
+
 // Mark my configuration as loaded
 user_pref('_swsnr.user.js', 'Complete');
