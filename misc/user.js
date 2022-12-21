@@ -38,7 +38,7 @@ user_pref("browser.gnome-search-provider.enabled", true);
 user_pref("extensions.getAddons.showPane", false); // [HIDDEN PREF]
 user_pref("extensions.htmlaboutaddons.recommendations.enabled", false);
 // Disable personalized extension recommendations.
-user_pref("browser.discovery.enabled", false)
+user_pref("browser.discovery.enabled", false);
 // Disable welcome notices
 user_pref("browser.startup.homepage_override.mstone", "ignore");
 
@@ -76,7 +76,7 @@ user_pref("browser.urlbar.suggest.searches", false);
 // Disable speculative connections
 user_pref("browser.urlbar.speculativeConnect.enabled", false);
 // Do not leak single words to DNS
-user_pref("browser.urlbar.dnsResolveSingleWordsAfterSearch", 0)
+user_pref("browser.urlbar.dnsResolveSingleWordsAfterSearch", 0);
 // Disable auto-fill
 user_pref("browser.formfill.enable", false);
 user_pref("signon.autofillForms", false);
