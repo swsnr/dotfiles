@@ -479,6 +479,13 @@ sed -i '/^hosts: /s/^hosts: .*/'"hosts: ${NSS_HOSTS[*]}/" /etc/nsswitch.conf
 ln -sf /dev/null /etc/pacman.d/hooks/60-mkinitcpio-remove.hook
 ln -sf /dev/null /etc/pacman.d/hooks/90-mkinitcpio-install.hook
 
+# Override the mkinitcpio kernel-install plugin because it's broken in v34, see
+# https://gitlab.archlinux.org/archlinux/mkinitcpio/mkinitcpio/-/issues/153 and
+# https://gitlab.archlinux.org/archlinux/mkinitcpio/mkinitcpio/-/merge_requests/185
+# Remove once mkinicpio 35 is released and available in Arch.
+install -pm755 "$DIR/etc/kernel/kernel-install-mkinitcpio.install" \
+    /etc/kernel/install.d/50-mkinitcpio.install
+
 # initrd and kernel image configuration
 install -pm644 "$DIR/etc/kernel/install.conf" /etc/kernel/install.conf
 install -pm644 "$DIR/etc/kernel/cmdline" /etc/kernel/cmdline
