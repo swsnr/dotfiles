@@ -578,7 +578,8 @@ firewall-cmd --permanent --zone=home \
     --add-service=ssh
 # Define a service for PS remote play
 # firewall-cmd --permanent --new-service=ps-remote-play
-firewall-cmd --permanent --service=ps-remote-play --set-short='PS Remote Play'
+firewall-cmd --permanent --service=ps-remote-play --set-short='PS Remote Play' || true
+firewall-cmd --permanent --service=ps-remote-play --add-port=9302/udp
 firewall-cmd --permanent --service=ps-remote-play --add-port=9303/udp
 firewall-cmd --permanent --zone=home --add-service=ps-remote-play
 # Don't allow incoming SSH connections on public networks (this is a weird
