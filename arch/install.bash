@@ -406,10 +406,12 @@ case "$HOSTNAME" in
         ;;
 esac
 
+# Add flatpak beta repository
+flatpak remote-add --if-not-exists flathub-beta https://flathub.org/beta-repo/flathub-beta.flatpakrepo
 # Configure flatpak languages to install in addition to system locale
 flatpak config --system --set extra-languages 'en;en_GB;de;de_DE'
 # Install all flatpaks
-flatpak install --system --noninteractive "${flatpaks[@]}"
+flatpak install --system --noninteractive flathub "${flatpaks[@]}"
 # Remove unused flatpaks; one by one because uninstall fails on missing refs :|
 for flatpak in "${flatpaks_to_remove[@]}"; do
     flatpak uninstall --system --noninteractive "$flatpak" || true

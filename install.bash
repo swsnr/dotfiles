@@ -170,7 +170,9 @@ EOF
 
 # Flatpak setup
 if command -v flatpak >& /dev/null; then
+    # Flathub and flathub beta
     flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    flatpak remote-add --user --if-not-exists flathub-beta https://flathub.org/beta-repo/flathub-beta.flatpakrepo
 
     # Gnome nightlies
     flatpak remote-add --user --if-not-exists gnome-nightly https://nightly.gnome.org/gnome-nightly.flatpakrepo
