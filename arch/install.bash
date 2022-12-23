@@ -64,6 +64,8 @@ done
 remove_explicitly=(
     # We use mkinitcpio again
     dracut
+    # Moved to flatpak
+    kdiff3
     )
 
 for pkg in "${remove_explicitly[@]}"; do
@@ -193,7 +195,6 @@ packages=(
     firefox # Browser
     firefox-i18n-de
     yt-dlp # youtube-dl with extra features
-    kdiff3 # Diff & merge tool
     # Latex
     texlive-most
     biber
@@ -362,6 +363,7 @@ flatpaks=(
     # Development tools
     org.gnome.dfeet # DBus inspector
     org.gnome.Devhelp # Gnome development docs
+    org.kde.kdiff3 # Diff & merge tool
 )
 flatpaks_to_remove=()
 
