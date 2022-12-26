@@ -137,15 +137,15 @@ sed -i \
     -e '/^#en_GB.UTF-8/s/^#//' \
     -e '/^#de_DE.UTF-8/s/^#//' \
     "$SYSROOT"/etc/locale.gen
-echo "Configuring for first boot"
-systemd-firstboot --root "$SYSROOT" \
-    --keymap=us --locale=en_GB.UTF-8 \
-    --prompt-timezone --prompt-root-password --prompt-hostname
-
-ln -sf /run/systemd/resolve/stub-resolv.conf "$SYSROOT"/etc/resolv.conf
-
 echo "Generating locales"
 arch-chroot "$SYSROOT" locale-gen
+echo "Configuring for first boot"
+systemd-firstboot --force --root "$SYSROOT" \
+    --setup-machine-id --keymap=us --locale=en_GB.UTF-8 \
+    --prompt-timezone --prompt-root-password --prompt-hostname
+echo "Configuring network"
+ln -sf /run/systemd/resolve/stub-resolv.conf "$SYSROOT"/etc/resolv.conf
+
 echo "Building UKIs"
 # TODO: Do this with mkinitcpio
 arch-chroot "$SYSROOT" dracut -f --uefi --regenerate-all
