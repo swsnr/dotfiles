@@ -45,8 +45,8 @@ function update-theme -d 'Read the current terminal background and update our en
             set -gx BAT_THEME 'Solarized (light)'
             set VIVID_THEME solarized-light
         case dark
-            set -gx BAT_THEME Dracula
-            set VIVID_THEME dracula
+            set -gx BAT_THEME 'Solarized (dark)'
+            set VIVID_THEME solarized-dark
         case unknown
             # If we don't know about the terminal background, default to the
             # standard 8 bit theme in Bat
