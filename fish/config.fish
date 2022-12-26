@@ -39,9 +39,12 @@ if status --is-interactive
     # python -m venv shouldn't change my prompt.
     set -x VIRTUAL_ENV_DISABLE_PROMPT 1
 
-    # Setup automatic node version management
+    # Setup automatic node and ruby version management
     if command -q fnm
         fnm env --use-on-cd | source
+    end
+    if command -q frum
+        frum init | source
     end
 
     # Abbreviations (unlike aliases, these are expanded before running)
