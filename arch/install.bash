@@ -113,7 +113,9 @@ packages=(
     # name resolution by systemd-resolved.
     avahi
     xh # HTTP requests on the command line
+    # Cryptography
     step-cli # Create CA & leaf certificates
+    sequoia-sq # Sane GPG tooling
     # Arch tools & infrastructure
     asp # Obtain PKGBUILDs for ABS
     pacman-contrib # paccache, checkupdates, pacsearch, and others
