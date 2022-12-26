@@ -706,6 +706,8 @@ aur_packages=(
     # git-delta
     wcal-git
     wev # Wayland event testing
+    frum # Ruby version manager
+    fnm # Node version manager
     # Missing dependencies for latexindent
     # See <https://bugs.archlinux.org/task/60210>
     texlive-latexindent-meta
@@ -721,9 +723,6 @@ case "$HOSTNAME" in
         aur_packages+=(
             # The legacy
             python2
-            # Node version management
-            #fnm
-            fnm-bin
         )
         ;;
 esac
