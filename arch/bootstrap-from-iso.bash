@@ -114,11 +114,13 @@ chattr +C "$SYSROOT/home"
 # Mount additional partitions
 mount /dev/disk/by-partlabel/EFISYSTEM "$SYSROOT/efi"
 
-# Generate mirrorlist on the host system for my country
-# (The live disk runs reflector, but with global mirror selection).
-# pacstrap then copies this mirrorlist to the new root
+# Generate mirrorlist on the host system for my country (The live disk runs
+# reflector, but with global mirror selection). pacstrap then copies this
+# mirrorlist to the new root.  We also update the keyring to avoid outdated
+# signatures.
 echo "Bootstrapping"
 reflector --save /etc/pacman.d/mirrorlist --protocol https --country Germany --latest 5 --sort age
+pacman -Sy archlinux-keyring
 bootstrap_packages=(
     base
     linux
