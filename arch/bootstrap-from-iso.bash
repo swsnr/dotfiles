@@ -129,6 +129,7 @@ bootstrap_packages=(
     btrfs-progs
     # We need a text editor
     neovim
+    networkmanager
     )
 pacstrap -K "$SYSROOT" "${bootstrap_packages[@]}"
 
@@ -145,15 +146,15 @@ systemd-firstboot --force --root "$SYSROOT" \
     --prompt-timezone --prompt-root-password --prompt-hostname
 echo "Configuring network"
 ln -sf /run/systemd/resolve/stub-resolv.conf "$SYSROOT"/etc/resolv.conf
+echo "Enabling services"
+systemctl --root "$SYSROOT" enable \
+    systemd-resolved.service systemd-homed.service NetworkManager.service
 
 echo "Building UKIs"
 # TODO: Do this with mkinitcpio
 arch-chroot "$SYSROOT" dracut -f --uefi --regenerate-all
 echo "Install bootloader"
 bootctl --root "$SYSROOT" install
-
-echo "Enable systemd services"
-systemctl --root "$SYSROOT" enable systemd-resolved systemd-homed
 
 # Finish things
 echo "BOOTSTRAPPING FINISHED"
