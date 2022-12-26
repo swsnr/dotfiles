@@ -241,6 +241,7 @@ return packer.startup(function(use)
           'css',
           'dockerfile',
           'dot',
+          'fish',
           'graphql',
           'hocon',
           'javascript',
