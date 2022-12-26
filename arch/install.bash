@@ -291,6 +291,19 @@ case "$HOSTNAME" in
         packages+=(
             # Game mode
             gamemode
+            # KVM virtualization
+            virt-manager
+        )
+
+        optdeps+=(
+            # libvirt: QEMU/KVM support
+            qemu-desktop
+            # libvirt: NAT/DHCP for guests
+            dnsmasq
+            # libvirt: NAT networking
+            iptables-nft
+            # libvirt: TPM emulation
+            swtpm
         )
         ;;
     *RB*)
