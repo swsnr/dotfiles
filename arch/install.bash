@@ -388,6 +388,7 @@ case "$HOSTNAME" in
             # Gaming
             com.valvesoftware.Steam
             re.chiaki.Chiaki # Remote play for PS4
+            com.valvesoftware.Steam.Utility.gamescope # Compositing for Games
             # Messaging
             com.github.eneshecan.WhatsAppForLinux # Whatsapp client
             ch.threema.threema-web-desktop # Threema client
