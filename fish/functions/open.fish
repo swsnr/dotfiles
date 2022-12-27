@@ -13,10 +13,5 @@
 # the License.
 
 function open --description 'Open things'
-    if command -q xdg-open
-        xdg-open $argv >/dev/null 2>&1 &
-        disown
-    else
-        command open $argv
-    end
+    gio open $argv
 end
