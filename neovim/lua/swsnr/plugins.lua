@@ -190,19 +190,22 @@ return packer.startup(function(use)
   }
 
   -- Solarized light color schema: https://github.com/ishan9299/nvim-solarized-lua
-  use {
-    'ishan9299/nvim-solarized-lua',
-    config = function()
-      vim.cmd('colorscheme solarized')
-    end
-  }
-
   -- use {
-  --   'folke/tokyonight.nvim',
+  --   'ishan9299/nvim-solarized-lua',
   --   config = function()
-  --     vim.cmd[[colorscheme tokyonight]]
+  --     vim.cmd('colorscheme solarized')
   --   end
   -- }
+
+  use {
+    'folke/tokyonight.nvim',
+    config = function()
+      require("tokyonight").setup({
+        style = "night"
+      })
+      vim.cmd[[colorscheme tokyonight]]
+    end
+  }
 
   -- Dracula colour scheme: https://github.com/Mofiqul/dracula.nvim
   --[[ use {
@@ -220,7 +223,7 @@ return packer.startup(function(use)
     config = function()
       local gps = require('nvim-gps')
       require('lualine').setup {
-        theme = 'solarized',
+        theme = 'tokyonight',
         sections = {
           lualine_c = {
             'filename',

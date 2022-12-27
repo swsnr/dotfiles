@@ -56,6 +56,22 @@ for file in bashrc bash_logout bash_profile; do
     ln -fs "$DIR/bash/${file}" "${HOME}/.${file}"
 done
 
+# Terminal emulator
+mkdir -p ~/.config/wezterm/colors
+ln -fs "$DIR/wezterm/wezterm.lua" ~/.config/wezterm/wezterm.lua
+ln -fs -t ~/.config/wezterm/colors "$DIR/wezterm/"*.toml
+# Install terminfo for wezterm
+function install_wezterm_terminfo {
+  if [[ ! -f ~/.terminfo/w/wezterm ]]; then
+    local tempfile
+    tempfile="$(mktemp)"
+    trap 'rm -f -- "${tempfile}"' EXIT
+    curl -o "$tempfile" https://raw.githubusercontent.com/wez/wezterm/master/termwiz/data/wezterm.terminfo
+    tic -x -o ~/.terminfo "$tempfile"
+  fi
+}
+install_wezterm_terminfo
+
 # Vim
 ln -fs "$DIR/vim/ideavimrc" ~/.ideavimrc
 
@@ -91,17 +107,23 @@ mkdir -p ~/.gnupg
 clean-recursively ~/.gnupg || true
 ln -fs -t ~/.gnupg "$DIR/gnupg/"*.conf
 
+# bat viewer
+mkdir -p ~/.config/bat/themes
+ln -fs "$DIR/bat/config" ~/.config/bat/config
+ln -fs -t ~/.config/bat/themes "$DIR/bat/"*.tmTheme
+if command -v bat >& /dev/null; then
+    bat cache --build
+fi
+
 # Python
 mkdir -p ~/.config/python
 # Personal startup file, see environment/50-python.conf
 ln -fs "$DIR/python/startup.py" ~/.config/python/startup.py
 
 # Misc files
-mkdir -p ~/.config/{bat,latexmk,wezterm,restic}
+mkdir -p ~/.config/{latexmk,restic}
 ln -fs "$DIR/backup/linux.exclude" ~/.config/restic/linux.exclude
 ln -fs "$DIR/latex/latexmkrc" ~/.config/latexmk/latexmkrc
-ln -fs "$DIR/misc/bat" ~/.config/bat/config
-ln -fs "$DIR/misc/wezterm.lua" ~/.config/wezterm/wezterm.lua
 ln -fs "$DIR/misc/XCompose" ~/.XCompose
 ln -fs "$DIR/misc/electron-flags.conf" ~/.config/electron-flags.conf
 ln -fs "$DIR/misc/electron-flags.conf" ~/.config/electron17-flags.conf
@@ -137,17 +159,6 @@ command -v restic >& /dev/null &&
     restic generate --fish-completion ~/.config/fish/completions/restic.fish
 command -v tea >& /dev/null && tea autocomplete fish --install
 
-# Install terminfo for wezterm
-function install_wezterm_terminfo {
-  if [[ ! -f ~/.terminfo/w/wezterm ]]; then
-    local tempfile
-    tempfile="$(mktemp)"
-    trap 'rm -f -- "${tempfile}"' EXIT
-    curl -o "$tempfile" https://raw.githubusercontent.com/wez/wezterm/master/termwiz/data/wezterm.terminfo
-    tic -x -o ~/.terminfo "$tempfile"
-  fi
-}
-install_wezterm_terminfo
 
 # Setup firefox user.js
 python <<'EOF' | xargs -0 -n1 ln -sf "$DIR"/misc/user.js

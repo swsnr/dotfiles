@@ -36,16 +36,15 @@ function update-theme -d 'Read the current terminal background and update our en
             return 1
     end
 
-    # Detect terminal background color and adapt color themes accordingly.
-    set -gx LY_TERM_BACKGROUND $background
-
     # Adapt shell environment to background color
-    switch $LY_TERM_BACKGROUND
+    switch $background
         case light
-            set -gx BAT_THEME 'Solarized (light)'
+            tokyonight_day
+            set -gx BAT_THEME tokyonight_day
             set VIVID_THEME solarized-light
         case dark
-            set -gx BAT_THEME 'Solarized (dark)'
+            tokyonight_night
+            set -gx BAT_THEME tokyonight_night
             set VIVID_THEME solarized-dark
         case unknown
             # If we don't know about the terminal background, default to the
