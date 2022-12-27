@@ -27,6 +27,11 @@ if status --is-interactive
     # Update colours (ls, bat, etc.)
     update-theme
 
+    # Directory jumping
+    if command -q zoxide
+        zoxide init fish | source
+    end
+
     # Automatically enable NVM and SDK versions for the current directory;
     # this is not a lazy-loaded function because it needs to register on PWD
     # changes immediately.

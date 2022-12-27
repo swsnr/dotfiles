@@ -129,6 +129,8 @@ packages=(
     man-db
     man-pages
     fish
+    zoxide # Cross-shell/editor directory jumping
+    fzf # Fuzzy file finder for shells
     code
     neovim
     neovide
