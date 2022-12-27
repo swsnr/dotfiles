@@ -47,12 +47,46 @@ return packer.startup(function(use)
   -- This package manager: https://github.com/wbthomason/packer.nvim
   use 'wbthomason/packer.nvim'
 
+  -- Fuzzy finder: https://github.com/nvim-telescope/telescope.nvim
+  --
+  -- Depends on plenary for the UI, and we also add all extensions we use as
+  -- dependencies so that we can set up telescope here, in a single place.
+  --
+  -- https://github.com/nvim-telescope/telescope-ui-select.nvim
+  -- https://github.com/jvgrootveld/telescope-zoxide
+  use {
+    'nvim-telescope/telescope.nvim',
+    requires = {
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope-ui-select.nvim',
+      'jvgrootveld/telescope-zoxide'
+    },
+    config = function()
+      local trouble = require("trouble.providers.telescope")
+      local telescope = require('telescope')
+
+      -- Redirect vim's ui select to telescope
+      telescope.load_extension('ui-select')
+
+      telescope.setup {
+        defaults = {
+          mappings = {
+            i = { ["<c-t>"] = trouble.open_with_trouble },
+            n = { ["<c-t>"] = trouble.open_with_trouble },
+          }
+        }
+      }
+    end
+  }
+
   -- Documented keybindings: https://github.com/folke/which-key.nvim
   use {
     "folke/which-key.nvim",
     config = function()
       local wk = require("which-key")
       local tools = require('swsnr.tools')
+
+      local telescope = require('telescope')
 
       wk.setup()
       wk.register{
@@ -71,6 +105,7 @@ return packer.startup(function(use)
         -- Files
         ['<leader>f'] = {name='+files'},
         ['<leader>ff'] = {'<cmd>Telescope find_files<cr>', 'Find files'},
+        ['<leader>fc'] = {telescope.extensions.zoxide.list, 'Change directory'},
         -- Git
         ['<leader>g'] = {name='+git'},
         ['<leader>gf'] = {'<cmd>Telescope git_files<cr>', 'Git files'},
@@ -547,32 +582,6 @@ return packer.startup(function(use)
         ['<leader>ft'] = {'<cmd>NvimTreeFindFileToggle<cr>', 'Show current file in tree'},
         ['<leader>fT'] = {'<cmd>NvimTreeFocus<cr>', 'Open file explorer'},
       }
-    end
-  }
-
-  -- Fuzzy finder: https://github.com/nvim-telescope/telescope.nvim
-  use {
-    'nvim-telescope/telescope.nvim',
-    requires = {'nvim-lua/plenary.nvim'},
-    config = function()
-      local trouble = require("trouble.providers.telescope")
-      require('telescope').setup {
-        defaults = {
-          mappings = {
-            i = { ["<c-t>"] = trouble.open_with_trouble },
-            n = { ["<c-t>"] = trouble.open_with_trouble },
-          }
-        }
-      }
-    end
-  }
-  -- Redirect vim's ui select to telescope
-  -- https://github.com/nvim-telescope/telescope-ui-select.nvim
-  use {
-    'nvim-telescope/telescope-ui-select.nvim',
-    requires = {'nvim-telescope/telescope.nvim'},
-    config = function()
-      require('telescope').load_extension('ui-select')
     end
   }
 
