@@ -62,6 +62,7 @@ wk.register({
   ['jm'] = {'<cmd>Telescope marks<cr>', 'Marks'},
   -- Lists
   ['l'] = {name='+lists'},
+  ['lL'] = {'<cmd>Lazy<cr>', 'Plugins'},
   -- Search
   ['s'] = {name='+search'},
   ['sg'] = {'<cmd>Telescope live_grep<cr>', 'Live grep'},
