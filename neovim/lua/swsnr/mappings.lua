@@ -56,6 +56,7 @@ wk.register({
   ['hm'] = {'<cmd>Telescope man_pages<cr>', 'Man pages'},
   -- Jumping
   ['j'] = {name='+jump'},
+  ['jj'] = {'<cmd>Telescope diagnostics<cr>', 'Diagnostics'},
   ['jj'] = {'<cmd>Telescope jumplist<cr>', 'Jumplist'},
   ['jl'] = {'<cmd>Telescope loclist<cr>', 'Location list'},
   ['jq'] = {'<cmd>Telescope quickfix<cr>', 'Quickfix list'},
