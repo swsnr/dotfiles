@@ -27,9 +27,11 @@ vim.opt.runtimepath:prepend(lazypath)
 
 require('lazy').setup('swsnr.plugins', {
   defaults = { lazy = true },
-  -- automatically check for plugin updates
+  -- Try to load my preferred colour scheme during installation
+  install = { colorscheme = { "tokyonight", "habamax" } },
+  -- Automatically check for plugin updates
   checker = {
     enabled = true,
-    frequency = 3600, -- check for updates every hour
+    frequency = 3600,
   },
 })
