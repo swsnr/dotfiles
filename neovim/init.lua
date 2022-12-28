@@ -27,8 +27,5 @@ require('swsnr.pluginspacker')
 require('swsnr.options')
 require('swsnr.autocommands')
 
--- Enable lua filetypes
-vim.g.do_filetype_lua = 1
-
 -- Back to normal mode the fast way.
 vim.api.nvim_set_keymap('i', 'jk', '<ESC>', {noremap = true})
