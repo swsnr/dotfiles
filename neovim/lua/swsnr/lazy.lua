@@ -26,10 +26,7 @@ end
 vim.opt.runtimepath:prepend(lazypath)
 
 require('lazy').setup('swsnr.plugins', {
-  defaults = {
-    -- Load all plugins lazy by default
-    lazy = false,
-  },
+  defaults = { lazy = true },
   -- automatically check for plugin updates
   checker = {
     enabled = true,

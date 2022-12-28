@@ -12,19 +12,26 @@
 -- License for the specific language governing permissions and limitations under
 -- the License.
 
-return {
-  -- Color scheme
-  {
-    "folke/tokyonight.nvim",
-    -- Make sure we load at startup, first of all
-    lazy = false,
-    priority = 1000,
-    config = function()
-      require("tokyonight").setup({
-        style = "night"
-      })
-      -- load the colorscheme here
-      vim.cmd([[colorscheme tokyonight]])
-    end,
+local M = {
+  'nvim-lualine/lualine.nvim',
+  event = 'VeryLazy',
+  dependencies = { 
+    { 'SmiteshP/nvim-gps', config = true }
   },
 }
+
+function M.config()
+  local gps = require('nvim-gps')
+  require('lualine').setup {
+    theme = 'auto',
+    sections = {
+      lualine_c = {
+        'filename',
+        { gps.get_location, cond = gps.is_available },
+      },
+      -- TODO: Add lazy update indicator
+    }
+  }
+end
+
+return M

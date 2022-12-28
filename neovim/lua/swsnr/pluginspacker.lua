@@ -44,9 +44,6 @@ end
 -- https://github.com/rockerBOO/awesome-neovim is a great source of inspiration.
 
 return packer.startup(function(use)
-  -- This package manager: https://github.com/wbthomason/packer.nvim
-  use 'wbthomason/packer.nvim'
-
   -- Fuzzy finder: https://github.com/nvim-telescope/telescope.nvim
   --
   -- Depends on plenary for the UI, and we also add all extensions we use as
@@ -55,18 +52,11 @@ return packer.startup(function(use)
   -- https://github.com/nvim-telescope/telescope-ui-select.nvim
   -- https://github.com/jvgrootveld/telescope-zoxide
   use {
-    'nvim-telescope/telescope.nvim',
+    '',
     requires = {
-      'nvim-lua/plenary.nvim',
-      'nvim-telescope/telescope-ui-select.nvim',
-      'jvgrootveld/telescope-zoxide'
     },
     config = function()
       local trouble = require("trouble.providers.telescope")
-      local telescope = require('telescope')
-
-      -- Redirect vim's ui select to telescope
-      telescope.load_extension('ui-select')
 
       telescope.setup {
         defaults = {
@@ -75,65 +65,6 @@ return packer.startup(function(use)
             n = { ["<c-t>"] = trouble.open_with_trouble },
           }
         }
-      }
-    end
-  }
-
-  -- Documented keybindings: https://github.com/folke/which-key.nvim
-  use {
-    "folke/which-key.nvim",
-    config = function()
-      local wk = require("which-key")
-      local tools = require('swsnr.tools')
-
-      local telescope = require('telescope')
-
-      wk.setup()
-      wk.register{
-        ['[d'] = {vim.diagnostic.goto_prev, 'Previous diagnostic'},
-        [']d'] = {vim.diagnostic.goto_next, 'Next diagnostic'},
-        -- Global bindings
-        ['<leader> '] = {'<cmd>Telescope commands<cr>', 'Commands'},
-        ['<leader>?'] = {'<cmd>Telescope<cr>', 'Pickers'},
-        -- Buffers
-        ['<leader>b'] = {name='+buffers'},
-        ['<leader>bb'] = {'<cmd>Telescope buffers<cr>', 'List buffers'},
-        -- Editing
-        ['<leader>e'] = {name='+edit'},
-        ['<leader>er'] = {'<cmd>Telescope registers<cr>', 'Paste register'},
-        ['<leader>ed'] = {tools.iso_utc_to_register, 'ISO UTC timestamp to register a'},
-        -- Files
-        ['<leader>f'] = {name='+files'},
-        ['<leader>ff'] = {'<cmd>Telescope find_files<cr>', 'Find files'},
-        ['<leader>fc'] = {telescope.extensions.zoxide.list, 'Change directory'},
-        -- Git
-        ['<leader>g'] = {name='+git'},
-        ['<leader>gf'] = {'<cmd>Telescope git_files<cr>', 'Git files'},
-        -- Help
-        ['<leader>h'] = {name='+help'},
-        ['<leader>hh'] = {'<cmd>Telescope help_tags<cr>', 'Tags'},
-        ['<leader>hk'] = {'<cmd>Telescope keymaps<cr>', 'Keys'},
-        ['<leader>hm'] = {'<cmd>Telescope man_pages<cr>', 'Man pages'},
-        -- Jumping
-        ['<leader>j'] = {name='+jump'},
-        ['<leader>jj'] = {'<cmd>Telescope jumplist<cr>', 'Jumplist'},
-        ['<leader>jl'] = {'<cmd>Telescope loclist<cr>', 'Location list'},
-        ['<leader>jq'] = {'<cmd>Telescope quickfix<cr>', 'Quickfix list'},
-        ['<leader>jm'] = {'<cmd>Telescope marks<cr>', 'Marks'},
-        -- Lists
-        ['<leader>l'] = {name='+lists'},
-        -- Search
-        ['<leader>s'] = {name='+search'},
-        ['<leader>sg'] = {'<cmd>Telescope live_grep<cr>', 'Live grep'},
-        ['<leader>sc'] = {'<cmd>Telescope grep_string<cr>', 'Grep under cursor'},
-        -- Windows
-        ['<leader>w'] = {name='+windows'},
-        ['<leader>w/'] = {'<cmd>vsplit<cr>', 'Split vertical'},
-        ['<leader>w-'] = {'<cmd>split<cr>', 'Split horizontal'},
-        ['<leader>wo'] = {'<cmd>only<cr>', 'Only current window'},
-        ['<leader>wq'] = {'<cmd>q<cr>', 'Quit'},
-        -- Execute things
-        ['<leader>x'] = {name='+execute'},
       }
     end
   }
@@ -197,16 +128,6 @@ return packer.startup(function(use)
   --   end
   -- }
 
-  use {
-    'folke/tokyonight.nvim',
-    config = function()
-      require("tokyonight").setup({
-        style = "night"
-      })
-      vim.cmd[[colorscheme tokyonight]]
-    end
-  }
-
   -- Dracula colour scheme: https://github.com/Mofiqul/dracula.nvim
   --[[ use {
     'Mofiqul/dracula.nvim',
@@ -215,24 +136,6 @@ return packer.startup(function(use)
       vim.cmd('colorscheme dracula')
     end
   } ]]
-
-  -- Lualine: https://github.com/nvim-lualine/lualine.nvim
-  use {
-    'nvim-lualine/lualine.nvim',
-    requires = { 'kyazdani42/nvim-web-devicons', 'SmiteshP/nvim-gps' },
-    config = function()
-      local gps = require('nvim-gps')
-      require('lualine').setup {
-        theme = 'tokyonight',
-        sections = {
-          lualine_c = {
-            'filename',
-            { gps.get_location, cond = gps.is_available },
-          },
-        }
-      }
-    end
-  }
 
   -- Autopairs: https://github.com/windwp/nvim-autopairs
   use {
@@ -249,110 +152,6 @@ return packer.startup(function(use)
       -- https://github.com/machakann/vim-sandwich/wiki/Introduce-vim-surround-keymappings
       -- https://github.com/ggandor/lightspeed.nvim/discussions/60
       vim.cmd('runtime macros/sandwich/keymap/surround.vim')
-    end
-  }
-
-  -- Modern syntax highlighting: https://github.com/nvim-treesitter/nvim-treesitter
-  use {
-    'nvim-treesitter/nvim-treesitter',
-    -- Require a few extra plugins and extensions for treesitter
-    requires = {
-      -- Text objects for treesitter, configured above, see https://github.com/nvim-treesitter/nvim-treesitter-textobjects
-      'nvim-treesitter/nvim-treesitter-textobjects',
-      -- Automatically change comment string according to current context
-      'JoosepAlviste/nvim-ts-context-commentstring',
-    },
-    -- Make sure parsers are up to date
-    run = ':TSUpdate',
-    config = function()
-      -- Use treesitter folding
-      vim.opt.foldmethod = 'expr'
-      vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
-
-      require('nvim-treesitter.configs').setup {
-        -- Install all maintained parsers
-        ensure_installed = {
-          'bash',
-          'bibtex',
-          'c',
-          'comment',
-          'css',
-          'dockerfile',
-          'dot',
-          'fish',
-          'graphql',
-          'hocon',
-          'javascript',
-          'json',
-          'json5',
-          'latex',
-          'lua',
-          'python',
-          'rust',
-          'scala',
-          'toml',
-          'typescript',
-          'vim',
-          'yaml',
-        },
-        -- Enable tree sitter highlighting
-        highlight = {enable = true},
-        -- Enable incremental selection
-        incremental_selection = {
-          enable = true,
-          keymaps = {
-            init_selection = "gnn",
-            node_incremental = "grn",
-            scope_incremental = "grc",
-            node_decremental = "grm",
-          },
-        },
-        -- Automatically update comment string
-        context_commentstring = { enable = true },
-        -- Configure text objects
-        textobjects = {
-          select = {
-            enable = true,
-            -- Selecting text objects
-            keymaps = {
-              ['aa'] = '@parameter.outer', ['ia'] = '@parameter.inner',
-              ['af'] = '@function.outer', ['if'] = '@function.inner',
-              ['ac'] = '@class.outer', ['ic'] = '@class.inner',
-            },
-          },
-          move = {
-            enable = true,
-            goto_next_start = {[']a'] = '@parameter.inner', [']f'] = '@function.outer'},
-            goto_next_end = {[']A'] = '@parameter.inner', [']F'] = '@function.outer'},
-            goto_previous_start = {['[a'] = '@parameter.inner', ['[f'] = '@function.outer'},
-            goto_previous_end = {['[A'] = '@parameter.inner', ['[F'] = '@function.outer'},
-          },
-        },
-      }
-
-      require('which-key').register{
-        ['gnn'] = 'Init selection',
-        ['grn'] = 'Increase selection by node',
-        ['grc'] = 'Increase selection by scope',
-        ['grm'] = 'Decrement selection by node',
-        [']a'] = 'Next start of parameter',
-        [']A'] = 'Next end of parameter',
-        [']f'] = 'Next start of function',
-        [']F'] = 'Next end of function',
-        ['[a'] = 'Previous start of parameter',
-        ['[A'] = 'Previous end of parameter',
-        ['[f'] = 'Previous start of function',
-        ['[F'] = 'Previous end of function',
-      }
-    end
-  }
-
-  -- Treesitter for the status line: https://github.com/SmiteshP/nvim-gps
-  use {
-    'SmiteshP/nvim-gps',
-    requires = "nvim-treesitter/nvim-treesitter",
-    config = function()
-      require('nvim-gps').setup()
     end
   }
 
@@ -568,28 +367,4 @@ return packer.startup(function(use)
       }
     end
   }
-
-  -- File explorer sidebar: https://github.com/kyazdani42/nvim-tree.lua
-  use {
-    'kyazdani42/nvim-tree.lua',
-    requires = 'kyazdani42/nvim-web-devicons',
-    config = function()
-      require'nvim-tree'.setup {
-        system_open = {
-          cmd = 'gio',
-          args = {'open'},
-        }
-      }
-
-      require('which-key').register {
-        ['<leader>ft'] = {'<cmd>NvimTreeFindFileToggle<cr>', 'Show current file in tree'},
-        ['<leader>fT'] = {'<cmd>NvimTreeFocus<cr>', 'Open file explorer'},
-      }
-    end
-  }
-
-  -- Automatically setup configuration after cloning packer
-  if packer_bootstrap then
-    require('packer').sync()
-  end
 end)

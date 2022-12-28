@@ -27,5 +27,9 @@ require('swsnr.lazy')
 require('swsnr.options')
 require('swsnr.autocommands')
 
--- Back to normal mode the fast way.
-vim.api.nvim_set_keymap('i', 'jk', '<ESC>', {noremap = true})
+vim.api.nvim_create_autocmd("User", {
+  pattern = "VeryLazy",
+  callback = function()
+    require("swsnr.mappings")
+  end,
+})
