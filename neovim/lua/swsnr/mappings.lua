@@ -62,6 +62,12 @@ wk.register({
   ['jm'] = {'<cmd>Telescope marks<cr>', 'Marks'},
   -- Lists
   ['l'] = {name='+lists'},
+  ['lx'] = {'<cmd>TroubleToggle<cr>', 'Toggle diagnostics list'},
+  ['lw'] = {'<cmd>TroubleToggle workspace_diagnostics<cr>', 'Toggle workspace diagnostics'},
+  ['ld'] = {'<cmd>TroubleToggle document_diagnostics<cr>', 'Toggle document diagnostics'},
+  ['lq'] = {'<cmd>TroubleToggle quickfix<cr>', 'Toggle quickfix list'},
+  ['ll'] = {'<cmd>TroubleToggle loclist<cr>', 'Toggle location list'},
+  ['lr'] = {'<cmd>TroubleToggle lsp_references<cr>', 'Toggle references list'},
   ['lL'] = {'<cmd>Lazy<cr>', 'Plugins'},
   -- Search
   ['s'] = {name='+search'},

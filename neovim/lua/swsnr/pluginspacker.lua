@@ -44,31 +44,6 @@ end
 -- https://github.com/rockerBOO/awesome-neovim is a great source of inspiration.
 
 return packer.startup(function(use)
-  -- Fuzzy finder: https://github.com/nvim-telescope/telescope.nvim
-  --
-  -- Depends on plenary for the UI, and we also add all extensions we use as
-  -- dependencies so that we can set up telescope here, in a single place.
-  --
-  -- https://github.com/nvim-telescope/telescope-ui-select.nvim
-  -- https://github.com/jvgrootveld/telescope-zoxide
-  use {
-    '',
-    requires = {
-    },
-    config = function()
-      local trouble = require("trouble.providers.telescope")
-
-      telescope.setup {
-        defaults = {
-          mappings = {
-            i = { ["<c-t>"] = trouble.open_with_trouble },
-            n = { ["<c-t>"] = trouble.open_with_trouble },
-          }
-        }
-      }
-    end
-  }
-
   -- A few extra mappings: https://github.com/tpope/vim-unimpaired
   use {
     'tpope/vim-unimpaired',
@@ -164,24 +139,6 @@ return packer.startup(function(use)
       null_ls.setup {
         sources = sources,
         on_attach = require('swsnr.lsp').lsp_attach,
-      }
-    end
-  }
-
-  -- Pretty diagnostics list: https://github.com/folke/trouble.nvim
-  use {
-    "folke/trouble.nvim",
-    requires = "kyazdani42/nvim-web-devicons",
-    config = function()
-      require("trouble").setup()
-
-      require('which-key').register{
-        ['<leader>lx'] = {'<cmd>TroubleToggle<cr>', 'Toggle diagnostics list'},
-        ['<leader>lw'] = {'<cmd>TroubleToggle workspace_diagnostics<cr>', 'Toggle workspace diagnostics'},
-        ['<leader>ld'] = {'<cmd>TroubleToggle document_diagnostics<cr>', 'Toggle document diagnostics'},
-        ['<leader>lq'] = {'<cmd>TroubleToggle quickfix<cr>', 'Toggle quickfix list'},
-        ['<leader>ll'] = {'<cmd>TroubleToggle loclist<cr>', 'Toggle location list'},
-        ['<leader>lr'] = {'<cmd>TroubleToggle lsp_references<cr>', 'Toggle references list'},
       }
     end
   }

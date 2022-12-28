@@ -49,7 +49,15 @@ return {
     },
     config = function()
       local t = require('telescope')
-      t.setup()
+      local trouble = require("trouble.providers.telescope")
+      t.setup {
+        defaults = {
+          mappings = {
+            i = { ["<c-t>"] = trouble.open_with_trouble },
+            n = { ["<c-t>"] = trouble.open_with_trouble },
+          }
+        }
+      }
 
       -- Redirect vim's ui select to telescope
       t.load_extension('ui-select')
@@ -96,6 +104,23 @@ return {
         --map('o', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
         --map('x', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
       end
+    }
+  },
+  {
+    'folke/trouble.nvim',
+    cmd = 'TroubleToggle',
+    config = {
+      icons = false,
+      fold_open = "v",
+      fold_closed = ">",
+      indent_lines = true,
+      signs = {
+        error = "error",
+        warning = "warn",
+        hint = "hint",
+        information = "info"
+      },
+      use_diagnostic_signs = true
     }
   },
   {
