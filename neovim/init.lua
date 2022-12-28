@@ -22,8 +22,8 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
--- Load plugins
-require('swsnr.pluginspacker')
+-- require('swsnr.pluginspacker')
+require('swsnr.lazy')
 require('swsnr.options')
 require('swsnr.autocommands')
 

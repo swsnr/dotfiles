@@ -77,7 +77,7 @@ ln -fs "$DIR/vim/ideavimrc" ~/.ideavimrc
 
 # Neovim
 mkdir -p ~/.config/nvim/lua/
-ln -fs -t ~/.config/nvim "$DIR"/neovim/init.lua
+ln -fs -t ~/.config/nvim "$DIR"/neovim/init.lua "$DIR"/neovim/lazy-lock.json
 clean-recursively ~/.config/nvim/lua || true
 ln -fs -t ~/.config/nvim/lua "$DIR"/neovim/lua/swsnr
 
