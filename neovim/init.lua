@@ -18,121 +18,17 @@
 -- Lua, and https://github.com/medwatt/Notes/blob/main/Lua/Lua_Quick_Guide.ipynb
 -- and https://github.com/nanotee/nvim-lua-guide for info about Lua in Neovim.
 
--- Load plugins
-require('swsnr.plugins')
+-- Set leader first, to make sure we always get the right bindings
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
 
--- neovide settings
-vim.g.neovide_cursor_vfx_mode = 'pixiedust'
-vim.g.neovide_remember_window_size = true
+-- Load plugins
+require('swsnr.pluginspacker')
+require('swsnr.options')
+require('swsnr.autocommands')
 
 -- Enable lua filetypes
 vim.g.do_filetype_lua = 1
 
--- Gui settings: Pragmata Pro as standard font, and Noto for emojis
-vim.opt.guifont = 'JetBrains Mono,Noto Color Emoji:h11'
-vim.opt.mouse = 'nv' -- Enable mouse in normal and visual mode
-if vim.g['neovide'] then
-  -- In neovide use a light background by default
-  vim.opt.background = 'light'
-end
-
--- Terminal options
--- Enable 24bit RGB colours for terminals; this enables perfect color theme
--- colours, but requires a modern terminal.  But then again we're using a modern
--- neovim, so we'll also have a modern terminal 8)
-vim.opt.termguicolors = true
-
--- Options for the general user interface
-vim.opt.updatetime = 300 -- Update faster
-vim.opt.showmode = false -- Don't show mode message in message line
-vim.opt.signcolumn = 'yes' -- Always show sign column
-vim.opt.timeoutlen = 500 -- Key timeout after 500, for which key
--- Always keep some context
-vim.opt.sidescrolloff = 8
-vim.opt.scrolloff = 8
-
--- Completion: Always show a menu even if there's just one candidate, never
--- insert automatically and never preselect an entry in the completion menuselect.
-vim.opt.completeopt = {'menuone', 'noinsert', 'noselect'}
-vim.opt.shortmess:append({ c = true })
-
--- Options for text editing
-vim.opt.wrap = false -- Don't wrap long lines
-vim.opt.number = true -- Enable line numbers…
-vim.opt.relativenumber = true -- … relative to the current line.
-vim.opt.textwidth = 80 -- 80 characters per line by default
-vim.opt.colorcolumn = '+1' -- Add marker for overlong lines
-vim.opt.expandtab = true -- No tabs
-vim.opt.shiftwidth = 2 -- Indent with two spaces by default
-vim.opt.cursorline = true -- Highlight line of cursor
-
--- Folding
-vim.opt.foldmethod = 'indent' -- Fold by indentation by default
-vim.opt.foldlevelstart = 10 -- Fold deeply nested indents automatically
-
--- Options for buffers and windows
-vim.opt.splitright = true -- vsplit rightwards
-vim.opt.splitbelow = true -- split downwards
-
--- Options for searching
-vim.opt.ignorecase = true -- Ignore case when searching…
-vim.opt.smartcase = true -- …for all lowercase patterns
-
--- Bindings
-vim.g.mapleader = ' '
-
-local v = vim.api
-
-function inoremap(lhs, rhs)
-  v.nvim_set_keymap('i', lhs, rhs, {noremap = true})
-end
-
--- Back to normal mode the fast way.  See which key in plugins.lua for the rest
--- of the bindings.
-inoremap('jk', '<ESC>')
-
--- Autocmds
-
-local ly_group = v.nvim_create_augroup('swsnr', { clear = true })
-v.nvim_create_autocmd({'TermOpen'}, {
-  callback = function()
-    vim.opt_local.number = false
-    vim.opt_local.relativenumber = false
-    vim.opt_local.signcolumn = 'no'
-  end,
-  group = ly_group
-})
--- Highlight yanked text, see https://github.com/neovim/neovim/pull/12279#issuecomment-879142040
-v.nvim_create_autocmd({'TextYankPost'}, {
-  callback = function() vim.highlight.on_yank{ timeout = 200, on_visual = false } end,
-  group = ly_group
-})
--- Automatically start insert mode in a new first line in Git commit messages,
--- to that I can start typing my message right away without having to press i
--- first
-v.nvim_create_autocmd({'BufRead'}, {
-  pattern = 'COMMIT_EDITMSG',
-  command = 'execute "normal! gg" | execute "normal! O" | startinsert',
-  group = ly_group
-})
--- Update indentation settings for fish shell and bash
-v.nvim_create_autocmd({'FileType'}, {
-  pattern = {'fish', 'sh'},
-  callback = function()
-    vim.opt_local.shiftwidth = 4
-    vim.opt_local.formatoptions:remove('t')
-  end,
-  group = ly_group
-})
--- Local markdown settings
-v.nvim_create_autocmd({'FileType'}, {
-  pattern = {'markdown'},
-  callback = function()
-    -- Disable text wrapping
-    vim.opt_local.textwidth = 0
-    vim.opt_local.formatoptions:remove('t')
-    -- But enable line wrapping
-    vim.opt_local.wrap = false
-  end,
-  group = ly_group
-})
+-- Back to normal mode the fast way.
+vim.api.nvim_set_keymap('i', 'jk', '<ESC>', {noremap = true})
