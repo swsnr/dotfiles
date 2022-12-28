@@ -13,6 +13,13 @@
 -- the License.
 
 return {
+  {
+    'folke/lazy.nvim',
+    lazy = false,
+    -- Pin lazy to work around https://github.com/folke/lazy.nvim/issues/220
+    commit = '956164d27dc02b8d3c21c9ef7cc9028d854b0978',
+    pin = true
+  },
   -- Color scheme
   {
     "folke/tokyonight.nvim",
