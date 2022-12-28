@@ -120,41 +120,6 @@ return packer.startup(function(use)
     end
   }
 
-  -- Solarized light color schema: https://github.com/ishan9299/nvim-solarized-lua
-  -- use {
-  --   'ishan9299/nvim-solarized-lua',
-  --   config = function()
-  --     vim.cmd('colorscheme solarized')
-  --   end
-  -- }
-
-  -- Dracula colour scheme: https://github.com/Mofiqul/dracula.nvim
-  --[[ use {
-    'Mofiqul/dracula.nvim',
-    config = function()
-      vim.g.dracula_italic_comment = true
-      vim.cmd('colorscheme dracula')
-    end
-  } ]]
-
-  -- Autopairs: https://github.com/windwp/nvim-autopairs
-  use {
-    'windwp/nvim-autopairs',
-    config = function() require('nvim-autopairs').setup() end
-  }
-
-  -- Edit pairs: https://github.com/machakann/vim-sandwich
-  use {
-    'machakann/vim-sandwich',
-    config = function()
-      -- Use vim-surround mappings for sandwich to avoid conflicts with
-      -- lightspeed:
-      -- https://github.com/machakann/vim-sandwich/wiki/Introduce-vim-surround-keymappings
-      -- https://github.com/ggandor/lightspeed.nvim/discussions/60
-      vim.cmd('runtime macros/sandwich/keymap/surround.vim')
-    end
-  }
-
   -- LSP: https://github.com/neovim/nvim-lspconfig
   use {
     'neovim/nvim-lspconfig',
@@ -235,15 +200,7 @@ return packer.startup(function(use)
   }
 
   -- Strip trailing whitespace the clever way: https://github.com/axelf4/vim-strip-trailing-whitespace
-  use { 'axelf4/vim-strip-trailing-whitespace' }
-
-  -- Commenting: https://github.com/numToStr/Comment.nvim
-  use {
-    'numToStr/Comment.nvim',
-    config = function()
-      require('Comment').setup()
-    end
-  }
+  use { }
 
   -- Rust helpers: https://github.com/simrat39/rust-tools.nvim
   use {
@@ -351,17 +308,5 @@ return packer.startup(function(use)
     'https://github.com/samoshkin/vim-mergetool',
     opt = true,
     cmd = {'MergetoolStart', 'MergetoolToggle'}
-  }
-
-  -- Indent guides: https://github.com/lukas-reineke/indent-blankline.nvim
-  use {
-    'lukas-reineke/indent-blankline.nvim',
-    config = function()
-      require("indent_blankline").setup {
-        use_treesitter = true,
-        show_current_context = true,
-        show_current_context_start = true,
-      }
-    end
   }
 end)

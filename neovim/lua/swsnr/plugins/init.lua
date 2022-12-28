@@ -77,4 +77,32 @@ return {
       require('leap').add_default_mappings()
     end
   },
+  {
+    'windwp/nvim-autopairs',
+    event = 'VeryLazy',
+    config = true,
+  },
+  {
+    'kylechui/nvim-surround',
+    event = 'VeryLazy',
+    config = true,
+  },
+  {
+    'numToStr/Comment.nvim',
+    event = 'VeryLazy',
+    config = true,
+  },
+  {
+    'lukas-reineke/indent-blankline.nvim',
+    event = 'BufReadPre',
+    config = {
+      use_treesitter = true,
+      show_current_context = true,
+      show_current_context_start = true,
+    }
+  },
+  {
+    'axelf4/vim-strip-trailing-whitespace',
+    event = 'BufReadPre',
+  }
 }
