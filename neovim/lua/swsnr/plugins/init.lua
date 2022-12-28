@@ -50,7 +50,7 @@ return {
     config = function()
       local t = require('telescope')
       t.setup()
-      
+
       -- Redirect vim's ui select to telescope
       t.load_extension('ui-select')
       t.load_extension('zoxide')
