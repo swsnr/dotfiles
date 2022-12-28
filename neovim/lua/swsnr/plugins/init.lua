@@ -99,6 +99,10 @@ return {
     }
   },
   {
+    'samoshkin/vim-mergetool',
+    cmd = {'MergetoolStart', 'MergetoolToggle'},
+  },
+  {
     'ggandor/leap.nvim',
     event = 'VeryLazy',
     -- TODO: Test this
