@@ -74,3 +74,6 @@ vim.opt.ignorecase = true -- Ignore case when searching…
 vim.opt.smartcase = true -- …for all lowercase patterns
 vim.opt.grepprg = "rg --vimgrep"
 vim.opt.grepformat = "%f:%l:%c:%m"
+
+-- Avoid xdg-open
+vim.g.netrw_browsex_viewer = 'gio open'
