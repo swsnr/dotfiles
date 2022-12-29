@@ -21,3 +21,12 @@ jobs:
       - run: 'sudo apt-get install -y fish'
       - run: 'fish --version'
       - run: 'fish_indent -c fish/conf.d/*.fish fish/functions/*.fish fish/config.fish'
+  check-lua:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: JohnnyMorganz/stylua-action@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          version: latest
+          args: --check .
