@@ -30,6 +30,11 @@ local M = {
        })
       end
     },
+    -- Automatically format on save
+    {
+      "lukas-reineke/lsp-format.nvim",
+      config = true,
+    },
     {
       'jose-elias-alvarez/null-ls.nvim',
       requires = { 'nvim-lua/plenary.nvim' },

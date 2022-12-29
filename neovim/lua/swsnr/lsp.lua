@@ -16,11 +16,13 @@ local M = {}
 
 -- Common setup for  LSP client buffers.
 function M.lsp_attach(client, bufnr)
+  -- Setup formatting
+  require("lsp-format").on_attach(client)
+
   -- Make omnicomplete use LSP completions
   vim.bo.omnifunc = 'v:lua.vim.lsp.omnifunc'
 
   local tb = require('telescope.builtin')
-
   require('which-key').register({
     ['gD'] = {tb.lsp_type_definitions, 'Goto type definition'},
     ['gd'] = {tb.lsp_definitions, 'Goto definition'},
