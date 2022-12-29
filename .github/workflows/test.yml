@@ -6,7 +6,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: 'shellcheck --version'
-      - run: 'shellcheck -S info **/*.bash bin/ui-theme'
+      - run: 'shellcheck -S info **/*.bash bin/ui-theme bin/game-mode-hook'
+      - run: |
+          curl -fsSL -o ./shfmt https://github.com/mvdan/sh/releases/download/v3.6.0/shfmt_v3.6.0_linux_amd64
+          chmod 700 ./shfmt
+      - run: ./shfmt --version
+      - run: ./shfmt -i 4 -l -d **/*.bash bin/ui-theme bin/game-mode-hook
   check-fish:
     runs-on: ubuntu-22.04
     steps:
