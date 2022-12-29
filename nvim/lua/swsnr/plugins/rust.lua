@@ -21,6 +21,7 @@ return {
   },
   {
     "simrat39/rust-tools.nvim",
+    ft = "rust",
     config = function()
       local function rust_attach(client, bufnr)
         -- Default setup for LSP buffers
