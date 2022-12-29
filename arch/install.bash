@@ -287,6 +287,7 @@ case "$PRODUCT_NAME" in
 'XPS 9315')
     packages+=(
         sof-firmware # Firmware for XPS audio devices
+        thermald     # Thermal management for intel systems
     )
     ;;
 esac
@@ -476,6 +477,12 @@ if [[ -n "${SUDO_USER:-}" ]]; then
     # Scrub home directory of my user account
     services+=("btrfs-scrub@$(systemd-escape -p "/home/${SUDO_USER}").timer")
 fi
+
+case "$PRODUCT_NAME" in
+'XPS 9315')
+    services+=(thermald.service)
+    ;;
+esac
 
 systemctl enable "${services[@]}"
 
