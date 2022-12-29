@@ -14,7 +14,7 @@
 
 -- My wezterm configuration. See https://wezfurlong.org/wezterm/ for docs
 
-local wezterm = require 'wezterm';
+local wezterm = require("wezterm")
 
 local charset = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890"
 math.randomseed(os.time())
@@ -38,19 +38,24 @@ end
 -- Check whether the given file exists
 function file_exists(name)
   local f = io.open(name, "r")
-  if f ~= nil then io.close(f) return true else return false end
+  if f ~= nil then
+    io.close(f)
+    return true
+  else
+    return false
+  end
 end
 
 function wezterm_terminfo_installed()
-  return file_exists(os.getenv('HOME') .. '/.terminfo/w/wezterm')
+  return file_exists(os.getenv("HOME") .. "/.terminfo/w/wezterm")
 end
 
 -- Determine what to set $TERM to
 function determine_term_value()
   if wezterm_terminfo_installed() then
-    return 'wezterm'
+    return "wezterm"
   end
-  return 'xterm-256color'
+  return "xterm-256color"
 end
 
 function ends_with(str, ending)
@@ -65,10 +70,9 @@ function scheme_for_appearance(appearance)
   end
 end
 
-
 -- Automatically switch colour scheme if dark mode settings change, see
 -- https://wezfurlong.org/wezterm/config/lua/window/get_appearance.html
-wezterm.on('window-config-reloaded', function(window, pane)
+wezterm.on("window-config-reloaded", function(window, pane)
   local overrides = window:get_config_overrides() or {}
   local appearance = window:get_appearance()
   local scheme = scheme_for_appearance(appearance)
@@ -76,34 +80,27 @@ wezterm.on('window-config-reloaded', function(window, pane)
   window:set_config_overrides(overrides)
 end)
 
-
 function wrap_in_systemd_scope(cmd)
   local env = cmd.set_environment_variables
-  local ident = ''
+  local ident = ""
   if env.WEZTERM_UNIX_SOCKET then
-    ident = "wezterm-pane-"
-    .. env.WEZTERM_PANE
-    .. "-on-"
-    .. basename(env.WEZTERM_UNIX_SOCKET)
+    ident = "wezterm-pane-" .. env.WEZTERM_PANE .. "-on-" .. basename(env.WEZTERM_UNIX_SOCKET)
   else
     -- Sometimes there's no wezterm socket; in this case let's use a random string.
-    ident = "wezterm-pane-"
-    .. env.WEZTERM_PANE
-    .. "-"
-    .. random_string(10)
+    ident = "wezterm-pane-" .. env.WEZTERM_PANE .. "-" .. random_string(10)
   end
 
   local wrapped = {
-    '/usr/bin/systemd-run',
-    '--user',
-    '--scope',
-    '--description=Shell started by wezterm',
-    '--same-dir',
-    '--collect',
-    '--unit=' .. ident,
+    "/usr/bin/systemd-run",
+    "--user",
+    "--scope",
+    "--description=Shell started by wezterm",
+    "--same-dir",
+    "--collect",
+    "--unit=" .. ident,
   }
 
-  for _, arg in ipairs(cmd.args or {os.getenv("SHELL")}) do
+  for _, arg in ipairs(cmd.args or { os.getenv("SHELL") }) do
     table.insert(wrapped, arg)
   end
 
@@ -112,17 +109,16 @@ function wrap_in_systemd_scope(cmd)
   return cmd
 end
 
-
 return {
   term = determine_term_value(),
-  default_prog = { '/usr/bin/fish' },
+  default_prog = { "/usr/bin/fish" },
   exec_domains = {
     wezterm.exec_domain("scoped", wrap_in_systemd_scope),
   },
   default_domain = "scoped",
   -- Use fish as standard interactive shell
   color_scheme = scheme_for_appearance(wezterm.gui.get_appearance()),
-  font = wezterm.font('JetBrains Mono'),
+  font = wezterm.font("JetBrains Mono"),
   font_size = 11.0,
   -- Default initial window size
   initial_rows = 40,
@@ -135,7 +131,7 @@ return {
   -- won't use emojis anyway.
   unicode_version = 14,
   -- Don't beep
-  audible_bell = 'Disabled',
+  audible_bell = "Disabled",
   visual_bell = {
     fade_in_function = "EaseIn",
     fade_in_duration_ms = 150,
@@ -143,15 +139,16 @@ return {
     fade_out_duration_ms = 150,
   },
   keys = {
-    {key='_', mods='CMD|SHIFT', action=wezterm.action{SplitVertical={domain="CurrentPaneDomain"}}},
-    {key='|', mods='CMD|SHIFT', action=wezterm.action{SplitHorizontal={domain="CurrentPaneDomain"}}},
-    {key="UpArrow", mods="SHIFT", action=wezterm.action{ScrollToPrompt=-1}},
-    {key="DownArrow", mods="SHIFT", action=wezterm.action{ScrollToPrompt=1}},
+    { key = "_", mods = "CMD|SHIFT", action = wezterm.action({ SplitVertical = { domain = "CurrentPaneDomain" } }) },
+    { key = "|", mods = "CMD|SHIFT", action = wezterm.action({ SplitHorizontal = { domain = "CurrentPaneDomain" } }) },
+    { key = "UpArrow", mods = "SHIFT", action = wezterm.action({ ScrollToPrompt = -1 }) },
+    { key = "DownArrow", mods = "SHIFT", action = wezterm.action({ ScrollToPrompt = 1 }) },
   },
   mouse_bindings = {
-    { event={Down={streak=3, button="Left"}},
-      action={SelectTextAtMouseCursor="SemanticZone"},
-      mods="NONE"
+    {
+      event = { Down = { streak = 3, button = "Left" } },
+      action = { SelectTextAtMouseCursor = "SemanticZone" },
+      mods = "NONE",
     },
   },
   hyperlink_rules = {
@@ -173,5 +170,5 @@ return {
       regex = "\\bfile://\\S*\\b",
       format = "$0",
     },
-  }
+  },
 }

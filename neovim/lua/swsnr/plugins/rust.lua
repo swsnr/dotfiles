@@ -14,33 +14,33 @@
 
 return {
   {
-    'Saecki/crates.nvim',
+    "Saecki/crates.nvim",
     event = "BufRead Cargo.toml",
-    config = true
+    config = true,
   },
   {
-    'simrat39/rust-tools.nvim',
+    "simrat39/rust-tools.nvim",
     config = function()
       local function rust_attach(client, bufnr)
         -- Default setup for LSP buffers
-        require('swsnr.lsp').lsp_attach(client, bufnr)
+        require("swsnr.lsp").lsp_attach(client, bufnr)
 
         -- And some Rust extras
-        require('which-key').register({
-          ['<leader>xr'] = {'<cmd>RustRunnables<cr>', 'Run rust'},
-          ['<leader>xd'] = {'<cmd>RustDebuggables<cr>', 'Debug rust'},
-          ['<leader>jp'] = {'<cmd>RustParentModule<cr>', 'Jump to parent rust module'},
-          ['<leader>fc'] = {'<cmd>RustOpenCargo<cr>', 'Open Cargo.toml'},
-          ['<leader>eJ'] = {'<cmd>RustJoinLines<cr>', 'Join rust lines'},
-          ['<leader>ej'] = {'<cmd>RustMoveItemDown<cr>', 'Move Rust item down'},
-          ['<leader>ek'] = {'<cmd>RustMoveItemUp<cr>', 'Move Rust item up'},
-          ['<leader>ex'] = {'<cmd>RustExpandMacro<cr>', 'Expand Rust macro'},
+        require("which-key").register({
+          ["<leader>xr"] = { "<cmd>RustRunnables<cr>", "Run rust" },
+          ["<leader>xd"] = { "<cmd>RustDebuggables<cr>", "Debug rust" },
+          ["<leader>jp"] = { "<cmd>RustParentModule<cr>", "Jump to parent rust module" },
+          ["<leader>fc"] = { "<cmd>RustOpenCargo<cr>", "Open Cargo.toml" },
+          ["<leader>eJ"] = { "<cmd>RustJoinLines<cr>", "Join rust lines" },
+          ["<leader>ej"] = { "<cmd>RustMoveItemDown<cr>", "Move Rust item down" },
+          ["<leader>ek"] = { "<cmd>RustMoveItemUp<cr>", "Move Rust item up" },
+          ["<leader>ex"] = { "<cmd>RustExpandMacro<cr>", "Expand Rust macro" },
           -- Is this a good idea?
-          ['J'] = {'<cmd>RustJoinLines<cr>', 'Join rust lines'}
-        }, {buffer=bufnr})
+          ["J"] = { "<cmd>RustJoinLines<cr>", "Join rust lines" },
+        }, { buffer = bufnr })
       end
 
-      require('rust-tools').setup({
+      require("rust-tools").setup({
         server = {
           on_attach = rust_attach,
           settings = {
@@ -48,15 +48,15 @@ return {
             ["rust-analyzer"] = {
               -- Run clippy on save
               checkOnSave = {
-                command = "clippy"
+                command = "clippy",
               },
-            }
+            },
           },
           flags = {
-            debounce_text_changes = 150
-          }
-        }
+            debounce_text_changes = 150,
+          },
+        },
       })
-    end
-  }
+    end,
+  },
 }

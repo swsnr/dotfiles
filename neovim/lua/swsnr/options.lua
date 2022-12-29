@@ -15,14 +15,14 @@
 -- Options.
 
 -- neovide settings
-vim.g.neovide_cursor_vfx_mode = 'pixiedust'
+vim.g.neovide_cursor_vfx_mode = "pixiedust"
 vim.g.neovide_remember_window_size = true
 -- Gui settings: Pragmata Pro as standard font, and Noto for emojis
-vim.opt.guifont = 'JetBrains Mono,Noto Color Emoji:h11'
-vim.opt.mouse = 'a' -- Enable mouse in all modes
-if vim.g['neovide'] then
+vim.opt.guifont = "JetBrains Mono,Noto Color Emoji:h11"
+vim.opt.mouse = "a" -- Enable mouse in all modes
+if vim.g["neovide"] then
   -- In neovide use a light background by default
-  vim.opt.background = 'light'
+  vim.opt.background = "light"
 end
 
 -- Terminal options
@@ -34,7 +34,7 @@ vim.opt.termguicolors = true
 -- Options for the general user interface
 vim.opt.updatetime = 300 -- Update faster
 vim.opt.showmode = false -- Don't show mode message in message line
-vim.opt.signcolumn = 'yes' -- Always show sign column
+vim.opt.signcolumn = "yes" -- Always show sign column
 vim.opt.timeoutlen = 500 -- Key timeout after 500, for which key
 -- Always keep some context
 vim.opt.sidescrolloff = 8
@@ -46,7 +46,7 @@ vim.opt.hidden = true
 
 -- Completion: Always show a menu even if there's just one candidate, never
 -- insert automatically and never preselect an entry in the completion menuselect.
-vim.opt.completeopt = {'menuone', 'noinsert', 'noselect'}
+vim.opt.completeopt = { "menuone", "noinsert", "noselect" }
 vim.opt.shortmess:append({ c = true })
 
 -- Options for text editing
@@ -54,15 +54,15 @@ vim.opt.wrap = false -- Don't wrap long lines
 vim.opt.number = true -- Enable line numbers…
 vim.opt.relativenumber = true -- … relative to the current line.
 vim.opt.textwidth = 80 -- 80 characters per line by default
-vim.opt.colorcolumn = '+1' -- Add marker for overlong lines
+vim.opt.colorcolumn = "+1" -- Add marker for overlong lines
 vim.opt.expandtab = true -- No tabs
 vim.opt.shiftwidth = 2 -- Indent with two spaces by default
 vim.opt.cursorline = true -- Highlight line of cursor
 vim.opt.conceallevel = 3 -- Hide * markup for bold and italic
-vim.opt.formatoptions = 'jcroqlnt'
+vim.opt.formatoptions = "jcroqlnt"
 
 -- Folding
-vim.opt.foldmethod = 'indent' -- Fold by indentation by default
+vim.opt.foldmethod = "indent" -- Fold by indentation by default
 vim.opt.foldlevelstart = 10 -- Fold deeply nested indents automatically
 
 -- Options for buffers and windows
@@ -76,4 +76,4 @@ vim.opt.grepprg = "rg --vimgrep"
 vim.opt.grepformat = "%f:%l:%c:%m"
 
 -- Avoid xdg-open
-vim.g.netrw_browsex_viewer = 'gio open'
+vim.g.netrw_browsex_viewer = "gio open"

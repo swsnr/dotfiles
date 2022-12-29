@@ -12,77 +12,76 @@
 -- License for the specific language governing permissions and limitations under
 -- the License.
 
-local wk = require('which-key')
-local telescope = require('telescope')
-local tools = require('swsnr.tools')
+local wk = require("which-key")
+local telescope = require("telescope")
+local tools = require("swsnr.tools")
 
 -- Back to normal mode the fast way.
-vim.api.nvim_set_keymap('i', 'jk', '<ESC>', {noremap = true})
+vim.api.nvim_set_keymap("i", "jk", "<ESC>", { noremap = true })
 
 wk.register({
-  ['g'] = {name="+goto"},
-  ['[d'] = {vim.diagnostic.goto_prev, 'Previous diagnostic'},
-  [']d'] = {vim.diagnostic.goto_next, 'Next diagnostic'},
-  ["gnn"] = {'Init selection'},
-  ["grn"] = {'Increase by node'},
-  ["grc"] = {'Increase by scope'},
-  ["grm"] = {'Decrease by node'},
+  ["g"] = { name = "+goto" },
+  ["[d"] = { vim.diagnostic.goto_prev, "Previous diagnostic" },
+  ["]d"] = { vim.diagnostic.goto_next, "Next diagnostic" },
+  ["gnn"] = { "Init selection" },
+  ["grn"] = { "Increase by node" },
+  ["grc"] = { "Increase by scope" },
+  ["grm"] = { "Decrease by node" },
 })
 
 -- Leader bindings
 wk.register({
-  [' '] = {'<cmd>Telescope commands<cr>', 'Commands'},
-  ['?'] = {'<cmd>Telescope<cr>', 'Pickers'},
+  [" "] = { "<cmd>Telescope commands<cr>", "Commands" },
+  ["?"] = { "<cmd>Telescope<cr>", "Pickers" },
   -- Buffers
-  ['b'] = {name='+buffers'},
-  ['bb'] = {'<cmd>Telescope buffers<cr>', 'List buffers'},
+  ["b"] = { name = "+buffers" },
+  ["bb"] = { "<cmd>Telescope buffers<cr>", "List buffers" },
   -- Editing
-  ['e'] = {name='+edit'},
-  ['er'] = {'<cmd>Telescope registers<cr>', 'Paste register'},
-  ['ed'] = {tools.iso_utc_to_register, 'ISO UTC timestamp to register a'},
+  ["e"] = { name = "+edit" },
+  ["er"] = { "<cmd>Telescope registers<cr>", "Paste register" },
+  ["ed"] = { tools.iso_utc_to_register, "ISO UTC timestamp to register a" },
   -- Files
-  ['f'] = {name='+files'},
-  ['ff'] = {'<cmd>Telescope find_files<cr>', 'Find files'},
-  ['fc'] = {telescope.extensions.zoxide.list, 'Change directory'},
-  ['ft'] = {'<cmd>NvimTreeFindFileToggle<cr>', 'Show current file in tree'},
-  ['fT'] = {'<cmd>NvimTreeFocus<cr>', 'Open file explorer'},
+  ["f"] = { name = "+files" },
+  ["ff"] = { "<cmd>Telescope find_files<cr>", "Find files" },
+  ["fc"] = { telescope.extensions.zoxide.list, "Change directory" },
+  ["ft"] = { "<cmd>NvimTreeFindFileToggle<cr>", "Show current file in tree" },
+  ["fT"] = { "<cmd>NvimTreeFocus<cr>", "Open file explorer" },
   -- Git
-  ['g'] = {name='+git'},
-  ['gf'] = {'<cmd>Telescope git_files<cr>', 'Git files'},
+  ["g"] = { name = "+git" },
+  ["gf"] = { "<cmd>Telescope git_files<cr>", "Git files" },
   -- Help
-  ['h'] = {name='+help'},
-  ['hh'] = {'<cmd>Telescope help_tags<cr>', 'Tags'},
-  ['hk'] = {'<cmd>Telescope keymaps<cr>', 'Keys'},
-  ['hm'] = {'<cmd>Telescope man_pages<cr>', 'Man pages'},
+  ["h"] = { name = "+help" },
+  ["hh"] = { "<cmd>Telescope help_tags<cr>", "Tags" },
+  ["hk"] = { "<cmd>Telescope keymaps<cr>", "Keys" },
+  ["hm"] = { "<cmd>Telescope man_pages<cr>", "Man pages" },
   -- Jumping
-  ['j'] = {name='+jump'},
-  ['jj'] = {'<cmd>Telescope diagnostics<cr>', 'Diagnostics'},
-  ['jj'] = {'<cmd>Telescope jumplist<cr>', 'Jumplist'},
-  ['jl'] = {'<cmd>Telescope loclist<cr>', 'Location list'},
-  ['jq'] = {'<cmd>Telescope quickfix<cr>', 'Quickfix list'},
-  ['jm'] = {'<cmd>Telescope marks<cr>', 'Marks'},
+  ["j"] = { name = "+jump" },
+  ["jj"] = { "<cmd>Telescope diagnostics<cr>", "Diagnostics" },
+  ["jj"] = { "<cmd>Telescope jumplist<cr>", "Jumplist" },
+  ["jl"] = { "<cmd>Telescope loclist<cr>", "Location list" },
+  ["jq"] = { "<cmd>Telescope quickfix<cr>", "Quickfix list" },
+  ["jm"] = { "<cmd>Telescope marks<cr>", "Marks" },
   -- Lists
-  ['l'] = {name='+lists'},
-  ['lx'] = {'<cmd>TroubleToggle<cr>', 'Toggle diagnostics list'},
-  ['lw'] = {'<cmd>TroubleToggle workspace_diagnostics<cr>', 'Toggle workspace diagnostics'},
-  ['ld'] = {'<cmd>TroubleToggle document_diagnostics<cr>', 'Toggle document diagnostics'},
-  ['lq'] = {'<cmd>TroubleToggle quickfix<cr>', 'Toggle quickfix list'},
-  ['ll'] = {'<cmd>TroubleToggle loclist<cr>', 'Toggle location list'},
-  ['lr'] = {'<cmd>TroubleToggle lsp_references<cr>', 'Toggle references list'},
-  ['lL'] = {'<cmd>Lazy<cr>', 'Plugins'},
+  ["l"] = { name = "+lists" },
+  ["lx"] = { "<cmd>TroubleToggle<cr>", "Toggle diagnostics list" },
+  ["lw"] = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "Toggle workspace diagnostics" },
+  ["ld"] = { "<cmd>TroubleToggle document_diagnostics<cr>", "Toggle document diagnostics" },
+  ["lq"] = { "<cmd>TroubleToggle quickfix<cr>", "Toggle quickfix list" },
+  ["ll"] = { "<cmd>TroubleToggle loclist<cr>", "Toggle location list" },
+  ["lr"] = { "<cmd>TroubleToggle lsp_references<cr>", "Toggle references list" },
+  ["lL"] = { "<cmd>Lazy<cr>", "Plugins" },
   -- Search
-  ['s'] = {name='+search'},
-  ['sg'] = {'<cmd>Telescope live_grep<cr>', 'Live grep'},
-  ['sc'] = {'<cmd>Telescope grep_string<cr>', 'Grep under cursor'},
+  ["s"] = { name = "+search" },
+  ["sg"] = { "<cmd>Telescope live_grep<cr>", "Live grep" },
+  ["sc"] = { "<cmd>Telescope grep_string<cr>", "Grep under cursor" },
   -- Windows
-  ['w'] = {name='+windows'},
-  ['w/'] = {'<cmd>vsplit<cr>', 'Split vertical'},
-  ['w-'] = {'<cmd>split<cr>', 'Split horizontal'},
-  ['wo'] = {'<cmd>only<cr>', 'Only current window'},
-  ['wq'] = {'<cmd>q<cr>', 'Quit'},
+  ["w"] = { name = "+windows" },
+  ["w/"] = { "<cmd>vsplit<cr>", "Split vertical" },
+  ["w-"] = { "<cmd>split<cr>", "Split horizontal" },
+  ["wo"] = { "<cmd>only<cr>", "Only current window" },
+  ["wq"] = { "<cmd>q<cr>", "Quit" },
   -- Execute things
-  ['x'] = {name='+execute'},
+  ["x"] = { name = "+execute" },
 }, {
-  prefix = '<leader>'
+  prefix = "<leader>",
 })
-

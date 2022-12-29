@@ -25,7 +25,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.runtimepath:prepend(lazypath)
 
-require('lazy').setup('swsnr.plugins', {
+require("lazy").setup("swsnr.plugins", {
   defaults = { lazy = true },
   -- Try to load my preferred colour scheme during installation
   install = { colorscheme = { "tokyonight", "habamax" } },

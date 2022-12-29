@@ -19,13 +19,13 @@
 -- and https://github.com/nanotee/nvim-lua-guide for info about Lua in Neovim.
 
 -- Set leader first, to make sure we always get the right bindings
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 -- require('swsnr.pluginspacker')
-require('swsnr.lazy')
-require('swsnr.options')
-require('swsnr.autocommands')
+require("swsnr.lazy")
+require("swsnr.options")
+require("swsnr.autocommands")
 
 vim.api.nvim_create_autocmd("User", {
   pattern = "VeryLazy",

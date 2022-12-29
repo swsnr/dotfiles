@@ -13,25 +13,25 @@
 -- the License.
 
 local M = {
-  'nvim-lualine/lualine.nvim',
-  event = 'VeryLazy',
-  dependencies = { 
-    { 'SmiteshP/nvim-gps', config = true }
+  "nvim-lualine/lualine.nvim",
+  event = "VeryLazy",
+  dependencies = {
+    { "SmiteshP/nvim-gps", config = true },
   },
 }
 
 function M.config()
-  local gps = require('nvim-gps')
-  require('lualine').setup {
-    theme = 'auto',
+  local gps = require("nvim-gps")
+  require("lualine").setup({
+    theme = "auto",
     sections = {
       lualine_c = {
-        'filename',
+        "filename",
         { gps.get_location, cond = gps.is_available },
       },
       -- TODO: Add lazy update indicator
-    }
-  }
+    },
+  })
 end
 
 return M

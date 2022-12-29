@@ -14,11 +14,11 @@
 
 return {
   {
-    'folke/lazy.nvim',
+    "folke/lazy.nvim",
     lazy = false,
     -- Pin lazy to work around https://github.com/folke/lazy.nvim/issues/220
-    commit = '956164d27dc02b8d3c21c9ef7cc9028d854b0978',
-    pin = true
+    commit = "956164d27dc02b8d3c21c9ef7cc9028d854b0978",
+    pin = true,
   },
   -- Color scheme
   {
@@ -28,94 +28,99 @@ return {
     priority = 1000,
     config = function()
       require("tokyonight").setup({
-        style = "night"
+        style = "night",
       })
       -- load the colorscheme here
       vim.cmd([[colorscheme tokyonight]])
     end,
   },
-  { 
-    'folke/which-key.nvim',
+  {
+    "folke/which-key.nvim",
     lazy = true,
     config = {
       -- show_help = false,
       plugins = { spelling = true },
-      key_labels = { ["<leader>"] = "SPC" },  
-    }
+      key_labels = { ["<leader>"] = "SPC" },
+    },
   },
   {
-    'nvim-telescope/telescope.nvim',
+    "nvim-telescope/telescope.nvim",
     -- Load telescope right away so that the ui-select replacement kicks in, and
     -- we'll likely use telescope anyway.
     lazy = false,
     dependencies = {
-      'nvim-lua/plenary.nvim',
+      "nvim-lua/plenary.nvim",
       -- Telescope extensions we set up right away
-      'nvim-telescope/telescope-ui-select.nvim',
-      'jvgrootveld/telescope-zoxide'
+      "nvim-telescope/telescope-ui-select.nvim",
+      "jvgrootveld/telescope-zoxide",
     },
     config = function()
-      local t = require('telescope')
+      local t = require("telescope")
       local trouble = require("trouble.providers.telescope")
-      t.setup {
+      t.setup({
         defaults = {
           mappings = {
             i = { ["<c-t>"] = trouble.open_with_trouble },
             n = { ["<c-t>"] = trouble.open_with_trouble },
-          }
-        }
-      }
+          },
+        },
+      })
 
       -- Redirect vim's ui select to telescope
-      t.load_extension('ui-select')
-      t.load_extension('zoxide')
-    end
+      t.load_extension("ui-select")
+      t.load_extension("zoxide")
+    end,
   },
   {
-    'kyazdani42/nvim-tree.lua',
-    cmd = { 'NvimTreeFindFileToggle', 'NvimTreeFocus' },
+    "kyazdani42/nvim-tree.lua",
+    cmd = { "NvimTreeFindFileToggle", "NvimTreeFocus" },
     config = {
       system_open = {
-        cmd = 'gio',
-        args = {'open'},
-      }
-    }
+        cmd = "gio",
+        args = { "open" },
+      },
+    },
   },
   {
-    'lewis6991/gitsigns.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    event = 'BufReadPre',
+    "lewis6991/gitsigns.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    event = "BufReadPre",
     config = {
       on_attach = function(bufnr)
-        local wk = require('which-key')
+        local wk = require("which-key")
         wk.register({
-          [']c'] = {"&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", 'Next git hunk', expr=true},
-          ['[c'] = {"&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", 'Previous git hunk', expr=true},
-          ['<leader>gb'] = {function() require('gitsigns').blame_line{full=true} end, 'Blame current line'},
-          ['<leader>gd'] = {'<cmd>Gitsigns diffthis<cr>', 'Diff against index'},
-          ['<leader>gD'] = {'<cmd>Gitsigns toggle_deleted<cr>', 'Toggle deleted lines'},
-          ['<leader>gp'] = {'<cmd>Gitsigns preview_hunk<cr>', 'Preview hunk' },
-          ['<leader>gR'] = {'<cmd>Gitsigns reset_buffer<cr>', 'Reset buffer to staged' },
-          ['<leader>gr'] = {'<cmd>Gitsigns reset_hunk<cr>', 'Reset hunk to staged' },
-          ['<leader>gS'] = {'<cmd>Gitsigns stage_buffer<cr>', 'Stage buffer' },
-          ['<leader>gs'] = {'<cmd>Gitsigns stage_hunk<cr>', 'Stage hunk' },
-          ['<leader>gu'] = {'<cmd>Gitsigns undo_stage_hunk<cr>', 'Undo staged hunk' },
-        }, {buffer = bufnr})
+          ["]c"] = { "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", "Next git hunk", expr = true },
+          ["[c"] = { "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", "Previous git hunk", expr = true },
+          ["<leader>gb"] = {
+            function()
+              require("gitsigns").blame_line({ full = true })
+            end,
+            "Blame current line",
+          },
+          ["<leader>gd"] = { "<cmd>Gitsigns diffthis<cr>", "Diff against index" },
+          ["<leader>gD"] = { "<cmd>Gitsigns toggle_deleted<cr>", "Toggle deleted lines" },
+          ["<leader>gp"] = { "<cmd>Gitsigns preview_hunk<cr>", "Preview hunk" },
+          ["<leader>gR"] = { "<cmd>Gitsigns reset_buffer<cr>", "Reset buffer to staged" },
+          ["<leader>gr"] = { "<cmd>Gitsigns reset_hunk<cr>", "Reset hunk to staged" },
+          ["<leader>gS"] = { "<cmd>Gitsigns stage_buffer<cr>", "Stage buffer" },
+          ["<leader>gs"] = { "<cmd>Gitsigns stage_hunk<cr>", "Stage hunk" },
+          ["<leader>gu"] = { "<cmd>Gitsigns undo_stage_hunk<cr>", "Undo staged hunk" },
+        }, { buffer = bufnr })
 
         wk.register({
-          ['<leader>gr'] = {'<cmd>Gitsigns reset_hunk<cr>', 'Reset hunk to staged' },
-          ['<leader>gs'] = {'<cmd>Gitsigns stage_hunk<cr>', 'Stage hunk' },
-        }, {buffer = bufnr, mode = 'v'})
+          ["<leader>gr"] = { "<cmd>Gitsigns reset_hunk<cr>", "Reset hunk to staged" },
+          ["<leader>gs"] = { "<cmd>Gitsigns stage_hunk<cr>", "Stage hunk" },
+        }, { buffer = bufnr, mode = "v" })
 
         -- Text object; TODO: Migrate to which-key
         --map('o', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
         --map('x', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
-      end
-    }
+      end,
+    },
   },
   {
-    'folke/trouble.nvim',
-    cmd = 'TroubleToggle',
+    "folke/trouble.nvim",
+    cmd = "TroubleToggle",
     config = {
       icons = false,
       fold_open = "v",
@@ -125,52 +130,52 @@ return {
         error = "error",
         warning = "warn",
         hint = "hint",
-        information = "info"
+        information = "info",
       },
-      use_diagnostic_signs = true
-    }
+      use_diagnostic_signs = true,
+    },
   },
   {
-    'samoshkin/vim-mergetool',
-    cmd = {'MergetoolStart', 'MergetoolToggle'},
+    "samoshkin/vim-mergetool",
+    cmd = { "MergetoolStart", "MergetoolToggle" },
   },
   {
-    'ggandor/leap.nvim',
-    event = 'VeryLazy',
+    "ggandor/leap.nvim",
+    event = "VeryLazy",
     -- TODO: Test this
     -- dependencies = {
     --   { "ggandor/flit.nvim", config = { labeled_modes = "nv" } },
     -- },
     config = function()
-      require('leap').add_default_mappings()
-    end
+      require("leap").add_default_mappings()
+    end,
   },
   {
-    'windwp/nvim-autopairs',
-    event = 'VeryLazy',
+    "windwp/nvim-autopairs",
+    event = "VeryLazy",
     config = true,
   },
   {
-    'kylechui/nvim-surround',
-    event = 'VeryLazy',
+    "kylechui/nvim-surround",
+    event = "VeryLazy",
     config = true,
   },
   {
-    'numToStr/Comment.nvim',
-    event = 'VeryLazy',
+    "numToStr/Comment.nvim",
+    event = "VeryLazy",
     config = true,
   },
   {
-    'lukas-reineke/indent-blankline.nvim',
-    event = 'BufReadPre',
+    "lukas-reineke/indent-blankline.nvim",
+    event = "BufReadPre",
     config = {
       use_treesitter = true,
       show_current_context = true,
       show_current_context_start = true,
-    }
+    },
   },
   {
-    'axelf4/vim-strip-trailing-whitespace',
-    event = 'BufReadPre',
-  }
+    "axelf4/vim-strip-trailing-whitespace",
+    event = "BufReadPre",
+  },
 }

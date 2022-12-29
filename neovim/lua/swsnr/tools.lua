@@ -15,7 +15,7 @@
 local M = {}
 
 function M.iso_utc_to_register()
-  vim.fn.setreg('a', os.date('!%FT%TZ'))
+  vim.fn.setreg("a", os.date("!%FT%TZ"))
 end
 
 return M

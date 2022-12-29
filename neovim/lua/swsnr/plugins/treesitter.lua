@@ -13,79 +13,79 @@
 -- the License.
 
 local M = {
-  'nvim-treesitter/nvim-treesitter',
+  "nvim-treesitter/nvim-treesitter",
   dependencies = {
     -- Text objects for treesitter, configured above, see https://github.com/nvim-treesitter/nvim-treesitter-textobjects
-    'nvim-treesitter/nvim-treesitter-textobjects',
+    "nvim-treesitter/nvim-treesitter-textobjects",
     -- Automatically change comment string according to current context
-    'JoosepAlviste/nvim-ts-context-commentstring',
+    "JoosepAlviste/nvim-ts-context-commentstring",
   },
   event = "BufReadPost",
-  build = ':TSUpdate',
+  build = ":TSUpdate",
 }
 
 function M.config()
   -- Use treesitter folding
-  vim.opt.foldmethod = 'expr'
-  vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+  vim.opt.foldmethod = "expr"
+  vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 
-  require('nvim-treesitter.configs').setup {
+  require("nvim-treesitter.configs").setup({
     -- Install all maintained parsers
     ensure_installed = {
-      'bash',
-      'bibtex',
-      'c',
-      'cmake',
-      'comment',
-      'css',
-      'diff',
-      'dockerfile',
-      'dot',
-      'fish',
-      'git_rebase',
-      'gitattributes',
-      'gitcommit',
-      'gitignore',
-      'graphql',
-      'help',
-      'hocon',
-      'html',
-      'java',
-      'javascript',
-      'jq',
-      'json',
-      'json5',
-      'jsonc',
-      'latex',
-      'lua',
-      'make',
-      'markdown',
-      'markdown_inline',
-      'meson',
-      'ninja',
-      'proto',
-      'python',
-      'qmljs',
-      'rst',
-      'ruby',
-      'rust',
-      'scala',
-      'scss',
-      'toml',
-      'tsx',
-      'typescript',
-      'vim',
-      'yaml',
+      "bash",
+      "bibtex",
+      "c",
+      "cmake",
+      "comment",
+      "css",
+      "diff",
+      "dockerfile",
+      "dot",
+      "fish",
+      "git_rebase",
+      "gitattributes",
+      "gitcommit",
+      "gitignore",
+      "graphql",
+      "help",
+      "hocon",
+      "html",
+      "java",
+      "javascript",
+      "jq",
+      "json",
+      "json5",
+      "jsonc",
+      "latex",
+      "lua",
+      "make",
+      "markdown",
+      "markdown_inline",
+      "meson",
+      "ninja",
+      "proto",
+      "python",
+      "qmljs",
+      "rst",
+      "ruby",
+      "rust",
+      "scala",
+      "scss",
+      "toml",
+      "tsx",
+      "typescript",
+      "vim",
+      "yaml",
     },
     -- Enable tree sitter highlighting and indentation
-    highlight = {enable = true},
-    indent = {enable = true},
+    highlight = { enable = true },
+    indent = { enable = true },
     -- Automatically update comment string
     context_commentstring = { enable = true },
     incremental_selection = {
       enable = true,
       keymaps = {
-        init_selection = "gnn", 
+        init_selection = "gnn",
         node_incremental = "grn",
         scope_incremental = "grc",
         node_decremental = "grm",
@@ -97,20 +97,23 @@ function M.config()
         enable = true,
         -- Selecting text objects
         keymaps = {
-          ['aa'] = '@parameter.outer', ['ia'] = '@parameter.inner',
-          ['af'] = '@function.outer', ['if'] = '@function.inner',
-          ['ac'] = '@class.outer', ['ic'] = '@class.inner',
+          ["aa"] = "@parameter.outer",
+          ["ia"] = "@parameter.inner",
+          ["af"] = "@function.outer",
+          ["if"] = "@function.inner",
+          ["ac"] = "@class.outer",
+          ["ic"] = "@class.inner",
         },
       },
       move = {
         enable = true,
-        goto_next_start = {[']a'] = '@parameter.inner', [']f'] = '@function.outer'},
-        goto_next_end = {[']A'] = '@parameter.inner', [']F'] = '@function.outer'},
-        goto_previous_start = {['[a'] = '@parameter.inner', ['[f'] = '@function.outer'},
-        goto_previous_end = {['[A'] = '@parameter.inner', ['[F'] = '@function.outer'},
+        goto_next_start = { ["]a"] = "@parameter.inner", ["]f"] = "@function.outer" },
+        goto_next_end = { ["]A"] = "@parameter.inner", ["]F"] = "@function.outer" },
+        goto_previous_start = { ["[a"] = "@parameter.inner", ["[f"] = "@function.outer" },
+        goto_previous_end = { ["[A"] = "@parameter.inner", ["[F"] = "@function.outer" },
       },
     },
-  }
+  })
 end
 
 return M

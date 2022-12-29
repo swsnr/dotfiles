@@ -13,22 +13,22 @@
 -- the License.
 
 local M = {
-  'neovim/nvim-lspconfig',
-  event = 'BufReadPre',
+  "neovim/nvim-lspconfig",
+  event = "BufReadPre",
   dependencies = {
     -- Progress messages for LSP
-    { 'j-hui/fidget.nvim', config = true },
+    { "j-hui/fidget.nvim", config = true },
     -- Code action indicators
     {
-      'kosayoda/nvim-lightbulb',
+      "kosayoda/nvim-lightbulb",
       config = function()
-        local lb = require('nvim-lightbulb')
-        local group = vim.api.nvim_create_augroup('lightbulb', { clear = true })
-       vim.api.nvim_create_autocmd({'CursorHold', 'CursorHoldI'}, {
-         callback = lb.update_lightbulb,
-         group = group
-       })
-      end
+        local lb = require("nvim-lightbulb")
+        local group = vim.api.nvim_create_augroup("lightbulb", { clear = true })
+        vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+          callback = lb.update_lightbulb,
+          group = group,
+        })
+      end,
     },
     -- Automatically format on save
     {
@@ -36,40 +36,40 @@ local M = {
       config = true,
     },
     {
-      'jose-elias-alvarez/null-ls.nvim',
-      requires = { 'nvim-lua/plenary.nvim' },
-      config =  function()
-        local null_ls = require('null-ls')
+      "jose-elias-alvarez/null-ls.nvim",
+      requires = { "nvim-lua/plenary.nvim" },
+      config = function()
+        local null_ls = require("null-ls")
         local sources = {
           -- Auto-formatting for fish
           null_ls.builtins.formatting.fish_indent,
           -- Linting and formatting for Bash
           null_ls.builtins.diagnostics.shellcheck,
-          null_ls.builtins.formatting.shfmt.with {
+          null_ls.builtins.formatting.shfmt.with({
             -- Indent bash with four spaces
-            extra_args = {'-i', '4'}
-          },
+            extra_args = { "-i", "4" },
+          }),
           null_ls.builtins.diagnostics.trail_space,
           null_ls.builtins.formatting.xmllint,
         }
-        null_ls.setup {
+        null_ls.setup({
           sources = sources,
-          on_attach = require('swsnr.lsp').lsp_attach,
-        }
-      end
-    }
-  }
+          on_attach = require("swsnr.lsp").lsp_attach,
+        })
+      end,
+    },
+  },
 }
 
 function M.config()
-  local servers = {'pyright'}
+  local servers = { "pyright" }
   for _, lsp in pairs(servers) do
-    require('lspconfig')[lsp].setup {
-      on_attach = require('swsnr.lsp').lsp_attach,
+    require("lspconfig")[lsp].setup({
+      on_attach = require("swsnr.lsp").lsp_attach,
       flags = {
-        debounce_text_changes = 150
-      }
-    }
+        debounce_text_changes = 150,
+      },
+    })
   end
 end
 

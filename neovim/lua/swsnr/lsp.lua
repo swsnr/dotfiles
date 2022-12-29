@@ -20,23 +20,28 @@ function M.lsp_attach(client, bufnr)
   require("lsp-format").on_attach(client)
 
   -- Make omnicomplete use LSP completions
-  vim.bo.omnifunc = 'v:lua.vim.lsp.omnifunc'
+  vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
 
-  local tb = require('telescope.builtin')
-  require('which-key').register({
-    ['gD'] = {tb.lsp_type_definitions, 'Goto type definition'},
-    ['gd'] = {tb.lsp_definitions, 'Goto definition'},
-    ['gi'] = {tb.lsp_implementations, 'Goto implementation'},
-    ['<C-k>'] = {vim.lsp.buf.signature_help, 'Signature help'},
-    ['K'] = {vim.lsp.buf.hover, 'Hover'},
-    ['<leader>ea'] = {vim.lsp.buf.code_action, 'Code action'},
-    ['<leader>ef'] = {function() vim.lsp.buf.format{async = true} end, 'Format'},
-    ['<leader>eR'] = {vim.lsp.buf.rename, 'Rename symbol'},
-    ['<leader>jS'] = {tb.lsp_dynamic_workspace_symbols, 'Jump to workspace symbol'},
-    ['<leader>js'] = {tb.lsp_document_symbols, 'Jump to document symbol'},
-    ['<leader>jr'] = {tb.lsp_references, 'Jump to reference'},
-    ['<leader>jd'] = {tb.diagnostics, 'Jump to diagnostic'},
-  }, {buffer = bufnr})
+  local tb = require("telescope.builtin")
+  require("which-key").register({
+    ["gD"] = { tb.lsp_type_definitions, "Goto type definition" },
+    ["gd"] = { tb.lsp_definitions, "Goto definition" },
+    ["gi"] = { tb.lsp_implementations, "Goto implementation" },
+    ["<C-k>"] = { vim.lsp.buf.signature_help, "Signature help" },
+    ["K"] = { vim.lsp.buf.hover, "Hover" },
+    ["<leader>ea"] = { vim.lsp.buf.code_action, "Code action" },
+    ["<leader>ef"] = {
+      function()
+        vim.lsp.buf.format({ async = true })
+      end,
+      "Format",
+    },
+    ["<leader>eR"] = { vim.lsp.buf.rename, "Rename symbol" },
+    ["<leader>jS"] = { tb.lsp_dynamic_workspace_symbols, "Jump to workspace symbol" },
+    ["<leader>js"] = { tb.lsp_document_symbols, "Jump to document symbol" },
+    ["<leader>jr"] = { tb.lsp_references, "Jump to reference" },
+    ["<leader>jd"] = { tb.diagnostics, "Jump to diagnostic" },
+  }, { buffer = bufnr })
 end
 
 return M
