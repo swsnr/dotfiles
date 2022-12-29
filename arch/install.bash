@@ -132,8 +132,11 @@ packages=(
     zoxide # Cross-shell/editor directory jumping
     fzf    # Fuzzy file finder for shells
     code
+    # Neovim & tools
     neovim
     neovide
+    stylua # Code formatter for lua
+    # CLI tools
     exa     # Better ls (with git support)
     vivid   # Creates themes for dircolors
     fd      # Simpler find
