@@ -49,7 +49,11 @@ local M = {
             -- Indent bash with four spaces
             extra_args = { "-i", "4" },
           }),
+          -- Auto-formatting for Lua
+          null_ls.builtins.formatting.stylua,
+          -- Warnings about trailing space
           null_ls.builtins.diagnostics.trail_space,
+          -- Formatting/linting for XML
           null_ls.builtins.formatting.xmllint,
         }
         null_ls.setup({
