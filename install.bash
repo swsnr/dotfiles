@@ -77,9 +77,9 @@ ln -fs "$DIR/vim/ideavimrc" ~/.ideavimrc
 
 # Neovim
 mkdir -p ~/.config/nvim/lua/
-ln -fs -t ~/.config/nvim "$DIR"/neovim/init.lua "$DIR"/neovim/lazy-lock.json
+ln -fs -t ~/.config/nvim "$DIR"/nvim/init.lua "$DIR"/nvim/lazy-lock.json
 clean-recursively ~/.config/nvim/lua || true
-ln -fs -t ~/.config/nvim/lua "$DIR"/neovim/lua/swsnr
+ln -fs -t ~/.config/nvim/lua "$DIR"/nvim/lua/swsnr
 
 # Git configuration
 mkdir -p ~/.config/git
