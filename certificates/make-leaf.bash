@@ -10,7 +10,7 @@ shift
 mkdir -p leafs
 step-cli certificate create \
     "$subject" "leafs/$subject".crt "leafs/$subject".key \
-  --profile leaf \
-  --ca "./$intermediate.crt" --ca-key "./$intermediate.key" \
-  --not-after=4383h \
-  "${@}"
+    --profile leaf \
+    --ca "./$intermediate.crt" --ca-key "./$intermediate.key" \
+    --not-after=4383h \
+    "${@}"

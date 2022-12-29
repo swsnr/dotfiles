@@ -24,9 +24,9 @@ if [[ $EUID != 0 ]]; then
     exec sudo --preserve-env="${PRESERVE_ENV}" "$0" "$@"
 fi
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}")"  >/dev/null 2>&1 && pwd)"
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 
-PRODUCT_NAME="$(< /sys/class/dmi/id/product_name)"
+PRODUCT_NAME="$(</sys/class/dmi/id/product_name)"
 
 PACKAGE_SIGNING_KEY="B8ADA38BC94C48C4E7AABE4F7548C2CC396B57FC"
 
@@ -56,7 +56,7 @@ mark_as_dependency=(
     dracut
     tpm2-tools
     kernel-install-dracut-uki
-    )
+)
 for pkg in "${mark_as_dependency[@]}"; do
     pacman --noconfirm -D --asdeps "$pkg" || true
 done
@@ -66,7 +66,7 @@ remove_explicitly=(
     dracut
     # Moved to flatpak
     kdiff3
-    )
+)
 
 for pkg in "${remove_explicitly[@]}"; do
     pacman --noconfirm -Rs "$pkg" || true
@@ -85,8 +85,8 @@ packages=(
     linux-zen
     sudo
     zram-generator # swap on compressed RAM, mostly to support systemd-oomd
-    sbctl # Manage secure boot binaries and sign binaries
-    alsa-utils # ALSA control
+    sbctl          # Manage secure boot binaries and sign binaries
+    alsa-utils     # ALSA control
     # File systems
     ntfs-3g
     exfatprogs
@@ -114,12 +114,12 @@ packages=(
     avahi
     xh # HTTP requests on the command line
     # Cryptography
-    step-cli # Create CA & leaf certificates
+    step-cli   # Create CA & leaf certificates
     sequoia-sq # Sane GPG tooling
     # Arch tools & infrastructure
-    asp # Obtain PKGBUILDs for ABS
+    asp            # Obtain PKGBUILDs for ABS
     pacman-contrib # paccache, checkupdates, pacsearch, and others
-    reflector # Weekly mirrorlist updates
+    reflector      # Weekly mirrorlist updates
     # Build packages
     base-devel
     namcap
@@ -130,19 +130,19 @@ packages=(
     man-pages
     fish
     zoxide # Cross-shell/editor directory jumping
-    fzf # Fuzzy file finder for shells
+    fzf    # Fuzzy file finder for shells
     code
     neovim
     neovide
-    exa # Better ls (with git support)
-    vivid # Creates themes for dircolors
-    fd # Simpler find
-    sd # Simpler sed
+    exa     # Better ls (with git support)
+    vivid   # Creates themes for dircolors
+    fd      # Simpler find
+    sd      # Simpler sed
     dua-cli # Disk space analyzer
     ripgrep
     ripgrep-all
     bat
-    nnn # Command line file manager (also a good pager for aurutils)
+    nnn         # Command line file manager (also a good pager for aurutils)
     renameutils # qmv is super nice
     rsync
     rclone # rsync for clouds
@@ -179,9 +179,9 @@ packages=(
     # Python
     pyright # Language server for neovim
     # Other development tools
-    hexyl # hex viewer
+    hexyl  # hex viewer
     oxipng # Optimize PNGs for size
-    jq # Process JSON on command line
+    jq     # Process JSON on command line
     # Desktop tools
     wl-clipboard
     dconf-editor
@@ -189,14 +189,14 @@ packages=(
     xdg-user-dirs # Determine user directories in scripts with xdg-user-dir
     flatpak
     flatpak-builder # Build flatpaks
-    pcsclite # Smartcard daemon, for e-ID
+    pcsclite        # Smartcard daemon, for e-ID
     cups
     bluez
     sane
     sane-airscan
     pipewire-pulse # Pipewire-based pulse-audio, replaces pulseaudio
-    wireplumber # Recommended pipewire session & policy manager
-    firefox # Browser
+    wireplumber    # Recommended pipewire session & policy manager
+    firefox        # Browser
     firefox-i18n-de
     yt-dlp # youtube-dl with extra features
     # Latex
@@ -245,12 +245,12 @@ packages=(
     gvfs-mtp
     gvfs-nfs
     gvfs-smb
-    sushi # Previewer for nautilus
+    sushi  # Previewer for nautilus
     evince # Document viewer
-    eog # Image viewer
+    eog    # Image viewer
     simple-scan
     seahorse # Credential manager
-    baobab # Disk space analyser
+    baobab   # Disk space analyser
     # Multimedia for gnome
     gst-plugins-good
     gst-plugins-bad
@@ -281,70 +281,70 @@ optdeps=(
 )
 
 case "$PRODUCT_NAME" in
-    'XPS 9315')
-        packages+=(
-            sof-firmware # Firmware for XPS audio devices
-        )
-        ;;
+'XPS 9315')
+    packages+=(
+        sof-firmware # Firmware for XPS audio devices
+    )
+    ;;
 esac
 
 case "$HOSTNAME" in
-    *kastl*)
-        packages+=(
-            # Game mode
-            gamemode
-            # KVM virtualization
-            virt-manager
-        )
+*kastl*)
+    packages+=(
+        # Game mode
+        gamemode
+        # KVM virtualization
+        virt-manager
+    )
 
-        optdeps+=(
-            # libvirt: QEMU/KVM support
-            qemu-desktop
-            # libvirt: NAT/DHCP for guests
-            dnsmasq
-            # libvirt: NAT networking
-            iptables-nft
-            # libvirt: TPM emulation
-            swtpm
-        )
-        ;;
-    *RB*)
-        packages+=(
-            # Kernel headers for DKMS
-            linux-headers
-            linux-lts-headers
-            linux-zen-headers
-            # Virtualisation
-            virtualbox-host-dkms
-            virtualbox-guest-iso
-            virtualbox
-            # .NET development
-            dotnet-sdk
-            # Containers, kubernetes & cloud
-            podman
-            kubectl
-            helm
-            # Git and related tools
-            glab
-            # VPN
-            networkmanager-vpnc
-            networkmanager-openconnect
-            # Networking and debugging tools
-            lftp # Powerful FTP client
-            websocat # Debug websockets on the CLI
-            lnav # Log file analyzer
-            # Additional applications
-            keepassxc # Keepass
-            evolution-ews # Exchange for evolution
-        )
+    optdeps+=(
+        # libvirt: QEMU/KVM support
+        qemu-desktop
+        # libvirt: NAT/DHCP for guests
+        dnsmasq
+        # libvirt: NAT networking
+        iptables-nft
+        # libvirt: TPM emulation
+        swtpm
+    )
+    ;;
+*RB*)
+    packages+=(
+        # Kernel headers for DKMS
+        linux-headers
+        linux-lts-headers
+        linux-zen-headers
+        # Virtualisation
+        virtualbox-host-dkms
+        virtualbox-guest-iso
+        virtualbox
+        # .NET development
+        dotnet-sdk
+        # Containers, kubernetes & cloud
+        podman
+        kubectl
+        helm
+        # Git and related tools
+        glab
+        # VPN
+        networkmanager-vpnc
+        networkmanager-openconnect
+        # Networking and debugging tools
+        lftp     # Powerful FTP client
+        websocat # Debug websockets on the CLI
+        lnav     # Log file analyzer
+        # Additional applications
+        keepassxc     # Keepass
+        evolution-ews # Exchange for evolution
+    )
 
-        optdeps+=(
-            # virtualbox: Kernel modules
-            virtualbox-host-dkms
-            # libproxy: Proxy autoconfiguration URLs, for Gnome and Glib
-            libproxy-webkit
-        )
-        ;;
+    optdeps+=(
+        # virtualbox: Kernel modules
+        virtualbox-host-dkms
+        # libproxy: Proxy autoconfiguration URLs, for Gnome and Glib
+        libproxy-webkit
+    )
+    ;;
 esac
 
 pacman -Syu --needed "${packages[@]}"
@@ -354,76 +354,76 @@ pacman -D --asdeps "${optdeps[@]}"
 # Flatpaks
 flatpaks=(
     # Messaging
-    org.signal.Signal # Mobile messenger
+    org.signal.Signal           # Mobile messenger
     io.github.NhekoReborn.Nheko # Matrix client
     # Multimedia
     org.gnome.Lollypop # Music player
-    org.videolan.VLC # Video player
+    org.videolan.VLC   # Video player
     # Graphics tools
     org.inkscape.Inkscape # Vector graphics
-    org.gimp.GIMP # Pixel graphics
-    io.github.Qalculate # Powerful calculator
+    org.gimp.GIMP         # Pixel graphics
+    io.github.Qalculate   # Powerful calculator
     # Documents
-    org.libreoffice.LibreOffice # Office suite
-    com.github.xournalpp.xournalpp # Hand-writing & notes
-    org.cvfosammmm.Setzer # Fancy Gnome LaTeX editor
+    org.libreoffice.LibreOffice         # Office suite
+    com.github.xournalpp.xournalpp      # Hand-writing & notes
+    org.cvfosammmm.Setzer               # Fancy Gnome LaTeX editor
     com.github.jeromerobert.pdfarranger # Arrange pdf files
-    com.belmoussaoui.Obfuscate # Obfuscate information in images
+    com.belmoussaoui.Obfuscate          # Obfuscate information in images
     # Knowledge management
     org.jabref.jabref # Bibliography tool, paper manager
-    org.zim_wiki.Zim # Desktop Wiki
+    org.zim_wiki.Zim  # Desktop Wiki
     # Other apps
-    com.gitlab.newsflash # Desktop RSS reader
+    com.gitlab.newsflash       # Desktop RSS reader
     com.github.tchx84.Flatseal # Flatpak permissions
-    com.usebottles.bottles # Run Windows software in Wine
-    org.gnome.Maps # Simple maps application
+    com.usebottles.bottles     # Run Windows software in Wine
+    org.gnome.Maps             # Simple maps application
     # Development tools
-    org.gnome.dfeet # DBus inspector
+    org.gnome.dfeet   # DBus inspector
     org.gnome.Devhelp # Gnome development docs
-    org.kde.kdiff3 # Diff & merge tool
+    org.kde.kdiff3    # Diff & merge tool
 )
 flatpaks_to_remove=()
 
 case "$HOSTNAME" in
-    *kastl*)
-        flatpaks+=(
-            # Gaming
-            com.valvesoftware.Steam
-            re.chiaki.Chiaki # Remote play for PS4
-            com.valvesoftware.Steam.Utility.gamescope # Compositing for Games
-            # Messaging
-            com.github.eneshecan.WhatsAppForLinux # Whatsapp client
-            ch.threema.threema-web-desktop # Threema client
-            # Finances and office
-            org.gnucash.GnuCash # Personal finances
-            de.bund.ausweisapp.ausweisapp2 # eID app
-            org.kde.tellico # Book collections
-            work.openpaper.Paperwork # Collect and index (scanned) documents
-            # Multimedia
-            org.kde.digikam # Digital photos
-            org.nickvision.tagger # Audio tag editor
-            com.github.geigi.cozy # Audiobook player
-            de.mediathekview.MediathekView # Mediatheken
-            fr.handbrake.ghb # Video transcoder (incl. hardware decode support)
-            com.makemkv.MakeMKV # Commerial DVD/BlueRay decoder
-            # Misc apps
-            org.viking.Viking # GPS Track editor
-        )
-        # TODO: Find a way to install these extensions automatically in the
-        # appropriate version, without being prompted
-        # fr.handbrake.ghb.Plugin.IntelMediaSDK
-        # org.videolan.VLC.Plugin.makemkv
-        # org.videolan.VLC.Plugin.bdj
-        ;;
-    RB-*)
-        flatpaks+=(
-            # Chat apps
-            chat.rocket.RocketChat
-            com.mattermost.Desktop
-            org.filezillaproject.Filezilla # File transfer
-            org.remmina.Remmina # Remote desktop
-        )
-        ;;
+*kastl*)
+    flatpaks+=(
+        # Gaming
+        com.valvesoftware.Steam
+        re.chiaki.Chiaki                          # Remote play for PS4
+        com.valvesoftware.Steam.Utility.gamescope # Compositing for Games
+        # Messaging
+        com.github.eneshecan.WhatsAppForLinux # Whatsapp client
+        ch.threema.threema-web-desktop        # Threema client
+        # Finances and office
+        org.gnucash.GnuCash            # Personal finances
+        de.bund.ausweisapp.ausweisapp2 # eID app
+        org.kde.tellico                # Book collections
+        work.openpaper.Paperwork       # Collect and index (scanned) documents
+        # Multimedia
+        org.kde.digikam                # Digital photos
+        org.nickvision.tagger          # Audio tag editor
+        com.github.geigi.cozy          # Audiobook player
+        de.mediathekview.MediathekView # Mediatheken
+        fr.handbrake.ghb               # Video transcoder (incl. hardware decode support)
+        com.makemkv.MakeMKV            # Commerial DVD/BlueRay decoder
+        # Misc apps
+        org.viking.Viking # GPS Track editor
+    )
+    # TODO: Find a way to install these extensions automatically in the
+    # appropriate version, without being prompted
+    # fr.handbrake.ghb.Plugin.IntelMediaSDK
+    # org.videolan.VLC.Plugin.makemkv
+    # org.videolan.VLC.Plugin.bdj
+    ;;
+RB-*)
+    flatpaks+=(
+        # Chat apps
+        chat.rocket.RocketChat
+        com.mattermost.Desktop
+        org.filezillaproject.Filezilla # File transfer
+        org.remmina.Remmina            # Remote desktop
+    )
+    ;;
 esac
 
 # Add flatpak beta repository
@@ -444,29 +444,29 @@ flatpak update --system --noninteractive
 services=(
     # Core system services
     systemd-boot-update.service # Update boot loader automatically
-    systemd-homed.service # homed for user management and home areas
-    systemd-oomd.service # Userspace OOM killer
-    systemd-timesyncd.service # Time sync
-    systemd-resolved.service # DNS resolution
+    systemd-homed.service       # homed for user management and home areas
+    systemd-oomd.service        # Userspace OOM killer
+    systemd-timesyncd.service   # Time sync
+    systemd-resolved.service    # DNS resolution
     # auditing
     auditd.service
     # Other system services
     firewalld.service # Firewall
     # Timers
-    fstrim.timer # Periodically trim file systems…
+    fstrim.timer                               # Periodically trim file systems…
     "btrfs-scrub@$(systemd-escape -p /).timer" # scrub root filesystem…
-    paccache.timer # clean pacman cache…
-    pacman-filesdb-refresh.timer # update pacman's file database…
-    fwupd-refresh.timer # check for firmware updates…
-    reflector.timer # and update the mirrorlist.
+    paccache.timer                             # clean pacman cache…
+    pacman-filesdb-refresh.timer               # update pacman's file database…
+    fwupd-refresh.timer                        # check for firmware updates…
+    reflector.timer                            # and update the mirrorlist.
     # Desktop services
-    gdm.service # Desktop manager
+    gdm.service                   # Desktop manager
     power-profiles-daemon.service # Power profile management
-    NetworkManager.service # Network manager for desktops
-    avahi-daemon.service # Local network service discovery (for WLAN printers)
-    cups.service # Printing
-    bluetooth.service # Bluetooth
-    pcscd.socket # Smartcards, mostly eID
+    NetworkManager.service        # Network manager for desktops
+    avahi-daemon.service          # Local network service discovery (for WLAN printers)
+    cups.service                  # Printing
+    bluetooth.service             # Bluetooth
+    pcscd.socket                  # Smartcards, mostly eID
 )
 
 if [[ -n "${SUDO_USER:-}" ]]; then
@@ -494,7 +494,7 @@ NSS_HOSTS=(
     myhostname
     # Resolves from DNS
     dns
-    )
+)
 sed -i '/^hosts: /s/^hosts: .*/'"hosts: ${NSS_HOSTS[*]}/" /etc/nsswitch.conf
 
 # Stub out pacman hooks of mkinitcpio; we use kernel-install instead
@@ -517,16 +517,15 @@ sudo rm -f /etc/dracut.conf.d/*swsnr*
 
 # Boot loader configuration
 case "$HOSTNAME" in
-    *kastl*)
-        # On personal systems use zen kernel
-        install -pm644 "$DIR/etc/loader-default-zen.conf" /efi/loader/loader.conf
-        ;;
-    *)
-        # Otherwise install a standard loader.conf which disables the loader menu
-        install -pm644 "$DIR/etc/loader-default-arch.conf" /efi/loader/loader.conf
-        ;;
+*kastl*)
+    # On personal systems use zen kernel
+    install -pm644 "$DIR/etc/loader-default-zen.conf" /efi/loader/loader.conf
+    ;;
+*)
+    # Otherwise install a standard loader.conf which disables the loader menu
+    install -pm644 "$DIR/etc/loader-default-arch.conf" /efi/loader/loader.conf
+    ;;
 esac
-
 
 # System configuration
 install -pm644 "$DIR/etc/faillock.conf" /etc/security/faillock.conf
@@ -608,7 +607,7 @@ firewall-cmd --permanent --zone=public --remove-service=ssh
 firewall-cmd --reload
 
 # Setup secure boot
-if command -v sbctl > /dev/null && [[ -f /usr/share/secureboot/keys/db/db.key ]]; then
+if command -v sbctl >/dev/null && [[ -f /usr/share/secureboot/keys/db/db.key ]]; then
     # Generate signed bootloader image
     if ! sbctl list-files | grep -q /usr/lib/systemd/boot/efi/systemd-bootx64.efi; then
         sbctl sign -s -o /usr/lib/systemd/boot/efi/systemd-bootx64.efi.signed /usr/lib/systemd/boot/efi/systemd-bootx64.efi
@@ -626,7 +625,7 @@ if command -v sbctl > /dev/null && [[ -f /usr/share/secureboot/keys/db/db.key ]]
         /etc/fwupd/uefi_capsule.conf
 
     sbctl sign-all
-    sbctl verify  # Safety check
+    sbctl verify # Safety check
 
 fi
 
@@ -714,33 +713,33 @@ aur_packages=(
     1password-cli
     # Additional fonts
     otf-vollkorn # My favorite serif font for documents
-    ttf-fira-go # A nice font for presentations
+    ttf-fira-go  # A nice font for presentations
     # Card reader driver for eID
     pcsc-cyberjack
     # Additional tools
     git-gone
     # git-delta
     wcal-git
-    wev # Wayland event testing
+    wev  # Wayland event testing
     frum # Ruby version manager
-    fnm # Node version manager
+    fnm  # Node version manager
     # Missing dependencies for latexindent
     # See <https://bugs.archlinux.org/task/60210>
     texlive-latexindent-meta
 )
 
 case "$HOSTNAME" in
-    *kastl*)
-        aur_packages+=(
-            gnome-shell-extension-gsconnect  # Connect phone and desktop system
-        )
-        ;;
-    *RB*)
-        aur_packages+=(
-            # The legacy
-            python2
-        )
-        ;;
+*kastl*)
+    aur_packages+=(
+        gnome-shell-extension-gsconnect # Connect phone and desktop system
+    )
+    ;;
+*RB*)
+    aur_packages+=(
+        # The legacy
+        python2
+    )
+    ;;
 esac
 
 aur_optdeps=(
@@ -785,6 +784,6 @@ if [[ -n "${SUDO_USER:-}" ]]; then
 fi
 
 # Set plymouth theme
-if command -v plymouth-set-default-theme > /dev/null; then
+if command -v plymouth-set-default-theme >/dev/null; then
     plymouth-set-default-theme bgrt
 fi

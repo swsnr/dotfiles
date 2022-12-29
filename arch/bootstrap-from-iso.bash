@@ -22,29 +22,29 @@ args=()
 use_luks="yes"
 target_device=""
 
-while [[ $# -gt 0 ]]
-do
+while [[ $# -gt 0 ]]; do
     arg="$1"
 
     case "$arg" in
-        "--not-encrypted")
-            use_luks="no"
-            shift
-            ;;
-        "--device")
-            target_device="$2"
-            shift
-            shift
-            ;;
-        *)
-            args+=("$arg")
-            shift;
+    "--not-encrypted")
+        use_luks="no"
+        shift
+        ;;
+    "--device")
+        target_device="$2"
+        shift
+        shift
+        ;;
+    *)
+        args+=("$arg")
+        shift
+        ;;
     esac
 done
 
 if [[ -z "$target_device" ]]; then
     echo "Missing --device <device> argument" >&2
-    exit 2;
+    exit 2
 fi
 
 if [[ "${#args[@]}" -ne 0 ]]; then
@@ -67,8 +67,8 @@ fi
 # Partition
 sgdisk -Z "$target_device"
 sgdisk \
-    -n1:0:+550M  -t1:ef00 -c1:EFISYSTEM \
-    -N2          -t2:8304 -c2:linux \
+    -n1:0:+550M -t1:ef00 -c1:EFISYSTEM \
+    -N2 -t2:8304 -c2:linux \
     "$target_device"
 
 # Reload partition table
@@ -130,7 +130,7 @@ bootstrap_packages=(
     # We need a text editor
     neovim
     networkmanager
-    )
+)
 pacstrap -K "$SYSROOT" "${bootstrap_packages[@]}"
 
 echo "Setting up locales"

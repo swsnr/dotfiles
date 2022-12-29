@@ -15,7 +15,7 @@
 
 set -xeuo pipefail
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}")"  >/dev/null 2>&1 && pwd)"
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 
 clean-recursively() {
     find "$@" -xtype l -delete
@@ -62,13 +62,13 @@ ln -fs "$DIR/wezterm/wezterm.lua" ~/.config/wezterm/wezterm.lua
 ln -fs -t ~/.config/wezterm/colors "$DIR/wezterm/"*.toml
 # Install terminfo for wezterm
 function install_wezterm_terminfo {
-  if [[ ! -f ~/.terminfo/w/wezterm ]]; then
-    local tempfile
-    tempfile="$(mktemp)"
-    trap 'rm -f -- "${tempfile}"' EXIT
-    curl -o "$tempfile" https://raw.githubusercontent.com/wez/wezterm/master/termwiz/data/wezterm.terminfo
-    tic -x -o ~/.terminfo "$tempfile"
-  fi
+    if [[ ! -f ~/.terminfo/w/wezterm ]]; then
+        local tempfile
+        tempfile="$(mktemp)"
+        trap 'rm -f -- "${tempfile}"' EXIT
+        curl -o "$tempfile" https://raw.githubusercontent.com/wez/wezterm/master/termwiz/data/wezterm.terminfo
+        tic -x -o ~/.terminfo "$tempfile"
+    fi
 }
 install_wezterm_terminfo
 
@@ -111,7 +111,7 @@ ln -fs -t ~/.gnupg "$DIR/gnupg/"*.conf
 mkdir -p ~/.config/bat/themes
 ln -fs "$DIR/bat/config" ~/.config/bat/config
 ln -fs -t ~/.config/bat/themes "$DIR/bat/"*.tmTheme
-if command -v bat >& /dev/null; then
+if command -v bat >&/dev/null; then
     bat cache --build
 fi
 
@@ -132,10 +132,10 @@ ln -fs "$DIR/misc/gamemode.ini" ~/.config/gamemode.ini
 # Gnome
 mkdir -p ~/.local/share/gnome-shell/extensions
 ln -fs -t ~/.local/share/gnome-shell/extensions \
-  "$DIR/gnome/extensions/home@swsnr.de" \
-  "$DIR/gnome/extensions/spacetimeformats@swsnr.de" \
-  "$DIR/gnome/extensions/touchpad-toggle@swsnr.de" \
-  "$DIR/gnome/extensions/disable-extension-updates@swsnr.de"
+    "$DIR/gnome/extensions/home@swsnr.de" \
+    "$DIR/gnome/extensions/spacetimeformats@swsnr.de" \
+    "$DIR/gnome/extensions/touchpad-toggle@swsnr.de" \
+    "$DIR/gnome/extensions/disable-extension-updates@swsnr.de"
 clean-recursively ~/.local/share/nautilus-python/extensions || true
 "$DIR/gnome/settings.py" || true
 
@@ -145,20 +145,19 @@ gnome-extensions enable 'disable-extension-updates@swsnr.de' || true
 
 # On personal systems use 1password for SSH and commit signing
 if [[ "$HOSTNAME" == *kastl* ]]; then
-  ln -fs -t ~/.config/git "$DIR/git/config.1password-signing"
-  # This file deliberately lies outside of "$DIR/ssh/config.d" because we
-  # install all files from config.d above
-  ln -fs -t ~/.ssh/config.d "$DIR/ssh/90-1password-ssh-agent"
+    ln -fs -t ~/.config/git "$DIR/git/config.1password-signing"
+    # This file deliberately lies outside of "$DIR/ssh/config.d" because we
+    # install all files from config.d above
+    ln -fs -t ~/.ssh/config.d "$DIR/ssh/90-1password-ssh-agent"
 fi
 
 # Generate additional fish completions
 mkdir -p ~/.config/fish/completions
-command -v rclone >& /dev/null &&
-    rclone completion fish > ~/.config/fish/completions/rclone.fish
-command -v restic >& /dev/null &&
+command -v rclone >&/dev/null &&
+    rclone completion fish >~/.config/fish/completions/rclone.fish
+command -v restic >&/dev/null &&
     restic generate --fish-completion ~/.config/fish/completions/restic.fish
-command -v tea >& /dev/null && tea autocomplete fish --install
-
+command -v tea >&/dev/null && tea autocomplete fish --install
 
 # Setup firefox user.js
 python <<'EOF' | xargs -0 -n1 ln -sf "$DIR"/misc/user.js
@@ -180,7 +179,7 @@ print('\0'.join(paths), end='')
 EOF
 
 # Flatpak setup
-if command -v flatpak >& /dev/null; then
+if command -v flatpak >&/dev/null; then
     # Flathub and flathub beta
     flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     flatpak remote-add --user --if-not-exists flathub-beta https://flathub.org/beta-repo/flathub-beta.flatpakrepo
@@ -225,4 +224,4 @@ if command -v flatpak >& /dev/null; then
 fi
 
 # Configure Code OSS
-command -v code >& /dev/null && ./misc/code-settings.py
+command -v code >&/dev/null && ./misc/code-settings.py
