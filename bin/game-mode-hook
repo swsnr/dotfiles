@@ -32,7 +32,12 @@ show_banners() {
     gsettings set org.gnome.desktop.notifications show-banners "$1"
 }
 
+set_profile() {
+    powerprofilesctl set "$1"
+}
+
 game_mode_on() {
+    set_profile "performance"
     disable_while_typing false
     # Wait until the notification disappeared, otherwise the subsequent Do Not
     # Disturb toggle hides it immediately, rendering it pointless.
@@ -41,6 +46,7 @@ game_mode_on() {
 }
 
 game_mode_off() {
+    set_profile "balanced"
     disable_while_typing true
     show_banners true
     notify "Game Mode Off"
