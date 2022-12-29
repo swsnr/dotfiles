@@ -54,12 +54,12 @@ game_mode_off() {
 
 main() {
     case "$1" in
-        on)
-            game_mode_on
-            ;;
-        off)
-            game_mode_off
-            ;;
+    on)
+        game_mode_on
+        ;;
+    off)
+        game_mode_off
+        ;;
     esac
 }
 
