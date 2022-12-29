@@ -15,7 +15,10 @@
 return {
   {
     "Saecki/crates.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "jose-elias-alvarez/null-ls.nvim",
+    },
     event = "BufRead Cargo.toml",
     config = {
       text = {
@@ -58,6 +61,9 @@ return {
           prerelease = " pre-release ",
           yanked = " yanked ",
         },
+      },
+      null_ls = {
+        enabled = true,
       },
     },
   },
