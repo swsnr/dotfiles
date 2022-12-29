@@ -19,7 +19,7 @@ return {
       "nvim-lua/plenary.nvim",
       "jose-elias-alvarez/null-ls.nvim",
     },
-    event = "BufRead Cargo.toml",
+    event = "BufReadPre Cargo.toml",
     config = {
       text = {
         loading = "  Loading...",
