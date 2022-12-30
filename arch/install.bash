@@ -204,7 +204,10 @@ packages=(
     # Applications
     firefox # Browser
     firefox-i18n-de
-    # Multimedia
+    # Communication
+    evolution
+    signal-desktop
+    # Audio & Video
     vlc
     # Graphics
     inkscape
@@ -248,7 +251,6 @@ packages=(
     gnome-backgrounds
     xdg-user-dirs-gtk
     xdg-desktop-portal-gnome
-    evolution
     file-roller
     yelp # Online help system
     nautilus
@@ -260,12 +262,12 @@ packages=(
     gvfs-mtp
     gvfs-nfs
     gvfs-smb
-    sushi  # Previewer for nautilus
-    evince # Document viewer
-    eog    # Image viewer
-    simple-scan
-    seahorse # Credential manager
-    baobab   # Disk space analyser
+    sushi       # Previewer for nautilus
+    evince      # Document viewer
+    eog         # Image viewer
+    simple-scan # Scanning
+    seahorse    # Gnome keyring manager
+    baobab      # Disk space analyser
     # Gnome style for Qt apps
     qgnomeplatform-qt5
     qgnomeplatform-qt6
@@ -384,7 +386,6 @@ pacman -D --asdeps "${optdeps[@]}"
 # Flatpaks
 flatpaks=(
     # Messaging
-    org.signal.Signal           # Mobile messenger
     io.github.NhekoReborn.Nheko # Matrix client
     # Multimedia
     org.gnome.Lollypop # Music player
@@ -395,22 +396,22 @@ flatpaks=(
     org.zim_wiki.Zim  # Desktop Wiki
     # Other apps
     com.github.tchx84.Flatseal # Flatpak permissions
-    com.usebottles.bottles     # Run Windows software in Wine
 )
 flatpaks_to_remove=(
     # Migrating to pacman packages
+    org.signal.Signal
     org.videolan.VLC
     org.gnome.Devhelp
     org.kde.kdiff3
     com.github.xournalpp.xournalpp
     com.github.jeromerobert.pdfarranger
     io.github.Qalculate
-    org.inkscape.Inkscape          # Vector graphics
-    org.viking.Viking              # GPS Track editor
-    de.mediathekview.MediathekView # Mediatheken
-    org.kde.digikam                # Digital photos
-    de.bund.ausweisapp.ausweisapp2 # eID app
-    re.chiaki.Chiaki               # Remote play for PS4
+    org.inkscape.Inkscape
+    org.viking.Viking
+    de.mediathekview.MediathekView
+    org.kde.digikam
+    de.bund.ausweisapp.ausweisapp2
+    re.chiaki.Chiaki
     # No longer used
     org.gnome.dfeet
     org.cvfosammmm.Setzer
@@ -430,8 +431,11 @@ flatpaks_to_remove=(
 case "$HOSTNAME" in
 *kastl*)
     flatpaks+=(
-        # Gaming
+        # Gaming; we're using flatpak for these because otherwise we'd have to
+        # cope with multilib.  Additionally, bottles explicitly only supports
+        # the flatpak package.
         com.valvesoftware.Steam
+        com.usebottles.bottles # Run Windows software in Wine
         # Messaging
         # Finances and office
         org.gnucash.GnuCash      # Personal finances
