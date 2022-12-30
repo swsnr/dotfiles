@@ -40,6 +40,8 @@ wk.register({
   ["e"] = { name = "+edit" },
   ["er"] = { "<cmd>Telescope registers<cr>", "Paste register" },
   ["ed"] = { tools.iso_utc_to_register, "ISO UTC timestamp to register a" },
+  ["es"] = { "<cmd>Telescope symbols<cr>", "Insert symbol" },
+  ["eu"] = { "<cmd>Telescope undo<cr>", "Undo" },
   -- Files
   ["f"] = { name = "+files" },
   ["ff"] = { "<cmd>Telescope find_files<cr>", "Find files" },
@@ -49,6 +51,8 @@ wk.register({
   -- Git
   ["g"] = { name = "+git" },
   ["gf"] = { "<cmd>Telescope git_files<cr>", "Git files" },
+  ["gg"] = { "<cmd>Neogit<cr>", "Git status" },
+  ["gc"] = { "<cmd>Neogit commit<cr>", "Git commit" },
   -- Help
   ["h"] = { name = "+help" },
   ["hh"] = { "<cmd>Telescope help_tags<cr>", "Tags" },

@@ -47,6 +47,8 @@ return {
       -- Telescope extensions we set up right away
       "nvim-telescope/telescope-ui-select.nvim",
       "jvgrootveld/telescope-zoxide",
+      "nvim-telescope/telescope-symbols.nvim",
+      "debugloop/telescope-undo.nvim",
     },
     config = function()
       local t = require("telescope")
@@ -63,6 +65,7 @@ return {
       -- Redirect vim's ui select to telescope
       t.load_extension("ui-select")
       t.load_extension("zoxide")
+      t.load_extension("undo")
     end,
   },
   {
@@ -163,5 +166,19 @@ return {
   {
     "axelf4/vim-strip-trailing-whitespace",
     event = "BufReadPre",
+  },
+  {
+    "jghauser/mkdir.nvim",
+    event = "VeryLazy",
+  },
+  {
+    "ethanholz/nvim-lastplace",
+    event = "BufReadPre",
+  },
+  {
+    "TimUntersberger/neogit",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    cmd = "Neogit",
+    config = true,
   },
 }
