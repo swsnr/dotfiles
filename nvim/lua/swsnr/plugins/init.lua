@@ -67,6 +67,7 @@ return {
   },
   {
     "kyazdani42/nvim-tree.lua",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     cmd = { "NvimTreeFindFileToggle", "NvimTreeFocus" },
     config = {
       system_open = {
@@ -114,18 +115,9 @@ return {
   },
   {
     "folke/trouble.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     cmd = "TroubleToggle",
     config = {
-      icons = false,
-      fold_open = "v",
-      fold_closed = ">",
-      indent_lines = true,
-      signs = {
-        error = "error",
-        warning = "warn",
-        hint = "hint",
-        information = "info",
-      },
       use_diagnostic_signs = true,
     },
   },

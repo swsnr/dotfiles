@@ -21,14 +21,9 @@ local M = {
     -- Code action indicators
     {
       "kosayoda/nvim-lightbulb",
-      config = function()
-        local lb = require("nvim-lightbulb")
-        local group = vim.api.nvim_create_augroup("lightbulb", { clear = true })
-        vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-          callback = lb.update_lightbulb,
-          group = group,
-        })
-      end,
+      config = {
+        autocmd = { enabled = true },
+      },
     },
     -- Automatically format on save
     {
