@@ -730,9 +730,10 @@ aur_packages=(
     git-gone
     # git-delta
     wcal-git
-    wev  # Wayland event testing
-    frum # Ruby version manager
-    fnm  # Node version manager
+    wev   # Wayland event testing
+    frum  # Ruby version manager
+    fnm   # Node version manager
+    gnvim # Neovim UI with Gtk 4
     # Missing dependencies for latexindent
     # See <https://bugs.archlinux.org/task/60210>
     texlive-latexindent-meta
