@@ -88,5 +88,8 @@ user_pref("media.ffmpeg.vaapi.enabled", true);
 user_pref("media.ffvpx.enabled", false);
 user_pref("media.av1.enabled", false);
 
+// Use mozilla location services
+user_pref("geo.provider.network.url", "https://location.services.mozilla.com/v1/geolocate?key=%MOZILLA_API_KEY%");
+
 // Mark my configuration as loaded
 user_pref('_swsnr.user.js', 'Complete');
