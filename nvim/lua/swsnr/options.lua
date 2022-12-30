@@ -17,7 +17,7 @@
 -- neovide settings
 vim.g.neovide_cursor_vfx_mode = "pixiedust"
 vim.g.neovide_remember_window_size = true
--- Gui settings: Pragmata Pro as standard font, and Noto for emojis
+-- Gui settings: JetBrains Mono as standard font, and Noto for emojis
 vim.opt.guifont = "JetBrains Mono,Noto Color Emoji:h11"
 vim.opt.mouse = "a" -- Enable mouse in all modes
 if vim.g["neovide"] then
