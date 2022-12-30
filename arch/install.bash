@@ -64,8 +64,6 @@ done
 remove_explicitly=(
     # We use mkinitcpio again
     dracut
-    # Moved to flatpak
-    kdiff3
 )
 
 for pkg in "${remove_explicitly[@]}"; do
@@ -182,9 +180,13 @@ packages=(
     # Python
     pyright # Language server for neovim
     # Other development tools
-    hexyl  # hex viewer
-    oxipng # Optimize PNGs for size
-    jq     # Process JSON on command line
+    hexyl   # hex viewer
+    oxipng  # Optimize PNGs for size
+    jq      # Process JSON on command line
+    devhelp # Gnome API doc browser
+    kdiff3  # Diff/merge tool
+    # Other tools
+    yt-dlp # youtube-dl with extra features
     # Desktop tools
     wl-clipboard
     dconf-editor
@@ -199,9 +201,19 @@ packages=(
     sane-airscan
     pipewire-pulse # Pipewire-based pulse-audio, replaces pulseaudio
     wireplumber    # Recommended pipewire session & policy manager
-    firefox        # Browser
+    # Applications
+    firefox # Browser
     firefox-i18n-de
-    yt-dlp # youtube-dl with extra features
+    # Multimedia
+    vlc
+    # Graphics
+    inkscape
+    # Documents
+    xournalpp
+    pdfarranger
+    # Science & data
+    qalculate-gtk
+    viking # GPS track editor
     # Latex
     texlive-most
     biber
@@ -254,10 +266,14 @@ packages=(
     simple-scan
     seahorse # Credential manager
     baobab   # Disk space analyser
+    # Gnome style for Qt apps
+    qgnomeplatform-qt5
+    qgnomeplatform-qt6
     # Multimedia for gnome
     gst-plugins-good
     gst-plugins-bad
     gst-plugins-ugly
+    gst-libav
 )
 
 optdeps=(
@@ -281,6 +297,10 @@ optdeps=(
     devtools
     # gnome-control-center: app permissions
     malcontent
+    # viking: convert GPS tracks
+    gpsbabel
+    # kiconthemes: fallback icons
+    breeze-icons
 )
 
 case "$PRODUCT_NAME" in
@@ -299,6 +319,10 @@ case "$HOSTNAME" in
         gamemode
         # KVM virtualization
         virt-manager
+        # Mediatheken
+        mediathekview
+        # Digital photos
+        digikam
     )
 
     optdeps+=(
@@ -310,6 +334,8 @@ case "$HOSTNAME" in
         iptables-nft
         # libvirt: TPM emulation
         swtpm
+        # vlc: DVD playback
+        libdvdcss
     )
     ;;
 *RB*)
@@ -362,62 +388,59 @@ flatpaks=(
     io.github.NhekoReborn.Nheko # Matrix client
     # Multimedia
     org.gnome.Lollypop # Music player
-    org.videolan.VLC   # Video player
     # Graphics tools
-    org.inkscape.Inkscape # Vector graphics
-    org.gimp.GIMP         # Pixel graphics
-    io.github.Qalculate   # Powerful calculator
     # Documents
-    org.libreoffice.LibreOffice         # Office suite
-    com.github.xournalpp.xournalpp      # Hand-writing & notes
-    org.cvfosammmm.Setzer               # Fancy Gnome LaTeX editor
-    com.github.jeromerobert.pdfarranger # Arrange pdf files
-    com.belmoussaoui.Obfuscate          # Obfuscate information in images
     # Knowledge management
     org.jabref.jabref # Bibliography tool, paper manager
     org.zim_wiki.Zim  # Desktop Wiki
     # Other apps
-    com.gitlab.newsflash       # Desktop RSS reader
     com.github.tchx84.Flatseal # Flatpak permissions
     com.usebottles.bottles     # Run Windows software in Wine
-    org.gnome.Maps             # Simple maps application
-    # Development tools
-    org.gnome.dfeet   # DBus inspector
-    org.gnome.Devhelp # Gnome development docs
-    org.kde.kdiff3    # Diff & merge tool
 )
-flatpaks_to_remove=()
+flatpaks_to_remove=(
+    # Migrating to pacman packages
+    org.videolan.VLC
+    org.gnome.Devhelp
+    org.kde.kdiff3
+    com.github.xournalpp.xournalpp
+    com.github.jeromerobert.pdfarranger
+    io.github.Qalculate
+    org.inkscape.Inkscape          # Vector graphics
+    org.viking.Viking              # GPS Track editor
+    de.mediathekview.MediathekView # Mediatheken
+    org.kde.digikam                # Digital photos
+    de.bund.ausweisapp.ausweisapp2 # eID app
+    re.chiaki.Chiaki               # Remote play for PS4
+    # No longer used
+    org.gnome.dfeet
+    org.cvfosammmm.Setzer
+    org.libreoffice.LibreOffice
+    org.gnome.Maps
+    com.belmoussaoui.Obfuscate
+    com.valvesoftware.Steam.Utility.gamescope
+    fr.handbrake.ghb
+    com.makemkv.MakeMKV
+    org.nickvision.tagger
+    com.gitlab.newsflash
+    com.github.eneshecan.WhatsAppForLinux
+    ch.threema.threema-web-desktop
+    org.gimp.GIMP
+)
 
 case "$HOSTNAME" in
 *kastl*)
     flatpaks+=(
         # Gaming
         com.valvesoftware.Steam
-        re.chiaki.Chiaki                          # Remote play for PS4
-        com.valvesoftware.Steam.Utility.gamescope # Compositing for Games
         # Messaging
-        com.github.eneshecan.WhatsAppForLinux # Whatsapp client
-        ch.threema.threema-web-desktop        # Threema client
         # Finances and office
-        org.gnucash.GnuCash            # Personal finances
-        de.bund.ausweisapp.ausweisapp2 # eID app
-        org.kde.tellico                # Book collections
-        work.openpaper.Paperwork       # Collect and index (scanned) documents
+        org.gnucash.GnuCash      # Personal finances
+        org.kde.tellico          # Book collections
+        work.openpaper.Paperwork # Collect and index (scanned) documents
         # Multimedia
-        org.kde.digikam                # Digital photos
-        org.nickvision.tagger          # Audio tag editor
-        com.github.geigi.cozy          # Audiobook player
-        de.mediathekview.MediathekView # Mediatheken
-        fr.handbrake.ghb               # Video transcoder (incl. hardware decode support)
-        com.makemkv.MakeMKV            # Commerial DVD/BlueRay decoder
+        com.github.geigi.cozy # Audiobook player
         # Misc apps
-        org.viking.Viking # GPS Track editor
     )
-    # TODO: Find a way to install these extensions automatically in the
-    # appropriate version, without being prompted
-    # fr.handbrake.ghb.Plugin.IntelMediaSDK
-    # org.videolan.VLC.Plugin.makemkv
-    # org.videolan.VLC.Plugin.bdj
     ;;
 RB-*)
     flatpaks+=(
@@ -743,6 +766,9 @@ case "$HOSTNAME" in
 *kastl*)
     aur_packages+=(
         gnome-shell-extension-gsconnect # Connect phone and desktop system
+        # Applications
+        ausweisapp2 # eID app
+        chiaki-git  # Remote play client for PS4/5; use git for better controller support
     )
     ;;
 *RB*)
