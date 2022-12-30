@@ -12,6 +12,21 @@
 -- License for the specific language governing permissions and limitations under
 -- the License.
 
+-- TODO:
+--
+-- Steal all cool things from https://github.com/folke/LazyVim
+--
+-- Plugins:
+-- https://github.com/akinsho/bufferline.nvim and https://github.com/folke/dot/blob/master/config/nvim/lua/config/plugins/bufferline.lua
+-- https://github.com/L3MON4D3/LuaSnip
+-- https://github.com/hrsh7th/nvim-cmp and https://github.com/folke/dot/blob/master/config/nvim/lua/config/plugins/cmp.lua
+-- https://github.com/chentoast/marks.nvim
+-- https://github.com/toppair/reach.nvim
+-- https://github.com/akinsho/toggleterm.nvim
+--
+-- Language servers:
+-- https://github.com/latex-lsp/texlab
+
 return {
   { "folke/lazy.nvim", lazy = false },
   -- Color scheme
