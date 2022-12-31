@@ -30,8 +30,12 @@ require("lazy").setup("swsnr.plugins", {
   -- Try to load my preferred colour scheme during installation
   install = { colorscheme = { "tokyonight", "habamax" } },
   -- Automatically check for plugin updates
-  checker = {
-    enabled = true,
-    frequency = 3600,
-  },
+  checker = { enabled = true },
+  performance = {
+  -- Disable a bunch of built-in plugins which I definitely don't use
+    disabled_plugins = {
+      "tohtml",
+      "tutor"
+    }
+  }
 })
