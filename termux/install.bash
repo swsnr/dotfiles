@@ -26,8 +26,6 @@ packages=(
     bat
     ripgrep
     exa
-    rclone
-    xh
     file
     # Git
     git
@@ -38,6 +36,10 @@ packages=(
     shfmt
     shellcheck
     jq
+    # Networking & cryptography
+    rclone
+    xh
+    openssh
 )
 
 # Setup mirros and install packages
