@@ -32,15 +32,6 @@ if status --is-interactive
         zoxide init fish | source
     end
 
-    # Automatically enable NVM and SDK versions for the current directory;
-    # this is not a lazy-loaded function because it needs to register on PWD
-    # changes immediately.
-    function auto_sdk_nvm --on-variable PWD
-        if test -e .sdkmanrc
-            sdk env
-        end
-    end
-
     # python -m venv shouldn't change my prompt.
     set -x VIRTUAL_ENV_DISABLE_PROMPT 1
 
