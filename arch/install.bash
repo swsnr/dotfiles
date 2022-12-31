@@ -64,6 +64,8 @@ done
 remove_explicitly=(
     # We use mkinitcpio again
     dracut
+    # I no longer use flatpak really
+    flatpak-builder
 )
 
 for pkg in "${remove_explicitly[@]}"; do
@@ -193,8 +195,7 @@ packages=(
     # Desktop services
     xdg-user-dirs # Determine user directories in scripts with xdg-user-dir
     flatpak
-    flatpak-builder # Build flatpaks
-    pcsclite        # Smartcard daemon, for e-ID
+    pcsclite # Smartcard daemon, for e-ID
     cups
     bluez
     sane
