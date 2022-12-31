@@ -43,6 +43,13 @@ if status --is-interactive
         frum init | source
     end
 
+    # On Termux start ssh-agent, because termux doesn't do this for us.  On
+    # other systems, e.g. Linux, etc. this is handled by the desktop keyring or
+    # by 1password.
+    if set -q ANDROID_ROOT && set -q TERMUX_VERSION
+        eval (ssh-agent -c)
+    end
+
     # Abbreviations (unlike aliases, these are expanded before running)
     # Fast one or two letter abbrevs
     abbr --global --add _ sudo
