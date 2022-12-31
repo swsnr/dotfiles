@@ -22,7 +22,6 @@ function M.lsp_attach(client, bufnr)
   -- Make omnicomplete use LSP completions
   vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
 
-  local tb = require("telescope.builtin")
   require("swsnr.mappings").lsp_attach(bufnr)
 end
 
