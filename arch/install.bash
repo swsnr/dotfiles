@@ -325,6 +325,8 @@ case "$HOSTNAME" in
         mediathekview
         # Digital photos
         digikam
+        # Document management
+        paperwork
     )
 
     optdeps+=(
@@ -338,6 +340,12 @@ case "$HOSTNAME" in
         swtpm
         # vlc: DVD playback
         libdvdcss
+        # python-pyocr: OCR backend
+        tesseract
+        # tesseract: data files
+        tesseract-data-deu
+        tesseract-data-deu_frak
+        tesseract-data-eng
     )
     ;;
 *RB*)
@@ -386,14 +394,10 @@ pacman -D --asdeps "${optdeps[@]}"
 # Flatpaks
 flatpaks=(
     # Messaging
-    io.github.NhekoReborn.Nheko # Matrix client
     # Multimedia
     org.gnome.Lollypop # Music player
-    # Graphics tools
-    # Documents
     # Knowledge management
-    org.jabref.jabref # Bibliography tool, paper manager
-    org.zim_wiki.Zim  # Desktop Wiki
+    org.zim_wiki.Zim # Desktop Wiki
     # Other apps
     com.github.tchx84.Flatseal # Flatpak permissions
 )
@@ -412,6 +416,8 @@ flatpaks_to_remove=(
     org.kde.digikam
     de.bund.ausweisapp.ausweisapp2
     re.chiaki.Chiaki
+    work.openpaper.Paperwork
+    org.jabref.jabref
     # No longer used
     org.gnome.dfeet
     org.cvfosammmm.Setzer
@@ -419,6 +425,7 @@ flatpaks_to_remove=(
     org.gnome.Maps
     com.belmoussaoui.Obfuscate
     com.valvesoftware.Steam.Utility.gamescope
+    io.github.NhekoReborn.Nheko
     fr.handbrake.ghb
     com.makemkv.MakeMKV
     org.nickvision.tagger
@@ -438,9 +445,8 @@ case "$HOSTNAME" in
         com.usebottles.bottles # Run Windows software in Wine
         # Messaging
         # Finances and office
-        org.gnucash.GnuCash      # Personal finances
-        org.kde.tellico          # Book collections
-        work.openpaper.Paperwork # Collect and index (scanned) documents
+        org.gnucash.GnuCash # Personal finances
+        org.kde.tellico     # Book collections
         # Multimedia
         com.github.geigi.cozy # Audiobook player
         # Misc apps
@@ -748,6 +754,8 @@ aur_packages=(
     # Personal password manager
     1password
     1password-cli
+    # Bibliography
+    jabref
     # Additional fonts
     otf-vollkorn # My favorite serif font for documents
     ttf-fira-go  # A nice font for presentations
