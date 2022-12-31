@@ -132,6 +132,8 @@ return {
   unicode_version = 14,
   -- Don't beep
   audible_bell = "Disabled",
+  -- Allow applications to upgrade to the kitty keyboard protocol
+  enable_kitty_keyboard = true,
   visual_bell = {
     fade_in_function = "EaseIn",
     fade_in_duration_ms = 150,
