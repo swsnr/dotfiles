@@ -215,6 +215,8 @@ packages=(
     # Documents
     xournalpp
     pdfarranger
+    # Office
+    gnucash
     # Science & data
     qalculate-gtk
     viking # GPS track editor
@@ -306,6 +308,8 @@ optdeps=(
     breeze-icons
     # sdl2: Wayland client decorations
     libdecor
+    # gnucash: documentation
+    gnucash-docs
 )
 
 case "$PRODUCT_NAME" in
@@ -421,6 +425,7 @@ flatpaks_to_remove=(
     re.chiaki.Chiaki
     work.openpaper.Paperwork
     org.jabref.jabref
+    org.gnucash.GnuCash
     # No longer used
     org.gnome.dfeet
     org.cvfosammmm.Setzer
@@ -446,13 +451,9 @@ case "$HOSTNAME" in
         # the flatpak package.
         com.valvesoftware.Steam
         com.usebottles.bottles # Run Windows software in Wine
-        # Messaging
-        # Finances and office
-        org.gnucash.GnuCash # Personal finances
-        org.kde.tellico     # Book collections
+        org.kde.tellico        # Book collections
         # Multimedia
         com.github.geigi.cozy # Audiobook player
-        # Misc apps
     )
     ;;
 RB-*)
