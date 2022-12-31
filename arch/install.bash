@@ -304,6 +304,8 @@ optdeps=(
     gpsbabel
     # kiconthemes: fallback icons
     breeze-icons
+    # sdl2: Wayland client decorations
+    libdecor
 )
 
 case "$PRODUCT_NAME" in
