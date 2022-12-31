@@ -100,34 +100,7 @@ return {
     event = "BufReadPre",
     config = {
       on_attach = function(bufnr)
-        local wk = require("which-key")
-        wk.register({
-          ["]c"] = { "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", "Next git hunk", expr = true },
-          ["[c"] = { "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", "Previous git hunk", expr = true },
-          ["<leader>gb"] = {
-            function()
-              require("gitsigns").blame_line({ full = true })
-            end,
-            "Blame current line",
-          },
-          ["<leader>gd"] = { "<cmd>Gitsigns diffthis<cr>", "Diff against index" },
-          ["<leader>gD"] = { "<cmd>Gitsigns toggle_deleted<cr>", "Toggle deleted lines" },
-          ["<leader>gp"] = { "<cmd>Gitsigns preview_hunk<cr>", "Preview hunk" },
-          ["<leader>gR"] = { "<cmd>Gitsigns reset_buffer<cr>", "Reset buffer to staged" },
-          ["<leader>gr"] = { "<cmd>Gitsigns reset_hunk<cr>", "Reset hunk to staged" },
-          ["<leader>gS"] = { "<cmd>Gitsigns stage_buffer<cr>", "Stage buffer" },
-          ["<leader>gs"] = { "<cmd>Gitsigns stage_hunk<cr>", "Stage hunk" },
-          ["<leader>gu"] = { "<cmd>Gitsigns undo_stage_hunk<cr>", "Undo staged hunk" },
-        }, { buffer = bufnr })
-
-        wk.register({
-          ["<leader>gr"] = { "<cmd>Gitsigns reset_hunk<cr>", "Reset hunk to staged" },
-          ["<leader>gs"] = { "<cmd>Gitsigns stage_hunk<cr>", "Stage hunk" },
-        }, { buffer = bufnr, mode = "v" })
-
-        -- Text object; TODO: Migrate to which-key
-        --map('o', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
-        --map('x', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+        require("swsnr.mappings").git_signs_attach(bufnr)
       end,
     },
   },
