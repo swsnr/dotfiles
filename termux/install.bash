@@ -50,7 +50,8 @@ pkg upgrade
 pkg install "${packages[@]}"
 
 # Configure termux
-install -pm644 -t"$HOME/.termux/" "$DIR/colors.properties"
+install -pm644 -t"$HOME/.termux/" \
+    "$DIR/termux.properties" "$DIR/colors.properties"
 if [[ ! -f "$HOME/.termux/font.ttf" ]]; then
     curl -fsSL -o "$HOME/.termux/.font.ttf.partial" "$FONT"
     mv "$HOME/.termux/.font.ttf.partial" "$HOME/.termux/font.ttf"
