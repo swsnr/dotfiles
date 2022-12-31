@@ -163,7 +163,8 @@ command -v restic >&/dev/null &&
 command -v tea >&/dev/null && tea autocomplete fish --install
 
 # Setup firefox user.js
-python <<'EOF' | xargs -0 -n1 ln -sf "$DIR"/misc/user.js
+if [[ -e ~/.mozilla/firefox/profiles.ini ]]; then
+    python <<'EOF' | xargs -0 -n1 ln -sf "$DIR"/misc/user.js || true
 from pathlib import Path
 from configparser import ConfigParser
 firefox = Path.home() / '.mozilla' / 'firefox'
@@ -180,6 +181,7 @@ for section in config:
             paths.append(str(user_js))
 print('\0'.join(paths), end='')
 EOF
+fi
 
 # Flatpak setup
 if command -v flatpak >&/dev/null; then
