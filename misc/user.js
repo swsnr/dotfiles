@@ -41,8 +41,6 @@ user_pref("browser.newtabpage.activity-stream.section.highlights.includePocket",
 // Cleary default topsites and pinned sites
 user_pref("browser.newtabpage.activity-stream.default.sites", "");
 user_pref("browser.newtabpage.pinned", "[{\"url\":\"https://amazon.com\",\"label\":\"@amazon\",\"searchTopSite\":true},{\"url\":\"https://google.com\",\"label\":\"@google\",\"searchTopSite\":true}]");
-// Enable gnome search provider
-user_pref("browser.gnome-search-provider.enabled", true);
 // Disable recommendations in about:addons
 user_pref("extensions.getAddons.showPane", false);
 user_pref("extensions.htmlaboutaddons.recommendations.enabled", false);
@@ -53,6 +51,14 @@ user_pref("browser.discovery.enabled", false);
 user_pref("extensions.webservice.discoverURL", "");
 // Disable welcome notices
 user_pref("browser.startup.homepage_override.mstone", "ignore");
+
+// Linux desktop integration: Enable Gnome search provider and force portal API
+// for file dialogs and mime handling.  The latter makes it rely on standard
+// desktop services; in particular we get a nice new Gnome file dialog instead
+// of the old and ugly Gtk thingy.
+user_pref("browser.gnome-search-provider.enabled", true);
+user_pref("widget.use-xdg-desktop-portal.mime-handler", 1);
+user_pref("widget.use-xdg-desktop-portal.file-picker", 1);
 
 // Content-blocking
 user_pref("browser.contentblocking.category", "strict");
