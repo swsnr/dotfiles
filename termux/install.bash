@@ -39,6 +39,9 @@ packages=(
     jq
 )
 
+# Setup mirros and install packages
+ln -sf "$PREFIX/etc/termux/mirrors/europe" "$PREFIX/etc/termux/chosen_mirrors"
+
 pkg update
 pkg upgrade
 pkg install "${packages[@]}"
