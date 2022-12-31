@@ -66,6 +66,8 @@ remove_explicitly=(
     dracut
     # I no longer use flatpak really
     flatpak-builder
+    # nuspell is better
+    hunspell
 )
 
 for pkg in "${remove_explicitly[@]}"; do
@@ -157,8 +159,7 @@ packages=(
     pandoc
     mdcat
     zathura # Lightweight document viewer
-    # Spellchecking
-    hunspell
+    # Spellchecking dictionaries
     hunspell-de
     hunspell-en_gb
     hunspell-en_us
@@ -215,6 +216,7 @@ packages=(
     # Documents
     xournalpp
     pdfarranger
+    zim
     # Office
     gnucash
     # Science & data
@@ -310,6 +312,12 @@ optdeps=(
     libdecor
     # gnucash: documentation
     gnucash-docs
+    # zim: spell checking
+    gtkspell3
+    # enchant: spell checkking library (transitive of gtkspell3)
+    nuspell
+    # zim: source code view
+    gtksourceview3
 )
 
 case "$PRODUCT_NAME" in
@@ -403,14 +411,13 @@ flatpaks=(
     # Messaging
     # Multimedia
     org.gnome.Lollypop # Music player
-    # Knowledge management
-    org.zim_wiki.Zim # Desktop Wiki
     # Other apps
     com.github.tchx84.Flatseal # Flatpak permissions
 )
 flatpaks_to_remove=(
     # Migrating to pacman packages
     org.signal.Signal
+    org.zim_wiki.Zim
     org.videolan.VLC
     org.gnome.Devhelp
     org.kde.kdiff3
