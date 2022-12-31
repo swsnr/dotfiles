@@ -13,5 +13,9 @@
 # the License.
 
 function open --description 'Open things'
-    gio open $argv
+    if set -q TERMUX_VERSION
+        termux-open-url $argv
+    else
+        gio open $argv
+    end
 end
