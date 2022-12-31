@@ -21,6 +21,10 @@ clean-recursively() {
     find "$@" -xtype l -delete
 }
 
+has() {
+    command -v "$1" >&/dev/null
+}
+
 # Binaries
 mkdir -p ~/.local/bin
 clean-recursively ~/.local/bin
@@ -114,9 +118,7 @@ ln -fs -t ~/.gnupg "$DIR/gnupg/"*.conf
 mkdir -p ~/.config/bat/themes
 ln -fs "$DIR/bat/config" ~/.config/bat/config
 ln -fs -t ~/.config/bat/themes "$DIR/bat/"*.tmTheme
-if command -v bat >&/dev/null; then
-    bat cache --build
-fi
+has bat && bat cache --build
 
 # Python
 mkdir -p ~/.config/python
@@ -156,14 +158,12 @@ fi
 
 # Generate additional fish completions
 mkdir -p ~/.config/fish/completions
-command -v rclone >&/dev/null &&
-    rclone completion fish >~/.config/fish/completions/rclone.fish
-command -v restic >&/dev/null &&
-    restic generate --fish-completion ~/.config/fish/completions/restic.fish
-command -v tea >&/dev/null && tea autocomplete fish --install
+has rclone && rclone completion fish >~/.config/fish/completions/rclone.fish
+has restic && restic generate --fish-completion ~/.config/fish/completions/restic.fish
+has tea && tea autocomplete fish --install
 
 # Setup firefox user.js
-if [[ -e ~/.mozilla/firefox/profiles.ini ]]; then
+if has python && [[ -e ~/.mozilla/firefox/profiles.ini ]]; then
     python <<'EOF' | xargs -0 -n1 ln -sf "$DIR"/misc/user.js || true
 from pathlib import Path
 from configparser import ConfigParser
@@ -184,7 +184,7 @@ EOF
 fi
 
 # Flatpak setup
-if command -v flatpak >&/dev/null; then
+if has flatpak; then
     # Flathub and flathub beta
     flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     flatpak remote-add --user --if-not-exists flathub-beta https://flathub.org/beta-repo/flathub-beta.flatpakrepo
@@ -205,11 +205,12 @@ if command -v flatpak >&/dev/null; then
         --nofilesystem host --filesystem ~/Hörbücher \
         com.github.geigi.cozy
     flatpak override --user \
-        --nofilesystem host --filesystem xdg-music \
-        org.nickvision.tagger
+        --nofilesystem host --filesystem xdg-music
 
-    # Remove overrides for chiaki; it now uses wayland natively.
+    # Remove overrides for flatpaks I no longer use
     flatpak override --user --reset re.chiaki.Chiaki
+    flatpak override --user --reset io.github.ja2-stracciatella
+    flatpak override --user --reset org.nickvision.tagger
 
     # Allow tellico to access my documents folder
     flatpak override --user \
@@ -221,12 +222,7 @@ if command -v flatpak >&/dev/null; then
     flatpak override --user \
         --filesystem=/tmp \
         org.gnome.Lollypop
-
-    # Run JA2 on Wayland natively
-    flatpak override --user \
-        --socket=wayland --env=SDL_VIDEODRIVER=wayland \
-        io.github.ja2-stracciatella
 fi
 
 # Configure Code OSS
-command -v code >&/dev/null && ./misc/code-settings.py
+has code && ./misc/code-settings.py
