@@ -65,7 +65,10 @@ function install_wezterm_terminfo {
     if [[ ! -f ~/.terminfo/w/wezterm ]]; then
         local tempfile
         tempfile="$(mktemp)"
-        trap 'rm -f -- "${tempfile}"' EXIT
+        # We deliberately want to expand $tempfile now, because it's local to
+        # this function and thus no longer defined when bash exits.
+        # shellcheck disable=SC2064
+        trap "rm -f -- '${tempfile}'" EXIT
         curl -o "$tempfile" https://raw.githubusercontent.com/wez/wezterm/master/termwiz/data/wezterm.terminfo
         tic -x -o ~/.terminfo "$tempfile"
     fi
