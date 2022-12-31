@@ -117,7 +117,7 @@ function M.lsp_attach(buffer)
   }, { buffer = bufnr })
 end
 
-function M.git_signs_attachs(buffer)
+function M.git_signs_attach(buffer)
   wk.register({
     ["]c"] = { "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", "Next git hunk", expr = true },
     ["[c"] = { "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", "Previous git hunk", expr = true },
