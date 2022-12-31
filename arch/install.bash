@@ -68,6 +68,8 @@ remove_explicitly=(
     flatpak-builder
     # nuspell is better
     hunspell
+    # Tends to auto-update too much
+    gnome-software
 )
 
 for pkg in "${remove_explicitly[@]}"; do
@@ -241,7 +243,6 @@ packages=(
     ttf-jetbrains-mono
     # Gnome
     gdm
-    gnome-software # Monitor software updates
     gnome-characters
     gnome-keyring
     gnome-calendar
@@ -251,6 +252,7 @@ packages=(
     gnome-shell-extensions
     gnome-shell-extension-appindicator
     gnome-system-monitor
+    gnome-firmware # Manage firmware with Gnome
     gnome-control-center
     gnome-tweaks
     gnome-backgrounds
