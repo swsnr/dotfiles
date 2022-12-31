@@ -36,13 +36,16 @@ vim.opt.updatetime = 300 -- Update faster
 vim.opt.showmode = false -- Don't show mode message in message line
 vim.opt.signcolumn = "yes" -- Always show sign column
 vim.opt.timeoutlen = 500 -- Key timeout after 500, for which key
--- Always keep some context
-vim.opt.sidescrolloff = 8
-vim.opt.scrolloff = 8
+vim.opt.sidescrolloff = 8 -- Keep eight lines on horizontal…
+vim.opt.scrolloff = 8 -- …and vertical scrolling
+vim.opt.pumblend = 10 -- Slight transparency for popup windows
+vim.opt.pumheight = 10 -- Show only 10 entries for popup menu by default
+vim.opt.shortmess = "filnxtToOFWIc" -- Reduce hit enter prompts
 
 -- Options for files and buffers
 vim.opt.autowrite = true
 vim.opt.hidden = true
+vim.opt.updatetime = 200 -- Write swapfiles often
 
 -- Completion: Always show a menu even if there's just one candidate, never
 -- insert automatically and never preselect an entry in the completion menuselect.
@@ -60,6 +63,11 @@ vim.opt.shiftwidth = 2 -- Indent with two spaces by default
 vim.opt.cursorline = true -- Highlight line of cursor
 vim.opt.conceallevel = 3 -- Hide * markup for bold and italic
 vim.opt.formatoptions = "jcroqlnt"
+vim.opt.list = true -- Show whitespace characters
+
+-- Undo
+vim.opt.undofile = true -- Persist undo history
+vim.opt.undolevels = 1000 -- and a lot thereof
 
 -- Folding
 vim.opt.foldmethod = "indent" -- Fold by indentation by default
