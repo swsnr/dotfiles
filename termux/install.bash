@@ -28,6 +28,7 @@ packages=(
     exa
     rclone
     xh
+    file
     # Git
     git
     # Editor
