@@ -14,7 +14,7 @@
 
 function open --description 'Open things'
     if set -q TERMUX_VERSION
-        termux-open-url $argv
+        termux-open $argv
     else
         gio open $argv
     end
