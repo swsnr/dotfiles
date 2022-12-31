@@ -760,6 +760,7 @@ aur_packages=(
     plymouth
     # Gnome extensions
     gnome-shell-extension-nasa-apod
+    gnome-shell-extension-burn-my-windows
     # Gnome tools
     gnome-search-providers-jetbrains
     gnome-search-providers-vscode
