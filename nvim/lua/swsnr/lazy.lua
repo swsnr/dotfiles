@@ -32,10 +32,10 @@ require("lazy").setup("swsnr.plugins", {
   -- Automatically check for plugin updates
   checker = { enabled = true },
   performance = {
-  -- Disable a bunch of built-in plugins which I definitely don't use
+    -- Disable a bunch of built-in plugins which I definitely don't use
     disabled_plugins = {
       "tohtml",
-      "tutor"
-    }
-  }
+      "tutor",
+    },
+  },
 })
