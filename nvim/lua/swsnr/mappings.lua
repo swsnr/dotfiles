@@ -20,7 +20,34 @@ local M = {}
 
 function M.setup()
   -- Back to normal mode the fast way.
-  vim.api.nvim_set_keymap("i", "jk", "<ESC>", { noremap = true })
+  vim.keymap.set("i", "jk", "<ESC>", { noremap = true })
+
+  -- Move windows with Alt and resize with shift
+  vim.keymap.set("n", "<A-left>", "<C-w>h")
+  vim.keymap.set("n", "<A-down>", "<C-w>j")
+  vim.keymap.set("n", "<A-up>", "<C-w>k")
+  vim.keymap.set("n", "<A-right>", "<C-w>l")
+  vim.keymap.set("n", "<S-Up>", "<cmd>resize +2<CR>")
+  vim.keymap.set("n", "<S-Down>", "<cmd>resize -2<CR>")
+  vim.keymap.set("n", "<S-Left>", "<cmd>vertical resize -2<CR>")
+  vim.keymap.set("n", "<S-Right>", "<cmd>vertical resize +2<CR>")
+
+  -- Paste in a new line before/after
+  vim.keymap.set("n", "[p", ":pu!<cr>")
+  vim.keymap.set("n", "]p", ":pu<cr>")
+
+  -- Make n and N consistent: n always goes forward, regardless of whether ? or
+  -- / was used for searching
+  vim.keymap.set("n", "n", "'Nn'[v:searchforward]", { expr = true })
+  vim.keymap.set("x", "n", "'Nn'[v:searchforward]", { expr = true })
+  vim.keymap.set("o", "n", "'Nn'[v:searchforward]", { expr = true })
+  vim.keymap.set("n", "N", "'nN'[v:searchforward]", { expr = true })
+  vim.keymap.set("x", "N", "'nN'[v:searchforward]", { expr = true })
+  vim.keymap.set("o", "N", "'nN'[v:searchforward]", { expr = true })
+
+  -- Restore selection when indenting in visual mode
+  vim.keymap.set("v", "<", "<gv")
+  vim.keymap.set("v", ">", ">gv")
 
   wk.register({
     ["g"] = { name = "+goto" },
