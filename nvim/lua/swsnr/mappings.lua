@@ -32,6 +32,10 @@ function M.setup()
   vim.keymap.set("n", "<S-Left>", "<cmd>vertical resize -2<CR>")
   vim.keymap.set("n", "<S-Right>", "<cmd>vertical resize +2<CR>")
 
+  -- Switch buffers with <ctrl>
+  vim.keymap.set("n", "<C-Left>", "<cmd>bprevious<cr>")
+  vim.keymap.set("n", "<C-Right>", "<cmd>bnext<cr>")
+
   -- Paste in a new line before/after
   vim.keymap.set("n", "[p", ":pu!<cr>")
   vim.keymap.set("n", "]p", ":pu<cr>")
