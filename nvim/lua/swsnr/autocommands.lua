@@ -25,7 +25,7 @@ v.nvim_create_autocmd({ "TermOpen" }, {
 -- Highlight yanked text, see https://github.com/neovim/neovim/pull/12279#issuecomment-879142040
 v.nvim_create_autocmd({ "TextYankPost" }, {
   callback = function()
-    vim.highlight.on_yank({ timeout = 200, on_visual = false })
+    vim.highlight.on_yank()
   end,
   group = ly_group,
 })
