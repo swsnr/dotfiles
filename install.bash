@@ -135,19 +135,57 @@ ln -fs "$DIR/misc/electron-flags.conf" ~/.config/electron17-flags.conf
 ln -fs "$DIR/misc/gamemode.ini" ~/.config/gamemode.ini
 ln -fs "$DIR/misc/zim-style.conf" ~/.config/zim/style.conf
 
-# Gnome
+# Gnome settings
+"$DIR/gnome/settings.py" || true
+# Local gnome extensions
 mkdir -p ~/.local/share/gnome-shell/extensions
 ln -fs -t ~/.local/share/gnome-shell/extensions \
     "$DIR/gnome/extensions/home@swsnr.de" \
     "$DIR/gnome/extensions/spacetimeformats@swsnr.de" \
     "$DIR/gnome/extensions/touchpad-toggle@swsnr.de" \
     "$DIR/gnome/extensions/disable-extension-updates@swsnr.de"
-clean-recursively ~/.local/share/nautilus-python/extensions || true
-"$DIR/gnome/settings.py" || true
 
-# Attempt to enable extensions; this will fail for extensions that were just
-# installed, but we try nonetheless
-gnome-extensions enable 'disable-extension-updates@swsnr.de' || true
+extensions=(
+    # Disable automatic extension updates; I install all extensions through
+    # pacman
+    'disable-extension-updates@swsnr.de'
+    # Systray support
+    'appindicatorsupport@rgcjonas.gmail.com'
+    # Show workspaces in top bar
+    workspace-indicator@gnome-shell-extensions.gcampax.github.com
+    # Bling bling
+    burn-my-windows@schneegans.github.com
+    # Cool wallpapers every day
+    nasa_apod@elinvention.ovh
+)
+case "$HOSTNAME" in
+*kastl*)
+    extensions+=(
+        # Toggle disable-touchpad-on-type on and off (great for typing, but gets
+        # in my way for gaming)
+        touchpad-toggle@swsnr.de
+        # Connect my system to my mobile phone
+        gsconnect@andyholmes.github.io
+    )
+    ;;
+*RB*)
+    extensions+=(
+        # home@swsnr.de
+        # Show UTC time, ISO week and DOY in top bar
+        spacetimeformats@swsnr.de
+        # Resize windows for screenshots
+        screenshot-window-sizer@gnome-shell-extensions.gcampax.github.com
+    )
+    ;;
+esac
+if has gnome-extensions; then
+    for extension in "${extensions[@]}"; do
+        # Enable extension if present
+        if gnome-extensions list | grep -q "${extension}"; then
+            gnome-extensions enable "${extension}"
+        fi
+    done
+fi
 
 # On personal systems use 1password for SSH and commit signing
 if [[ "$HOSTNAME" == *kastl* ]]; then
