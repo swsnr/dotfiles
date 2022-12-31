@@ -773,6 +773,8 @@ aur_packages=(
     # Missing dependencies for latexindent
     # See <https://bugs.archlinux.org/task/60210>
     texlive-latexindent-meta
+    # Games
+    ja2-stracciatella
 )
 
 case "$HOSTNAME" in
