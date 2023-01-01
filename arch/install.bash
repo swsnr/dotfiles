@@ -127,6 +127,7 @@ packages=(
 
     # Arch tools & infrastructure
     asp            # Obtain PKGBUILDs for ABS
+    etc-update     # Deal with pacdiff/pacsave files
     pacman-contrib # paccache, checkupdates, pacsearch, and others
     reflector      # Weekly mirrorlist updates
     base-devel
