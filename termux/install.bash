@@ -19,7 +19,12 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 
 FONT='https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/JetBrainsMono/Ligatures/Regular/complete/JetBrains%20Mono%20Regular%20Nerd%20Font%20Complete%20Mono.ttf?raw=true'
 
+has() {
+    command -v "$1" >&/dev/null
+}
+
 packages=(
+    nala
     # Shell & tools
     fish
     zoxide
@@ -45,9 +50,14 @@ packages=(
 # Setup mirros and install packages
 ln -sf "$PREFIX/etc/termux/mirrors/europe" "$PREFIX/etc/termux/chosen_mirrors"
 
-pkg update
-pkg upgrade
-pkg install "${packages[@]}"
+# Install nala if not yet there
+if ! has nala; then
+    pkg update
+    pkg install nala
+fi
+
+nala --update upgrade --simple --assume-yes
+nala --no-update install --simple --assume-yes "${packages[@]}"
 
 # Configure termux
 install -pm644 -t"$HOME/.termux/" \

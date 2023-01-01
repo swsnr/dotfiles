@@ -88,10 +88,12 @@ packages=(
     zram-generator # swap on compressed RAM, mostly to support systemd-oomd
     sbctl          # Manage secure boot binaries and sign binaries
     alsa-utils     # ALSA control
+
     # File systems
     ntfs-3g
     exfatprogs
     btrfs-progs
+
     # Hardware tools
     fwupd # Firmware updates
     usbutils
@@ -99,6 +101,7 @@ packages=(
     # Keyboard flashing tool
     zsa-wally
     zsa-wally-cli
+
     # System monitoring
     iotop
     htop
@@ -107,101 +110,106 @@ packages=(
     # Power management
     powertop
     power-profiles-daemon
-    # Networking
+
+    # Networking & security
     networkmanager
     firewalld
     # DNS-SD, mostly for printers, i.e. CUPS. Service discovery is handled by Avahi,
     # name resolution by systemd-resolved.
     avahi
-    xh # HTTP requests on the command line
     # Cryptography
     step-cli   # Create CA & leaf certificates
     sequoia-sq # Sane GPG tooling
+    # Network tools
+    curl
+    xh # HTTP requests on the command line
+    rsync
+    rclone # rsync for clouds
+    yt-dlp # youtube-dl with extra features
+
     # Arch tools & infrastructure
     asp            # Obtain PKGBUILDs for ABS
     pacman-contrib # paccache, checkupdates, pacsearch, and others
     reflector      # Weekly mirrorlist updates
-    # Build packages
     base-devel
     namcap
     debuginfod # Remote debug info
-    # Terminal, shell & tools
-    wezterm
-    man-db
-    man-pages
-    fish
-    zoxide # Cross-shell/editor directory jumping
-    fzf    # Fuzzy file finder for shells
+
+    # Editors (mainly neovim)
     code
     # Neovim & tools
     neovim
     neovide
     stylua # Code formatter for lua
+
+    # Shell environment
+    wezterm # My preferred terminal emulator
+    fish    # My preferred shell
+    zoxide  # Cross-shell/editor directory jumping
+    fzf     # Fuzzy file finder for shells
+    man-db
+    man-pages
     # CLI tools
-    exa     # Better ls (with git support)
-    vivid   # Creates themes for dircolors
-    fd      # Simpler find
-    sd      # Simpler sed
-    dua-cli # Disk space analyzer
-    ripgrep
-    ripgrep-all
-    bat
+    exa         # Better ls (with git support)
+    vivid       # Creates themes for dircolors
+    ripgrep     # Better grep
+    ripgrep-all # ripgrep for all kinds of files
+    bat         # Better less
+    fd          # Simpler find
+    sd          # Simpler sed
+    dua-cli     # Disk space analyzer
     nnn         # Command line file manager (also a good pager for aurutils)
     renameutils # qmv is super nice
-    rsync
-    rclone # rsync for clouds
-    restic # Backups
-    curl
+    restic      # Backups
     p7zip
     zip
     # Document processing and rendering
     pandoc
     mdcat
-    zathura # Lightweight document viewer
+
     # Spellchecking dictionaries
     hunspell-de
     hunspell-en_gb
     hunspell-en_us
+
     # Git and related tools
     git
     git-filter-repo
     git-lfs
     gitui
     github-cli
+
+    # Development tooling
     # Rust tooling
     rustup
     cargo-audit
     cargo-outdated
     cargo-release
     cargo-deny
-    # rustup doesn't ship a proxy for this yet, see https://bugs.archlinux.org/task/76050
-    rust-analyzer
-    # Bash tools
-    shellcheck
-    shfmt
-    # Python
-    pyright # Language server for neovim
-    # Other development tools
-    hexyl   # hex viewer
-    oxipng  # Optimize PNGs for size
-    jq      # Process JSON on command line
-    devhelp # Gnome API doc browser
-    kdiff3  # Diff/merge tool
-    # Other tools
-    yt-dlp # youtube-dl with extra features
-    # Desktop tools
-    wl-clipboard
-    dconf-editor
-    # Desktop services
-    xdg-user-dirs # Determine user directories in scripts with xdg-user-dir
-    flatpak
-    pcsclite # Smartcard daemon, for e-ID
-    cups
-    bluez
-    sane
-    sane-airscan
+    rust-analyzer # Not yet shipped in rustup, see https://bugs.archlinux.org/task/76050
+    shellcheck    # Lint bash code
+    shfmt         # Format bash code
+    pyright       #  Python language server for neovim
+    hexyl         # hex viewer
+    oxipng        # Optimize PNGs for size
+    jq            # Process JSON on command line
+    devhelp       # Gnome API doc browser
+    kdiff3        # Diff/merge tool
+
+    # Basic desktop
+    wl-clipboard   # CLI access to clipboard
+    dconf-editor   # Edit and view Gnome configuration database
+    xdg-user-dirs  # Determine user directories in scripts with xdg-user-dir
+    flatpak        # Sandboxing and dependency isolation for some apps
     pipewire-pulse # Pipewire-based pulse-audio, replaces pulseaudio
     wireplumber    # Recommended pipewire session & policy manager
+    # Desktop services
+    pcsclite     # Smartcard daemon, for e-ID
+    cups         # Printing
+    bluez        # Bluetooth
+    sane         # Scanning
+    sane-airscan # Better airscan support, sane's builtin support is primitive
+
     # Applications
     firefox # Browser
     firefox-i18n-de
@@ -213,10 +221,11 @@ packages=(
     # Graphics
     inkscape
     # Documents
-    xournalpp
-    pdfarranger
-    zim
+    xournalpp   # Hand-written notes and PDF annotations
+    zathura     # Lightweight document viewer
+    pdfarranger # Reorder pages in PDF files
     # Office
+    zim # Personal desktop wiki
     gnucash
     # Science & data
     qalculate-gtk
@@ -224,6 +233,7 @@ packages=(
     # Latex
     texlive-most
     biber
+
     # Fonts & themes
     # Fallback font with huge coverage and colored emojis
     noto-fonts
@@ -238,6 +248,28 @@ packages=(
     # My user interface fonts
     ttf-ubuntu-font-family
     ttf-jetbrains-mono
+
+    # Gnome infrastructure
+    # Gnome style for Qt apps
+    qgnomeplatform-qt5
+    qgnomeplatform-qt6
+    # Multimedia codecs for gnome
+    gst-plugins-good
+    gst-plugins-bad
+    gst-plugins-ugly
+    gst-libav
+    # Virtual filesystem for Gnome
+    gvfs-afc
+    gvfs-goa
+    gvfs-google
+    gvfs-gphoto2
+    gvfs-mtp
+    gvfs-nfs
+    gvfs-smb
+    # Portals for gnome
+    xdg-desktop-portal-gnome
+    xdg-user-dirs-gtk
+
     # Gnome
     gdm
     gnome-characters
@@ -249,60 +281,47 @@ packages=(
     gnome-shell-extensions
     gnome-shell-extension-appindicator
     gnome-system-monitor
-    gnome-firmware # Manage firmware with Gnome
     gnome-control-center
     gnome-tweaks
     gnome-backgrounds
-    xdg-user-dirs-gtk
-    xdg-desktop-portal-gnome
-    file-roller
-    yelp # Online help system
-    nautilus
+    file-roller # Archive tool
+    yelp        # Online help system
+    nautilus    # File manager
     python-nautilus
-    gvfs-afc
-    gvfs-goa
-    gvfs-google
-    gvfs-gphoto2
-    gvfs-mtp
-    gvfs-nfs
-    gvfs-smb
-    sushi       # Previewer for nautilus
-    evince      # Document viewer
-    eog         # Image viewer
-    simple-scan # Scanning
-    seahorse    # Gnome keyring manager
-    baobab      # Disk space analyser
-    # Gnome style for Qt apps
-    qgnomeplatform-qt5
-    qgnomeplatform-qt6
-    # Multimedia for gnome
-    gst-plugins-good
-    gst-plugins-bad
-    gst-plugins-ugly
-    gst-libav
+    sushi          # Previewer for nautilus
+    evince         # Document viewer
+    eog            # Image viewer
+    simple-scan    # Scanning
+    seahorse       # Gnome keyring manager
+    baobab         # Disk space analyser
+    gnome-firmware # Manage firmware with Gnome
 )
 
 optdeps=(
     # vulkan-icd-loader: vulkan driver
     vulkan-intel
-    # pipewire
-    pipewire-pulse wireplumber
     # linux: wireless frequency policies (provided as crda)
     wireless-regdb
+    # libva: intel drivers
+    intel-media-driver
+
+    # Mark pipewire as optional dependencies
+    pipewire-pulse wireplumber
     # pipewire: zeroconf support
     pipewire-zeroconf
+
     # poppler: data files
     poppler-data
     # zathura: PDF support
     zathura-pdf-mupdf
-    # libva: intel drivers
-    intel-media-driver
-    # gnome-shell-extension-appindicator: GTK3 apps
-    libappindicator-gtk3
+
     # aurutils: chroot support
     devtools
     # gnome-control-center: app permissions
     malcontent
+    # gnome-shell-extension-appindicator: GTK3 apps
+    libappindicator-gtk3
+
     # viking: convert GPS tracks
     gpsbabel
     # kiconthemes: fallback icons
@@ -311,6 +330,7 @@ optdeps=(
     libdecor
     # gnucash: documentation
     gnucash-docs
+
     # zim: spell checking
     gtkspell3
     # enchant: spell checkking library (transitive of gtkspell3)
@@ -368,25 +388,31 @@ case "$HOSTNAME" in
         linux-headers
         linux-lts-headers
         linux-zen-headers
+
         # Virtualisation
         virtualbox-host-dkms
         virtualbox-guest-iso
         virtualbox
+
         # .NET development
         dotnet-sdk
+
         # Containers, kubernetes & cloud
         podman
         kubectl
         helm
         # Git and related tools
         glab
+
         # VPN
         networkmanager-vpnc
         networkmanager-openconnect
+
         # Networking and debugging tools
         lftp     # Powerful FTP client
         websocat # Debug websockets on the CLI
         lnav     # Log file analyzer
+
         # Additional applications
         keepassxc     # Keepass
         evolution-ews # Exchange for evolution
@@ -432,6 +458,7 @@ flatpaks_to_remove=(
     work.openpaper.Paperwork
     org.jabref.jabref
     org.gnucash.GnuCash
+
     # No longer used
     org.gnome.dfeet
     org.cvfosammmm.Setzer
@@ -489,28 +516,33 @@ flatpak uninstall --system --noninteractive --unused
 flatpak update --system --noninteractive
 
 services=(
+    # File systems
+    fstrim.timer                               # Periodically trim file systems…
+    "btrfs-scrub@$(systemd-escape -p /).timer" # scrub root filesystem…
+
+    # Hardware
+    fwupd-refresh.timer # check for firmware updates…
+
     # Core system services
     systemd-boot-update.service # Update boot loader automatically
     systemd-homed.service       # homed for user management and home areas
     systemd-oomd.service        # Userspace OOM killer
-    systemd-timesyncd.service   # Time sync
-    systemd-resolved.service    # DNS resolution
-    # auditing
     auditd.service
-    # Other system services
-    firewalld.service # Firewall
-    # Timers
-    fstrim.timer                               # Periodically trim file systems…
-    "btrfs-scrub@$(systemd-escape -p /).timer" # scrub root filesystem…
-    paccache.timer                             # clean pacman cache…
-    pacman-filesdb-refresh.timer               # update pacman's file database…
-    fwupd-refresh.timer                        # check for firmware updates…
-    reflector.timer                            # and update the mirrorlist.
+    systemd-timesyncd.service # Time sync
+    # Networking services
+    systemd-resolved.service # DNS resolution
+    firewalld.service        # Firewall
+    NetworkManager.service   # Network manager for desktops
+    avahi-daemon.service     # Local network service discovery (for WLAN printers)
+
+    # Pacman infrastructure
+    paccache.timer               # clean pacman cache…
+    pacman-filesdb-refresh.timer # update pacman's file database…
+    reflector.timer              # and update the mirrorlist.
+
     # Desktop services
     gdm.service                   # Desktop manager
     power-profiles-daemon.service # Power profile management
-    NetworkManager.service        # Network manager for desktops
-    avahi-daemon.service          # Local network service discovery (for WLAN printers)
     cups.service                  # Printing
     bluetooth.service             # Bluetooth
     pcscd.socket                  # Smartcards, mostly eID
@@ -523,7 +555,10 @@ fi
 
 case "$PRODUCT_NAME" in
 'XPS 9315')
-    services+=(thermald.service)
+    services+=(
+        # Thermal management for intel CPUs
+        thermald.service
+    )
     ;;
 esac
 
