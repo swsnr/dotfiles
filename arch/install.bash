@@ -62,14 +62,11 @@ for pkg in "${mark_as_dependency[@]}"; do
 done
 
 remove_explicitly=(
-    # We use mkinitcpio again
-    dracut
-    # I no longer use flatpak really
-    flatpak-builder
-    # nuspell is better
-    hunspell
-    # Tends to auto-update too much
-    gnome-software
+    dracut          # I use mkinitcpio again
+    flatpak-builder # I no longer use flatpak really
+    hunspell        # nuspell is better
+    gnome-software  # Tends to auto-update too much
+    tig             # gitui is nicer
 )
 
 for pkg in "${remove_explicitly[@]}"; do
@@ -169,7 +166,7 @@ packages=(
     git
     git-filter-repo
     git-lfs
-    tig # Curses git interfaces
+    gitui
     github-cli
     # Rust tooling
     rustup
