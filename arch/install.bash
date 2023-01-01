@@ -49,8 +49,6 @@ pacman-key --lsign-key B8ADA38BC94C48C4E7AABE4F7548C2CC396B57FC
 mark_as_dependency=(
     # Let's get rid of ruby
     asciidoctor
-    # We can use flatpak instead if we need this
-    gnome-maps
     # We're now using mkinitpcio again
     dracut-hook-uefi
     dracut
@@ -277,6 +275,7 @@ packages=(
     gnome-calendar
     gnome-clocks
     gnome-weather
+    gnome-maps
     gnome-shell
     gnome-shell-extensions
     gnome-shell-extension-appindicator
@@ -714,7 +713,6 @@ if command -v sbctl >/dev/null && [[ -f /usr/share/secureboot/keys/db/db.key ]];
 
     sbctl sign-all
     sbctl verify # Safety check
-
 fi
 
 # Install or update, and then configure the bootloader.
