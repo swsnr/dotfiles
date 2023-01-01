@@ -56,8 +56,8 @@ if ! has nala; then
     pkg install nala
 fi
 
-nala --update upgrade --simple --assume-yes
-nala --no-update install --simple --assume-yes "${packages[@]}"
+nala upgrade --update --simple --assume-yes
+nala install --no-update --simple --assume-yes "${packages[@]}"
 
 # Configure termux
 install -pm644 -t"$HOME/.termux/" \
