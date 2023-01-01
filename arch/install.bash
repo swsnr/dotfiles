@@ -826,8 +826,9 @@ case "$HOSTNAME" in
     aur_packages+=(
         gnome-shell-extension-gsconnect # Connect phone and desktop system
         # Applications
-        ausweisapp2 # eID app
-        chiaki-git  # Remote play client for PS4/5; use git for better controller support
+        ausweisapp2        # eID app
+        chiaki-git         # Remote play client for PS4/5; use git for better controller support
+        whatsapp-for-linux # Whatsapp desktop client for Linux
     )
     ;;
 *RB*)
