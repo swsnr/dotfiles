@@ -26,8 +26,12 @@ user_pref("browser.shell.checkDefaultBrowser", false);
 user_pref("browser.tabs.firefox-view", false);
 // Don't nag about resetting the browser after long inactivity
 user_pref("browser.disableResetPrompt", true);
+// Disable welcome notices
+user_pref("browser.startup.homepage_override.mstone", "ignore");
+
 // Restore session on startup
 user_pref("browser.startup.page", 3);
+
 // Disable new-tab page
 user_pref("browser.newtabpage.enabled", false);
 user_pref("browser.newtabpage.enhanced", false);
@@ -38,19 +42,21 @@ user_pref("browser.newtabpage.activity-stream.showSponsoredTopSites", false);
 user_pref("browser.newtabpage.activity-stream.feeds.section.topstories", false);
 user_pref("browser.newtabpage.activity-stream.feeds.topsites", false);
 user_pref("browser.newtabpage.activity-stream.section.highlights.includePocket", false);
-// Cleary default topsites and pinned sites
+// Clear default topsites and pinned sites
 user_pref("browser.newtabpage.activity-stream.default.sites", "");
 user_pref("browser.newtabpage.pinned", "[{\"url\":\"https://amazon.com\",\"label\":\"@amazon\",\"searchTopSite\":true},{\"url\":\"https://google.com\",\"label\":\"@google\",\"searchTopSite\":true}]");
+
 // Disable recommendations in about:addons
 user_pref("extensions.getAddons.showPane", false);
+user_pref("extensions.getAddons.cache.enabled", false);
 user_pref("extensions.htmlaboutaddons.recommendations.enabled", false);
+
 // Disable bundled pocket
 user_pref("extensions.pocket.enabled", false);
+
 // Disable personalized extension recommendations.
 user_pref("browser.discovery.enabled", false);
 user_pref("extensions.webservice.discoverURL", "");
-// Disable welcome notices
-user_pref("browser.startup.homepage_override.mstone", "ignore");
 
 // Linux desktop integration: Enable Gnome search provider and force portal API
 // for file dialogs and mime handling.  The latter makes it rely on standard
@@ -90,6 +96,7 @@ user_pref("browser.send_pings", false);
 user_pref("browser.ping-centre.telemetry", false);
 user_pref("browser.newtabpage.activity-stream.feeds.telemetry", false);
 user_pref("browser.newtabpage.activity-stream.telemetry", false);
+user_pref("browser.selfsupport.url", "");
 user_pref("app.shield.optoutstudies.enabled", false);
 user_pref("app.normandy.enabled", false);
 user_pref("app.normandy.api_url", "");
@@ -99,6 +106,8 @@ user_pref("browser.crashReports.unsubmittedCheck.enabled", false);
 user_pref("browser.crashReports.unsubmittedCheck.autoSubmit", false);
 user_pref("browser.crashReports.unsubmittedCheck.autoSubmit2", false);
 user_pref("beacon.enabled", false);
+user_pref("extensions.shield-recipe-client.api_url", "");
+user_pref("extensions.shield-recipe-client.enabled", false);
 
 // Opt out of all experiments
 user_pref("network.allow-experiments", false);
@@ -120,6 +129,19 @@ user_pref("privacy.trackingprotection.fingerprinting.enabled", true);
 user_pref("privacy.trackingprotection.pbmode.enabled", true);
 user_pref("privacy.usercontext.about_newtab_segregation.enabled", true);
 
+// Disable safe browsing; don't send URLs to Google
+user_pref("browser.safebrowsing.appRepURL", "");
+user_pref("browser.safebrowsing.blockedURIs.enabled", false);
+user_pref("browser.safebrowsing.downloads.enabled", false);
+user_pref("browser.safebrowsing.downloads.remote.enabled", false);
+user_pref("browser.safebrowsing.downloads.remote.url", "");
+user_pref("browser.safebrowsing.enabled", false);
+user_pref("browser.safebrowsing.malware.enabled", false);
+user_pref("browser.safebrowsing.phishing.enabled", false);
+
+// Disable battery API for websites
+user_pref("dom.battery.enabled", false);
+
 // Disable search suggestions
 user_pref("browser.search.suggest.enabled", false);
 user_pref("browser.urlbar.suggest.searches", false);
@@ -136,6 +158,8 @@ user_pref("signon.formlessCapture.enabled", false);
 user_pref("browser.urlbar.groupLabels.enabled", false);
 user_pref("browser.urlbar.quicksuggest.enabled", false);
 user_pref("browser.urlbar.trimURLs", false);
+// Don't guess alternative domains
+user_pref("browser.fixup.alternate.enabled", false);
 
 // Hardware acceleration for firefox, see https://discourse.flathub.org/t/how-to-enable-video-hardware-acceleration-on-flatpak-firefox/3125
 user_pref("gfx.webrender.all", true);
@@ -145,6 +169,25 @@ user_pref("media.av1.enabled", false);
 
 // Use mozilla location services
 user_pref("geo.provider.network.url", "https://location.services.mozilla.com/v1/geolocate?key=%MOZILLA_API_KEY%");
+
+// Disable DNS prefetching, speculative fetchng and other leaky optimizations
+user_pref("network.dns.disablePrefetch", true);
+user_pref("network.dns.disablePrefetchFromHTTPS", true);
+user_pref("network.http.speculative-parallel-limit", 0);
+user_pref("network.predictor.enable-prefetch", false);
+user_pref("network.predictor.enabled", false);
+user_pref("network.prefetch-next", false);
+
+// Fake referrers
+user_pref("network.http.referer.spoofSource", true);
+
+// Never autoplay things
+user_pref("media.autoplay.default", 5);
+
+// Enable DNS over HTTPS, but with a privacy preserving provider (Freifunk
+// München), see https://ffmuc.net/wiki/doku.php?id=knb:dohdot
+user_pref("network.trr.mode", 2); // 2 enables DNS over HTTPS with system DNS as fallback
+user_pref("network.trr.custom_uri", "https://doh.ffmuc.net/dns-query");
 
 // Mark my configuration as loaded
 user_pref('_swsnr.user.js', 'Complete');
