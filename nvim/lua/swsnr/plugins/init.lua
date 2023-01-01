@@ -18,7 +18,10 @@
 --
 -- Plugins:
 -- https://github.com/akinsho/bufferline.nvim and https://github.com/folke/dot/blob/master/config/nvim/lua/config/plugins/bufferline.lua
+-- https://github.com/rcarriga/nvim-notify
+-- https://github.com/stevearc/dressing.nvim (instead of ui-select)
 -- https://github.com/L3MON4D3/LuaSnip
+-- https://github.com/rafamadriz/friendly-snippets (for the above)
 -- https://github.com/hrsh7th/nvim-cmp and https://github.com/folke/dot/blob/master/config/nvim/lua/config/plugins/cmp.lua
 -- https://github.com/chentoast/marks.nvim
 -- https://github.com/toppair/reach.nvim
