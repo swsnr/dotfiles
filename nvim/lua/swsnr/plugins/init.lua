@@ -24,6 +24,8 @@
 -- https://github.com/toppair/reach.nvim
 -- https://github.com/akinsho/toggleterm.nvim
 -- Replace nvim-tree with neo-tree?
+-- Replace surround with sandwich
+-- Multiple cursors plugin
 --
 -- Language servers:
 -- https://github.com/latex-lsp/texlab
