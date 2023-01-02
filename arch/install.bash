@@ -217,6 +217,7 @@ packages=(
     signal-desktop
     # Audio & Video
     vlc
+    lollypop
     # Graphics
     inkscape
     # Documents
@@ -337,6 +338,13 @@ optdeps=(
     nuspell
     # zim: source code view
     gtksourceview3
+
+    # lollypop: youtube support
+    youtube-dl
+    # lollypop: tag editing
+    easytag
+    # lollypop: embedded cover art
+    kid3-qt
 )
 
 case "$PRODUCT_NAME" in
@@ -361,6 +369,8 @@ case "$HOSTNAME" in
         digikam
         # Document management
         paperwork
+        # Collection manager
+        tellico
     )
 
     optdeps+=(
@@ -435,12 +445,11 @@ pacman -D --asdeps "${optdeps[@]}"
 flatpaks=(
     # Messaging
     # Multimedia
-    org.gnome.Lollypop # Music player
     # Other apps
     com.github.tchx84.Flatseal # Flatpak permissions
 )
 flatpaks_to_remove=(
-    # Migrating to pacman packages
+    # No longer used or migrated to flatpak packages
     org.signal.Signal
     org.zim_wiki.Zim
     org.videolan.VLC
@@ -458,8 +467,7 @@ flatpaks_to_remove=(
     work.openpaper.Paperwork
     org.jabref.jabref
     org.gnucash.GnuCash
-
-    # No longer used
+    org.gnome.Lollypop
     org.gnome.dfeet
     org.cvfosammmm.Setzer
     org.libreoffice.LibreOffice
@@ -474,6 +482,8 @@ flatpaks_to_remove=(
     com.github.eneshecan.WhatsAppForLinux
     ch.threema.threema-web-desktop
     org.gimp.GIMP
+    org.kde.tellico
+    com.github.geigi.cozy
 )
 
 case "$HOSTNAME" in
@@ -484,9 +494,6 @@ case "$HOSTNAME" in
         # the flatpak package.
         com.valvesoftware.Steam
         com.usebottles.bottles # Run Windows software in Wine
-        org.kde.tellico        # Book collections
-        # Multimedia
-        com.github.geigi.cozy # Audiobook player
     )
     ;;
 RB-*)
@@ -817,8 +824,6 @@ aur_packages=(
     # Missing dependencies for latexindent
     # See <https://bugs.archlinux.org/task/60210>
     texlive-latexindent-meta
-    # Games
-    ja2-stracciatella
 )
 
 case "$HOSTNAME" in
@@ -829,6 +834,8 @@ case "$HOSTNAME" in
         ausweisapp2        # eID app
         chiaki-git         # Remote play client for PS4/5; use git for better controller support
         whatsapp-for-linux # Whatsapp desktop client for Linux
+        ja2-stracciatella  # Modern runtime for the venerable JA2
+        cozy-audiobooks    # Audiobook manager
     )
     ;;
 *RB*)
