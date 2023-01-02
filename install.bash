@@ -224,12 +224,10 @@ fi
 
 # Flatpak setup
 if has flatpak; then
-    # Flathub and flathub beta
-    flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-    flatpak remote-add --user --if-not-exists flathub-beta https://flathub.org/beta-repo/flathub-beta.flatpakrepo
-
-    # Gnome nightlies
-    flatpak remote-add --user --if-not-exists gnome-nightly https://nightly.gnome.org/gnome-nightly.flatpakrepo
+    # Remove unused user remotes
+    flatpak remote-delete --user flathub
+    flatpak remote-delete --user flathub-beta
+    flatpak remote-delete --user gnome-nightly
 
     # Adapt filesystem permissions for Steam: Add access to downloads for backup
     # imports, but deny access to Music and Pictures
@@ -243,24 +241,14 @@ if has flatpak; then
     flatpak override --user \
         --nofilesystem host --filesystem ~/Hörbücher \
         com.github.geigi.cozy
-    flatpak override --user \
-        --nofilesystem host --filesystem xdg-music
 
     # Remove overrides for flatpaks I no longer use
     flatpak override --user --reset re.chiaki.Chiaki
     flatpak override --user --reset io.github.ja2-stracciatella
     flatpak override --user --reset org.nickvision.tagger
-
-    # Allow tellico to access my documents folder
-    flatpak override --user \
-        --filesystem xdg-documents \
-        org.kde.tellico
-
-    # Fix https://github.com/flathub/org.gnome.Lollypop/issues/109 and
-    # https://gitlab.gnome.org/World/lollypop/-/issues/2892
-    flatpak override --user \
-        --filesystem=/tmp \
-        org.gnome.Lollypop
+    flatpak override --user --reset com.github.geigi.cozy
+    flatpak override --user --reset org.kde.tellico
+    flatpak override --user --reset org.gnome.Lollypop
 fi
 
 # Configure Code OSS
