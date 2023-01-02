@@ -41,6 +41,7 @@ packages=(
     shfmt
     shellcheck
     jq
+    nodejs # For nvimm tree sitter parserss
     # Networking & cryptography
     rclone
     xh
