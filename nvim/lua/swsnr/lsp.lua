@@ -18,6 +18,10 @@ local M = {}
 function M.lsp_attach(client, bufnr)
   -- Setup formatting
   require("lsp-format").on_attach(client)
+  -- Setup status line indicator
+  if client.server_capabilities.documentSymbolProvider then
+    require("nvim-navic").attach(client, bufnr)
+  end
 
   -- Make omnicomplete use LSP completions
   vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"

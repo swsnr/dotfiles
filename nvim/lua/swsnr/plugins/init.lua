@@ -17,15 +17,13 @@
 -- Steal all cool things from https://github.com/folke/LazyVim
 --
 -- Plugins:
--- https://github.com/akinsho/bufferline.nvim and https://github.com/folke/dot/blob/master/config/nvim/lua/config/plugins/bufferline.lua
--- https://github.com/rcarriga/nvim-notify
--- https://github.com/stevearc/dressing.nvim (instead of ui-select)
 -- https://github.com/L3MON4D3/LuaSnip
 -- https://github.com/rafamadriz/friendly-snippets (for the above)
 -- https://github.com/hrsh7th/nvim-cmp and https://github.com/folke/dot/blob/master/config/nvim/lua/config/plugins/cmp.lua
 -- https://github.com/chentoast/marks.nvim
 -- https://github.com/toppair/reach.nvim
 -- https://github.com/akinsho/toggleterm.nvim
+-- Replace nvim-tree with neo-tree?
 --
 -- Language servers:
 -- https://github.com/latex-lsp/texlab
@@ -59,15 +57,14 @@ return {
     "nvim-telescope/telescope.nvim",
     -- Load telescope right away so that the ui-select replacement kicks in, and
     -- we'll likely use telescope anyway.
-    lazy = false,
     dependencies = {
       "nvim-lua/plenary.nvim",
       -- Telescope extensions we set up right away
-      "nvim-telescope/telescope-ui-select.nvim",
       "jvgrootveld/telescope-zoxide",
       "nvim-telescope/telescope-symbols.nvim",
       "debugloop/telescope-undo.nvim",
     },
+    cmd = { "Telescope" },
     config = function()
       local t = require("telescope")
       local trouble = require("trouble.providers.telescope")
@@ -81,7 +78,6 @@ return {
       })
 
       -- Redirect vim's ui select to telescope
-      t.load_extension("ui-select")
       t.load_extension("zoxide")
       t.load_extension("undo")
     end,
@@ -137,7 +133,6 @@ return {
   },
   {
     "kylechui/nvim-surround",
-    event = "VeryLazy",
     config = true,
   },
   {

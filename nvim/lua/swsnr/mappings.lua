@@ -13,12 +13,14 @@
 -- the License.
 
 local wk = require("which-key")
-local telescope = require("telescope")
 local tools = require("swsnr.tools")
 
 local M = {}
 
 function M.setup()
+  -- Load an initialize nvim surround module
+  require("nvim-surround")
+
   -- Back to normal mode the fast way.
   vim.keymap.set("i", "jk", "<ESC>", { noremap = true })
 
@@ -79,19 +81,27 @@ function M.setup()
     -- Files
     ["f"] = { name = "+files" },
     ["ff"] = { "<cmd>Telescope find_files<cr>", "Find files" },
-    ["fc"] = { telescope.extensions.zoxide.list, "Change directory" },
+    ["fc"] = {
+      function()
+        require("telescope").extensions.zoxide.list()
+      end,
+      "Change directory",
+    },
     ["ft"] = { "<cmd>NvimTreeFindFileToggle<cr>", "Show current file in tree" },
     ["fT"] = { "<cmd>NvimTreeFocus<cr>", "Open file explorer" },
+
     -- Git
     ["g"] = { name = "+git" },
     ["gf"] = { "<cmd>Telescope git_files<cr>", "Git files" },
     ["gg"] = { "<cmd>Neogit<cr>", "Git status" },
     ["gc"] = { "<cmd>Neogit commit<cr>", "Git commit" },
+
     -- Help
     ["h"] = { name = "+help" },
     ["hh"] = { "<cmd>Telescope help_tags<cr>", "Tags" },
     ["hk"] = { "<cmd>Telescope keymaps<cr>", "Keys" },
     ["hm"] = { "<cmd>Telescope man_pages<cr>", "Man pages" },
+
     -- Jumping
     ["j"] = { name = "+jump" },
     ["jj"] = { "<cmd>Telescope diagnostics<cr>", "Diagnostics" },
@@ -99,6 +109,7 @@ function M.setup()
     ["jl"] = { "<cmd>Telescope loclist<cr>", "Location list" },
     ["jq"] = { "<cmd>Telescope quickfix<cr>", "Quickfix list" },
     ["jm"] = { "<cmd>Telescope marks<cr>", "Marks" },
+
     -- Lists
     ["l"] = { name = "+lists" },
     ["lx"] = { "<cmd>TroubleToggle<cr>", "Toggle diagnostics list" },
@@ -108,10 +119,12 @@ function M.setup()
     ["ll"] = { "<cmd>TroubleToggle loclist<cr>", "Toggle location list" },
     ["lr"] = { "<cmd>TroubleToggle lsp_references<cr>", "Toggle references list" },
     ["lL"] = { "<cmd>Lazy<cr>", "Plugins" },
+
     -- Search
     ["s"] = { name = "+search" },
     ["sg"] = { "<cmd>Telescope live_grep<cr>", "Live grep" },
     ["sc"] = { "<cmd>Telescope grep_string<cr>", "Grep under cursor" },
+
     -- Windows
     ["w"] = { name = "+windows" },
     ["w/"] = { "<cmd>vsplit<cr>", "Split vertical" },

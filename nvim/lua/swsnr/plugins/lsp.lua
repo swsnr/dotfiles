@@ -61,6 +61,7 @@ local M = {
 }
 
 function M.config()
+  -- TODO: Steal from https://github.com/folke/LazyVim/blob/650a7429f3bb422bfb085eda07bd8a850cf13409/lua/lazyvim/plugins/lsp/init.lua#L11
   local servers = { "pyright" }
   for _, lsp in pairs(servers) do
     require("lspconfig")[lsp].setup({
