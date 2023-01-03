@@ -166,6 +166,8 @@ case "$HOSTNAME" in
         touchpad-toggle@swsnr.de
         # Connect my system to my mobile phone
         gsconnect@andyholmes.github.io
+        # Touch screen menus
+        flypie@schneegans.github.com
     )
     ;;
 *RB*)
