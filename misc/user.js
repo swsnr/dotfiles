@@ -178,9 +178,6 @@ user_pref("network.predictor.enable-prefetch", false);
 user_pref("network.predictor.enabled", false);
 user_pref("network.prefetch-next", false);
 
-// Fake referrers
-user_pref("network.http.referer.spoofSource", true);
-
 // Never autoplay things
 user_pref("media.autoplay.default", 5);
 
