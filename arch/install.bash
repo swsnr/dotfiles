@@ -257,6 +257,7 @@ packages=(
     gst-plugins-good
     gst-plugins-bad
     gst-plugins-ugly
+    gst-plugin-pipewire # Required for screen recording in Gnome
     gst-libav
     # Virtual filesystem for Gnome
     gvfs-afc
