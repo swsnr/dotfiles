@@ -138,6 +138,17 @@ EXTENSION_SETTINGS = {
             'wisps-close-effect': True,
             'wisps-open-effect': True,
         }
+    },
+    'arch-update@RaphaelRochet': {
+        'org.gnome.shell.extensions.arch-update': {
+            # Run update check one minute after login
+            'boot-wait': 60,
+            # Check for updates every three hours
+            'check-interval': 180,
+            # Run updates through wezterm
+            'update-cmd': 'wezterm start sh -c \'sudo pacman -Syu; echo "Press enter to close"; read _\''
+
+        }
     }
 }
 
@@ -234,15 +245,17 @@ def main():
     for uuid, schemas in EXTENSION_SETTINGS.items():
         schema_dirs = (p / uuid / 'schemas' for p in extension_prefixes)
         schema_dir = next((d for d in schema_dirs if d.exists()), None)
-        if not schema_dir:
-            print(f'Extension {uuid} not installed, skipping settings',
-                  file=sys.stderr)
-            continue
-        source = Gio.SettingsSchemaSource.new_from_directory(
-            directory=str(schema_dir),
-            parent=default_source,
-            trusted=True
-        )
+        if schema_dir:
+            source = Gio.SettingsSchemaSource.new_from_directory(
+                directory=str(schema_dir),
+                parent=default_source,
+                trusted=True
+            )
+        else:
+            # Some extensions get packaged to install their schemas into the
+            # standard schema dir; that's somewhat unususal, but not a bad idea,
+            # so let's support it.
+            source = default_source
         for schema_id, items in schemas.items():
             schema = source.lookup(schema_id, False)
             if schema:
@@ -250,7 +263,7 @@ def main():
                                                  path=None)
                 apply_settings(settings, items)
             else:
-                print(f'Schema {schema_id} does not exist in extension {uuid}',
+                print(f'Schema {schema_id} does not exist; extension {uuid} not installed?',
                       file=sys.stderr)
 
     if not default_source.lookup('org.gnome.Terminal.ProfilesList', False):

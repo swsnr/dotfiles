@@ -802,12 +802,13 @@ aur_packages=(
     pcsc-cyberjack # Card reader driver for eID
 
     # Gnome extensions and tools
-    gnome-shell-extension-nasa-apod
-    gnome-shell-extension-burn-my-windows
-    gnome-shell-extension-fly-pie
-    gnome-search-providers-jetbrains
-    gnome-search-providers-vscode
-    firefox-gnome-search-provider
+    gnome-shell-extension-nasa-apod       # APOD as desktop background
+    gnome-shell-extension-arch-update     # Arch package update checks
+    gnome-shell-extension-burn-my-windows # Old school window effects
+    gnome-shell-extension-fly-pie         # Touchscreen and mouse launcher
+    gnome-search-providers-jetbrains      # Jetbrains projects in search
+    gnome-search-providers-vscode         # VSCode workspaces in search
+    firefox-gnome-search-provider         # Firefox bookmarks in search
 
     # Applications
     1password 1password-cli # Personal password manager

@@ -149,14 +149,16 @@ extensions=(
     # Disable automatic extension updates; I install all extensions through
     # pacman
     'disable-extension-updates@swsnr.de'
+    # Check Arch pacman updates
+    'arch-update@RaphaelRochet'
     # Systray support
     'appindicatorsupport@rgcjonas.gmail.com'
     # Show workspaces in top bar
-    workspace-indicator@gnome-shell-extensions.gcampax.github.com
+    'workspace-indicator@gnome-shell-extensions.gcampax.github.com'
     # Bling bling
-    burn-my-windows@schneegans.github.com
+    'burn-my-windows@schneegans.github.com'
     # Cool wallpapers every day
-    nasa_apod@elinvention.ovh
+    'nasa_apod@elinvention.ovh'
 )
 case "$HOSTNAME" in
 *kastl*)
