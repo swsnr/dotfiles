@@ -229,9 +229,9 @@ fi
 # Flatpak setup
 if has flatpak; then
     # Remove unused user remotes
-    flatpak remote-delete --user flathub
-    flatpak remote-delete --user flathub-beta
-    flatpak remote-delete --user gnome-nightly
+    flatpak remote-delete --user flathub || true
+    flatpak remote-delete --user flathub-beta || true
+    flatpak remote-delete --user gnome-nightly || true
 
     # Adapt filesystem permissions for Steam: Add access to downloads for backup
     # imports, but deny access to Music and Pictures
@@ -241,11 +241,6 @@ if has flatpak; then
         --nofilesystem xdg-pictures \
         com.valvesoftware.Steam
 
-    # Reduce access of some apps which default to host access
-    flatpak override --user \
-        --nofilesystem host --filesystem ~/Hörbücher \
-        com.github.geigi.cozy
-
     # Remove overrides for flatpaks I no longer use
     flatpak override --user --reset re.chiaki.Chiaki
     flatpak override --user --reset io.github.ja2-stracciatella
@@ -253,6 +248,7 @@ if has flatpak; then
     flatpak override --user --reset com.github.geigi.cozy
     flatpak override --user --reset org.kde.tellico
     flatpak override --user --reset org.gnome.Lollypop
+    flatpak override --user --reset com.github.geigi.cozy
 fi
 
 # Configure Code OSS
