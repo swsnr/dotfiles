@@ -14,6 +14,7 @@
 # the License.
 
 import sys
+from pathlib import Path
 from gi.repository import Gio
 
 SETTINGS = {
@@ -119,6 +120,27 @@ SETTINGS = {
     }
 }
 
+EXTENSION_SETTINGS = {
+    'burn-my-windows@schneegans.github.com': {
+        'org.gnome.shell.extensions.burn-my-windows':{
+            # Burn my window effects <3
+            'apparition-close-effect': True,
+            'apparition-open-effect': True,
+            'broken-glass-close-effect': True,
+            'destroy-dialogs': True,
+            'doom-open-effect': True,
+            'glide-close-effect': True,
+            'glide-open-effect': True,
+            'hexagon-additive-blending': True,
+            'incinerate-close-effect': True,
+            'incinerate-use-pointer': True,
+            'tv-open-effect': True,
+            'wisps-close-effect': True,
+            'wisps-open-effect': True,
+        }
+    }
+}
+
 TERMINAL_PROFILE = {
     'audible-bell': False,
     'bold-is-bright': False,
@@ -195,27 +217,55 @@ def apply_settings(settings, items):
 
 
 def main():
-    source = Gio.SettingsSchemaSource.get_default()
-    for schema, items in SETTINGS.items():
-        if source.lookup(schema, False):
-            settings = Gio.Settings(schema=schema)
+    default_source = Gio.SettingsSchemaSource.get_default()
+    for schema_id, items in SETTINGS.items():
+        schema = default_source.lookup(schema_id, False)
+        if schema:
+            settings = Gio.Settings.new_full(schema=schema, backend=None,
+                                             path=None)
             apply_settings(settings, items)
         else:
-            print(f'Skipping non-existing schema {schema}', file=sys.stderr)
+            print(f'Skipping non-existing schema {schema_id}', file=sys.stderr)
 
-    if not source.lookup('org.gnome.Terminal.ProfilesList', False):
+    extension_prefixes = [
+        Path('/usr/share/gnome-shell/extensions'),
+        Path.home() / 'local' / 'share' / 'gnome-shell' / 'extensions',
+    ]
+    for uuid, schemas in EXTENSION_SETTINGS.items():
+        schema_dirs = (p / uuid / 'schemas' for p in extension_prefixes)
+        schema_dir = next((d for d in schema_dirs if d.exists()), None)
+        if not schema_dir:
+            print(f'Extension {uuid} not installed, skipping settings',
+                  file=sys.stderr)
+            continue
+        source = Gio.SettingsSchemaSource.new_from_directory(
+            directory=str(schema_dir),
+            parent=default_source,
+            trusted=True
+        )
+        for schema_id, items in schemas.items():
+            schema = source.lookup(schema_id, False)
+            if schema:
+                settings = Gio.Settings.new_full(schema=schema, backend=None,
+                                                 path=None)
+                apply_settings(settings, items)
+            else:
+                print(f'Schema {schema_id} does not exist in extension {uuid}',
+                      file=sys.stderr)
+
+    if not default_source.lookup('org.gnome.Terminal.ProfilesList', False):
         print('Terminal profile list not available, skipping', file=sys.stderr)
     else:
         profiles_list = Gio.Settings(
             schema='org.gnome.Terminal.ProfilesList')
         profile_id = profiles_list.get_string('default')
-        schema = 'org.gnome.Terminal.Legacy.Profile'
+        schema_id = 'org.gnome.Terminal.Legacy.Profile'
         path = f'/org/gnome/terminal/legacy/profiles:/:{profile_id}/'
-        settings = Gio.Settings.new_with_path(schema_id=schema, path=path)
+        settings = Gio.Settings.new_with_path(schema_id=schema_id, path=path)
         apply_settings(settings, TERMINAL_PROFILE)
 
     bindings_schema = 'org.gnome.settings-daemon.plugins.media-keys.custom-keybinding'
-    if not source.lookup(bindings_schema, False):
+    if not default_source.lookup(bindings_schema, False):
         print('Schema for custom keybindings not found, skipping', file=sys.stderr)
     else:
         new_bindings = []
@@ -225,8 +275,8 @@ def main():
             settings = Gio.Settings.new_with_path(
                 schema_id=bindings_schema, path=path)
             if not binding:
-                settings_schema = settings.get_property('settings-schema')
-                for key in settings_schema.list_keys():
+                schema = settings.get_property('settings-schema')
+                for key in schema.list_keys():
                     settings.reset(key)
                 print(f'binding {id} removed')
                 removed_bindings.append(path)
