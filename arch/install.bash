@@ -791,38 +791,40 @@ EOF
 fi
 
 aur_packages=(
-    # pacman hook for kernel-install
-    pacman-hook-kernel-install
     # AUR helper
     aurutils
-    # Splash screen at boot
-    plymouth
-    # Gnome extensions
+
+    # Early boot and kernels
+    pacman-hook-kernel-install
+    plymouth # Splash screen at boot
+
+    # Hardware support
+    pcsc-cyberjack # Card reader driver for eID
+
+    # Gnome extensions and tools
     gnome-shell-extension-nasa-apod
     gnome-shell-extension-burn-my-windows
     gnome-shell-extension-fly-pie
-    # Gnome tools
     gnome-search-providers-jetbrains
     gnome-search-providers-vscode
     firefox-gnome-search-provider
-    # Personal password manager
-    1password
-    1password-cli
-    # Bibliography
-    jabref
+
+    # Applications
+    1password 1password-cli # Personal password manager
+    jabref                  # Bibliography
+
     # Additional fonts
     otf-vollkorn # My favorite serif font for documents
     ttf-fira-go  # A nice font for presentations
-    # Card reader driver for eID
-    pcsc-cyberjack
+
     # Additional tools
-    git-gone
-    # git-delta
-    wcal-git
-    wev   # Wayland event testing
-    frum  # Ruby version manager
-    fnm   # Node version manager
-    gnvim # Neovim UI with Gtk 4
+    git-gone # Prune gone branches
+    wcal-git # ISO week calender on CLI
+    wev      # Wayland event testing
+    frum     # Ruby version manager
+    fnm      # Node version manager
+    gnvim    # Neovim UI with Gtk 4
+
     # Missing dependencies for latexindent
     # See <https://bugs.archlinux.org/task/60210>
     texlive-latexindent-meta
@@ -832,6 +834,7 @@ case "$HOSTNAME" in
 *kastl*)
     aur_packages+=(
         gnome-shell-extension-gsconnect # Connect phone and desktop system
+
         # Applications
         ausweisapp2        # eID app
         chiaki-git         # Remote play client for PS4/5; use git for better controller support
