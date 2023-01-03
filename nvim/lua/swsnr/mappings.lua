@@ -117,6 +117,11 @@ function M.setup()
     ["lr"] = { "<cmd>TroubleToggle lsp_references<cr>", "Toggle references list" },
     ["lL"] = { "<cmd>Lazy<cr>", "Plugins" },
 
+    -- Close current buffer quick
+    ["q"] = { "<cmd>bdelete<cr>", "Close current buffer" },
+    -- Quick quit
+    ["Q"] = { "<cmd>quit<cr>", "Quit" },
+
     -- Search
     ["s"] = { name = "+search" },
     ["sg"] = { "<cmd>Telescope live_grep<cr>", "Live grep" },
@@ -128,6 +133,7 @@ function M.setup()
     ["w-"] = { "<cmd>split<cr>", "Split horizontal" },
     ["wo"] = { "<cmd>only<cr>", "Only current window" },
     ["wq"] = { "<cmd>q<cr>", "Quit" },
+
     -- Execute things
     ["x"] = { name = "+execute" },
   }, {
