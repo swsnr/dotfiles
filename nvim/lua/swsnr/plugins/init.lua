@@ -24,7 +24,6 @@
 -- https://github.com/toppair/reach.nvim
 -- https://github.com/akinsho/toggleterm.nvim
 -- Replace nvim-tree with neo-tree?
--- Replace surround with sandwich
 -- Multiple cursors plugin
 --
 -- Language servers:
@@ -134,8 +133,15 @@ return {
     config = true,
   },
   {
-    "kylechui/nvim-surround",
-    config = true,
+    "machakann/vim-sandwich",
+    event = "BufReadPre",
+    config = function()
+      -- Use vim-surround mappings for sandwich to avoid conflicts with
+      -- leap:
+      -- https://github.com/machakann/vim-sandwich/wiki/Introduce-vim-surround-keymappings
+      -- https://github.com/ggandor/lightspeed.nvim/discussions/60
+      vim.cmd("runtime macros/sandwich/keymap/surround.vim")
+    end,
   },
   {
     "numToStr/Comment.nvim",

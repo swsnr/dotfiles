@@ -19,7 +19,6 @@
   "nvim-lspconfig": { "branch": "master", "commit": "6b43ce561d97412cc512b569db6938e44529293e" },
   "nvim-navic": { "branch": "master", "commit": "7a2b823152fe4de65ee7925b0e32d26ed73bc57c" },
   "nvim-notify": { "branch": "master", "commit": "b005821516f1f37801a73067afd1cef2dbc4dfe8" },
-  "nvim-surround": { "branch": "main", "commit": "ad56e6234bf42fb7f7e4dccc7752e25abd5ec80e" },
   "nvim-tree.lua": { "branch": "master", "commit": "951b6e7e55da8aee9566cc0b17c11f9451cec349" },
   "nvim-treesitter": { "branch": "master", "commit": "b67822bf58b0fbf0c496ae21a177d02fa8388edf" },
   "nvim-treesitter-textobjects": { "branch": "master", "commit": "d816761ec1ea4a605689bc5f4111088459cf74d4" },
@@ -34,6 +33,7 @@
   "tokyonight.nvim": { "branch": "main", "commit": "42cccfe663f36b91792a350164f0695b44a031d9" },
   "trouble.nvim": { "branch": "main", "commit": "897542f90050c3230856bc6e45de58b94c700bbf" },
   "vim-mergetool": { "branch": "master", "commit": "0275a85256ad173e3cde586d54f66566c01b607f" },
+  "vim-sandwich": { "branch": "master", "commit": "c5a2cc438ce6ea2005c556dc833732aa53cae21a" },
   "vim-strip-trailing-whitespace": { "branch": "master", "commit": "59385775cbe416b2797ec5e2c7eb445a3398dd46" },
   "which-key.nvim": { "branch": "main", "commit": "8682d3003595017cd8ffb4c860a07576647cc6f8" }
 }

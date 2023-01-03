@@ -18,9 +18,6 @@ local tools = require("swsnr.tools")
 local M = {}
 
 function M.setup()
-  -- Load an initialize nvim surround module
-  require("nvim-surround")
-
   -- Back to normal mode the fast way.
   vim.keymap.set("i", "jk", "<ESC>", { noremap = true })
 
