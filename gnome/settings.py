@@ -68,9 +68,8 @@ SETTINGS = {
         'show-weekdate': True
     },
     'org.gnome.desktop.media-handling': {
-        # Disable auto-mounting in Gnome; this is just a nuisance
-        'automount': False,
-        'automount-open': False
+        'automount': None,
+        'automount-open': None
     },
     'org.gnome.mutter': {
         'dynamic-workspaces': True,
