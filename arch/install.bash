@@ -895,10 +895,10 @@ if [[ -n "${SUDO_USER:-}" ]]; then
     if [[ ${#remove_from_repo[@]} -gt 0 ]]; then
         for pkg in "${remove_from_repo[@]}"; do
             rm -f "/srv/pkgrepo/aur/${pkg}-"*.pkg.tar.*
+            sudo -u "$SUDO_USER" repo-remove \
+                --sign --key "${PACKAGE_SIGNING_KEY}" \
+                /srv/pkgrepo/aur/aur.db.tar.zst "$pkg" || true
         done
-        sudo -u "$SUDO_USER" repo-remove \
-            --sign --key "${PACKAGE_SIGNING_KEY}" \
-            /srv/pkgrepo/aur/aur.db.tar.zst "${remove_from_repo[@]}" || true
     fi
 fi
 
