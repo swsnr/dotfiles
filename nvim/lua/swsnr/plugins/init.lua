@@ -20,11 +20,14 @@
 -- https://github.com/L3MON4D3/LuaSnip
 -- https://github.com/rafamadriz/friendly-snippets (for the above)
 -- https://github.com/hrsh7th/nvim-cmp and https://github.com/folke/dot/blob/master/config/nvim/lua/config/plugins/cmp.lua
+-- https://github.com/nvim-pack/nvim-spectre
 -- https://github.com/chentoast/marks.nvim
 -- https://github.com/toppair/reach.nvim
 -- https://github.com/akinsho/toggleterm.nvim
 -- Replace nvim-tree with neo-tree?
--- Multiple cursors plugin
+-- Multiple cursors plugin: https://github.com/mg979/vim-visual-multi
+-- https://github.com/folke/neoconf.nvim
+-- https://github.com/RRethy/vim-illuminate
 --
 -- Language servers:
 -- https://github.com/latex-lsp/texlab
@@ -102,45 +105,13 @@ return {
       use_diagnostic_signs = true,
     },
   },
+  {},
   {
     "samoshkin/vim-mergetool",
     cmd = { "MergetoolStart", "MergetoolToggle" },
   },
   {
-    "ggandor/leap.nvim",
-    event = "VeryLazy",
-    -- TODO: Test this
-    -- dependencies = {
-    --   { "ggandor/flit.nvim", config = { labeled_modes = "nv" } },
-    -- },
-    config = function()
-      require("leap").add_default_mappings()
-    end,
-  },
-  {
-    "windwp/nvim-autopairs",
-    event = "VeryLazy",
-    config = true,
-  },
-  {
-    "kylechui/nvim-surround",
-    config = true,
-  },
-  {
-    "numToStr/Comment.nvim",
-    event = "VeryLazy",
-    config = true,
-  },
-  {
-    "axelf4/vim-strip-trailing-whitespace",
-    event = "BufReadPre",
-  },
-  {
     "jghauser/mkdir.nvim",
     event = "VeryLazy",
-  },
-  {
-    "ethanholz/nvim-lastplace",
-    event = "BufReadPre",
   },
 }
