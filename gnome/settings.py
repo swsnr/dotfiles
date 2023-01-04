@@ -144,9 +144,10 @@ EXTENSION_SETTINGS = {
             'boot-wait': 60,
             # Check for updates every three hours
             'check-interval': 180,
+            # Check aur packages for updates too
+            'check-cmd': "/usr/bin/sh -c 'checkupdates; aur repo -d aur -u'",
             # Run updates through wezterm
             'update-cmd': 'wezterm start sh -c \'sudo pacman -Syu; echo "Press enter to close"; read _\''
-
         }
     }
 }
