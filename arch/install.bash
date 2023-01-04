@@ -192,8 +192,9 @@ packages=(
     hexyl         # hex viewer
     oxipng        # Optimize PNGs for size
     jq            # Process JSON on command line
-    devhelp       # Gnome API doc browser
     kdiff3        # Diff/merge tool
+    devhelp       # Gnome API doc browser
+    d-spy         # DBus inspector and debugger
 
     # Basic desktop
     wl-clipboard   # CLI access to clipboard
