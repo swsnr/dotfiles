@@ -157,6 +157,7 @@ extensions=(
     'arch-update@RaphaelRochet'
     # Bling bling
     'burn-my-windows@schneegans.github.com'
+    'gnome-shell-extension-desktop-cube'
     # Cool wallpapers every day
     'nasa_apod@elinvention.ovh'
 )

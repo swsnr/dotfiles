@@ -814,6 +814,7 @@ aur_packages=(
     gnome-shell-extension-nasa-apod       # APOD as desktop background
     gnome-shell-extension-arch-update     # Arch package update checks
     gnome-shell-extension-burn-my-windows # Old school window effects
+    gnome-shell-extension-desktop-cube    # The old school desktop cube effect
     gnome-shell-extension-fly-pie         # Touchscreen and mouse launcher
     gnome-search-providers-jetbrains      # Jetbrains projects in search
     gnome-search-providers-vscode         # VSCode workspaces in search
