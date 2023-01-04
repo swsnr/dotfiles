@@ -146,15 +146,15 @@ ln -fs -t ~/.local/share/gnome-shell/extensions \
     "$DIR/gnome/extensions/disable-extension-updates@swsnr.de"
 
 extensions=(
+    # Extend top bar: Show removable drives, workspaces and systray
+    'drive-menu@gnome-shell-extensions.gcampax.github.com'
+    'workspace-indicator@gnome-shell-extensions.gcampax.github.com'
+    'appindicatorsupport@rgcjonas.gmail.com'
     # Disable automatic extension updates; I install all extensions through
     # pacman
     'disable-extension-updates@swsnr.de'
     # Check Arch pacman updates
     'arch-update@RaphaelRochet'
-    # Systray support
-    'appindicatorsupport@rgcjonas.gmail.com'
-    # Show workspaces in top bar
-    'workspace-indicator@gnome-shell-extensions.gcampax.github.com'
     # Bling bling
     'burn-my-windows@schneegans.github.com'
     # Cool wallpapers every day
