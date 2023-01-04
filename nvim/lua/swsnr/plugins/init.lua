@@ -24,7 +24,6 @@
 -- https://github.com/toppair/reach.nvim
 -- https://github.com/akinsho/toggleterm.nvim
 -- Replace nvim-tree with neo-tree?
--- Replace surround with sandwich
 -- Multiple cursors plugin
 --
 -- Language servers:
@@ -96,16 +95,6 @@ return {
     },
   },
   {
-    "lewis6991/gitsigns.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    event = "BufReadPre",
-    config = {
-      on_attach = function(bufnr)
-        require("swsnr.mappings").git_signs_attach(bufnr)
-      end,
-    },
-  },
-  {
     "folke/trouble.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     cmd = "TroubleToggle",
@@ -153,11 +142,5 @@ return {
   {
     "ethanholz/nvim-lastplace",
     event = "BufReadPre",
-  },
-  {
-    "TimUntersberger/neogit",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    cmd = "Neogit",
-    config = true,
   },
 }
