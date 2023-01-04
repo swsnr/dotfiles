@@ -24,9 +24,14 @@ return {
     },
   },
   {
+    "tpope/vim-fugitive",
+    cmd = { "Git", "GBrowse", "GMove", "GRename" },
+  },
+  {
     "TimUntersberger/neogit",
     dependencies = { "nvim-lua/plenary.nvim" },
     cmd = "Neogit",
     config = true,
+    disabled = true,
   },
 }

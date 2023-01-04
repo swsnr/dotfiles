@@ -92,9 +92,11 @@ function M.setup()
 
     -- Git
     ["g"] = { name = "+git" },
+    ["gR"] = { "<cmd>Git rebase -i", "Git commit" },
+    ["gb"] = { "<cmd>Git blame<cr>", "Git blame" },
+    ["gc"] = { "<cmd>Git commit<cr>", "Git commit" },
     ["gf"] = { "<cmd>Telescope git_files<cr>", "Git files" },
-    ["gg"] = { "<cmd>Neogit<cr>", "Git status" },
-    ["gc"] = { "<cmd>Neogit commit<cr>", "Git commit" },
+    ["gg"] = { "<cmd>Git<cr>", "Git status" },
 
     -- Help
     ["h"] = { name = "+help" },
