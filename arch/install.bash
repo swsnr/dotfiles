@@ -193,8 +193,16 @@ packages=(
     oxipng        # Optimize PNGs for size
     jq            # Process JSON on command line
     kdiff3        # Diff/merge tool
-    devhelp       # Gnome API doc browser
     d-spy         # DBus inspector and debugger
+    devhelp       # Gnome API doc browser…
+    glib2-docs    # …and various library documentation packages
+    gnome-devel-docs
+    libsoup3-docs
+    gtk3-docs
+    gtk4-docs
+    libadwaita-docs
+    libportal-docs
+    mutter-docs
 
     # Basic desktop
     wl-clipboard   # CLI access to clipboard
