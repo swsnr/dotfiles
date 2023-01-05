@@ -31,6 +31,13 @@ return {
       local navic = require("nvim-navic")
       require("lualine").setup({
         theme = "auto",
+        extensions = {
+          "toggleterm",
+          "nvim-tree",
+          "neo-tree",
+          "man",
+          "fugitive",
+        },
         sections = {
           lualine_c = {
             "filename",
