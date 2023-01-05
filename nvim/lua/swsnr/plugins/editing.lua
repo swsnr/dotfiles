@@ -14,7 +14,7 @@
 
 return {
   { "kylechui/nvim-surround", config = true },
-  { "numToStr/Comment.nvim", event = "VeryLazy", config = true },
+  { "numToStr/Comment.nvim", event = "BufReadPre", config = true },
   { "ethanholz/nvim-lastplace", event = "BufReadPre" },
   { "axelf4/vim-strip-trailing-whitespace", event = "BufReadPre" },
   { "RRethy/vim-illuminate", event = "BufReadPre" },
