@@ -13,28 +13,11 @@
 -- the License.
 
 return {
-  {
-    "kylechui/nvim-surround",
-    config = true,
-  },
-  {
-    "numToStr/Comment.nvim",
-    event = "VeryLazy",
-    config = true,
-  },
-  {
-    "ethanholz/nvim-lastplace",
-    event = "BufReadPre",
-  },
-  {
-    "axelf4/vim-strip-trailing-whitespace",
-    event = "BufReadPre",
-  },
-  {
-    "windwp/nvim-autopairs",
-    event = "VeryLazy",
-    config = true,
-  },
+  { "kylechui/nvim-surround", config = true },
+  { "numToStr/Comment.nvim", event = "VeryLazy", config = true },
+  { "ethanholz/nvim-lastplace", event = "BufReadPre" },
+  { "axelf4/vim-strip-trailing-whitespace", event = "BufReadPre" },
+  { "windwp/nvim-autopairs", event = "VeryLazy", config = true },
   {
     "ggandor/leap.nvim",
     event = "VeryLazy",
