@@ -22,7 +22,6 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- require('swsnr.pluginspacker')
 require("swsnr.lazy")
 require("swsnr.options")
 require("swsnr.autocommands")
