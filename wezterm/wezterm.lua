@@ -141,8 +141,8 @@ return {
   keys = {
     { key = "_", mods = "CMD|SHIFT", action = wezterm.action({ SplitVertical = { domain = "CurrentPaneDomain" } }) },
     { key = "|", mods = "CMD|SHIFT", action = wezterm.action({ SplitHorizontal = { domain = "CurrentPaneDomain" } }) },
-    { key = "UpArrow", mods = "SHIFT", action = wezterm.action({ ScrollToPrompt = -1 }) },
-    { key = "DownArrow", mods = "SHIFT", action = wezterm.action({ ScrollToPrompt = 1 }) },
+    { key = "UpArrow", mods = "CMD|SHIFT", action = wezterm.action({ ScrollToPrompt = -1 }) },
+    { key = "DownArrow", mods = "CMD|SHIFT", action = wezterm.action({ ScrollToPrompt = 1 }) },
   },
   mouse_bindings = {
     {
