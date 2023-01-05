@@ -41,6 +41,12 @@ return {
         sections = {
           lualine_c = {
             "filename",
+            {
+              "nvim_treesitter#statusline",
+              cond = function()
+                return not navic.is_available()
+              end,
+            },
             { navic.get_location, cond = navic.is_available },
           },
           -- TODO: Add lazy update indicator
