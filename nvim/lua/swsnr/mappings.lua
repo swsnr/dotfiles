@@ -191,6 +191,7 @@ end
 
 function M.lsp_attach(buffer)
   local tb = require("telescope.builtin")
+  local format = require("lsp-format")
   wk.register({
     ["gD"] = { tb.lsp_type_definitions, "Goto type definition" },
     ["gd"] = { tb.lsp_definitions, "Goto definition" },
@@ -202,7 +203,13 @@ function M.lsp_attach(buffer)
       function()
         vim.lsp.buf.format({ async = true })
       end,
-      "Format",
+      "Force format",
+    },
+    ["<leader>ef"] = {
+      function()
+        format.toggle({ args = vim.bo.filetype })
+      end,
+      "Toggle autoformatting for current filetype",
     },
     ["<leader>eR"] = { vim.lsp.buf.rename, "Rename symbol" },
     ["<leader>jS"] = { tb.lsp_dynamic_workspace_symbols, "Jump to workspace symbol" },
