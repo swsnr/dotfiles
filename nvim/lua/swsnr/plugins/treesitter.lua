@@ -25,7 +25,8 @@ local M = {
 }
 
 function M.config()
-  -- Use treesitter folding
+  -- Use treesitter folding.  Note that folds are initially broken for all files
+  -- opened with telescope, see https://github.com/nvim-telescope/telescope.nvim/issues/699
   vim.opt.foldmethod = "expr"
   vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 
