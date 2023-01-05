@@ -16,9 +16,11 @@ local M = {}
 
 -- Common setup for  LSP client buffers.
 function M.lsp_attach(client, bufnr)
-  -- Setup formatting
+  -- Setup formatting and signature help
   require("lsp-format").on_attach(client)
-  -- Setup status line indicator
+  require("lsp_signature").on_attach({}, bufnr)
+
+  -- Setup status line indicator, if the server supports symbols
   if client.server_capabilities.documentSymbolProvider then
     require("nvim-navic").attach(client, bufnr)
   end
@@ -26,6 +28,7 @@ function M.lsp_attach(client, bufnr)
   -- Make omnicomplete use LSP completions
   vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
 
+  -- Add my LSP mappings
   require("swsnr.mappings").lsp_attach(bufnr)
 end
 

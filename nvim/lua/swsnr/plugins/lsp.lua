@@ -19,17 +19,11 @@ local M = {
     -- Progress messages for LSP
     { "j-hui/fidget.nvim", config = true },
     -- Code action indicators
-    {
-      "kosayoda/nvim-lightbulb",
-      config = {
-        autocmd = { enabled = true },
-      },
-    },
+    { "kosayoda/nvim-lightbulb", config = { autocmd = { enabled = true } } },
     -- Automatically format on save
-    {
-      "lukas-reineke/lsp-format.nvim",
-      config = true,
-    },
+    { "lukas-reineke/lsp-format.nvim", config = true },
+    -- Signature help while typing
+    { "ray-x/lsp_signature.nvim" },
     {
       "jose-elias-alvarez/null-ls.nvim",
       dependencies = { "nvim-lua/plenary.nvim" },
