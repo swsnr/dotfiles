@@ -49,7 +49,14 @@ return {
             },
             { navic.get_location, cond = navic.is_available },
           },
-          -- TODO: Add lazy update indicator
+          lualine_z = {
+            "location",
+            {
+              require("lazy.status").updates,
+              cond = require("lazy.status").has_updates,
+              color = { fg = "#ff9e64" },
+            },
+          },
         },
       })
     end,
