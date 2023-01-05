@@ -12,66 +12,68 @@
 -- License for the specific language governing permissions and limitations under
 -- the License.
 
-local M = {
-  "neovim/nvim-lspconfig",
-  event = "BufReadPre",
-  dependencies = {
-    -- Progress messages for LSP
-    { "j-hui/fidget.nvim", config = true },
-    -- Code action indicators
-    { "kosayoda/nvim-lightbulb", config = { autocmd = { enabled = true } } },
-    -- Automatically format on save
-    { "lukas-reineke/lsp-format.nvim", config = true },
-    -- Signature help while typing
-    { "ray-x/lsp_signature.nvim" },
-    {
-      "jose-elias-alvarez/null-ls.nvim",
-      dependencies = { "nvim-lua/plenary.nvim" },
-      config = function()
-        local null_ls = require("null-ls")
-        local sources = {
-          -- Auto-formatting for fish
-          null_ls.builtins.formatting.fish_indent,
-          -- Linting and formatting for Bash
-          null_ls.builtins.diagnostics.shellcheck,
-          null_ls.builtins.formatting.shfmt.with({
-            -- Indent bash with four spaces
-            extra_args = { "-i", "4" },
-          }),
-          -- Auto-formatting for Lua
-          null_ls.builtins.formatting.stylua,
-          -- Warnings about trailing space
-          null_ls.builtins.diagnostics.trail_space,
-          -- Formatting/linting for XML
-          null_ls.builtins.formatting.xmllint,
-        }
-        null_ls.setup({
-          sources = sources,
-          on_attach = require("swsnr.lsp").lsp_attach,
-        })
-      end,
+return {
+  { "zbirenbaum/neodim", event = "LspAttach" },
+  {
+    "neovim/nvim-lspconfig",
+    event = "BufReadPre",
+    dependencies = {
+      -- Progress messages for LSP
+      { "j-hui/fidget.nvim", config = true },
+      -- Code action indicators
+      { "kosayoda/nvim-lightbulb", config = { autocmd = { enabled = true } } },
+      -- Automatically format on save
+      { "lukas-reineke/lsp-format.nvim", config = true },
+      -- Signature help while typing
+      { "ray-x/lsp_signature.nvim" },
+      {
+        "jose-elias-alvarez/null-ls.nvim",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        config = function()
+          local null_ls = require("null-ls")
+          local sources = {
+            -- Auto-formatting for fish
+            null_ls.builtins.formatting.fish_indent,
+            -- Linting and formatting for Bash
+            null_ls.builtins.diagnostics.shellcheck,
+            null_ls.builtins.formatting.shfmt.with({
+              -- Indent bash with four spaces
+              extra_args = { "-i", "4" },
+            }),
+            -- Auto-formatting for Lua
+            null_ls.builtins.formatting.stylua,
+            -- Warnings about trailing space
+            null_ls.builtins.diagnostics.trail_space,
+            -- Formatting/linting for XML
+            null_ls.builtins.formatting.xmllint,
+          }
+          null_ls.setup({
+            sources = sources,
+            on_attach = require("swsnr.lsp").lsp_attach,
+          })
+        end,
+      },
     },
+    config = function()
+      -- TODO: Steal from https://github.com/folke/LazyVim/blob/650a7429f3bb422bfb085eda07bd8a850cf13409/lua/lazyvim/plugins/lsp/init.lua#L11
+      local servers = { "pyright" }
+      for _, lsp in pairs(servers) do
+        require("lspconfig")[lsp].setup({
+          on_attach = require("swsnr.lsp").lsp_attach,
+          flags = {
+            debounce_text_changes = 150,
+          },
+        })
+      end
+      -- Configure vim diagnostic display
+      vim.diagnostic.config({
+        underline = true,
+        -- This must be false, as long as update_in_insert is enabled for
+        -- neodim (default), see https://github.com/zbirenbaum/neodim#update_in_insert
+        update_in_insert = false,
+        virtual_text = { spacing = 4, prefix = "●" },
+        severity_sort = true,
+      })
+    end,
   },
 }
-
-function M.config()
-  -- TODO: Steal from https://github.com/folke/LazyVim/blob/650a7429f3bb422bfb085eda07bd8a850cf13409/lua/lazyvim/plugins/lsp/init.lua#L11
-  local servers = { "pyright" }
-  for _, lsp in pairs(servers) do
-    require("lspconfig")[lsp].setup({
-      on_attach = require("swsnr.lsp").lsp_attach,
-      flags = {
-        debounce_text_changes = 150,
-      },
-    })
-  end
-  -- Configure vim diagnostic display
-  vim.diagnostic.config({
-    underline = true,
-    update_in_insert = false,
-    virtual_text = { spacing = 4, prefix = "●" },
-    severity_sort = true,
-  })
-end
-
-return M

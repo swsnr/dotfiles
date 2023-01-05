@@ -25,7 +25,6 @@
 -- Replace nvim-tree with neo-tree?
 -- Multiple cursors plugin: https://github.com/mg979/vim-visual-multi
 -- https://github.com/folke/neoconf.nvim
--- https://github.com/RRethy/vim-illuminate
 --
 -- Language servers:
 -- https://github.com/latex-lsp/texlab
