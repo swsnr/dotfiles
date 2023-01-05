@@ -20,7 +20,6 @@
 -- https://github.com/L3MON4D3/LuaSnip
 -- https://github.com/rafamadriz/friendly-snippets (for the above)
 -- https://github.com/hrsh7th/nvim-cmp and https://github.com/folke/dot/blob/master/config/nvim/lua/config/plugins/cmp.lua
--- https://github.com/nvim-pack/nvim-spectre
 -- https://github.com/chentoast/marks.nvim
 -- https://github.com/toppair/reach.nvim
 -- Replace nvim-tree with neo-tree?
@@ -104,7 +103,13 @@ return {
       use_diagnostic_signs = true,
     },
   },
-  {},
+  {
+    "nvim-pack/nvim-spectre",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    config = true,
+  },
   {
     "samoshkin/vim-mergetool",
     cmd = { "MergetoolStart", "MergetoolToggle" },

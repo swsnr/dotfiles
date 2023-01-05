@@ -87,7 +87,7 @@ function M.setup()
     ["grm"] = { "Decrease by node" },
   })
 
-  -- Leader bindings
+  -- Leader bindings: normal mode
   wk.register({
     [" "] = { "<cmd>Telescope commands<cr>", "Commands" },
     ["?"] = { "<cmd>Telescope<cr>", "Pickers" },
@@ -151,6 +151,9 @@ function M.setup()
 
     -- Search
     ["s"] = { name = "+search" },
+    ["ss"] = { "<cmd>lua require('spectre').open()<cr>", "Search" },
+    ["sw"] = { "<cmd>lua require('spectre').open_visual({select_word=true})<cr>", "Current word" },
+    ["sf"] = { "<cmd>lua require('spectre').open_file_search()<cr>", "Current file" },
     ["sg"] = { "<cmd>Telescope live_grep<cr>", "Live grep" },
     ["sc"] = { "<cmd>Telescope grep_string<cr>", "Grep under cursor" },
 
@@ -173,6 +176,16 @@ function M.setup()
     ["x"] = { name = "+execute" },
   }, {
     prefix = "<leader>",
+  })
+
+  -- Leader bindings: visual mode
+  wk.register({
+    -- Search
+    ["s"] = { name = "+search" },
+    ["ss"] = { "<esc><cmd>lua require('spectre').open_visual()<cr>", "Search selection" },
+  }, {
+    prefix = "<leader>",
+    mode = "v",
   })
 end
 
