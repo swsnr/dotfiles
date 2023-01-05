@@ -22,7 +22,10 @@ function M.setup()
   require("nvim-surround")
 
   -- Back to normal mode the fast way.
-  vim.keymap.set("i", "jk", "<ESC>", { noremap = true })
+  vim.keymap.set("i", "jk", "<ESC>")
+  -- Back to normal mode in terminals; since we have C-\ bound to toggle term
+  -- this is actually the only way to go back to normal mode.
+  vim.keymap.set("t", "jk", [[<C-\><C-n>]])
 
   -- Move windows with Alt and resize with shift
   vim.keymap.set("n", "<A-left>", "<C-w>h")
@@ -54,6 +57,25 @@ function M.setup()
   -- Restore selection when indenting in visual mode
   vim.keymap.set("v", "<", "<gv")
   vim.keymap.set("v", ">", ">gv")
+
+  -- Load toggle term to set up its mappings
+  require("toggleterm")
+  -- Create a custom floating terminal which is independent of the "regular"
+  -- terminals managed by toggleterm; this serves as a quick scratchpad.
+  local floatterm = require("toggleterm.terminal").Terminal:new({
+    cmd = "/usr/bin/fish",
+    direction = "float",
+    float_opts = {
+      border = "double",
+    },
+    on_open = function(term)
+      vim.cmd("startinsert!")
+      vim.keymap.set("n", "q", "<cmd>close<CR>", { silent = true, buffer = term.bufnr })
+    end,
+    on_close = function(term)
+      vim.cmd("startinsert!")
+    end,
+  })
 
   wk.register({
     ["g"] = { name = "+goto" },
@@ -131,6 +153,14 @@ function M.setup()
     ["s"] = { name = "+search" },
     ["sg"] = { "<cmd>Telescope live_grep<cr>", "Live grep" },
     ["sc"] = { "<cmd>Telescope grep_string<cr>", "Grep under cursor" },
+
+    -- Terminal
+    ["t"] = {
+      function()
+        floatterm:toggle()
+      end,
+      "Floating terminal",
+    },
 
     -- Windows
     ["w"] = { name = "+windows" },

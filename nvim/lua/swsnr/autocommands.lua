@@ -14,14 +14,6 @@
 
 local v = vim.api
 local ly_group = v.nvim_create_augroup("swsnr", { clear = true })
-v.nvim_create_autocmd({ "TermOpen" }, {
-  callback = function()
-    vim.opt_local.number = false
-    vim.opt_local.relativenumber = false
-    vim.opt_local.signcolumn = "no"
-  end,
-  group = ly_group,
-})
 -- Highlight yanked text, see https://github.com/neovim/neovim/pull/12279#issuecomment-879142040
 v.nvim_create_autocmd({ "TextYankPost" }, {
   callback = function()

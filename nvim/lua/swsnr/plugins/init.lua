@@ -23,7 +23,6 @@
 -- https://github.com/nvim-pack/nvim-spectre
 -- https://github.com/chentoast/marks.nvim
 -- https://github.com/toppair/reach.nvim
--- https://github.com/akinsho/toggleterm.nvim
 -- Replace nvim-tree with neo-tree?
 -- Multiple cursors plugin: https://github.com/mg979/vim-visual-multi
 -- https://github.com/folke/neoconf.nvim
@@ -113,5 +112,15 @@ return {
   {
     "jghauser/mkdir.nvim",
     event = "VeryLazy",
+  },
+  {
+    "akinsho/toggleterm.nvim",
+    config = {
+      shell = "/usr/bin/fish",
+      open_mapping = [[<C-\>]],
+      on_open = function(term)
+        vim.keymap.set("n", "q", "<cmd>close<CR>", { silent = true, buffer = term.bufnr })
+      end,
+    },
   },
 }
