@@ -65,6 +65,7 @@ remove_explicitly=(
     hunspell        # nuspell is better
     gnome-software  # Tends to auto-update too much
     tig             # gitui is nicer
+    gnvim           # Doesn't offer much, neovide is cooler
 )
 
 for pkg in "${remove_explicitly[@]}"; do
@@ -834,7 +835,6 @@ aur_packages=(
     wev      # Wayland event testing
     frum     # Ruby version manager
     fnm      # Node version manager
-    gnvim    # Neovim UI with Gtk 4
 
     # Missing dependencies for latexindent
     # See <https://bugs.archlinux.org/task/60210>
@@ -892,6 +892,7 @@ if [[ -n "${SUDO_USER:-}" ]]; then
         # We use kernel-install and mkinitpcio instead
         dracut-hook-uefi
         kernel-install-dracut-uki
+        gnvim
     )
     if [[ ${#remove_from_repo[@]} -gt 0 ]]; then
         for pkg in "${remove_from_repo[@]}"; do
