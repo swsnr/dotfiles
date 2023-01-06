@@ -12,6 +12,8 @@
 -- License for the specific language governing permissions and limitations under
 -- the License.
 
+-- Git-related plugins.
+
 return {
   {
     "lewis6991/gitsigns.nvim",

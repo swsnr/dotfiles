@@ -12,6 +12,10 @@
 -- License for the specific language governing permissions and limitations under
 -- the License.
 
+-- Plugin module.
+--
+-- Keeps my TODO list, and stuff that doesn't fit anything else.
+
 -- TODO:
 --
 -- Steal all cool things from https://github.com/folke/LazyVim
@@ -25,106 +29,14 @@
 -- Replace nvim-tree with neo-tree?
 -- Multiple cursors plugin: https://github.com/mg979/vim-visual-multi
 -- https://github.com/folke/neoconf.nvim
+-- https://github.com/norcalli/nvim-colorizer.lua
 --
 -- Language servers:
 -- https://github.com/latex-lsp/texlab
 
 return {
-  { "folke/lazy.nvim", lazy = false },
-  -- Color scheme
-  {
-    "folke/tokyonight.nvim",
-    -- Make sure we load at startup, first of all
-    lazy = false,
-    priority = 1000,
-    config = function()
-      require("tokyonight").setup({
-        style = "night",
-      })
-      -- load the colorscheme here
-      vim.cmd([[colorscheme tokyonight]])
-    end,
-  },
-  {
-    "folke/which-key.nvim",
-    lazy = true,
-    config = {
-      -- show_help = false,
-      plugins = { spelling = true },
-      key_labels = { ["<leader>"] = "SPC" },
-    },
-  },
-  {
-    "nvim-telescope/telescope.nvim",
-    -- Load telescope right away so that the ui-select replacement kicks in, and
-    -- we'll likely use telescope anyway.
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      -- Telescope extensions we set up right away
-      "jvgrootveld/telescope-zoxide",
-      "nvim-telescope/telescope-symbols.nvim",
-      "debugloop/telescope-undo.nvim",
-    },
-    cmd = { "Telescope" },
-    config = function()
-      local t = require("telescope")
-      local trouble = require("trouble.providers.telescope")
-      t.setup({
-        defaults = {
-          mappings = {
-            i = { ["<c-t>"] = trouble.open_with_trouble },
-            n = { ["<c-t>"] = trouble.open_with_trouble },
-          },
-        },
-      })
-
-      -- Redirect vim's ui select to telescope
-      t.load_extension("zoxide")
-      t.load_extension("undo")
-    end,
-  },
-  {
-    "kyazdani42/nvim-tree.lua",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    cmd = { "NvimTreeFindFileToggle", "NvimTreeFocus" },
-    config = {
-      system_open = {
-        cmd = "gio",
-        args = { "open" },
-      },
-    },
-  },
-  {
-    "folke/trouble.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    cmd = "TroubleToggle",
-    config = {
-      use_diagnostic_signs = true,
-    },
-  },
-  {
-    "nvim-pack/nvim-spectre",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-    },
-    config = true,
-  },
-  {
-    "samoshkin/vim-mergetool",
-    cmd = { "MergetoolStart", "MergetoolToggle" },
-  },
   {
     "jghauser/mkdir.nvim",
     event = "VeryLazy",
-  },
-  {
-    "akinsho/toggleterm.nvim",
-    config = {
-      shell = "/usr/bin/fish",
-      open_mapping = [[<C-\>]],
-      on_open = function(term)
-        vim.keymap.set("n", "q", "<cmd>close<CR>", { silent = true, buffer = term.bufnr })
-      end,
-    },
   },
 }

@@ -12,6 +12,8 @@
 -- License for the specific language governing permissions and limitations under
 -- the License.
 
+-- Treesitter and its dependencies.
+
 local M = {
   "nvim-treesitter/nvim-treesitter",
   dependencies = {

@@ -12,6 +12,8 @@
 -- License for the specific language governing permissions and limitations under
 -- the License.
 
+-- lspconfig and LSP-related tools.
+
 return {
   { "zbirenbaum/neodim", event = "LspAttach" },
   {

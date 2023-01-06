@@ -12,7 +12,31 @@
 -- License for the specific language governing permissions and limitations under
 -- the License.
 
+-- Plugins for the user interface, i.e. the colorscheme, lualine, bufferline,
+-- etc.
 return {
+  {
+    "folke/tokyonight.nvim",
+    -- Make sure we load at startup, first of all
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require("tokyonight").setup({
+        style = "night",
+      })
+      -- load the colorscheme here
+      vim.cmd([[colorscheme tokyonight]])
+    end,
+  },
+  {
+    "folke/which-key.nvim",
+    lazy = true,
+    config = {
+      -- show_help = false,
+      plugins = { spelling = true },
+      key_labels = { ["<leader>"] = "SPC" },
+    },
+  },
   {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
@@ -113,5 +137,13 @@ return {
     "stevearc/dressing.nvim",
     event = "VeryLazy",
     config = true,
+  },
+  {
+    "folke/trouble.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    cmd = "TroubleToggle",
+    config = {
+      use_diagnostic_signs = true,
+    },
   },
 }
