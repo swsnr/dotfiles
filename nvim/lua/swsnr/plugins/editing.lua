@@ -19,6 +19,7 @@ return {
   { "axelf4/vim-strip-trailing-whitespace", event = "BufReadPre" },
   { "RRethy/vim-illuminate", event = "BufReadPre" },
   { "windwp/nvim-autopairs", event = "VeryLazy", config = true },
+  { "cshuaimin/ssr.nvim" },
   {
     "ggandor/leap.nvim",
     event = "VeryLazy",

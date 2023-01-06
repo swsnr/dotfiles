@@ -149,8 +149,14 @@ function M.setup()
     -- Quick quit
     ["Q"] = { "<cmd>quit<cr>", "Quit" },
 
-    -- Search
-    ["s"] = { name = "+search" },
+    -- Search/replace
+    ["s"] = { name = "+search/replace" },
+    ["sa"] = {
+      function()
+        require("ssr").open()
+      end,
+      "Search/replace AST",
+    },
     ["ss"] = { "<cmd>lua require('spectre').open()<cr>", "Search" },
     ["sw"] = { "<cmd>lua require('spectre').open_visual({select_word=true})<cr>", "Current word" },
     ["sf"] = { "<cmd>lua require('spectre').open_file_search()<cr>", "Current file" },
