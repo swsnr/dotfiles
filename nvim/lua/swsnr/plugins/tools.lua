@@ -37,9 +37,33 @@ return {
     },
   },
   {
+    "nvim-neo-tree/neo-tree.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons",
+      "MunifTanjim/nui.nvim",
+    },
+    -- Load neo-tree right away to make sure the netrw hijack takes effect.
+    -- TODO: Make it lazy and only load if vim opens a directory initially.
+    lazy = false,
+    -- cmd = "Neotree",
+    init = function()
+      vim.g.neo_tree_remove_legacy_commands = 1
+    end,
+    config = {
+      filesystem = {
+        -- Focus current file in tree when switching buffers.
+        follow_current_file = true,
+        -- Opening a directory with neovim opens the directory in the tree.
+        hijack_netrw_behavior = "open_current",
+      },
+    },
+  },
+  {
     "kyazdani42/nvim-tree.lua",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     cmd = { "NvimTreeFindFileToggle", "NvimTreeFocus" },
+    enabled = false,
     config = {
       system_open = {
         cmd = "gio",

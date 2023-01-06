@@ -91,15 +91,18 @@ function M.setup()
   wk.register({
     [" "] = { "<cmd>Telescope commands<cr>", "Commands" },
     ["?"] = { "<cmd>Telescope<cr>", "Pickers" },
+
     -- Buffers
     ["b"] = { name = "+buffers" },
     ["bb"] = { "<cmd>Telescope buffers<cr>", "List buffers" },
+
     -- Editing
     ["e"] = { name = "+edit" },
     ["er"] = { "<cmd>Telescope registers<cr>", "Paste register" },
     ["ed"] = { tools.iso_utc_to_register, "ISO UTC timestamp to register a" },
     ["es"] = { "<cmd>Telescope symbols<cr>", "Insert symbol" },
     ["eu"] = { "<cmd>Telescope undo<cr>", "Undo" },
+
     -- Files
     ["f"] = { name = "+files" },
     ["ff"] = { "<cmd>Telescope find_files<cr>", "Find files" },
@@ -109,8 +112,8 @@ function M.setup()
       end,
       "Change directory",
     },
-    ["ft"] = { "<cmd>NvimTreeFindFileToggle<cr>", "Show current file in tree" },
-    ["fT"] = { "<cmd>NvimTreeFocus<cr>", "Open file explorer" },
+    ["ft"] = { "<cmd>Neotree reveal<cr>", "Reveal in file explorer" },
+    ["fT"] = { "<cmd>Neotree toggle<cr>", "Toggle file explorer" },
 
     -- Git
     ["g"] = { name = "+git" },

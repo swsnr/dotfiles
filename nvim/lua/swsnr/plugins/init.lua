@@ -26,7 +26,6 @@
 -- https://github.com/hrsh7th/nvim-cmp and https://github.com/folke/dot/blob/master/config/nvim/lua/config/plugins/cmp.lua
 -- https://github.com/chentoast/marks.nvim
 -- https://github.com/toppair/reach.nvim
--- Replace nvim-tree with neo-tree?
 -- Multiple cursors plugin: https://github.com/mg979/vim-visual-multi
 -- https://github.com/folke/neoconf.nvim
 -- https://github.com/norcalli/nvim-colorizer.lua

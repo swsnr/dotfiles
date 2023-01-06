@@ -57,7 +57,6 @@ return {
         theme = "auto",
         extensions = {
           "toggleterm",
-          "nvim-tree",
           "neo-tree",
           "man",
           "fugitive",
@@ -100,12 +99,6 @@ return {
           return vim.trim(ret)
         end,
         offsets = {
-          {
-            filetype = "NvimTree",
-            text = "Neo-tree",
-            highlight = "Directory",
-            text_align = "left",
-          },
           {
             filetype = "neo-tree",
             text = "Neo-tree",
