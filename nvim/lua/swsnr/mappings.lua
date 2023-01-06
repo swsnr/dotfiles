@@ -125,9 +125,11 @@ function M.setup()
 
     -- Help
     ["h"] = { name = "+help" },
+    ["ha"] = { "<cmd>Telescope autocommands<cr>", "Tags" },
     ["hh"] = { "<cmd>Telescope help_tags<cr>", "Tags" },
     ["hk"] = { "<cmd>Telescope keymaps<cr>", "Keys" },
     ["hm"] = { "<cmd>Telescope man_pages<cr>", "Man pages" },
+    ["ho"] = { "<cmd>Telescope vim_options<cr>", "Options" },
 
     -- Jumping
     ["j"] = { name = "+jump" },
