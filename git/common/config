@@ -24,7 +24,6 @@
 	defaultRemote = origin
 # Commit and tag settings
 [commit]
-	verbose = true
 	# Sign commits (though we use SSH, see above)
 	gpgSign = true
 [tag]
