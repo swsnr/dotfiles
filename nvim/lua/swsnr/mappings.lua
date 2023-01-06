@@ -173,9 +173,11 @@ function M.setup()
 
     -- Windows
     ["w"] = { name = "+windows" },
+    ["wb"] = { "<cmd>WindowsEqualize<cr>", "Balance all windows" },
     ["w/"] = { "<cmd>vsplit<cr>", "Split vertical" },
     ["w-"] = { "<cmd>split<cr>", "Split horizontal" },
     ["wo"] = { "<cmd>only<cr>", "Only current window" },
+    ["wm"] = { "<cmd>WindowsMaximize<cr>", "Maximize current window" },
     ["wq"] = { "<cmd>q<cr>", "Quit" },
 
     -- Execute things
