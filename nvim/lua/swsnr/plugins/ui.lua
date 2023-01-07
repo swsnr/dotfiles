@@ -84,6 +84,10 @@ return {
       })
     end,
   },
+  {
+    "famiu/bufdelete.nvim",
+    cmd = { "Bdelete", "Bwipeout" },
+  },
   -- bufferline
   {
     "akinsho/nvim-bufferline.lua",
@@ -92,6 +96,12 @@ return {
       options = {
         diagnostics = "nvim_lsp",
         always_show_bufferline = false,
+        close_command = function(bufnum)
+          require("bufdelete").bufdelete(bufnum, true)
+        end,
+        middle_mouse_command = function(bufnum)
+          require("bufdelete").bufdelete(bufnum, true)
+        end,
         diagnostics_indicator = function(_, _, diag)
           local icons = require("swsnr.icons").diagnostics
           local ret = (diag.error and icons.Error .. diag.error .. " " or "")

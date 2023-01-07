@@ -150,7 +150,7 @@ function M.setup()
     ["lL"] = { "<cmd>Lazy<cr>", "Plugins" },
 
     -- Close current buffer quick
-    ["q"] = { "<cmd>bdelete<cr>", "Close current buffer" },
+    ["q"] = { "<cmd>Bdelete<cr>", "Close current buffer" },
     -- Quick quit
     ["Q"] = { "<cmd>quit<cr>", "Quit" },
 
