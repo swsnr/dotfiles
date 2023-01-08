@@ -241,6 +241,3 @@ if has flatpak; then
     flatpak override --user --reset org.gnome.Lollypop
     flatpak override --user --reset com.github.geigi.cozy
 fi
-
-# Configure Code OSS
-has code && ./misc/code-settings.py

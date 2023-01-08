@@ -66,6 +66,7 @@ remove_explicitly=(
     gnome-software  # Tends to auto-update too much
     tig             # gitui is nicer
     gnvim           # Doesn't offer much, neovide is cooler
+    code            # neovim is faster, and IDEA more powerful
 )
 
 for pkg in "${remove_explicitly[@]}"; do
@@ -136,8 +137,6 @@ packages=(
     debuginfod        # Remote debug info
     arch-repro-status # Check reproducibility of installed packages
 
-    # Editors (mainly neovim)
-    code
     # Neovim & tools
     neovim
     neovide
