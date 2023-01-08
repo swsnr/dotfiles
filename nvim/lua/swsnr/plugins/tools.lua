@@ -59,16 +59,4 @@ return {
       },
     },
   },
-  {
-    "kyazdani42/nvim-tree.lua",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    cmd = { "NvimTreeFindFileToggle", "NvimTreeFocus" },
-    enabled = false,
-    config = {
-      system_open = {
-        cmd = "gio",
-        args = { "open" },
-      },
-    },
-  },
 }
