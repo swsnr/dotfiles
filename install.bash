@@ -64,20 +64,10 @@ done
 mkdir -p ~/.config/wezterm/colors
 ln -fs "$DIR/wezterm/wezterm.lua" ~/.config/wezterm/wezterm.lua
 clean-recursively ~/.config/wezterm/colors || true
-# Install terminfo for wezterm
-function install_wezterm_terminfo {
-    if [[ ! -f ~/.terminfo/w/wezterm ]]; then
-        local tempfile
-        tempfile="$(mktemp)"
-        # We deliberately want to expand $tempfile now, because it's local to
-        # this function and thus no longer defined when bash exits.
-        # shellcheck disable=SC2064
-        trap "rm -f -- '${tempfile}'" EXIT
-        curl -o "$tempfile" https://raw.githubusercontent.com/wez/wezterm/master/termwiz/data/wezterm.terminfo
-        tic -x -o ~/.terminfo "$tempfile"
-    fi
-}
-install_wezterm_terminfo
+# Remove wezterm terminfo from $HOME; arch now includes it in the wezterm
+# package
+rm -rf ~/.terminfo/w/wezterm
+find ~/.terminfo/ -empty -delete
 
 # Vim
 ln -fs "$DIR/vim/ideavimrc" ~/.ideavimrc
