@@ -127,13 +127,14 @@ packages=(
     yt-dlp # youtube-dl with extra features
 
     # Arch tools & infrastructure
-    asp            # Obtain PKGBUILDs for ABS
-    etc-update     # Deal with pacdiff/pacsave files
-    pacman-contrib # paccache, checkupdates, pacsearch, and others
-    reflector      # Weekly mirrorlist updates
-    base-devel
-    namcap
-    debuginfod # Remote debug info
+    asp               # Obtain PKGBUILDs for ABS
+    etc-update        # Deal with pacdiff/pacsave files
+    pacman-contrib    # paccache, checkupdates, pacsearch, and others
+    reflector         # Weekly mirrorlist updates
+    base-devel        # Base backapges for building packages
+    namcap            # Lint arch packages
+    debuginfod        # Remote debug info
+    arch-repro-status # Check reproducibility of installed packages
 
     # Editors (mainly neovim)
     code
