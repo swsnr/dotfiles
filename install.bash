@@ -63,7 +63,7 @@ done
 # Terminal emulator
 mkdir -p ~/.config/wezterm/colors
 ln -fs "$DIR/wezterm/wezterm.lua" ~/.config/wezterm/wezterm.lua
-ln -fs -t ~/.config/wezterm/colors "$DIR/wezterm/colors/"*.toml
+clean-recursively ~/.config/wezterm/colors || true
 # Install terminfo for wezterm
 function install_wezterm_terminfo {
     if [[ ! -f ~/.terminfo/w/wezterm ]]; then
