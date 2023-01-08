@@ -108,7 +108,7 @@
 	# Prune gone upstream branches
 	gX = gone prune
 	# Fancy and brief logs
-	l = log --pretty=fancy --topo-order --graph --show-signatures
+	l = log --pretty=fancy --topo-order --graph --show-signature
 	lo = log --pretty=overview --topo-order --graph
 	# Show most recent commits and commits within the last week
 	l7d = log --pretty=overview --topo-order --graph --since '7 days ago'
