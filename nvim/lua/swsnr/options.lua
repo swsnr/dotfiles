@@ -49,7 +49,7 @@ vim.opt.updatetime = 200 -- Write swapfiles often
 
 -- Completion: Always show a menu even if there's just one candidate, never
 -- insert automatically and never preselect an entry in the completion menuselect.
-vim.opt.completeopt = { "menuone", "noinsert", "noselect" }
+vim.opt.completeopt = { "menu", "menuone", "noinsert", "noselect" }
 vim.opt.shortmess:append({ c = true })
 
 -- Options for text editing
