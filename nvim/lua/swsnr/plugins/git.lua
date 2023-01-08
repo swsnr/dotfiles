@@ -53,6 +53,8 @@ return {
       { "<leader>gc", "<cmd>Neogit commit<cr>", desc = "Git commit" },
       { "<leader>gg", "<cmd>Neogit<cr>", desc = "Git status" },
     },
+    -- FIXME: neogit doesn't play well with bufferline currently
+    -- See https://github.com/TimUntersberger/neogit/issues/389
     config = {
       signs = {
         section = { "", "" },

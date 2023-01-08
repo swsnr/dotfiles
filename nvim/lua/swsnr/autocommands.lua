@@ -14,6 +14,7 @@
 
 local v = vim.api
 local ly_group = v.nvim_create_augroup("swsnr", { clear = true })
+
 -- Highlight yanked text, see https://github.com/neovim/neovim/pull/12279#issuecomment-879142040
 v.nvim_create_autocmd({ "TextYankPost" }, {
   callback = function()
