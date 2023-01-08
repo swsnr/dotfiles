@@ -22,8 +22,9 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-require("swsnr.lazy")
+-- Load options first to make sure options are applied correctly
 require("swsnr.options")
+require("swsnr.lazy")
 require("swsnr.autocommands")
 
 vim.api.nvim_create_autocmd("User", {
