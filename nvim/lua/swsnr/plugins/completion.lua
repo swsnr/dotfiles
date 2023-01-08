@@ -12,4 +12,51 @@
 -- License for the specific language governing permissions and limitations under
 -- the License.
 
-return {}
+return {
+  {
+    "L3MON4D3/LuaSnip",
+    dependencies = { "rafamadriz/friendly-snippets" },
+    keys = {
+      {
+        "<tab>",
+        function()
+          return require("luasnip").expand_or_jumpable() and "<Plug>luasnip-expand-or-jump" or "<tab>"
+        end,
+        expr = true,
+        silent = true,
+        mode = "i",
+        remap = true,
+        desc = "Tab",
+      },
+      {
+        "<tab>",
+        function()
+          require("luasnip").jump(1)
+        end,
+        silent = true,
+        desc = "Jump forward in snippet",
+        mode = "s",
+      },
+      {
+        "<S-tab>",
+        function()
+          require("luasnip").jump(-1)
+        end,
+        silent = true,
+        desc = "Jump back in snippet",
+        mode = { "i", "s" },
+      },
+    },
+    config = function()
+      -- require("luasnip").setup({
+      --   -- Allow jumping back to exited snippets, and only clean up when text
+      --   -- has changed
+      --   history = true,
+      --   delete_check_events = "TextChanged",
+      -- })
+
+      -- Load snippets from friendly-snippets, see https://github.com/L3MON4D3/LuaSnip#add-snippets
+      require("luasnip.loaders.from_vscode").lazy_load()
+    end,
+  },
+}
