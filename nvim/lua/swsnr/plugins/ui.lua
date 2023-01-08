@@ -14,6 +14,7 @@
 
 -- Plugins for the user interface, i.e. the colorscheme, lualine, bufferline,
 -- etc.
+
 return {
   {
     "folke/tokyonight.nvim",
