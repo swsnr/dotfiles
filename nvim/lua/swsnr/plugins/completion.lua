@@ -48,12 +48,12 @@ return {
       },
     },
     config = function()
-      -- require("luasnip").setup({
-      --   -- Allow jumping back to exited snippets, and only clean up when text
-      --   -- has changed
-      --   history = true,
-      --   delete_check_events = "TextChanged",
-      -- })
+      require("luasnip").setup({
+        -- Allow jumping back to exited snippets, and only clean up when text
+        -- has changed
+        history = true,
+        delete_check_events = "TextChanged",
+      })
 
       -- Load snippets from friendly-snippets, see https://github.com/L3MON4D3/LuaSnip#add-snippets
       require("luasnip.loaders.from_vscode").lazy_load()
