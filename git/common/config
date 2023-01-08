@@ -62,8 +62,9 @@
 [log]
 	# Abbreviate hashes in git log
 	abbrevCommit = true
-	# Always show signatures
-	showSignature = true
+	# Always show signatures; a nice idea in theory, but practically it
+        # breaks a lot of git tools, e.g. neogit, see https://github.com/TimUntersberger/neogit/issues/422
+	# showSignature = true
 [pretty]
 	fancy = %C(bold)Commit:%C(reset) %C(green)%H%C(red)%d%n%C(bold)Author:%C(reset) %C(cyan)%an <%ae>%n%C(bold)Date:%C(reset)   %C(blue)%ai (%ar)%C(reset)%n%+B
 	overview = %C(green)%h%C(reset) %s%n%C(blue)(%ar by %an)%C(red)%d%C(reset)%n
@@ -107,7 +108,7 @@
 	# Prune gone upstream branches
 	gX = gone prune
 	# Fancy and brief logs
-	l = log --pretty=fancy --topo-order --graph
+	l = log --pretty=fancy --topo-order --graph --show-signatures
 	lo = log --pretty=overview --topo-order --graph
 	# Show most recent commits and commits within the last week
 	l7d = log --pretty=overview --topo-order --graph --since '7 days ago'
