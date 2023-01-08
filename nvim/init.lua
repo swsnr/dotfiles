@@ -29,6 +29,6 @@ require("swsnr.autocommands")
 vim.api.nvim_create_autocmd("User", {
   pattern = "VeryLazy",
   callback = function()
-    require("swsnr.mappings").setup()
+    require("swsnr.mappings")
   end,
 })

@@ -20,6 +20,12 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
+    keys = {
+      { "<leader>ss", "<cmd>lua require('spectre').open()<cr>", desc = "Search" },
+      { "<leader>ss", "<cmd>lua require('spectre').open_visual()<cr>", desc = "Search", mode = "v" },
+      { "<leader>sw", "<cmd>lua require('spectre').open_visual({select_word=true})<cr>", desc = "Current word" },
+      { "<leader>sf", "<cmd>lua require('spectre').open_file_search()<cr>", desc = "Current file" },
+    },
     config = true,
   },
   {
@@ -28,13 +34,34 @@ return {
   },
   {
     "akinsho/toggleterm.nvim",
-    config = {
-      shell = "/usr/bin/fish",
-      open_mapping = [[<C-\>]],
-      on_open = function(term)
-        vim.keymap.set("n", "q", "<cmd>close<CR>", { silent = true, buffer = term.bufnr })
-      end,
-    },
+event = "VeryLazy",
+    config = function()
+      require("toggleterm").setup({
+        shell = "/usr/bin/fish",
+        open_mapping = [[<C-\>]],
+        on_open = function(term)
+          vim.keymap.set("n", "q", "<cmd>close<CR>", { silent = true, buffer = term.bufnr })
+        end,
+      })
+
+      local floatterm = require("toggleterm.terminal").Terminal:new({
+        cmd = "/usr/bin/fish",
+        direction = "float",
+        float_opts = {
+          border = "double",
+        },
+        on_open = function(term)
+          vim.cmd("startinsert!")
+          vim.keymap.set("n", "q", "<cmd>close<CR>", { silent = true, buffer = term.bufnr })
+        end,
+        on_close = function(term)
+          vim.cmd("startinsert!")
+        end,
+      })
+      vim.keymap.set("n", "<leader>t", function()
+        floatterm:toggle()
+      end, { desc = "Float term" })
+    end,
   },
   {
     "nvim-neo-tree/neo-tree.nvim",
@@ -50,6 +77,10 @@ return {
     init = function()
       vim.g.neo_tree_remove_legacy_commands = 1
     end,
+    keys = {
+      { "<leader>ft", "<cmd>Neotree reveal<cr>", desc = "Reveal in file explorer" },
+      { "<leader>fT", "<cmd>Neotree toggle<cr>", desc = "Toggle file explorer" },
+    },
     config = {
       filesystem = {
         -- Focus current file in tree when switching buffers.

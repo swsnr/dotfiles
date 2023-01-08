@@ -16,8 +16,10 @@ local M = {}
 
 -- Common setup for  LSP client buffers.
 function M.lsp_attach(client, bufnr)
+  local format = require("lsp-format")
+
   -- Setup formatting and signature help
-  require("lsp-format").on_attach(client)
+  format.on_attach(client)
   require("lsp_signature").on_attach({}, bufnr)
 
   -- Setup status line indicator, if the server supports symbols
@@ -28,8 +30,29 @@ function M.lsp_attach(client, bufnr)
   -- Make omnicomplete use LSP completions
   vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
 
-  -- Add my LSP mappings
-  require("swsnr.mappings").lsp_attach(bufnr)
+  -- Extra mappings
+  function map(mode, lhs, rhs, desc)
+    vim.keymap.set(mode, lhs, rhs, { desc = desc, buffer = bufnr })
+  end
+
+  local tb = require("telescope.builtin")
+  map("n", "gD", tb.lsp_type_definitions, "Goto type definition")
+  map("n", "gd", tb.lsp_definitions, "Goto definition")
+  map("n", "gi", tb.lsp_implementations, "Goto implementation")
+  map("n", "<C-k>", vim.lsp.buf.signature_help, "Signature help")
+  map("n", "K", vim.lsp.buf.hover, "Hover")
+  map("n", "<leader>ea", vim.lsp.buf.code_action, "Code action")
+  map("n", "<leader>eF", function()
+    vim.lsp.buf.format({ async = true })
+  end, "Force format")
+  map("n", "<header>ef", function()
+    format.toggle({ args = vim.bo.filetype })
+  end, "Toggle autoformatting for filetype")
+  map("n", "<leader>eR", vim.lsp.buf.rename, "Rename symbol")
+  map("n", "<leader>jS", tb.lsp_dynamic_workspace_symbols, "Jump to workspace symbol")
+  map("n", "<leader>js", tb.lsp_document_symbols, "Jump to document symbol")
+  map("n", "<leader>jr", tb.lsp_references, "Jump to reference")
+  map("n", "<leader>jd", tb.diagnostics, "Jump to diagnostic")
 end
 
 return M

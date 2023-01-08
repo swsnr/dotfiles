@@ -13,13 +13,25 @@
 -- the License.
 
 return {
-  { "kylechui/nvim-surround", config = true },
+  { "kylechui/nvim-surround", event = "BufReadPre", config = true },
   { "numToStr/Comment.nvim", event = "BufReadPre", config = true },
   { "ethanholz/nvim-lastplace", event = "BufReadPre" },
   { "axelf4/vim-strip-trailing-whitespace", event = "BufReadPre" },
   { "RRethy/vim-illuminate", event = "BufReadPre" },
   { "windwp/nvim-autopairs", event = "VeryLazy", config = true },
-  { "cshuaimin/ssr.nvim" },
+  {
+    "cshuaimin/ssr.nvim",
+    keys = {
+      {
+        "<leader>sa",
+        function()
+          require("ssr").open()
+        end,
+        desc = "Search/replace AST",
+        mode = { "n", "v" },
+      },
+    },
+  },
   {
     "ggandor/leap.nvim",
     event = "VeryLazy",

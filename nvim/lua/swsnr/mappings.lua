@@ -12,255 +12,57 @@
 -- License for the specific language governing permissions and limitations under
 -- the License.
 
-local wk = require("which-key")
 local tools = require("swsnr.tools")
 
-local M = {}
+-- Back to normal mode the fast way.
+vim.keymap.set("i", "jk", "<ESC>", { desc = "Normal mode" })
+-- Back to normal mode in terminals; since we have C-\ bound to toggle term
+-- this is actually the only way to go back to normal mode.
+vim.keymap.set("t", "jk", [[<C-\><C-n>]], { desc = "Normal mode" })
 
-function M.setup()
-  -- Load an initialize nvim surround module
-  require("nvim-surround")
+-- Move windows with Alt and resize with shift
+vim.keymap.set("n", "<A-left>", "<C-w>h", { desc = "To left window" })
+vim.keymap.set("n", "<A-down>", "<C-w>j", { desc = "To bottom window" })
+vim.keymap.set("n", "<A-up>", "<C-w>k", { desc = "To top window" })
+vim.keymap.set("n", "<A-right>", "<C-w>l", { desc = "To right window" })
+vim.keymap.set("n", "<S-Up>", "<cmd>resize +2<CR>", { desc = "Increase height" })
+vim.keymap.set("n", "<S-Down>", "<cmd>resize -2<CR>", { desc = "Decrease height" })
+vim.keymap.set("n", "<S-Left>", "<cmd>vertical resize -2<CR>", { desc = "Decrease width" })
+vim.keymap.set("n", "<S-Right>", "<cmd>vertical resize +2<CR>", { desc = "Increase width" })
 
-  -- Back to normal mode the fast way.
-  vim.keymap.set("i", "jk", "<ESC>")
-  -- Back to normal mode in terminals; since we have C-\ bound to toggle term
-  -- this is actually the only way to go back to normal mode.
-  vim.keymap.set("t", "jk", [[<C-\><C-n>]])
+-- Switch buffers with <ctrl>
+vim.keymap.set("n", "<C-Left>", "<cmd>bprevious<cr>", { desc = "Next buffer" })
+vim.keymap.set("n", "<C-Right>", "<cmd>bnext<cr>", { desc = "Previous buffer" })
 
-  -- Move windows with Alt and resize with shift
-  vim.keymap.set("n", "<A-left>", "<C-w>h")
-  vim.keymap.set("n", "<A-down>", "<C-w>j")
-  vim.keymap.set("n", "<A-up>", "<C-w>k")
-  vim.keymap.set("n", "<A-right>", "<C-w>l")
-  vim.keymap.set("n", "<S-Up>", "<cmd>resize +2<CR>")
-  vim.keymap.set("n", "<S-Down>", "<cmd>resize -2<CR>")
-  vim.keymap.set("n", "<S-Left>", "<cmd>vertical resize -2<CR>")
-  vim.keymap.set("n", "<S-Right>", "<cmd>vertical resize +2<CR>")
+-- Paste in a new line before/after
+vim.keymap.set("n", "[p", ":pu!<cr>", { desc = "Paste line before" })
+vim.keymap.set("n", "]p", ":pu<cr>", { desc = "Paste line after" })
 
-  -- Switch buffers with <ctrl>
-  vim.keymap.set("n", "<C-Left>", "<cmd>bprevious<cr>")
-  vim.keymap.set("n", "<C-Right>", "<cmd>bnext<cr>")
+-- Make n and N consistent: n always goes forward, regardless of whether ? or
+-- / was used for searching
+vim.keymap.set("n", "n", "'Nn'[v:searchforward]", { expr = true })
+vim.keymap.set("x", "n", "'Nn'[v:searchforward]", { expr = true })
+vim.keymap.set("o", "n", "'Nn'[v:searchforward]", { expr = true })
+vim.keymap.set("n", "N", "'nN'[v:searchforward]", { expr = true })
+vim.keymap.set("x", "N", "'nN'[v:searchforward]", { expr = true })
+vim.keymap.set("o", "N", "'nN'[v:searchforward]", { expr = true })
 
-  -- Paste in a new line before/after
-  vim.keymap.set("n", "[p", ":pu!<cr>")
-  vim.keymap.set("n", "]p", ":pu<cr>")
+-- Restore selection when indenting in visual mode
+vim.keymap.set("v", "<", "<gv")
+vim.keymap.set("v", ">", ">gv")
 
-  -- Make n and N consistent: n always goes forward, regardless of whether ? or
-  -- / was used for searching
-  vim.keymap.set("n", "n", "'Nn'[v:searchforward]", { expr = true })
-  vim.keymap.set("x", "n", "'Nn'[v:searchforward]", { expr = true })
-  vim.keymap.set("o", "n", "'Nn'[v:searchforward]", { expr = true })
-  vim.keymap.set("n", "N", "'nN'[v:searchforward]", { expr = true })
-  vim.keymap.set("x", "N", "'nN'[v:searchforward]", { expr = true })
-  vim.keymap.set("o", "N", "'nN'[v:searchforward]", { expr = true })
+-- Navigate diagnostics
+vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Previous diagnostic" })
+vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Next diagnostic" })
 
-  -- Restore selection when indenting in visual mode
-  vim.keymap.set("v", "<", "<gv")
-  vim.keymap.set("v", ">", ">gv")
-
-  -- Load toggle term to set up its mappings
-  require("toggleterm")
-  -- Create a custom floating terminal which is independent of the "regular"
-  -- terminals managed by toggleterm; this serves as a quick scratchpad.
-  local floatterm = require("toggleterm.terminal").Terminal:new({
-    cmd = "/usr/bin/fish",
-    direction = "float",
-    float_opts = {
-      border = "double",
-    },
-    on_open = function(term)
-      vim.cmd("startinsert!")
-      vim.keymap.set("n", "q", "<cmd>close<CR>", { silent = true, buffer = term.bufnr })
-    end,
-    on_close = function(term)
-      vim.cmd("startinsert!")
-    end,
-  })
-
-  wk.register({
-    ["g"] = { name = "+goto" },
-    ["[d"] = { vim.diagnostic.goto_prev, "Previous diagnostic" },
-    ["]d"] = { vim.diagnostic.goto_next, "Next diagnostic" },
-    ["gnn"] = { "Init selection" },
-    ["grn"] = { "Increase by node" },
-    ["grc"] = { "Increase by scope" },
-    ["grm"] = { "Decrease by node" },
-  })
-
-  -- Leader bindings: normal mode
-  wk.register({
-    [" "] = { "<cmd>Telescope commands<cr>", "Commands" },
-    ["?"] = { "<cmd>Telescope<cr>", "Pickers" },
-
-    -- Buffers
-    ["b"] = { name = "+buffers" },
-    ["bb"] = { "<cmd>Telescope buffers<cr>", "List buffers" },
-
-    -- Editing
-    ["e"] = { name = "+edit" },
-    ["er"] = { "<cmd>Telescope registers<cr>", "Paste register" },
-    ["ed"] = { tools.iso_utc_to_register, "ISO UTC timestamp to register a" },
-    ["es"] = { "<cmd>Telescope symbols<cr>", "Insert symbol" },
-    ["eu"] = { "<cmd>Telescope undo<cr>", "Undo" },
-
-    -- Files
-    ["f"] = { name = "+files" },
-    ["ff"] = { "<cmd>Telescope find_files<cr>", "Find files" },
-    ["fc"] = {
-      function()
-        require("telescope").extensions.zoxide.list()
-      end,
-      "Change directory",
-    },
-    ["ft"] = { "<cmd>Neotree reveal<cr>", "Reveal in file explorer" },
-    ["fT"] = { "<cmd>Neotree toggle<cr>", "Toggle file explorer" },
-
-    -- Git
-    ["g"] = { name = "+git" },
-    ["gc"] = { "<cmd>Neogit commit<cr>", "Git commit" },
-    ["gf"] = { "<cmd>Telescope git_files<cr>", "Git files" },
-    ["gg"] = { "<cmd>Neogit<cr>", "Git status" },
-
-    -- Help
-    ["h"] = { name = "+help" },
-    ["ha"] = { "<cmd>Telescope autocommands<cr>", "Tags" },
-    ["hh"] = { "<cmd>Telescope help_tags<cr>", "Tags" },
-    ["hk"] = { "<cmd>Telescope keymaps<cr>", "Keys" },
-    ["hm"] = { "<cmd>Telescope man_pages<cr>", "Man pages" },
-    ["ho"] = { "<cmd>Telescope vim_options<cr>", "Options" },
-
-    -- Jumping
-    ["j"] = { name = "+jump" },
-    ["jj"] = { "<cmd>Telescope diagnostics<cr>", "Diagnostics" },
-    ["jj"] = { "<cmd>Telescope jumplist<cr>", "Jumplist" },
-    ["jl"] = { "<cmd>Telescope loclist<cr>", "Location list" },
-    ["jq"] = { "<cmd>Telescope quickfix<cr>", "Quickfix list" },
-    ["jm"] = { "<cmd>Telescope marks<cr>", "Marks" },
-
-    -- Lists
-    ["l"] = { name = "+lists" },
-    ["lx"] = { "<cmd>TroubleToggle<cr>", "Toggle diagnostics list" },
-    ["lw"] = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "Toggle workspace diagnostics" },
-    ["ld"] = { "<cmd>TroubleToggle document_diagnostics<cr>", "Toggle document diagnostics" },
-    ["lq"] = { "<cmd>TroubleToggle quickfix<cr>", "Toggle quickfix list" },
-    ["ll"] = { "<cmd>TroubleToggle loclist<cr>", "Toggle location list" },
-    ["lr"] = { "<cmd>TroubleToggle lsp_references<cr>", "Toggle references list" },
-    ["lL"] = { "<cmd>Lazy<cr>", "Plugins" },
-
-    -- Close current buffer quick
-    ["q"] = { "<cmd>Bdelete<cr>", "Close current buffer" },
-    -- Quick quit
-    ["Q"] = { "<cmd>quit<cr>", "Quit" },
-
-    -- Search/replace
-    ["s"] = { name = "+search/replace" },
-    ["sa"] = {
-      function()
-        require("ssr").open()
-      end,
-      "Search/replace AST",
-    },
-    ["ss"] = { "<cmd>lua require('spectre').open()<cr>", "Search" },
-    ["sw"] = { "<cmd>lua require('spectre').open_visual({select_word=true})<cr>", "Current word" },
-    ["sf"] = { "<cmd>lua require('spectre').open_file_search()<cr>", "Current file" },
-    ["sg"] = { "<cmd>Telescope live_grep<cr>", "Live grep" },
-    ["sc"] = { "<cmd>Telescope grep_string<cr>", "Grep under cursor" },
-
-    -- Terminal
-    ["t"] = {
-      function()
-        floatterm:toggle()
-      end,
-      "Floating terminal",
-    },
-
-    -- Windows
-    ["w"] = { name = "+windows" },
-    ["wb"] = { "<cmd>WindowsEqualize<cr>", "Balance all windows" },
-    ["w/"] = { "<cmd>vsplit<cr>", "Split vertical" },
-    ["wv"] = { "<cmd>vsplit<cr>", "Split vertical" },
-    ["w-"] = { "<cmd>split<cr>", "Split horizontal" },
-    ["wh"] = { "<cmd>split<cr>", "Split horizontal" },
-    ["w-"] = { "<cmd>split<cr>", "Split horizontal" },
-    ["wo"] = { "<cmd>only<cr>", "Only current window" },
-    ["wm"] = { "<cmd>WindowsMaximize<cr>", "Maximize current window" },
-    ["wq"] = { "<cmd>q<cr>", "Quit" },
-
-    -- Execute things
-    ["x"] = { name = "+execute" },
-  }, {
-    prefix = "<leader>",
-  })
-
-  -- Leader bindings: visual mode
-  wk.register({
-    -- Search
-    ["s"] = { name = "+search" },
-    ["ss"] = { "<esc><cmd>lua require('spectre').open_visual()<cr>", "Search selection" },
-  }, {
-    prefix = "<leader>",
-    mode = "v",
-  })
-end
-
-function M.lsp_attach(buffer)
-  local tb = require("telescope.builtin")
-  local format = require("lsp-format")
-  wk.register({
-    ["gD"] = { tb.lsp_type_definitions, "Goto type definition" },
-    ["gd"] = { tb.lsp_definitions, "Goto definition" },
-    ["gi"] = { tb.lsp_implementations, "Goto implementation" },
-    ["<C-k>"] = { vim.lsp.buf.signature_help, "Signature help" },
-    ["K"] = { vim.lsp.buf.hover, "Hover" },
-    ["<leader>ea"] = { vim.lsp.buf.code_action, "Code action" },
-    ["<leader>ef"] = {
-      function()
-        vim.lsp.buf.format({ async = true })
-      end,
-      "Force format",
-    },
-    ["<leader>ef"] = {
-      function()
-        format.toggle({ args = vim.bo.filetype })
-      end,
-      "Toggle autoformatting for current filetype",
-    },
-    ["<leader>eR"] = { vim.lsp.buf.rename, "Rename symbol" },
-    ["<leader>jS"] = { tb.lsp_dynamic_workspace_symbols, "Jump to workspace symbol" },
-    ["<leader>js"] = { tb.lsp_document_symbols, "Jump to document symbol" },
-    ["<leader>jr"] = { tb.lsp_references, "Jump to reference" },
-    ["<leader>jd"] = { tb.diagnostics, "Jump to diagnostic" },
-  }, { buffer = bufnr })
-end
-
-function M.git_signs_attach(buffer)
-  wk.register({
-    ["]c"] = { "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", "Next git hunk", expr = true },
-    ["[c"] = { "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", "Previous git hunk", expr = true },
-    ["<leader>gb"] = {
-      function()
-        require("gitsigns").blame_line({ full = true })
-      end,
-      "Blame current line",
-    },
-    ["<leader>gd"] = { "<cmd>Gitsigns diffthis<cr>", "Diff against index" },
-    ["<leader>gD"] = { "<cmd>Gitsigns toggle_deleted<cr>", "Toggle deleted lines" },
-    ["<leader>gp"] = { "<cmd>Gitsigns preview_hunk<cr>", "Preview hunk" },
-    ["<leader>gR"] = { "<cmd>Gitsigns reset_buffer<cr>", "Reset buffer to staged" },
-    ["<leader>gr"] = { "<cmd>Gitsigns reset_hunk<cr>", "Reset hunk to staged" },
-    ["<leader>gS"] = { "<cmd>Gitsigns stage_buffer<cr>", "Stage buffer" },
-    ["<leader>gs"] = { "<cmd>Gitsigns stage_hunk<cr>", "Stage hunk" },
-    ["<leader>gu"] = { "<cmd>Gitsigns undo_stage_hunk<cr>", "Undo staged hunk" },
-  }, { buffer = buffer })
-
-  wk.register({
-    ["<leader>gr"] = { "<cmd>Gitsigns reset_hunk<cr>", "Reset hunk to staged" },
-    ["<leader>gs"] = { "<cmd>Gitsigns stage_hunk<cr>", "Stage hunk" },
-  }, { buffer = buffer, mode = "v" })
-
-  -- Text object; TODO: Migrate to which-key
-  --map('o', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
-  --map('x', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
-end
-
-return M
+-- Leader bindings
+vim.keymap.set("n", "<leader>ed", tools.iso_utc_to_register, { desc = "ISO UTC timestamp to register a" })
+vim.keymap.set("n", "<leader>lL", "<cmd>Lazy<cr>", { desc = "Plugins" })
+vim.keymap.set("n", "<leader>Q", "<cmd>quit<cr>", { desc = "Quit" })
+vim.keymap.set("n", "<leader>w/", "<cmd>vsplit<cr>", { desc = "Split vertical" })
+vim.keymap.set("n", "<leader>wv", "<cmd>vsplit<cr>", { desc = "Split vertical" })
+vim.keymap.set("n", "<leader>w-", "<cmd>split<cr>", { desc = "Split horizontal" })
+vim.keymap.set("n", "<leader>wh", "<cmd>split<cr>", { desc = "Split horizontal" })
+vim.keymap.set("n", "<leader>w-", "<cmd>split<cr>", { desc = "Split horizontal" })
+vim.keymap.set("n", "<leader>wo", "<cmd>only<cr>", { desc = "Only current window" })
+vim.keymap.set("n", "<leader>wq", "<cmd>q<cr>", { desc = "Quit" })

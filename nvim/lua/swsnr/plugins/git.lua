@@ -21,7 +21,27 @@ return {
     event = "BufReadPre",
     config = {
       on_attach = function(bufnr)
-        require("swsnr.mappings").git_signs_attach(bufnr)
+        local gs = require("gitsigns")
+
+        function map(mode, lhs, rhs, desc)
+          vim.keymap.set(mode, lhs, rhs, { desc = desc, buffer = bufnr })
+        end
+
+        map("n", "]h", gs.prev_hunk, "Next hunk")
+        map("n", "[h", gs.next_hunk, "Prev hunk")
+        map({ "n", "v" }, "<leader>gs", ":Gitsigns stage_hunk<CR>", "Stage hunk")
+        map({ "n", "v" }, "<leader>gr", ":Gitsigns reset_hunk<CR>", "Reset hunk")
+        map("n", "<leader>gS", gs.stage_buffer, "Stage buffer")
+        map("n", "<leader>gR", gs.reset_buffer, "Reset buffer")
+        map("n", "<leader>gu", gs.undo_stage_hunk, "Undo stage hunk")
+        map("n", "<leader>gp", gs.preview_hunk, "Preview hunk")
+        map("n", "<leader>gb", function()
+          gs.blame_line({ full = true })
+        end, "Blame line")
+        map("n", "<leader>gB", gs.toggle_current_line_blame, "Toggle blame line")
+        map("n", "<leader>gd", gs.diffthis, "Diff this")
+        map("n", "<leader>gD", gs.toggle_deleted, "Toggle deleted")
+        map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "Select hunk")
       end,
     },
   },
@@ -29,6 +49,10 @@ return {
     "TimUntersberger/neogit",
     dependencies = { "nvim-lua/plenary.nvim" },
     cmd = "Neogit",
+    keys = {
+      { "<leader>gc", "<cmd>Neogit commit<cr>", desc = "Git commit" },
+      { "<leader>gg", "<cmd>Neogit<cr>", desc = "Git status" },
+    },
     config = {
       signs = {
         section = { "", "" },

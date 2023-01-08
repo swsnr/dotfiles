@@ -30,12 +30,23 @@ return {
   },
   {
     "folke/which-key.nvim",
-    lazy = true,
-    config = {
-      -- show_help = false,
-      plugins = { spelling = true },
-      key_labels = { ["<leader>"] = "SPC" },
-    },
+    event = "VeryLazy",
+    config = function()
+      local wk = require("which-key")
+      wk.register({
+        mode = { "n", "v" },
+        ["<leader>b"] = { name = "+buffers" },
+        ["<leader>e"] = { name = "+edit" },
+        ["<leader>f"] = { name = "+files" },
+        ["<leader>g"] = { name = "+git" },
+        ["<leader>h"] = { name = "+help" },
+        ["<leader>j"] = { name = "+jump" },
+        ["<leader>l"] = { name = "+lists" },
+        ["<leader>s"] = { name = "+search/replace" },
+        ["<leader>w"] = { name = "+windows" },
+        ["<leader>x"] = { name = "+execute" },
+      })
+    end,
   },
   {
     "nvim-lualine/lualine.nvim",
@@ -87,6 +98,10 @@ return {
   {
     "famiu/bufdelete.nvim",
     cmd = { "Bdelete", "Bwipeout" },
+    keys = {
+
+      { "<leader>q", "<cmd>Bdelete<cr>", desc = "Close current buffer" },
+    },
   },
   -- bufferline
   {
@@ -145,6 +160,14 @@ return {
     "folke/trouble.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     cmd = "TroubleToggle",
+    key = {
+      { "<leader>lx", "<cmd>TroubleToggle<cr>", desc = "Toggle diagnostics list" },
+      { "<leader>lw", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Toggle workspace diagnostics" },
+      { "<leader>ld", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Toggle document diagnostics" },
+      { "<leader>lq", "<cmd>TroubleToggle quickfix<cr>", desc = "Toggle quickfix list" },
+      { "<leader>ll", "<cmd>TroubleToggle loclist<cr>", desc = "Toggle location list" },
+      { "<leader>lr", "<cmd>TroubleToggle lsp_references<cr>", desc = "Toggle references list" },
+    },
     config = {
       use_diagnostic_signs = true,
     },
@@ -155,6 +178,10 @@ return {
     dependencies = {
       { "anuvyklack/middleclass" },
       { "anuvyklack/animation.nvim" },
+    },
+    keys = {
+      { "<leader>wb", "<cmd>WindowsEqualize<cr>", desc = "Balance all windows" },
+      { "<leader>wm", "<cmd>WindowsMaximize<cr>", desc = "Maximize current window" },
     },
     config = function()
       vim.o.winwidth = 10
