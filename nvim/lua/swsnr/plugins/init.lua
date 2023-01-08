@@ -21,14 +21,17 @@
 -- Steal all cool things from https://github.com/folke/LazyVim
 --
 -- Plugins:
--- https://github.com/L3MON4D3/LuaSnip
--- https://github.com/rafamadriz/friendly-snippets (for the above)
--- https://github.com/hrsh7th/nvim-cmp and https://github.com/folke/dot/blob/master/config/nvim/lua/config/plugins/cmp.lua
+-- Completion: See https://github.com/folke/LazyVim/blob/main/lua/lazyvim/plugins/coding.lua
+--     https://github.com/L3MON4D3/LuaSnip
+--     https://github.com/rafamadriz/friendly-snippets (for the above)
+--     https://github.com/hrsh7th/nvim-cmp and https://github.com/folke/dot/blob/master/config/nvim/lua/config/plugins/cmp.lua
+--
 -- https://github.com/chentoast/marks.nvim
 -- https://github.com/toppair/reach.nvim
 -- Multiple cursors plugin: https://github.com/mg979/vim-visual-multi
 -- https://github.com/folke/neoconf.nvim
 -- https://github.com/norcalli/nvim-colorizer.lua
+-- https://github.com/petertriho/nvim-scrollbar
 --
 -- Language servers:
 -- https://github.com/latex-lsp/texlab
