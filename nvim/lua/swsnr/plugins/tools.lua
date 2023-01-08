@@ -34,7 +34,7 @@ return {
   },
   {
     "akinsho/toggleterm.nvim",
-event = "VeryLazy",
+    event = "VeryLazy",
     config = function()
       require("toggleterm").setup({
         shell = "/usr/bin/fish",
@@ -46,6 +46,7 @@ event = "VeryLazy",
 
       local floatterm = require("toggleterm.terminal").Terminal:new({
         cmd = "/usr/bin/fish",
+        hidden = true, -- Don't include the floatterm in C-\
         direction = "float",
         float_opts = {
           border = "double",
