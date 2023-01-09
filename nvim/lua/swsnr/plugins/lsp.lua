@@ -81,14 +81,14 @@ return {
             texlab = {
               build = {
                 -- The rest of latexmk arguments get set in my latexmkrc
-                args = {"%f"},
+                args = { "%f" },
                 executable = "latexmk",
                 forwardSearchAfter = true,
-                onSave = true
+                onSave = true,
               },
               chktex = {
                 onOpenAndSave = true,
-              }
+              },
             },
           },
         })
