@@ -30,53 +30,21 @@ PRODUCT_NAME="$(</sys/class/dmi/id/product_name)"
 
 PACKAGE_SIGNING_KEY="B8ADA38BC94C48C4E7AABE4F7548C2CC396B57FC"
 
-# Configure pacman
-install -pm644 "$DIR/etc/pacman/pacman.conf" /etc/pacman.conf
-# Remove old conf.d directory
-rm -rf /etc/pacman.d/conf.d/
-# Configure official repositories
-install -pm644 -Dt /etc/pacman.d/repos \
-    "$DIR/etc/pacman/50-core-repositories.conf"
-# Directory for custom pacman hooks
-install -m755 -d /etc/pacman.d/hooks
-
-# Update pacman keyring with additional keys
-pacman-key -a "$DIR/etc/pacman/keys/personal.asc"
-pacman-key --lsign-key B8ADA38BC94C48C4E7AABE4F7548C2CC396B57FC
-
-# Mark packages I no longer use as dependencies
-mark_as_dependency=(
-    # Let's get rid of ruby
-    asciidoctor
-    # We're now using mkinitpcio again
+packages_to_remove=(
+    dracut # I use mkinitcpio again
     dracut-hook-uefi
-    dracut
-    tpm2-tools
     kernel-install-dracut-uki
-)
-for pkg in "${mark_as_dependency[@]}"; do
-    pacman --noconfirm -D --asdeps "$pkg" || true
-done
-
-remove_explicitly=(
-    dracut          # I use mkinitcpio again
+    tpm2-tools
     flatpak-builder # I no longer use flatpak really
     hunspell        # nuspell is better
     gnome-software  # Tends to auto-update too much
     tig             # gitui is nicer
     gnvim           # Doesn't offer much, neovide is cooler
     code            # neovim is faster, and IDEA more powerful
+    asciidoctor     # Get rid of ruby
 )
 
-for pkg in "${remove_explicitly[@]}"; do
-    pacman --noconfirm -Rs "$pkg" || true
-done
-
-# Automatically remove unneeded dependencies; this automatically uninstalls
-# unneeded packages
-pacman -Qtdq | pacman --noconfirm -Rs - || true
-
-packages=(
+packages_to_install=(
     # Basic packages & system tools
     base
     linux-firmware
@@ -308,7 +276,7 @@ packages=(
     gnome-firmware # Manage firmware with Gnome
 )
 
-optdeps=(
+packages_to_install_optdeps=(
     # vulkan-icd-loader: vulkan driver
     vulkan-intel
     # linux: wireless frequency policies (provided as crda)
@@ -357,107 +325,95 @@ optdeps=(
     kid3-qt
 )
 
-case "$PRODUCT_NAME" in
-'XPS 9315')
-    packages+=(
-        sof-firmware # Firmware for XPS audio devices
-        thermald     # Thermal management for intel systems
-    )
-    ;;
-esac
+aur_packages=(
+    # AUR helper
+    aurutils
 
-case "$HOSTNAME" in
-*kastl*)
-    packages+=(
-        # Game mode
-        gamemode
-        # KVM virtualization
-        virt-manager
-        # Mediatheken
-        mediathekview
-        # Digital photos
-        digikam
-        # Document management
-        paperwork
-        # Collection manager
-        tellico
-    )
+    # Early boot and kernels
+    pacman-hook-kernel-install
+    plymouth # Splash screen at boot
 
-    optdeps+=(
-        # libvirt: QEMU/KVM support
-        qemu-desktop
-        # libvirt: NAT/DHCP for guests
-        dnsmasq
-        # libvirt: NAT networking
-        iptables-nft
-        # libvirt: TPM emulation
-        swtpm
-        # vlc: DVD playback
-        libdvdcss
-        # python-pyocr: OCR backend
-        tesseract
-        # tesseract: data files
-        tesseract-data-deu
-        tesseract-data-deu_frak
-        tesseract-data-eng
-    )
-    ;;
-*RB*)
-    packages+=(
-        # Kernel headers for DKMS
-        linux-headers
-        linux-lts-headers
-        linux-zen-headers
+    # Hardware support
+    pcsc-cyberjack # Card reader driver for eID
 
-        # Virtualisation
-        virtualbox-host-dkms
-        virtualbox-guest-iso
-        virtualbox
+    # Gnome extensions and tools
+    gnome-shell-extension-nasa-apod       # APOD as desktop background
+    gnome-shell-extension-arch-update     # Arch package update checks
+    gnome-shell-extension-burn-my-windows # Old school window effects
+    gnome-shell-extension-desktop-cube    # The old school desktop cube effect
+    gnome-shell-extension-fly-pie         # Touchscreen and mouse launcher
+    gnome-search-providers-jetbrains      # Jetbrains projects in search
+    gnome-search-providers-vscode         # VSCode workspaces in search
+    firefox-gnome-search-provider         # Firefox bookmarks in search
 
-        # .NET development
-        dotnet-sdk
+    # Applications
+    1password 1password-cli # Personal password manager
+    jabref                  # Bibliography
 
-        # Containers, kubernetes & cloud
-        podman
-        kubectl
-        helm
-        # Git and related tools
-        glab
+    # Additional fonts
+    otf-vollkorn # My favorite serif font for documents
+    ttf-fira-go  # A nice font for presentations
 
-        # VPN
-        networkmanager-vpnc
-        networkmanager-openconnect
+    # Additional tools
+    git-gone # Prune gone branches
+    wcal-git # ISO week calender on CLI
+    wev      # Wayland event testing
+    frum     # Ruby version manager
+    fnm      # Node version manager
 
-        # Networking and debugging tools
-        lftp     # Powerful FTP client
-        websocat # Debug websockets on the CLI
-        lnav     # Log file analyzer
+    # Missing dependencies for latexindent
+    # See <https://bugs.archlinux.org/task/60210>
+    texlive-latexindent-meta
+)
 
-        # Additional applications
-        keepassxc     # Keepass
-        evolution-ews # Exchange for evolution
-    )
+# Packages to remove from the AUR repo.  Note that these packages are only
+# removed from they repository, they are not uninstalled!
+aur_packages_to_remove_from_repo=(
+    jetbrains-toolbox # App image preferred
+    dracut-hook-uefi  # We use mkinitcpio instead
+    kernel-install-dracut-uki
+    gnvim # Not as nice as neovide
+)
 
-    optdeps+=(
-        # virtualbox: Kernel modules
-        virtualbox-host-dkms
-        # libproxy: Proxy autoconfiguration URLs, for Gnome and Glib
-        libproxy-webkit
-    )
-    ;;
-esac
+services=(
+    # File systems
+    fstrim.timer                               # Periodically trim file systems…
+    "btrfs-scrub@$(systemd-escape -p /).timer" # scrub root filesystem…
 
-pacman -Syu --needed "${packages[@]}"
-pacman -S --needed --asdeps "${optdeps[@]}"
-pacman -D --asdeps "${optdeps[@]}"
+    # Hardware
+    fwupd-refresh.timer # check for firmware updates…
+
+    # Core system services
+    systemd-boot-update.service # Update boot loader automatically
+    systemd-homed.service       # homed for user management and home areas
+    systemd-oomd.service        # Userspace OOM killer
+    auditd.service
+    systemd-timesyncd.service # Time sync
+    # Networking services
+    systemd-resolved.service # DNS resolution
+    firewalld.service        # Firewall
+    NetworkManager.service   # Network manager for desktops
+    avahi-daemon.service     # Local network service discovery (for WLAN printers)
+
+    # Pacman infrastructure
+    paccache.timer               # clean pacman cache…
+    pacman-filesdb-refresh.timer # update pacman's file database…
+    reflector.timer              # and update the mirrorlist.
+
+    # Desktop services
+    gdm.service                   # Desktop manager
+    power-profiles-daemon.service # Power profile management
+    cups.service                  # Printing
+    bluetooth.service             # Bluetooth
+    pcscd.socket                  # Smartcards, mostly eID
+)
 
 # Flatpaks
 flatpaks=(
-    # Messaging
-    # Multimedia
     # Other apps
     com.github.tchx84.Flatseal # Flatpak permissions
 )
+
 flatpaks_to_remove=(
     # No longer used or migrated to flatpak packages
     org.signal.Signal
@@ -496,8 +452,75 @@ flatpaks_to_remove=(
     com.github.geigi.cozy
 )
 
+if [[ -n "${SUDO_USER:-}" ]]; then
+    # Scrub home directory of my user account
+    services+=("btrfs-scrub@$(systemd-escape -p "/home/${SUDO_USER}").timer")
+fi
+
+case "$PRODUCT_NAME" in
+'XPS 9315')
+    packages_to_install+=(
+        sof-firmware # Firmware for XPS audio devices
+        thermald     # Thermal management for intel systems
+    )
+    services+=(
+        # Thermal management for intel CPUs
+        thermald.service
+    )
+    ;;
+esac
+
 case "$HOSTNAME" in
 *kastl*)
+    packages_to_install+=(
+        # Game mode
+        gamemode
+        # KVM virtualization
+        virt-manager
+        # Mediatheken
+        mediathekview
+        # Digital photos
+        digikam
+        # Document management
+        paperwork
+        # Collection manager
+        tellico
+    )
+
+    packages_to_install_optdeps+=(
+        # libvirt: QEMU/KVM support
+        qemu-desktop
+        # libvirt: NAT/DHCP for guests
+        dnsmasq
+        # libvirt: NAT networking
+        iptables-nft
+        # libvirt: TPM emulation
+        swtpm
+        # vlc: DVD playback
+        libdvdcss
+        # python-pyocr: OCR backend
+        tesseract
+        # tesseract: data files
+        tesseract-data-deu
+        tesseract-data-deu_frak
+        tesseract-data-eng
+    )
+
+    aur_packages+=(
+        gnome-shell-extension-gsconnect # Connect phone and desktop system
+
+        # Applications
+        ausweisapp2        # eID app
+        chiaki-git         # Remote play client for PS4/5; use git for better controller support
+        whatsapp-for-linux # Whatsapp desktop client for Linux
+        ja2-stracciatella  # Modern runtime for the venerable JA2
+        cozy-audiobooks    # Audiobook manager
+
+        # sdl support tools
+        controllermap
+        sdl2-jstest
+    )
+
     flatpaks+=(
         # Gaming; we're using flatpak for these because otherwise we'd have to
         # cope with multilib.  Additionally, bottles explicitly only supports
@@ -506,7 +529,54 @@ case "$HOSTNAME" in
         com.usebottles.bottles # Run Windows software in Wine
     )
     ;;
-RB-*)
+*RB*)
+    packages_to_install+=(
+        # Kernel headers for DKMS
+        linux-headers
+        linux-lts-headers
+        linux-zen-headers
+
+        # Virtualisation
+        virtualbox-host-dkms
+        virtualbox-guest-iso
+        virtualbox
+
+        # .NET development
+        dotnet-sdk
+
+        # Containers, kubernetes & cloud
+        podman
+        kubectl
+        helm
+        # Git and related tools
+        glab
+
+        # VPN
+        networkmanager-vpnc
+        networkmanager-openconnect
+
+        # Networking and debugging tools
+        lftp     # Powerful FTP client
+        websocat # Debug websockets on the CLI
+        lnav     # Log file analyzer
+
+        # Additional applications
+        keepassxc     # Keepass
+        evolution-ews # Exchange for evolution
+    )
+
+    packages_to_install_optdeps+=(
+        # virtualbox: Kernel modules
+        virtualbox-host-dkms
+        # libproxy: Proxy autoconfiguration URLs, for Gnome and Glib
+        libproxy-webkit
+    )
+
+    aur_packages+=(
+        # The legacy
+        python2
+    )
+
     flatpaks+=(
         # Chat apps
         chat.rocket.RocketChat
@@ -516,6 +586,28 @@ RB-*)
     )
     ;;
 esac
+
+# Setup pacman and install/remove packages
+install -pm644 "$DIR/etc/pacman/pacman.conf" /etc/pacman.conf
+rm -rf /etc/pacman.d/conf.d/ # Remove old conf.d directory
+install -pm644 -Dt /etc/pacman.d/repos "$DIR/etc/pacman/50-core-repositories.conf"
+install -m755 -d /etc/pacman.d/hooks
+# Stub out pacman hooks of mkinitcpio; we use kernel-install instead
+ln -sf /dev/null /etc/pacman.d/hooks/60-mkinitcpio-remove.hook
+ln -sf /dev/null /etc/pacman.d/hooks/90-mkinitcpio-install.hook
+
+# Update pacman keyring with additional keys
+pacman-key -a "$DIR/etc/pacman/keys/personal.asc"
+pacman-key --lsign-key B8ADA38BC94C48C4E7AABE4F7548C2CC396B57FC
+
+for pkg in "${packages_to_remove[@]}"; do
+    pacman --noconfirm -Rs "$pkg" || true
+done
+
+pacman -Qtdq | pacman --noconfirm -Rs - || true
+pacman -Syu --needed "${packages_to_install[@]}"
+pacman -S --needed --asdeps "${packages_to_install_optdeps[@]}"
+pacman -D --asdeps "${packages_to_install_optdeps[@]}"
 
 # Add flatpak beta repository
 flatpak remote-add --if-not-exists flathub-beta https://flathub.org/beta-repo/flathub-beta.flatpakrepo
@@ -527,58 +619,10 @@ flatpak install --system --noninteractive flathub "${flatpaks[@]}"
 for flatpak in "${flatpaks_to_remove[@]}"; do
     flatpak uninstall --system --noninteractive "$flatpak" || true
 done
-# Removed unused runtimes
 flatpak uninstall --system --noninteractive --unused
-# Update installed flatpaks
 flatpak update --system --noninteractive
 
-services=(
-    # File systems
-    fstrim.timer                               # Periodically trim file systems…
-    "btrfs-scrub@$(systemd-escape -p /).timer" # scrub root filesystem…
-
-    # Hardware
-    fwupd-refresh.timer # check for firmware updates…
-
-    # Core system services
-    systemd-boot-update.service # Update boot loader automatically
-    systemd-homed.service       # homed for user management and home areas
-    systemd-oomd.service        # Userspace OOM killer
-    auditd.service
-    systemd-timesyncd.service # Time sync
-    # Networking services
-    systemd-resolved.service # DNS resolution
-    firewalld.service        # Firewall
-    NetworkManager.service   # Network manager for desktops
-    avahi-daemon.service     # Local network service discovery (for WLAN printers)
-
-    # Pacman infrastructure
-    paccache.timer               # clean pacman cache…
-    pacman-filesdb-refresh.timer # update pacman's file database…
-    reflector.timer              # and update the mirrorlist.
-
-    # Desktop services
-    gdm.service                   # Desktop manager
-    power-profiles-daemon.service # Power profile management
-    cups.service                  # Printing
-    bluetooth.service             # Bluetooth
-    pcscd.socket                  # Smartcards, mostly eID
-)
-
-if [[ -n "${SUDO_USER:-}" ]]; then
-    # Scrub home directory of my user account
-    services+=("btrfs-scrub@$(systemd-escape -p "/home/${SUDO_USER}").timer")
-fi
-
-case "$PRODUCT_NAME" in
-'XPS 9315')
-    services+=(
-        # Thermal management for intel CPUs
-        thermald.service
-    )
-    ;;
-esac
-
+# Enable selected services
 systemctl enable "${services[@]}"
 
 # See /usr/share/factory/etc/nsswitch.conf for the Arch Linux factory defaults.
@@ -601,10 +645,6 @@ NSS_HOSTS=(
     dns
 )
 sed -i '/^hosts: /s/^hosts: .*/'"hosts: ${NSS_HOSTS[*]}/" /etc/nsswitch.conf
-
-# Stub out pacman hooks of mkinitcpio; we use kernel-install instead
-ln -sf /dev/null /etc/pacman.d/hooks/60-mkinitcpio-remove.hook
-ln -sf /dev/null /etc/pacman.d/hooks/90-mkinitcpio-install.hook
 
 # Override the mkinitcpio kernel-install plugin because it's broken in v34, see
 # https://gitlab.archlinux.org/archlinux/mkinitcpio/mkinitcpio/-/issues/153 and
@@ -799,106 +839,22 @@ makepkg --noconfirm --nocheck -rsi --sign
 EOF
 fi
 
-aur_packages=(
-    # AUR helper
-    aurutils
-
-    # Early boot and kernels
-    pacman-hook-kernel-install
-    plymouth # Splash screen at boot
-
-    # Hardware support
-    pcsc-cyberjack # Card reader driver for eID
-
-    # Gnome extensions and tools
-    gnome-shell-extension-nasa-apod       # APOD as desktop background
-    gnome-shell-extension-arch-update     # Arch package update checks
-    gnome-shell-extension-burn-my-windows # Old school window effects
-    gnome-shell-extension-desktop-cube    # The old school desktop cube effect
-    gnome-shell-extension-fly-pie         # Touchscreen and mouse launcher
-    gnome-search-providers-jetbrains      # Jetbrains projects in search
-    gnome-search-providers-vscode         # VSCode workspaces in search
-    firefox-gnome-search-provider         # Firefox bookmarks in search
-
-    # Applications
-    1password 1password-cli # Personal password manager
-    jabref                  # Bibliography
-
-    # Additional fonts
-    otf-vollkorn # My favorite serif font for documents
-    ttf-fira-go  # A nice font for presentations
-
-    # Additional tools
-    git-gone # Prune gone branches
-    wcal-git # ISO week calender on CLI
-    wev      # Wayland event testing
-    frum     # Ruby version manager
-    fnm      # Node version manager
-
-    # Missing dependencies for latexindent
-    # See <https://bugs.archlinux.org/task/60210>
-    texlive-latexindent-meta
-)
-
-case "$HOSTNAME" in
-*kastl*)
-    aur_packages+=(
-        gnome-shell-extension-gsconnect # Connect phone and desktop system
-
-        # Applications
-        ausweisapp2        # eID app
-        chiaki-git         # Remote play client for PS4/5; use git for better controller support
-        whatsapp-for-linux # Whatsapp desktop client for Linux
-        ja2-stracciatella  # Modern runtime for the venerable JA2
-        cozy-audiobooks    # Audiobook manager
-
-        # sdl support tools
-        controllermap
-        sdl2-jstest
-    )
-    ;;
-*RB*)
-    aur_packages+=(
-        # The legacy
-        python2
-    )
-    ;;
-esac
-
-aur_optdeps=(
-    # plymouth: truetype fonts
-    ttf-dejavu cantarell-fonts
-)
-
 if [[ -n "${SUDO_USER:-}" ]]; then
     # Build AUR packages and install them
     if [[ ${#aur_packages} -gt 0 ]]; then
         # Tell aur-build about the GPG key to use for package signing
         export GPGKEY="$PACKAGE_SIGNING_KEY"
         sudo -u "$SUDO_USER" --preserve-env="${PRESERVE_ENV}" \
-            nice \
-            aur sync -daur --nocheck -cRS "${aur_packages[@]}" "${aur_optdeps[@]}"
+            nice aur sync -daur --nocheck -cRS "${aur_packages[@]}"
         pacman --needed -Syu "${aur_packages[@]}"
-    fi
-    if [[ ${#aur_optdeps[@]} -gt 0 ]]; then
-        pacman --needed -S --asdeps "${aur_optdeps[@]}"
-        pacman -D --asdeps "${aur_optdeps[@]}"
     fi
 
     # Allow gsconnect in home zone after gsconnect is installed (the service
     # definition comes from the gsconnect package).
     firewall-cmd --permanent --zone=home --add-service=gsconnect || true
 
-    remove_from_repo=(
-        # Let's just use the app image here
-        jetbrains-toolbox
-        # We use kernel-install and mkinitpcio instead
-        dracut-hook-uefi
-        kernel-install-dracut-uki
-        gnvim
-    )
-    if [[ ${#remove_from_repo[@]} -gt 0 ]]; then
-        for pkg in "${remove_from_repo[@]}"; do
+    if [[ ${#aur_packages_to_remove_from_repo} -gt 0 ]]; then
+        for pkg in "${aur_packages_to_remove_from_repo[@]}"; do
             rm -f "/srv/pkgrepo/aur/${pkg}-"*.pkg.tar.*
             sudo -u "$SUDO_USER" repo-remove \
                 --sign --key "${PACKAGE_SIGNING_KEY}" \
