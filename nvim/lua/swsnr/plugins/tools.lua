@@ -87,6 +87,19 @@ return {
         follow_current_file = true,
         -- Opening a directory with neovim opens the directory in the tree.
         hijack_netrw_behavior = "open_current",
+        window = {
+          mappings = {
+            ["o"] = "system_open",
+          },
+        },
+        commands = {
+          system_open = function(state)
+            local node = state.tree:get_node()
+            local path = node:get_id()
+            local cmd = { "gio", "open", path }
+            vim.fn.jobstart(cmd, { detach = true })
+          end,
+        },
       },
     },
   },
