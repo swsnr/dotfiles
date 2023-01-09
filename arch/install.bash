@@ -30,6 +30,10 @@ PRODUCT_NAME="$(</sys/class/dmi/id/product_name)"
 
 PACKAGE_SIGNING_KEY="B8ADA38BC94C48C4E7AABE4F7548C2CC396B57FC"
 
+pacman_repositories=(
+    "$DIR/etc/pacman/50-core-repositories.conf"
+)
+
 packages_to_remove=(
     dracut # I use mkinitcpio again
     dracut-hook-uefi
@@ -473,6 +477,10 @@ esac
 
 case "$HOSTNAME" in
 *kastl*)
+    pacman_repositories+=(
+        "$DIR/etc/pacman/55-multilib-repository.conf"
+    )
+
     packages_to_install+=(
         # Game mode
         gamemode
@@ -591,7 +599,7 @@ esac
 # Setup pacman and install/remove packages
 install -pm644 "$DIR/etc/pacman/pacman.conf" /etc/pacman.conf
 rm -rf /etc/pacman.d/conf.d/ # Remove old conf.d directory
-install -pm644 -Dt /etc/pacman.d/repos "$DIR/etc/pacman/50-core-repositories.conf"
+install -pm644 -Dt /etc/pacman.d/repos "${pacman_repositories[@]}"
 install -m755 -d /etc/pacman.d/hooks
 # Stub out pacman hooks of mkinitcpio; we use kernel-install instead
 ln -sf /dev/null /etc/pacman.d/hooks/60-mkinitcpio-remove.hook
