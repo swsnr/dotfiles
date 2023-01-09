@@ -43,11 +43,11 @@ return {
             null_ls.builtins.formatting.shfmt.with({
               extra_args = function(params)
                 -- Derive shfmt parameters from buffer settings
-                local ident = 0
-                if not vim.bo.expandtab then
-                  indent = vim.bo.shiftwidth
+                local indent = 0
+                if vim.api.nvim_buf_get_option(params.bufnr, "expandtab") then
+                  indent = vim.api.nvim_buf_get_option(params.bufnr, "shiftwidth")
                 end
-                return { "-i", indent }
+                return { "-i", tostring(indent) }
               end,
             }),
             -- Auto-formatting for Lua
