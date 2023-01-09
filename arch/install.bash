@@ -263,9 +263,10 @@ packages_to_install=(
     gnome-control-center
     gnome-tweaks
     gnome-backgrounds
-    file-roller # Archive tool
-    yelp        # Online help system
-    nautilus    # File manager
+    gnome-console # Backup terminal, in case I mess up wezterm
+    file-roller   # Archive tool
+    yelp          # Online help system
+    nautilus      # File manager
     python-nautilus
     sushi          # Previewer for nautilus
     evince         # Document viewer
