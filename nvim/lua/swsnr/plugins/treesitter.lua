@@ -26,97 +26,99 @@ local M = {
   build = ":TSUpdate",
 }
 
-function M.config()
+M.opts = {
+  -- Install all maintained parsers
+  ensure_installed = {
+    "bash",
+    "bibtex",
+    "c",
+    "cmake",
+    "comment",
+    "css",
+    "diff",
+    "dockerfile",
+    "dot",
+    "fish",
+    "git_rebase",
+    "gitattributes",
+    "gitcommit",
+    "gitignore",
+    "graphql",
+    "help",
+    "hocon",
+    "html",
+    "java",
+    "javascript",
+    "jq",
+    "json",
+    "json5",
+    "jsonc",
+    "latex",
+    "lua",
+    "make",
+    "markdown",
+    "markdown_inline",
+    "meson",
+    "ninja",
+    "proto",
+    "python",
+    "qmljs",
+    "rst",
+    "ruby",
+    "rust",
+    "scala",
+    "scss",
+    "toml",
+    "tsx",
+    "typescript",
+    "vim",
+    "yaml",
+  },
+  -- Enable tree sitter highlighting and indentation
+  highlight = { enable = true },
+  indent = { enable = true },
+  -- Automatically update comment string
+  context_commentstring = { enable = true },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "gnn",
+      node_incremental = "grn",
+      scope_incremental = "grc",
+      node_decremental = "grm",
+    },
+  },
+  -- Configure text objects
+  textobjects = {
+    select = {
+      enable = true,
+      -- Selecting text objects
+      keymaps = {
+        ["aa"] = "@parameter.outer",
+        ["ia"] = "@parameter.inner",
+        ["af"] = "@function.outer",
+        ["if"] = "@function.inner",
+        ["ac"] = "@class.outer",
+        ["ic"] = "@class.inner",
+      },
+    },
+    move = {
+      enable = true,
+      goto_next_start = { ["]a"] = "@parameter.inner", ["]f"] = "@function.outer" },
+      goto_next_end = { ["]A"] = "@parameter.inner", ["]F"] = "@function.outer" },
+      goto_previous_start = { ["[a"] = "@parameter.inner", ["[f"] = "@function.outer" },
+      goto_previous_end = { ["[A"] = "@parameter.inner", ["[F"] = "@function.outer" },
+    },
+  },
+}
+
+function M.config(_, opts)
   -- Use treesitter folding.  Note that folds are initially broken for all files
   -- opened with telescope, see https://github.com/nvim-telescope/telescope.nvim/issues/699
   vim.opt.foldmethod = "expr"
   vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 
-  require("nvim-treesitter.configs").setup({
-    -- Install all maintained parsers
-    ensure_installed = {
-      "bash",
-      "bibtex",
-      "c",
-      "cmake",
-      "comment",
-      "css",
-      "diff",
-      "dockerfile",
-      "dot",
-      "fish",
-      "git_rebase",
-      "gitattributes",
-      "gitcommit",
-      "gitignore",
-      "graphql",
-      "help",
-      "hocon",
-      "html",
-      "java",
-      "javascript",
-      "jq",
-      "json",
-      "json5",
-      "jsonc",
-      "latex",
-      "lua",
-      "make",
-      "markdown",
-      "markdown_inline",
-      "meson",
-      "ninja",
-      "proto",
-      "python",
-      "qmljs",
-      "rst",
-      "ruby",
-      "rust",
-      "scala",
-      "scss",
-      "toml",
-      "tsx",
-      "typescript",
-      "vim",
-      "yaml",
-    },
-    -- Enable tree sitter highlighting and indentation
-    highlight = { enable = true },
-    indent = { enable = true },
-    -- Automatically update comment string
-    context_commentstring = { enable = true },
-    incremental_selection = {
-      enable = true,
-      keymaps = {
-        init_selection = "gnn",
-        node_incremental = "grn",
-        scope_incremental = "grc",
-        node_decremental = "grm",
-      },
-    },
-    -- Configure text objects
-    textobjects = {
-      select = {
-        enable = true,
-        -- Selecting text objects
-        keymaps = {
-          ["aa"] = "@parameter.outer",
-          ["ia"] = "@parameter.inner",
-          ["af"] = "@function.outer",
-          ["if"] = "@function.inner",
-          ["ac"] = "@class.outer",
-          ["ic"] = "@class.inner",
-        },
-      },
-      move = {
-        enable = true,
-        goto_next_start = { ["]a"] = "@parameter.inner", ["]f"] = "@function.outer" },
-        goto_next_end = { ["]A"] = "@parameter.inner", ["]F"] = "@function.outer" },
-        goto_previous_start = { ["[a"] = "@parameter.inner", ["[f"] = "@function.outer" },
-        goto_previous_end = { ["[A"] = "@parameter.inner", ["[F"] = "@function.outer" },
-      },
-    },
-  })
+  require("nvim-treesitter.configs").setup(opts)
 end
 
 return M

@@ -23,7 +23,7 @@ return {
       -- Progress messages for LSP
       { "j-hui/fidget.nvim", config = true },
       -- Code action indicators
-      { "kosayoda/nvim-lightbulb", config = { autocmd = { enabled = true } } },
+      { "kosayoda/nvim-lightbulb", opts = { autocmd = { enabled = true } } },
       -- Automatically format on save
       { "lukas-reineke/lsp-format.nvim", config = true },
       -- Signature help while typing

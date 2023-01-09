@@ -19,7 +19,7 @@ return {
     "lewis6991/gitsigns.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
     event = "BufReadPre",
-    config = {
+    opts = {
       on_attach = function(bufnr)
         local gs = require("gitsigns")
 
@@ -55,7 +55,7 @@ return {
     },
     -- FIXME: neogit doesn't play well with bufferline currently
     -- See https://github.com/TimUntersberger/neogit/issues/389
-    config = {
+    opts = {
       signs = {
         section = { "", "" },
         item = { "", "" },

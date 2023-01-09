@@ -35,15 +35,17 @@ return {
   {
     "akinsho/toggleterm.nvim",
     event = "VeryLazy",
-    config = function()
-      require("toggleterm").setup({
-        shell = "/usr/bin/fish",
-        open_mapping = [[<C-\>]],
-        on_open = function(term)
-          vim.keymap.set("n", "q", "<cmd>close<CR>", { silent = true, buffer = term.bufnr })
-        end,
-      })
+    opts = {
+      shell = "/usr/bin/fish",
+      open_mapping = [[<C-\>]],
+      on_open = function(term)
+        vim.keymap.set("n", "q", "<cmd>close<CR>", { silent = true, buffer = term.bufnr })
+      end,
+    },
+    config = function(_, opts)
+      require("toggleterm").setup(opts)
 
+      -- Set up a separate float term as quick scratchpad
       local floatterm = require("toggleterm.terminal").Terminal:new({
         cmd = "/usr/bin/fish",
         hidden = true, -- Don't include the floatterm in C-\
@@ -51,10 +53,7 @@ return {
         float_opts = {
           border = "double",
         },
-        on_open = function(term)
-          vim.cmd("startinsert!")
-          vim.keymap.set("n", "q", "<cmd>close<CR>", { silent = true, buffer = term.bufnr })
-        end,
+        on_open = opts.on_open,
         on_close = function(term)
           vim.cmd("startinsert!")
         end,
@@ -82,7 +81,7 @@ return {
       { "<leader>ft", "<cmd>Neotree reveal<cr>", desc = "Reveal in file explorer" },
       { "<leader>fT", "<cmd>Neotree toggle<cr>", desc = "Toggle file explorer" },
     },
-    config = {
+    opts = {
       filesystem = {
         -- Focus current file in tree when switching buffers.
         follow_current_file = true,

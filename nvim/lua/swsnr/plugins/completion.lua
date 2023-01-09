@@ -47,14 +47,14 @@ return {
         mode = { "i", "s" },
       },
     },
-    config = function()
-      require("luasnip").setup({
-        -- Allow jumping back to exited snippets, and only clean up when text
-        -- has changed
-        history = true,
-        delete_check_events = "TextChanged",
-      })
-
+    opts = {
+      -- Allow jumping back to exited snippets, and only clean up when text
+      -- has changed
+      history = true,
+      delete_check_events = "TextChanged",
+    },
+    config = function(_, opts)
+      require("luasnip").setup(opts)
       -- Load snippets from friendly-snippets, see https://github.com/L3MON4D3/LuaSnip#add-snippets
       require("luasnip.loaders.from_vscode").lazy_load()
     end,
@@ -70,21 +70,33 @@ return {
       "saadparwaiz1/cmp_luasnip",
       "mtoohey31/cmp-fish",
       "hrsh7th/cmp-nvim-lua",
-      { "petertriho/cmp-git", config = {
-        filetypes = { "gitcommit", "NeogitCommitMessage" },
-      } },
+      {
+        "petertriho/cmp-git",
+        opts = { filetypes = { "gitcommit", "NeogitCommitMessage" } },
+      },
     },
-    config = function()
+    opts = {
+      completion = {
+        completeopt = "menu,menuone,noinsert,noselect",
+      },
+      snippet = {
+        expand = function(args)
+          require("luasnip").lsp_expand(args.body)
+        end,
+      },
+      formatting = {
+        format = function(_, item)
+          local icons = require("swsnr.icons").kinds
+          if icons[item.kind] then
+            item.kind = icons[item.kind] .. item.kind
+          end
+          return item
+        end,
+      },
+    },
+    config = function(_, opts)
       local cmp = require("cmp")
-      cmp.setup({
-        completion = {
-          completeopt = "menu,menuone,noinsert,noselect",
-        },
-        snippet = {
-          expand = function(args)
-            require("luasnip").lsp_expand(args.body)
-          end,
-        },
+      local opts = vim.tbl_extend("error", opts, {
         mapping = cmp.mapping.preset.insert({
           ["<C-b>"] = cmp.mapping.scroll_docs(-4),
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
@@ -104,16 +116,8 @@ return {
         }, {
           { name = "buffer" },
         }),
-        formatting = {
-          format = function(_, item)
-            local icons = require("swsnr.icons").kinds
-            if icons[item.kind] then
-              item.kind = icons[item.kind] .. item.kind
-            end
-            return item
-          end,
-        },
       })
+      cmp.setup(opts)
     end,
   },
 }

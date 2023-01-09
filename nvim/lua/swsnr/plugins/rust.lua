@@ -22,14 +22,30 @@ return {
       "jose-elias-alvarez/null-ls.nvim",
     },
     event = "BufReadPre Cargo.toml",
-    config = {
+    opts = {
       null_ls = { enabled = true },
     },
   },
   {
     "simrat39/rust-tools.nvim",
     ft = "rust",
-    config = function()
+    opts = {
+      server = {
+        settings = {
+          -- See https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
+          ["rust-analyzer"] = {
+            -- Run clippy on save
+            checkOnSave = {
+              command = "clippy",
+            },
+          },
+        },
+        flags = {
+          debounce_text_changes = 150,
+        },
+      },
+    },
+    config = function(_, opts)
       local function rust_attach(client, bufnr)
         -- Default setup for LSP buffers
         require("swsnr.lsp").lsp_attach(client, bufnr)
@@ -49,23 +65,8 @@ return {
         }, { buffer = bufnr })
       end
 
-      require("rust-tools").setup({
-        server = {
-          on_attach = rust_attach,
-          settings = {
-            -- See https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
-            ["rust-analyzer"] = {
-              -- Run clippy on save
-              checkOnSave = {
-                command = "clippy",
-              },
-            },
-          },
-          flags = {
-            debounce_text_changes = 150,
-          },
-        },
-      })
+      opts.server.on_attach = rust_attach
+      require("rust-tools").setup(opts)
     end,
   },
 }

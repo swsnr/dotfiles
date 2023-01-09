@@ -21,11 +21,11 @@ return {
     -- Make sure we load at startup, first of all
     lazy = false,
     priority = 1000,
-    config = function()
-      require("tokyonight").setup({
-        style = "night",
-      })
-      -- load the colorscheme here
+    opts = {
+      style = "night",
+    },
+    config = function(_, opts)
+      require("tokyonight").setup(opts)
       vim.cmd([[colorscheme tokyonight]])
     end,
   },
@@ -63,16 +63,19 @@ return {
       },
       { "nvim-tree/nvim-web-devicons" },
     },
-    config = function()
+    opts = {
+      theme = "auto",
+      extensions = {
+        "toggleterm",
+        "neo-tree",
+        "man",
+        "fugitive",
+      },
+    },
+    config = function(_, opts)
       local navic = require("nvim-navic")
-      require("lualine").setup({
-        theme = "auto",
-        extensions = {
-          "toggleterm",
-          "neo-tree",
-          "man",
-          "fugitive",
-        },
+      local lazy = require("lazy.status")
+      local sections = {
         sections = {
           lualine_c = {
             "filename",
@@ -86,14 +89,11 @@ return {
           },
           lualine_z = {
             "location",
-            {
-              require("lazy.status").updates,
-              cond = require("lazy.status").has_updates,
-              color = { fg = "#ff9e64" },
-            },
+            { lazy.updates, cond = lazy.has_updates, color = { fg = "#ff9e64" } },
           },
         },
-      })
+      }
+      require("lualine").setup(vim.tbl_extend("error", opts, sections))
     end,
   },
   {
@@ -108,7 +108,7 @@ return {
   {
     "akinsho/nvim-bufferline.lua",
     event = "BufAdd",
-    config = {
+    opts = {
       options = {
         diagnostics = "nvim_lsp",
         always_show_bufferline = false,
@@ -138,7 +138,7 @@ return {
   {
     "lukas-reineke/indent-blankline.nvim",
     event = "BufReadPre",
-    config = {
+    opts = {
       use_treesitter = true,
       show_current_context = true,
       show_current_context_start = true,
@@ -169,7 +169,7 @@ return {
       { "<leader>ll", "<cmd>TroubleToggle loclist<cr>", desc = "Toggle location list" },
       { "<leader>lr", "<cmd>TroubleToggle lsp_references<cr>", desc = "Toggle references list" },
     },
-    config = {
+    opts = {
       use_diagnostic_signs = true,
     },
   },
@@ -184,11 +184,12 @@ return {
       { "<leader>wb", "<cmd>WindowsEqualize<cr>", desc = "Balance all windows" },
       { "<leader>wm", "<cmd>WindowsMaximize<cr>", desc = "Maximize current window" },
     },
-    config = function()
+    opts = {},
+    config = function(_, opts)
       vim.o.winwidth = 10
       vim.o.winminwidth = 10
       vim.o.equalalways = false
-      require("windows").setup()
+      require("windows").setup(opts)
     end,
   },
 }
