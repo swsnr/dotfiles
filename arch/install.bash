@@ -486,14 +486,12 @@ case "$HOSTNAME" in
         gamemode
         # KVM virtualization
         virt-manager
-        # Mediatheken
+
+        # Apps
         mediathekview
-        # Digital photos
-        digikam
-        # Document management
-        paperwork
-        # Collection manager
-        tellico
+        digikam   # Photo management
+        paperwork # Document management
+        tellico   # Collection manager
     )
 
     packages_to_install_optdeps+=(
@@ -505,8 +503,10 @@ case "$HOSTNAME" in
         iptables-nft
         # libvirt: TPM emulation
         swtpm
+
         # vlc: DVD playback
         libdvdcss
+
         # python-pyocr: OCR backend
         tesseract
         # tesseract: data files
