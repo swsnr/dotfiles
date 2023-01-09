@@ -211,9 +211,11 @@ packages_to_install=(
     # Science & data
     qalculate-gtk
     viking # GPS track editor
+
     # Latex
     texlive-most
     biber
+    texlab
 
     # Fonts & themes
     # Fallback font with huge coverage and colored emojis
