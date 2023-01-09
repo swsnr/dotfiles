@@ -161,7 +161,7 @@ return {
     "folke/trouble.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     cmd = "TroubleToggle",
-    key = {
+    keys = {
       { "<leader>lx", "<cmd>TroubleToggle<cr>", desc = "Toggle diagnostics list" },
       { "<leader>lw", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Toggle workspace diagnostics" },
       { "<leader>ld", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Toggle document diagnostics" },
