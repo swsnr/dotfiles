@@ -32,11 +32,10 @@ PACKAGE_SIGNING_KEY="B8ADA38BC94C48C4E7AABE4F7548C2CC396B57FC"
 
 # Configure pacman
 install -pm644 "$DIR/etc/pacman/pacman.conf" /etc/pacman.conf
-# Remove outdated config files
-rm -f /etc/pacman.d/conf.d/55-abs-repository.conf
-# Configure core pacman options and official repositories
-install -pm644 -Dt /etc/pacman.d/conf.d \
-    "$DIR/etc/pacman/00-global-options.conf" \
+# Remove old conf.d directory
+rm -rf /etc/pacman.d/conf.d/
+# Configure official repositories
+install -pm644 -Dt /etc/pacman.d/repos \
     "$DIR/etc/pacman/50-core-repositories.conf"
 # Directory for custom pacman hooks
 install -m755 -d /etc/pacman.d/hooks
@@ -770,7 +769,7 @@ setup-repo() {
     fi
 
     # Configure pacman to use this repository
-    install -pm644 -Dt /etc/pacman.d/conf.d "${cfgfile}"
+    install -pm644 -Dt /etc/pacman.d/repos "${cfgfile}"
 
     # Configure aurutils to support building to this repo
     install -Dpm644 /usr/share/devtools/pacman-extra.conf "/etc/aurutils/pacman-${repo}.conf"
