@@ -41,8 +41,14 @@ return {
             -- Linting and formatting for Bash
             null_ls.builtins.diagnostics.shellcheck,
             null_ls.builtins.formatting.shfmt.with({
-              -- Indent bash with four spaces
-              extra_args = { "-i", "4" },
+              extra_args = function(params)
+                -- Derive shfmt parameters from buffer settings
+                local ident = 0
+                if not vim.bo.expandtab then
+                  indent = vim.bo.shiftwidth
+                end
+                return { "-i", indent }
+              end,
             }),
             -- Auto-formatting for Lua
             null_ls.builtins.formatting.stylua,
