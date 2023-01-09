@@ -14,9 +14,9 @@
 
 -- Telescope setup.
 
-function open_with_trouble()
+function open_with_trouble(...)
   -- Lazy-load trouble from telescope
-  require("trouble.providers.telescope").open_with_trouble()
+  require("trouble.providers.telescope").open_with_trouble(...)
 end
 
 local M = {
