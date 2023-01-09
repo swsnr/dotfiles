@@ -69,13 +69,27 @@ return {
       local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
       -- TODO: Steal from https://github.com/folke/LazyVim/blob/650a7429f3bb422bfb085eda07bd8a850cf13409/lua/lazyvim/plugins/lsp/init.lua#L11
-      local servers = { "pyright" }
+      local servers = { "pyright", "texlab" }
       for _, lsp in pairs(servers) do
         require("lspconfig")[lsp].setup({
           capabilities = capabilities,
           on_attach = require("swsnr.lsp").lsp_attach,
           flags = {
             debounce_text_changes = 150,
+          },
+          settings = {
+            texlab = {
+              build = {
+                -- The rest of latexmk arguments get set in my latexmkrc
+                args = {"%f"},
+                executable = "latexmk",
+                forwardSearchAfter = true,
+                onSave = true
+              },
+              chktex = {
+                onOpenAndSave = true,
+              }
+            },
           },
         })
       end
