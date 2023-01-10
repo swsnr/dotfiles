@@ -14,6 +14,26 @@
 
 -- Rust plugins.
 
+function rust_attach(client, bufnr)
+  -- Default setup for LSP buffers
+  require("swsnr.lsp").lsp_attach(client, bufnr)
+
+  -- Extra mappings for Rust
+  function map(mode, lhs, rhs, desc)
+    vim.keymap.set(mode, lhs, rhs, { desc = desc, buffer = bufnr })
+  end
+  map({ "n", "<leader>xr", "<cmd>RustRunnables<cr>", "Run rust" })
+  map({ "n", "<leader>xd", "<cmd>RustDebuggables<cr>", "Debug rust" })
+  map({ "n", "<leader>jp", "<cmd>RustParentModule<cr>", "Jump to parent rust module" })
+  map({ "n", "<leader>fc", "<cmd>RustOpenCargo<cr>", "Open Cargo.toml" })
+  map({ "n", "<leader>eJ", "<cmd>RustJoinLines<cr>", "Join rust lines" })
+  map({ "n", "<leader>ej", "<cmd>RustMoveItemDown<cr>", "Move Rust item down" })
+  map({ "n", "<leader>ek", "<cmd>RustMoveItemUp<cr>", "Move Rust item up" })
+  map({ "n", "<leader>ex", "<cmd>RustExpandMacro<cr>", "Expand Rust macro" })
+  -- Is this a good idea?
+  map({ "n", "J", "<cmd>RustJoinLines<cr>", "Join rust lines" })
+end
+
 return {
   {
     "Saecki/crates.nvim",
@@ -32,6 +52,7 @@ return {
     ft = "rust",
     opts = {
       server = {
+        on_attach = rust_attach,
         settings = {
           -- See https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
           ["rust-analyzer"] = {
@@ -46,28 +67,5 @@ return {
         },
       },
     },
-    config = function(_, opts)
-      local function rust_attach(client, bufnr)
-        -- Default setup for LSP buffers
-        require("swsnr.lsp").lsp_attach(client, bufnr)
-
-        -- And some Rust extras
-        require("which-key").register({
-          ["<leader>xr"] = { "<cmd>RustRunnables<cr>", "Run rust" },
-          ["<leader>xd"] = { "<cmd>RustDebuggables<cr>", "Debug rust" },
-          ["<leader>jp"] = { "<cmd>RustParentModule<cr>", "Jump to parent rust module" },
-          ["<leader>fc"] = { "<cmd>RustOpenCargo<cr>", "Open Cargo.toml" },
-          ["<leader>eJ"] = { "<cmd>RustJoinLines<cr>", "Join rust lines" },
-          ["<leader>ej"] = { "<cmd>RustMoveItemDown<cr>", "Move Rust item down" },
-          ["<leader>ek"] = { "<cmd>RustMoveItemUp<cr>", "Move Rust item up" },
-          ["<leader>ex"] = { "<cmd>RustExpandMacro<cr>", "Expand Rust macro" },
-          -- Is this a good idea?
-          ["J"] = { "<cmd>RustJoinLines<cr>", "Join rust lines" },
-        }, { buffer = bufnr })
-      end
-
-      opts.server.on_attach = rust_attach
-      require("rust-tools").setup(opts)
-    end,
   },
 }
