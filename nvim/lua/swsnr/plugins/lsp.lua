@@ -67,8 +67,6 @@ return {
     config = function()
       -- Setup auto-completion
       local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
-
-      -- TODO: Steal from https://github.com/folke/LazyVim/blob/650a7429f3bb422bfb085eda07bd8a850cf13409/lua/lazyvim/plugins/lsp/init.lua#L11
       local servers = { "pyright", "texlab" }
       for _, lsp in pairs(servers) do
         require("lspconfig")[lsp].setup({

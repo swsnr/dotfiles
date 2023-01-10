@@ -18,8 +18,6 @@
 
 -- TODO:
 --
--- Steal all cool things from https://github.com/folke/LazyVim
---
 -- Plugins:
 -- https://github.com/chentoast/marks.nvim
 -- https://github.com/toppair/reach.nvim
@@ -27,9 +25,6 @@
 -- https://github.com/folke/neoconf.nvim
 -- https://github.com/norcalli/nvim-colorizer.lua
 -- https://github.com/petertriho/nvim-scrollbar
---
--- Language servers:
--- https://github.com/latex-lsp/texlab
 
 return {
   {

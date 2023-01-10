@@ -22,6 +22,7 @@ return {
       "jose-elias-alvarez/null-ls.nvim",
     },
     event = "BufReadPre Cargo.toml",
+    -- TODO: Setup cmp source
     opts = {
       null_ls = { enabled = true },
     },
