@@ -1,0 +1,17 @@
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2014 Canonical Ltd.
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+@{XDG_DESKTOP_DIR}+="Schreibtisch"
+@{XDG_DOWNLOAD_DIR}+="Downloads"
+@{XDG_TEMPLATES_DIR}+="Vorlagen"
+@{XDG_PUBLICSHARE_DIR}+="Öffentlich"
+@{XDG_DOCUMENTS_DIR}+="Dokumente"
+@{XDG_MUSIC_DIR}+="Musik"
+@{XDG_PICTURES_DIR}+="Bilder"
+@{XDG_VIDEOS_DIR}+="Videos"

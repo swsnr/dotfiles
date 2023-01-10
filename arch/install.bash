@@ -55,6 +55,7 @@ packages_to_install=(
     intel-ucode
     linux
     linux-zen
+    apparmor
     sudo
     zram-generator # swap on compressed RAM, mostly to support systemd-oomd
     sbctl          # Manage secure boot binaries and sign binaries
@@ -291,6 +292,10 @@ packages_to_install_optdeps=(
     # libva: intel drivers
     intel-media-driver
 
+    # apparmor: aa-notify
+    python-notify2
+    python-psutil
+
     # Mark pipewire as optional dependencies
     pipewire-pulse wireplumber
     # pipewire: zeroconf support
@@ -391,6 +396,7 @@ services=(
     fwupd-refresh.timer # check for firmware updates…
 
     # Core system services
+    apparmor.service
     systemd-boot-update.service # Update boot loader automatically
     systemd-homed.service       # homed for user management and home areas
     systemd-oomd.service        # Userspace OOM killer
@@ -486,6 +492,8 @@ case "$HOSTNAME" in
     packages_to_install+=(
         # Game mode
         gamemode
+        innoextract # Extract Windows installers
+
         # KVM virtualization
         virt-manager
 
@@ -534,10 +542,10 @@ case "$HOSTNAME" in
 
     flatpaks+=(
         # Gaming; we're using flatpak for these because otherwise we'd have to
-        # cope with multilib.  Additionally, bottles explicitly only supports
-        # the flatpak package.
+        # cope with multilib and mess around with missing steam dependencies.
+        # Officially bottles only supports flatpak anyway.
         com.valvesoftware.Steam
-        com.usebottles.bottles # Run Windows software in Wine
+        com.usebottles.bottles
     )
     ;;
 *RB*)
@@ -697,6 +705,10 @@ else
         /etc/modprobe.d/modprobe-swsnr-tuxedo.conf \
         /etc/systemd/system/btrfs-scrub@.service.d/swsnr-kastl-limit-io.conf
 fi
+
+# AppArmor configuration
+install -pm644 "$DIR/etc/apparmor/tunables/xdg-user-dir-de" \
+    /etc/apparmor.d/tunables/xdg-user-dirs.d/de
 
 # sudo configuration
 install -dm750 /etc/sudoers.d/
