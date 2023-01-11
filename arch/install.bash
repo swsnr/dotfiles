@@ -55,6 +55,7 @@ packages_to_install=(
     intel-ucode
     linux
     linux-zen
+    mkinitcpio
     apparmor
     sudo
     zram-generator # swap on compressed RAM, mostly to support systemd-oomd
