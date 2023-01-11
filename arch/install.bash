@@ -34,19 +34,7 @@ pacman_repositories=(
     "$DIR/etc/pacman/50-core-repositories.conf"
 )
 
-packages_to_remove=(
-    dracut # I use mkinitcpio again
-    dracut-hook-uefi
-    kernel-install-dracut-uki
-    tpm2-tools
-    flatpak-builder # I no longer use flatpak really
-    hunspell        # nuspell is better
-    gnome-software  # Tends to auto-update too much
-    tig             # gitui is nicer
-    gnvim           # Doesn't offer much, neovide is cooler
-    code            # neovim is faster, and IDEA more powerful
-    asciidoctor     # Get rid of ruby
-)
+packages_to_remove=()
 
 packages_to_install=(
     # Basic packages & system tools
@@ -375,12 +363,7 @@ aur_packages=(
 
 # Packages to remove from the AUR repo.  Note that these packages are only
 # removed from they repository, they are not uninstalled!
-aur_packages_to_remove_from_repo=(
-    jetbrains-toolbox # App image preferred
-    dracut-hook-uefi  # We use mkinitcpio instead
-    kernel-install-dracut-uki
-    gnvim # Not as nice as neovide
-)
+aur_packages_to_remove_from_repo=()
 
 services=(
     # File systems
@@ -418,47 +401,10 @@ services=(
 
 # Flatpaks
 flatpaks=(
-    # Other apps
     com.github.tchx84.Flatseal # Flatpak permissions
 )
 
-flatpaks_to_remove=(
-    # No longer used or migrated to flatpak packages
-    org.signal.Signal
-    org.zim_wiki.Zim
-    org.videolan.VLC
-    org.gnome.Devhelp
-    org.kde.kdiff3
-    com.github.xournalpp.xournalpp
-    com.github.jeromerobert.pdfarranger
-    io.github.Qalculate
-    org.inkscape.Inkscape
-    org.viking.Viking
-    de.mediathekview.MediathekView
-    org.kde.digikam
-    de.bund.ausweisapp.ausweisapp2
-    re.chiaki.Chiaki
-    work.openpaper.Paperwork
-    org.jabref.jabref
-    org.gnucash.GnuCash
-    org.gnome.Lollypop
-    org.gnome.dfeet
-    org.cvfosammmm.Setzer
-    org.libreoffice.LibreOffice
-    org.gnome.Maps
-    com.belmoussaoui.Obfuscate
-    com.valvesoftware.Steam.Utility.gamescope
-    io.github.NhekoReborn.Nheko
-    fr.handbrake.ghb
-    com.makemkv.MakeMKV
-    org.nickvision.tagger
-    com.gitlab.newsflash
-    com.github.eneshecan.WhatsAppForLinux
-    ch.threema.threema-web-desktop
-    org.gimp.GIMP
-    org.kde.tellico
-    com.github.geigi.cozy
-)
+flatpaks_to_remove=()
 
 if [[ -n "${SUDO_USER:-}" ]]; then
     # Scrub home directory of my user account
@@ -612,7 +558,6 @@ esac
 
 # Setup pacman and install/remove packages
 install -pm644 "$DIR/etc/pacman/pacman.conf" /etc/pacman.conf
-rm -rf /etc/pacman.d/conf.d/ # Remove old conf.d directory
 install -pm644 -Dt /etc/pacman.d/repos "${pacman_repositories[@]}"
 install -m755 -d /etc/pacman.d/hooks
 # Stub out pacman hooks of mkinitcpio; we use kernel-install instead
@@ -717,8 +662,6 @@ install -pm644 "$DIR/etc/apparmor/tunables/xdg-user-dir-de" \
 # sudo configuration
 install -dm750 /etc/sudoers.d/
 install -pm600 -t/etc/sudoers.d "$DIR"/etc/sudoers.d/*
-# Remove old sudo configuration files
-rm -f /etc/sudoers.d/50-aurutils
 
 # Systemd configuration
 ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
@@ -726,7 +669,6 @@ install -Dpm644 "$DIR/etc/systemd/system-swsnr.conf" /etc/systemd/system.conf.d/
 install -Dpm644 "$DIR/etc/systemd/timesyncd-swsnr.conf" /etc/systemd/timesyncd.conf.d/50-swsnr.conf
 install -Dpm644 "$DIR/etc/systemd/resolved-swsnr.conf" /etc/systemd/resolved.conf.d/50-swsnr.conf
 install -Dpm644 "$DIR/etc/systemd/zram-generator.conf" /etc/systemd/zram-generator.conf
-rm -f /etc/systemd/oomd.conf.d/oomd-lunaryorn.conf # Remove misnamed-configuration file
 install -Dpm644 "$DIR/etc/systemd/oomd-swsnr.conf" /etc/systemd/oomd.conf.d/50-swsnr.conf
 install -Dpm644 "$DIR/etc/systemd/root-slice-oomd-swsnr.conf" /etc/systemd/system/-.slice.d/50-oomd-swsnr.conf
 install -Dpm644 "$DIR/etc/systemd/user-service-oomd-swsnr.conf" /etc/systemd/system/user@.service.d/50-oomd-swsnr.conf
@@ -737,9 +679,6 @@ install -Dpm644 "$DIR/etc/audit/swsnr.rules" "/etc/audit/rules.d/00-swsnr.rules"
 # Services configuration
 install -Dpm644 "$DIR/etc/networkmanager-mdns.conf" /etc/NetworkManager/conf.d/50-mdns.conf
 install -Dpm644 "$DIR/etc/reflector.conf" /etc/xdg/reflector/reflector.conf
-
-# Remove outdated configuration files
-find /etc/ -name '*lunaryorn*' -delete
 
 # Global font configuration
 for file in 10-hinting-slight 10-sub-pixel-rgb 11-lcdfilter-default; do
