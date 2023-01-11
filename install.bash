@@ -67,7 +67,7 @@ clean-recursively ~/.config/wezterm/colors || true
 # Remove wezterm terminfo from $HOME; arch now includes it in the wezterm
 # package
 rm -rf ~/.terminfo/w/wezterm
-find ~/.terminfo/ -empty -delete
+find ~/.terminfo/ -empty -delete || true
 
 # Vim
 ln -fs "$DIR/vim/ideavimrc" ~/.ideavimrc
