@@ -166,6 +166,7 @@ packages_to_install=(
     libadwaita-docs
     libportal-docs
     mutter-docs
+    gobject-introspection # GIR files for glib, etc.
 
     # Basic desktop
     wl-clipboard   # CLI access to clipboard
