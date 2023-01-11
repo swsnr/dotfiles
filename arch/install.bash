@@ -496,6 +496,7 @@ case "$HOSTNAME" in
         # Officially bottles only supports flatpak anyway.
         com.valvesoftware.Steam
         com.usebottles.bottles
+        com.valvesoftware.Steam.Utility.gamescope # Fullscreen control for games
     )
     ;;
 *RB*)
