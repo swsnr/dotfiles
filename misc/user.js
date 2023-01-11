@@ -166,6 +166,8 @@ user_pref("gfx.webrender.all", true);
 user_pref("media.ffmpeg.vaapi.enabled", true);
 user_pref("media.ffvpx.enabled", false);
 user_pref("media.av1.enabled", false);
+// Force hardware video decoding, see https://bbs.archlinux.org/viewtopic.php?id=281398
+user_pref("media.hardware-video-decoding.force-enabled", true);
 
 // Use mozilla location services
 user_pref("geo.provider.network.url", "https://location.services.mozilla.com/v1/geolocate?key=%MOZILLA_API_KEY%");
