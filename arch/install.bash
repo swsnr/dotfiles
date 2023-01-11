@@ -767,11 +767,13 @@ firewall-cmd --permanent --zone=home \
     --add-service=rdp \
     --add-service=ssh
 # Define a service for PS remote play
-# firewall-cmd --permanent --new-service=ps-remote-play
-firewall-cmd --permanent --service=ps-remote-play --set-short='PS Remote Play' || true
-firewall-cmd --permanent --service=ps-remote-play --add-port=9302/udp
-firewall-cmd --permanent --service=ps-remote-play --add-port=9303/udp
-firewall-cmd --permanent --zone=home --add-service=ps-remote-play
+if [[ "$HOSTNAME" == *kastl* ]]; then
+    firewall-cmd --permanent --new-service=ps-remote-play
+    firewall-cmd --permanent --service=ps-remote-play --set-short='PS Remote Play' || true
+    firewall-cmd --permanent --service=ps-remote-play --add-port=9302/udp
+    firewall-cmd --permanent --service=ps-remote-play --add-port=9303/udp
+    firewall-cmd --permanent --zone=home --add-service=ps-remote-play
+fi
 # Don't allow incoming SSH connections on public networks (this is a weird
 # default imho).
 firewall-cmd --permanent --zone=public --remove-service=ssh
