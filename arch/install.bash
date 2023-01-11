@@ -244,6 +244,7 @@ packages_to_install=(
     gst-plugins-bad
     gst-plugins-ugly
     gst-plugin-pipewire # Required for screen recording in Gnome
+    gstreamer-vaapi     # Hardware video decoding for gstreamer
     gst-libav
     # Virtual filesystem for Gnome
     gvfs-afc
