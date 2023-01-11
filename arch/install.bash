@@ -210,10 +210,8 @@ packages_to_install=(
     pdfarranger # Reorder pages in PDF files
     # Office
     zim # Personal desktop wiki
-    gnucash
     # Science & data
     qalculate-gtk
-    viking # GPS track editor
 
     # Latex
     texlive-most
@@ -316,14 +314,8 @@ packages_to_install_optdeps=(
     # gnome-shell-extension-appindicator: GTK3 apps
     libappindicator-gtk3
 
-    # viking: convert GPS tracks
-    gpsbabel
     # kiconthemes: fallback icons
     breeze-icons
-    # sdl2: Wayland client decorations
-    libdecor
-    # gnucash: documentation
-    gnucash-docs
 
     # zim: spell checking
     gtkspell3
@@ -505,6 +497,8 @@ case "$HOSTNAME" in
         digikam   # Photo management
         paperwork # Document management
         tellico   # Collection manager
+        viking    # GPS track editor
+        gnucash   # Finance manager
     )
 
     packages_to_install_optdeps+=(
@@ -526,6 +520,13 @@ case "$HOSTNAME" in
         tesseract-data-deu
         tesseract-data-deu_frak
         tesseract-data-eng
+
+        # sdl2: Wayland client decorations
+        libdecor
+        # gnucash: documentation
+        gnucash-docs
+        # viking: convert GPS tracks
+        gpsbabel
     )
 
     aur_packages+=(
