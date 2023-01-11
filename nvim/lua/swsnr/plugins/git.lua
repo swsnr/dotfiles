@@ -48,6 +48,8 @@ return {
   {
     "TimUntersberger/neogit",
     dependencies = { "nvim-lua/plenary.nvim" },
+    -- Still too buggy and breaks too often
+    enabled = false,
     cmd = "Neogit",
     keys = {
       { "<leader>gc", "<cmd>Neogit commit<cr>", desc = "Git commit" },
@@ -61,6 +63,17 @@ return {
         item = { "", "" },
         hunk = { "", "" },
       },
+    },
+  },
+  {
+    "tpope/vim-fugitive",
+    cmd = { "Git", "GBrowse", "Gedit" },
+    keys = {
+      { "<leader>gb", "<cmd>GBrowse<cr>", desc = "Browse" },
+      { "<leader>gc", "<cmd>Git commit<cr>", desc = "Git commit" },
+      { "<leader>gg", "<cmd>Git<cr>", desc = "Git status" },
+      { "<leader>gl", "<cmd>Git log<cr>", desc = "Git log" },
+      { "<leader>gP", "<cmd>Git push<cr>", desc = "Git push" },
     },
   },
 }
