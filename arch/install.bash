@@ -161,14 +161,15 @@ packages_to_install=(
     rust-analyzer # Not yet shipped in rustup, see https://bugs.archlinux.org/task/76050
     shellcheck    # Lint bash code
     shfmt         # Format bash code
-    pyright       #  Python language server for neovim
-    hexyl         # hex viewer
-    oxipng        # Optimize PNGs for size
-    jq            # Process JSON on command line
-    kdiff3        # Diff/merge tool
-    d-spy         # DBus inspector and debugger
-    devhelp       # Gnome API doc browser…
-    glib2-docs    # …and various library documentation packages
+    pyright       # Python language server for neovim
+    typescript-language-server
+    hexyl      # hex viewer
+    oxipng     # Optimize PNGs for size
+    jq         # Process JSON on command line
+    kdiff3     # Diff/merge tool
+    d-spy      # DBus inspector and debugger
+    devhelp    # Gnome API doc browser…
+    glib2-docs # …and various library documentation packages
     gnome-devel-docs
     libsoup3-docs
     gtk3-docs
