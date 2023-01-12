@@ -811,7 +811,7 @@ fi
 
 if [[ -n "${SUDO_USER:-}" ]]; then
     # Build AUR packages and install them
-    if [[ ${#aur_packages} -gt 0 ]]; then
+    if [[ ${#aur_packages[@]} -gt 0 ]]; then
         # Tell aur-build about the GPG key to use for package signing
         export GPGKEY="$PACKAGE_SIGNING_KEY"
         sudo -u "$SUDO_USER" --preserve-env="${PRESERVE_ENV}" \
@@ -823,7 +823,7 @@ if [[ -n "${SUDO_USER:-}" ]]; then
     # definition comes from the gsconnect package).
     firewall-cmd --permanent --zone=home --add-service=gsconnect || true
 
-    if [[ ${#aur_packages_to_remove_from_repo} -gt 0 ]]; then
+    if [[ ${#aur_packages_to_remove_from_repo[@]} -gt 0 ]]; then
         for pkg in "${aur_packages_to_remove_from_repo[@]}"; do
             rm -f "/srv/pkgrepo/aur/${pkg}-"*.pkg.tar.*
             sudo -u "$SUDO_USER" repo-remove \
