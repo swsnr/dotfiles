@@ -427,9 +427,7 @@ esac
 
 case "$HOSTNAME" in
 *kastl*)
-    pacman_repositories+=(
-        "$DIR/etc/pacman/55-multilib-repository.conf"
-    )
+    pacman_repositories+=()
 
     packages_to_install+=(
         # Game mode
