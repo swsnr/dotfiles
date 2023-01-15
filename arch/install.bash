@@ -87,6 +87,7 @@ packages_to_install=(
     rsync
     rclone # rsync for clouds
     yt-dlp # youtube-dl with extra features
+    clamav # For the occasional Windows malware scan
 
     # Arch tools & infrastructure
     asp               # Obtain PKGBUILDs for ABS
