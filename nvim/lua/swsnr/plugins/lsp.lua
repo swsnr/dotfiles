@@ -56,6 +56,8 @@ return {
             null_ls.builtins.diagnostics.trail_space,
             -- Formatting/linting for XML
             null_ls.builtins.formatting.xmllint,
+            -- Formatting for the Javascript ecosystem
+            null_ls.builtins.formatting.prettier,
           }
           null_ls.setup({
             sources = sources,
