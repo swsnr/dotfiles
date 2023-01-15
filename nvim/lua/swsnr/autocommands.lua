@@ -22,14 +22,6 @@ v.nvim_create_autocmd({ "TextYankPost" }, {
   end,
   group = ly_group,
 })
--- Automatically start insert mode in a new first line in Git commit messages,
--- to that I can start typing my message right away without having to press i
--- first
-v.nvim_create_autocmd({ "BufRead" }, {
-  pattern = "COMMIT_EDITMSG",
-  command = 'execute "normal! gg" | execute "normal! O" | startinsert',
-  group = ly_group,
-})
 
 -- Close some file types with q
 vim.api.nvim_create_autocmd({ "FileType" }, {
