@@ -139,10 +139,10 @@ return {
     fade_out_duration_ms = 150,
   },
   keys = {
-    { key = "_", mods = "CMD|SHIFT", action = wezterm.action({ SplitVertical = { domain = "CurrentPaneDomain" } }) },
-    { key = "|", mods = "CMD|SHIFT", action = wezterm.action({ SplitHorizontal = { domain = "CurrentPaneDomain" } }) },
-    { key = "UpArrow", mods = "CMD|SHIFT", action = wezterm.action({ ScrollToPrompt = -1 }) },
-    { key = "DownArrow", mods = "CMD|SHIFT", action = wezterm.action({ ScrollToPrompt = 1 }) },
+    { key = "_", mods = "ALT|SHIFT", action = wezterm.action({ SplitVertical = { domain = "CurrentPaneDomain" } }) },
+    { key = "|", mods = "ALT|SHIFT", action = wezterm.action({ SplitHorizontal = { domain = "CurrentPaneDomain" } }) },
+    { key = "UpArrow", mods = "ALT|SHIFT", action = wezterm.action({ ScrollToPrompt = -1 }) },
+    { key = "DownArrow", mods = "ALT|SHIFT", action = wezterm.action({ ScrollToPrompt = 1 }) },
   },
   mouse_bindings = {
     {
