@@ -578,8 +578,8 @@ pacman -Syu --needed "${packages_to_install[@]}"
 pacman -S --needed --asdeps "${packages_to_install_optdeps[@]}"
 pacman -D --asdeps "${packages_to_install_optdeps[@]}"
 
-# Add flatpak beta repository
-flatpak remote-add --if-not-exists flathub-beta https://flathub.org/beta-repo/flathub-beta.flatpakrepo
+# Remove beta repository
+flatpak remote-delete flathub-beta || true
 # Configure flatpak languages to install in addition to system locale
 flatpak config --system --set extra-languages 'en;en_GB;de;de_DE'
 # Install all flatpaks
