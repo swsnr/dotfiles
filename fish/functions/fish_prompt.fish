@@ -29,6 +29,10 @@ function fish_prompt -d 'My personal prompt'
     set -g __fish_git_prompt_color_untrackedfiles red
     set -g __fish_git_prompt_color_cleanstate green
 
+    # Mark end of last command and start of prompt
+    # See https://gitlab.freedesktop.org/Per_Bothner/specifications/blob/master/proposals/semantic-prompts.md
+    printf "\e]133;P;k=i\a"
+
     if [ (id -u) -eq 0 ] || set -q SSH_CONNECTION
         set -l color yellow
         if [ $USER = root ]
@@ -89,5 +93,5 @@ function fish_prompt -d 'My personal prompt'
     else
         echo -sn (set_color red)
     end
-    printf "→ %b\033]133;B\007" (set_color normal)
+    printf "→ %b\e]133;B\a" (set_color normal)
 end
