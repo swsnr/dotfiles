@@ -140,40 +140,6 @@ EXTENSION_SETTINGS = {
     }
 }
 
-TERMINAL_PROFILE = {
-    'audible-bell': False,
-    'bold-is-bright': False,
-    'default-size-columns': 120,
-    'default-size-rows': 40,
-    'font': 'JetBrains Mono 11',
-    'use-system-font': False,
-    'visible-name': 'Shell',
-    # Enable dracula theme for terminal
-    'use-theme-colors': False,
-    'bold-color-same-as-fg': False,
-    'foreground-color': '#F8F8F2',
-    'background-color': '#282A36',
-    'bold-color': '#6E46A4',
-    'palette': [
-        '#262626',
-        '#E356A7',
-        '#42E66C',
-        '#E4F34A',
-        '#9B6BDF',
-        '#E64747',
-        '#75D7EC',
-        '#EFA554',
-        '#7A7A7A',
-        '#FF79C6',
-        '#50FA7B',
-        '#F1FA8C',
-        '#BD93F9',
-        '#FF5555',
-        '#8BE9FD',
-        '#FFB86C',
-    ]
-}
-
 BINDINGS = {
     'terminal': False,
     'toggle-theme': {
@@ -253,17 +219,6 @@ def main():
             else:
                 print(f'Schema {schema_id} does not exist; extension {uuid} not installed?',
                       file=sys.stderr)
-
-    if not default_source.lookup('org.gnome.Terminal.ProfilesList', False):
-        print('Terminal profile list not available, skipping', file=sys.stderr)
-    else:
-        profiles_list = Gio.Settings(
-            schema='org.gnome.Terminal.ProfilesList')
-        profile_id = profiles_list.get_string('default')
-        schema_id = 'org.gnome.Terminal.Legacy.Profile'
-        path = f'/org/gnome/terminal/legacy/profiles:/:{profile_id}/'
-        settings = Gio.Settings.new_with_path(schema_id=schema_id, path=path)
-        apply_settings(settings, TERMINAL_PROFILE)
 
     bindings_schema = 'org.gnome.settings-daemon.plugins.media-keys.custom-keybinding'
     if not default_source.lookup(bindings_schema, False):
