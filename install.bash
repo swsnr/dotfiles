@@ -136,8 +136,8 @@ mkdir -p ~/.local/share/gnome-shell/extensions
 ln -fs -t ~/.local/share/gnome-shell/extensions \
     "$DIR/gnome/extensions/home@swsnr.de" \
     "$DIR/gnome/extensions/spacetimeformats@swsnr.de" \
-    "$DIR/gnome/extensions/touchpad-toggle@swsnr.de" \
     "$DIR/gnome/extensions/disable-extension-updates@swsnr.de"
+clean-recursively ~/.local/share/gnome-shell/extensions/
 
 extensions=(
     # Extend top bar: Show removable drives, workspaces and systray
@@ -156,9 +156,6 @@ extensions=(
 case "$HOSTNAME" in
 *kastl*)
     extensions+=(
-        # Toggle disable-touchpad-on-type on and off (great for typing, but gets
-        # in my way for gaming)
-        touchpad-toggle@swsnr.de
         # Connect my system to my mobile phone
         gsconnect@andyholmes.github.io
         # Touch screen menus

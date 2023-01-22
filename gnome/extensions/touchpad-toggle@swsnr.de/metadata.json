@@ -1,7 +1,0 @@
-{
-  "description": "Toggle 'Disable Touchpad while typing' from menu",
-  "name": "Touchpad Toggle",
-  "shell-version": ["43"],
-  "uuid": "touchpad-toggle@swsnr.de",
-  "version": 1
-}
