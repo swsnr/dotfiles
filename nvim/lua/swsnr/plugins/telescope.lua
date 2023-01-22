@@ -51,7 +51,13 @@ local M = {
     { "<leader>ha", "<cmd>Telescope autocommands<cr>", desc = "Tags" },
     { "<leader>hh", "<cmd>Telescope help_tags<cr>", desc = "Tags" },
     { "<leader>hk", "<cmd>Telescope keymaps<cr>", desc = "Keys" },
-    { "<leader>hm", "<cmd>Telescope man_pages<cr>", desc = "Man pages" },
+    {
+      "<leader>hm",
+      function()
+        require("telescope.builtin").man_pages({ sections = { "1", "5", "7" } })
+      end,
+      desc = "Man pages (1,5,7)",
+    },
     { "<leader>ho", "<cmd>Telescope vim_options<cr>", desc = "Options" },
     { "<leader>jj", "<cmd>Telescope diagnostics<cr>", desc = "Diagnostics" },
     { "<leader>jj", "<cmd>Telescope jumplist<cr>", desc = "Jumplist" },
