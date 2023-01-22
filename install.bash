@@ -143,8 +143,6 @@ extensions=(
     # Disable automatic extension updates; I install all extensions through
     # pacman
     'disable-extension-updates@swsnr.de'
-    # Check Arch pacman updates
-    'arch-update@RaphaelRochet'
     # Bling bling
     'burn-my-windows@schneegans.github.com'
     'gnome-shell-extension-desktop-cube'

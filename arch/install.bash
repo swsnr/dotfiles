@@ -34,7 +34,9 @@ pacman_repositories=(
     "$DIR/etc/pacman/50-core-repositories.conf"
 )
 
-packages_to_remove=()
+packages_to_remove=(
+    gnome-shell-extension-arch-update
+)
 
 packages_to_install=(
     # Basic packages & system tools
@@ -335,7 +337,6 @@ aur_packages=(
 
     # Gnome extensions and tools
     gnome-shell-extension-nasa-apod       # APOD as desktop background
-    gnome-shell-extension-arch-update     # Arch package update checks
     gnome-shell-extension-burn-my-windows # Old school window effects
     gnome-shell-extension-desktop-cube    # The old school desktop cube effect
     gnome-shell-extension-fly-pie         # Touchscreen and mouse launcher
@@ -365,7 +366,9 @@ aur_packages=(
 
 # Packages to remove from the AUR repo.  Note that these packages are only
 # removed from they repository, they are not uninstalled!
-aur_packages_to_remove_from_repo=()
+aur_packages_to_remove_from_repo=(
+    gnome-shell-extension-arch-update
+)
 
 services=(
     # File systems
