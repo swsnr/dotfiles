@@ -17,17 +17,6 @@
 
 set -euo pipefail
 
-notify() {
-    notify-send --transient --expire-time=1000 \
-        --icon=applications-games-symbolic \
-        "$@"
-}
-
-disable_while_typing() {
-    gsettings set \
-        org.gnome.desktop.peripherals.touchpad disable-while-typing "$1"
-}
-
 show_banners() {
     gsettings set org.gnome.desktop.notifications show-banners "$1"
 }
@@ -38,18 +27,12 @@ set_profile() {
 
 game_mode_on() {
     set_profile "performance"
-    disable_while_typing false
-    # Wait until the notification disappeared, otherwise the subsequent Do Not
-    # Disturb toggle hides it immediately, rendering it pointless.
-    notify --wait "Game Mode On"
     show_banners false
 }
 
 game_mode_off() {
     set_profile "balanced"
-    disable_while_typing true
     show_banners true
-    notify "Game Mode Off"
 }
 
 main() {
