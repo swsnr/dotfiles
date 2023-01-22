@@ -115,6 +115,10 @@ mkdir -p ~/.config/python
 # Personal startup file, see environment/50-python.conf
 ln -fs "$DIR/python/startup.py" ~/.config/python/startup.py
 
+# Pipewire
+mkdir -p ~/.config/pipewire/pipewire.conf.d/
+ln -fs -t ~/.config/pipewire/pipewire.conf.d/ "$DIR/pipewire/"*.conf
+
 # Misc files
 mkdir -p ~/.config/{latexmk,restic}
 ln -fs "$DIR/backup/linux.exclude" ~/.config/restic/linux.exclude
