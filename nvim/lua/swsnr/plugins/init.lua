@@ -19,6 +19,7 @@
 -- TODO:
 --
 -- Plugins:
+-- https://github.com/danielfalk/smart-open.nvim
 -- https://github.com/chentoast/marks.nvim
 -- https://github.com/toppair/reach.nvim
 -- Multiple cursors plugin: https://github.com/mg979/vim-visual-multi
