@@ -488,6 +488,7 @@ case "$HOSTNAME" in
         whatsapp-for-linux # Whatsapp desktop client for Linux
         ja2-stracciatella  # Modern runtime for the venerable JA2
         cozy-audiobooks    # Audiobook manager
+        threema-desktop    # Secure messaging
 
         # sdl support tools
         controllermap
