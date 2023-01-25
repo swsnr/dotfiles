@@ -48,9 +48,10 @@ packages_to_install=(
     mkinitcpio
     apparmor
     sudo
-    zram-generator # swap on compressed RAM, mostly to support systemd-oomd
-    sbctl          # Manage secure boot binaries and sign binaries
-    alsa-utils     # ALSA control
+    kernel-modules-hook # Keep old kernel modules
+    zram-generator      # swap on compressed RAM, mostly to support systemd-oomd
+    sbctl               # Manage secure boot binaries and sign binaries
+    alsa-utils          # ALSA control
 
     # File systems
     ntfs-3g
