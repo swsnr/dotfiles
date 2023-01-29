@@ -22,16 +22,17 @@ function rust_attach(client, bufnr)
   function map(mode, lhs, rhs, desc)
     vim.keymap.set(mode, lhs, rhs, { desc = desc, buffer = bufnr })
   end
-  map({ "n", "<leader>xr", "<cmd>RustRunnables<cr>", "Run rust" })
-  map({ "n", "<leader>xd", "<cmd>RustDebuggables<cr>", "Debug rust" })
-  map({ "n", "<leader>jp", "<cmd>RustParentModule<cr>", "Jump to parent rust module" })
-  map({ "n", "<leader>fc", "<cmd>RustOpenCargo<cr>", "Open Cargo.toml" })
-  map({ "n", "<leader>eJ", "<cmd>RustJoinLines<cr>", "Join rust lines" })
-  map({ "n", "<leader>ej", "<cmd>RustMoveItemDown<cr>", "Move Rust item down" })
-  map({ "n", "<leader>ek", "<cmd>RustMoveItemUp<cr>", "Move Rust item up" })
-  map({ "n", "<leader>ex", "<cmd>RustExpandMacro<cr>", "Expand Rust macro" })
+
+  map("n", "<leader>xr", "<cmd>RustRunnables<cr>", "Run rust")
+  map("n", "<leader>xd", "<cmd>RustDebuggables<cr>", "Debug rust")
+  map("n", "<leader>jp", "<cmd>RustParentModule<cr>", "Jump to parent rust module")
+  map("n", "<leader>fc", "<cmd>RustOpenCargo<cr>", "Open Cargo.toml")
+  map("n", "<leader>eJ", "<cmd>RustJoinLines<cr>", "Join rust lines")
+  map("n", "<leader>ej", "<cmd>RustMoveItemDown<cr>", "Move Rust item down")
+  map("n", "<leader>ek", "<cmd>RustMoveItemUp<cr>", "Move Rust item up")
+  map("n", "<leader>ex", "<cmd>RustExpandMacro<cr>", "Expand Rust macro")
   -- Is this a good idea?
-  map({ "n", "J", "<cmd>RustJoinLines<cr>", "Join rust lines" })
+  map("n", "J", "<cmd>RustJoinLines<cr>", "Join rust lines")
 end
 
 return {
