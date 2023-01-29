@@ -25,14 +25,20 @@ set_profile() {
     powerprofilesctl set "$1"
 }
 
+night_light() {
+    gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled "$1"
+}
+
 game_mode_on() {
     set_profile "performance"
     show_banners false
+    night_light false
 }
 
 game_mode_off() {
     set_profile "balanced"
     show_banners true
+    night_light true
 }
 
 main() {
