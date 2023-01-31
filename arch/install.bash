@@ -296,10 +296,6 @@ packages_to_install_optdeps=(
     # pipewire: zeroconf support
     pipewire-zeroconf
 
-    # totem: upnp and other media sources
-    grilo-plugins
-    dleyna
-
     # poppler: data files
     poppler-data
     # zathura: PDF support
@@ -475,6 +471,13 @@ case "$HOSTNAME" in
         tesseract-data-deu
         tesseract-data-deu_frak
         tesseract-data-eng
+
+        # totem: Access upnp and other media sources
+        grilo-plugins
+        dleyna
+
+        # gnome-control-center: Share folders over upnp
+        rygel
 
         # sdl2: Wayland client decorations
         libdecor
