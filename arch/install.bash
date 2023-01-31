@@ -195,6 +195,7 @@ packages_to_install=(
     # Audio & Video
     vlc
     lollypop
+    totem
     # Graphics
     inkscape
     # Documents
@@ -294,6 +295,10 @@ packages_to_install_optdeps=(
     pipewire-pulse wireplumber
     # pipewire: zeroconf support
     pipewire-zeroconf
+
+    # totem: upnp and other media sources
+    grilo-plugins
+    dleyna
 
     # poppler: data files
     poppler-data
