@@ -195,7 +195,6 @@ packages_to_install=(
     # Audio & Video
     vlc
     lollypop
-    totem
     # Graphics
     inkscape
     # Documents
