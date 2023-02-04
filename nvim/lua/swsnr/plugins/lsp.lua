@@ -79,11 +79,15 @@ return {
           },
           settings = {
             texlab = {
+              forwardSearch = {
+                executable = "zathura",
+                args = { "--synctex-forward", "%l:1:%f", "%p" },
+              },
               build = {
                 -- The rest of latexmk arguments get set in my latexmkrc
                 args = { "%f" },
                 executable = "latexmk",
-                forwardSearchAfter = true,
+                -- forwardSearchAfter = true,
                 onSave = true,
               },
               chktex = {

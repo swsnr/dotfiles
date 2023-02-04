@@ -6,7 +6,7 @@ push @generated_exts, "nav"; # Beamer nav files
 push @generated_exts, "snm"; # Also something from beamer?
 push @generated_exts, "vrb"; # Fancyvrb (e.g. via minted)
 
-$pdf_previewer = "zathura";
+$pdf_previewer = "zathura %O %S";
 
 # Enable synctex and never stop processing
 set_tex_cmds("--synctex=1 -interaction=nonstopmode %O %S");
