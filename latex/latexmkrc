@@ -9,4 +9,4 @@ push @generated_exts, "vrb"; # Fancyvrb (e.g. via minted)
 $pdf_previewer = "zathura %O %S";
 
 # Enable synctex and never stop processing
-set_tex_cmds("--synctex=1 -interaction=nonstopmode %O %S");
+set_tex_cmds("-interaction=nonstopmode %O %S");
