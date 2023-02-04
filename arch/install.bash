@@ -348,6 +348,7 @@ aur_packages=(
     # Applications
     1password 1password-cli # Personal password manager
     jabref                  # Bibliography
+    setzer                  # Simple and easy latex editor
 
     # Additional fonts
     otf-vollkorn # My favorite serif font for documents
