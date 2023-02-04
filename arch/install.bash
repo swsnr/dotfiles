@@ -471,10 +471,6 @@ case "$HOSTNAME" in
         tesseract-data-deu_frak
         tesseract-data-eng
 
-        # totem: Access upnp and other media sources
-        grilo-plugins
-        dleyna
-
         # gnome-control-center: Share folders over upnp
         rygel
 
