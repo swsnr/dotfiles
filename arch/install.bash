@@ -36,6 +36,8 @@ pacman_repositories=(
 
 packages_to_remove=(
     gnome-shell-extension-arch-update
+    virt-manager
+    qemu-desktop
 )
 
 packages_to_install=(
@@ -156,13 +158,14 @@ packages_to_install=(
     shfmt         # Format bash code
     pyright       # Python language server for neovim
     typescript-language-server
-    hexyl      # hex viewer
-    oxipng     # Optimize PNGs for size
-    jq         # Process JSON on command line
-    kdiff3     # Diff/merge tool
-    d-spy      # DBus inspector and debugger
-    devhelp    # Gnome API doc browser…
-    glib2-docs # …and various library documentation packages
+    hexyl                 # hex viewer
+    oxipng                # Optimize PNGs for size
+    jq                    # Process JSON on command line
+    kdiff3                # Diff/merge tool
+    d-spy                 # DBus inspector and debugger
+    gobject-introspection # GIR files for glib, etc.
+    devhelp               # Gnome API doc browser…
+    glib2-docs            # …and various library documentation packages
     gnome-devel-docs
     libsoup3-docs
     gtk3-docs
@@ -170,7 +173,6 @@ packages_to_install=(
     libadwaita-docs
     libportal-docs
     mutter-docs
-    gobject-introspection # GIR files for glib, etc.
 
     # Basic desktop
     wl-clipboard   # CLI access to clipboard
@@ -440,9 +442,6 @@ case "$HOSTNAME" in
         gamemode
         innoextract # Extract Windows installers
 
-        # KVM virtualization
-        virt-manager
-
         # Apps
         mediathekview
         digikam   # Photo management
@@ -453,15 +452,6 @@ case "$HOSTNAME" in
     )
 
     packages_to_install_optdeps+=(
-        # libvirt: QEMU/KVM support
-        qemu-desktop
-        # libvirt: NAT/DHCP for guests
-        dnsmasq
-        # libvirt: NAT networking
-        iptables-nft
-        # libvirt: TPM emulation
-        swtpm
-
         # vlc: DVD playback
         libdvdcss
 
