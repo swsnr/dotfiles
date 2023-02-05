@@ -38,6 +38,10 @@ packages_to_remove=(
     gnome-shell-extension-arch-update
     virt-manager
     qemu-desktop
+    procs
+    zsa-wally
+    pandoc
+    mdcat
 )
 
 packages_to_install=(
@@ -65,13 +69,11 @@ packages_to_install=(
     usbutils
     nvme-cli
     # Keyboard flashing tool
-    zsa-wally
     zsa-wally-cli
 
     # System monitoring
     iotop
     htop
-    procs
     lsof
     # Power management
     powertop
@@ -130,9 +132,6 @@ packages_to_install=(
     restic      # Backups
     p7zip
     zip
-    # Document processing and rendering
-    pandoc
-    mdcat
 
     # Spellchecking dictionaries
     hunspell-de
