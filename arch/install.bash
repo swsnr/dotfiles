@@ -382,22 +382,26 @@ services=(
     fwupd-refresh.timer # check for firmware updates…
 
     # Core system services
-    apparmor.service
     systemd-boot-update.service # Update boot loader automatically
     systemd-homed.service       # homed for user management and home areas
     systemd-oomd.service        # Userspace OOM killer
-    auditd.service
-    systemd-timesyncd.service # Time sync
+    auditd.service              # Handle kernel audit events
+    systemd-timesyncd.service   # Time sync
+
     # Networking services
     systemd-resolved.service # DNS resolution
-    firewalld.service        # Firewall
     NetworkManager.service   # Network manager for desktops
     avahi-daemon.service     # Local network service discovery (for WLAN printers)
 
+    # Security
+    firewalld.service # Firewall
+    apparmor.service  # Load apparmor profiles
+
     # Pacman infrastructure
-    paccache.timer               # clean pacman cache…
-    pacman-filesdb-refresh.timer # update pacman's file database…
-    reflector.timer              # and update the mirrorlist.
+    paccache.timer                # clean pacman cache…
+    pacman-filesdb-refresh.timer  # update pacman's file database…
+    reflector.timer               # and update the mirrorlist.
+    linux-modules-cleanup.service # Remove modules of old kernels
 
     # Desktop services
     gdm.service                   # Desktop manager
