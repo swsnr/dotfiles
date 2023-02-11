@@ -92,9 +92,11 @@ packages_to_install=(
     curl
     xh # HTTP requests on the command line
     rsync
-    rclone # rsync for clouds
-    yt-dlp # youtube-dl with extra features
-    clamav # For the occasional Windows malware scan
+    rclone     # rsync for clouds
+    yt-dlp     # youtube-dl with extra features
+    clamav     # For the occasional Windows malware scan
+    wol        # Wake up systems on LAN
+    gwakeonlan # GUI tool to send WoL packages
 
     # Arch tools & infrastructure
     asp               # Obtain PKGBUILDs for ABS
