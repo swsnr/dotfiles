@@ -40,7 +40,7 @@ packages_to_remove=(
     qemu-desktop
     procs
     zsa-wally
-    pandoc
+    pandoc-cli
     mdcat
 )
 
