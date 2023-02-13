@@ -42,6 +42,9 @@ packages_to_remove=(
     zsa-wally
     pandoc-cli
     mdcat
+    # Remove base-devel; it's not required to build in chroot
+    base-devel
+    gcc
 )
 
 packages_to_install=(
@@ -103,7 +106,6 @@ packages_to_install=(
     etc-update        # Deal with pacdiff/pacsave files
     pacman-contrib    # paccache, checkupdates, pacsearch, and others
     reflector         # Weekly mirrorlist updates
-    base-devel        # Base backapges for building packages
     namcap            # Lint arch packages
     debuginfod        # Remote debug info
     arch-repro-status # Check reproducibility of installed packages
@@ -577,6 +579,15 @@ for pkg in "${packages_to_remove[@]}"; do
     pacman --noconfirm -Rs "$pkg" || true
 done
 
+# Mark dependencies of base-devel as dependency installs
+base_devel_deps=(
+    archlinux-keyring autoconf automake binutils bison debugedit
+    fakeroot file findutils flex gawk gcc gettext grep groff gzip
+    libtool m4 make pacman patch pkgconf sed texinfo which
+)
+for pkg in "${base_devel_deps[@]}"; do
+    pacman -D --asdeps "$pkg" || true
+done
 pacman -Qtdq | pacman --noconfirm -Rs - || true
 pacman -Syu --needed "${packages_to_install[@]}"
 pacman -S --needed --asdeps "${packages_to_install_optdeps[@]}"
