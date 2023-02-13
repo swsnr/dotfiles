@@ -45,6 +45,9 @@ packages_to_remove=(
     # Remove base-devel; it's not required to build in chroot
     base-devel
     gcc
+    # Not really relevant; all it really does is cleaning the pacman cache,
+    # which we can also do manually
+    pacman-contrib
 )
 
 packages_to_install=(
@@ -104,7 +107,6 @@ packages_to_install=(
     # Arch tools & infrastructure
     asp               # Obtain PKGBUILDs for ABS
     etc-update        # Deal with pacdiff/pacsave files
-    pacman-contrib    # paccache, checkupdates, pacsearch, and others
     reflector         # Weekly mirrorlist updates
     namcap            # Lint arch packages
     debuginfod        # Remote debug info
@@ -402,9 +404,7 @@ services=(
     apparmor.service  # Load apparmor profiles
 
     # Pacman infrastructure
-    paccache.timer                # clean pacman cache…
-    pacman-filesdb-refresh.timer  # update pacman's file database…
-    reflector.timer               # and update the mirrorlist.
+    reflector.timer               # Regularly update the mirrorlist.
     linux-modules-cleanup.service # Remove modules of old kernels
 
     # Desktop services
@@ -413,6 +413,11 @@ services=(
     cups.service                  # Printing
     bluetooth.service             # Bluetooth
     pcscd.socket                  # Smartcards, mostly eID
+)
+
+services_to_disable=(
+    paccache.timer               # clean pacman cache…
+    pacman-filesdb-refresh.timer # update pacman's file database…
 )
 
 # Flatpaks
@@ -574,6 +579,11 @@ ln -sf /dev/null /etc/pacman.d/hooks/90-mkinitcpio-install.hook
 # Update pacman keyring with additional keys
 pacman-key -a "$DIR/etc/pacman/keys/personal.asc"
 pacman-key --lsign-key B8ADA38BC94C48C4E7AABE4F7548C2CC396B57FC
+
+# Disable services before uninstalling packages
+for service in "${services_to_disable[@]}"; do
+    systemctl disable --quiet "${service}" || true
+done
 
 for pkg in "${packages_to_remove[@]}"; do
     pacman --noconfirm -Rs "$pkg" || true
