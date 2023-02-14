@@ -26,7 +26,13 @@ fi
 
 # My user account, to access the home directory and to discard privileges in
 # order to call aurutils.
-MY_USER_ACCOUNT="${SUDO_USER:-}"
+if [[ -n "${SUDO_USER:-}" ]]; then
+    MY_USER_ACCOUNT="${SUDO_USER}"
+elif [[ -n "${PKEXEC_UID}" ]]; then
+    MY_USER_ACCOUNT="$(id -nu "${PKEXEC_UID}")"
+else
+    MY_USER_ACCOUNT=""
+fi
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 
