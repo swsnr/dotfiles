@@ -204,6 +204,7 @@ packages_to_install=(
     lollypop
     # Graphics
     inkscape
+    gimp
     # Documents
     xournalpp   # Hand-written notes and PDF annotations
     zathura     # Lightweight document viewer
