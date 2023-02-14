@@ -24,6 +24,10 @@ if [[ $EUID != 0 ]]; then
     exec sudo --preserve-env="${PRESERVE_ENV}" "$0" "$@"
 fi
 
+# My user account, to access the home directory and to discard privileges in
+# order to call aurutils.
+MY_USER_ACCOUNT="${SUDO_USER:-}"
+
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 
 PRODUCT_NAME="$(</sys/class/dmi/id/product_name)"
@@ -428,9 +432,9 @@ flatpaks=(
 
 flatpaks_to_remove=()
 
-if [[ -n "${SUDO_USER:-}" ]]; then
+if [[ -n "${MY_USER_ACCOUNT}" ]]; then
     # Scrub home directory of my user account
-    services+=("btrfs-scrub@$(systemd-escape -p "/home/${SUDO_USER}").timer")
+    services+=("btrfs-scrub@$(systemd-escape -p "/home/${MY_USER_ACCOUNT}").timer")
 fi
 
 case "$PRODUCT_NAME" in
@@ -792,13 +796,13 @@ setup-repo() {
     fi
 
     # Allow myself to build packages to the repository
-    if [[ -n "${SUDO_USER:-}" && "$(stat -c '%U' "/srv/pkgrepo/${repo}")" != "$SUDO_USER" ]]; then
-        chown -R "$SUDO_USER:$SUDO_USER" "/srv/pkgrepo/${repo}"
+    if [[ -n "${MY_USER_ACCOUNT}" && "$(stat -c '%U' "/srv/pkgrepo/${repo}")" != "$MY_USER_ACCOUNT" ]]; then
+        chown -R "$MY_USER_ACCOUNT:$MY_USER_ACCOUNT" "/srv/pkgrepo/${repo}"
     fi
 
     # Create the package database file, under my own account to be able to access the required key
-    if [[ -n "${SUDO_USER:-}" && ! -e /srv/pkgrepo/${repo}/${repo}.db.tar.zst ]]; then
-        sudo -u "${SUDO_USER}" \
+    if [[ -n "${MY_USER_ACCOUNT}" && ! -e /srv/pkgrepo/${repo}/${repo}.db.tar.zst ]]; then
+        sudo -u "${MY_USER_ACCOUNT}" \
             repo-add --sign --key "${PACKAGE_SIGNING_KEY}" \
             "/srv/pkgrepo/${repo}/${repo}.db.tar.zst"
     fi
@@ -821,9 +825,9 @@ setup-repo abs "$DIR/etc/pacman/40-abs-repository.conf"
 pacman -Sy
 
 # Bootstrap aurutils
-if [[ -n "${SUDO_USER:-}" ]] && ! command -v aur &>/dev/null; then
+if [[ -n "${MY_USER_ACCOUNT}" ]] && ! command -v aur &>/dev/null; then
     export GPGKEY="$PACKAGE_SIGNING_KEY"
-    sudo -u "$SUDO_USER" --preserve-env="${PRESERVE_ENV}" bash <<'EOF'
+    sudo -u "$MY_USER_ACCOUNT" --preserve-env="${PRESERVE_ENV}" bash <<'EOF'
 set -xeuo pipefail
 BDIR="$(mktemp -d --tmpdir aurutils.XXXXXXXX)"
 echo "Building in $BDIR"
@@ -834,12 +838,12 @@ makepkg --noconfirm --nocheck -rsi --sign
 EOF
 fi
 
-if [[ -n "${SUDO_USER:-}" ]]; then
+if [[ -n "${MY_USER_ACCOUNT}" ]]; then
     # Build AUR packages and install them
     if [[ ${#aur_packages[@]} -gt 0 ]]; then
         # Tell aur-build about the GPG key to use for package signing
         export GPGKEY="$PACKAGE_SIGNING_KEY"
-        sudo -u "$SUDO_USER" --preserve-env="${PRESERVE_ENV}" \
+        sudo -u "$MY_USER_ACCOUNT" --preserve-env="${PRESERVE_ENV}" \
             nice aur sync -daur --nocheck -cRS "${aur_packages[@]}"
         pacman --needed -Syu "${aur_packages[@]}"
     fi
@@ -851,7 +855,7 @@ if [[ -n "${SUDO_USER:-}" ]]; then
     if [[ ${#aur_packages_to_remove_from_repo[@]} -gt 0 ]]; then
         for pkg in "${aur_packages_to_remove_from_repo[@]}"; do
             rm -f "/srv/pkgrepo/aur/${pkg}-"*.pkg.tar.*
-            sudo -u "$SUDO_USER" repo-remove \
+            sudo -u "$MY_USER_ACCOUNT" repo-remove \
                 --sign --key "${PACKAGE_SIGNING_KEY}" \
                 /srv/pkgrepo/aur/aur.db.tar.zst "$pkg" || true
         done
