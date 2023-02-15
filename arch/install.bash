@@ -1,17 +1,17 @@
-#!/bin/bash
-# Copyright Sebastian Wiesner <sebastian@swsnr.de>
+#!/usr/bin/bash
+# copyright sebastian wiesner <sebastian@swsnr.de>
 #
-# Licensed under the Apache License, Version 2.0 (the "License"); you may not
-# use this file except in compliance with the License. You may obtain a copy of
-# the License at
+# licensed under the apache license, version 2.0 (the "license"); you may not
+# use this file except in compliance with the license. you may obtain a copy of
+# the license at
 #
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     http://www.apache.org/licenses/license-2.0
 #
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
-# License for the specific language governing permissions and limitations under
-# the License.
+# unless required by applicable law or agreed to in writing, software
+# distributed under the license is distributed on an "as is" basis, without
+# warranties or conditions of any kind, either express or implied. see the
+# license for the specific language governing permissions and limitations under
+# the license.
 
 # Install my basic Arch system
 
@@ -38,10 +38,9 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 
 PRODUCT_NAME="$(</sys/class/dmi/id/product_name)"
 
-PACKAGE_SIGNING_KEY="B8ADA38BC94C48C4E7AABE4F7548C2CC396B57FC"
-
 pacman_repositories=(
     "$DIR/etc/pacman/50-core-repositories.conf"
+    "$DIR/etc/pacman/60-aur-repository.conf"
 )
 
 packages_to_remove=(
@@ -67,25 +66,27 @@ packages_to_install=(
     intel-ucode
     linux
     linux-zen
+    plymouth # Splash screen at boot
     mkinitcpio
     apparmor
     sudo
-    kernel-modules-hook # Keep old kernel modules
-    zram-generator      # swap on compressed RAM, mostly to support systemd-oomd
-    sbctl               # Manage secure boot binaries and sign binaries
-    alsa-utils          # ALSA control
+    pacman-hook-kernel-install # Install kernels to /efi
+    kernel-modules-hook        # Keep old kernel modules
+    zram-generator             # swap on compressed RAM, mostly to support systemd-oomd
+    sbctl                      # Manage secure boot binaries and sign binaries
 
     # File systems
     ntfs-3g
     exfatprogs
     btrfs-progs
 
-    # Hardware tools
+    # Hardware support and tools
     fwupd # Firmware updates
     usbutils
     nvme-cli
-    # Keyboard flashing tool
-    zsa-wally-cli
+    alsa-utils     # ALSA control
+    zsa-wally-cli  # Keyboard flashing tool
+    pcsc-cyberjack # Card reader driver for eID
 
     # System monitoring
     iotop
@@ -121,6 +122,7 @@ packages_to_install=(
     namcap            # Lint arch packages
     debuginfod        # Remote debug info
     arch-repro-status # Check reproducibility of installed packages
+    aurutils          # Build AUR packages
 
     # Neovim & tools
     neovim
@@ -148,6 +150,7 @@ packages_to_install=(
     restic      # Backups
     p7zip
     zip
+    wcal-git # ISO week calendar
 
     # Spellchecking dictionaries
     hunspell-de
@@ -158,6 +161,7 @@ packages_to_install=(
     git
     git-filter-repo
     git-lfs
+    git-gone
     gitui
     github-cli
 
@@ -171,6 +175,8 @@ packages_to_install=(
     rust-analyzer # Not yet shipped in rustup, see https://bugs.archlinux.org/task/76050
     shellcheck    # Lint bash code
     shfmt         # Format bash code
+    frum          # Fast Ruby version manager
+    fnm           # Fast node version manager
     pyright       # Python language server for neovim
     typescript-language-server
     hexyl                 # hex viewer
@@ -179,6 +185,7 @@ packages_to_install=(
     kdiff3                # Diff/merge tool
     d-spy                 # DBus inspector and debugger
     gobject-introspection # GIR files for glib, etc.
+    wev                   # Wayland event testing
     devhelp               # Gnome API doc browser…
     glib2-docs            # …and various library documentation packages
     gnome-devel-docs
@@ -204,7 +211,8 @@ packages_to_install=(
     sane-airscan # Better airscan support, sane's builtin support is primitive
 
     # Applications
-    firefox # Browser
+    1password 1password-cli # Personal password manager
+    firefox                 # Browser
     firefox-i18n-de
     # Communication
     evolution
@@ -222,12 +230,17 @@ packages_to_install=(
     # Office
     zim # Personal desktop wiki
     # Science & data
+    jabref # Bibliography
     qalculate-gtk
 
     # Latex
     texlive-most
     biber
-    texlab
+    texlab # Language server for latex
+    setzer # Simple and easy latex editor
+    # Missing dependencies for latexindent
+    # See <https://bugs.archlinux.org/task/60210>
+    texlive-latexindent-meta
 
     # Fonts & themes
     # Fallback font with huge coverage and colored emojis
@@ -240,9 +253,11 @@ packages_to_install=(
     ttf-caladea
     ttf-carlito
     ttf-cascadia-code
-    # My user interface fonts
+    # Extra fonts
     ttf-ubuntu-font-family
     ttf-jetbrains-mono
+    otf-vollkorn # My favorite serif font for documents
+    ttf-fira-go  # A nice font for presentations
 
     # Gnome infrastructure
     # Gnome style for Qt apps
@@ -294,6 +309,15 @@ packages_to_install=(
     seahorse       # Gnome keyring manager
     baobab         # Disk space analyser
     gnome-firmware # Manage firmware with Gnome
+
+    # Gnome extensions and tools
+    gnome-shell-extension-nasa-apod       # APOD as desktop background
+    gnome-shell-extension-burn-my-windows # Old school window effects
+    gnome-shell-extension-desktop-cube    # The old school desktop cube effect
+    gnome-shell-extension-fly-pie         # Touchscreen and mouse launcher
+    gnome-search-providers-jetbrains      # Jetbrains projects in search
+    gnome-search-providers-vscode         # VSCode workspaces in search
+    firefox-gnome-search-provider         # Firefox bookmarks in search
 )
 
 packages_to_install_optdeps=(
@@ -341,53 +365,6 @@ packages_to_install_optdeps=(
     easytag
     # lollypop: embedded cover art
     kid3-qt
-)
-
-aur_packages=(
-    # AUR helper
-    aurutils
-
-    # Early boot and kernels
-    pacman-hook-kernel-install
-    plymouth # Splash screen at boot
-
-    # Hardware support
-    pcsc-cyberjack # Card reader driver for eID
-
-    # Gnome extensions and tools
-    gnome-shell-extension-nasa-apod       # APOD as desktop background
-    gnome-shell-extension-burn-my-windows # Old school window effects
-    gnome-shell-extension-desktop-cube    # The old school desktop cube effect
-    gnome-shell-extension-fly-pie         # Touchscreen and mouse launcher
-    gnome-search-providers-jetbrains      # Jetbrains projects in search
-    gnome-search-providers-vscode         # VSCode workspaces in search
-    firefox-gnome-search-provider         # Firefox bookmarks in search
-
-    # Applications
-    1password 1password-cli # Personal password manager
-    jabref                  # Bibliography
-    setzer                  # Simple and easy latex editor
-
-    # Additional fonts
-    otf-vollkorn # My favorite serif font for documents
-    ttf-fira-go  # A nice font for presentations
-
-    # Additional tools
-    git-gone # Prune gone branches
-    wcal-git # ISO week calender on CLI
-    wev      # Wayland event testing
-    frum     # Ruby version manager
-    fnm      # Node version manager
-
-    # Missing dependencies for latexindent
-    # See <https://bugs.archlinux.org/task/60210>
-    texlive-latexindent-meta
-)
-
-# Packages to remove from the AUR repo.  Note that these packages are only
-# removed from they repository, they are not uninstalled!
-aur_packages_to_remove_from_repo=(
-    gnome-shell-extension-arch-update
 )
 
 services=(
@@ -464,14 +441,25 @@ case "$HOSTNAME" in
         # Game mode
         gamemode
         innoextract # Extract Windows installers
+        # sdl support tools
+        controllermap
+        sdl2-jstest
 
         # Apps
         mediathekview
-        digikam   # Photo management
-        paperwork # Document management
-        tellico   # Collection manager
-        viking    # GPS track editor
-        gnucash   # Finance manager
+        digikam            # Photo management
+        paperwork          # Document management
+        tellico            # Collection manager
+        viking             # GPS track editor
+        gnucash            # Finance manager
+        ausweisapp2        # eID app
+        chiaki-git         # Remote play client for PS4/5; use git for better controller support
+        whatsapp-for-linux # Whatsapp desktop client for Linux
+        ja2-stracciatella  # Modern runtime for the venerable JA2
+        cozy-audiobooks    # Audiobook manager
+        threema-desktop    # Secure messaging
+
+        gnome-shell-extension-gsconnect # Connect phone and desktop system
     )
 
     packages_to_install_optdeps+=(
@@ -496,22 +484,6 @@ case "$HOSTNAME" in
         gpsbabel
     )
 
-    aur_packages+=(
-        gnome-shell-extension-gsconnect # Connect phone and desktop system
-
-        # Applications
-        ausweisapp2        # eID app
-        chiaki-git         # Remote play client for PS4/5; use git for better controller support
-        whatsapp-for-linux # Whatsapp desktop client for Linux
-        ja2-stracciatella  # Modern runtime for the venerable JA2
-        cozy-audiobooks    # Audiobook manager
-        threema-desktop    # Secure messaging
-
-        # sdl support tools
-        controllermap
-        sdl2-jstest
-    )
-
     flatpaks+=(
         # Gaming; we're using flatpak for these because otherwise we'd have to
         # cope with multilib and mess around with missing steam dependencies.
@@ -533,13 +505,11 @@ case "$HOSTNAME" in
         virtualbox-guest-iso
         virtualbox
 
-        # .NET development
-        dotnet-sdk
-
-        # Containers, kubernetes & cloud
-        podman
-        kubectl
-        helm
+        python2    # Old python for old tools
+        dotnet-sdk # .NET development
+        podman     # Deamonless containers
+        kubectl    # k8s client
+        helm       # k8s package manager
         # Git and related tools
         glab
 
@@ -562,11 +532,6 @@ case "$HOSTNAME" in
         virtualbox-host-dkms
         # libproxy: Proxy autoconfiguration URLs, for Gnome and Glib
         libproxy-webkit
-    )
-
-    aur_packages+=(
-        # The legacy
-        python2
     )
 
     flatpaks+=(
@@ -743,13 +708,16 @@ firewall-cmd --permanent --zone=home \
     --add-service=upnp-client \
     --add-service=rdp \
     --add-service=ssh
-# Define a service for PS remote play
 if [[ "$HOSTNAME" == *kastl* ]]; then
+    # Define a service for PS remote play
     firewall-cmd --permanent --new-service=ps-remote-play || true
     firewall-cmd --permanent --service=ps-remote-play --set-short='PS Remote Play' || true
     firewall-cmd --permanent --service=ps-remote-play --add-port=9302/udp
     firewall-cmd --permanent --service=ps-remote-play --add-port=9303/udp
     firewall-cmd --permanent --zone=home --add-service=ps-remote-play
+
+    # Allow gsconnect access
+    firewall-cmd --permanent --zone=home --add-service=gsconnect || true
 fi
 # Don't allow incoming SSH connections on public networks (this is a weird
 # default imho).
@@ -785,87 +753,6 @@ if ! [[ -e /efi/EFI/BOOT/BOOTX64.EFI ]]; then
     bootctl install
 else
     bootctl update --graceful
-fi
-
-setup-repo() {
-    local repo
-    local cfgfile
-    repo="$1"
-    cfgfile="$2"
-    if [[ -z "$repo" || -z "$cfgfile" ]]; then
-        return 1
-    fi
-
-    if [[ ! -d "/srv/pkgrepo/${repo}" ]]; then
-        install -m755 -d /srv/pkgrepo
-        btrfs subvolume create "/srv/pkgrepo/${repo}"
-    fi
-
-    # Allow myself to build packages to the repository
-    if [[ -n "${MY_USER_ACCOUNT}" && "$(stat -c '%U' "/srv/pkgrepo/${repo}")" != "$MY_USER_ACCOUNT" ]]; then
-        chown -R "$MY_USER_ACCOUNT:$MY_USER_ACCOUNT" "/srv/pkgrepo/${repo}"
-    fi
-
-    # Create the package database file, under my own account to be able to access the required key
-    if [[ -n "${MY_USER_ACCOUNT}" && ! -e /srv/pkgrepo/${repo}/${repo}.db.tar.zst ]]; then
-        sudo -u "${MY_USER_ACCOUNT}" \
-            repo-add --sign --key "${PACKAGE_SIGNING_KEY}" \
-            "/srv/pkgrepo/${repo}/${repo}.db.tar.zst"
-    fi
-
-    # Configure pacman to use this repository
-    install -pm644 -Dt /etc/pacman.d/repos "${cfgfile}"
-
-    # Configure aurutils to support building to this repo
-    install -Dpm644 /usr/share/devtools/pacman-extra.conf "/etc/aurutils/pacman-${repo}.conf"
-    cat <"${cfgfile}" >>"/etc/aurutils/pacman-${repo}.conf"
-}
-
-# Create and configure custom package repositories:
-#
-# aur: AUR packages
-# abs: Modified packages from core, extra, or community
-setup-repo aur "$DIR/etc/pacman/60-aur-repository.conf"
-setup-repo abs "$DIR/etc/pacman/40-abs-repository.conf"
-# Refresh package databases
-pacman -Sy
-
-# Bootstrap aurutils
-if [[ -n "${MY_USER_ACCOUNT}" ]] && ! command -v aur &>/dev/null; then
-    export GPGKEY="$PACKAGE_SIGNING_KEY"
-    sudo -u "$MY_USER_ACCOUNT" --preserve-env="${PRESERVE_ENV}" bash <<'EOF'
-set -xeuo pipefail
-BDIR="$(mktemp -d --tmpdir aurutils.XXXXXXXX)"
-echo "Building in $BDIR"
-cd "$BDIR"
-git clone --depth=1 "https://aur.archlinux.org/aurutils.git"
-cd aurutils
-makepkg --noconfirm --nocheck -rsi --sign
-EOF
-fi
-
-if [[ -n "${MY_USER_ACCOUNT}" ]]; then
-    # Build AUR packages and install them
-    if [[ ${#aur_packages[@]} -gt 0 ]]; then
-        # Tell aur-build about the GPG key to use for package signing
-        export GPGKEY="$PACKAGE_SIGNING_KEY"
-        sudo -u "$MY_USER_ACCOUNT" --preserve-env="${PRESERVE_ENV}" \
-            nice aur sync -daur --nocheck -cRS "${aur_packages[@]}"
-        pacman --needed -Syu "${aur_packages[@]}"
-    fi
-
-    # Allow gsconnect in home zone after gsconnect is installed (the service
-    # definition comes from the gsconnect package).
-    firewall-cmd --permanent --zone=home --add-service=gsconnect || true
-
-    if [[ ${#aur_packages_to_remove_from_repo[@]} -gt 0 ]]; then
-        for pkg in "${aur_packages_to_remove_from_repo[@]}"; do
-            rm -f "/srv/pkgrepo/aur/${pkg}-"*.pkg.tar.*
-            sudo -u "$MY_USER_ACCOUNT" repo-remove \
-                --sign --key "${PACKAGE_SIGNING_KEY}" \
-                /srv/pkgrepo/aur/aur.db.tar.zst "$pkg" || true
-        done
-    fi
 fi
 
 # Set plymouth theme
