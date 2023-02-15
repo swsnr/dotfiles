@@ -118,7 +118,7 @@ return {
   default_domain = "scoped",
   -- Use fish as standard interactive shell
   color_scheme = scheme_for_appearance(wezterm.gui.get_appearance()),
-  font = wezterm.font("JetBrains Mono"),
+  font = wezterm.font("PragmataPro Mono Liga"),
   font_size = 11.0,
   -- Default initial window size
   initial_rows = 40,
