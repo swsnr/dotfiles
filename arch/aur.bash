@@ -100,6 +100,7 @@ bootstrap-aurutils() {
     (
         BDIR="$(mktemp -d --tmpdir aurutils.XXXXXXXX)"
         # Deliberately expand here to propagate the path to the trap handler
+        # shellcheck disable=SC2064
         trap "rm -rf '$BDIR'" EXIT
         echo "Building aurutils in $BDIR"
         cd "$BDIR"
