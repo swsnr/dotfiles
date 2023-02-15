@@ -21,5 +21,7 @@ codeberg.org ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIVIC02vnjFyL+I4RHfvIGNtOgJMe76
 github.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl
 # See https://docs.gitlab.com/ee/user/gitlab_com/index.html#ssh-host-keys-fingerprints
 gitlab.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAfuCHKVTjquxvt6CM6tdG4SLp1Btn/nOeHHE5UOzRdf
+# ssh-keyscan :(; haven't found any other source for this key.
+ssh.gitlab.gnome.org ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHG6b3deoYMPwKEu9Sj+y6MBHYYUKQiAnta/go3aNv7R
 # My home NAS (ssh-keyscan; it's a trusted network anyways)
 kastl.local ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF7Bb/GAgd9K57GzEGyyXul/eNf0WhzrGKoeyD21kcKE
