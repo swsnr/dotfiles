@@ -54,9 +54,9 @@ local M = {
     {
       "<leader>hm",
       function()
-        require("telescope.builtin").man_pages({ sections = { "1", "5", "7" } })
+        require("telescope.builtin").man_pages({ sections = { "1", "5", "7", "8" } })
       end,
-      desc = "Man pages (1,5,7)",
+      desc = "Man pages (1,5,7,8)",
     },
     { "<leader>ho", "<cmd>Telescope vim_options<cr>", desc = "Options" },
     { "<leader>jj", "<cmd>Telescope diagnostics<cr>", desc = "Diagnostics" },
