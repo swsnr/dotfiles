@@ -137,3 +137,16 @@ if [[ ${#packages_to_remove[@]} -gt 0 ]]; then
         repo-remove --sign --key "${GPGKEY}" "$REPODB" "$pkg" || true
     done
 fi
+
+# On my personal systems backup repo to my personal NAS to allow reinstalling
+# without rebuilding everything
+if [[ "$HOSTNAME" == *kastl* ]] && resolvectl query kastl.local &>/dev/null; then
+    # Backup built packages for faster reinstallation
+    restic -r "rclone:kastl:restic-$USERNAME" backup "$REPODIR" \
+        --tag kastl-aur-repo --exclude-caches
+    # And discard old snapshots for the repodir (be careful to select only the
+    # repo dir and the corresponding tag to avoid pruning other backup snapshots
+    # in the repo so aggressively)
+    restic -r "rclone:kastl:restic-$USERNAME" forget \
+        --keep-last 3 --path "$REPODIR" --tag kastl-aur-repo
+fi
