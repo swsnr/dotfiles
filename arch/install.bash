@@ -53,7 +53,6 @@ packages_to_remove=(
     mdcat
     # Remove base-devel; it's not required to build in chroot
     base-devel
-    gcc
     # Not really relevant; all it really does is cleaning the pacman cache,
     # which we can also do manually
     pacman-contrib
@@ -166,6 +165,9 @@ packages_to_install=(
     github-cli
 
     # Development tooling
+    # C tooling; too ubiquituous to discard
+    gcc
+    make
     # Rust tooling
     rustup
     cargo-audit
