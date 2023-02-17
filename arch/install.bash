@@ -628,8 +628,8 @@ install -pm755 "$DIR/etc/kernel/kernel-install-mkinitcpio.install" \
 install -pm644 "$DIR/etc/kernel/install.conf" /etc/kernel/install.conf
 install -pm644 "$DIR/etc/kernel/cmdline" /etc/kernel/cmdline
 install -pm644 "$DIR/etc/mkinitcpio.conf" /etc/mkinitcpio.conf
-sudo rm -f /etc/kernel/install.d/*dracut*
-sudo rm -f /etc/dracut.conf.d/*swsnr*
+rm -f /etc/kernel/install.d/*dracut*
+rm -f /etc/dracut.conf.d/*swsnr*
 
 # Boot loader configuration
 case "$HOSTNAME" in
