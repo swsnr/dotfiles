@@ -56,6 +56,7 @@ packages_to_remove=(
     # Not really relevant; all it really does is cleaning the pacman cache,
     # which we can also do manually
     pacman-contrib
+    reflector
 )
 
 packages_to_install=(
@@ -117,7 +118,6 @@ packages_to_install=(
     # Arch tools & infrastructure
     asp               # Obtain PKGBUILDs for ABS
     etc-update        # Deal with pacdiff/pacsave files
-    reflector         # Weekly mirrorlist updates
     namcap            # Lint arch packages
     debuginfod        # Remote debug info
     arch-repro-status # Check reproducibility of installed packages
@@ -394,7 +394,6 @@ services=(
     apparmor.service  # Load apparmor profiles
 
     # Pacman infrastructure
-    reflector.timer               # Regularly update the mirrorlist.
     linux-modules-cleanup.service # Remove modules of old kernels
 
     # Desktop services
@@ -406,8 +405,9 @@ services=(
 )
 
 services_to_disable=(
-    paccache.timer               # clean pacman cache…
-    pacman-filesdb-refresh.timer # update pacman's file database…
+    paccache.timer
+    pacman-filesdb-refresh.timer
+    reflector.timer
 )
 
 # Flatpaks
@@ -548,6 +548,7 @@ esac
 
 # Setup pacman and install/remove packages
 install -pm644 "$DIR/etc/pacman/pacman.conf" /etc/pacman.conf
+install -pm644 "$DIR/etc/pacman/mirrorlist" /etc/pacman.d/mirrorlist
 install -pm644 -Dt /etc/pacman.d/repos "${pacman_repositories[@]}"
 install -m755 -d /etc/pacman.d/hooks
 # Stub out pacman hooks of mkinitcpio; we use kernel-install instead
@@ -682,7 +683,8 @@ install -Dpm644 "$DIR/etc/audit/swsnr.rules" "/etc/audit/rules.d/00-swsnr.rules"
 
 # Services configuration
 install -Dpm644 "$DIR/etc/networkmanager-mdns.conf" /etc/NetworkManager/conf.d/50-mdns.conf
-install -Dpm644 "$DIR/etc/reflector.conf" /etc/xdg/reflector/reflector.conf
+# Remove old reflector configuration
+rm -rf /etc/xdg/reflector
 
 # Global font configuration
 for file in 10-hinting-slight 10-sub-pixel-rgb 11-lcdfilter-default; do
