@@ -570,7 +570,7 @@ done
 base_devel_deps=(
     archlinux-keyring autoconf automake binutils bison debugedit
     fakeroot file findutils flex gawk gcc gettext grep groff gzip
-    libtool m4 make pacman patch pkgconf sed texinfo which
+    libtool m4 pacman patch pkgconf sed texinfo which
 )
 for pkg in "${base_devel_deps[@]}"; do
     pacman -D --asdeps "$pkg" || true
