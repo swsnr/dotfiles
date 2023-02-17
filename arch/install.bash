@@ -17,11 +17,9 @@
 
 set -xeuo pipefail
 
-PRESERVE_ENV=AUR_PAGER,PACKAGER,EDITOR
-
 if [[ $EUID != 0 ]]; then
     echo 'Elevating privileges'
-    exec sudo --preserve-env="${PRESERVE_ENV}" "$0" "$@"
+    exec sudo "$0" "$@"
 fi
 
 # My user account, to access the home directory and to discard privileges in
