@@ -13,18 +13,23 @@
 # the License.
 
 function kernel-reinstall -d 'Reinstall kernels'
-    argparse a/all h/help -- $argv
+    if not argparse v/verbose a/all h/help -- $argv
+        return 1
+    end
     if set -q _flag_h
-        echo 'kernel-reinstall [--all]'
+        echo 'kernel-reinstall [--all] [--verbose]'
         echo ''
         echo 'Reinstall kernels to /efi'
         echo
         echo '-a --all'
         echo '   Reinstall all kernels (default current kernel)'
+        echo '-v --verbose'
+        echo '   Run kernel-install verbosely'
         return
     end
 
     set -l kernel_versions
+    set -l kernel_install_options
     if set -q _flag_a
         for entry in /usr/lib/modules/*
             if test -d $entry
@@ -35,12 +40,16 @@ function kernel-reinstall -d 'Reinstall kernels'
         set -a kernel_versions (uname -r)
     end
 
+    if set -q _flag_v
+        set -a kernel_install_options --verbose
+    end
+
     for kernel_version in $kernel_versions
         set -l kernel_image /usr/lib/modules/$kernel_version/vmlinuz
         if test -f $kernel_image
             echo "Reinstalling kernel $kernel_version from $kernel_image"
-            sudo kernel-install remove $kernel_version
-            sudo kernel-install add $kernel_version $kernel_image
+            sudo kernel-install $kernel_install_options remove $kernel_version
+            sudo kernel-install $kernel_install_options add $kernel_version $kernel_image
         else
             echo "Skipping $kernel_version, kernel image not found at $kernel_image"
         end
