@@ -14,10 +14,9 @@ MICROCODE=()
 KERNEL_IMAGE_FLAGS=()
 case "$KERNEL_INSTALL_LAYOUT" in
     uki)
-        IMAGE_PATH="$KERNEL_INSTALL_BOOT_ROOT/EFI/Linux"
-        install -d -- "$IMAGE_PATH" # create /<esp>/EFI/Linux if it not exists yet
-
-        IMAGE_PATH="$IMAGE_PATH/$KERNEL_INSTALL_ENTRY_TOKEN-$KERNEL_VERSION.efi"
+        # Generate UKI in staging area; 90-uki-copy will then copy it to /efi
+        # with the appropriate name.
+        IMAGE_PATH="$KERNEL_INSTALL_STAGING_AREA/uki.efi"
         IMAGE_GENERATION_FLAG="-U"
 
         # autodetecting microcode images by known location
@@ -50,11 +49,9 @@ case $COMMAND in
         mkinitcpio -k "$KERNEL_VERSION" "${KERNEL_IMAGE_FLAGS[@]}" "${MICROCODE[@]}" "$IMAGE_GENERATION_FLAG" "$IMAGE_PATH"
         ;;
     remove)
-        #remove this so that remove is a noop for this install file after 90-uki-copy.install
-        if [[ "$KERNEL_INSTALL_LAYOUT" == "uki" ]]; then
-            (( KERNEL_INSTALL_VERBOSE )) && echo rm -f -- "$IMAGE_PATH"
-            rm -f -- "$IMAGE_PATH"
-        else
+        # For UKI layout removal of kernel images is handled by 90-uki-copy
+        # shipped with kernel-install itself.
+        if [[ "$KERNEL_INSTALL_LAYOUT" == "bls" ]]; then
             printf "For BLS layout only the loader entry is removed during removal.\n"
             printf "The image files (kernel, initramfs, etc) are left behind on the ESP partition, at: '%s'\n" "$ENTRY_DIR_ABS"
         fi
