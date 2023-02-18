@@ -118,8 +118,7 @@ create-repository-subvolume() {
 remove-pkg() {
     local pkg
     pkg="$1"
-    # FIXME: This removes too much perhaps?
-    rm -f "${REPODIR}/${pkg}-"*.pkg.tar.*
+    rm -f "${REPODIR}/${pkg}-"[0-9]*.pkg.tar.*
     repo-remove --sign --key "${GPGKEY}" "$REPODB" "$pkg"
 }
 
