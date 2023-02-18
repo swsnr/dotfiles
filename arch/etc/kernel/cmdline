@@ -1,1 +1,1 @@
- quiet splash audit=1 lsm=landlock,lockdown,yama,integrity,apparmor,bpf
+ quiet splash audit=1 lsm=landlock,lockdown,yama,integrity,apparmor,bpf rootflags=compress=zstd:1
