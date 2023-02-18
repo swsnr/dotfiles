@@ -1,17 +1,17 @@
 #!/usr/bin/bash
-# copyright sebastian wiesner <sebastian@swsnr.de>
+# Copyright Sebastian Wiesner <sebastian@swsnr.de>
 #
-# licensed under the apache license, version 2.0 (the "license"); you may not
-# use this file except in compliance with the license. you may obtain a copy of
-# the license at
+# Licensed under the Apache License, Version 2.0 (the "License"); you may not
+# use this file except in compliance with the License. You may obtain a copy of
+# the License at
 #
-#     http://www.apache.org/licenses/license-2.0
+#     http://www.apache.org/licenses/LICENSE-2.0
 #
-# unless required by applicable law or agreed to in writing, software
-# distributed under the license is distributed on an "as is" basis, without
-# warranties or conditions of any kind, either express or implied. see the
-# license for the specific language governing permissions and limitations under
-# the license.
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations under
+# the License.
 
 GPGKEY="B8ADA38BC94C48C4E7AABE4F7548C2CC396B57FC"
 export GPGKEY
@@ -190,13 +190,13 @@ main() {
 
     collect-dependencies packages_with_dependencies "${packages[@]}"
 
-    aur sync -daur --nocheck -cRS "${packages[@]}"
-
     # Remove packages we no longer need; we do also retain all possible debug
     # packages.
     collect-debug-packages packages_with_dependencies_and_debug "${packages_with_dependencies[@]}"
     packages_with_dependencies_and_debug+=("${packages_with_dependencies[@]}")
     remove-except "${packages_with_dependencies_and_debug[@]}"
+
+    aur sync -daur --nocheck -cRS "${packages[@]}"
 
     # On my personal systems backup repo to my personal NAS to allow reinstalling
     # without rebuilding everything
