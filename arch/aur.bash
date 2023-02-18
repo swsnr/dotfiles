@@ -13,13 +13,13 @@
 # license for the specific language governing permissions and limitations under
 # the license.
 
-set -xeuo pipefail
-
 GPGKEY="B8ADA38BC94C48C4E7AABE4F7548C2CC396B57FC"
 export GPGKEY
 
 REPODB="/srv/pkgrepo/aur/aur.db.tar.zst"
 REPODIR="${REPODB%/*}"
+REPONAME="${REPODB##*/}"
+REPONAME="${REPONAME%%.*}"
 
 packages=(
     # AUR helper
@@ -60,12 +60,6 @@ packages=(
     # Missing dependencies for latexindent
     # See <https://bugs.archlinux.org/task/60210>
     texlive-latexindent-meta
-)
-
-# Packages to remove from the AUR repo.  Note that these packages are only
-# removed from they repository, they are not uninstalled!
-packages_to_remove=(
-    gnome-shell-extension-arch-update
 )
 
 case "$HOSTNAME" in
@@ -121,27 +115,26 @@ create-repository-subvolume() {
     chown -R "${SUDO_UID}:$(id -g "$SUDO_UID")" "$dir"
 }
 
-if ! command -v aur &>/dev/null; then
-    bootstrap-aurutils
-fi
+remove-pkg() {
+    local pkg
+    pkg="$1"
+    # FIXME: This removes too much perhaps?
+    rm -f "${REPODIR}/${pkg}-"*.pkg.tar.*
+    repo-remove --sign --key "${GPGKEY}" "$REPODB" "$pkg"
+}
 
-if [[ ! -e "$REPODB" ]]; then
-    sudo bash -c "$(declare -f create-repository-subvolume); create-repository-subvolume '$REPODIR'"
-    repo-add --sign --key "$GPGKEY" "$REPODB"
-fi
+bootstrap() {
+    if ! command -v aur &>/dev/null; then
+        bootstrap-aurutils
+    fi
 
-aur sync -daur --nocheck -cRS "${packages[@]}"
+    if [[ ! -e "$REPODB" ]]; then
+        sudo bash -c "$(declare -f create-repository-subvolume); create-repository-subvolume '$REPODIR'"
+        repo-add --sign --key "$GPGKEY" "$REPODB"
+    fi
+}
 
-if [[ ${#packages_to_remove[@]} -gt 0 ]]; then
-    for pkg in "${packages_to_remove[@]}"; do
-        rm -f "${REPODIR}/${pkg}-"*.pkg.tar.*
-        repo-remove --sign --key "${GPGKEY}" "$REPODB" "$pkg" || true
-    done
-fi
-
-# On my personal systems backup repo to my personal NAS to allow reinstalling
-# without rebuilding everything
-if [[ "$HOSTNAME" == *kastl* ]] && resolvectl query kastl.local &>/dev/null; then
+backup() {
     # Backup built packages for faster reinstallation
     restic -r "rclone:kastl:restic-$USERNAME" backup "$REPODIR" \
         --tag kastl-aur-repo --exclude-caches
@@ -150,4 +143,71 @@ if [[ "$HOSTNAME" == *kastl* ]] && resolvectl query kastl.local &>/dev/null; the
     # in the repo so aggressively)
     restic -r "rclone:kastl:restic-$USERNAME" forget \
         --keep-last 3 --path "$REPODIR" --tag kastl-aur-repo
+}
+
+collect-dependencies() {
+    local -n __depends="$1"
+    shift
+    # shellcheck disable=SC2034
+    readarray -t __depends < <(aur depends "$@")
+}
+
+collect-debug-packages() {
+    local -n __debug="$1"
+    shift
+    # shellcheck disable=SC2034
+    __debug=("${@/%/-debug}")
+}
+
+collect-packages-to-remove() {
+    local -n __to_remove="$1"
+    shift
+
+    local packages_in_repo
+
+    readarray -t packages_in_repo < <(aur repo -d "$REPONAME" -lq)
+    readarray -t __to_remove < <(printf "%s\n" "$@" "${packages_in_repo[@]}" | sort | uniq -u)
+    # shellcheck disable=SC2034
+    readarray -t __to_remove < <(printf "%s\n" "${packages_in_repo[@]}" "${__to_remove[@]}" | sort | uniq -d)
+}
+
+remove-except() {
+    local remove_from_repo
+    collect-packages-to-remove remove_from_repo "$@"
+    if [[ ${#remove_from_repo[@]} -gt 0 ]]; then
+        for pkg in "${remove_from_repo[@]}"; do
+            remove-pkg "$pkg"
+        done
+    fi
+}
+
+main() {
+    bootstrap
+
+    local packages_with_dependencies
+    local packages_with_dependencies_and_debug
+    local remove_from_repo
+
+    collect-dependencies packages_with_dependencies "${packages[@]}"
+
+    aur sync -daur --nocheck -cRS "${packages[@]}"
+
+    # Remove packages we no longer need; we do also retain all possible debug
+    # packages.
+    collect-debug-packages packages_with_dependencies_and_debug "${packages_with_dependencies[@]}"
+    packages_with_dependencies_and_debug+=("${packages_with_dependencies[@]}")
+    remove-except "${packages_with_dependencies_and_debug[@]}"
+
+    # On my personal systems backup repo to my personal NAS to allow reinstalling
+    # without rebuilding everything
+    if [[ "$HOSTNAME" == *kastl* ]] && resolvectl query kastl.local &>/dev/null; then
+        backup
+    fi
+}
+
+if [[ "$0" == "${BASH_SOURCE[0]}" || -z "${BASH_SOURCE[0]}" ]]; then
+    # Run only if not sourced; this lets me interactively work with the package
+    # list above
+    set -xeuo pipefail
+    main
 fi
