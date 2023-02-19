@@ -180,12 +180,25 @@ remove-except() {
     fi
 }
 
+collect-vcs-packages() {
+    local -n __vcs="$1"
+    shift
+
+    __vcs=()
+    for package in "$@"; do
+        if [[ "$package" == *-git ]]; then
+            __vcs+=("$package")
+        fi
+    done
+}
+
 main() {
     bootstrap
 
     local packages_with_dependencies
     local packages_with_dependencies_and_debug
     local remove_from_repo
+    local vcs_packages
 
     collect-dependencies packages_with_dependencies "${packages[@]}"
 
@@ -195,7 +208,19 @@ main() {
     packages_with_dependencies_and_debug+=("${packages_with_dependencies[@]}")
     remove-except "${packages_with_dependencies_and_debug[@]}"
 
-    aur sync -daur --nocheck -cRS "${packages[@]}"
+    # Build all packages.
+    #
+    # Do not run checks, include all obsolete packages in the repo (-u), build
+    # in a clean chroot (-c), sign packages (-S), and remove old versions from
+    # the repo (-R)
+    aur sync -daur --nocheck -ucRS "${packages[@]}"
+
+    # Rebuild all VCS packages, but do not --force the rebuild (as in --rebuild)
+    # because if a package with the resulting version already exists we don't
+    # need to rebuild it again.  We'd only like to trigger a rebuild if the
+    # package is really outdated.
+    collect-vcs-packages vcs_packages "${packages_with_dependencies[@]}"
+    aur sync -daur --nocheck -cRS --nover-argv "${vcs_packages[@]}"
 
     # On my personal systems backup repo to my personal NAS to allow reinstalling
     # without rebuilding everything
