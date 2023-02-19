@@ -35,6 +35,7 @@ packages=(
     gnome-shell-extension-desktop-cube
     gnome-shell-extension-fly-pie
     gnome-shell-extension-nasa-apod
+    gnome-shell-extension-tiling-assistant
     jabref
     otf-vollkorn
     pacman-hook-kernel-install

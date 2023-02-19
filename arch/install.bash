@@ -291,8 +291,8 @@ packages_to_install=(
     gnome-weather
     gnome-maps
     gnome-shell
-    gnome-shell-extensions
-    gnome-shell-extension-appindicator
+    gnome-shell-extensions             # Built-in shell extensions for Gnome
+    gnome-shell-extension-appindicator # Systray for Gnome
     gnome-system-monitor
     gnome-control-center
     gnome-tweaks
@@ -311,13 +311,14 @@ packages_to_install=(
     gnome-firmware # Manage firmware with Gnome
 
     # Gnome extensions and tools
-    gnome-shell-extension-nasa-apod       # APOD as desktop background
-    gnome-shell-extension-burn-my-windows # Old school window effects
-    gnome-shell-extension-desktop-cube    # The old school desktop cube effect
-    gnome-shell-extension-fly-pie         # Touchscreen and mouse launcher
-    gnome-search-providers-jetbrains      # Jetbrains projects in search
-    gnome-search-providers-vscode         # VSCode workspaces in search
-    firefox-gnome-search-provider         # Firefox bookmarks in search
+    gnome-shell-extension-nasa-apod        # APOD as desktop background
+    gnome-shell-extension-burn-my-windows  # Old school window effects
+    gnome-shell-extension-desktop-cube     # The old school desktop cube effect
+    gnome-shell-extension-fly-pie          # Touchscreen and mouse launcher
+    gnome-shell-extension-tiling-assistant # Better tiling for Gnome shell
+    gnome-search-providers-jetbrains       # Jetbrains projects in search
+    gnome-search-providers-vscode          # VSCode workspaces in search
+    firefox-gnome-search-provider          # Firefox bookmarks in search
 )
 
 packages_to_install_optdeps=(
