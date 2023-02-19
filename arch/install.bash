@@ -297,11 +297,10 @@ packages_to_install=(
     gnome-control-center
     gnome-tweaks
     gnome-backgrounds
-    gnome-console # Backup terminal, in case I mess up wezterm
-    file-roller   # Archive tool
-    yelp          # Online help system
-    nautilus      # File manager
-    python-nautilus
+    gnome-console  # Backup terminal, in case I mess up wezterm
+    file-roller    # Archive tool
+    yelp           # Online help system
+    nautilus       # File manager
     sushi          # Previewer for nautilus
     evince         # Document viewer
     eog            # Image viewer
@@ -366,6 +365,10 @@ packages_to_install_optdeps=(
     easytag
     # lollypop: embedded cover art
     kid3-qt
+
+    # wezterm: Nautilus integration
+    # gnome-shell-extension-gsconnect: Send to menu
+    python-nautilus
 )
 
 services=(
