@@ -22,67 +22,47 @@ REPONAME="${REPODB##*/}"
 REPONAME="${REPONAME%%.*}"
 
 packages=(
-    # AUR helper
+    1password
+    1password-cli
     aurutils
-
-    # Early boot and kernels
+    firefox-gnome-search-provider
+    fnm
+    frum
+    git-gone
+    gnome-search-providers-jetbrains
+    gnome-search-providers-vscode
+    gnome-shell-extension-burn-my-windows
+    gnome-shell-extension-desktop-cube
+    gnome-shell-extension-fly-pie
+    gnome-shell-extension-nasa-apod
+    jabref
+    otf-vollkorn
     pacman-hook-kernel-install
-    plymouth # Splash screen at boot
-
-    # Hardware support
-    pcsc-cyberjack # Card reader driver for eID
-
-    # Gnome extensions and tools
-    gnome-shell-extension-nasa-apod       # APOD as desktop background
-    gnome-shell-extension-burn-my-windows # Old school window effects
-    gnome-shell-extension-desktop-cube    # The old school desktop cube effect
-    gnome-shell-extension-fly-pie         # Touchscreen and mouse launcher
-    gnome-search-providers-jetbrains      # Jetbrains projects in search
-    gnome-search-providers-vscode         # VSCode workspaces in search
-    firefox-gnome-search-provider         # Firefox bookmarks in search
-
-    # Applications
-    1password 1password-cli # Personal password manager
-    jabref                  # Bibliography
-    setzer                  # Simple and easy latex editor
-
-    # Additional fonts
-    otf-vollkorn # My favorite serif font for documents
-    ttf-fira-go  # A nice font for presentations
-
-    # Additional tools
-    git-gone # Prune gone branches
-    wcal-git # ISO week calender on CLI
-    wev      # Wayland event testing
-    frum     # Ruby version manager
-    fnm      # Node version manager
-
-    # Missing dependencies for latexindent
-    # See <https://bugs.archlinux.org/task/60210>
+    pcsc-cyberjack
+    plymouth
+    setzer
     texlive-latexindent-meta
+    ttf-fira-go
+    wcal-git
+    wev
 )
 
 case "$HOSTNAME" in
 *kastl*)
     packages+=(
-        gnome-shell-extension-gsconnect # Connect phone and desktop system
-
-        # Applications
-        ausweisapp2        # eID app
-        chiaki-git         # Remote play client for PS4/5; use git for better controller support
-        whatsapp-for-linux # Whatsapp desktop client for Linux
-        ja2-stracciatella  # Modern runtime for the venerable JA2
-        cozy-audiobooks    # Audiobook manager
-        threema-desktop    # Secure messaging
-
-        # sdl support tools
+        ausweisapp2
+        chiaki-git
         controllermap
+        cozy-audiobooks
+        gnome-shell-extension-gsconnect
+        ja2-stracciatella
         sdl2-jstest
+        threema-desktop
+        whatsapp-for-linux
     )
     ;;
 *RB*)
     packages+=(
-        # The legacy
         python2
     )
     ;;
