@@ -49,6 +49,7 @@ packages_to_remove=(
     zsa-wally
     pandoc-cli
     mdcat
+    lollypop
     # Remove base-devel; it's not required to build in chroot
     base-devel
     # Not really relevant; all it really does is cleaning the pacman cache,
@@ -212,26 +213,19 @@ packages_to_install=(
 
     # Applications
     1password 1password-cli # Personal password manager
-    firefox                 # Browser
-    firefox-i18n-de
-    # Communication
-    evolution
-    signal-desktop
-    # Audio & Video
-    vlc
-    lollypop
-    # Graphics
-    inkscape
-    gimp
-    # Documents
-    xournalpp   # Hand-written notes and PDF annotations
-    zathura     # Lightweight document viewer
-    pdfarranger # Reorder pages in PDF files
-    # Office
-    zim # Personal desktop wiki
-    # Science & data
-    jabref # Bibliography
-    qalculate-gtk
+    firefox firefox-i18n-de # Browser
+    evolution               # Mail client
+    signal-desktop          # Secure mobile chat
+    vlc                     # The media player
+    audacious               # Simple music player
+    inkscape                # Vector graphics
+    gimp                    # Pixel graphics
+    xournalpp               # Hand-written notes and PDF annotations
+    zathura                 # Lightweight document viewer
+    pdfarranger             # Reorder pages in PDF files
+    zim                     # Personal desktop wiki
+    jabref                  # Bibliography
+    qalculate-gtk           # Scientific calculator
 
     # Latex
     texlive-most
@@ -359,13 +353,6 @@ packages_to_install_optdeps=(
     # zim: source code view
     gtksourceview3
 
-    # lollypop: youtube support
-    youtube-dl
-    # lollypop: tag editing
-    easytag
-    # lollypop: embedded cover art
-    kid3-qt
-
     # wezterm: Nautilus integration
     # gnome-shell-extension-gsconnect: Send to menu
     python-nautilus
@@ -462,6 +449,7 @@ case "$HOSTNAME" in
         ja2-stracciatella  # Modern runtime for the venerable JA2
         cozy-audiobooks    # Audiobook manager
         threema-desktop    # Secure messaging
+        kid3-qt            # Audio tag editor
 
         gnome-shell-extension-gsconnect # Connect phone and desktop system
         syncthing                       # Network synchronization
