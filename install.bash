@@ -216,6 +216,10 @@ print('\0'.join(paths), end='')
 EOF
 fi
 
+if has syncthing && [[ "$HOSTNAME" == *kastl* ]]; then
+    systemctl --user enable --now syncthing.service
+fi
+
 # Flatpak setup
 if has flatpak; then
     # Remove unused user remotes

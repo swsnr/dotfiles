@@ -464,6 +464,7 @@ case "$HOSTNAME" in
         threema-desktop    # Secure messaging
 
         gnome-shell-extension-gsconnect # Connect phone and desktop system
+        syncthing                       # Network synchronization
     )
 
     packages_to_install_optdeps+=(
