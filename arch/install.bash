@@ -50,6 +50,7 @@ packages_to_remove=(
     pandoc-cli
     mdcat
     lollypop
+    cozy-audiobooks
     # Remove base-devel; it's not required to build in chroot
     base-devel
     # Not really relevant; all it really does is cleaning the pacman cache,
@@ -447,7 +448,6 @@ case "$HOSTNAME" in
         chiaki-git         # Remote play client for PS4/5; use git for better controller support
         whatsapp-for-linux # Whatsapp desktop client for Linux
         ja2-stracciatella  # Modern runtime for the venerable JA2
-        cozy-audiobooks    # Audiobook manager
         threema-desktop    # Secure messaging
         kid3-qt            # Audio tag editor
 

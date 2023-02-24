@@ -54,7 +54,6 @@ case "$HOSTNAME" in
         ausweisapp2
         chiaki-git
         controllermap
-        cozy-audiobooks
         gnome-shell-extension-gsconnect
         ja2-stracciatella
         sdl2-jstest
