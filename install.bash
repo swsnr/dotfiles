@@ -244,3 +244,6 @@ if has flatpak; then
     flatpak override --user --reset org.gnome.Lollypop
     flatpak override --user --reset com.github.geigi.cozy
 fi
+
+echo "The following personal certificates need renewal:"
+(cd "$DIR/certificates" && ./check-renewal.bash)
