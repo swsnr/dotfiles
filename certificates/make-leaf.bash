@@ -1,16 +1,15 @@
 #!/usr/bin/bash
 
-set -euo pipefail
+set -xeuo pipefail
 
-intermediate=intermediate-"$1"
-subject="$2"
-shift
+subject="$1"
 shift
 
 mkdir -p leafs
+# Leaf certs are valid for six months
 step-cli certificate create \
     "$subject" "leafs/$subject".crt "leafs/$subject".key \
     --profile leaf \
-    --ca "./$intermediate.crt" --ca-key "./$intermediate.key" \
+    --ca "./$HOSTNAME-intermediate.crt" --ca-key "./$HOSTNAME-intermediate.key" \
     --not-after=4383h \
-    "${@}"
+    "$@"
