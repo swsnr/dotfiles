@@ -702,7 +702,10 @@ systemctl start firewalld.service
 firewall-cmd --permanent --zone=home \
     --add-service=upnp-client \
     --add-service=rdp \
-    --add-service=ssh
+    --add-service=ssh \
+    --add-service=syncthing \
+    --add-service=mdns \
+    --add-service=samba-client
 if [[ "$HOSTNAME" == *kastl* ]]; then
     # Define a service for PS remote play
     firewall-cmd --permanent --new-service=ps-remote-play || true
