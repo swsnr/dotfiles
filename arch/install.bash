@@ -116,12 +116,13 @@ packages_to_install=(
     gwakeonlan # GUI tool to send WoL packages
 
     # Arch tools & infrastructure
-    asp               # Obtain PKGBUILDs for ABS
-    etc-update        # Deal with pacdiff/pacsave files
-    namcap            # Lint arch packages
-    debuginfod        # Remote debug info
-    arch-repro-status # Check reproducibility of installed packages
-    aurutils          # Build AUR packages
+    asp                             # Obtain PKGBUILDs for ABS
+    etc-update                      # Deal with pacdiff/pacsave files
+    namcap                          # Lint arch packages
+    debuginfod                      # Remote debug info
+    arch-repro-status               # Manually check reproducibility of installed packages
+    pacman-hook-reproducible-status # Check reproducibility of packages in pacman transactions
+    aurutils                        # Build AUR packages
 
     # Neovim & tools
     neovim
