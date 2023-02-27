@@ -41,7 +41,6 @@ packages=(
     pacman-hook-kernel-install
     pacman-hook-reproducible-status
     pcsc-cyberjack
-    plymouth
     setzer
     texlive-latexindent-meta
     ttf-fira-go

@@ -42,6 +42,7 @@ pacman_repositories=(
 )
 
 packages_to_remove=(
+    plymouth
     gnome-shell-extension-arch-update
     virt-manager
     qemu-desktop
@@ -66,7 +67,6 @@ packages_to_install=(
     intel-ucode
     linux
     linux-zen
-    plymouth # Splash screen at boot
     mkinitcpio
     apparmor
     sudo
