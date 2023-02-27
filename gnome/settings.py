@@ -13,9 +13,11 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
+
 import sys
 from pathlib import Path
 from gi.repository import Gio
+
 
 SETTINGS = {
     'org.gnome.desktop.interface': {
@@ -137,6 +139,15 @@ EXTENSION_SETTINGS = {
             'wisps-close-effect': True,
             'wisps-open-effect': True,
         }
+    },
+    'tiling-assistant@leleat-on-github': {
+        # Gaps between windows and to the screen borders
+        'single-screen-gap': 4,
+        'window-gap': 4,
+        # Adapt keybindings if the focused window is in tiled state: 1 means
+        # instead of adjusting the tiling switch focused window in the direction
+        # of the keybinding
+        'dynamic-keybinding-behaviour': 1,
     }
 }
 
