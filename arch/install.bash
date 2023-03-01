@@ -525,6 +525,8 @@ case "$HOSTNAME" in
         evolution-ews      # Exchange for evolution
         mattermost-desktop # Chat application
         filezilla          # File transfer
+        libreoffice-fresh  # Office
+        libreoffice-fresh-de
     )
 
     packages_to_install_optdeps+=(
