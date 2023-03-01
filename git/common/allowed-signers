@@ -3,5 +3,6 @@ sebastian@swsnr.de valid-after="20220128",valid-before="20221015" ssh-ed25519 AA
 sebastian@swsnr.de valid-after="20221013" ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBmga3fwFXxHTireSwL/YLdNpOuQcJXB8hW4FwOc6SCm basti@1password
 # Keys used at work
 sebastian@swsnr.de valid-after="20220101",valid-before="20220131" ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDXkef++Ma2OXx/ViiEzJXbUQjgVFmU8VMyM0u706/N6 laptop
-sebastian@swsnr.de valid-after="20220201" ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFg5HjOQsdiXlj3NjLiUPtSDuhEIpFrjKUaD5s8eJacj laptop
+sebastian@swsnr.de valid-after="20220201",valid-before="20230301" ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFg5HjOQsdiXlj3NjLiUPtSDuhEIpFrjKUaD5s8eJacj laptop
+sebastian@swsnr.de valid-after="20230301" ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEzAoqzQvMyvPzGKUn42wbl9lk7nrdYBz4Yaxx1d5AkH personal-key
 sebastian@swsnr.de valid-after="20220201" ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL9m67ZJyfVrTDsOuWdXC1+YM+rRuS1uy4btDNITXDna vm
