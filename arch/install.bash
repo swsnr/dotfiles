@@ -41,7 +41,9 @@ pacman_repositories=(
     "$DIR/etc/pacman/60-aur-repository.conf"
 )
 
-packages_to_remove=()
+packages_to_remove=(
+    gnome-search-providers-vscode
+)
 
 packages_to_install=(
     # Basic packages & system tools
@@ -296,7 +298,6 @@ packages_to_install=(
     gnome-shell-extension-fly-pie          # Touchscreen and mouse launcher
     gnome-shell-extension-tiling-assistant # Better tiling for Gnome shell
     gnome-search-providers-jetbrains       # Jetbrains projects in search
-    gnome-search-providers-vscode          # VSCode workspaces in search
     firefox-gnome-search-provider          # Firefox bookmarks in search
 )
 

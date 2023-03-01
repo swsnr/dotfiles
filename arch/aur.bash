@@ -30,7 +30,6 @@ packages=(
     frum
     git-gone
     gnome-search-providers-jetbrains
-    gnome-search-providers-vscode
     gnome-shell-extension-burn-my-windows
     gnome-shell-extension-desktop-cube
     gnome-shell-extension-fly-pie
