@@ -739,8 +739,3 @@ if ! [[ -e /efi/EFI/BOOT/BOOTX64.EFI ]]; then
 else
     bootctl update --graceful
 fi
-
-# Set plymouth theme
-if command -v plymouth-set-default-theme >/dev/null; then
-    plymouth-set-default-theme bgrt
-fi
