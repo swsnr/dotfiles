@@ -228,6 +228,7 @@ packages_to_install=(
     zim                     # Personal desktop wiki
     jabref                  # Bibliography
     qalculate-gtk           # Scientific calculator
+    remmina                 # Remote desktop
 
     # Latex
     texlive-most
@@ -358,6 +359,9 @@ packages_to_install_optdeps=(
     # wezterm: Nautilus integration
     # gnome-shell-extension-gsconnect: Send to menu
     python-nautilus
+
+    # remmina: RDP support
+    freerdp
 )
 
 services=(
@@ -517,23 +521,28 @@ case "$HOSTNAME" in
         lnav     # Log file analyzer
 
         # Additional applications
-        keepassxc     # Keepass
-        evolution-ews # Exchange for evolution
+        keepassxc          # Keepass
+        evolution-ews      # Exchange for evolution
+        mattermost-desktop # Chat application
+        filezilla          # File transfer
     )
 
     packages_to_install_optdeps+=(
         # virtualbox: Kernel modules
         virtualbox-host-dkms
         # libproxy: Proxy autoconfiguration URLs, for Gnome and Glib
-        libproxy-webkit
+        pacrunner
+        # electron: trashing
+        trash-cli
+    )
+
+    services+=(
+        pacrunner.service # Proxy auto-configuration URLs
     )
 
     flatpaks+=(
         # Chat apps
         chat.rocket.RocketChat
-        com.mattermost.Desktop
-        org.filezillaproject.Filezilla # File transfer
-        org.remmina.Remmina            # Remote desktop
     )
     ;;
 esac
