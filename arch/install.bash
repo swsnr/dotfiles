@@ -41,24 +41,7 @@ pacman_repositories=(
     "$DIR/etc/pacman/60-aur-repository.conf"
 )
 
-packages_to_remove=(
-    plymouth
-    gnome-shell-extension-arch-update
-    virt-manager
-    qemu-desktop
-    procs
-    zsa-wally
-    pandoc-cli
-    mdcat
-    lollypop
-    cozy-audiobooks
-    # Remove base-devel; it's not required to build in chroot
-    base-devel
-    # Not really relevant; all it really does is cleaning the pacman cache,
-    # which we can also do manually
-    pacman-contrib
-    reflector
-)
+packages_to_remove=()
 
 packages_to_install=(
     # Basic packages & system tools
@@ -571,22 +554,11 @@ for pkg in "${packages_to_remove[@]}"; do
     pacman --noconfirm -Rs "$pkg" || true
 done
 
-# Mark dependencies of base-devel as dependency installs
-base_devel_deps=(
-    archlinux-keyring autoconf automake binutils bison debugedit
-    fakeroot file findutils flex gawk gcc gettext grep groff gzip
-    libtool m4 pacman patch pkgconf sed texinfo which
-)
-for pkg in "${base_devel_deps[@]}"; do
-    pacman -D --asdeps "$pkg" || true
-done
 pacman -Qtdq | pacman --noconfirm -Rs - || true
 pacman -Syu --needed "${packages_to_install[@]}"
 pacman -S --needed --asdeps "${packages_to_install_optdeps[@]}"
 pacman -D --asdeps "${packages_to_install_optdeps[@]}"
 
-# Remove beta repository
-flatpak remote-delete flathub-beta || true
 # Configure flatpak languages to install in addition to system locale
 flatpak config --system --set extra-languages 'en;en_GB;de;de_DE'
 # Install all flatpaks
@@ -686,8 +658,6 @@ install -Dpm644 "$DIR/etc/audit/swsnr.rules" "/etc/audit/rules.d/00-swsnr.rules"
 
 # Services configuration
 install -Dpm644 "$DIR/etc/networkmanager-mdns.conf" /etc/NetworkManager/conf.d/50-mdns.conf
-# Remove old reflector configuration
-rm -rf /etc/xdg/reflector
 
 # Global font configuration
 for file in 10-hinting-slight 10-sub-pixel-rgb 11-lcdfilter-default; do
