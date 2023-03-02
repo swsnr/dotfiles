@@ -43,6 +43,7 @@ pacman_repositories=(
 
 packages_to_remove=(
     gnome-search-providers-vscode
+    wcal-git
 )
 
 packages_to_install=(
@@ -135,7 +136,6 @@ packages_to_install=(
     restic      # Backups
     p7zip
     zip
-    wcal-git # ISO week calendar
 
     # Spellchecking dictionaries
     hunspell-de

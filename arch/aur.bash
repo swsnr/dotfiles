@@ -43,7 +43,6 @@ packages=(
     setzer
     texlive-latexindent-meta
     ttf-fira-go
-    wcal-git
     wev
 )
 
