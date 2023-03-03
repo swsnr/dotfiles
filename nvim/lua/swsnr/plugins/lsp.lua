@@ -30,10 +30,13 @@ return {
       "ray-x/lsp_signature.nvim",
       -- Auto-completion
       "hrsh7th/cmp-nvim-lsp",
+      { "folke/neoconf.nvim", opts = true },
       {
         "jose-elias-alvarez/null-ls.nvim",
         dependencies = { "nvim-lua/plenary.nvim" },
         config = function()
+          -- Make sure that neoconf is initialized first, per its documentation
+          require("neoconf")
           local null_ls = require("null-ls")
           local sources = {
             -- Auto-formatting for fish
