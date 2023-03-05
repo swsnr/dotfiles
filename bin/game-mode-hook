@@ -29,16 +29,28 @@ night_light() {
     gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled "$1"
 }
 
+check_alive() {
+    local schema="org.gnome.mutter"
+    local key="check-alive-timeout"
+    if [[ "$1" == "true" ]]; then
+        gsettings reset "$schema" "$key"
+    else
+        gsettings set "$schema" "$key" 3600000
+    fi
+}
+
 game_mode_on() {
     set_profile "performance"
     show_banners false
     night_light false
+    check_alive false
 }
 
 game_mode_off() {
     set_profile "balanced"
     show_banners true
     night_light true
+    check_alive true
 }
 
 main() {
