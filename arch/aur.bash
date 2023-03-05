@@ -126,7 +126,7 @@ collect-dependencies() {
     local -n __depends="$1"
     shift
     # shellcheck disable=SC2034
-    readarray -t __depends < <(aur depends "$@")
+    readarray -t __depends < <(aur depends --reverse "$@" | tsort)
 }
 
 collect-debug-packages() {
