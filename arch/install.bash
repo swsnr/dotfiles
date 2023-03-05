@@ -422,9 +422,6 @@ case "$HOSTNAME" in
         # Game mode
         gamemode
         innoextract # Extract Windows installers
-        # sdl support tools
-        controllermap
-        sdl2-jstest
 
         # Apps
         mediathekview

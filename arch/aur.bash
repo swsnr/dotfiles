@@ -51,10 +51,8 @@ case "$HOSTNAME" in
     packages+=(
         ausweisapp2
         chiaki-git
-        controllermap
         gnome-shell-extension-gsconnect
         ja2-stracciatella
-        sdl2-jstest
         threema-desktop
         whatsapp-for-linux
     )
