@@ -60,6 +60,7 @@ case "$HOSTNAME" in
 *RB*)
     packages+=(
         python2
+        rocketchat-desktop
     )
     ;;
 esac

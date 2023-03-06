@@ -505,6 +505,7 @@ case "$HOSTNAME" in
         keepassxc          # Keepass
         evolution-ews      # Exchange for evolution
         mattermost-desktop # Chat application
+        rocketchat-desktop # Chat application
         filezilla          # File transfer
         libreoffice-fresh  # Office
         libreoffice-fresh-de
@@ -521,11 +522,6 @@ case "$HOSTNAME" in
 
     services+=(
         pacrunner.service # Proxy auto-configuration URLs
-    )
-
-    flatpaks+=(
-        # Chat apps
-        chat.rocket.RocketChat
     )
     ;;
 esac
