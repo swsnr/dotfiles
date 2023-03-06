@@ -20,6 +20,26 @@ from gi.repository import Gio
 
 
 SETTINGS = {
+    'org.gnome.mutter': {
+        'dynamic-workspaces': True,
+        # Switch workspaces on all screens
+        'workspaces-only-on-primary': False,
+    },
+
+    # Desktop settings
+    'org.gnome.system.location': {
+        # Enable location service
+        'enabled': True
+    },
+    'org.gnome.desktop.calendar': {
+        # Show week numbers in calendar
+        'show-weekdate': True
+    },
+    'org.gnome.desktop.input-sources': {
+        # compose:ralt: Set compose key to right alt key, according to my moonlander layout
+        # numpad:mac: Always use numpad for nummeric keys, never for arrows and stuff
+        'xkb-options': ['compose:ralt', 'numpad:mac']
+    },
     'org.gnome.desktop.interface': {
         # Themes and fonts
         'icon-theme': None,
@@ -36,48 +56,11 @@ SETTINGS = {
         # IntelliJs Ctrl shortcut to add multiple cursors
         'locate-pointer': False
     },
-    'org.gnome.shell.keybindings': {
-        # Disable default shortcuts for application launchers (Super+<number>)
-        # I prefer to have these for workspace switching
-        'switch-to-application-1': [],
-        'switch-to-application-2': [],
-        'switch-to-application-3': [],
-        'switch-to-application-4': [],
-        'switch-to-application-5': [],
-        'switch-to-application-6': [],
-        'switch-to-application-7': [],
-        'switch-to-application-8': [],
-        'switch-to-application-9': [],
-    },
-    'org.gnome.shell.app-switcher': {
-        # Limit app and window switcher to current workspace
-        'current-workspace-only': True,
-    },
-    'org.gnome.system.location': {
-        # Enable location service
-        'enabled': True
-    },
     'org.gnome.desktop.peripherals.keyboard': {
         'remember-numlock-state': True,
     },
-    'org.gnome.desktop.input-sources': {
-        # compose:ralt: Set compose key to right alt key, according to my moonlander layout
-        # numpad:mac: Always use numpad for nummeric keys, never for arrows and stuff
-        'xkb-options': ['compose:ralt', 'numpad:mac']
-    },
-    'org.gnome.desktop.calendar': {
-        # Show week numbers in calendar
-        'show-weekdate': True
-    },
-    'org.gnome.desktop.media-handling': {
-        'automount': None,
-        'automount-open': None
-    },
-    'org.gnome.mutter': {
-        'dynamic-workspaces': True,
-        # Switch workspaces on all screens
-        'workspaces-only-on-primary': False,
-    },
+
+    # Window manager settings
     'org.gnome.desktop.wm.preferences': {
         'titlebar-font': None
     },
@@ -112,6 +95,27 @@ SETTINGS = {
         'move-to-workspace-5': ['<Shift><Super>5'],
         'move-to-workspace-6': ['<Shift><Super>6'],
     },
+
+    # Shell settings
+    'org.gnome.shell.keybindings': {
+        # Disable default shortcuts for application launchers (Super+<number>)
+        # I prefer to have these for workspace switching
+        'switch-to-application-1': [],
+        'switch-to-application-2': [],
+        'switch-to-application-3': [],
+        'switch-to-application-4': [],
+        'switch-to-application-5': [],
+        'switch-to-application-6': [],
+        'switch-to-application-7': [],
+        'switch-to-application-8': [],
+        'switch-to-application-9': [],
+    },
+    'org.gnome.shell.app-switcher': {
+        # Limit app and window switcher to current workspace
+        'current-workspace-only': True,
+    },
+
+    # Application settings
     'org.gnome.software': {
         # Don't educate me Gnome
         'show-nonfree-ui': False,
