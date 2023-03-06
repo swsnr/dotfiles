@@ -71,6 +71,16 @@ SETTINGS = {
     'org.gnome.desktop.peripherals.keyboard': {
         'remember-numlock-state': True,
     },
+    'org.gnome.desktop.screensaver': {
+        # Lock screen immediately when the session becomes idle
+        'lock-enabled': True,
+        'lock-delay': 0
+    },
+    'org.gnome.desktop.session': {
+        # After five minutes the session becomes idle, and the timeouts for
+        # power-saving and lock-screen start
+        'idle-delay': 300
+    },
 
     # Window manager settings
     'org.gnome.desktop.wm.preferences': {
