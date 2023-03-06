@@ -41,10 +41,7 @@ pacman_repositories=(
     "$DIR/etc/pacman/60-aur-repository.conf"
 )
 
-packages_to_remove=(
-    gnome-search-providers-vscode
-    wcal-git
-)
+packages_to_remove=()
 
 packages_to_install=(
     # Basic packages & system tools
@@ -384,11 +381,7 @@ services=(
     pcscd.socket                  # Smartcards, mostly eID
 )
 
-services_to_disable=(
-    paccache.timer
-    pacman-filesdb-refresh.timer
-    reflector.timer
-)
+services_to_disable=()
 
 # Flatpaks
 flatpaks=(
