@@ -224,11 +224,6 @@ fi
 
 # Flatpak setup
 if has flatpak; then
-    # Remove unused user remotes
-    flatpak remote-delete --user flathub || true
-    flatpak remote-delete --user flathub-beta || true
-    flatpak remote-delete --user gnome-nightly || true
-
     # Adapt filesystem permissions for Steam: Add access to downloads for backup
     # imports, but deny access to Music and Pictures
     flatpak override --user \
@@ -236,15 +231,6 @@ if has flatpak; then
         --nofilesystem xdg-music \
         --nofilesystem xdg-pictures \
         com.valvesoftware.Steam
-
-    # Remove overrides for flatpaks I no longer use
-    flatpak override --user --reset re.chiaki.Chiaki
-    flatpak override --user --reset io.github.ja2-stracciatella
-    flatpak override --user --reset org.nickvision.tagger
-    flatpak override --user --reset com.github.geigi.cozy
-    flatpak override --user --reset org.kde.tellico
-    flatpak override --user --reset org.gnome.Lollypop
-    flatpak override --user --reset com.github.geigi.cozy
 fi
 
 echo "The following personal certificates need renewal:"
