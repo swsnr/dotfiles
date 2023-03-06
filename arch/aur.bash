@@ -196,7 +196,9 @@ main() {
     # need to rebuild it again.  We'd only like to trigger a rebuild if the
     # package is really outdated.
     collect-vcs-packages vcs_packages "${packages_with_dependencies[@]}"
-    aur sync -daur --nocheck -cRS --nover-argv "${vcs_packages[@]}"
+    if [[ "${#vcs_packages[@]}" -gt 0 ]]; then
+        aur sync -daur --nocheck -cRS --nover-argv "${vcs_packages[@]}"
+    fi
 
     # On my personal systems backup repo to my personal NAS to allow reinstalling
     # without rebuilding everything
