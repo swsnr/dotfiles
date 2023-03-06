@@ -169,8 +169,6 @@ case "$HOSTNAME" in
         # home@swsnr.de
         # Show UTC time, ISO week and DOY in top bar
         spacetimeformats@swsnr.de
-        # Resize windows for screenshots
-        screenshot-window-sizer@gnome-shell-extensions.gcampax.github.com
     )
     ;;
 esac
