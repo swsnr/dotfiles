@@ -159,16 +159,9 @@ case "$HOSTNAME" in
 *kastl*)
     extensions+=(
         # Connect my system to my mobile phone
-        gsconnect@andyholmes.github.io
+        'gsconnect@andyholmes.github.io'
         # Touch screen menus
-        flypie@schneegans.github.com
-    )
-    ;;
-*RB*)
-    extensions+=(
-        # home@swsnr.de
-        # Show UTC time, ISO week and DOY in top bar
-        spacetimeformats@swsnr.de
+        'flypie@schneegans.github.com'
     )
     ;;
 esac
