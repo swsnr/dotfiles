@@ -77,6 +77,7 @@ packages_to_install=(
     # System monitoring
     iotop
     htop
+    bottom
     lsof
     # Power management
     powertop
@@ -489,6 +490,7 @@ case "$HOSTNAME" in
         podman     # Deamonless containers
         kubectl    # k8s client
         helm       # k8s package manager
+        skopeo     # Container registory tool
         sbt        # Scala build tool
         jenv       # Java version manager
         # Git and related tools
@@ -508,7 +510,6 @@ case "$HOSTNAME" in
         evolution-ews      # Exchange for evolution
         mattermost-desktop # Chat application
         rocketchat-desktop # Chat application
-        filezilla          # File transfer
         libreoffice-fresh  # Office
         libreoffice-fresh-de
     )
