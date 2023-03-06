@@ -489,6 +489,8 @@ case "$HOSTNAME" in
         podman     # Deamonless containers
         kubectl    # k8s client
         helm       # k8s package manager
+        sbt        # Scala build tool
+        jenv       # Java version manager
         # Git and related tools
         glab
 
