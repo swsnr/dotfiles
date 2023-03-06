@@ -68,6 +68,10 @@ SETTINGS = {
         # IntelliJs Ctrl shortcut to add multiple cursors
         'locate-pointer': False
     },
+    'org.gnome.desktop.notifications': {
+        # Do not show notifications in lock screen.  I find this noisy.
+        'show-in-lock-screen': False
+    },
     'org.gnome.desktop.peripherals.keyboard': {
         'remember-numlock-state': True,
     },
