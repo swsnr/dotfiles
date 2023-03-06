@@ -492,7 +492,6 @@ case "$HOSTNAME" in
         helm       # k8s package manager
         skopeo     # Container registory tool
         sbt        # Scala build tool
-        jenv       # Java version manager
         # Git and related tools
         glab
 
