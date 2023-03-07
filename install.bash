@@ -101,7 +101,7 @@ ln -fs -t ~/.sbt/1.0/plugins/project/ "$DIR/scala/sbt-updates.sbt"
 
 # k8s and related tools
 mkdir -p ~/.config/k9s
-ln -fs "$DIR/k8s/k9s/skins" ~/.config/k9s/skins
+ln -fs -t ~/.config/k9s "$DIR/k8s/k9s/skins" ~/.config/k9s
 # Default k9s skin
 ln -fs ./skins/gruvbox-light.yml ~/.config/k9s/skin.yml
 
