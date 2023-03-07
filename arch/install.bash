@@ -492,6 +492,9 @@ case "$HOSTNAME" in
         networkmanager-vpnc
         networkmanager-openconnect
 
+        # Security
+        rust-rage # Simple file encryption
+
         # Networking and debugging tools
         lftp     # Powerful FTP client
         websocat # Debug websockets on the CLI
