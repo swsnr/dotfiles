@@ -482,6 +482,7 @@ case "$HOSTNAME" in
         dotnet-sdk # .NET development
         podman     # Deamonless containers
         kubectl    # k8s client
+        k9s        # k8s TUI
         helm       # k8s package manager
         skopeo     # Container registory tool
         sbt        # Scala build tool
