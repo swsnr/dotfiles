@@ -98,6 +98,7 @@ ln -fs "$DIR/scala/ammonite-predef.sc" ~/.ammonite/predef.sc
 ln -fs "$DIR/scala/settings.sbt" ~/.sbt/1.0/settings.sbt
 ln -fs -t ~/.sbt/1.0/plugins "$DIR/scala/"{plugins,sbt-updates}.sbt
 ln -fs -t ~/.sbt/1.0/plugins/project/ "$DIR/scala/sbt-updates.sbt"
+ln -fs -t ~/.sbt "$DIR/scala/sbtopts"
 
 # k8s and related tools
 mkdir -p ~/.config/k9s
