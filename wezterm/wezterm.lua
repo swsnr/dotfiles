@@ -64,9 +64,9 @@ end
 
 function scheme_for_appearance(appearance)
   if appearance:find("Dark") then
-    return "tokyonight"
+    return "Gruvbox dark, soft (base16)"
   else
-    return "tokyonight-day"
+    return "Gruvbox light, soft (base16)"
   end
 end
 

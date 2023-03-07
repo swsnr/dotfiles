@@ -18,6 +18,7 @@
 return {
   {
     "folke/tokyonight.nvim",
+    enabled = false,
     -- Make sure we load at startup, first of all
     lazy = false,
     priority = 1000,
@@ -27,6 +28,20 @@ return {
     config = function(_, opts)
       require("tokyonight").setup(opts)
       vim.cmd([[colorscheme tokyonight]])
+    end,
+  },
+  {
+    "ellisonleao/gruvbox.nvim",
+    -- Make sure we load at startup, first of all
+    lazy = false,
+    priority = 1000,
+    opts = {
+      contrast = "soft",
+      dim_inactive = true,
+    },
+    config = function(_, opts)
+      require("gruvbox").setup(opts)
+      vim.cmd([[colorscheme gruvbox]])
     end,
   },
   {

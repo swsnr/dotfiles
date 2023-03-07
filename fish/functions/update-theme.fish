@@ -39,13 +39,11 @@ function update-theme -d 'Read the current terminal background and update our en
     # Adapt shell environment to background color
     switch $background
         case light
-            tokyonight_day
-            set -gx BAT_THEME tokyonight_day
-            set VIVID_THEME solarized-light
+            set -gx BAT_THEME gruvbox-light
+            set VIVID_THEME gruvbox-light-soft
         case dark
-            tokyonight_night
-            set -gx BAT_THEME tokyonight_night
-            set VIVID_THEME solarized-dark
+            set -gx BAT_THEME gruvbox-dark
+            set VIVID_THEME gruvbox-dark-soft
         case unknown
             # If we don't know about the terminal background, default to the
             # standard 8 bit theme in Bat
