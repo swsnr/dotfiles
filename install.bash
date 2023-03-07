@@ -30,6 +30,11 @@ mkdir -p ~/.local/bin
 clean-recursively ~/.local/bin
 ln -fs -t ~/.local/bin/ "$DIR/bin/"*
 
+# Experimental thin client for SBT, to connect to running servers
+if [[ -e /usr/share/sbt/bin/sbtn-x86_64-pc-linux ]]; then
+    ln -fs /usr/share/sbt/bin/sbtn-x86_64-pc-linux ~/.local/bin/sbtn
+fi
+
 # Environment variables
 mkdir -p ~/.config/environment.d
 ln -fs -t ~/.config/environment.d "$DIR"/environment/*.conf
