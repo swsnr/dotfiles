@@ -99,6 +99,12 @@ ln -fs "$DIR/scala/settings.sbt" ~/.sbt/1.0/settings.sbt
 ln -fs -t ~/.sbt/1.0/plugins "$DIR/scala/"{plugins,sbt-updates}.sbt
 ln -fs -t ~/.sbt/1.0/plugins/project/ "$DIR/scala/sbt-updates.sbt"
 
+# k8s and related tools
+mkdir -p ~/.config/k9s
+ln -fs "$DIR/k8s/k9s/skins" ~/.config/k9s/skins
+# Default k9s skin
+ln -fs ./skins/gruvbox-light.yml ~/.config/k9s/skin.yml
+
 # GPG
 mkdir -p ~/.gnupg
 clean-recursively ~/.gnupg || true
