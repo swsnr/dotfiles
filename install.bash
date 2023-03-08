@@ -155,7 +155,6 @@ extensions=(
     # Extend top bar: Show removable drives, workspaces and systray
     'drive-menu@gnome-shell-extensions.gcampax.github.com'
     'workspace-indicator@gnome-shell-extensions.gcampax.github.com'
-    'appindicatorsupport@rgcjonas.gmail.com'
     # Disable automatic extension updates; I install all extensions through
     # pacman
     'disable-extension-updates@swsnr.de'
@@ -184,6 +183,9 @@ if has gnome-extensions; then
             gnome-extensions enable "${extension}"
         fi
     done
+
+    # This extension has performance issues, see https://github.com/ubuntu/gnome-shell-extension-appindicator/issues/295
+    gnome-extensions disable 'appindicatorsupport@rgcjonas.gmail.com'
 fi
 
 # On personal systems use 1password for SSH and commit signing

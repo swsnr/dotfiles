@@ -41,7 +41,11 @@ pacman_repositories=(
     "$DIR/etc/pacman/60-aur-repository.conf"
 )
 
-packages_to_remove=()
+packages_to_remove=(
+    # Has performance issues, see https://github.com/ubuntu/gnome-shell-extension-appindicator/issues/295
+    gnome-shell-extension-appindicator
+    libappindicator-gtk3
+)
 
 packages_to_install=(
     # Basic packages & system tools
@@ -271,8 +275,7 @@ packages_to_install=(
     gnome-weather
     gnome-maps
     gnome-shell
-    gnome-shell-extensions             # Built-in shell extensions for Gnome
-    gnome-shell-extension-appindicator # Systray for Gnome
+    gnome-shell-extensions # Built-in shell extensions for Gnome
     gnome-system-monitor
     gnome-control-center
     gnome-tweaks
@@ -325,8 +328,6 @@ packages_to_install_optdeps=(
     devtools
     # gnome-control-center: app permissions
     malcontent
-    # gnome-shell-extension-appindicator: GTK3 apps
-    libappindicator-gtk3
 
     # kiconthemes: fallback icons
     breeze-icons
