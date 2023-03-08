@@ -16,7 +16,7 @@
 
 import sys
 from pathlib import Path
-from gi.repository import Gio
+from gi.repository import Gio, GLib
 
 
 SETTINGS = {
@@ -78,12 +78,12 @@ SETTINGS = {
     'org.gnome.desktop.screensaver': {
         # Lock screen immediately when the session becomes idle
         'lock-enabled': True,
-        'lock-delay': 0
+        'lock-delay': GLib.Variant('u', 0),
     },
     'org.gnome.desktop.session': {
         # After five minutes the session becomes idle, and the timeouts for
         # power-saving and lock-screen start
-        'idle-delay': 300
+        'idle-delay': GLib.Variant('u', 300)
     },
 
     # Window manager settings
@@ -201,6 +201,8 @@ BINDINGS = {
 def set_pytype(settings, key, value):
     if value is None:
         settings.reset(key)
+    elif isinstance(value, GLib.Variant):
+        settings.set_value(key, value)
     elif isinstance(value, str):
         settings.set_string(key, value)
     elif isinstance(value, bool):
