@@ -21,6 +21,11 @@ REPODIR="${REPODB%/*}"
 REPONAME="${REPODB##*/}"
 REPONAME="${REPONAME%%.*}"
 
+WORKDIR="$(mktemp --directory --tmpdir="${XDG_RUNTIME_DIR}" dotfiles-aur-workdir.XXXXXXX)"
+trap 'rm -rf -- "$WORKDIR"' EXIT
+
+: "${XDG_CACHE_HOME:="${HOME}/.cache"}"
+
 packages=(
     1password
     1password-cli
@@ -169,6 +174,21 @@ collect-vcs-packages() {
     done
 }
 
+collect-outdated-vcs-packages() {
+    local -n __outdated="$1"
+    shift
+
+    __outdated=()
+    local vcs_versions_file
+    vcs_versions_file="${WORKDIR}/vcs-versions"
+
+    (
+        cd "${XDG_CACHE_HOME}/aurutils/sync"
+        aur srcver --noprepare "$@" >"${vcs_versions_file}"
+    )
+    readarray -t __outdated < <(aur repo -d "${REPONAME}" -l | aur vercmp -q -p "${vcs_versions_file}")
+}
+
 main() {
     bootstrap
 
@@ -176,6 +196,7 @@ main() {
     local packages_with_dependencies_and_debug
     local remove_from_repo
     local vcs_packages
+    local outdated_vcs_packages
 
     collect-dependencies packages_with_dependencies "${packages[@]}"
 
@@ -197,8 +218,10 @@ main() {
     # need to rebuild it again.  We'd only like to trigger a rebuild if the
     # package is really outdated.
     collect-vcs-packages vcs_packages "${packages_with_dependencies[@]}"
-    if [[ "${#vcs_packages[@]}" -gt 0 ]]; then
-        aur sync -daur --nocheck -cRS --nover-argv "${vcs_packages[@]}"
+    collect-outdated-vcs-packages outdated_vcs_packages "${vcs_packages[@]}"
+
+    if [[ "${#outdated_vcs_packages[@]}" -gt 0 ]]; then
+        aur sync -daur --nocheck -cRS --nover-argv "${outdated_vcs_packages[@]}"
     fi
 
     # On my personal systems backup repo to my personal NAS to allow reinstalling
