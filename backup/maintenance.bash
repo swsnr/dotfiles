@@ -45,14 +45,12 @@ inhibit() {
 # keep montly snapshots, and keep a yearly snapshot for like forever.
 inhibit "Deleting old backup snapshots" \
     restic -r "rclone:kastl:restic-$USERNAME" forget \
+    --prune \
     --tag basti,dotfiles-script \
     --keep-last 10 \
     --keep-within 6m \
     --keep-monthly 24 \
     --keep-yearly 20
-# Prune unused data after deleting snapshots
-inhibit "Pruning unused backup data" \
-    nice restic -r "rclone:kastl:restic-$USERNAME" prune
 # Check that the data is still valid
 inhibit "Verifying backups" \
     nice restic -r "rclone:kastl:restic-$USERNAME" check --read-data-subset '10%'
