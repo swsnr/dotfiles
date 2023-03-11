@@ -45,6 +45,8 @@ packages_to_remove=(
     # Has performance issues, see https://github.com/ubuntu/gnome-shell-extension-appindicator/issues/295
     gnome-shell-extension-appindicator
     libappindicator-gtk3
+    # Need no longer
+    step-cli
 )
 
 packages_to_install=(
@@ -91,7 +93,6 @@ packages_to_install=(
     # name resolution by systemd-resolved.
     avahi
     # Cryptography & certificates
-    step-cli   # Create CA & leaf certificates
     sequoia-sq # Sane GPG tooling
     acme.sh    # ACME/Letsencrypt client
     # Network tools
