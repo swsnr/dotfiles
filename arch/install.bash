@@ -90,9 +90,10 @@ packages_to_install=(
     # DNS-SD, mostly for printers, i.e. CUPS. Service discovery is handled by Avahi,
     # name resolution by systemd-resolved.
     avahi
-    # Cryptography
+    # Cryptography & certificates
     step-cli   # Create CA & leaf certificates
     sequoia-sq # Sane GPG tooling
+    acme.sh    # ACME/Letsencrypt client
     # Network tools
     curl
     xh # HTTP requests on the command line
