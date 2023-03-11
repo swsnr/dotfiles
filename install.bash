@@ -186,7 +186,7 @@ if has gnome-extensions; then
     done
 
     # This extension has performance issues, see https://github.com/ubuntu/gnome-shell-extension-appindicator/issues/295
-    gnome-extensions disable 'appindicatorsupport@rgcjonas.gmail.com'
+    gnome-extensions disable 'appindicatorsupport@rgcjonas.gmail.com' || true
 fi
 
 # On personal systems use 1password for SSH and commit signing
