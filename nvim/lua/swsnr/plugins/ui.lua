@@ -32,6 +32,7 @@ return {
   },
   {
     "ellisonleao/gruvbox.nvim",
+    enabled = false,
     -- Make sure we load at startup, first of all
     lazy = false,
     priority = 1000,
@@ -42,6 +43,19 @@ return {
     config = function(_, opts)
       require("gruvbox").setup(opts)
       vim.cmd([[colorscheme gruvbox]])
+    end,
+  },
+  {
+    "navarasu/onedark.nvim",
+    -- Make sure we load at startup, first of all
+    lazy = false,
+    priority = 1000,
+    opts = {
+      style = "light",
+    },
+    config = function(_, opts)
+      require("onedark").setup(opts)
+      vim.cmd([[colorscheme onedark]])
     end,
   },
   {
