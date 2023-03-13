@@ -182,11 +182,13 @@ collect-outdated-vcs-packages() {
     local vcs_versions_file
     vcs_versions_file="${WORKDIR}/vcs-versions"
 
-    (
-        cd "${XDG_CACHE_HOME}/aurutils/sync"
-        aur srcver --noprepare "$@" >"${vcs_versions_file}"
-    )
-    readarray -t __outdated < <(aur repo -d "${REPONAME}" -l | aur vercmp -q -p "${vcs_versions_file}")
+    if [[ "$#" -gt 0 ]]; then
+        (
+            cd "${XDG_CACHE_HOME}/aurutils/sync"
+            aur srcver --noprepare "$@" >"${vcs_versions_file}"
+        )
+        readarray -t __outdated < <(aur repo -d "${REPONAME}" -l | aur vercmp -q -p "${vcs_versions_file}")
+    fi
 }
 
 main() {
