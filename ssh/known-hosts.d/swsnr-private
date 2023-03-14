@@ -1,0 +1,18 @@
+# To add a key to this file find an authoritative source of the host key,
+# copy it and mention the source.  Sometimes we're only told the fingerprint and
+# not the actual key; in this case obtain the key with ssh-keyscan and compute
+# the fingerprint with ssh-keygen:
+#
+#     $ ssh-keyscan $host > $host.keys
+#     $ ssh-keygen -l -f $host.keys
+#
+# Then compare the fingerprint; if it matches add the desired key of the host
+# to this file.
+#
+# Eventually make sure to hash this file with ssh-keygen -H
+
+# See https://docs.hetzner.com/de/robot/storage-box/access/access-ssh-rsync-borg/#ssh-host-keys
+|1|SyAcqjXumif2eTlZog6A0+AAWwo=|rs3H5uscqtgm2whG8TovWXAqgqs= ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIICf9svRenC/PLKIL9nk6K/pxQgoiFC41wTNvoIncOxs
+# Home NAS; ssh-keyscan on a trusted network
+|1|7FxKLRAZlR8vDKejM6bOgp+chdc=|MI2103E787WwGOSKyo8/XYpaFzw= ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF7Bb/GAgd9K57GzEGyyXul/eNf0WhzrGKoeyD21kcKE
+|1|H29aBXAZy8uL4jJlPt1OFYZ6n28=|bY/2hwRsiy2uC6jly+W1bXIQq5g= ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF7Bb/GAgd9K57GzEGyyXul/eNf0WhzrGKoeyD21kcKE
