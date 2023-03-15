@@ -48,7 +48,7 @@ local M = {
       end,
       desc = "Change directory",
     },
-    { "<leader>ha", "<cmd>Telescope autocommands<cr>", desc = "Tags" },
+    { "<leader>ha", "<cmd>Telescope autocommands<cr>", desc = "Autocommands" },
     { "<leader>hh", "<cmd>Telescope help_tags<cr>", desc = "Tags" },
     { "<leader>hk", "<cmd>Telescope keymaps<cr>", desc = "Keys" },
     {
