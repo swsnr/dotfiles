@@ -17,6 +17,11 @@
 
 set -euo pipefail
 
+disable_while_typing() {
+    gsettings set \
+        org.gnome.desktop.peripherals.touchpad disable-while-typing "$1"
+}
+
 show_banners() {
     gsettings set org.gnome.desktop.notifications show-banners "$1"
 }
@@ -41,6 +46,7 @@ check_alive() {
 
 game_mode_on() {
     set_profile "performance"
+    disable_while_typing false
     show_banners false
     night_light false
     check_alive false
@@ -48,6 +54,7 @@ game_mode_on() {
 
 game_mode_off() {
     set_profile "balanced"
+    disable_while_typing true
     show_banners true
     night_light true
     check_alive true
