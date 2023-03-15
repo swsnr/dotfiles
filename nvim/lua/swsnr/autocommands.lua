@@ -60,7 +60,7 @@ v.nvim_create_autocmd({ "FileType" }, {
     vim.opt_local.textwidth = 0
     vim.opt_local.formatoptions:remove("t")
     -- But enable line wrapping
-    vim.opt_local.wrap = false
+    vim.opt_local.wrap = true
   end,
   group = ly_group,
 })
