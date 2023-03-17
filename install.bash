@@ -238,6 +238,3 @@ if has flatpak; then
         --nofilesystem xdg-pictures \
         com.valvesoftware.Steam
 fi
-
-echo "The following personal certificates need renewal:"
-(cd "$DIR/certificates" && ./check-renewal.bash)
