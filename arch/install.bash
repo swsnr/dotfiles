@@ -421,7 +421,7 @@ case "$HOSTNAME" in
         innoextract # Extract Windows installers
 
         # Apps
-        mediathekview
+        mediathekview      # Client for public broadcasting video libraries
         digikam            # Photo management
         paperwork          # Document management
         tellico            # Collection manager
@@ -433,6 +433,7 @@ case "$HOSTNAME" in
         ja2-stracciatella  # Modern runtime for the venerable JA2
         threema-desktop    # Secure messaging
         kid3-qt            # Audio tag editor
+        sound-juicer       # Simple audio disc ripper
 
         gnome-shell-extension-gsconnect # Connect phone and desktop system
         syncthing                       # Network synchronization
