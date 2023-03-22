@@ -81,6 +81,7 @@ packages_to_install=(
     iotop
     htop
     bottom
+    nvtop
     lsof
     # Power management
     powertop
