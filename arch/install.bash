@@ -438,6 +438,9 @@ case "$HOSTNAME" in
 
         gnome-shell-extension-gsconnect # Connect phone and desktop system
         syncthing                       # Network synchronization
+
+        # KVM virtualization
+        virt-manager
     )
 
     packages_to_install_optdeps+=(
@@ -460,6 +463,13 @@ case "$HOSTNAME" in
         gnucash-docs
         # viking: convert GPS tracks
         gpsbabel
+
+        # libvirt: QEMU/KVM support
+        qemu-desktop
+        # libvirt: NAT/DHCP for guests
+        dnsmasq
+        # libvirt: NAT networking
+        iptables-nft
     )
 
     flatpaks+=(
