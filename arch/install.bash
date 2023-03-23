@@ -47,6 +47,8 @@ packages_to_remove=(
     libappindicator-gtk3
     # Need no longer
     step-cli
+    # Fonts I no longer use
+    ttf-ubuntu-font-family
 )
 
 packages_to_install=(
@@ -241,10 +243,10 @@ packages_to_install=(
     ttf-carlito
     ttf-cascadia-code
     # Extra fonts
-    ttf-ubuntu-font-family
     ttf-jetbrains-mono
-    otf-vollkorn # My favorite serif font for documents
-    ttf-fira-go  # A nice font for presentations
+    otf-vollkorn  # My favorite serif font for documents
+    ttf-fira-sans # A reasonable font for websites
+    ttf-fira-go   # A nice font for presentations
 
     # Gnome infrastructure
     # Gnome style for Qt apps
