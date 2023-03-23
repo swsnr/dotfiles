@@ -138,6 +138,7 @@ ln -fs "$DIR/latex/latexmkrc" ~/.config/latexmk/latexmkrc
 ln -fs "$DIR/misc/XCompose" ~/.XCompose
 ln -fs "$DIR/misc/electron-flags.conf" ~/.config/electron-flags.conf
 ln -fs "$DIR/misc/electron-flags.conf" ~/.config/electron19-flags.conf
+ln -fs "$DIR/misc/electron-flags.conf" ~/.config/electron21-flags.conf
 rm -f ~/.config/electron17-flags.conf
 ln -fs "$DIR/misc/gamemode.ini" ~/.config/gamemode.ini
 ln -fs "$DIR/misc/zim-style.conf" ~/.config/zim/style.conf
