@@ -47,8 +47,20 @@ packages_to_remove=(
     libappindicator-gtk3
     # Need no longer
     step-cli
-    # Fonts I no longer use
+    cargo-audit    # cargo-deny instead
+    cargo-outdated # neovim tooling instead
+    gobject-introspection
     ttf-ubuntu-font-family
+    gvfs-goa
+    gvfs-google
+    gvfs-nfs
+)
+
+# Packages to mark as optional dependencies
+packages_to_mark_as_deps=(
+    zip
+    gst-plugins-bad
+    gst-plugins-ugly
 )
 
 packages_to_install=(
@@ -72,41 +84,35 @@ packages_to_install=(
     btrfs-progs
 
     # Hardware support and tools
-    fwupd # Firmware updates
-    usbutils
-    nvme-cli
+    fwupd          # Firmware updates
+    usbutils       # USB utilities
+    nvme-cli       # NVME tools
     alsa-utils     # ALSA control
     zsa-wally-cli  # Keyboard flashing tool
     pcsc-cyberjack # Card reader driver for eID
 
     # System monitoring
-    iotop
-    htop
-    bottom
-    nvtop
-    lsof
-    # Power management
-    powertop
-    power-profiles-daemon
+    iotop    # Monitor IO load
+    htop     # Monitor processes
+    nvtop    # Monitor GPU load
+    bottom   # Overall system monitor
+    lsof     # Check open files
+    powertop # Monitor power consumption
 
     # Networking & security
-    networkmanager
-    firewalld
-    # DNS-SD, mostly for printers, i.e. CUPS. Service discovery is handled by Avahi,
-    # name resolution by systemd-resolved.
-    avahi
-    # Cryptography & certificates
-    sequoia-sq # Sane GPG tooling
-    acme.sh    # ACME/Letsencrypt client
-    # Network tools
-    curl
-    xh # HTTP requests on the command line
-    rsync
-    rclone     # rsync for clouds
-    yt-dlp     # youtube-dl with extra features
-    clamav     # For the occasional Windows malware scan
-    wol        # Wake up systems on LAN
-    gwakeonlan # GUI tool to send WoL packages
+    networkmanager # Standard desktop network tool
+    firewalld      # Firewall
+    avahi          # DNS-SD for CUPS, only for service-discovery (name resolution is done by resolved)
+    sequoia-sq     # Sane GPG tooling
+    acme.sh        # ACME/Letsencrypt client
+    curl           # The standard HTTP client
+    xh             # HTTP requests on the command line
+    rsync          # Remote copy and syncing
+    rclone         # rsync for clouds
+    yt-dlp         # youtube-dl with extra features
+    clamav         # For the occasional Windows malware scan
+    wol            # Wake up systems on LAN
+    gwakeonlan     # GUI tool to send WoL packages
 
     # Arch tools & infrastructure
     asp                             # Obtain PKGBUILDs for ABS
@@ -122,14 +128,13 @@ packages_to_install=(
     neovide
     stylua # Code formatter for lua
 
-    # Shell environment
-    wezterm # My preferred terminal emulator
-    fish    # My preferred shell
-    zoxide  # Cross-shell/editor directory jumping
-    fzf     # Fuzzy file finder for shells
-    man-db
-    man-pages
-    # CLI tools
+    # Shell environment and CLI tools
+    wezterm     # My preferred terminal emulator
+    fish        # My preferred shell
+    zoxide      # Cross-shell/editor directory jumping
+    fzf         # Fuzzy file finder for shells
+    man-db      # Man page reader
+    man-pages   # Linux manpagers
     exa         # Better ls (with git support)
     vivid       # Creates themes for dircolors
     ripgrep     # Better grep
@@ -141,8 +146,7 @@ packages_to_install=(
     nnn         # Command line file manager (also a good pager for aurutils)
     renameutils # qmv is super nice
     restic      # Backups
-    p7zip
-    zip
+    p7zip       # CLI zip file tool
 
     # Spellchecking dictionaries
     hunspell-de
@@ -158,15 +162,11 @@ packages_to_install=(
     github-cli
 
     # Development tooling
-    # C tooling; too ubiquituous to discard
-    gcc
-    make
-    # Rust tooling
-    rustup
-    cargo-audit
-    cargo-outdated
-    cargo-release
-    cargo-deny
+    gcc           # C compiler
+    make          # ubiquituous "build" tool
+    rustup        # Rust toolchain manager
+    cargo-release # Rust release helper
+    cargo-deny    # Rust compliance checker (licensing, advisories, etc.)
     rust-analyzer # Not yet shipped in rustup, see https://bugs.archlinux.org/task/76050
     shellcheck    # Lint bash code
     shfmt         # Format bash code
@@ -174,15 +174,14 @@ packages_to_install=(
     fnm           # Fast node version manager
     pyright       # Python language server for neovim
     typescript-language-server
-    hexyl                 # hex viewer
-    oxipng                # Optimize PNGs for size
-    jq                    # Process JSON on command line
-    kdiff3                # Diff/merge tool
-    d-spy                 # DBus inspector and debugger
-    gobject-introspection # GIR files for glib, etc.
-    wev                   # Wayland event testing
-    devhelp               # Gnome API doc browser…
-    glib2-docs            # …and various library documentation packages
+    hexyl      # hex viewer
+    oxipng     # Optimize PNGs for size
+    jq         # Process JSON on command line
+    kdiff3     # Diff/merge tool
+    d-spy      # DBus inspector and debugger
+    wev        # Wayland event testing
+    devhelp    # Gnome API doc browser…
+    glib2-docs # …and various library documentation packages
     gnome-devel-docs
     libsoup3-docs
     gtk3-docs
@@ -198,12 +197,14 @@ packages_to_install=(
     flatpak        # Sandboxing and dependency isolation for some apps
     pipewire-pulse # Pipewire-based pulse-audio, replaces pulseaudio
     wireplumber    # Recommended pipewire session & policy manager
+
     # Desktop services
-    pcsclite     # Smartcard daemon, for e-ID
-    cups         # Printing
-    bluez        # Bluetooth
-    sane         # Scanning
-    sane-airscan # Better airscan support, sane's builtin support is primitive
+    bluez                 # Bluetooth
+    power-profiles-daemon # Power management
+    pcsclite              # Smartcard daemon, for e-ID
+    cups                  # Printing
+    sane                  # Scanning
+    sane-airscan          # Better airscan support, sane's builtin support is primitive
 
     # Applications
     1password 1password-cli # Personal password manager
@@ -232,41 +233,33 @@ packages_to_install=(
     texlive-latexindent-meta
 
     # Fonts & themes
-    # Fallback font with huge coverage and colored emojis
-    noto-fonts
-    noto-fonts-extra
-    noto-fonts-cjk
-    noto-fonts-emoji
+    noto-fonts       # Western languages
+    noto-fonts-extra # Hebrew, Thai, etc.
+    noto-fonts-cjk   # Chinese, Japenese, Korean
+    noto-fonts-emoji # Colored emoji
     # Microsoft compatibility fonts
     ttf-liberation
     ttf-caladea
     ttf-carlito
     ttf-cascadia-code
     # Extra fonts
-    ttf-jetbrains-mono
-    otf-vollkorn  # My favorite serif font for documents
-    ttf-fira-sans # A reasonable font for websites
-    ttf-fira-go   # A nice font for presentations
+    ttf-jetbrains-mono # Nice monospace font
+    otf-vollkorn       # My favorite serif font for documents
+    ttf-fira-sans      # User interface font used by some websites
+    ttf-fira-go        # A nice font for presentations
 
     # Gnome infrastructure
     # Gnome style for Qt apps
     qgnomeplatform-qt5
     qgnomeplatform-qt6
     # Multimedia codecs for gnome
-    gst-plugins-good
-    gst-plugins-bad
-    gst-plugins-ugly
-    gst-plugin-pipewire # Required for screen recording in Gnome
-    gstreamer-vaapi     # Hardware video decoding for gstreamer
-    gst-libav
+    gst-libav       # Many additional codecs
+    gstreamer-vaapi # Hardware video decoding for gstreamer
     # Virtual filesystem for Gnome
-    gvfs-afc
-    gvfs-goa
-    gvfs-google
-    gvfs-gphoto2
-    gvfs-mtp
-    gvfs-nfs
-    gvfs-smb
+    gvfs-afc     # Gnome VFS: Apple devices
+    gvfs-gphoto2 # Gnome VFS: camera support
+    gvfs-mtp     # Gnome VFS: Android devices
+    gvfs-smb     # Gnome VFS: SMB/CIFS shares
     # Portals for gnome
     xdg-desktop-portal-gnome
     xdg-user-dirs-gtk
@@ -314,6 +307,10 @@ packages_to_install_optdeps=(
     wireless-regdb
     # libva: intel drivers
     intel-media-driver
+
+    # gnome-shell: screen recording support
+    gst-plugins-good
+    gst-plugin-pipewire
 
     # apparmor: aa-notify
     python-notify2
@@ -560,8 +557,16 @@ for service in "${services_to_disable[@]}"; do
     systemctl disable --quiet "${service}" || true
 done
 
+# Remove packages one by one because pacman doesn't handle uninstalled packages
+# gracefully
 for pkg in "${packages_to_remove[@]}"; do
     pacman --noconfirm -Rs "$pkg" || true
+done
+
+# Mark packages as optional dependencies one by one, because pacman doesn't
+# handle missing packages gracefully here.
+for pkg in "${packages_to_mark_as_deps[@]}"; do
+    pacman --noconfirm -D --asdeps "$pkg" || true
 done
 
 pacman -Qtdq | pacman --noconfirm -Rs - || true
