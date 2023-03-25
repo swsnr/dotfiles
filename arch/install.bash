@@ -181,6 +181,7 @@ packages_to_install=(
     kdiff3     # Diff/merge tool
     d-spy      # DBus inspector and debugger
     wev        # Wayland event testing
+    mkosi      # Create OS images
     devhelp    # Gnome API doc browser…
     glib2-docs # …and various library documentation packages
     gnome-devel-docs
