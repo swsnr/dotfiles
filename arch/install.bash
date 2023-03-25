@@ -54,6 +54,7 @@ packages_to_remove=(
     gvfs-goa
     gvfs-google
     gvfs-nfs
+    man-db # Mandoc instead
 )
 
 # Packages to mark as optional dependencies
@@ -133,7 +134,7 @@ packages_to_install=(
     fish        # My preferred shell
     zoxide      # Cross-shell/editor directory jumping
     fzf         # Fuzzy file finder for shells
-    man-db      # Man page reader
+    mandoc      # Man page reader
     man-pages   # Linux manpagers
     exa         # Better ls (with git support)
     vivid       # Creates themes for dircolors
