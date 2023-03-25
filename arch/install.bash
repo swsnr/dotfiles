@@ -115,6 +115,9 @@ packages_to_install=(
     wol            # Wake up systems on LAN
     gwakeonlan     # GUI tool to send WoL packages
 
+    # Cloud tools
+    hcloud # CLI for Hetzner cloud
+
     # Arch tools & infrastructure
     asp                             # Obtain PKGBUILDs for ABS
     etc-update                      # Deal with pacdiff/pacsave files
