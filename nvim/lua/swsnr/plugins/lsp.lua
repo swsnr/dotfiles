@@ -61,6 +61,9 @@ return {
             null_ls.builtins.formatting.xmllint,
             -- Formatting for the Javascript ecosystem
             null_ls.builtins.formatting.prettier,
+            -- Formatting and linting for Python
+            null_ls.builtins.formatting.black,
+            null_ls.builtins.diagnostics.pylint,
           }
           null_ls.setup({
             sources = sources,
