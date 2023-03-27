@@ -423,7 +423,8 @@ case "$HOSTNAME" in
     packages_to_install+=(
         # Game mode
         gamemode
-        innoextract # Extract Windows installers
+        innoextract # Extract Windows installers (mostly GoG)
+        scummvm     # For the classics
 
         # Apps
         mediathekview      # Client for public broadcasting video libraries
