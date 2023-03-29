@@ -175,10 +175,11 @@ EXTENSION_SETTINGS = {
             # Gaps between windows and to the screen borders
             'single-screen-gap': 4,
             'window-gap': 4,
-            # Adapt keybindings if the focused window is in tiled state: 1 means
-            # instead of adjusting the tiling switch focused window in the direction
-            # of the keybinding
-            'dynamic-keybinding-behaviour': 1,
+            # Adapt keybindings if the focused window is in tiled state: 3 means
+            # change tiling state, but minimize windows instead of tiling to
+            # bottom for windows which aren't tiled or already tiled to bottom,
+            # see https://github.com/Leleat/Tiling-Assistant/wiki/Dynamic-Keybindings#tiling-state-windows
+            'dynamic-keybinding-behaviour': 3,
         }
     }
 }
