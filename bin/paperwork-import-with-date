@@ -28,6 +28,9 @@ from datetime import date
 LOG = logging.getLogger()
 
 
+USE_FLATPAK = False
+
+
 class ColoredFormatter(logging.Formatter):
     _grey = '\x1b[37m'
     _green = '\x1b[32m'
@@ -52,7 +55,10 @@ class ColoredFormatter(logging.Formatter):
 
 
 def run_paperwork(command: list[str]):
-    full_command = ['flatpak', 'run', '--command=paperwork-json', 'work.openpaper.Paperwork']
+    if USE_FLATPAK:
+        full_command = ['flatpak', 'run', '--command=paperwork-json', 'work.openpaper.Paperwork']
+    else:
+        full_command = ['paperwork-json']
     full_command.extend(command)
     LOG.debug(f'Running command {full_command}')
     child = run(full_command, stdout=PIPE)
