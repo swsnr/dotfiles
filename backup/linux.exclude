@@ -7,11 +7,14 @@ $HOME/Downloads/
 $HOME/.cargo/
 $HOME/.sdkman/candidates/
 $HOME/.local/share/nvm/
+$HOME/.local/share/fnm/node-versions/
 $HOME/.npm/
 $HOME/.rustup/
 $HOME/.local/share/libvirt/iso
+# JDKs downloaded by IDEA
 $HOME/.jdks/
 # Containers are ephemeral anyway
 $HOME/.local/share/containers/
-# Jetbrains toolbox apps are redundant as well
+# Jetbrains toolbox apps and downloads are redundant as well
 $HOME/.local/share/JetBrains/Toolbox/apps/
+$HOME/.local/share/JetBrains/Toolbox/downloads/
