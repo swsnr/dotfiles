@@ -646,15 +646,8 @@ install -pm644 "$DIR/etc/faillock.conf" /etc/security/faillock.conf
 install -pm644 "$DIR/etc/sysctl-swsnr.conf" /etc/sysctl.d/90-swsnr.conf
 install -pm644 "$DIR/etc/modprobe-swsnr.conf" /etc/modprobe.d/modprobe-swsnr.conf
 install -pm644 "$DIR/etc/modules-load-swsnr.conf" /etc/modules-load.d/swsnr.conf
-if [[ $PRODUCT_NAME == "TUXEDO InfinityBook 14 v2" ]]; then
-    install -pm644 "$DIR/etc/modprobe-swsnr-tuxedo.conf" /etc/modprobe.d/modprobe-swsnr-tuxedo.conf
-    install -D -m644 "$DIR/etc/systemd/system/btrfs-scrub-io.conf" \
-        "/etc/systemd/system/btrfs-scrub@.service.d/swsnr-kastl-limit-io.conf"
-else
-    rm -f \
-        /etc/modprobe.d/modprobe-swsnr-tuxedo.conf \
-        /etc/systemd/system/btrfs-scrub@.service.d/swsnr-kastl-limit-io.conf
-fi
+install -D -m644 "$DIR/etc/systemd/system/btrfs-scrub-io.conf" \
+    "/etc/systemd/system/btrfs-scrub@.service.d/swsnr-limit-io.conf"
 
 # AppArmor configuration
 install -pm644 "$DIR/etc/apparmor/tunables/xdg-user-dir-de" \
