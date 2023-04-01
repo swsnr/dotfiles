@@ -48,7 +48,6 @@ packages=(
     setzer
     texlive-latexindent-meta
     ttf-fira-go
-    wev
 )
 
 case "$HOSTNAME" in

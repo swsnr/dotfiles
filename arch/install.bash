@@ -55,6 +55,9 @@ packages_to_remove=(
     gvfs-google
     gvfs-nfs
     man-db # Mandoc instead
+    wev
+    mkosi
+    clamav
 )
 
 # Packages to mark as optional dependencies
@@ -112,7 +115,6 @@ packages_to_install=(
     rsync          # Remote copy and syncing
     rclone         # rsync for clouds
     yt-dlp         # youtube-dl with extra features
-    clamav         # For the occasional Windows malware scan
     wol            # Wake up systems on LAN
     gwakeonlan     # GUI tool to send WoL packages
 
@@ -184,8 +186,6 @@ packages_to_install=(
     jq         # Process JSON on command line
     kdiff3     # Diff/merge tool
     d-spy      # DBus inspector and debugger
-    wev        # Wayland event testing
-    mkosi      # Create OS images
     devhelp    # Gnome API doc browser…
     glib2-docs # …and various library documentation packages
     gnome-devel-docs
