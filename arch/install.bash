@@ -295,6 +295,7 @@ packages_to_install=(
     seahorse       # Gnome keyring manager
     baobab         # Disk space analyser
     gnome-firmware # Manage firmware with Gnome
+    epiphany       # Gnome web browser
 
     # Gnome extensions and tools
     gnome-shell-extension-nasa-apod        # APOD as desktop background

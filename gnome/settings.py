@@ -148,6 +148,39 @@ SETTINGS = {
         'prompt-for-nonfree': False,
         # I'll handle this myself
         'enable-repos-dialog': False,
+    },
+    'org.gnome.Epiphany': {
+        # Adjust search engines: Remove bing, and add startpage as default
+        # search engine
+        'default-search-engine': 'Startpage',
+        'search-engine-providers': GLib.Variant(
+            'aa{sv}',
+            [
+                {
+                    'url': GLib.Variant.new_string('https://www.startpage.com/sp/search?query=%s'),
+                    'bang': GLib.Variant.new_string('!sp'),
+                    'name': GLib.Variant.new_string('Startpage')
+                },
+                {
+                    'url': GLib.Variant.new_string('https://duckduckgo.com/?q=%s&t=epiphany'),
+                    'bang': GLib.Variant.new_string('!ddg'),
+                    'name': GLib.Variant.new_string('DuckDuckGo')
+                },
+                {
+                    'url': GLib.Variant.new_string('https://www.google.com/search?q=%s'),
+                    'bang': GLib.Variant.new_string('!g'),
+                    'name': GLib.Variant.new_string('Google')
+                },
+            ]
+        ),
+        # Use a more comprehensive content filter list
+        'content-filters': ['https://easylist-downloads.adblockplus.org/easylist_content_blocker.json'],
+    },
+    ('org.gnome.Epiphany.web', '/org/gnome/epiphany/web/'): {
+        # Perhaps it's getting there one day (e.g. ublock origin, 1password)
+        'enable-webextensions': True,
+        # 1password does this
+        'remember-passwords': False
     }
 }
 
@@ -230,10 +263,14 @@ def apply_settings(settings, items):
 def main():
     default_source = Gio.SettingsSchemaSource.get_default()
     for schema_id, items in SETTINGS.items():
+        if isinstance(schema_id, str):
+            path = None
+        else:
+            schema_id, path = schema_id
         schema = default_source.lookup(schema_id, False)
         if schema:
             settings = Gio.Settings.new_full(schema=schema, backend=None,
-                                             path=None)
+                                             path=path)
             apply_settings(settings, items)
         else:
             print(f'Skipping non-existing schema {schema_id}', file=sys.stderr)
