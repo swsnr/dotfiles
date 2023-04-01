@@ -72,6 +72,7 @@ packages_to_install=(
     linux
     linux-zen
     mkinitcpio
+    plymouth # Boot splash screen
     apparmor
     sudo
     pacman-hook-kernel-install # Install kernels to /efi
@@ -648,6 +649,7 @@ install -pm644 "$DIR/etc/modprobe-swsnr.conf" /etc/modprobe.d/modprobe-swsnr.con
 install -pm644 "$DIR/etc/modules-load-swsnr.conf" /etc/modules-load.d/swsnr.conf
 install -D -m644 "$DIR/etc/systemd/system/btrfs-scrub-io.conf" \
     "/etc/systemd/system/btrfs-scrub@.service.d/swsnr-limit-io.conf"
+install -D -m644 "$DIR/etc/plymouthd.conf" /etc/plymouth/plymouthd.conf
 
 # AppArmor configuration
 install -pm644 "$DIR/etc/apparmor/tunables/xdg-user-dir-de" \
