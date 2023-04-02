@@ -442,6 +442,7 @@ case "$HOSTNAME" in
         threema-desktop    # Secure messaging
         kid3-qt            # Audio tag editor
         sound-juicer       # Simple audio disc ripper
+        handbrake          # DVD and video encoding
 
         gnome-shell-extension-gsconnect # Connect phone and desktop system
         syncthing                       # Network synchronization
