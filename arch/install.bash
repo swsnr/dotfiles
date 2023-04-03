@@ -396,6 +396,22 @@ kernel_cmdline=(
     rootflags=compress=zstd:1
 )
 
+mkinitcpio_modules=()
+
+mkinitcpio_hooks=(
+    base
+    systemd
+    plymouth
+    autodetect
+    modconf
+    keyboard
+    sd-vconsole
+    sd-encrypt
+    block
+    filesystems
+    fsck
+)
+
 if [[ -n "${MY_USER_ACCOUNT}" ]]; then
     # Scrub home directory of my user account
     services+=("btrfs-scrub@$(systemd-escape -p "/home/${MY_USER_ACCOUNT}").timer")
@@ -403,14 +419,21 @@ fi
 
 case "$PRODUCT_NAME" in
 'XPS 9315')
+    mkinitcpio_modules+=(
+        # Add coretemp to early boot to make sure it's there when thermald needs it.
+        coretemp
+    )
+
     packages_to_install+=(
         sof-firmware # Firmware for XPS audio devices
         thermald     # Thermal management for intel systems
     )
+
     services+=(
         # Thermal management for intel CPUs
         thermald.service
     )
+
     ;;
 'Precision 7530')
     use_nvidia=true
@@ -564,6 +587,19 @@ if [[ "${use_nvidia:-false}" == true ]]; then
         # Enable modesetting for KMS in nvidia
         nvidia_drm.modeset=1
     )
+
+    mkinitcpio_hooks+=(
+        # For nvidia we add the nvidia driver modules for early kms, plus all other
+        # relevant kms modules.
+        i915 nvidia nvidia_modeset nvidia_uvm nvidia_drm
+    )
+
+    # However, we explicitly do not add the kms hook, because it would pick up
+    # nouveau according to the wiki page, which we definitely don't want.
+else
+    # If we're not using the proprietary nvidia driver we can let the kms hook
+    # pick up required modules for early kms.
+    mkinitcpio_hooks+=(kms)
 fi
 
 # Setup pacman and install/remove packages
@@ -650,15 +686,22 @@ echo " ${kernel_cmdline[*]}" >"${WORKDIR}/cmdline"
 install -pm644 "$WORKDIR/cmdline" /etc/kernel/cmdline
 
 if [[ "${use_nvidia:-false}" == true ]]; then
-    install -pm644 "$DIR/etc/mkinitcpio-nvidia.conf" /etc/mkinitcpio.conf
     install -pm644 "$DIR/etc/modprobe-nvidia-power-management.conf" \
         /etc/modprobe.d/nvidia-power-management.conf
     # Forcibly disable GDM's nvidia rules, because at this point we know it's
     # working; otherwise we'd not set "use_nvidia" to "true".
     ln -sf /dev/null /etc/udev/rules.d/61-gdm.rules
-else
-    install -pm644 "$DIR/etc/mkinitcpio.conf" /etc/mkinitcpio.conf
 fi
+
+cat >"$WORKDIR/mkinitcpio.conf" <<EOF
+# vim:set ft=sh
+# Managed by my dotfiles
+MODULES=(${mkinitcpio_modules[*]})
+BINARIES=()
+FILES=()
+HOOKS=(${mkinitcpio_hooks[*]})
+EOF
+install -m644 "$WORKDIR/mkinitcpio.conf" /etc/mkinitcpio.conf
 
 # Boot loader configuration
 case "$HOSTNAME" in
