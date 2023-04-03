@@ -45,31 +45,10 @@ pacman_repositories=(
     "$DIR/etc/pacman/60-aur-repository.conf"
 )
 
-packages_to_remove=(
-    # Has performance issues, see https://github.com/ubuntu/gnome-shell-extension-appindicator/issues/295
-    gnome-shell-extension-appindicator
-    libappindicator-gtk3
-    # Need no longer
-    step-cli
-    cargo-audit    # cargo-deny instead
-    cargo-outdated # neovim tooling instead
-    gobject-introspection
-    ttf-ubuntu-font-family
-    gvfs-goa
-    gvfs-google
-    gvfs-nfs
-    man-db # Mandoc instead
-    wev
-    mkosi
-    clamav
-)
+packages_to_remove=()
 
 # Packages to mark as optional dependencies
-packages_to_mark_as_deps=(
-    zip
-    gst-plugins-bad
-    gst-plugins-ugly
-)
+packages_to_mark_as_deps=()
 
 packages_to_install=(
     # Basic packages & system tools
@@ -669,8 +648,6 @@ install -pm644 "$DIR/etc/kernel/install.conf" /etc/kernel/install.conf
 # Assemble kernel command line
 echo " ${kernel_cmdline[*]}" >"${WORKDIR}/cmdline"
 install -pm644 "$WORKDIR/cmdline" /etc/kernel/cmdline
-rm -f /etc/kernel/install.d/*dracut*
-rm -f /etc/dracut.conf.d/*swsnr*
 
 if [[ "${use_nvidia:-false}" == true ]]; then
     install -pm644 "$DIR/etc/mkinitcpio-nvidia.conf" /etc/mkinitcpio.conf
