@@ -1,1 +1,0 @@
- quiet loglevel=3 rd.udev.log_level=3 splash audit=1 lsm=landlock,lockdown,yama,integrity,apparmor,bpf rootflags=compress=zstd:1 nvidia_drm.modeset=1

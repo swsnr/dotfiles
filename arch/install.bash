@@ -33,6 +33,10 @@ else
 fi
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+# If $XDG_RUNTIME_DIR is not set/empty we automatically pass an empty --tmpdir
+# which makes mktemp fall back to $TMPDIR and /tmp, finally.
+WORKDIR="$(mktemp --directory --tmpdir="${XDG_RUNTIME_DIR:=}" dotfiles-arch-install.XXXXXXX)"
+trap 'rm -rf -- "$WORKDIR"' EXIT
 
 PRODUCT_NAME="$(</sys/class/dmi/id/product_name)"
 
@@ -400,6 +404,19 @@ flatpaks=(
 
 flatpaks_to_remove=()
 
+kernel_cmdline=(
+    # Really quiet boot
+    quiet
+    loglevel=3
+    rd.udev.log_level=3
+    splash  # Enables plymouth
+    audit=1 # Turn on audit subsystem immediately at boot
+    # Enable apparmor among other LSMs
+    'lsm=landlock,lockdown,yama,integrity,apparmor,bpf'
+    # Mount rootfs compressed
+    rootflags=compress=zstd:1
+)
+
 if [[ -n "${MY_USER_ACCOUNT}" ]]; then
     # Scrub home directory of my user account
     services+=("btrfs-scrub@$(systemd-escape -p "/home/${MY_USER_ACCOUNT}").timer")
@@ -563,6 +580,11 @@ if [[ "${use_nvidia:-false}" == true ]]; then
         nvidia-suspend.service
         nvidia-resume.service
     )
+
+    kernel_cmdline+=(
+        # Enable modesetting for KMS in nvidia
+        nvidia_drm.modeset=1
+    )
 fi
 
 # Setup pacman and install/remove packages
@@ -644,7 +666,9 @@ install -pm755 "$DIR/etc/kernel/kernel-install-mkinitcpio.install" \
 
 # initrd and kernel image configuration
 install -pm644 "$DIR/etc/kernel/install.conf" /etc/kernel/install.conf
-install -pm644 "$DIR/etc/kernel/cmdline" /etc/kernel/cmdline
+# Assemble kernel command line
+echo " ${kernel_cmdline[*]}" >"${WORKDIR}/cmdline"
+install -pm644 "$WORKDIR/cmdline" /etc/kernel/cmdline
 rm -f /etc/kernel/install.d/*dracut*
 rm -f /etc/dracut.conf.d/*swsnr*
 
