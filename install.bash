@@ -129,7 +129,7 @@ ln -fs "$DIR/python/startup.py" ~/.config/python/startup.py
 
 # Pipewire
 mkdir -p ~/.config/pipewire/pipewire.conf.d/
-ln -fs -t ~/.config/pipewire/pipewire.conf.d/ "$DIR/pipewire/"*.conf
+clean-recursively ~/.config/pipewire/pipewire.conf.d/
 
 # Misc files
 mkdir -p ~/.config/{latexmk,restic}
