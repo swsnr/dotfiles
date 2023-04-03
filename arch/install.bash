@@ -73,7 +73,6 @@ packages_to_install=(
     linux-firmware
     intel-ucode
     linux
-    linux-zen
     mkinitcpio
     plymouth # Boot splash screen
     apparmor
@@ -423,6 +422,9 @@ case "$HOSTNAME" in
     pacman_repositories+=()
 
     packages_to_install+=(
+        # Supposedly better gaming kernel
+        linux-zen
+
         # Game mode
         gamemode
         innoextract # Extract Windows installers (mostly GoG)
@@ -494,7 +496,6 @@ case "$HOSTNAME" in
         # Kernel headers for DKMS
         linux-headers
         linux-lts-headers
-        linux-zen-headers
 
         # Virtualisation
         virtualbox-host-dkms
