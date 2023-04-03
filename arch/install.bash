@@ -73,6 +73,7 @@ packages_to_install=(
     linux-firmware
     intel-ucode
     linux
+    linux-lts # Fallback kernel
     mkinitcpio
     plymouth # Boot splash screen
     apparmor
@@ -415,6 +416,9 @@ case "$PRODUCT_NAME" in
         thermald.service
     )
     ;;
+'Precision 7530')
+    use_nvidia=true
+    ;;
 esac
 
 case "$HOSTNAME" in
@@ -549,6 +553,18 @@ case "$HOSTNAME" in
     ;;
 esac
 
+if [[ "${use_nvidia:-false}" == true ]]; then
+    packages+=(
+        nvidia
+        nvidia-lts
+    )
+
+    services+=(
+        nvidia-suspend.service
+        nvidia-resume.service
+    )
+fi
+
 # Setup pacman and install/remove packages
 install -pm644 "$DIR/etc/pacman/pacman.conf" /etc/pacman.conf
 install -pm644 "$DIR/etc/pacman/mirrorlist" /etc/pacman.d/mirrorlist
@@ -629,9 +645,19 @@ install -pm755 "$DIR/etc/kernel/kernel-install-mkinitcpio.install" \
 # initrd and kernel image configuration
 install -pm644 "$DIR/etc/kernel/install.conf" /etc/kernel/install.conf
 install -pm644 "$DIR/etc/kernel/cmdline" /etc/kernel/cmdline
-install -pm644 "$DIR/etc/mkinitcpio.conf" /etc/mkinitcpio.conf
 rm -f /etc/kernel/install.d/*dracut*
 rm -f /etc/dracut.conf.d/*swsnr*
+
+if [[ "${use_nvidia:-false}" == true ]]; then
+    install -pm644 "$DIR/etc/mkinitcpio-nvidia.conf" /etc/mkinitcpio.conf
+    install -pm644 "$DIR/etc/modprobe-nvidia-power-management.conf" \
+        /etc/modprobe.d/nvidia-power-management.conf
+    # Forcibly disable GDM's nvidia rules, because at this point we know it's
+    # working; otherwise we'd not set "use_nvidia" to "true".
+    ln -sf /dev/null /etc/udev/rules.d/61-gdm.rules
+else
+    install -pm644 "$DIR/etc/mkinitcpio.conf" /etc/mkinitcpio.conf
+fi
 
 # Boot loader configuration
 case "$HOSTNAME" in
