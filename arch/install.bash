@@ -588,7 +588,7 @@ if [[ "${use_nvidia:-false}" == true ]]; then
         nvidia_drm.modeset=1
     )
 
-    mkinitcpio_hooks+=(
+    mkinitcpio_modules+=(
         # For nvidia we add the nvidia driver modules for early kms, plus all other
         # relevant kms modules.
         i915 nvidia nvidia_modeset nvidia_uvm nvidia_drm
