@@ -45,7 +45,10 @@ pacman_repositories=(
     "$DIR/etc/pacman/60-aur-repository.conf"
 )
 
-packages_to_remove=()
+packages_to_remove=(
+    # Broken, see https://github.com/Qalculate/qalculate-gtk/issues/473
+    qalculate-gtk
+)
 
 # Packages to mark as optional dependencies
 packages_to_mark_as_deps=()
@@ -209,7 +212,6 @@ packages_to_install=(
     pdfarranger             # Reorder pages in PDF files
     zim                     # Personal desktop wiki
     jabref                  # Bibliography
-    qalculate-gtk           # Scientific calculator
     remmina                 # Remote desktop
 
     # Latex
@@ -255,6 +257,7 @@ packages_to_install=(
 
     # Gnome
     gdm
+    gnome-calculator
     gnome-characters
     gnome-keyring
     gnome-calendar
