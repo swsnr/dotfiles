@@ -182,6 +182,9 @@ packages_to_install=(
     libportal-docs
     mutter-docs
 
+    # Science & data tooling
+    insect # Scientific command line calculator
+
     # Basic desktop
     wl-clipboard   # CLI access to clipboard
     dconf-editor   # Edit and view Gnome configuration database

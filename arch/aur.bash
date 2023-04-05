@@ -40,6 +40,7 @@ packages=(
     gnome-shell-extension-fly-pie
     gnome-shell-extension-nasa-apod
     gnome-shell-extension-tiling-assistant
+    insect
     jabref
     otf-vollkorn
     pacman-hook-kernel-install
