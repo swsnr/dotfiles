@@ -67,7 +67,12 @@ return {
           }
           null_ls.setup({
             sources = sources,
-            on_attach = require("swsnr.lsp").lsp_attach,
+            on_attach = function(client, bufnr)
+              require("swsnr.lsp").lsp_attach(client, bufnr)
+              -- Keep gq working under nullls, see
+              -- https://github.com/jose-elias-alvarez/null-ls.nvim/issues/1131#issuecomment-1268760653
+              vim.bo[bufnr].formatexpr = nil
+            end,
           })
         end,
       },
