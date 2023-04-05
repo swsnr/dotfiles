@@ -3,6 +3,8 @@
 $HOME/.cache/
 # Downloaded files
 $HOME/Downloads/
+# Trash can
+$HOME/.local/share/Trash
 # All these are trivial to restore from the internet
 $HOME/.cargo/
 $HOME/.sdkman/candidates/
