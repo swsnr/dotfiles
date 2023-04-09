@@ -17,38 +17,10 @@
 
 set -xeuo pipefail
 
-args=()
-
-use_luks="yes"
-target_device=""
-
-while [[ $# -gt 0 ]]; do
-    arg="$1"
-
-    case "$arg" in
-    "--not-encrypted")
-        use_luks="no"
-        shift
-        ;;
-    "--device")
-        target_device="$2"
-        shift
-        shift
-        ;;
-    *)
-        args+=("$arg")
-        shift
-        ;;
-    esac
-done
+target_device="$1"
 
 if [[ -z "$target_device" ]]; then
     echo "Missing --device <device> argument" >&2
-    exit 2
-fi
-
-if [[ "${#args[@]}" -ne 0 ]]; then
-    echo "Unexpected extra arguments: ${args[*]}" >&2
     exit 2
 fi
 
@@ -77,33 +49,28 @@ partprobe -s "$target_device"
 sleep 3
 
 # Encrypt root if desired
-if [[ "$use_luks" == "yes" ]]; then
-    cryptsetup luksFormat --type luks2 \
-        /dev/disk/by-partlabel/linux
-    cryptsetup luksOpen /dev/disk/by-partlabel/linux root
-    # Enable discards and disable workqueues, see
-    # https://wiki.archlinux.org/title/Dm-crypt/Specialties#Discard/TRIM_support_for_solid_state_drives_(SSD)
-    # and
-    # https://wiki.archlinux.org/title/Dm-crypt/Specialties#Disable_workqueue_for_increased_solid_state_drive_(SSD)_performance
-    cryptsetup refresh \
-        --allow-discards \
-        --perf-no_read_workqueue --perf-no_write_workqueue \
-        --persistent \
-        root
-    root_device="/dev/mapper/root"
-else
-    root_device="/dev/disk/by-partlabel/linux"
-fi
+cryptsetup luksFormat --type luks2 \
+    /dev/disk/by-partlabel/linux
+cryptsetup luksOpen /dev/disk/by-partlabel/linux root
+# Enable discards and disable workqueues, see
+# https://wiki.archlinux.org/title/Dm-crypt/Specialties#Discard/TRIM_support_for_solid_state_drives_(SSD)
+# and
+# https://wiki.archlinux.org/title/Dm-crypt/Specialties#Disable_workqueue_for_increased_solid_state_drive_(SSD)_performance
+cryptsetup refresh \
+    --allow-discards \
+    --perf-no_read_workqueue --perf-no_write_workqueue \
+    --persistent \
+    root
 
 # Create file systems
 mkfs.fat -F32 -n EFISYSTEM /dev/disk/by-partlabel/EFISYSTEM
-mkfs.btrfs -f -L linux "$root_device"
+mkfs.btrfs -f -L linux "/dev/mapper/root"
 
 SYSROOT="/mnt"
 
 # Mount arch subvolume and create additional subvolumes for rootfs.  Enable
 # compression for the bootstrap process.
-mount -o 'compress=zstd:1' "$root_device" "$SYSROOT"
+mount -o 'compress=zstd:1' "/dev/mapper/root" "$SYSROOT"
 mkdir "$SYSROOT"/efi
 for subvol in var var/log var/cache var/tmp srv home; do
     btrfs subvolume create "$SYSROOT/$subvol"
