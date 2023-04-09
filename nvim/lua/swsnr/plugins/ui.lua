@@ -99,11 +99,12 @@ return {
         "neo-tree",
         "man",
         "fugitive",
+        "lazy",
+        "trouble",
       },
     },
     config = function(_, opts)
       local navic = require("nvim-navic")
-      local lazy = require("lazy.status")
       local sections = {
         sections = {
           lualine_c = {
@@ -115,10 +116,6 @@ return {
               end,
             },
             { navic.get_location, cond = navic.is_available },
-          },
-          lualine_z = {
-            "location",
-            { lazy.updates, cond = lazy.has_updates, color = { fg = "#ff9e64" } },
           },
         },
       }

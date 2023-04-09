@@ -712,11 +712,11 @@ install -m644 "$WORKDIR/mkinitcpio.conf" /etc/mkinitcpio.conf
 # Boot loader configuration
 case "$HOSTNAME" in
 *kastl*)
-    # On personal systems use zen kernel
+    # Use zen, as it's supposedly a better kernel for gaming
     install -pm644 "$DIR/etc/loader-default-zen.conf" /efi/loader/loader.conf
     ;;
 *)
-    # Otherwise install a standard loader.conf which disables the loader menu
+    # Otherwise use stock kernel for maximum compatibility
     install -pm644 "$DIR/etc/loader-default-arch.conf" /efi/loader/loader.conf
     ;;
 esac
