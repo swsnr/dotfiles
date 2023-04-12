@@ -456,6 +456,10 @@ case "$HOSTNAME" in
         # Supposedly better gaming kernel
         linux-zen
 
+        # Configure mice
+        libratbag
+        piper
+
         # Game mode
         gamemode
         innoextract # Extract Windows installers (mostly GoG)
