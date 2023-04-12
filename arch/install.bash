@@ -115,6 +115,7 @@ packages_to_install=(
     arch-repro-status               # Manually check reproducibility of installed packages
     pacman-hook-reproducible-status # Check reproducibility of packages in pacman transactions
     aurutils                        # Build AUR packages
+    mkosi                           # Create OS images for testing
 
     # Neovim & tools
     neovim
@@ -167,11 +168,12 @@ packages_to_install=(
     fnm           # Fast node version manager
     pyright       # Python language server for neovim
     typescript-language-server
-    hexyl      # hex viewer
-    oxipng     # Optimize PNGs for size
-    jq         # Process JSON on command line
-    kdiff3     # Diff/merge tool
-    d-spy      # DBus inspector and debugger
+    hexyl  # hex viewer
+    oxipng # Optimize PNGs for size
+    jq     # Process JSON on command line
+    kdiff3 # Diff/merge tool
+    d-spy  # DBus inspector and debugger
+
     devhelp    # Gnome API doc browser…
     glib2-docs # …and various library documentation packages
     gnome-devel-docs
