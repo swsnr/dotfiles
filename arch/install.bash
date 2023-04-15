@@ -136,6 +136,7 @@ packages_to_install=(
     ripgrep     # Better grep
     ripgrep-all # ripgrep for all kinds of files
     bat         # Better less
+    mdcat       # Cat markdown files
     fd          # Simpler find
     sd          # Simpler sed
     dua-cli     # Disk space analyzer
