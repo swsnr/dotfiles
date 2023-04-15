@@ -212,7 +212,7 @@ EXTENSION_SETTINGS = {
             # change tiling state, but minimize windows instead of tiling to
             # bottom for windows which aren't tiled or already tiled to bottom,
             # see https://github.com/Leleat/Tiling-Assistant/wiki/Dynamic-Keybindings#tiling-state-windows
-            'dynamic-keybinding-behaviour': 3,
+            'dynamic-keybinding-behavior': 3,
         }
     }
 }
