@@ -48,6 +48,8 @@ pacman_repositories=(
 packages_to_remove=(
     # Broken, see https://github.com/Qalculate/qalculate-gtk/issues/473
     qalculate-gtk
+    # No longer need these
+    typescript-language-server
 )
 
 # Packages to mark as optional dependencies
@@ -161,18 +163,19 @@ packages_to_install=(
     rustup        # Rust toolchain manager
     cargo-release # Rust release helper
     cargo-deny    # Rust compliance checker (licensing, advisories, etc.)
+    cargo-bloat   # Identify bloat in cargo binaries
+    cargo-geiger  # Identify unsafe in cargo dependencies trees
     rust-analyzer # Not yet shipped in rustup, see https://bugs.archlinux.org/task/76050
     shellcheck    # Lint bash code
     shfmt         # Format bash code
     frum          # Fast Ruby version manager
     fnm           # Fast node version manager
     pyright       # Python language server for neovim
-    typescript-language-server
-    hexyl  # hex viewer
-    oxipng # Optimize PNGs for size
-    jq     # Process JSON on command line
-    kdiff3 # Diff/merge tool
-    d-spy  # DBus inspector and debugger
+    hexyl         # hex viewer
+    oxipng        # Optimize PNGs for size
+    jq            # Process JSON on command line
+    kdiff3        # Diff/merge tool
+    d-spy         # DBus inspector and debugger
 
     devhelp    # Gnome API doc browser…
     glib2-docs # …and various library documentation packages
