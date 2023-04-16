@@ -50,6 +50,8 @@ packages_to_remove=(
     qalculate-gtk
     # No longer need these
     typescript-language-server
+    gimp
+    gtk2
 )
 
 # Packages to mark as optional dependencies
@@ -215,7 +217,6 @@ packages_to_install=(
     vlc                     # The media player
     audacious               # Simple music player
     inkscape                # Vector graphics
-    gimp                    # Pixel graphics
     xournalpp               # Hand-written notes and PDF annotations
     zathura                 # Lightweight document viewer
     pdfarranger             # Reorder pages in PDF files
