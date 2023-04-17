@@ -109,7 +109,7 @@ ln -fs -t ~/.sbt "$DIR/scala/sbtopts"
 mkdir -p ~/.config/k9s
 ln -fs -t ~/.config/k9s "$DIR/k8s/k9s/skins" ~/.config/k9s
 # Default k9s skin
-ln -fs ./skins/gruvbox-light.yml ~/.config/k9s/skin.yml
+ln -fs ./skins/transparent.yml ~/.config/k9s/skin.yml
 
 # GPG
 mkdir -p ~/.gnupg
