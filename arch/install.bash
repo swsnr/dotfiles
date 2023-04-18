@@ -405,8 +405,8 @@ kernel_cmdline=(
     audit=1 # Turn on audit subsystem immediately at boot
     # Enable apparmor among other LSMs
     'lsm=landlock,lockdown,yama,integrity,apparmor,bpf'
-    # Mount rootfs compressed
-    rootflags=compress=zstd:1
+    rootflags=compress=zstd:1 # Mount rootfs compressed
+    zswap.enabled=0           # Disable zswap because we already use zram
 )
 
 mkinitcpio_modules=()
