@@ -545,6 +545,7 @@ case "$HOSTNAME" in
         python2    # Old python for old tools
         dotnet-sdk # .NET development
         podman     # Deamonless containers
+        podman-compose # docker-compose for podman
         kubectl    # k8s client
         k9s        # k8s TUI
         helm       # k8s package manager
