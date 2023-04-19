@@ -591,7 +591,7 @@ case "$HOSTNAME" in
 
     kernel_cmdline+=(
         # Root device with btrfs raid
-        root=/dev/mapper/linux
+        root=/dev/mapper/linux rw
     )
     ;;
 esac
