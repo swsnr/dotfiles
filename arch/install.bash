@@ -52,6 +52,7 @@ packages_to_remove=(
     typescript-language-server
     gimp
     gtk2
+    gnome-calculator # qalculate-gtk is back in action
 )
 
 # Packages to mark as optional dependencies
@@ -191,7 +192,8 @@ packages_to_install=(
     mutter-docs
 
     # Science & data tooling
-    insect # Scientific command line calculator
+    insect        # Scientific command line calculator
+    qalculate-gtk # Scientific desktop calculator w/ unit conversion and search provider
 
     # Basic desktop
     wl-clipboard   # CLI access to clipboard
@@ -267,7 +269,6 @@ packages_to_install=(
 
     # Gnome
     gdm
-    gnome-calculator
     gnome-characters
     gnome-keyring
     gnome-calendar
