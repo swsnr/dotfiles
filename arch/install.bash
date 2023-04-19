@@ -415,6 +415,7 @@ mkinitcpio_hooks=(
     base
     systemd
     plymouth
+    btrfs
     autodetect
     modconf
     keyboard
@@ -586,6 +587,11 @@ case "$HOSTNAME" in
 
     services+=(
         pacrunner.service # Proxy auto-configuration URLs
+    )
+
+    kernel_cmdline+=(
+        # Root device with btrfs raid
+        root=/dev/mapper/linux
     )
     ;;
 esac
