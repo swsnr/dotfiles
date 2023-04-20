@@ -26,11 +26,9 @@ function demo-prompt -d 'Switch to a simple prompt for demo purposes'
                 set_color --background green --bold white
             case replace-one
                 set_color --background green --bold white
-
             case visual
                 set_color --background magenta white
             case default
-                set_color --background red white
         end
         echo -n '$'
         set_color normal
