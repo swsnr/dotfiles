@@ -51,6 +51,7 @@ inhibit "Deleting old backup snapshots" \
     --keep-within 6m \
     --keep-monthly 24 \
     --keep-yearly 20
+inhibit "Removing old data" restic -r "rclone:kastl:restic-$USERNAME" prune
 # Check that the data is still valid
 inhibit "Verifying backups" \
     nice restic -r "rclone:kastl:restic-$USERNAME" check --read-data-subset '10%'
