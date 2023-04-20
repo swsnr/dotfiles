@@ -46,8 +46,6 @@ pacman_repositories=(
 )
 
 packages_to_remove=(
-    # Broken, see https://github.com/Qalculate/qalculate-gtk/issues/473
-    qalculate-gtk
     # No longer need these
     typescript-language-server
     gimp
