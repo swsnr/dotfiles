@@ -142,6 +142,7 @@ ln -fs "$DIR/misc/electron-flags.conf" ~/.config/electron21-flags.conf
 rm -f ~/.config/electron17-flags.conf
 ln -fs "$DIR/misc/gamemode.ini" ~/.config/gamemode.ini
 ln -fs "$DIR/misc/zim-style.conf" ~/.config/zim/style.conf
+ln -fs "$DIR/misc/kwalletrc" ~/.config/kwalletrc
 
 # Gnome settings
 "$DIR/gnome/settings.py" || true
