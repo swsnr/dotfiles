@@ -86,12 +86,13 @@ packages_to_install=(
     pcsc-cyberjack # Card reader driver for eID
 
     # System monitoring
-    iotop    # Monitor IO load
-    htop     # Monitor processes
-    nvtop    # Monitor GPU load
-    bottom   # Overall system monitor
-    lsof     # Check open files
-    powertop # Monitor power consumption
+    iotop           # Monitor IO load
+    htop            # Monitor processes
+    nvtop           # Monitor GPU load
+    bottom          # Overall system monitor
+    lsof            # Check open files
+    powertop        # Monitor power consumption
+    intel-gpu-tools # Tools to inspect intel GPUs
 
     # Networking & security
     networkmanager # Standard desktop network tool
