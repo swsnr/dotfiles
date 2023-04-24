@@ -93,6 +93,7 @@ packages_to_install=(
     lsof            # Check open files
     powertop        # Monitor power consumption
     intel-gpu-tools # Tools to inspect intel GPUs
+    smartmontools   # Disk monitoring
 
     # Networking & security
     networkmanager # Standard desktop network tool
