@@ -51,6 +51,7 @@ packages_to_remove=(
     gimp
     gtk2
     gnome-calculator # qalculate-gtk is back in action
+    rust-analyzer    # Part of rustup
 )
 
 # Packages to mark as optional dependencies
@@ -169,7 +170,6 @@ packages_to_install=(
     cargo-deny    # Rust compliance checker (licensing, advisories, etc.)
     cargo-bloat   # Identify bloat in cargo binaries
     cargo-geiger  # Identify unsafe in cargo dependencies trees
-    rust-analyzer # Not yet shipped in rustup, see https://bugs.archlinux.org/task/76050
     shellcheck    # Lint bash code
     shfmt         # Format bash code
     frum          # Fast Ruby version manager
