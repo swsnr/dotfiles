@@ -795,33 +795,33 @@ install -Dpm644 "$DIR/etc/gdm-profile" /etc/dconf/profile/gdm
 
 # Start firewalld and configure it
 systemctl start firewalld.service
-firewall-cmd --permanent --zone=home \
+firewall-cmd --quiet --permanent --zone=home \
     --add-service=upnp-client \
     --add-service=rdp \
     --add-service=ssh \
     --add-service=syncthing \
     --add-service=mdns \
     --add-service=samba-client
-firewall-cmd --permanent --zone=work \
+firewall-cmd --quiet --permanent --zone=work \
     --add-service=rdp \
     --add-service=ssh \
     --add-service=mdns \
     --add-service=samba-client
 if [[ "$HOSTNAME" == *kastl* ]]; then
     # Define a service for PS remote play
-    firewall-cmd --permanent --new-service=ps-remote-play || true
-    firewall-cmd --permanent --service=ps-remote-play --set-short='PS Remote Play' || true
-    firewall-cmd --permanent --service=ps-remote-play --add-port=9302/udp
-    firewall-cmd --permanent --service=ps-remote-play --add-port=9303/udp
-    firewall-cmd --permanent --zone=home --add-service=ps-remote-play
+    firewall-cmd --quiet --permanent --new-service=ps-remote-play || true
+    firewall-cmd --quiet --permanent --service=ps-remote-play --set-short='PS Remote Play' || true
+    firewall-cmd --quiet --permanent --service=ps-remote-play --add-port=9302/udp
+    firewall-cmd --quiet --permanent --service=ps-remote-play --add-port=9303/udp
+    firewall-cmd --quiet --permanent --zone=home --add-service=ps-remote-play
 
     # Allow gsconnect access
-    firewall-cmd --permanent --zone=home --add-service=gsconnect || true
+    firewall-cmd --quiet --permanent --zone=home --add-service=gsconnect || true
 fi
 # Don't allow incoming SSH connections on public networks (this is a weird
 # default imho).
-firewall-cmd --permanent --zone=public --remove-service=ssh
-firewall-cmd --reload
+firewall-cmd --quiet --permanent --zone=public --remove-service=ssh
+firewall-cmd --quiet --reload
 
 # Setup secure boot
 if command -v sbctl >/dev/null && [[ -f /usr/share/secureboot/keys/db/db.key ]]; then
