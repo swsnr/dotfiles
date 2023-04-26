@@ -180,6 +180,7 @@ packages_to_install=(
     jq            # Process JSON on command line
     kdiff3        # Diff/merge tool
     d-spy         # DBus inspector and debugger
+    plantuml      # Draw UML diagrams from command line
 
     devhelp    # Gnome API doc browser…
     glib2-docs # …and various library documentation packages
