@@ -64,6 +64,7 @@ case "$HOSTNAME" in
     ;;
 *RB*)
     packages+=(
+        drawio-desktop
         python2
         rocketchat-desktop
     )

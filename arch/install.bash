@@ -570,6 +570,7 @@ case "$HOSTNAME" in
         lnav     # Log file analyzer
 
         # Additional applications
+        drawio-desktop     # Diagram drawing
         keepassxc          # Keepass
         evolution-ews      # Exchange for evolution
         mattermost-desktop # Chat application
