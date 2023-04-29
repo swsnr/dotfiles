@@ -180,7 +180,6 @@ packages_to_install=(
     jq            # Process JSON on command line
     kdiff3        # Diff/merge tool
     d-spy         # DBus inspector and debugger
-    plantuml      # Draw UML diagrams from command line
 
     devhelp    # Gnome API doc browser…
     glib2-docs # …and various library documentation packages
@@ -554,8 +553,8 @@ case "$HOSTNAME" in
         helm           # k8s package manager
         skopeo         # Container registory tool
         sbt            # Scala build tool
-        # Git and related tools
-        glab
+        plantuml       # Draw UML diagrams from command line
+        glab           # Gitlab CLI
 
         # VPN
         networkmanager-vpnc
