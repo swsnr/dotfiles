@@ -1,10 +1,11 @@
 name: "Test"
 on: push
 jobs:
-  check-scripts:
+  check:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
+      # Check shell scripts
       - run: 'shellcheck --version'
       - run: 'shellcheck -S info **/*.bash bin/ui-theme bin/game-mode-hook'
       - run: |
@@ -12,19 +13,13 @@ jobs:
           chmod 700 ./shfmt
       - run: ./shfmt --version
       - run: ./shfmt -i 4 -l -d **/*.bash bin/ui-theme bin/game-mode-hook
-  check-fish:
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v3
+      # Check fish things
       - run: 'sudo apt-add-repository ppa:fish-shell/release-3'
       - run: 'sudo apt-get update -y'
       - run: 'sudo apt-get install -y fish'
       - run: 'fish --version'
       - run: 'fish_indent -c fish/conf.d/*.fish fish/functions/*.fish fish/config.fish'
-  check-lua:
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v3
+      # Check lua code in neovim config
       - uses: JohnnyMorganz/stylua-action@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
