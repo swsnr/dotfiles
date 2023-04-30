@@ -13,6 +13,9 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
+# ruff: noqa: T201
+
+"""My gnome settings."""
 
 import sys
 from pathlib import Path
@@ -20,219 +23,223 @@ from gi.repository import Gio, GLib
 
 
 SETTINGS = {
-    'org.gnome.mutter': {
-        'dynamic-workspaces': True,
+    "org.gnome.mutter": {
+        "dynamic-workspaces": True,
         # Switch workspaces on all screens
-        'workspaces-only-on-primary': False,
+        "workspaces-only-on-primary": False,
     },
 
     # Power settings
-    'org.gnome.settings-daemon.plugins.power': {
+    "org.gnome.settings-daemon.plugins.power": {
         # Suspend after 30 minutes of inactivity when on AC power
-        'sleep-inactive-ac-timeout': 1800,
-        'sleep-inactive-ac-type': 'suspend',
+        "sleep-inactive-ac-timeout": 1800,
+        "sleep-inactive-ac-type": "suspend",
         # On battery suspend after five minutes already
-        'sleep-inactive-battery-timeout': 300,
-        'sleep-inactive-battery-type': 'suspend',
+        "sleep-inactive-battery-timeout": 300,
+        "sleep-inactive-battery-type": "suspend",
     },
 
     # System settings
-    'org.gnome.system.location': {
+    "org.gnome.system.location": {
         # Enable location service
-        'enabled': True
+        "enabled": True,
     },
 
     # Desktop settings
-    'org.gnome.desktop.calendar': {
+    "org.gnome.desktop.calendar": {
         # Show week numbers in calendar
-        'show-weekdate': True
+        "show-weekdate": True,
     },
-    'org.gnome.desktop.input-sources': {
-        # compose:ralt: Set compose key to right alt key, according to my moonlander layout
+    "org.gnome.desktop.input-sources": {
+        # compose:ralt: Set compose key to right alt key, for my moonlander layout
         # numpad:mac: Always use numpad for nummeric keys, never for arrows and stuff
-        'xkb-options': ['compose:ralt', 'numpad:mac']
+        "xkb-options": ["compose:ralt", "numpad:mac"],
     },
-    'org.gnome.desktop.interface': {
+    "org.gnome.desktop.interface": {
         # Themes and fonts
-        'icon-theme': None,
-        'gtk-theme': None,
-        'font-name': None,
-        'document-font-name': None,
-        'monospace-font-name': None,
+        "icon-theme": None,
+        "gtk-theme": None,
+        "font-name": None,
+        "document-font-name": None,
+        "monospace-font-name": None,
         # Disable hot corner
-        'enable-hot-corners': False,
+        "enable-hot-corners": False,
         # Show date and weekday in clock
-        'clock-show-date': True,
-        'clock-show-weekday': True,
+        "clock-show-date": True,
+        "clock-show-weekday": True,
         # Disable Ctrl shortcut for locating the cursor; conflicts with
         # IntelliJs Ctrl shortcut to add multiple cursors
-        'locate-pointer': False
+        "locate-pointer": False,
     },
-    'org.gnome.desktop.notifications': {
+    "org.gnome.desktop.notifications": {
         # Do not show notifications in lock screen.  I find this noisy.
-        'show-in-lock-screen': False
+        "show-in-lock-screen": False,
     },
-    'org.gnome.desktop.peripherals.keyboard': {
-        'remember-numlock-state': True,
+    "org.gnome.desktop.peripherals.keyboard": {
+        "remember-numlock-state": True,
     },
-    'org.gnome.desktop.screensaver': {
+    "org.gnome.desktop.screensaver": {
         # Lock screen immediately when the session becomes idle
-        'lock-enabled': True,
-        'lock-delay': GLib.Variant('u', 0),
+        "lock-enabled": True,
+        "lock-delay": GLib.Variant("u", 0),
     },
-    'org.gnome.desktop.session': {
+    "org.gnome.desktop.session": {
         # After five minutes the session becomes idle, and the timeouts for
         # power-saving and lock-screen start
-        'idle-delay': GLib.Variant('u', 300)
+        "idle-delay": GLib.Variant("u", 300),
     },
 
     # Window manager settings
-    'org.gnome.desktop.wm.preferences': {
-        'titlebar-font': None
+    "org.gnome.desktop.wm.preferences": {
+        "titlebar-font": None,
     },
-    'org.gnome.desktop.wm.keybindings': {
-        'close': ['<Super>q', '<Alt>F4'],
+    "org.gnome.desktop.wm.keybindings": {
+        "close": ["<Super>q", "<Alt>F4"],
         # Switch windows not applications
-        'switch-applications': [],
-        'switch-applications-backward': [],
-        'switch-group': [],
-        'switch-group-backward': [],
-        'switch-windows': ['<Super>Tab', '<Alt>Tab'],
-        'switch-windows-backward': ['<Shift><Super>Tab', '<Shift><Alt>Tab'],
+        "switch-applications": [],
+        "switch-applications-backward": [],
+        "switch-group": [],
+        "switch-group-backward": [],
+        "switch-windows": ["<Super>Tab", "<Alt>Tab"],
+        "switch-windows-backward": ["<Shift><Super>Tab", "<Shift><Alt>Tab"],
         # Keep on top above all other windows
-        'always-on-top': ['<Shift><Super>t'],
-        'toggle-on-all-workspaces': ['<Super>period'],
+        "always-on-top": ["<Shift><Super>t"],
+        "toggle-on-all-workspaces": ["<Super>period"],
         # Disable input method switching wtih Super+Space
-        'switch-input-source': ['XF86Keyboard'],
-        'switch-input-source-backward': ['<Shift>XF86Keyboard'],
+        "switch-input-source": ["XF86Keyboard"],
+        "switch-input-source-backward": ["<Shift>XF86Keyboard"],
         # Toogle fullscreen
-        'toggle-fullscreen': ['<Super>Return'],
+        "toggle-fullscreen": ["<Super>Return"],
         # Switch to and move workspaces
-        'switch-to-workspace-1': ['<Super>1'],
-        'switch-to-workspace-2': ['<Super>2'],
-        'switch-to-workspace-3': ['<Super>3'],
-        'switch-to-workspace-4': ['<Super>4'],
-        'switch-to-workspace-5': ['<Super>5'],
-        'switch-to-workspace-6': ['<Super>6'],
-        'move-to-workspace-1': ['<Shift><Super>1'],
-        'move-to-workspace-2': ['<Shift><Super>2'],
-        'move-to-workspace-3': ['<Shift><Super>3'],
-        'move-to-workspace-4': ['<Shift><Super>4'],
-        'move-to-workspace-5': ['<Shift><Super>5'],
-        'move-to-workspace-6': ['<Shift><Super>6'],
+        "switch-to-workspace-1": ["<Super>1"],
+        "switch-to-workspace-2": ["<Super>2"],
+        "switch-to-workspace-3": ["<Super>3"],
+        "switch-to-workspace-4": ["<Super>4"],
+        "switch-to-workspace-5": ["<Super>5"],
+        "switch-to-workspace-6": ["<Super>6"],
+        "move-to-workspace-1": ["<Shift><Super>1"],
+        "move-to-workspace-2": ["<Shift><Super>2"],
+        "move-to-workspace-3": ["<Shift><Super>3"],
+        "move-to-workspace-4": ["<Shift><Super>4"],
+        "move-to-workspace-5": ["<Shift><Super>5"],
+        "move-to-workspace-6": ["<Shift><Super>6"],
     },
 
     # Shell settings
-    'org.gnome.shell.keybindings': {
+    "org.gnome.shell.keybindings": {
         # Disable default shortcuts for application launchers (Super+<number>)
         # I prefer to have these for workspace switching
-        'switch-to-application-1': [],
-        'switch-to-application-2': [],
-        'switch-to-application-3': [],
-        'switch-to-application-4': [],
-        'switch-to-application-5': [],
-        'switch-to-application-6': [],
-        'switch-to-application-7': [],
-        'switch-to-application-8': [],
-        'switch-to-application-9': [],
+        "switch-to-application-1": [],
+        "switch-to-application-2": [],
+        "switch-to-application-3": [],
+        "switch-to-application-4": [],
+        "switch-to-application-5": [],
+        "switch-to-application-6": [],
+        "switch-to-application-7": [],
+        "switch-to-application-8": [],
+        "switch-to-application-9": [],
     },
-    'org.gnome.shell.app-switcher': {
+    "org.gnome.shell.app-switcher": {
         # Limit app and window switcher to current workspace
-        'current-workspace-only': True,
+        "current-workspace-only": True,
     },
 
     # Application settings
-    'org.gnome.software': {
+    "org.gnome.software": {
         # Don't educate me Gnome
-        'show-nonfree-ui': False,
-        'prompt-for-nonfree': False,
+        "show-nonfree-ui": False,
+        "prompt-for-nonfree": False,
         # I'll handle this myself
-        'enable-repos-dialog': False,
+        "enable-repos-dialog": False,
     },
-    'org.gnome.Epiphany': {
+    "org.gnome.Epiphany": {
         # Adjust search engines: Remove bing, and add startpage as default
         # search engine
-        'default-search-engine': 'Startpage',
-        'search-engine-providers': GLib.Variant(
-            'aa{sv}',
+        "default-search-engine": "Startpage",
+        "search-engine-providers": GLib.Variant(
+            "aa{sv}",
             [
                 {
-                    'url': GLib.Variant.new_string('https://www.startpage.com/sp/search?query=%s'),
-                    'bang': GLib.Variant.new_string('!sp'),
-                    'name': GLib.Variant.new_string('Startpage')
+                    "url": GLib.Variant.new_string("https://www.startpage.com/sp/search?query=%s"),
+                    "bang": GLib.Variant.new_string("!sp"),
+                    "name": GLib.Variant.new_string("Startpage"),
                 },
                 {
-                    'url': GLib.Variant.new_string('https://duckduckgo.com/?q=%s&t=epiphany'),
-                    'bang': GLib.Variant.new_string('!ddg'),
-                    'name': GLib.Variant.new_string('DuckDuckGo')
+                    "url": GLib.Variant.new_string("https://duckduckgo.com/?q=%s&t=epiphany"),
+                    "bang": GLib.Variant.new_string("!ddg"),
+                    "name": GLib.Variant.new_string("DuckDuckGo"),
                 },
                 {
-                    'url': GLib.Variant.new_string('https://www.google.com/search?q=%s'),
-                    'bang': GLib.Variant.new_string('!g'),
-                    'name': GLib.Variant.new_string('Google')
+                    "url": GLib.Variant.new_string("https://www.google.com/search?q=%s"),
+                    "bang": GLib.Variant.new_string("!g"),
+                    "name": GLib.Variant.new_string("Google"),
                 },
-            ]
+            ],
         ),
         # Use a more comprehensive content filter list
-        'content-filters': ['https://easylist-downloads.adblockplus.org/easylist_content_blocker.json'],
+        "content-filters": ["https://easylist-downloads.adblockplus.org/easylist_content_blocker.json"],
     },
-    ('org.gnome.Epiphany.web', '/org/gnome/epiphany/web/'): {
+    ("org.gnome.Epiphany.web", "/org/gnome/epiphany/web/"): {
         # Perhaps it's getting there one day (e.g. ublock origin, 1password)
-        'enable-webextensions': True,
+        "enable-webextensions": True,
         # 1password does this
-        'remember-passwords': False
-    }
+        "remember-passwords": False,
+    },
 }
 
 EXTENSION_SETTINGS = {
-    'burn-my-windows@schneegans.github.com': {
-        'org.gnome.shell.extensions.burn-my-windows':{
+    "burn-my-windows@schneegans.github.com": {
+        "org.gnome.shell.extensions.burn-my-windows":{
             # Burn my window effects <3
-            'apparition-close-effect': True,
-            'apparition-open-effect': True,
-            'broken-glass-close-effect': True,
-            'destroy-dialogs': True,
-            'doom-open-effect': True,
-            'glide-close-effect': True,
-            'glide-open-effect': True,
-            'hexagon-additive-blending': True,
-            'incinerate-close-effect': True,
-            'incinerate-use-pointer': True,
-            'tv-open-effect': True,
-            'wisps-close-effect': True,
-            'wisps-open-effect': True,
-        }
+            "apparition-close-effect": True,
+            "apparition-open-effect": True,
+            "broken-glass-close-effect": True,
+            "destroy-dialogs": True,
+            "doom-open-effect": True,
+            "glide-close-effect": True,
+            "glide-open-effect": True,
+            "hexagon-additive-blending": True,
+            "incinerate-close-effect": True,
+            "incinerate-use-pointer": True,
+            "tv-open-effect": True,
+            "wisps-close-effect": True,
+            "wisps-open-effect": True,
+        },
     },
-    'tiling-assistant@leleat-on-github': {
-        'org.gnome.shell.extensions.tiling-assistant': {
+    "tiling-assistant@leleat-on-github": {
+        "org.gnome.shell.extensions.tiling-assistant": {
             # Gaps between windows and to the screen borders
-            'single-screen-gap': 4,
-            'window-gap': 4,
+            "single-screen-gap": 4,
+            "window-gap": 4,
             # Adapt keybindings if the focused window is in tiled state: 3 means
             # change tiling state, but minimize windows instead of tiling to
             # bottom for windows which aren't tiled or already tiled to bottom,
             # see https://github.com/Leleat/Tiling-Assistant/wiki/Dynamic-Keybindings#tiling-state-windows
-            'dynamic-keybinding-behavior': 3,
-        }
-    }
+            "dynamic-keybinding-behavior": 3,
+        },
+    },
 }
 
 BINDINGS = {
-    'terminal': False,
-    'toggle-theme': {
-        'name': 'Toggle UI theme',
-        'command': 'ui-theme toggle',
-        'binding': '<Super>apostrophe'
+    "terminal": False,
+    "toggle-theme": {
+        "name": "Toggle UI theme",
+        "command": "ui-theme toggle",
+        "binding": "<Super>apostrophe",
     },
-    'onepassword-quick': {
-        'name': '1Password quick access',
-        'command': '1password --quick-access',
-        'binding': '<Super>o'
-    }
+    "onepassword-quick": {
+        "name": "1Password quick access",
+        "command": "1password --quick-access",
+        "binding": "<Super>o",
+    },
 }
 
 
-def set_pytype(settings, key, value):
+GlibValue = None | str | bool | int | list[str] | GLib.Variant
+
+
+def set_pytype(settings: Gio.Settings, key: str, value: GlibValue) -> None:
+    """Set `key` in `settings` to the given `value`."""
     if value is None:
         settings.reset(key)
     elif isinstance(value, GLib.Variant):
@@ -246,47 +253,56 @@ def set_pytype(settings, key, value):
     elif isinstance(value, list):
         settings.set_strv(key, value)
     else:
-        raise ValueError(f'Value {value!r} for key {key} has unknown type')
+        message = f"Value {value!r} for key {key} has unknown type"
+        raise TypeError(message)
 
 
-def apply_settings(settings, items):
-    settings_schema = settings.get_property('settings-schema')
-    schema = settings.get_property('schema')
+def set_all_items(settings: Gio.Settings,
+                   items: dict[str, dict[str, GlibValue]]) -> None:
+    """Apply all `items` to `settings`."""
+    settings_schema = settings.get_property("settings-schema")
+    schema = settings.get_property("schema")
     for key, value in items.items():
         if settings_schema.has_key(key):
-            print(f'{schema}.{key} = {value}')
+            print(f"{schema}.{key} = {value}")
             set_pytype(settings, key, value)
         else:
-            print(f'{schema}.{key} does not exist!', file=sys.stderr)
+            print(f"{schema}.{key} does not exist!", file=sys.stderr)
 
 
-def main():
+def apply_settings() -> None:
+    """Apply all standard settings."""
     default_source = Gio.SettingsSchemaSource.get_default()
-    for schema_id, items in SETTINGS.items():
-        if isinstance(schema_id, str):
+    for schema_id_or_path, items in SETTINGS.items():
+        if isinstance(schema_id_or_path, str):
+            schema_id = schema_id_or_path
             path = None
         else:
-            schema_id, path = schema_id
-        schema = default_source.lookup(schema_id, False)
+            schema_id, path = schema_id_or_path
+        schema = default_source.lookup(schema_id, False) # noqa: FBT003
         if schema:
             settings = Gio.Settings.new_full(schema=schema, backend=None,
                                              path=path)
-            apply_settings(settings, items)
+            set_all_items(settings, items)
         else:
-            print(f'Skipping non-existing schema {schema_id}', file=sys.stderr)
+            print(f"Skipping non-existing schema {schema_id}", file=sys.stderr)
 
+
+def apply_extension_settings() -> None:
+    """Apply all settings for gnome extensions."""
+    default_source = Gio.SettingsSchemaSource.get_default()
     extension_prefixes = [
-        Path('/usr/share/gnome-shell/extensions'),
-        Path.home() / 'local' / 'share' / 'gnome-shell' / 'extensions',
+        Path("/usr/share/gnome-shell/extensions"),
+        Path.home() / "local" / "share" / "gnome-shell" / "extensions",
     ]
     for uuid, schemas in EXTENSION_SETTINGS.items():
-        schema_dirs = (p / uuid / 'schemas' for p in extension_prefixes)
+        schema_dirs = (p / uuid / "schemas" for p in extension_prefixes)
         schema_dir = next((d for d in schema_dirs if d.exists()), None)
         if schema_dir:
             source = Gio.SettingsSchemaSource.new_from_directory(
                 directory=str(schema_dir),
                 parent=default_source,
-                trusted=True
+                trusted=True,
             )
         else:
             # Some extensions get packaged to install their schemas into the
@@ -294,50 +310,63 @@ def main():
             # so let's support it.
             source = default_source
         for schema_id, items in schemas.items():
-            schema = source.lookup(schema_id, False)
+            schema = source.lookup(schema_id, False) # noqa: FBT003
             if schema:
                 settings = Gio.Settings.new_full(schema=schema, backend=None,
                                                  path=None)
-                apply_settings(settings, items)
+                set_all_items(settings, items)
             else:
-                print(f'Schema {schema_id} does not exist; extension {uuid} not installed?',
-                      file=sys.stderr)
+                print(f"Schema {schema_id} does not exist; extension {uuid} "
+                      "not installed?", file=sys.stderr)
 
-    bindings_schema = 'org.gnome.settings-daemon.plugins.media-keys.custom-keybinding'
-    if not default_source.lookup(bindings_schema, False):
-        print('Schema for custom keybindings not found, skipping', file=sys.stderr)
+
+def apply_keybindings() -> None:
+    """Apply all keybindings."""
+    default_source = Gio.SettingsSchemaSource.get_default()
+    media_keys_schema = "org.gnome.settings-daemon.plugins.media-keys"
+    media_keys_path = "/" + media_keys_schema.replace(".", "/")
+    bindings_schema = f"{media_keys_schema}.custom-keybinding"
+    if not default_source.lookup(bindings_schema, False): # noqa: FBT003
+        print("Schema for custom keybindings not found, skipping", file=sys.stderr)
     else:
         new_bindings = []
         removed_bindings = []
-        for id, binding in BINDINGS.items():
-            path = f'/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/{id}/'
+        for binding_id, binding in BINDINGS.items():
+            path = f"{media_keys_path}/custom-keybindings/{binding_id}/"
             settings = Gio.Settings.new_with_path(
                 schema_id=bindings_schema, path=path)
             if not binding:
-                schema = settings.get_property('settings-schema')
+                schema = settings.get_property("settings-schema")
                 for key in schema.list_keys():
                     settings.reset(key)
-                print(f'binding {id} removed')
+                print(f"binding {binding_id} removed")
                 removed_bindings.append(path)
             else:
-                settings.set_string('name', binding['name'])
-                settings.set_string('command', binding['command'])
-                settings.set_string('binding', binding['binding'])
-                print('{id} {binding}: {name} ({command})'.format(
-                    id=id, **binding))
+                settings.set_string("name", binding["name"])
+                settings.set_string("command", binding["command"])
+                settings.set_string("binding", binding["binding"])
+                print("{id} {binding}: {name} ({command})".format(
+                    id=binding_id, **binding))
                 new_bindings.append(path)
 
-        media_keys = Gio.Settings(
-            schema='org.gnome.settings-daemon.plugins.media-keys')
-        custom_bindings = media_keys.get_strv('custom-keybindings')
+        media_keys = Gio.Settings(schema=media_keys_schema)
+        custom_bindings = media_keys.get_strv("custom-keybindings")
         for path in new_bindings:
             if path not in custom_bindings:
                 custom_bindings.append(path)
         for path in removed_bindings:
             if path in custom_bindings:
                 custom_bindings.remove(path)
-        media_keys.set_strv('custom-keybindings', custom_bindings)
+        media_keys.set_strv("custom-keybindings", custom_bindings)
 
 
-if __name__ == '__main__':
+
+def main() -> None:
+    """Run this program."""
+    apply_settings()
+    apply_extension_settings()
+    apply_keybindings()
+
+
+if __name__ == "__main__":
     main()

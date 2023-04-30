@@ -12,20 +12,26 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
-from pathlib import Path
+"""Convert files from DOS to UNIX line endings."""
+
 from argparse import ArgumentParser
+from pathlib import Path
 from tempfile import NamedTemporaryFile
 
 
-def main():
+def main() -> None:
+    """Run this program."""
     parser = ArgumentParser()
-    parser.add_argument('file', nargs='+', help='File to convert')
+    parser.add_argument("file", nargs="+", help="File to convert")
 
     args = parser.parse_args()
 
     for file in map(Path, args.file):
-        with NamedTemporaryFile('wb', dir=file.absolute().parent, prefix=file.name, suffix=file.suffix, delete=False) as sink:
-            sink.write(file.read_bytes().replace(b'\r\n', b'\n'))
+        with NamedTemporaryFile("wb",
+                                dir=file.absolute().parent,
+                                prefix=file.name,
+                                suffix=file.suffix, delete=False) as sink:
+            sink.write(file.read_bytes().replace(b"\r\n", b"\n"))
             sink.flush()
             Path(sink.name).rename(file)
 

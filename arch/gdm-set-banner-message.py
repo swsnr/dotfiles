@@ -13,8 +13,7 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
-"""
-Set a GDM banner message.
+"""Set a GDM banner message.
 
 See <https://help.gnome.org/admin/system-admin-guide/stable/login-banner.html.en>
 """
@@ -23,28 +22,28 @@ import argparse
 import subprocess
 from pathlib import Path
 
-import gi
 from gi.repository import GLib
 
 
-def main():
-    parser = argparse.ArgumentParser(description='Set GDM banner message')
-    parser.add_argument('message')
+def main() -> None:
+    """Run this program."""
+    parser = argparse.ArgumentParser(description="Set GDM banner message")
+    parser.add_argument("message")
     args = parser.parse_args()
 
     message = GLib.Variant.new_string(args.message)
-    target = Path('/etc/dconf/db/gdm.d/01-swsnr-dotfiles-banner-message')
+    target = Path("/etc/dconf/db/gdm.d/01-swsnr-dotfiles-banner-message")
     target.parent.mkdir(parents=True, exist_ok=True)
 
     content = f"""\
 [org/gnome/login-screen]
 banner-message-enable=true
 banner-message-text={message}"""
-    print(f'Writing {target}')
+    print(f"Writing {target}") # noqa: T201
     target.write_text(content)
 
-    print('dconf update')
-    subprocess.run(['dconf', 'update'])
+    print("dconf update") # noqa: T201
+    subprocess.run(["/usr/bin/dconf", "update"])
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

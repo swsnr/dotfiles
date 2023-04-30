@@ -13,49 +13,55 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
+
+"""Split an m4b file into individual embedded tracks."""
+
+
 import json
 from pathlib import Path
 from subprocess import run
 
 
-def main():
+def main() -> None:
+    """Run this program."""
     from argparse import ArgumentParser
 
     parser = ArgumentParser()
-    parser.add_argument('input')
-    parser.add_argument('--output-directory')
-    parser.add_argument('--start-track', type=int, default=1)
+    parser.add_argument("input")
+    parser.add_argument("--output-directory")
+    parser.add_argument("--start-track", type=int, default=1)
     args = parser.parse_args()
 
-    input = Path(args.input)
+    m4b_file = Path(args.input)
     start_track = int(args.start_track)
-    ffprobe = run(['ffprobe', '-i', str(input), '-print_format', 'json',
-                       '-show_chapters'], check=True, text=True,
+    ffprobe = run(["/usr/bin/ffprobe", "-i", str(m4b_file), "-print_format", "json",
+                       "-show_chapters"], check=True, text=True,
                    capture_output=True)
-    chapters = json.loads(ffprobe.stdout)['chapters']
-    output_directory = Path(args.output_directory) if args.output_directory else Path.cwd()
+    chapters = json.loads(ffprobe.stdout)["chapters"]
+    output_directory = Path(args.output_directory) \
+        if args.output_directory else Path.cwd()
     output_directory.mkdir(exist_ok=True, parents=True)
     splits = []
     for chapter in chapters:
-        track = int(chapter['id']) + start_track
-        title = str(chapter['tags']['title'])
-        safe_title = title.replace('/', '_').replace(':', '_').replace('?', '_')
-        filename = f'{track:03} {safe_title}.m4a'
+        track = int(chapter["id"]) + start_track
+        title = str(chapter["tags"]["title"])
+        safe_title = title.replace("/", "_").replace(":", "_").replace("?", "_")
+        filename = f"{track:03} {safe_title}.m4a"
         output = output_directory / filename
 
         split = [
-            '-c', 'copy',
-            '-ss', str(chapter['start_time']),
-            '-to', str(chapter['end_time']),
-            '-metadata', f'title={title}',
-            '-metadata', f'track={track}',
-            str(output)
+            "-c", "copy",
+            "-ss", str(chapter["start_time"]),
+            "-to", str(chapter["end_time"]),
+            "-metadata", f"title={title}",
+            "-metadata", f"track={track}",
+            str(output),
         ]
         splits.extend(split)
-    ffmpeg_cmd = ['ffmpeg', '-i', str(input)]
+    ffmpeg_cmd = ["ffmpeg", "-i", str(m4b_file)]
     ffmpeg_cmd.extend(splits)
     run(ffmpeg_cmd, check=True)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

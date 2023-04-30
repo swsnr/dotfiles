@@ -1,42 +1,46 @@
+# ruff: noqa: INP001, D100
+
 # Default imports for my interactive sessions
 import os
 import sys
+import contextlib
 from pathlib import Path
 
-def _interactive_hook():
-    print('Hello :)')
-    def _configure_readline():
+
+def _interactive_hook() -> None:
+    """My personal interactive hookself.
+
+    Setup readline completion, and move python history to `$XDG_STATE_HOME`.
+    """
+    print("Hello :)") # noqa: T201
+    def _configure_readline() -> None:
+        """Configure readline.
+
+        Setup readline completion, and move readline history to `$XDG_STATE_HOME`.
+        """
         import readline
         import atexit
-        import rlcompleter
 
         # Reading the initialization (config) file may not be enough to set a
         # completion key, so we set one first and then read the file.
-        readline_doc = getattr(readline, '__doc__', '')
-        if readline_doc is not None and 'libedit' in readline_doc:
-            readline.parse_and_bind('bind ^I rl_complete')
+        readline_doc = getattr(readline, "__doc__", "")
+        if readline_doc is not None and "libedit" in readline_doc:
+            readline.parse_and_bind("bind ^I rl_complete")
         else:
-            readline.parse_and_bind('tab: complete')
+            readline.parse_and_bind("tab: complete")
 
-        try:
+        with contextlib.suppress(OSError):
             readline.read_init_file()
-        except OSError:
-            # An OSError here could have many causes, but the most likely one
-            # is that there's no .inputrc file (or .editrc file in the case of
-            # Mac OS X + libedit) in the expected location.  In that case, we
-            # want to ignore the exception.
-            pass
 
-        default_state_directory = os.path.join(os.path.expanduser('~'),
-                                               '.local', 'state')
-        state_directory = os.environ.get('XDG_STATE_HOME',
-                                         default_state_directory)
-        python_state_directory = os.path.join(state_directory, 'python')
-        os.makedirs(python_state_directory, exist_ok=True)
+        state_directory = Path(os.environ.get(
+            "XDG_STATE_HOME", Path.home() / ".local" / "state",
+        )) / "python"
+        state_directory.mkdir(parents=True)
 
-        histfile = os.path.join(python_state_directory, 'python_history')
+        histfile = state_directory / "python_history"
+
         try:
-            readline.read_history_file(histfile)
+            readline.read_history_file(str(histfile))
             readline.set_history_length(10000)
         except FileNotFoundError:
             pass

@@ -13,79 +13,96 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
+"""Open a day in the zim journal."""
 
 import os
 from pathlib import Path
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta, timezone
 from configparser import ConfigParser
 from subprocess import Popen, DEVNULL
 from locale import LC_MESSAGES
 from gi.repository import Gio, GLib
 
 
-FLATPAK = 'org.zim_wiki.Zim'
+FLATPAK = "org.zim_wiki.Zim"
 USE_FLATPAK = False
+XDG_CONFIG_HOME = Path(os.environ.get("XDG_CONFIG_HOME", Path.home() / ".config"))
 
 
-def get_zim_notebook_name(flatpak):
+def get_zim_notebook_name(*, flatpak: bool) -> str:
+    """Get the name of the main zim notebookself.
+
+    If `flatpak` is `True` use the setting from the flatpak installation of zim,
+    otherwise use the regular installation.
+    """
     if flatpak:
-        config_home = Path.home() / '.var' / 'app' / FLATPAK / 'config'
+        config_home = Path.home() / ".var" / "app" / FLATPAK / "config"
     else:
-        config_home = Path(os.environ.get(
-            'XDG_CONFIG_HOME', Path.home() / '.config'))
-    notebooks_list = config_home / 'zim' / 'notebooks.list'
+        config_home = XDG_CONFIG_HOME
+    notebooks_list = config_home / "zim" / "notebooks.list"
     config = ConfigParser(interpolation=None)
     config.read(notebooks_list)
-    return config['Notebook 1']['name']
+    return config["Notebook 1"]["name"]
 
 
-def get_session_locale(category):
-    """
-    Get the Gnome Session locale.
-    """
+LocaleCategory = int
+
+
+def get_session_locale(category: LocaleCategory) -> str:
+    """Get the Gnome Session locale."""
     bus = Gio.bus_get_sync(Gio.BusType.SESSION, None)
     # We need no properties and no signals here so speed up
-    flags = Gio.DBusProxyFlags.DO_NOT_CONNECT_SIGNALS | Gio.DBusProxyFlags.DO_NOT_LOAD_PROPERTIES
+    flags = Gio.DBusProxyFlags.DO_NOT_CONNECT_SIGNALS | \
+        Gio.DBusProxyFlags.DO_NOT_LOAD_PROPERTIES
     session = Gio.DBusProxy.new_sync(bus, flags, None,
-                                     'org.gnome.SessionManager',
-                                     '/org/gnome/SessionManager',
-                                     'org.gnome.SessionManager')
-    return session.GetLocale('(i)', category)
+                                     "org.gnome.SessionManager",
+                                     "/org/gnome/SessionManager",
+                                     "org.gnome.SessionManager")
+    return session.GetLocale("(i)", category)
 
 
-def next_workday(date):
+ISO_FRIDAY = 5
+
+
+def next_workday(date: date) -> date:
+    """Get the next workday after the given date.
+
+    In other words, get the next day ignoring weekends.
+    """
     weekday = date.isoweekday()
-    if weekday < 5:
+    if weekday < ISO_FRIDAY:
         return date + timedelta(days=1)
-    else:
-        return date + timedelta(days=8-weekday)
+
+    return date + timedelta(days=8-weekday)
 
 
-def main():
+def main() -> None:
+    """Run this program."""
     from argparse import ArgumentParser
 
     parser = ArgumentParser()
     parser.add_argument(
-        'date', choices=['today', 'tomorrow', 'next_workday'], nargs=1)
+        "date", choices=["today", "tomorrow", "next_workday"], nargs=1)
     args = parser.parse_args()
 
+    today = datetime.now(tz=timezone.utc).date()
     page = {
-        'today': date.today(),
-        'tomorrow': date.today() + timedelta(days=1),
-        'next_workday': next_workday(date.today())
-    }[args.date[0]].strftime('%Y:%m:%d')
+        "today": today,
+        "tomorrow": today + timedelta(days=1),
+        "next_workday": next_workday(today),
+    }[args.date[0]].strftime("%Y:%m:%d")
 
     env = dict(os.environ)
     # Explicitly enforce the session message locale to work around ZIM issue
     # https://github.com/zim-desktop-wiki/zim-desktop-wiki/issues/1152
     try:
-        env['LC_MESSAGES'] = get_session_locale(LC_MESSAGES)
+        env["LC_MESSAGES"] = get_session_locale(LC_MESSAGES)
     except GLib.Error:
-        env['LC_MESSAGES'] = 'de_DE.utf8'
+        env["LC_MESSAGES"] = "de_DE.utf8"
     # Open todays journal page
-    command = ['flatpak', 'run', 'org.zim_wiki.Zim'] if USE_FLATPAK else ['zim']
-    command.append(get_zim_notebook_name(USE_FLATPAK))
-    command.append(f'Journal:{page}')
+    command = ["flatpak", "run", "org.zim_wiki.Zim"] if USE_FLATPAK else ["zim"]
+    command.append(get_zim_notebook_name(flatpak=USE_FLATPAK))
+    command.append(f"Journal:{page}")
     Popen(command, env=env, stdout=DEVNULL, stderr=DEVNULL)
 
 

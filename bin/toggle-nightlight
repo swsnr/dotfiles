@@ -13,6 +13,7 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
+"""Toggle nightlight in Gnome."""
 
 from gi.repository import Gio
 from gi.repository.GLib import Variant
