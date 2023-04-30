@@ -13,52 +13,30 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
-import os
+
 from gi.repository import Gio
 from gi.repository.GLib import Variant
 
 
-def toggle_gnome():
+def toggle_gnome() -> None:
+    """Toggle nightlight under gnome."""
+    flags = Gio.DBusProxyFlags.DO_NOT_CONNECT_SIGNALS | \
+        Gio.DBusProxyFlags.DO_NOT_LOAD_PROPERTIES
     color = Gio.DBusProxy.new_for_bus_sync(
-        Gio.BusType.SESSION, Gio.DBusProxyFlags.DO_NOT_CONNECT_SIGNALS | Gio.DBusProxyFlags.DO_NOT_LOAD_PROPERTIES, None,
-        'org.gnome.SettingsDaemon.Color',
-        '/org/gnome/SettingsDaemon/Color',
-        'org.freedesktop.DBus.Properties'
+        Gio.BusType.SESSION, flags, None,
+        "org.gnome.SettingsDaemon.Color",
+        "/org/gnome/SettingsDaemon/Color",
+        "org.freedesktop.DBus.Properties",
     )
     is_disabled = color.Get(
-        '(ss)', 'org.gnome.SettingsDaemon.Color', 'DisabledUntilTomorrow')
-    color.Set('(ssv)', 'org.gnome.SettingsDaemon.Color',
-              'DisabledUntilTomorrow', Variant.new_boolean(not is_disabled))
+        "(ss)", "org.gnome.SettingsDaemon.Color", "DisabledUntilTomorrow")
+    color.Set("(ssv)", "org.gnome.SettingsDaemon.Color",
+              "DisabledUntilTomorrow", Variant.new_boolean(not is_disabled))
 
 
-def toggle_i3():
-    flags = Gio.DBusProxyFlags.DO_NOT_CONNECT_SIGNALS | Gio.DBusProxyFlags.DO_NOT_LOAD_PROPERTIES
-    systemd = Gio.DBusProxy.new_for_bus_sync(
-        Gio.BusType.SESSION, flags, None,
-        'org.freedesktop.systemd1',
-        '/org/freedesktop/systemd1',
-        'org.freedesktop.systemd1.Manager'
-    )
-    redshift_props = Gio.DBusProxy.new_sync(
-        systemd.get_connection(), flags, None,
-        systemd.get_name(), systemd.LoadUnit('(s)', 'redshift.service'),
-        'org.freedesktop.DBus.Properties'
-    )
-    state = redshift_props.Get(
-        '(ss)', 'org.freedesktop.systemd1.Unit', 'ActiveState')
-    if state == 'active':
-        systemd.StopUnit('(ss)', 'redshift.service', 'fail')
-    else:
-        systemd.StartUnit('(ss)', 'redshift.service', 'fail')
-
-
-def main():
-    if 'SWAYSOCK' in os.environ:
-        pass
-    elif 'I3SOCK' in os.environ:
-        toggle_i3()
-    else:
-        toggle_gnome()
+def main() -> None:
+    """Run this program."""
+    toggle_gnome()
 
 
 if __name__ == "__main__":
