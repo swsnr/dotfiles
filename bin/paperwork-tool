@@ -1,0 +1,262 @@
+#!/usr/bin/env python3
+# Copyright Sebastian Wiesner <sebastian@swsnr.de>
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may not
+# use this file except in compliance with the License. You may obtain a copy of
+# the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations under
+# the License.
+
+"""Tool for personal paperwork workflows."""
+
+import json
+import logging
+import sys
+import re
+from argparse import ArgumentParser, Namespace
+from datetime import date, datetime, timezone
+from pathlib import Path
+from subprocess import CompletedProcess, run, PIPE
+from typing import Literal, TypedDict, cast
+from operator import itemgetter
+
+
+LOG = logging.getLogger()
+USE_FLATPAK = False
+
+
+class ColoredFormatter(logging.Formatter):
+    """A logging formatter which adds colors."""
+
+    _grey = "\x1b[37m"
+    _green = "\x1b[32m"
+    _yellow = "\x1b[33m"
+    _red = "\x1b[31m"
+    _bold_red = "\x1b[31m"
+    _reset = "\x1b[0m"
+    _format = "{message}"
+
+    FORMATS = {
+        logging.DEBUG: _grey + _format + _reset,
+        logging.INFO: _green + _format + _reset,
+        logging.WARNING: _yellow + _format + _reset,
+        logging.ERROR: _red + _format + _reset,
+        logging.CRITICAL: _bold_red + _format + _reset,
+    }
+
+    def format(self, record: logging.LogRecord) -> str: # noqa: A003, D102, ANN101
+        log_fmt = self.FORMATS.get(record.levelno)
+        formatter = logging.Formatter(fmt=log_fmt, style="{")
+        return formatter.format(record)
+
+
+def run_paperwork_raw(command: list[str]) -> CompletedProcess[str]:
+    """Run paperwork with the given command and return the raw result."""
+    if USE_FLATPAK:
+        full_command = ["flatpak", "run",
+                        "--command=paperwork-json", "work.openpaper.Paperwork"]
+    else:
+        full_command = ["paperwork-json"]
+    full_command.extend(command)
+    LOG.debug(f"Running command {full_command}")
+    child = run(full_command, stdout=PIPE, text=True)
+    LOG.debug(f"Command {full_command} exited with {child.returncode} and "
+        f"output {child.stdout!r}")
+    return child
+
+
+Json = dict[str, "Json"] | list["Json"] | str | int | float | bool | None
+
+
+def run_paperwork(command: list[str]) -> Json:
+    """Run paperwork and return the JSON results."""
+    child = run_paperwork_raw(command)
+    results = json.loads(child.stdout)
+    if child.returncode != 0:
+        reason = results["reason"]
+        message = f"paperwork failed with exit code {child.returncode}: {reason}"
+        raise ValueError(message)
+    return results
+
+
+def find_documents(query: str) -> list[str]:
+    """Find all documents for the given query."""
+    results = run_paperwork(["search", query, "--limit=100"])
+    if isinstance(results, list) and \
+        (not results or isinstance(results[0], str)):
+        return cast(list[str], results)
+
+    message = f"Expected list of strings, got {results!r}"
+    raise ValueError(message)
+
+
+def get_date_from_docid(docid: str) -> date:
+    """Parse the document date from the given document ID."""
+    parts = docid.split("_", 1)
+    return datetime.strptime(parts[0], "%Y%m%d").replace(tzinfo=timezone.utc).date()
+
+
+def guess_date_from_filename(path: Path) -> date:
+    """Guess date from the filename of the given `path`.
+
+    Parse the date out of a filename which starts with an ISO date timestamp,
+    or raise a `ValueError` otherwise.
+    """
+    base = path.name
+    match = re.search(r"^(\d{4})-(\d{2})-(\d{2})[^0-9]+", base)
+    if match:
+        year, month, day = match.groups()
+        return date(int(year), int(month), int(day))
+
+    message = f"Could not guess date from {path}"
+    raise ValueError(message)
+
+
+def get_pdf_creation_date(path: Path) -> date:
+    """Extract the creation date from the metadata of a PDF file at `path`."""
+    command = ["pdfinfo", "-isodates", str(path)]
+    LOG.debug(f"Running {command}")
+    result = run(command, capture_output=True, text=True)
+    LOG.debug(f"Command {command} finished with exit code {result.returncode}")
+    if result.returncode != 0:
+        message = f"{path} may not be a PDF file: {result.stderr}"
+        raise ValueError(message)
+    for line in result.stdout.splitlines():
+        if line.startswith("CreationDate:"):
+            return date.fromisoformat(line.split(":", 1)[1].strip().split("T", 1)[0])
+
+    message = f"Failed to find creation date for {path} in {result.stdout}"
+    raise ValueError(message)
+
+
+def get_docdate_for_file(path: Path,
+                         mode: Literal["pdf_creation_date", "filename"]) -> date:
+    """Extract the creation date from `path`.
+
+    If `mode` is `pdf_creation_date` use the creation date in the PDF metadata.
+    If `mode` is `filename` extract the creation date from the filename of `path`.
+    """
+    if mode == "pdf_creation_date":
+        return get_pdf_creation_date(path)
+
+    return guess_date_from_filename(path)
+
+
+def get_labels(docid: str) -> set[str]:
+    """Get paperwork labels of the document with the given `docid`."""
+    labels = cast(dict[str, list[str]], run_paperwork(["label", "show", docid]))
+    return {label[0] for label in labels[docid]}
+
+
+class ImportResult(TypedDict):
+    """The result of a `paperwork import` call."""
+
+    ignored: bool
+    new_docs: list[str]
+
+
+def import_file_with_labels_and_date(
+        file: Path, docdate: date, labels: set[str]) -> bool:
+    """Import a document with labels and date.
+
+    Import the document at `file` into paperwork, set its date to `docdate` and
+    set the given `labels`.  Also, remove all automatically assigned labels not
+    in `labels`.
+
+    Note that changing the document date changes the document ID.
+
+    Return `True` if the file was imported, `False` otherwise.
+    """
+    LOG.info(f"Importing {file} with date {docdate} and labels {labels}")
+    import_result = cast(ImportResult, run_paperwork(["import", str(file.absolute())]))
+    if import_result["ignored"]:
+        LOG.warning(f"{file} ignored, already imported?")
+        return False
+
+    docid = import_result["new_docs"][0]
+    LOG.debug(f"Document {docid} imported from {file}")
+    guessed_labels = get_labels(docid)
+    LOG.debug(f"Document {docid} imported with labels {guessed_labels}")
+    for label in (guessed_labels - labels):
+        LOG.debug(f"Removing undesired label {label} from document {docid}")
+        run_paperwork(["label", "remove", docid, label])
+    for label in (labels - guessed_labels):
+        LOG.debug(f"Adding desired label {label} to document {docid}")
+    new_id = "_".join([docdate.strftime("%Y%m%d"), docid.split("_", 1)[1]])
+    LOG.debug(
+        f"Renaming imported document {docid} to {new_id} to set date to {docdate}")
+    run_paperwork(["rename", docid, new_id])
+    LOG.info(f"File {file} successfully imported to {new_id}")
+    return True
+
+
+def action_export_with_date(args: Namespace) -> None:
+    """Handle the 'export-with-date' action."""
+    directory = args.directory or Path(".")
+
+    doc_ids = find_documents(args.query)
+    docs_with_date = [(i, get_date_from_docid(i)) for i in doc_ids]
+    for (doc_id, doc_date) in docs_with_date:
+        name = f"{doc_date:%Y-%m-%d}-{args.basename}-{doc_id}.pdf"
+        target = directory / name
+        LOG.info(f"Exporting {doc_id} to {target}")
+        run_paperwork_raw(["export", "--filters", "unmodified_pdf",
+                           "--out", str(target.absolute()), doc_id])
+
+
+def action_import_with_date(args: Namespace) -> None:
+    """Handle the 'import-with-date' action."""
+    mode = "pdf_creation_date" if args.pdf_creation_date else "filename"
+    files = [(file, get_docdate_for_file(file, mode)) for file in args.file]
+    if not args.execute:
+        for (file, docdate) in sorted(files, key=itemgetter(1)):
+            print(f"{docdate}: {file}") # noqa: T201
+        if input("Continue? [Yn] ") != "Y":
+            sys.exit(2)
+    for (file, docdate) in files:
+        was_imported = import_file_with_labels_and_date(file, docdate, set(args.label))
+        if was_imported and args.trash:
+            LOG.info(f"Moving imported file {file} to trash")
+            run(["/usr/bin/gio", "trash", str(file)], check=True)
+
+
+def main() -> None:
+    """Run this program."""
+    parser = ArgumentParser()
+    parser.add_argument("-v", "--verbose", action="store_true")
+
+    subparsers = parser.add_subparsers(title="actions", required=True)
+    export_with_date = subparsers.add_parser("export-with-date")
+    export_with_date.add_argument("-d", "--directory", type=Path)
+    export_with_date.add_argument("basename")
+    export_with_date.add_argument("query")
+    export_with_date.set_defaults(callback=action_export_with_date)
+
+    import_with_date = subparsers.add_parser("import-with-date")
+    import_with_date.add_argument("-l", "--label", action="append")
+    import_with_date.add_argument("file", nargs="+", type=Path)
+    import_with_date.add_argument("--trash", action="store_true")
+    import_with_date.add_argument("--pdf-creation-date", action="store_true")
+    import_with_date.add_argument("--execute", action="store_true")
+
+    args = parser.parse_args()
+
+    LOG.setLevel(logging.DEBUG if args.verbose else logging.INFO)
+    stderr = logging.StreamHandler(stream=sys.stderr)
+    stderr.setLevel(logging.DEBUG)
+    stderr.setFormatter(ColoredFormatter())
+    logging.getLogger().addHandler(stderr)
+
+    LOG.debug(f"Arguments: {args}")
+
+    args.callback(args)
+
+
+if __name__ == "__main__":
+    main()
