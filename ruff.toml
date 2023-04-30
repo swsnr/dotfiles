@@ -1,0 +1,29 @@
+# Select all rules by default, and selectively disable things I don't need
+select = ["ALL"]
+ignore = [
+  "S603", # A stupid rule; we do in fact absolutely want to use shell=False everywhere
+  "I001", # Sorted imports are just nitpicking.
+  "SIM300", # Allow yoda conditions; there's no point in forbidding these
+
+  # Ignore incompatible rules
+  'D203', # D211 instead
+  'D213', # D212 instead.
+]
+
+# All the python stuff that needs to be linted
+include = [
+  "*.py",
+  "bin/dos2unix",
+  "bin/paperwork-export-with-date",
+  "bin/paperwork-import-with-date",
+  "bin/split-m4b",
+  "bin/toggle-nightlight",
+  "bin/xtermbg",
+  "bin/zim-journal",
+]
+
+[per-file-ignores]
+# Files in these directories are no modules
+"bin/*" = ["INP001"]
+"arch/*" = ["INP001"]
+"gnome/*" = ["INP001"]

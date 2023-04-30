@@ -25,3 +25,5 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           version: latest
           args: --check .
+      # Check all python code
+      - uses: chartboost/ruff-action@v1
