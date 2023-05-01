@@ -35,7 +35,7 @@ def _interactive_hook() -> None:
         state_directory = Path(os.environ.get(
             "XDG_STATE_HOME", Path.home() / ".local" / "state",
         )) / "python"
-        state_directory.mkdir(parents=True)
+        state_directory.mkdir(parents=True, exist_ok=True)
 
         histfile = state_directory / "python_history"
 
