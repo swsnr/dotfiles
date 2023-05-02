@@ -50,6 +50,8 @@ packages_to_remove=(
     typescript-language-server
     gimp
     gtk2
+    plantuml
+    graphviz
     gnome-calculator # qalculate-gtk is back in action
     rust-analyzer    # Part of rustup
 )
@@ -554,7 +556,6 @@ case "$HOSTNAME" in
         helm           # k8s package manager
         skopeo         # Container registory tool
         sbt            # Scala build tool
-        plantuml       # Draw UML diagrams from command line
         glab           # Gitlab CLI
 
         # VPN
