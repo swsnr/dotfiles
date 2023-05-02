@@ -135,6 +135,9 @@ def get_packages_in_repo(repo: Repo, *, with_versions: bool) -> list[str]:
 
 def get_outdated_vcs_packages(repo: Repo, packages: list[str]) -> list[str]:
     """Get all outdated VCS packages from `packages`."""
+    if not packages:
+        return []
+
     repo_packages_with_version = get_packages_in_repo(repo, with_versions=True)
 
     with NamedTemporaryFile() as vcs_versions_file:
@@ -144,7 +147,6 @@ def get_outdated_vcs_packages(repo: Repo, packages: list[str]) -> list[str]:
         return run(["/usr/bin/aur", "vercmp", "-q", "-p", vcs_versions_file.name],
             check=True, text=True, capture_output=True,
             input="\n".join(repo_packages_with_version)).stdout.splitlines()
-
 
 
 def remove_packages(repo: Repo, packages: set[str]) -> None:
