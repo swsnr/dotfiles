@@ -138,6 +138,8 @@ return {
     fade_out_function = "EaseOut",
     fade_out_duration_ms = 150,
   },
+  -- Use webgpu rendering to work around wayland crash, see https://github.com/wez/wezterm/issues/3225
+  front_end = "WebGpu",
   keys = {
     { key = "_", mods = "ALT|SHIFT", action = wezterm.action({ SplitVertical = { domain = "CurrentPaneDomain" } }) },
     { key = "|", mods = "ALT|SHIFT", action = wezterm.action({ SplitHorizontal = { domain = "CurrentPaneDomain" } }) },
