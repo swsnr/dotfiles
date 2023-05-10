@@ -625,6 +625,16 @@ if [[ "${use_nvidia:-false}" == true ]]; then
     # However, we explicitly do not add the kms hook, because it would pick up
     # nouveau according to the wiki page, which we definitely don't want.
 else
+    packages_to_remove+=(
+        nvidia
+        nvidia-lts
+    )
+
+    services_to_disable+=(
+        nvidia-suspend.service
+        nvidia-resume.service
+    )
+
     # If we're not using the proprietary nvidia driver we can let the kms hook
     # pick up required modules for early kms.
     mkinitcpio_hooks+=(kms)
@@ -719,6 +729,8 @@ if [[ "${use_nvidia:-false}" == true ]]; then
     # Forcibly disable GDM's nvidia rules, because at this point we know it's
     # working; otherwise we'd not set "use_nvidia" to "true".
     ln -sf /dev/null /etc/udev/rules.d/61-gdm.rules
+else
+    rm -f /etc/modprobe.d/nvidia-power-management.conf /etc/udev/rules.d/61-gdm.rules
 fi
 
 cat >"$WORKDIR/mkinitcpio.conf" <<EOF
