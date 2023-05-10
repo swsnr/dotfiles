@@ -453,9 +453,6 @@ case "$PRODUCT_NAME" in
     )
 
     ;;
-'Precision 7530')
-    use_nvidia=true
-    ;;
 esac
 
 case "$HOSTNAME" in
