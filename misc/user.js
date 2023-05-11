@@ -183,10 +183,10 @@ user_pref("network.prefetch-next", false);
 // Never autoplay things
 user_pref("media.autoplay.default", 5);
 
-// Enable DNS over HTTPS, but with a privacy preserving provider (Freifunk
-// München), see https://ffmuc.net/wiki/doku.php?id=knb:dohdot
-user_pref("network.trr.mode", 2); // 2 enables DNS over HTTPS with system DNS as fallback
-user_pref("network.trr.custom_uri", "https://doh.ffmuc.net/dns-query");
+// 5 means we deliberately use the systemd resolver; we handle our DNS through
+// systemd-resolved and can configure accordingly for DNS over TLS or for
+// alternate resolvers, so let's not treat firefox special
+user_pref("network.trr.mode", 5);
 
 // Mark my configuration as loaded
 user_pref('_swsnr.user.js', 'Complete');
