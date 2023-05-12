@@ -220,6 +220,39 @@ EXTENSION_SETTINGS = {
     },
 }
 
+TERMINAL_PROFILE = {
+    "audible-bell": False,
+    "bold-is-bright": False,
+    "default-size-columns": 120,
+    "default-size-rows": 40,
+    "font": "PragmataPro Mono Liga 11",
+    "use-system-font": False,
+    "visible-name": "Shell",
+    # Tango theme
+    "palette": [
+        "rgb(46,52,54)",
+        "rgb(204,0,0)",
+        "rgb(78,154,6)",
+        "rgb(196,160,0)",
+        "rgb(52,101,164)",
+        "rgb(117,80,123)",
+        "rgb(6,152,154)",
+        "rgb(211,215,207)",
+        "rgb(85,87,83)",
+        "rgb(239,41,41)",
+        "rgb(138,226,52)",
+        "rgb(252,233,79)",
+        "rgb(114,159,207)",
+        "rgb(173,127,168)",
+        "rgb(52,226,226)",
+        "rgb(238,238,236)",
+    ],
+    "foreground-color": "#F8F8F2",
+    "use-theme-colors": True,
+    "use-custom-command": True,
+    "custom-command": "/usr/bin/fish",
+}
+
 BINDINGS = {
     "terminal": False,
     "toggle-theme": {
@@ -360,12 +393,27 @@ def apply_keybindings() -> None:
         media_keys.set_strv("custom-keybindings", custom_bindings)
 
 
+def apply_gnome_terminal() -> None:
+    """Apply gnome-terminal settings."""
+    default_source = Gio.SettingsSchemaSource.get_default()
+    schema_id = "org.gnome.Terminal.ProfilesList"
+    if not default_source.lookup(schema_id, False): # noqa: FBT003
+        print("Terminal profile list not available, skipping", file=sys.stderr)
+    else:
+        profiles_list = Gio.Settings(schema=schema_id)
+        profile_id = profiles_list.get_string("default")
+        schema_id = "org.gnome.Terminal.Legacy.Profile"
+        path = f"/org/gnome/terminal/legacy/profiles:/:{profile_id}/"
+        settings = Gio.Settings.new_with_path(schema_id=schema_id, path=path)
+        set_all_items(settings, TERMINAL_PROFILE)
+
 
 def main() -> None:
     """Run this program."""
     apply_settings()
     apply_extension_settings()
     apply_keybindings()
+    apply_gnome_terminal()
 
 
 if __name__ == "__main__":

@@ -52,7 +52,8 @@ packages_to_remove=(
     gtk2
     plantuml
     graphviz
-    file-roller      # Archive tool
+    gnome-console    # Lacks configuration options
+    file-roller      # nautilus handles this just fine
     gnome-calculator # qalculate-gtk is back in action
     rust-analyzer    # Part of rustup
 )
@@ -285,7 +286,7 @@ packages_to_install=(
     gnome-control-center
     gnome-tweaks
     gnome-backgrounds
-    gnome-console  # Backup terminal, in case I mess up wezterm
+    gnome-terminal # Backup terminal, in case I mess up wezterm
     yelp           # Online help system
     nautilus       # File manager
     sushi          # Previewer for nautilus
