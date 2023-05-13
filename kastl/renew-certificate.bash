@@ -19,4 +19,4 @@ acme_data="${XDG_DATA_HOME:=${HOME}/.local/share}/acme.sh"
 acme.sh \
     --home "${acme_data}" --config-home "${acme_config}" --cert-home "${acme_data}/certs" \
     -d 'kastl.dahoam.swsnr.de' -d '*.kastl.dahoam.swsnr.de' \
-    --renew --dns --yes-I-know-dns-manual-mode-enough-go-ahead-please
+    --dns --yes-I-know-dns-manual-mode-enough-go-ahead-please "$@"
