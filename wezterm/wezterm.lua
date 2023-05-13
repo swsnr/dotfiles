@@ -113,7 +113,8 @@ return {
   -- Attempt to work around wezterm issues https://github.com/wez/wezterm/issues/3225
   -- and https://github.com/wez/wezterm/issues/3687
   -- front_end = "WebGpu",
-  window_decorations = "NONE",
+  window_decorations = "INTEGRATED_BUTTONS|RESIZE",
+  -- window_decorations = "RESIZE",
   term = determine_term_value(),
   -- Use fish as standard interactive shell
   default_prog = { "/usr/bin/fish" },
