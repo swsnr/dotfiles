@@ -115,12 +115,14 @@ return {
   -- front_end = "WebGpu",
   window_decorations = "NONE",
   term = determine_term_value(),
+  -- Use fish as standard interactive shell
   default_prog = { "/usr/bin/fish" },
+  -- Run each pane in separate systemd scope, so that a runnaway process in one
+  -- pane doesn't take down the entire terminal through systemd-oomd
+  default_domain = "scoped",
   exec_domains = {
     wezterm.exec_domain("scoped", wrap_in_systemd_scope),
   },
-  default_domain = "scoped",
-  -- Use fish as standard interactive shell
   color_scheme = scheme_for_appearance(wezterm.gui.get_appearance()),
   font = wezterm.font("PragmataPro Mono Liga"),
   font_size = 11.0,
