@@ -56,6 +56,7 @@ packages_to_remove=(
     file-roller      # nautilus handles this just fine
     gnome-calculator # qalculate-gtk is back in action
     rust-analyzer    # Part of rustup
+    mandoc           # Mandb just works better with fish; with mandoc builtin manpages somehow don't work.
 )
 
 # Packages to mark as optional dependencies
@@ -137,7 +138,7 @@ packages_to_install=(
     fish        # My preferred shell
     zoxide      # Cross-shell/editor directory jumping
     fzf         # Fuzzy file finder for shells
-    mandoc      # Man page reader
+    man-db      # Man page reader
     man-pages   # Linux manpagers
     exa         # Better ls (with git support)
     vivid       # Creates themes for dircolors
