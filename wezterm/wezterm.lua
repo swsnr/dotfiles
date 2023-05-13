@@ -47,7 +47,7 @@ function file_exists(name)
 end
 
 function wezterm_terminfo_installed()
-  return file_exists(os.getenv("HOME") .. "/.terminfo/w/wezterm")
+  return file_exists(os.getenv("HOME") .. "/.terminfo/w/wezterm") or file_exists("/usr/share/terminfo/w/wezterm")
 end
 
 -- Determine what to set $TERM to
