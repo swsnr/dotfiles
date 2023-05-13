@@ -110,6 +110,10 @@ function wrap_in_systemd_scope(cmd)
 end
 
 return {
+  -- Attempt to work around wezterm issues https://github.com/wez/wezterm/issues/3225
+  -- and https://github.com/wez/wezterm/issues/3687
+  -- front_end = "WebGpu",
+  window_decorations = "NONE",
   term = determine_term_value(),
   default_prog = { "/usr/bin/fish" },
   exec_domains = {
@@ -138,8 +142,6 @@ return {
     fade_out_function = "EaseOut",
     fade_out_duration_ms = 150,
   },
-  -- Use webgpu rendering to work around wayland crash, see https://github.com/wez/wezterm/issues/3225
-  front_end = "WebGpu",
   keys = {
     { key = "_", mods = "ALT|SHIFT", action = wezterm.action({ SplitVertical = { domain = "CurrentPaneDomain" } }) },
     { key = "|", mods = "ALT|SHIFT", action = wezterm.action({ SplitHorizontal = { domain = "CurrentPaneDomain" } }) },
