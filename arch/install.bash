@@ -52,11 +52,12 @@ packages_to_remove=(
     gtk2
     plantuml
     graphviz
-    gnome-console    # Lacks configuration options
-    file-roller      # nautilus handles this just fine
-    gnome-calculator # qalculate-gtk is back in action
-    rust-analyzer    # Part of rustup
-    mandoc           # Mandb just works better with fish; with mandoc builtin manpages somehow don't work.
+    gnome-console       # Lacks configuration options
+    file-roller         # nautilus handles this just fine
+    gnome-calculator    # qalculate-gtk is back in action
+    rust-analyzer       # Part of rustup
+    mandoc              # Mandb just works better with fish; with mandoc builtin manpages somehow don't work.
+    kernel-modules-hook # Takes too much time
 )
 
 # Packages to mark as optional dependencies
@@ -74,7 +75,6 @@ packages_to_install=(
     apparmor
     sudo
     pacman-hook-kernel-install # Install kernels to /efi
-    kernel-modules-hook        # Keep old kernel modules
     zram-generator             # swap on compressed RAM, mostly to support systemd-oomd
     sbctl                      # Manage secure boot binaries and sign binaries
 
