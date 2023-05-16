@@ -382,9 +382,6 @@ services=(
     firewalld.service # Firewall
     apparmor.service  # Load apparmor profiles
 
-    # Pacman infrastructure
-    linux-modules-cleanup.service # Remove modules of old kernels
-
     # Desktop services
     gdm.service                   # Desktop manager
     power-profiles-daemon.service # Power profile management
@@ -393,7 +390,10 @@ services=(
     pcscd.socket                  # Smartcards, mostly eID
 )
 
-services_to_disable=()
+services_to_disable=(
+    # Pacman infrastructure
+    linux-modules-cleanup.service # Remove modules of old kernels
+)
 
 # Flatpaks
 flatpaks=(
