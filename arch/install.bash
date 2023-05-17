@@ -232,6 +232,8 @@ packages_to_install=(
     zim                     # Personal desktop wiki
     jabref                  # Bibliography
     remmina                 # Remote desktop
+    libreoffice-fresh       # Office
+    libreoffice-fresh-de
 
     # Latex
     texlive-most
@@ -575,8 +577,6 @@ case "$HOSTNAME" in
         evolution-ews      # Exchange for evolution
         mattermost-desktop # Chat application
         rocketchat-desktop # Chat application
-        libreoffice-fresh  # Office
-        libreoffice-fresh-de
     )
 
     packages_to_install_optdeps+=(
