@@ -52,7 +52,7 @@ packages_to_remove=(
     gtk2
     plantuml
     graphviz
-    viking
+    viking gpsbabel
     gnome-console       # Lacks configuration options
     file-roller         # nautilus handles this just fine
     gnome-calculator    # qalculate-gtk is back in action
@@ -517,8 +517,6 @@ case "$HOSTNAME" in
         libdecor
         # gnucash: documentation
         gnucash-docs
-        # viking: convert GPS tracks
-        gpsbabel
 
         # libvirt: QEMU/KVM support
         qemu-desktop
