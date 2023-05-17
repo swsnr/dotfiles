@@ -52,6 +52,7 @@ packages_to_remove=(
     gtk2
     plantuml
     graphviz
+    viking
     gnome-console       # Lacks configuration options
     file-roller         # nautilus handles this just fine
     gnome-calculator    # qalculate-gtk is back in action
@@ -479,7 +480,6 @@ case "$HOSTNAME" in
         digikam            # Photo management
         paperwork          # Document management
         tellico            # Collection manager
-        viking             # GPS track editor
         gnucash            # Finance manager
         ausweisapp2        # eID app
         chiaki-git         # Remote play client for PS4/5; use git for better controller support
