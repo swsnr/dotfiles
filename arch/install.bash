@@ -59,6 +59,7 @@ packages_to_remove=(
     rust-analyzer       # Part of rustup
     mandoc              # Mandb just works better with fish; with mandoc builtin manpages somehow don't work.
     kernel-modules-hook # Takes too much time
+    asp                 # Replaced by repoctl
 )
 
 # Packages to mark as optional dependencies
@@ -120,7 +121,6 @@ packages_to_install=(
     hcloud # CLI for Hetzner cloud
 
     # Arch tools & infrastructure
-    asp                             # Obtain PKGBUILDs for ABS
     etc-update                      # Deal with pacdiff/pacsave files
     namcap                          # Lint arch packages
     debuginfod                      # Remote debug info
