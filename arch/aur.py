@@ -28,6 +28,9 @@ XDG_CACHE_DIR = Path(os.environ.get("XDG_CACHE_HOME", Path.home() / ".cache"))
 GPGKEY = "B8ADA38BC94C48C4E7AABE4F7548C2CC396B57FC"
 
 
+os.environ['PACKAGER'] = 'Sebastian Wiesner <sebastian@swsnr.de>'
+
+
 class Repo:
     """A package repository."""
 
