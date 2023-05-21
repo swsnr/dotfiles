@@ -26,9 +26,11 @@ from tempfile import NamedTemporaryFile
 
 XDG_CACHE_DIR = Path(os.environ.get("XDG_CACHE_HOME", Path.home() / ".cache"))
 GPGKEY = "B8ADA38BC94C48C4E7AABE4F7548C2CC396B57FC"
+MAKEPKG_CONF = "/usr/share/devtools/makepkg.conf.d/x86_64.conf"
+PACKAGER = "Sebastian Wiesner <sebastian@swsnr.de>"
 
 
-os.environ['PACKAGER'] = 'Sebastian Wiesner <sebastian@swsnr.de>'
+os.environ["PACKAGER"] = PACKAGER
 
 
 class Repo:
@@ -194,14 +196,18 @@ def main() -> None:
 
     remove_packages(repo, packages_in_repo - all_packages)
 
-    run(["/usr/bin/aur", "sync", "-d", repo.name, "--nocheck", "-ucRS", *PACKAGES],
-        check=True)
+    sync_cmd = [
+        "/usr/bin/aur", "sync", "-d", repo.name,
+        "--nocheck", "-ucRS",
+        "--makepkg-conf", MAKEPKG_CONF,
+    ]
+
+    run([*sync_cmd, *PACKAGES], check=True)
 
     vcs_packages = [pkg for pkg in packages_with_dependencies if pkg.endswith("-git")]
     outdated_vcs_packages = get_outdated_vcs_packages(repo, vcs_packages)
     if outdated_vcs_packages:
-        run(["/usr/bin/aur", "sync", "-d", repo.name, "--nocheck", "-ucRS",
-             *outdated_vcs_packages], check=True)
+        run([*sync_cmd, *outdated_vcs_packages], check=True)
 
     query = run(["/usr/bin/resolvectl", "query", "kastl.local"],
                 stdout=DEVNULL, stderr=DEVNULL)
