@@ -5,6 +5,10 @@ ignore = [
   "I001", # Sorted imports are just nitpicking.
   "SIM300", # Allow yoda conditions; there's no point in forbidding these
 
+  # These TODO rules don't apply here; they are overly opinioned.
+  "TD002",
+  "TD003",
+
   # Ignore incompatible rules
   'D203', # D211 instead
   'D213', # D212 instead.
