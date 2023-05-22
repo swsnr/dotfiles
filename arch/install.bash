@@ -586,6 +586,10 @@ case "$HOSTNAME" in
         trash-cli
     )
 
+    flatpaks+=(
+        org.apache.directory.studio # LDAP browser
+    )
+
     services+=(
         pacrunner.service # Proxy auto-configuration URLs
     )
