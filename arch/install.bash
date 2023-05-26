@@ -236,7 +236,9 @@ packages_to_install=(
     libreoffice-fresh-de
 
     # Latex
-    texlive-most
+    texlive-core
+    texlive-science
+    texlive-latexextra
     biber
     texlab # Language server for latex
     setzer # Simple and easy latex editor
