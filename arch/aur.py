@@ -47,6 +47,7 @@ PACKAGES = [
     "1password",
     "1password-cli",
     "aurutils",
+    "cargo-vet",
     "firefox-gnome-search-provider",
     "fnm",
     "frum",

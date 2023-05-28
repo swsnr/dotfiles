@@ -176,6 +176,7 @@ packages_to_install=(
     cargo-deny    # Rust compliance checker (licensing, advisories, etc.)
     cargo-bloat   # Identify bloat in cargo binaries
     cargo-geiger  # Identify unsafe in cargo dependencies trees
+    cargo-vet     # Supply chain security
     shellcheck    # Lint bash code
     shfmt         # Format bash code
     frum          # Fast Ruby version manager
