@@ -33,10 +33,6 @@ else
 fi
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
-# If $XDG_RUNTIME_DIR is not set/empty we automatically pass an empty --tmpdir
-# which makes mktemp fall back to $TMPDIR and /tmp, finally.
-WORKDIR="$(mktemp --directory --tmpdir="${XDG_RUNTIME_DIR:=}" dotfiles-arch-install.XXXXXXX)"
-trap 'rm -rf -- "$WORKDIR"' EXIT
 
 PRODUCT_NAME="$(</sys/class/dmi/id/product_name)"
 
@@ -408,35 +404,12 @@ flatpaks=(
 
 flatpaks_to_remove=()
 
-kernel_cmdline=(
-    # Really quiet boot
-    quiet
-    loglevel=3
-    rd.udev.log_level=3
-    splash  # Enables plymouth
-    audit=1 # Turn on audit subsystem immediately at boot
-    # Enable apparmor among other LSMs
-    'lsm=landlock,lockdown,yama,integrity,apparmor,bpf'
-    rootflags=compress=zstd:1 # Mount rootfs compressed
-    zswap.enabled=0           # Disable zswap because we already use zram
-)
+# By default, do not use the proprietary nvidia driver
+use_nvidia=false
 
-mkinitcpio_modules=()
-
-mkinitcpio_hooks=(
-    base
-    systemd
-    plymouth
-    btrfs
-    autodetect
-    modconf
-    keyboard
-    sd-vconsole
-    sd-encrypt
-    block
-    filesystems
-    fsck
-)
+# By default, discover the root filesystem automatically.  Disable for e.g.
+# btrfs raid on root fs.
+discover_rootfs=true
 
 if [[ -n "${MY_USER_ACCOUNT}" ]]; then
     # Scrub home directory of my user account
@@ -445,11 +418,6 @@ fi
 
 case "$PRODUCT_NAME" in
 'XPS 9315')
-    mkinitcpio_modules+=(
-        # Add coretemp to early boot to make sure it's there when thermald needs it.
-        coretemp
-    )
-
     packages_to_install+=(
         sof-firmware # Firmware for XPS audio devices
         thermald     # Thermal management for intel systems
@@ -597,14 +565,12 @@ case "$HOSTNAME" in
         pacrunner.service # Proxy auto-configuration URLs
     )
 
-    kernel_cmdline+=(
-        # Root device with btrfs raid
-        root=/dev/mapper/linux rw
-    )
+    # System uses btrfs raid, so we need an explicit rootfs
+    discover_rootfs=true
     ;;
 esac
 
-if [[ "${use_nvidia:-false}" == true ]]; then
+if [[ "${use_nvidia}" == true ]]; then
     packages+=(
         nvidia
         nvidia-lts
@@ -614,20 +580,6 @@ if [[ "${use_nvidia:-false}" == true ]]; then
         nvidia-suspend.service
         nvidia-resume.service
     )
-
-    kernel_cmdline+=(
-        # Enable modesetting for KMS in nvidia
-        nvidia_drm.modeset=1
-    )
-
-    mkinitcpio_modules+=(
-        # For nvidia we add the nvidia driver modules for early kms, plus all other
-        # relevant kms modules.
-        i915 nvidia nvidia_modeset nvidia_uvm nvidia_drm
-    )
-
-    # However, we explicitly do not add the kms hook, because it would pick up
-    # nouveau according to the wiki page, which we definitely don't want.
 else
     packages_to_remove+=(
         nvidia
@@ -638,10 +590,6 @@ else
         nvidia-suspend.service
         nvidia-resume.service
     )
-
-    # If we're not using the proprietary nvidia driver we can let the kms hook
-    # pick up required modules for early kms.
-    mkinitcpio_hooks+=(kms)
 fi
 
 # Setup pacman and install/remove packages
@@ -714,38 +662,64 @@ NSS_HOSTS=(
 )
 sed -i '/^hosts: /s/^hosts: .*/'"hosts: ${NSS_HOSTS[*]}/" /etc/nsswitch.conf
 
-# Override the mkinitcpio kernel-install plugin because it's broken in v34, see
-# https://gitlab.archlinux.org/archlinux/mkinitcpio/mkinitcpio/-/issues/153 and
-# https://gitlab.archlinux.org/archlinux/mkinitcpio/mkinitcpio/-/merge_requests/185
-# Remove once mkinicpio 35 is released and available in Arch.
-install -pm755 "$DIR/etc/kernel/kernel-install-mkinitcpio.install" \
-    /etc/kernel/install.d/50-mkinitcpio.install
+# Remove overridden kernel-install plugin. As of mkinitcpio 36 the upstream
+# kernel-install plugin is good enough.
+rm -f /etc/kernel/install.d/50-mkinitcpio.install
 
-# initrd and kernel image configuration
+# UKI installation
 install -pm644 "$DIR/etc/kernel/install.conf" /etc/kernel/install.conf
-# Assemble kernel command line
-echo " ${kernel_cmdline[*]}" >"${WORKDIR}/cmdline"
-install -pm644 "$WORKDIR/cmdline" /etc/kernel/cmdline
 
-if [[ "${use_nvidia:-false}" == true ]]; then
+# Remove old cmdline; we now use /etc/cmdline.d from mkinitcpio
+rm -f /etc/kernel/cmdline
+
+# Configure mkinitcpio
+install -m755 -d /etc/mkinitcpio.conf.d/
+install -m644 -t /etc/mkinitcpio.conf.d/ \
+    "$DIR/etc/mkinitcpio.conf.d/10-swsnr-systemd-base.conf" \
+    "$DIR/etc/mkinitcpio.conf.d/20-swsnr-coretemp.conf"
+
+if [[ "${use_nvidia}" == true ]]; then
+    # For nvidia early-kms setup is more intricate because the standard kms hook
+    # doesn't really seem to support it
+    install -m644 -t /etc/mkinitcpio.conf.d/ \
+        "$DIR/etc/mkinitcpio.conf.d/20-swsnr-nvidia.conf"
+    rm -f /etc/mkinitcpio.conf.d/20-swsnr-kms.conf
+    # Enable modesetting
+    install -m644 -t /etc/cmdline.d/ \
+        "$DIR"/etc/cmdline.d/30-nvidia-modeset.conf
+
+    # Load nvidia powermanagement modules
     install -pm644 "$DIR/etc/modprobe-nvidia-power-management.conf" \
         /etc/modprobe.d/nvidia-power-management.conf
     # Forcibly disable GDM's nvidia rules, because at this point we know it's
     # working; otherwise we'd not set "use_nvidia" to "true".
     ln -sf /dev/null /etc/udev/rules.d/61-gdm.rules
 else
-    rm -f /etc/modprobe.d/nvidia-power-management.conf /etc/udev/rules.d/61-gdm.rules
+    # Use standard KMS hook if we're not using the proprietary driver.
+    install -m644 -t /etc/mkinitcpio.conf.d/ \
+        "$DIR/etc/mkinitcpio.conf.d/20-swsnr-kms.conf"
+    rm -f \
+        /etc/cmdline.d/30-nvidia-modeset.conf \
+        /etc/mkinitcpio.conf.d/20-swsnr-nvidia.conf \
+        /etc/modprobe.d/nvidia-power-management.conf \
+        /etc/udev/rules.d/61-gdm.rules
 fi
 
-cat >"$WORKDIR/mkinitcpio.conf" <<EOF
-# vim:set ft=sh
-# Managed by my dotfiles
-MODULES=(${mkinitcpio_modules[*]})
-BINARIES=()
-FILES=()
-HOOKS=(${mkinitcpio_hooks[*]})
-EOF
-install -m644 "$WORKDIR/mkinitcpio.conf" /etc/mkinitcpio.conf
+# Configure kernel cmdline for mkinitcpio
+install -m755 -d /etc/cmdline.d
+install -m644 -t /etc/cmdline.d \
+    "$DIR"/etc/cmdline.d/10-swsnr-plymouth.conf \
+    "$DIR"/etc/cmdline.d/10-swsnr-quiet-boot.conf \
+    "$DIR"/etc/cmdline.d/20-swsnr-audit.conf \
+    "$DIR"/etc/cmdline.d/20-swsnr-disable-zswap.conf \
+    "$DIR"/etc/cmdline.d/20-swsnr-lsm-apparmor.conf \
+    "$DIR"/etc/cmdline.d/20-swsnr-rootflags-btrfs.conf
+if [[ "${discover_rootfs}" == true ]]; then
+    rm -f /etc/cmdline.d/30-explicit-root.conf
+else
+    install -m644 -t /etc/cmdline.d/ \
+        "$DIR"/etc/cmdline.d/30-explicit-root.conf
+fi
 
 # Boot loader configuration
 case "$HOSTNAME" in
