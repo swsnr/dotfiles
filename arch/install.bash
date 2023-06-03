@@ -237,6 +237,7 @@ packages_to_install=(
     texlive-science
     texlive-latexextra
     texlive-publishers
+    texlive-humanities
     biber
     texlab # Language server for latex
     setzer # Simple and easy latex editor
