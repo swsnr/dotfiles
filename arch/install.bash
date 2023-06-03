@@ -49,6 +49,8 @@ packages_to_remove=(
     plantuml
     graphviz
     viking gpsbabel
+    virt-manager qemu-desktop dnsmasq
+
     gnome-console       # Lacks configuration options
     file-roller         # nautilus handles this just fine
     gnome-calculator    # qalculate-gtk is back in action
@@ -467,9 +469,6 @@ case "$HOSTNAME" in
 
         gnome-shell-extension-gsconnect # Connect phone and desktop system
         syncthing                       # Network synchronization
-
-        # KVM virtualization
-        virt-manager
     )
 
     packages_to_install_optdeps+=(
@@ -490,13 +489,6 @@ case "$HOSTNAME" in
         libdecor
         # gnucash: documentation
         gnucash-docs
-
-        # libvirt: QEMU/KVM support
-        qemu-desktop
-        # libvirt: NAT/DHCP for guests
-        dnsmasq
-        # libvirt: NAT networking
-        iptables-nft
     )
 
     flatpaks+=(
