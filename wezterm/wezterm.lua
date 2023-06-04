@@ -145,6 +145,10 @@ return {
     fade_out_function = "EaseOut",
     fade_out_duration_ms = 150,
   },
+  -- Allow client application to request enhanced keyboard support, see
+  -- https://wezfurlong.org/wezterm/config/lua/config/enable_kitty_keyboard.html and
+  -- https://wezfurlong.org/wezterm/config/key-encoding.html
+  enable_kitty_keyboard = true,
   keys = {
     { key = "_", mods = "ALT|SHIFT", action = wezterm.action({ SplitVertical = { domain = "CurrentPaneDomain" } }) },
     { key = "|", mods = "ALT|SHIFT", action = wezterm.action({ SplitHorizontal = { domain = "CurrentPaneDomain" } }) },
