@@ -50,8 +50,6 @@ clean-recursively ~/.config/fish/functions ~/.config/fish/conf.d || true
 ln -fs -t ~/.config/fish/conf.d "$DIR"/fish/plugins/*/conf.d/*.fish
 ln -fs -t ~/.config/fish/functions "$DIR"/fish/plugins/*/functions/*.fish
 ln -fs -t ~/.config/fish/completions "$DIR"/fish/plugins/*/completions/*.fish
-# Remove fisher
-rm -f ~/.config/fish/functions/fisher.fish ~/.config/fish/completions/fisher.fish
 
 # Remove profile.  I set up environment variables through systemd, so let's
 # clear profile files from distributions, etc. which mess up my $PATH.
@@ -137,7 +135,6 @@ ln -fs "$DIR/misc/XCompose" ~/.XCompose
 ln -fs "$DIR/misc/electron-flags.conf" ~/.config/electron-flags.conf
 ln -fs "$DIR/misc/electron-flags.conf" ~/.config/electron19-flags.conf
 ln -fs "$DIR/misc/electron-flags.conf" ~/.config/electron21-flags.conf
-rm -f ~/.config/electron17-flags.conf
 ln -fs "$DIR/misc/gamemode.ini" ~/.config/gamemode.ini
 ln -fs "$DIR/misc/zim-style.conf" ~/.config/zim/style.conf
 ln -fs "$DIR/misc/kwalletrc" ~/.config/kwalletrc
@@ -184,9 +181,6 @@ if has gnome-extensions; then
             gnome-extensions enable "${extension}"
         fi
     done
-
-    # This extension has performance issues, see https://github.com/ubuntu/gnome-shell-extension-appindicator/issues/295
-    gnome-extensions disable 'appindicatorsupport@rgcjonas.gmail.com' || true
 fi
 
 # On personal systems use 1password for SSH and commit signing

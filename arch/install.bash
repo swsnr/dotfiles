@@ -42,28 +42,11 @@ pacman_repositories=(
 )
 
 packages_to_remove=(
-    # No longer need these
-    typescript-language-server
-    gimp
-    gtk2
-    plantuml
-    graphviz
-    viking gpsbabel
-    virt-manager qemu-desktop dnsmasq
-
     # The configuration churn is just way to high
     neovim
     neovide
     stylua
     pyright
-
-    gnome-console       # Lacks configuration options
-    file-roller         # nautilus handles this just fine
-    gnome-calculator    # qalculate-gtk is back in action
-    rust-analyzer       # Part of rustup
-    mandoc              # Mandb just works better with fish; with mandoc builtin manpages somehow don't work.
-    kernel-modules-hook # Takes too much time
-    asp                 # Replaced by repoctl
 )
 
 # Packages to mark as optional dependencies
