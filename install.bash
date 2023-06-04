@@ -78,10 +78,7 @@ find ~/.terminfo/ -empty -delete || true
 ln -fs "$DIR/vim/ideavimrc" ~/.ideavimrc
 
 # Neovim
-mkdir -p ~/.config/nvim/lua/
-ln -fs -t ~/.config/nvim "$DIR"/nvim/init.lua "$DIR"/nvim/lazy-lock.json
-clean-recursively ~/.config/nvim/lua || true
-ln -fs -t ~/.config/nvim/lua "$DIR"/nvim/lua/swsnr
+rm -rf ~/.config/nvim/ ~/.local/share/nvim/ ~/.local/state/nvim/ ~/.cache/nvim/
 
 # Helix
 ln -fs "$DIR/helix/config.toml" ~/.config/helix/config.toml

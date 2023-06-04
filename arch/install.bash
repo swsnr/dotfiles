@@ -51,6 +51,12 @@ packages_to_remove=(
     viking gpsbabel
     virt-manager qemu-desktop dnsmasq
 
+    # The configuration churn is just way to high
+    neovim
+    neovide
+    stylua
+    pyright
+
     gnome-console       # Lacks configuration options
     file-roller         # nautilus handles this just fine
     gnome-calculator    # qalculate-gtk is back in action
@@ -127,11 +133,6 @@ packages_to_install=(
     aurutils                        # Build AUR packages
     mkosi                           # Create OS images for testing
 
-    # Neovim & tools
-    neovim
-    neovide
-    stylua # Code formatter for lua
-
     # Shell environment and CLI tools
     helix       # Simple terminal editor with LSP support
     wezterm     # My preferred terminal emulator
@@ -180,7 +181,6 @@ packages_to_install=(
     shfmt         # Format bash code
     frum          # Fast Ruby version manager
     fnm           # Fast node version manager
-    pyright       # Python language server for neovim
     ruff          # Fast python linter
     hexyl         # hex viewer
     oxipng        # Optimize PNGs for size
