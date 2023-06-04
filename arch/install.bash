@@ -133,6 +133,7 @@ packages_to_install=(
     stylua # Code formatter for lua
 
     # Shell environment and CLI tools
+    helix       # Simple terminal editor with LSP support
     wezterm     # My preferred terminal emulator
     fish        # My preferred shell
     zoxide      # Cross-shell/editor directory jumping

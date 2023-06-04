@@ -83,6 +83,9 @@ ln -fs -t ~/.config/nvim "$DIR"/nvim/init.lua "$DIR"/nvim/lazy-lock.json
 clean-recursively ~/.config/nvim/lua || true
 ln -fs -t ~/.config/nvim/lua "$DIR"/nvim/lua/swsnr
 
+# Helix
+ln -fs "$DIR/helix/config.toml" ~/.config/helix/config.toml
+
 # Git configuration
 mkdir -p ~/.config/git
 ln -fs -t ~/.config/git "$DIR/git/common/"*
@@ -132,7 +135,7 @@ mkdir -p ~/.config/pipewire/pipewire.conf.d/
 clean-recursively ~/.config/pipewire/pipewire.conf.d/
 
 # Misc files
-mkdir -p ~/.config/{latexmk,restic}
+mkdir -p ~/.config/{latexmk,restic,helix}
 ln -fs "$DIR/backup/linux.exclude" ~/.config/restic/linux.exclude
 ln -fs "$DIR/latex/latexmkrc" ~/.config/latexmk/latexmkrc
 ln -fs "$DIR/misc/XCompose" ~/.XCompose

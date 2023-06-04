@@ -1,0 +1,23 @@
+# Unfortunately helix does not yet switch themes automatically for light/dark mode, see
+# https://github.com/helix-editor/helix/issues/2158
+theme = "onelight"
+
+[editor]
+# Highlight lines with cursors
+cursorline = true
+# Automatically save when focus moves away from the terminal window
+auto-save = true
+# Force true color and undercurls; all relevant terminals support these, even gnome-terminal does.
+true-color = true
+undercurl = true
+# Mark common line widths
+rulers = [80, 120]
+# Show open buffers
+bufferline = "multiple"
+
+[editor.lsp]
+display-messages = true
+display-inlay-hints = true
+
+[keys.insert]
+j = { k = "normal_mode" }
