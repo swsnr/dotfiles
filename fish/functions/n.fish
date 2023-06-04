@@ -14,26 +14,13 @@
 
 function n --wraps nnn --description 'support nnn quit and change directory'
     # Block nesting of nnn in subshells
-    if test -n "$NNNLVL"
-        if [ (expr $NNNLVL + 0) -ge 1 ]
-            echo "nnn is already running"
-            return
-        end
+    if test -n "$NNNLVL" -a "$NNNLVL" -gt 1
+        echo "nnn is already running"
+        return
     end
 
-    if set -q XDG_CONFIG_HOME
-        set NNN_TMPFILE "$XDG_CONFIG_HOME/nnn/.lastd"
-    else
-        set NNN_TMPFILE "$HOME/.config/nnn/.lastd"
-    end
-
-    # Unmask ^Q (, ^V etc.) (if required, see `stty -a`) to Quit nnn
-    # stty start undef
-    # stty stop undef
-    # stty lwrap undef
-    # stty lnext undef
-
-    nnn -ex $argv
+    # environment.d/50-nnn.conf exports NNN_TMPFILE
+    command nnn $argv
 
     if test -e $NNN_TMPFILE
         source $NNN_TMPFILE
