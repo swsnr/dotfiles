@@ -74,10 +74,8 @@ clean-recursively ~/.config/wezterm/colors || true
 rm -rf ~/.terminfo/w/wezterm
 find ~/.terminfo/ -empty -delete || true
 
-# Vim
-ln -fs "$DIR/vim/ideavimrc" ~/.ideavimrc
-
-# Neovim
+# Vim & neovim
+rm -f ~/.ideavimrc
 rm -rf ~/.config/nvim/ ~/.local/share/nvim/ ~/.local/state/nvim/ ~/.cache/nvim/
 
 # Helix
