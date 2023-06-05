@@ -41,10 +41,17 @@ pacman_repositories=(
     "$DIR/etc/pacman/60-aur-repository.conf"
 )
 
-packages_to_remove=()
+packages_to_remove=(
+    # Way too complex for the simple things, can't actually replace word for
+    # word documents, and for anything non-trivial I find LaTeX so much better.
+    libreoffice-fresh # Office
+    libreoffice-fresh-de
+)
 
 # Packages to mark as optional dependencies
-packages_to_mark_as_deps=()
+packages_to_mark_as_deps=(
+    hunspell
+)
 
 packages_to_install=(
     # Basic packages & system tools
@@ -132,11 +139,6 @@ packages_to_install=(
     restic      # Backups
     p7zip       # CLI zip file tool
 
-    # Spellchecking dictionaries
-    hunspell-de
-    hunspell-en_gb
-    hunspell-en_us
-
     # Git and related tools
     git
     git-filter-repo
@@ -209,8 +211,6 @@ packages_to_install=(
     zim                     # Personal desktop wiki
     jabref                  # Bibliography
     remmina                 # Remote desktop
-    libreoffice-fresh       # Office
-    libreoffice-fresh-de
 
     # Latex
     texlive-core
@@ -224,6 +224,12 @@ packages_to_install=(
     # Missing dependencies for latexindent
     # See <https://bugs.archlinux.org/task/60210>
     texlive-latexindent-meta
+
+    # Spell-checking dictionaries, for nuspell, indirectly enchant, and then all
+    # the way up the dependency chain to all Gnome apps.
+    hunspell-de
+    hunspell-en_gb
+    hunspell-en_us
 
     # Fonts & themes
     noto-fonts       # Western languages
@@ -329,10 +335,13 @@ packages_to_install_optdeps=(
 
     # zim: spell checking
     gtkspell3
-    # enchant: spell checkking library (transitive of gtkspell3)
+    # enchant: fast and modern spell checking backend
     nuspell
     # zim: source code view
     gtksourceview3
+
+    # sonnet: spell checking (sonnet doesn't seem to support nuspell)
+    hunspell
 
     # wezterm: Nautilus integration
     # gnome-shell-extension-gsconnect: Send to menu
