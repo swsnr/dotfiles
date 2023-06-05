@@ -41,13 +41,7 @@ pacman_repositories=(
     "$DIR/etc/pacman/60-aur-repository.conf"
 )
 
-packages_to_remove=(
-    # The configuration churn is just way to high
-    neovim
-    neovide
-    stylua
-    pyright
-)
+packages_to_remove=()
 
 # Packages to mark as optional dependencies
 packages_to_mark_as_deps=()
@@ -380,10 +374,7 @@ services=(
     pcscd.socket                  # Smartcards, mostly eID
 )
 
-services_to_disable=(
-    # Pacman infrastructure
-    linux-modules-cleanup.service # Remove modules of old kernels
-)
+services_to_disable=()
 
 # Flatpaks
 flatpaks=(
@@ -640,15 +631,8 @@ NSS_HOSTS=(
 )
 sed -i '/^hosts: /s/^hosts: .*/'"hosts: ${NSS_HOSTS[*]}/" /etc/nsswitch.conf
 
-# Remove overridden kernel-install plugin. As of mkinitcpio 36 the upstream
-# kernel-install plugin is good enough.
-rm -f /etc/kernel/install.d/50-mkinitcpio.install
-
 # UKI installation
 install -pm644 "$DIR/etc/kernel/install.conf" /etc/kernel/install.conf
-
-# Remove old cmdline; we now use /etc/cmdline.d from mkinitcpio
-rm -f /etc/kernel/cmdline
 
 # Configure mkinitcpio
 install -m755 -d /etc/mkinitcpio.conf.d/
@@ -658,24 +642,26 @@ install -m644 -t /etc/mkinitcpio.conf.d/ \
 
 if [[ "${use_nvidia}" == true ]]; then
     # For nvidia early-kms setup is more intricate because the standard kms hook
-    # doesn't really seem to support it
-    install -m644 -t /etc/mkinitcpio.conf.d/ \
-        "$DIR/etc/mkinitcpio.conf.d/20-swsnr-nvidia.conf"
+    # doesn't really seem to support it, so remove the KMS hook and use a more
+    # elaborate nvidia configuration instead.
+    install -m644 -t /etc/mkinitcpio.conf.d/ "$DIR/etc/mkinitcpio.conf.d/20-swsnr-nvidia.conf"
     rm -f /etc/mkinitcpio.conf.d/20-swsnr-kms.conf
-    # Enable modesetting
-    install -m644 -t /etc/cmdline.d/ \
-        "$DIR"/etc/cmdline.d/30-nvidia-modeset.conf
 
-    # Load nvidia powermanagement modules
+    # Enable modesetting
+    install -m644 -t /etc/cmdline.d/ "$DIR"/etc/cmdline.d/30-nvidia-modeset.conf
+
+    # Load nvidia powermanagement modules, and disable GDM's nvidia override
+    # rules. This seems to be required to get GDM to accept older nvidia cards.
+    # We do know better than GDM here, otherwise we'd not set "use_nividia" to
+    # true for the relevant system.
     install -pm644 "$DIR/etc/modprobe-nvidia-power-management.conf" \
         /etc/modprobe.d/nvidia-power-management.conf
-    # Forcibly disable GDM's nvidia rules, because at this point we know it's
-    # working; otherwise we'd not set "use_nvidia" to "true".
     ln -sf /dev/null /etc/udev/rules.d/61-gdm.rules
 else
     # Use standard KMS hook if we're not using the proprietary driver.
     install -m644 -t /etc/mkinitcpio.conf.d/ \
         "$DIR/etc/mkinitcpio.conf.d/20-swsnr-kms.conf"
+    # Remove all the nvidia stuff
     rm -f \
         /etc/cmdline.d/30-nvidia-modeset.conf \
         /etc/mkinitcpio.conf.d/20-swsnr-nvidia.conf \

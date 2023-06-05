@@ -67,14 +67,6 @@ done
 mkdir -p ~/.config/wezterm/colors
 ln -fs "$DIR/wezterm/wezterm.lua" ~/.config/wezterm/wezterm.lua
 clean-recursively ~/.config/wezterm/colors || true
-# Remove wezterm terminfo from $HOME; arch now includes it in the wezterm
-# package
-rm -rf ~/.terminfo/w/wezterm
-find ~/.terminfo/ -empty -delete || true
-
-# Vim & neovim
-rm -f ~/.ideavimrc
-rm -rf ~/.config/nvim/ ~/.local/share/nvim/ ~/.local/state/nvim/ ~/.cache/nvim/
 
 # Helix
 ln -fs "$DIR/helix/config.toml" ~/.config/helix/config.toml
