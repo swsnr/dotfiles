@@ -187,7 +187,6 @@ fi
 mkdir -p ~/.config/fish/completions
 has rclone && rclone completion fish >~/.config/fish/completions/rclone.fish
 has restic && restic generate --fish-completion ~/.config/fish/completions/restic.fish
-has tea && tea autocomplete fish --install
 
 # Setup firefox user.js
 if has python && [[ -e ~/.mozilla/firefox/profiles.ini ]]; then
