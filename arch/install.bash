@@ -544,7 +544,7 @@ case "$HOSTNAME" in
     )
 
     # System uses btrfs raid, so we need an explicit rootfs
-    discover_rootfs=true
+    discover_rootfs=false
     ;;
 esac
 
