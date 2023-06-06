@@ -69,6 +69,7 @@ ln -fs "$DIR/wezterm/wezterm.lua" ~/.config/wezterm/wezterm.lua
 clean-recursively ~/.config/wezterm/colors || true
 
 # Helix
+mkdir -p ~/.config/helix
 ln -fs "$DIR/helix/config.toml" ~/.config/helix/config.toml
 
 # Git configuration
@@ -120,7 +121,7 @@ mkdir -p ~/.config/pipewire/pipewire.conf.d/
 clean-recursively ~/.config/pipewire/pipewire.conf.d/
 
 # Misc files
-mkdir -p ~/.config/{latexmk,restic,helix}
+mkdir -p ~/.config/{latexmk,restic}
 ln -fs "$DIR/backup/linux.exclude" ~/.config/restic/linux.exclude
 ln -fs "$DIR/latex/latexmkrc" ~/.config/latexmk/latexmkrc
 ln -fs "$DIR/misc/XCompose" ~/.XCompose
