@@ -8,6 +8,7 @@ ignore = [
   # These TODO rules don't apply here; they are overly opinioned.
   "TD002",
   "TD003",
+  "FIX002",
 
   # Ignore incompatible rules
   'D203', # D211 instead
