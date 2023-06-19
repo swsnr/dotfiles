@@ -213,8 +213,8 @@ packages_to_install=(
     remmina                 # Remote desktop
 
     # Latex
-    texlive-core
-    texlive-science
+    texlive-basic
+    texlive-mathscience
     texlive-latexextra
     texlive-publishers
     texlive-humanities
