@@ -214,10 +214,13 @@ packages_to_install=(
 
     # Latex
     texlive-basic
-    texlive-mathscience
-    texlive-latexextra
-    texlive-publishers
+    texlive-binextra
     texlive-humanities
+    texlive-langgerman
+    texlive-latexextra
+    texlive-luatex
+    texlive-mathscience
+    texlive-publishers
     biber
     texlab # Language server for latex
     setzer # Simple and easy latex editor
