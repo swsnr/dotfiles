@@ -533,6 +533,8 @@ case "$HOSTNAME" in
         pacrunner
         # electron: trashing
         trash-cli
+        # aardvark: DNS support
+        aardvark-dns
     )
 
     flatpaks+=(
