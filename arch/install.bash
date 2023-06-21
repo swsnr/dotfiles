@@ -527,6 +527,7 @@ case "$HOSTNAME" in
         evolution-ews      # Exchange for evolution
         mattermost-desktop # Chat application
         rocketchat-desktop # Chat application
+        flameshot          # Powerful screenshot application
     )
 
     packages_to_install_optdeps+=(
