@@ -69,7 +69,7 @@ PACKAGES = [
     "ttf-fira-go",
 ]
 
-class regex_in(str): # noqa: N801
+class regex_in(str): # noqa: N801,SLOT000
     """Match a regex in a string in structural pattern matching."""
 
     def __eq__(self: str, pattern: str) -> bool:
