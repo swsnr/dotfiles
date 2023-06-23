@@ -755,7 +755,7 @@ localectl set-locale de_DE.UTF-8
 # --no-convert stops localectl from trying to apply the text console layout to
 # X11/Wayland and vice versa
 localectl set-keymap --no-convert us
-localectl set-x11-keymap --no-convert us,de pc105 mac,
+localectl set-x11-keymap --no-convert us,de pc105 '' ,compose:ralt
 
 # Regenerate and update audit rules
 augenrules
