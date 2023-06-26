@@ -541,6 +541,8 @@ case "$HOSTNAME" in
         libappindicator-gtk3
         # aardvark: DNS support
         aardvark-dns
+        # firewalld: applet
+        python-pyqt5
     )
 
     flatpaks+=(
