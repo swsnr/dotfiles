@@ -537,6 +537,8 @@ case "$HOSTNAME" in
         pacrunner
         # electron: trashing
         trash-cli
+        # electron: tray icons
+        libappindicator-gtk3
         # aardvark: DNS support
         aardvark-dns
     )
