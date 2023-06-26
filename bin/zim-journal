@@ -16,6 +16,8 @@
 """Open a day in the zim journal."""
 
 import os
+import random
+import string
 from pathlib import Path
 from datetime import date, datetime, timedelta, timezone
 from configparser import ConfigParser
@@ -50,6 +52,7 @@ LocaleCategory = int
 
 def get_session_locale(category: LocaleCategory) -> str:
     """Get the Gnome Session locale."""
+    # TODO: Do this correctly in KDE!
     bus = Gio.bus_get_sync(Gio.BusType.SESSION, None)
     # We need no properties and no signals here so speed up
     flags = Gio.DBusProxyFlags.DO_NOT_CONNECT_SIGNALS | \
@@ -76,6 +79,17 @@ def next_workday(date: date) -> date:
     return date + timedelta(days=8-weekday)
 
 
+def get_zim_command(*, flatpak: bool) -> list[str]:
+    """Get the zim command to use."""
+    if flatpak:
+        return ["flatpak", "run", "org.zim_wiki.Zim"]
+
+    rnd = "".join(
+        random.choices(string.ascii_lowercase + string.digits, k=10), # noqa: S311
+    )
+    return ["systemd-run", "--user", "--slice=app", f"--unit=app-zim-{rnd}", "zim"]
+
+
 def main() -> None:
     """Run this program."""
     from argparse import ArgumentParser
@@ -99,8 +113,7 @@ def main() -> None:
         env["LC_MESSAGES"] = get_session_locale(LC_MESSAGES)
     except GLib.Error:
         env["LC_MESSAGES"] = "de_DE.utf8"
-    # Open todays journal page
-    command = ["flatpak", "run", "org.zim_wiki.Zim"] if USE_FLATPAK else ["zim"]
+    command = get_zim_command(flatpak=USE_FLATPAK)
     command.append(get_zim_notebook_name(flatpak=USE_FLATPAK))
     command.append(f"Journal:{page}")
     Popen(command, env=env, stdout=DEVNULL, stderr=DEVNULL)
