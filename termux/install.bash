@@ -49,7 +49,8 @@ packages=(
 )
 
 # Setup mirros and install packages
-ln -sf "$PREFIX/etc/termux/mirrors/europe" "$PREFIX/etc/termux/chosen_mirrors"
+# shellcheck disable=SC2154 # Prefix comes from termux
+ln -sf "${PREFIX}/etc/termux/mirrors/europe" "${PREFIX}/etc/termux/chosen_mirrors"
 
 # Install nala if not yet there
 if ! has nala; then
@@ -61,10 +62,10 @@ nala upgrade --update --simple --assume-yes
 nala install --no-update --simple --assume-yes "${packages[@]}"
 
 # Configure termux
-install -pm644 -t"$HOME/.termux/" \
-    "$DIR/termux.properties" "$DIR/colors.properties"
-if [[ ! -f "$HOME/.termux/font.ttf" ]]; then
-    curl -fsSL -o "$HOME/.termux/.font.ttf.partial" "$FONT"
-    mv "$HOME/.termux/.font.ttf.partial" "$HOME/.termux/font.ttf"
+install -pm644 -t"${HOME}/.termux/" \
+    "${DIR}/termux.properties" "${DIR}/colors.properties"
+if [[ ! -f "${HOME}/.termux/font.ttf" ]]; then
+    curl -fsSL -o "${HOME}/.termux/.font.ttf.partial" "${FONT}"
+    mv "${HOME}/.termux/.font.ttf.partial" "${HOME}/.termux/font.ttf"
 fi
 termux-reload-settings

@@ -20,7 +20,7 @@ set -e
 current="$(gsettings get org.gnome.desktop.interface color-scheme)"
 case "$1" in
 toggle)
-    if [[ "$current" == "'prefer-dark'" ]]; then
+    if [[ "${current}" == "'prefer-dark'" ]]; then
         theme=light
     else
         theme=dark
@@ -35,9 +35,9 @@ dark | light)
     ;;
 esac
 
-echo "$theme"
+echo "${theme}"
 
-case "$theme" in
+case "${theme}" in
 light)
     gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'
     ;;
@@ -45,7 +45,7 @@ dark)
     gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
     ;;
 *)
-    echo "Unsupported theme: $theme" 1>&2
+    echo "Unsupported theme: ${theme}" 1>&2
     exit 1
     ;;
 esac

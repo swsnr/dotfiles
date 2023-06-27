@@ -19,11 +19,11 @@ INHIBITOR_APP_ID=""
 
 if [[ -n ${GNOME_TERMINAL_SERVICE:-} ]]; then
     INHIBITOR_APP_ID=org.gnome.Terminal.desktop
-elif [[ ${TERM_PROGRAM} == "WezTerm" ]]; then
+elif [[ ${TERM_PROGRAM:-} == "WezTerm" ]]; then
     INHIBITOR_APP_ID=org.wezfurlong.wezterm.desktop
 fi
 
-if [[ -z "$INHIBITOR_APP_ID" ]]; then
+if [[ -z "${INHIBITOR_APP_ID}" ]]; then
     echo 'Cannot determine terminal App to inhibit logout during backup'
     exit 1
 fi
@@ -35,23 +35,25 @@ inhibit() {
     # See backup.bash about why we have to use gnome-session-inhibit with an
     # actual application.
     gnome-session-inhibit \
-        --app-id "$INHIBITOR_APP_ID" --reason "$reason" \
+        --app-id "${INHIBITOR_APP_ID}" --reason "${reason}" \
         --inhibit "logout:suspend" \
         "$@"
 }
+
+USERNAME="$(id -un)"
 
 # Cleanup snapshots made by the dotfiles script:  Definitely keep the last ten
 # snapshots, and# everything within the last six months.  For the last two years
 # keep montly snapshots, and keep a yearly snapshot for like forever.
 inhibit "Deleting old backup snapshots" \
-    restic -r "rclone:kastl:restic-$USERNAME" forget \
+    restic -r "rclone:kastl:restic-${USERNAME}" forget \
     --prune \
     --tag basti,dotfiles-script \
     --keep-last 10 \
     --keep-within 6m \
     --keep-monthly 24 \
     --keep-yearly 20
-inhibit "Removing old data" restic -r "rclone:kastl:restic-$USERNAME" prune
+inhibit "Removing old data" restic -r "rclone:kastl:restic-${USERNAME}" prune
 # Check that the data is still valid
 inhibit "Verifying backups" \
-    nice restic -r "rclone:kastl:restic-$USERNAME" check --read-data-subset '10%'
+    nice restic -r "rclone:kastl:restic-${USERNAME}" check --read-data-subset '10%'

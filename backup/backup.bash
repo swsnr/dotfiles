@@ -17,19 +17,21 @@ set -xeuo pipefail
 
 INHIBITOR_APP_ID=""
 
-if [[ -n ${GNOME_TERMINAL_SERVICE:-} ]]; then
+if [[ -n "${GNOME_TERMINAL_SERVICE:-}" ]]; then
     INHIBITOR_APP_ID=org.gnome.Terminal.desktop
-elif [[ ${TERM_PROGRAM} == "kgx" ]]; then
+elif [[ "${TERM_PROGRAM:-}" == "kgx" ]]; then
     # Hopefully; see https://gitlab.gnome.org/GNOME/console/-/merge_requests/140
     INHIBITOR_APP_ID=org.gnome.Console.desktop
-elif [[ ${TERM_PROGRAM} == "WezTerm" ]]; then
+elif [[ "${TERM_PROGRAM:-}" == "WezTerm" ]]; then
     INHIBITOR_APP_ID=org.wezfurlong.wezterm.desktop
 fi
 
-if [[ -z "$INHIBITOR_APP_ID" ]]; then
+if [[ -z "${INHIBITOR_APP_ID}" ]]; then
     echo 'Cannot determine terminal App to inhibit logout during backup'
     exit 1
 fi
+
+USERNAME="$(id -un)"
 
 # Inhibit logout (which includes shutdown) and suspend in the name of the
 # running terminal emulator, to make sure the backup completes without
@@ -42,13 +44,13 @@ fi
 # for details; not the most useful behaviour in my opinion, but it's not a fight
 # for me to pick.
 exec gnome-session-inhibit \
-    --app-id "$INHIBITOR_APP_ID" --reason 'Ongoing backup' \
+    --app-id "${INHIBITOR_APP_ID}" --reason 'Ongoing backup' \
     --inhibit "logout:suspend" \
-    restic -r "rclone:kastl:restic-$USERNAME" backup ~ \
+    restic -r "rclone:kastl:restic-${USERNAME}" backup ~ \
     --one-file-system \
     --tag basti \
     --tag dotfiles-script \
     --exclude-caches \
-    --exclude-file "$HOME/.config/restic/linux.exclude" \
+    --exclude-file "${HOME}/.config/restic/linux.exclude" \
     --verbose \
     "$@"

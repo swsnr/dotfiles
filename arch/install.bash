@@ -17,7 +17,7 @@
 
 set -xeuo pipefail
 
-if [[ $EUID != 0 ]]; then
+if [[ "${EUID}" != 0 ]]; then
     echo 'Elevating privileges'
     exec sudo "$0" "$@"
 fi
@@ -37,8 +37,8 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 PRODUCT_NAME="$(</sys/class/dmi/id/product_name)"
 
 pacman_repositories=(
-    "$DIR/etc/pacman/50-core-repositories.conf"
-    "$DIR/etc/pacman/60-aur-repository.conf"
+    "${DIR}/etc/pacman/50-core-repositories.conf"
+    "${DIR}/etc/pacman/60-aur-repository.conf"
 )
 
 packages_to_remove=(
@@ -412,7 +412,7 @@ if [[ -n "${MY_USER_ACCOUNT}" ]]; then
     services+=("btrfs-scrub@$(systemd-escape -p "/home/${MY_USER_ACCOUNT}").timer")
 fi
 
-case "$PRODUCT_NAME" in
+case "${PRODUCT_NAME}" in
 'XPS 9315')
     packages_to_install+=(
         sof-firmware # Firmware for XPS audio devices
@@ -423,11 +423,12 @@ case "$PRODUCT_NAME" in
         # Thermal management for intel CPUs
         thermald.service
     )
-
+    ;;
+*)
     ;;
 esac
 
-case "$HOSTNAME" in
+case "${HOSTNAME}" in
 *kastl*)
     pacman_repositories+=()
 
@@ -561,6 +562,8 @@ case "$HOSTNAME" in
     # System uses btrfs raid, so we need an explicit rootfs
     discover_rootfs=false
     ;;
+*)
+    ;;
 esac
 
 if [[ "${use_nvidia}" == true ]]; then
@@ -586,8 +589,8 @@ else
 fi
 
 # Setup pacman and install/remove packages
-install -pm644 "$DIR/etc/pacman/pacman.conf" /etc/pacman.conf
-install -pm644 "$DIR/etc/pacman/mirrorlist" /etc/pacman.d/mirrorlist
+install -pm644 "${DIR}/etc/pacman/pacman.conf" /etc/pacman.conf
+install -pm644 "${DIR}/etc/pacman/mirrorlist" /etc/pacman.d/mirrorlist
 install -pm644 -Dt /etc/pacman.d/repos "${pacman_repositories[@]}"
 install -m755 -d /etc/pacman.d/hooks
 # Stub out pacman hooks of mkinitcpio; we use kernel-install instead
@@ -595,7 +598,7 @@ ln -sf /dev/null /etc/pacman.d/hooks/60-mkinitcpio-remove.hook
 ln -sf /dev/null /etc/pacman.d/hooks/90-mkinitcpio-install.hook
 
 # Update pacman keyring with additional keys
-pacman-key -a "$DIR/etc/pacman/keys/personal.asc"
+pacman-key -a "${DIR}/etc/pacman/keys/personal.asc"
 pacman-key --lsign-key B8ADA38BC94C48C4E7AABE4F7548C2CC396B57FC
 
 # Disable services before uninstalling packages
@@ -612,12 +615,13 @@ fi
 # Remove packages one by one because pacman doesn't handle uninstalled packages
 # gracefully
 for pkg in "${packages_to_remove[@]}"; do
-    pacman --noconfirm -Rs "$pkg" || true
+    pacman --noconfirm -Rs "${pkg}" || true
 done
 
 # Mark packages as optional dependencies one by one, because pacman doesn't
 # handle missing packages gracefully here.
 for pkg in "${packages_to_mark_as_deps[@]}"; do
+    # shellcheck disable=SC2250
     pacman --noconfirm -D --asdeps "$pkg" || true
 done
 
@@ -632,7 +636,7 @@ flatpak config --system --set extra-languages 'en;en_GB;de;de_DE'
 flatpak install --system --noninteractive flathub "${flatpaks[@]}"
 # Remove unused flatpaks; one by one because uninstall fails on missing refs :|
 for flatpak in "${flatpaks_to_remove[@]}"; do
-    flatpak uninstall --system --noninteractive "$flatpak" || true
+    flatpak uninstall --system --noninteractive "${flatpak}" || true
 done
 flatpak uninstall --system --noninteractive --unused
 flatpak update --system --noninteractive
@@ -662,35 +666,35 @@ NSS_HOSTS=(
 sed -i '/^hosts: /s/^hosts: .*/'"hosts: ${NSS_HOSTS[*]}/" /etc/nsswitch.conf
 
 # UKI installation
-install -pm644 "$DIR/etc/kernel/install.conf" /etc/kernel/install.conf
+install -pm644 "${DIR}/etc/kernel/install.conf" /etc/kernel/install.conf
 
 # Configure mkinitcpio
 install -m755 -d /etc/mkinitcpio.conf.d/
 install -m644 -t /etc/mkinitcpio.conf.d/ \
-    "$DIR/etc/mkinitcpio.conf.d/10-swsnr-systemd-base.conf" \
-    "$DIR/etc/mkinitcpio.conf.d/20-swsnr-coretemp.conf"
+    "${DIR}/etc/mkinitcpio.conf.d/10-swsnr-systemd-base.conf" \
+    "${DIR}/etc/mkinitcpio.conf.d/20-swsnr-coretemp.conf"
 
 if [[ "${use_nvidia}" == true ]]; then
     # For nvidia early-kms setup is more intricate because the standard kms hook
     # doesn't really seem to support it, so remove the KMS hook and use a more
     # elaborate nvidia configuration instead.
-    install -m644 -t /etc/mkinitcpio.conf.d/ "$DIR/etc/mkinitcpio.conf.d/20-swsnr-nvidia.conf"
+    install -m644 -t /etc/mkinitcpio.conf.d/ "${DIR}/etc/mkinitcpio.conf.d/20-swsnr-nvidia.conf"
     rm -f /etc/mkinitcpio.conf.d/20-swsnr-kms.conf
 
     # Enable modesetting
-    install -m644 -t /etc/cmdline.d/ "$DIR"/etc/cmdline.d/30-nvidia-modeset.conf
+    install -m644 -t /etc/cmdline.d/ "${DIR}"/etc/cmdline.d/30-nvidia-modeset.conf
 
     # Load nvidia powermanagement modules, and disable GDM's nvidia override
     # rules. This seems to be required to get GDM to accept older nvidia cards.
     # We do know better than GDM here, otherwise we'd not set "use_nividia" to
     # true for the relevant system.
-    install -pm644 "$DIR/etc/modprobe-nvidia-power-management.conf" \
+    install -pm644 "${DIR}/etc/modprobe-nvidia-power-management.conf" \
         /etc/modprobe.d/nvidia-power-management.conf
     ln -sf /dev/null /etc/udev/rules.d/61-gdm.rules
 else
     # Use standard KMS hook if we're not using the proprietary driver.
     install -m644 -t /etc/mkinitcpio.conf.d/ \
-        "$DIR/etc/mkinitcpio.conf.d/20-swsnr-kms.conf"
+        "${DIR}/etc/mkinitcpio.conf.d/20-swsnr-kms.conf"
     # Remove all the nvidia stuff
     rm -f \
         /etc/cmdline.d/30-nvidia-modeset.conf \
@@ -702,37 +706,37 @@ fi
 # Configure kernel cmdline for mkinitcpio
 install -m755 -d /etc/cmdline.d
 install -m644 -t /etc/cmdline.d \
-    "$DIR"/etc/cmdline.d/10-swsnr-plymouth.conf \
-    "$DIR"/etc/cmdline.d/10-swsnr-quiet-boot.conf \
-    "$DIR"/etc/cmdline.d/20-swsnr-disable-zswap.conf \
-    "$DIR"/etc/cmdline.d/20-swsnr-rootflags-btrfs.conf
+    "${DIR}"/etc/cmdline.d/10-swsnr-plymouth.conf \
+    "${DIR}"/etc/cmdline.d/10-swsnr-quiet-boot.conf \
+    "${DIR}"/etc/cmdline.d/20-swsnr-disable-zswap.conf \
+    "${DIR}"/etc/cmdline.d/20-swsnr-rootflags-btrfs.conf
 if [[ "${discover_rootfs}" == true ]]; then
     rm -f /etc/cmdline.d/30-explicit-root.conf
 else
     install -m644 -t /etc/cmdline.d/ \
-        "$DIR"/etc/cmdline.d/30-explicit-root.conf
+        "${DIR}"/etc/cmdline.d/30-explicit-root.conf
 fi
 
 # Boot loader configuration
-case "$HOSTNAME" in
+case "${HOSTNAME}" in
 *kastl*)
     # Use zen, as it's supposedly a better kernel for gaming
-    install -pm644 "$DIR/etc/loader-default-zen.conf" /efi/loader/loader.conf
+    install -pm644 "${DIR}/etc/loader-default-zen.conf" /efi/loader/loader.conf
     ;;
 *)
     # Otherwise use stock kernel for maximum compatibility
-    install -pm644 "$DIR/etc/loader-default-arch.conf" /efi/loader/loader.conf
+    install -pm644 "${DIR}/etc/loader-default-arch.conf" /efi/loader/loader.conf
     ;;
 esac
 
 # System configuration
-install -pm644 "$DIR/etc/faillock.conf" /etc/security/faillock.conf
-install -pm644 "$DIR/etc/sysctl-swsnr.conf" /etc/sysctl.d/90-swsnr.conf
-install -pm644 "$DIR/etc/modprobe-swsnr.conf" /etc/modprobe.d/modprobe-swsnr.conf
-install -pm644 "$DIR/etc/modules-load-swsnr.conf" /etc/modules-load.d/swsnr.conf
-install -D -m644 "$DIR/etc/systemd/system/btrfs-scrub-io.conf" \
+install -pm644 "${DIR}/etc/faillock.conf" /etc/security/faillock.conf
+install -pm644 "${DIR}/etc/sysctl-swsnr.conf" /etc/sysctl.d/90-swsnr.conf
+install -pm644 "${DIR}/etc/modprobe-swsnr.conf" /etc/modprobe.d/modprobe-swsnr.conf
+install -pm644 "${DIR}/etc/modules-load-swsnr.conf" /etc/modules-load.d/swsnr.conf
+install -D -m644 "${DIR}/etc/systemd/system/btrfs-scrub-io.conf" \
     "/etc/systemd/system/btrfs-scrub@.service.d/swsnr-limit-io.conf"
-install -D -m644 "$DIR/etc/plymouthd.conf" /etc/plymouth/plymouthd.conf
+install -D -m644 "${DIR}/etc/plymouthd.conf" /etc/plymouth/plymouthd.conf
 
 # Remove apparmor configuration
 rm -rf /etc/cmdline.d/20-swsnr-lsm-apparmor.conf \
@@ -740,27 +744,27 @@ rm -rf /etc/cmdline.d/20-swsnr-lsm-apparmor.conf \
 
 # sudo configuration
 install -dm750 /etc/sudoers.d/
-install -pm600 -t/etc/sudoers.d "$DIR"/etc/sudoers.d/*
+install -pm600 -t/etc/sudoers.d "${DIR}"/etc/sudoers.d/*
 
 # Systemd configuration
 ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
-install -Dpm644 "$DIR/etc/systemd/system-swsnr.conf" /etc/systemd/system.conf.d/50-swsnr.conf
-install -Dpm644 "$DIR/etc/systemd/timesyncd-swsnr.conf" /etc/systemd/timesyncd.conf.d/50-swsnr.conf
-install -Dpm644 "$DIR/etc/systemd/resolved-swsnr.conf" /etc/systemd/resolved.conf.d/50-swsnr.conf
-install -Dpm644 "$DIR/etc/systemd/zram-generator.conf" /etc/systemd/zram-generator.conf
-install -Dpm644 "$DIR/etc/systemd/oomd-swsnr.conf" /etc/systemd/oomd.conf.d/50-swsnr.conf
-install -Dpm644 "$DIR/etc/systemd/root-slice-oomd-swsnr.conf" /etc/systemd/system/-.slice.d/50-oomd-swsnr.conf
-install -Dpm644 "$DIR/etc/systemd/user-service-oomd-swsnr.conf" /etc/systemd/system/user@.service.d/50-oomd-swsnr.conf
+install -Dpm644 "${DIR}/etc/systemd/system-swsnr.conf" /etc/systemd/system.conf.d/50-swsnr.conf
+install -Dpm644 "${DIR}/etc/systemd/timesyncd-swsnr.conf" /etc/systemd/timesyncd.conf.d/50-swsnr.conf
+install -Dpm644 "${DIR}/etc/systemd/resolved-swsnr.conf" /etc/systemd/resolved.conf.d/50-swsnr.conf
+install -Dpm644 "${DIR}/etc/systemd/zram-generator.conf" /etc/systemd/zram-generator.conf
+install -Dpm644 "${DIR}/etc/systemd/oomd-swsnr.conf" /etc/systemd/oomd.conf.d/50-swsnr.conf
+install -Dpm644 "${DIR}/etc/systemd/root-slice-oomd-swsnr.conf" /etc/systemd/system/-.slice.d/50-oomd-swsnr.conf
+install -Dpm644 "${DIR}/etc/systemd/user-service-oomd-swsnr.conf" /etc/systemd/system/user@.service.d/50-oomd-swsnr.conf
 
 # Remove audit setup
 rm -rf /etc/audit/rules.d/00-swsnr.rules /etc/cmdline.d/20-swsnr-audit.conf
 
 # Services configuration
-install -Dpm644 "$DIR/etc/networkmanager-mdns.conf" /etc/NetworkManager/conf.d/50-mdns.conf
+install -Dpm644 "${DIR}/etc/networkmanager-mdns.conf" /etc/NetworkManager/conf.d/50-mdns.conf
 
 # Global font configuration
 for file in 10-hinting-slight 10-sub-pixel-rgb 11-lcdfilter-default; do
-    ln -sf /usr/share/fontconfig/conf.avail/$file.conf /etc/fonts/conf.d/$file.conf
+    ln -sf "/usr/share/fontconfig/conf.avail/${file}.conf" "/etc/fonts/conf.d/${file}.conf"
 done
 
 # Locale settings
@@ -772,7 +776,7 @@ localectl set-x11-keymap --no-convert us,de pc105 '' ,compose:ralt
 
 # GDM dconf profile, for global GDM configuration, see
 # https://help.gnome.org/admin/system-admin-guide/stable/login-banner.html.en
-install -Dpm644 "$DIR/etc/gdm-profile" /etc/dconf/profile/gdm
+install -Dpm644 "${DIR}/etc/gdm-profile" /etc/dconf/profile/gdm
 
 # Start firewalld and configure it
 systemctl start firewalld.service
@@ -788,7 +792,7 @@ firewall-cmd --quiet --permanent --zone=work \
     --add-service=ssh \
     --add-service=mdns \
     --add-service=samba-client
-if [[ "$HOSTNAME" == *kastl* ]]; then
+if [[ "${HOSTNAME}" == *kastl* ]]; then
     # Define a service for PS remote play
     firewall-cmd --quiet --permanent --new-service=ps-remote-play || true
     firewall-cmd --quiet --permanent --service=ps-remote-play --set-short='PS Remote Play' || true
@@ -819,7 +823,7 @@ if command -v sbctl >/dev/null && [[ -f /usr/share/secureboot/keys/db/db.key ]];
 
     # Since we sign the firmware updater directly we do not require shim for
     # firmware updates.
-    install -m644 "$DIR/etc/fwupd-uefi_capsule_secure_boot.conf" \
+    install -m644 "${DIR}/etc/fwupd-uefi_capsule_secure_boot.conf" \
         /etc/fwupd/uefi_capsule.conf
 
     sbctl sign-all

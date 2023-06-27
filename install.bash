@@ -28,7 +28,7 @@ has() {
 # Binaries
 mkdir -p ~/.local/bin
 clean-recursively ~/.local/bin
-ln -fs -t ~/.local/bin/ "$DIR/bin/"*
+ln -fs -t ~/.local/bin/ "${DIR}/bin/"*
 
 # Experimental thin client for SBT, to connect to running servers
 if [[ -e /usr/share/sbt/bin/sbtn-x86_64-pc-linux ]]; then
@@ -37,18 +37,18 @@ fi
 
 # Environment variables
 mkdir -p ~/.config/environment.d
-ln -fs -t ~/.config/environment.d "$DIR"/environment/*.conf
+ln -fs -t ~/.config/environment.d "${DIR}"/environment/*.conf
 clean-recursively ~/.config/environment.d || true
 
 # Fish shell config files and functions
 mkdir -p ~/.config/fish/functions ~/.config/fish/conf.d
-ln -fs -t ~/.config/fish "$DIR/fish/config.fish"
-ln -fs -t ~/.config/fish/functions "$DIR/fish/functions/"*.fish
-ln -fs -t ~/.config/fish/conf.d "$DIR/fish/conf.d/"*.fish
+ln -fs -t ~/.config/fish "${DIR}/fish/config.fish"
+ln -fs -t ~/.config/fish/functions "${DIR}/fish/functions/"*.fish
+ln -fs -t ~/.config/fish/conf.d "${DIR}/fish/conf.d/"*.fish
 clean-recursively ~/.config/fish/functions ~/.config/fish/conf.d ~/.config/fish/completions || true
 # Fish plugins (per fisher scheme)
-ln -fs -t ~/.config/fish/conf.d "$DIR"/fish/plugins/*/conf.d/*.fish
-ln -fs -t ~/.config/fish/functions "$DIR"/fish/plugins/*/functions/*.fish
+ln -fs -t ~/.config/fish/conf.d "${DIR}"/fish/plugins/*/conf.d/*.fish
+ln -fs -t ~/.config/fish/functions "${DIR}"/fish/plugins/*/functions/*.fish
 
 # Remove profile.  I set up environment variables through systemd, so let's
 # clear profile files from distributions, etc. which mess up my $PATH.
@@ -59,30 +59,30 @@ rm -f ~/.profile
 # custom profile; some tools (JetBrains toolbox, looking at you) think it's a
 # good idea to mess with the profile files in order to override $PATH.
 for file in bashrc bash_logout bash_profile; do
-    ln -fs "$DIR/bash/${file}" "${HOME}/.${file}"
+    ln -fs "${DIR}/bash/${file}" "${HOME}/.${file}"
 done
 
 # Terminal emulator
 mkdir -p ~/.config/wezterm/colors
-ln -fs "$DIR/wezterm/wezterm.lua" ~/.config/wezterm/wezterm.lua
+ln -fs "${DIR}/wezterm/wezterm.lua" ~/.config/wezterm/wezterm.lua
 clean-recursively ~/.config/wezterm/colors || true
 
 # Helix
 mkdir -p ~/.config/helix
-ln -fs "$DIR/helix/config.toml" ~/.config/helix/config.toml
+ln -fs "${DIR}/helix/config.toml" ~/.config/helix/config.toml
 
 # Git configuration
 mkdir -p ~/.config/git
-ln -fs -t ~/.config/git "$DIR/git/common/"*
-ln -fs -t ~/.config/git "$DIR/git/config.linux"
+ln -fs -t ~/.config/git "${DIR}/git/common/"*
+ln -fs -t ~/.config/git "${DIR}/git/config.linux"
 
 # SSH configuration
 mkdir -p ~/.ssh
 mkdir -p ~/.ssh/{config.d,known-hosts.d}
 chmod 0700 ~/.ssh ~/.ssh/{config.d,known-hosts.d}
-ln -fs "$DIR/ssh/config" ~/.ssh/config
-ln -fs -t ~/.ssh/known-hosts.d "$DIR/ssh/known-hosts.d/"*
-ln -fs -t ~/.ssh/config.d "$DIR/ssh/config.d/"*
+ln -fs "${DIR}/ssh/config" ~/.ssh/config
+ln -fs -t ~/.ssh/known-hosts.d "${DIR}/ssh/known-hosts.d/"*
+ln -fs -t ~/.ssh/config.d "${DIR}/ssh/config.d/"*
 clean-recursively ~/.ssh/config.d ~/.ssh/known-hosts.d || true
 
 # Remove KDE leftovers
@@ -98,33 +98,33 @@ rm -rf ~/.config/plasma-workspace/ \
 
 # Scala configuration
 mkdir -p ~/.ammonite ~/.sbt/1.0/plugins/project
-ln -fs "$DIR/scala/ammonite-predef.sc" ~/.ammonite/predef.sc
-ln -fs "$DIR/scala/settings.sbt" ~/.sbt/1.0/settings.sbt
-ln -fs -t ~/.sbt/1.0/plugins "$DIR/scala/"{plugins,sbt-updates}.sbt
-ln -fs -t ~/.sbt/1.0/plugins/project/ "$DIR/scala/sbt-updates.sbt"
-ln -fs -t ~/.sbt "$DIR/scala/sbtopts"
+ln -fs "${DIR}/scala/ammonite-predef.sc" ~/.ammonite/predef.sc
+ln -fs "${DIR}/scala/settings.sbt" ~/.sbt/1.0/settings.sbt
+ln -fs -t ~/.sbt/1.0/plugins "${DIR}/scala/"{plugins,sbt-updates}.sbt
+ln -fs -t ~/.sbt/1.0/plugins/project/ "${DIR}/scala/sbt-updates.sbt"
+ln -fs -t ~/.sbt "${DIR}/scala/sbtopts"
 
 # k8s and related tools
 mkdir -p ~/.config/k9s
-ln -fs -t ~/.config/k9s "$DIR/k8s/k9s/skins" ~/.config/k9s
+ln -fs -t ~/.config/k9s "${DIR}/k8s/k9s/skins" ~/.config/k9s
 # Default k9s skin
 ln -fs ./skins/transparent.yml ~/.config/k9s/skin.yml
 
 # GPG
 mkdir -p ~/.gnupg
 clean-recursively ~/.gnupg || true
-ln -fs -t ~/.gnupg "$DIR/gnupg/"*.conf
+ln -fs -t ~/.gnupg "${DIR}/gnupg/"*.conf
 
 # bat viewer
 mkdir -p ~/.config/bat/themes
-ln -fs "$DIR/bat/config" ~/.config/bat/config
-ln -fs -t ~/.config/bat/themes "$DIR/bat/"*.tmTheme
+ln -fs "${DIR}/bat/config" ~/.config/bat/config
+ln -fs -t ~/.config/bat/themes "${DIR}/bat/"*.tmTheme
 has bat && bat cache --build
 
 # Python
 mkdir -p ~/.config/python
 # Personal startup file, see environment/50-python.conf
-ln -fs "$DIR/python/startup.py" ~/.config/python/startup.py
+ln -fs "${DIR}/python/startup.py" ~/.config/python/startup.py
 
 # Pipewire
 mkdir -p ~/.config/pipewire/pipewire.conf.d/
@@ -132,24 +132,24 @@ clean-recursively ~/.config/pipewire/pipewire.conf.d/
 
 # Misc files
 mkdir -p ~/.config/{latexmk,restic}
-ln -fs "$DIR/backup/linux.exclude" ~/.config/restic/linux.exclude
-ln -fs "$DIR/latex/latexmkrc" ~/.config/latexmk/latexmkrc
-ln -fs "$DIR/misc/XCompose" ~/.XCompose
-ln -fs "$DIR/misc/electron-flags.conf" ~/.config/electron-flags.conf
-ln -fs "$DIR/misc/electron-flags.conf" ~/.config/electron19-flags.conf
-ln -fs "$DIR/misc/electron-flags.conf" ~/.config/electron21-flags.conf
-ln -fs "$DIR/misc/gamemode.ini" ~/.config/gamemode.ini
-ln -fs "$DIR/misc/zim-style.conf" ~/.config/zim/style.conf
-ln -fs "$DIR/misc/kwalletrc" ~/.config/kwalletrc
+ln -fs "${DIR}/backup/linux.exclude" ~/.config/restic/linux.exclude
+ln -fs "${DIR}/latex/latexmkrc" ~/.config/latexmk/latexmkrc
+ln -fs "${DIR}/misc/XCompose" ~/.XCompose
+ln -fs "${DIR}/misc/electron-flags.conf" ~/.config/electron-flags.conf
+ln -fs "${DIR}/misc/electron-flags.conf" ~/.config/electron19-flags.conf
+ln -fs "${DIR}/misc/electron-flags.conf" ~/.config/electron21-flags.conf
+ln -fs "${DIR}/misc/gamemode.ini" ~/.config/gamemode.ini
+ln -fs "${DIR}/misc/zim-style.conf" ~/.config/zim/style.conf
+ln -fs "${DIR}/misc/kwalletrc" ~/.config/kwalletrc
 
 # Gnome settings
-"$DIR/gnome/settings.py" || true
+"${DIR}/gnome/settings.py" || true
 # Local gnome extensions
 mkdir -p ~/.local/share/gnome-shell/extensions
 ln -fs -t ~/.local/share/gnome-shell/extensions \
-    "$DIR/gnome/extensions/home@swsnr.de" \
-    "$DIR/gnome/extensions/spacetimeformats@swsnr.de" \
-    "$DIR/gnome/extensions/disable-extension-updates@swsnr.de"
+    "${DIR}/gnome/extensions/home@swsnr.de" \
+    "${DIR}/gnome/extensions/spacetimeformats@swsnr.de" \
+    "${DIR}/gnome/extensions/disable-extension-updates@swsnr.de"
 clean-recursively ~/.local/share/gnome-shell/extensions/
 
 extensions=(
@@ -168,7 +168,7 @@ extensions=(
     # Cool wallpapers every day
     'nasa_apod@elinvention.ovh'
 )
-case "$HOSTNAME" in
+case "${HOSTNAME}" in
 *kastl*)
     extensions+=(
         # Connect my system to my mobile phone
@@ -177,7 +177,10 @@ case "$HOSTNAME" in
         'flypie@schneegans.github.com'
     )
     ;;
+*)
+    ;;
 esac
+
 if has gnome-extensions; then
     for extension in "${extensions[@]}"; do
         # Enable extension if present
@@ -188,11 +191,11 @@ if has gnome-extensions; then
 fi
 
 # On personal systems use 1password for SSH and commit signing
-if [[ "$HOSTNAME" == *kastl* ]]; then
-    ln -fs -t ~/.config/git "$DIR/git/config.1password-signing"
-    # This file deliberately lies outside of "$DIR/ssh/config.d" because we
+if [[ "${HOSTNAME}" == *kastl* ]]; then
+    ln -fs -t ~/.config/git "${DIR}/git/config.1password-signing"
+    # This file deliberately lies outside of "${DIR}/ssh/config.d" because we
     # install all files from config.d above
-    ln -fs -t ~/.ssh/config.d "$DIR/ssh/90-1password-ssh-agent"
+    ln -fs -t ~/.ssh/config.d "${DIR}/ssh/90-1password-ssh-agent"
 fi
 
 # Generate additional fish completions
@@ -202,7 +205,7 @@ has restic && restic generate --fish-completion ~/.config/fish/completions/resti
 
 # Setup firefox user.js
 if has python && [[ -e ~/.mozilla/firefox/profiles.ini ]]; then
-    python <<'EOF' | xargs -0 -n1 ln -sf "$DIR"/misc/user.js || true
+    python <<'EOF' | xargs -0 -n1 ln -sf "${DIR}"/misc/user.js || true
 from pathlib import Path
 from configparser import ConfigParser
 firefox = Path.home() / '.mozilla' / 'firefox'
@@ -221,7 +224,7 @@ print('\0'.join(paths), end='')
 EOF
 fi
 
-if has syncthing && [[ "$HOSTNAME" == *kastl* ]]; then
+if has syncthing && [[ "${HOSTNAME}" == *kastl* ]]; then
     systemctl --user enable --now syncthing.service
 fi
 
