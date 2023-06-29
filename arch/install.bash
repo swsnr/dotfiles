@@ -46,6 +46,8 @@ packages_to_remove=(
     # word documents, and for anything non-trivial I find LaTeX so much better.
     libreoffice-fresh # Office
     libreoffice-fresh-de
+    # I don't actually use this
+    apparmor
 )
 
 # Packages to mark as optional dependencies
@@ -62,7 +64,6 @@ packages_to_install=(
     linux-lts # Fallback kernel
     mkinitcpio
     plymouth # Boot splash screen
-    apparmor
     sudo
     pacman-hook-kernel-install # Install kernels to /efi
     zram-generator             # swap on compressed RAM, mostly to support systemd-oomd
@@ -314,10 +315,6 @@ packages_to_install_optdeps=(
     gst-plugins-good
     gst-plugin-pipewire
 
-    # apparmor: aa-notify
-    python-notify2
-    python-psutil
-
     # Mark pipewire as optional dependencies
     pipewire-pulse wireplumber
     # pipewire: zeroconf support
@@ -375,7 +372,6 @@ services=(
 
     # Security
     firewalld.service # Firewall
-    apparmor.service  # Load apparmor profiles
 
     # Desktop services
     gdm.service                   # Desktop manager
@@ -387,6 +383,7 @@ services=(
 
 services_to_disable=(
     auditd.service
+    apparmor.service
 )
 
 # Flatpaks
@@ -695,7 +692,6 @@ install -m644 -t /etc/cmdline.d \
     "$DIR"/etc/cmdline.d/10-swsnr-plymouth.conf \
     "$DIR"/etc/cmdline.d/10-swsnr-quiet-boot.conf \
     "$DIR"/etc/cmdline.d/20-swsnr-disable-zswap.conf \
-    "$DIR"/etc/cmdline.d/20-swsnr-lsm-apparmor.conf \
     "$DIR"/etc/cmdline.d/20-swsnr-rootflags-btrfs.conf
 if [[ "${discover_rootfs}" == true ]]; then
     rm -f /etc/cmdline.d/30-explicit-root.conf
@@ -725,9 +721,9 @@ install -D -m644 "$DIR/etc/systemd/system/btrfs-scrub-io.conf" \
     "/etc/systemd/system/btrfs-scrub@.service.d/swsnr-limit-io.conf"
 install -D -m644 "$DIR/etc/plymouthd.conf" /etc/plymouth/plymouthd.conf
 
-# AppArmor configuration
-install -pm644 "$DIR/etc/apparmor/tunables/xdg-user-dir-de" \
-    /etc/apparmor.d/tunables/xdg-user-dirs.d/de
+# Remove apparmor configuration
+rm -rf /etc/cmdline.d/20-swsnr-lsm-apparmor.conf \
+  /etc/apparmor.d/tunables/xdg-user-dirs.d/de
 
 # sudo configuration
 install -dm750 /etc/sudoers.d/
