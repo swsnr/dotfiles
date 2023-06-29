@@ -39,6 +39,11 @@ SETTINGS = {
         "sleep-inactive-battery-type": "suspend",
     },
 
+    # Night light
+    "org.gnome.settings-daemon.plugins.color": {
+        "night-light-enabled": True,
+    },
+
     # System settings
     "org.gnome.system.location": {
         # Enable location service
