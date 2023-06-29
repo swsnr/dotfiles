@@ -156,6 +156,7 @@ extensions=(
     # Extend top bar: Show removable drives, workspaces and systray
     'drive-menu@gnome-shell-extensions.gcampax.github.com'
     'workspace-indicator@gnome-shell-extensions.gcampax.github.com'
+    'appindicatorsupport@rgcjonas.gmail.com'
     # Disable automatic extension updates; I install all extensions through
     # pacman
     'disable-extension-updates@swsnr.de'
@@ -163,7 +164,7 @@ extensions=(
     'tiling-assistant@leleat-on-github'
     # Bling bling
     'burn-my-windows@schneegans.github.com'
-    'gnome-shell-extension-desktop-cube'
+    'desktop-cube@schneegans.github.com'
     # Cool wallpapers every day
     'nasa_apod@elinvention.ovh'
 )
