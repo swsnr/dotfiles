@@ -336,6 +336,9 @@ packages_to_install_optdeps=(
     # kiconthemes: fallback icons
     breeze-icons
 
+    # nautilus: search
+    tracker3-miners
+
     # zim: spell checking
     gtkspell3
     # enchant: fast and modern spell checking backend
