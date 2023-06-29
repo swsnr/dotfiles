@@ -366,7 +366,6 @@ services=(
     systemd-boot-update.service # Update boot loader automatically
     systemd-homed.service       # homed for user management and home areas
     systemd-oomd.service        # Userspace OOM killer
-    auditd.service              # Handle kernel audit events
     systemd-timesyncd.service   # Time sync
 
     # Networking services
@@ -386,7 +385,9 @@ services=(
     pcscd.socket                  # Smartcards, mostly eID
 )
 
-services_to_disable=()
+services_to_disable=(
+    auditd.service
+)
 
 # Flatpaks
 flatpaks=(
@@ -693,7 +694,6 @@ install -m755 -d /etc/cmdline.d
 install -m644 -t /etc/cmdline.d \
     "$DIR"/etc/cmdline.d/10-swsnr-plymouth.conf \
     "$DIR"/etc/cmdline.d/10-swsnr-quiet-boot.conf \
-    "$DIR"/etc/cmdline.d/20-swsnr-audit.conf \
     "$DIR"/etc/cmdline.d/20-swsnr-disable-zswap.conf \
     "$DIR"/etc/cmdline.d/20-swsnr-lsm-apparmor.conf \
     "$DIR"/etc/cmdline.d/20-swsnr-rootflags-btrfs.conf
@@ -743,8 +743,8 @@ install -Dpm644 "$DIR/etc/systemd/oomd-swsnr.conf" /etc/systemd/oomd.conf.d/50-s
 install -Dpm644 "$DIR/etc/systemd/root-slice-oomd-swsnr.conf" /etc/systemd/system/-.slice.d/50-oomd-swsnr.conf
 install -Dpm644 "$DIR/etc/systemd/user-service-oomd-swsnr.conf" /etc/systemd/system/user@.service.d/50-oomd-swsnr.conf
 
-# Audit rules
-install -Dpm644 "$DIR/etc/audit/swsnr.rules" "/etc/audit/rules.d/00-swsnr.rules"
+# Remove audit setup
+rm -rf /etc/audit/rules.d/00-swsnr.rules /etc/cmdline.d/20-swsnr-audit.conf
 
 # Services configuration
 install -Dpm644 "$DIR/etc/networkmanager-mdns.conf" /etc/NetworkManager/conf.d/50-mdns.conf
@@ -760,10 +760,6 @@ localectl set-locale de_DE.UTF-8
 # X11/Wayland and vice versa
 localectl set-keymap --no-convert us
 localectl set-x11-keymap --no-convert us,de pc105 '' ,compose:ralt
-
-# Regenerate and update audit rules
-augenrules
-augenrules --load
 
 # GDM dconf profile, for global GDM configuration, see
 # https://help.gnome.org/admin/system-admin-guide/stable/login-banner.html.en
