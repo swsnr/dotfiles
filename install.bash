@@ -85,6 +85,16 @@ ln -fs -t ~/.ssh/known-hosts.d "$DIR/ssh/known-hosts.d/"*
 ln -fs -t ~/.ssh/config.d "$DIR/ssh/config.d/"*
 clean-recursively ~/.ssh/config.d ~/.ssh/known-hosts.d || true
 
+# Remove KDE leftovers
+systemctl --user disable ssh-agent.service || true
+rm -f  ~/.config/systemd/user/ssh-agent.service
+systemctl --user daemon-reload
+rm -rf ~/.config/plasma-workspace/ \
+  ~/.config/kwinrc ~/.config/kwinrulesrc \
+  ~/.config/kdeglobals ~/.config/kscreenlockerrc \
+  ~/.config/kmail2rc ~/.config/akonadi* \
+  ~/.local/share/baloo ~/.local/share/akonadi*
+
 # Scala configuration
 mkdir -p ~/.ammonite ~/.sbt/1.0/plugins/project
 ln -fs "$DIR/scala/ammonite-predef.sc" ~/.ammonite/predef.sc

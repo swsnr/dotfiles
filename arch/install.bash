@@ -48,6 +48,8 @@ packages_to_remove=(
     libreoffice-fresh-de
     # I don't actually use this
     apparmor
+    # KDE left-over
+     iio-sensor-proxy
 )
 
 # Packages to mark as optional dependencies
@@ -384,6 +386,7 @@ services=(
 services_to_disable=(
     auditd.service
     apparmor.service
+    sddm.service
 )
 
 # Flatpaks
@@ -595,6 +598,12 @@ pacman-key --lsign-key B8ADA38BC94C48C4E7AABE4F7548C2CC396B57FC
 for service in "${services_to_disable[@]}"; do
     systemctl disable --quiet "${service}" || true
 done
+
+# If sddm is installed assume KDE is, let's get rid of all Qt stuff upwards
+# and downwards, and then reinstall things properly
+if pacman -Qi sddm &>/dev/null; then
+    pacman -Rsc qt5-base qt6-base
+fi
 
 # Remove packages one by one because pacman doesn't handle uninstalled packages
 # gracefully
