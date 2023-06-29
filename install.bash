@@ -93,7 +93,8 @@ rm -rf ~/.config/plasma-workspace/ \
   ~/.config/kwinrc ~/.config/kwinrulesrc \
   ~/.config/kdeglobals ~/.config/kscreenlockerrc \
   ~/.config/kmail2rc ~/.config/akonadi* \
-  ~/.local/share/baloo ~/.local/share/akonadi*
+  ~/.local/share/baloo ~/.local/share/akonadi* \
+  ~/.config/gtkrc ~/.config/gtkrc-* ~/.config/gtk-*
 
 # Scala configuration
 mkdir -p ~/.ammonite ~/.sbt/1.0/plugins/project

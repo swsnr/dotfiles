@@ -46,10 +46,11 @@ packages_to_remove=(
     # word documents, and for anything non-trivial I find LaTeX so much better.
     libreoffice-fresh # Office
     libreoffice-fresh-de
+    epiphany
     # I don't actually use this
     apparmor
     # KDE left-over
-     iio-sensor-proxy
+    iio-sensor-proxy
 )
 
 # Packages to mark as optional dependencies
@@ -293,7 +294,6 @@ packages_to_install=(
     seahorse       # Gnome keyring manager
     baobab         # Disk space analyser
     gnome-firmware # Manage firmware with Gnome
-    epiphany       # Gnome web browser
 
     # Gnome extensions and tools
     gnome-shell-extension-nasa-apod        # APOD as desktop background
@@ -301,6 +301,7 @@ packages_to_install=(
     gnome-shell-extension-desktop-cube     # The old school desktop cube effect
     gnome-shell-extension-fly-pie          # Touchscreen and mouse launcher
     gnome-shell-extension-tiling-assistant # Better tiling for Gnome shell
+    gnome-shell-extension-appindicator     # Systray for Gnome
     gnome-search-providers-jetbrains       # Jetbrains projects in search
     firefox-gnome-search-provider          # Firefox bookmarks in search
 )
@@ -351,6 +352,9 @@ packages_to_install_optdeps=(
 
     # remmina: RDP support
     freerdp
+
+    # gnome-shell-extension-appindicator: Gtk3 support
+    libappindicator-gtk3
 )
 
 services=(
@@ -732,7 +736,7 @@ install -D -m644 "$DIR/etc/plymouthd.conf" /etc/plymouth/plymouthd.conf
 
 # Remove apparmor configuration
 rm -rf /etc/cmdline.d/20-swsnr-lsm-apparmor.conf \
-  /etc/apparmor.d/tunables/xdg-user-dirs.d/de
+    /etc/apparmor.d/tunables/xdg-user-dirs.d/de
 
 # sudo configuration
 install -dm750 /etc/sudoers.d/
