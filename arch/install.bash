@@ -424,8 +424,7 @@ case "${PRODUCT_NAME}" in
         thermald.service
     )
     ;;
-*)
-    ;;
+*) ;;
 esac
 
 case "${HOSTNAME}" in
@@ -562,8 +561,7 @@ case "${HOSTNAME}" in
     # System uses btrfs raid, so we need an explicit rootfs
     discover_rootfs=false
     ;;
-*)
-    ;;
+*) ;;
 esac
 
 if [[ "${use_nvidia}" == true ]]; then
