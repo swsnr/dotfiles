@@ -239,6 +239,7 @@ packages_to_install=(
     pdfarranger             # Reorder pages in PDF files
     zim                     # Personal desktop wiki
     jabref                  # Bibliography
+    evolution               # Mail client & calendar (even on KDE, because kmail and korganizer have a bunch of issues)
 
     # Latex
     texlive-basic
@@ -423,7 +424,6 @@ GNOME)
         baobab         # Disk space analyser
         gnome-firmware # Manage firmware with Gnome
         remmina        # Remote desktop
-        evolution      # Mail client & calendar
         qalculate-gtk  # Scientific desktop calculator w/ unit conversion and search provider
 
         # Gnome extensions and tools
