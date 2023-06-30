@@ -173,8 +173,6 @@ case "${HOSTNAME}" in
     extensions+=(
         # Connect my system to my mobile phone
         'gsconnect@andyholmes.github.io'
-        # Touch screen menus
-        'flypie@schneegans.github.com'
     )
     ;;
 *)

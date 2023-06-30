@@ -55,7 +55,6 @@ PACKAGES = [
     "gnome-search-providers-jetbrains",
     "gnome-shell-extension-burn-my-windows",
     "gnome-shell-extension-desktop-cube",
-    "gnome-shell-extension-fly-pie",
     "gnome-shell-extension-nasa-apod",
     "gnome-shell-extension-tiling-assistant",
     "insect",

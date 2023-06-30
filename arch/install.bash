@@ -309,7 +309,6 @@ packages_to_install=(
     gnome-shell-extension-nasa-apod        # APOD as desktop background
     gnome-shell-extension-burn-my-windows  # Old school window effects
     gnome-shell-extension-desktop-cube     # The old school desktop cube effect
-    gnome-shell-extension-fly-pie          # Touchscreen and mouse launcher
     gnome-shell-extension-tiling-assistant # Better tiling for Gnome shell
     gnome-shell-extension-appindicator     # Systray for Gnome
     gnome-search-providers-jetbrains       # Jetbrains projects in search
