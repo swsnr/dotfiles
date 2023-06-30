@@ -67,19 +67,18 @@ packages_to_remove_cascade=()
 
 # Packages to remove
 packages_to_remove=(
-    # Applications I no longer use
+    # Applications and services I no longer use
     epiphany
     gwakeonlan
+    apparmor
+    iio-sensor-proxy
+    rygel
     # Way too complex for the simple things, can't actually replace word for
     # word documents, and for anything non-trivial I find LaTeX so much better.
     libreoffice-fresh
     libreoffice-fresh-de
-    # I don't actually use this
-    apparmor
-    # I don't actually have any hardware that would make use of this.
-    iio-sensor-proxy
 
-    # I don't really use apidocs this way
+    # I don't really use these docs
     devhelp
     glib2-docs
     gnome-devel-docs
@@ -89,6 +88,7 @@ packages_to_remove=(
     libadwaita-docs
     libportal-docs
     mutter-docs
+    gnucash-docs
 )
 
 # Packages to mark as optional dependencies
@@ -631,13 +631,8 @@ case "${HOSTNAME}" in
         tesseract-data-deu_frak
         tesseract-data-eng
 
-        # gnome-control-center: Share folders over upnp
-        rygel
-
         # sdl2: Wayland client decorations
         libdecor
-        # gnucash: documentation
-        gnucash-docs
     )
 
     flatpaks+=(
