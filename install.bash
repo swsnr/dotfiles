@@ -85,17 +85,6 @@ ln -fs -t ~/.ssh/known-hosts.d "${DIR}/ssh/known-hosts.d/"*
 ln -fs -t ~/.ssh/config.d "${DIR}/ssh/config.d/"*
 clean-recursively ~/.ssh/config.d ~/.ssh/known-hosts.d || true
 
-# Remove KDE leftovers
-systemctl --user disable ssh-agent.service || true
-rm -f  ~/.config/systemd/user/ssh-agent.service
-systemctl --user daemon-reload
-rm -rf ~/.config/plasma-workspace/ \
-  ~/.config/kwinrc ~/.config/kwinrulesrc \
-  ~/.config/kdeglobals ~/.config/kscreenlockerrc \
-  ~/.config/kmail2rc ~/.config/akonadi* \
-  ~/.local/share/baloo ~/.local/share/akonadi* \
-  ~/.config/gtkrc ~/.config/gtkrc-* ~/.config/gtk-*
-
 # Scala configuration
 mkdir -p ~/.ammonite ~/.sbt/1.0/plugins/project
 ln -fs "${DIR}/scala/ammonite-predef.sc" ~/.ammonite/predef.sc
@@ -140,53 +129,68 @@ ln -fs "${DIR}/misc/electron-flags.conf" ~/.config/electron19-flags.conf
 ln -fs "${DIR}/misc/electron-flags.conf" ~/.config/electron21-flags.conf
 ln -fs "${DIR}/misc/gamemode.ini" ~/.config/gamemode.ini
 ln -fs "${DIR}/misc/zim-style.conf" ~/.config/zim/style.conf
-ln -fs "${DIR}/misc/kwalletrc" ~/.config/kwalletrc
 
-# Gnome settings
-"${DIR}/gnome/settings.py" || true
-# Local gnome extensions
-mkdir -p ~/.local/share/gnome-shell/extensions
-ln -fs -t ~/.local/share/gnome-shell/extensions \
-    "${DIR}/gnome/extensions/home@swsnr.de" \
-    "${DIR}/gnome/extensions/spacetimeformats@swsnr.de" \
-    "${DIR}/gnome/extensions/disable-extension-updates@swsnr.de"
-clean-recursively ~/.local/share/gnome-shell/extensions/
+case "${XDG_CURRENT_DESKTOP:-}" in
+GNOME)
+    "${DIR}/gnome/settings.py" || true
 
-extensions=(
-    # Extend top bar: Show removable drives, workspaces and systray
-    'drive-menu@gnome-shell-extensions.gcampax.github.com'
-    'workspace-indicator@gnome-shell-extensions.gcampax.github.com'
-    'appindicatorsupport@rgcjonas.gmail.com'
-    # Disable automatic extension updates; I install all extensions through
-    # pacman
-    'disable-extension-updates@swsnr.de'
-    # Better tiling
-    'tiling-assistant@leleat-on-github'
-    # Bling bling
-    'burn-my-windows@schneegans.github.com'
-    'desktop-cube@schneegans.github.com'
-    # Cool wallpapers every day
-    'nasa_apod@elinvention.ovh'
-)
-case "${HOSTNAME}" in
-*kastl*)
-    extensions+=(
-        # Connect my system to my mobile phone
-        'gsconnect@andyholmes.github.io'
+    # Disable kwallet in Gnome
+    ln -fs "${DIR}/gnome/kwalletrc" ~/.config/kwalletrc
+
+    # Local gnome extensions
+    mkdir -p ~/.local/share/gnome-shell/extensions
+    ln -fs -t ~/.local/share/gnome-shell/extensions \
+        "${DIR}/gnome/extensions/home@swsnr.de" \
+        "${DIR}/gnome/extensions/spacetimeformats@swsnr.de" \
+        "${DIR}/gnome/extensions/disable-extension-updates@swsnr.de"
+    clean-recursively ~/.local/share/gnome-shell/extensions/
+
+    extensions=(
+        # Extend top bar: Show removable drives, workspaces and systray
+        'drive-menu@gnome-shell-extensions.gcampax.github.com'
+        'workspace-indicator@gnome-shell-extensions.gcampax.github.com'
+        'appindicatorsupport@rgcjonas.gmail.com'
+        # Disable automatic extension updates; I install all extensions through
+        # pacman
+        'disable-extension-updates@swsnr.de'
+        # Better tiling
+        'tiling-assistant@leleat-on-github'
+        # Bling bling
+        'burn-my-windows@schneegans.github.com'
+        'desktop-cube@schneegans.github.com'
+        # Cool wallpapers every day
+        'nasa_apod@elinvention.ovh'
     )
-    ;;
-*)
-    ;;
-esac
+    case "${HOSTNAME}" in
+    *kastl*)
+        extensions+=(
+            # Connect my system to my mobile phone
+            'gsconnect@andyholmes.github.io'
+        )
+        ;;
+    *) ;;
+    esac
 
-if has gnome-extensions; then
-    for extension in "${extensions[@]}"; do
-        # Enable extension if present
-        if gnome-extensions list | grep -q "${extension}"; then
-            gnome-extensions enable "${extension}"
-        fi
-    done
-fi
+    if has gnome-extensions; then
+        for extension in "${extensions[@]}"; do
+            # Enable extension if present
+            if gnome-extensions list | grep -q "${extension}"; then
+                gnome-extensions enable "${extension}"
+            fi
+        done
+    fi
+    ;;
+KDE)
+    if test -L ~/.config/kwalletrc; then
+        rm ~/.config/kwalletrc
+    fi
+
+    mkdir -p ~/.config/plasma-workspace/env
+    ln -fs "${DIR}/kde/systemd-fix-env.sh" ~/.config/plasma-workspace/env/systemd-fix-env.sh
+    "${DIR}/kde/settings.py"
+    ;;
+*) ;;
+esac
 
 # On personal systems use 1password for SSH and commit signing
 if [[ "${HOSTNAME}" == *kastl* ]]; then
