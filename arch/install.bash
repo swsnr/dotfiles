@@ -253,6 +253,16 @@ packages_to_install=(
     otf-vollkorn       # My favorite serif font for documents
     ttf-fira-sans      # User interface font used by some websites
     ttf-fira-go        # A nice font for presentations
+    # Adobes user interface fonts
+    adobe-source-sans-fonts
+    adobe-source-serif-fonts
+    adobe-source-code-pro-fonts
+    # IBM's user brand font family
+    ttf-ibm-plex
+    # Other great user interface fonts
+    ttf-opensans
+    ttf-ubuntu-font-family
+    inter-font
 
     # Gnome infrastructure
     # Gnome style for Qt apps
