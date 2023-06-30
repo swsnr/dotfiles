@@ -42,6 +42,9 @@ pacman_repositories=(
 )
 
 #region Configuration
+# The desired desktop for this system
+desired_desktop=GNOME
+
 # By default, do not use the proprietary nvidia driver
 use_nvidia=false
 
@@ -59,6 +62,10 @@ esac
 #endregion
 
 #region Basic packages and services
+# Packages to remove with --cascade set, to clean up entire package hierarchies, e.g. when switching desktops
+packages_to_remove_cascade=()
+
+# Packages to remove
 packages_to_remove=(
     # Way too complex for the simple things, can't actually replace word for
     # word documents, and for anything non-trivial I find LaTeX so much better.
@@ -200,8 +207,7 @@ packages_to_install=(
     mutter-docs
 
     # Science & data tooling
-    insect        # Scientific command line calculator
-    qalculate-gtk # Scientific desktop calculator w/ unit conversion and search provider
+    insect # Scientific command line calculator
 
     # Basic desktop
     wl-clipboard   # CLI access to clipboard
@@ -222,7 +228,6 @@ packages_to_install=(
     # Applications
     1password 1password-cli # Personal password manager
     firefox firefox-i18n-de # Browser
-    evolution               # Mail client
     signal-desktop          # Secure mobile chat
     vlc                     # The media player
     audacious               # Simple music player
@@ -232,7 +237,6 @@ packages_to_install=(
     pdfarranger             # Reorder pages in PDF files
     zim                     # Personal desktop wiki
     jabref                  # Bibliography
-    remmina                 # Remote desktop
 
     # Latex
     texlive-basic
@@ -281,56 +285,6 @@ packages_to_install=(
     ttf-opensans
     ttf-ubuntu-font-family
     inter-font
-
-    # Gnome infrastructure
-    # Gnome style for Qt apps
-    qgnomeplatform-qt5
-    qgnomeplatform-qt6
-    # Multimedia codecs for gnome
-    gst-libav       # Many additional codecs
-    gstreamer-vaapi # Hardware video decoding for gstreamer
-    # Virtual filesystem for Gnome
-    gvfs-afc     # Gnome VFS: Apple devices
-    gvfs-gphoto2 # Gnome VFS: camera support
-    gvfs-mtp     # Gnome VFS: Android devices
-    gvfs-smb     # Gnome VFS: SMB/CIFS shares
-    # Portals for gnome
-    xdg-desktop-portal-gnome
-    xdg-user-dirs-gtk
-
-    # Gnome
-    gdm
-    gnome-characters
-    gnome-keyring
-    gnome-calendar
-    gnome-clocks
-    gnome-weather
-    gnome-maps
-    gnome-shell
-    gnome-shell-extensions # Built-in shell extensions for Gnome
-    gnome-system-monitor
-    gnome-control-center
-    gnome-tweaks
-    gnome-backgrounds
-    gnome-terminal # Backup terminal, in case I mess up wezterm
-    yelp           # Online help system
-    nautilus       # File manager
-    sushi          # Previewer for nautilus
-    evince         # Document viewer
-    eog            # Image viewer
-    simple-scan    # Scanning
-    seahorse       # Gnome keyring manager
-    baobab         # Disk space analyser
-    gnome-firmware # Manage firmware with Gnome
-
-    # Gnome extensions and tools
-    gnome-shell-extension-nasa-apod        # APOD as desktop background
-    gnome-shell-extension-burn-my-windows  # Old school window effects
-    gnome-shell-extension-desktop-cube     # The old school desktop cube effect
-    gnome-shell-extension-tiling-assistant # Better tiling for Gnome shell
-    gnome-shell-extension-appindicator     # Systray for Gnome
-    gnome-search-providers-jetbrains       # Jetbrains projects in search
-    firefox-gnome-search-provider          # Firefox bookmarks in search
 )
 
 packages_to_install_optdeps=(
@@ -340,10 +294,6 @@ packages_to_install_optdeps=(
     wireless-regdb
     # libva: intel drivers
     intel-media-driver
-
-    # gnome-shell: screen recording support
-    gst-plugins-good
-    gst-plugin-pipewire
 
     # Mark pipewire as optional dependencies
     pipewire-pulse wireplumber
@@ -357,14 +307,6 @@ packages_to_install_optdeps=(
 
     # aurutils: chroot support
     devtools
-    # gnome-control-center: app permissions
-    malcontent
-
-    # kiconthemes: fallback icons
-    breeze-icons
-
-    # nautilus: search
-    tracker3-miners
 
     # zim: spell checking
     gtkspell3
@@ -376,14 +318,7 @@ packages_to_install_optdeps=(
     # sonnet: spell checking (sonnet doesn't seem to support nuspell)
     hunspell
 
-    # wezterm: Nautilus integration
-    # gnome-shell-extension-gsconnect: Send to menu
-    python-nautilus
-
-    # remmina: RDP support
-    freerdp
-
-    # gnome-shell-extension-appindicator: Gtk3 support
+    # App indicator support for Gtk3
     libappindicator-gtk3
 )
 
@@ -410,7 +345,6 @@ services=(
     firewalld.service # Firewall
 
     # Desktop services
-    gdm.service                   # Desktop manager
     power-profiles-daemon.service # Power profile management
     cups.service                  # Printing
     bluetooth.service             # Bluetooth
@@ -424,9 +358,7 @@ services_to_disable=(
 )
 
 # Flatpaks
-flatpaks=(
-    com.github.tchx84.Flatseal # Flatpak permissions
-)
+flatpaks=()
 
 flatpaks_to_remove=()
 #endregion
@@ -435,6 +367,110 @@ if [[ -n "${MY_USER_ACCOUNT}" ]]; then
     # Scrub home directory of my user account
     services+=("btrfs-scrub@$(systemd-escape -p "/home/${MY_USER_ACCOUNT}").timer")
 fi
+
+#region Per-desktop packages
+case "${desired_desktop}" in
+GNOME)
+    # If sddm is installed, clean up the entire Qt hierarchy first, to get rid
+    # of all KDE packages
+    if pacman -Qi sddm &>/dev/null; then
+        packages_to_remove_cascade+=(qt5-base qt6-base)
+    fi
+
+    packages_to_remove+=(xsettingsd)
+
+    packages_to_install+=(
+        # Gnome infrastructure
+        # Gnome style for Qt apps
+        qgnomeplatform-qt5
+        qgnomeplatform-qt6
+        # Multimedia codecs for gnome
+        gst-libav       # Many additional codecs
+        gstreamer-vaapi # Hardware video decoding for gstreamer
+        # Virtual filesystem for Gnome
+        gvfs-afc     # Gnome VFS: Apple devices
+        gvfs-gphoto2 # Gnome VFS: camera support
+        gvfs-mtp     # Gnome VFS: Android devices
+        gvfs-smb     # Gnome VFS: SMB/CIFS shares
+        # Portals for gnome
+        xdg-desktop-portal-gnome
+        xdg-user-dirs-gtk
+
+        # Gnome
+        gdm
+        gnome-characters
+        gnome-keyring
+        gnome-calendar
+        gnome-clocks
+        gnome-weather
+        gnome-maps
+        gnome-shell
+        gnome-shell-extensions # Built-in shell extensions for Gnome
+        gnome-system-monitor
+        gnome-control-center
+        gnome-tweaks
+        gnome-backgrounds
+        gnome-terminal # Backup terminal, in case I mess up wezterm
+        yelp           # Online help system
+        nautilus       # File manager
+        sushi          # Previewer for nautilus
+        evince         # Document viewer
+        eog            # Image viewer
+        simple-scan    # Scanning
+        seahorse       # Gnome keyring manager
+        baobab         # Disk space analyser
+        gnome-firmware # Manage firmware with Gnome
+        remmina        # Remote desktop
+        evolution      # Mail client & calendar
+        qalculate-gtk  # Scientific desktop calculator w/ unit conversion and search provider
+
+        # Gnome extensions and tools
+        gnome-shell-extension-nasa-apod        # APOD as desktop background
+        gnome-shell-extension-burn-my-windows  # Old school window effects
+        gnome-shell-extension-desktop-cube     # The old school desktop cube effect
+        gnome-shell-extension-tiling-assistant # Better tiling for Gnome shell
+        gnome-shell-extension-appindicator     # Systray for Gnome
+        gnome-search-providers-jetbrains       # Jetbrains projects in search
+        firefox-gnome-search-provider          # Firefox bookmarks in search
+    )
+
+    packages_to_install_optdeps+=(
+        # gnome-shell: screen recording support
+        gst-plugins-good
+        gst-plugin-pipewire
+
+        # gnome-control-center: app permissions
+        malcontent
+
+        # nautilus: search
+        tracker3-miners
+
+        # We only need to install this explicitly on Gnome to support KDE apps.
+        # On KDE it's a hard dependency of plasma
+        # kiconthemes: fallback icons
+        breeze-icons
+
+        # wezterm: Nautilus integration
+        # gnome-shell-extension-gsconnect: Send to menu
+        python-nautilus
+
+        # remmina: RDP support
+        freerdp
+    )
+
+    flatpaks+=(
+        com.github.tchx84.Flatseal
+    )
+
+    services+=(gdm.service)
+    services_to_disable+=(sddm.service)
+    ;;
+*)
+    echo "Unsupported desired desktop: ${desired_desktop}"
+    exit 1
+    ;;
+esac
+#endregion
 
 #region Per-host and per-hardware packages, services, etc.
 case "${PRODUCT_NAME}" in
@@ -630,14 +666,12 @@ for service in "${services_to_disable[@]}"; do
     systemctl disable --quiet "${service}" || true
 done
 
-# If sddm is installed assume KDE is, let's get rid of all Qt stuff upwards
-# and downwards, and then reinstall things properly
-if pacman -Qi sddm &>/dev/null; then
-    pacman -Rsc qt5-base qt6-base
-fi
-
 # Remove packages one by one because pacman doesn't handle uninstalled packages
 # gracefully
+for pkg in "${packages_to_remove_cascade[@]}"; do
+    pacman --noconfirm -Rsc "${pkg}" || true
+done
+
 for pkg in "${packages_to_remove[@]}"; do
     pacman --noconfirm -Rs "${pkg}" || true
 done
