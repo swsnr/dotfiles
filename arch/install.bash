@@ -467,6 +467,91 @@ GNOME)
     services+=(gdm.service)
     services_to_disable+=(sddm.service)
     ;;
+KDE)
+    # If gdm is installed, clean up the entire Gtk hierarchy to effectively remove Gnome shell
+    if pacman -Qi gdm &>/dev/null; then
+        packages_to_remove_cascade+=(gtk3 gtk4)
+    fi
+
+    packages_to_remove+=(
+        qgnomeplatform-qt5
+        qgnomeplatform-qt6
+        xdg-desktop-portal-gnome
+        gvfs-afc
+        gvfs-gphoto2
+        gvfs-mtp
+        gvfs-smb
+    )
+
+    packages_to_install+=(
+        # KDE core and infrastructure
+        sddm                   # KDE-recommended desktop manager
+        plasma-meta            # Plasma desktop session
+        plasma-wayland-session # Plasma on Wayland
+        kio-admin              # Edit files as root safely
+        kio-extras             # Extra IO protocols (SMB, SFTP, info, SSH, etc.)
+        kio-zeroconf           # zeroconf service lookups via KIO
+        audiocd-kio            # Directly open audio CDs
+        kde-inotify-survey     # Monitor inotify FD usage, and ask to increase FD limits if needed
+        akonadiconsole         # Debug akonadi
+
+        # KDE applications
+        okular                   # Document viewer
+        skanpage                 # Scanning
+        spectacle                # Screenshots
+        gwenview                 # Image viewer
+        kruler                   # Measure screen space
+        kcolorchooser            # Choose colors on screen
+        svgpart                  # Show SVG in KDE applications
+        markdownpart             # Show markdown in KDE applications
+        kdegraphics-thumbnailers # Thumbnail generation for graphics formats
+        ffmpegthumbs             # Thumbnail generation for video files
+        marble                   # Maps application
+        kamoso                   # Webcam recorder
+        dolphin                  # File manager
+        dolphin-plugins          # and plugins for the file manager
+        khelpcenter              # Online help
+        kjournald                # View journals
+        partitionmanager         # Edit partitions
+        kdeconnect               # Connect to mobile phone
+        krdc                     # Remote desktop connections
+        print-manager            # Setup printers and manage print jobs
+        kontact                  # Combined KDE mail and calendar application
+        kdepim-addons            # Addons for KDE PIM suite
+        konsole                  # KDE's default terminal, in case wezterm breaks
+        ark                      # KDE archive program
+        filelight                # Analyse disk usage
+        kate                     # KDE's text editor
+        kcharselect              # Select characters
+        krecorder                # Record audio
+        kwalletmanager           # Manage passwords in kwallet
+        calligra                 # Simple office suite
+    )
+
+    packages_to_install_optdeps+=(
+        # gwenview: More image formats
+        kimageformats
+        qt5-imageformats
+
+        # plasma-meta: breeze theme for plymouth
+        breeze-plymouth
+        # plasma-meta: configure flatpak apps
+        flatpak-kcm
+        plymouth-kcm
+        # plasma-meta: configure plymouth
+
+        # kontact: Parts
+        kmail
+        korganizer
+        kaddressbook
+    )
+
+    # KDE has this built-in
+    flatpaks_to_remove+=(com.github.tchx84.Flatseal)
+
+    services+=(sddm.service)
+    services_to_disable+=(gdm.service)
+    ;;
 *)
     echo "Unsupported desired desktop: ${desired_desktop}"
     exit 1
@@ -831,6 +916,7 @@ rm -rf /etc/audit/rules.d/00-swsnr.rules /etc/cmdline.d/20-swsnr-audit.conf
 install -Dpm644 "${DIR}/etc/networkmanager-mdns.conf" /etc/NetworkManager/conf.d/50-mdns.conf
 
 # Global font configuration
+install -Dpm644 -t /etc/fonts/conf.d/ "${DIR}"/etc/fontconfig/59-noto-with-color-emoji.conf
 for file in 10-hinting-slight 10-sub-pixel-rgb 11-lcdfilter-default; do
     ln -sf "/usr/share/fontconfig/conf.avail/${file}.conf" "/etc/fonts/conf.d/${file}.conf"
 done
