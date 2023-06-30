@@ -380,7 +380,13 @@ GNOME)
         packages_to_remove_cascade+=(qt5-base qt6-base)
     fi
 
-    packages_to_remove+=(xsettingsd)
+    packages_to_remove+=(
+        xsettingsd
+        materia-kde
+        materia-gtk-theme
+        kvantum-theme-materia
+        papirus-icon-theme
+    )
 
     packages_to_install+=(
         # Gnome infrastructure
