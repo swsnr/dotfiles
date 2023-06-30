@@ -526,6 +526,12 @@ KDE)
         krecorder                # Record audio
         kwalletmanager           # Manage passwords in kwallet
         calligra                 # Simple office suite
+
+        # KDE theming
+        materia-kde
+        materia-gtk-theme
+        kvantum-theme-materia
+        papirus-icon-theme
     )
 
     packages_to_install_optdeps+=(
@@ -544,6 +550,9 @@ KDE)
         kmail
         korganizer
         kaddressbook
+
+        # kvantum: Qt6 support
+        qt6-svg
     )
 
     # KDE has this built-in
