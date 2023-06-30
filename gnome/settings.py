@@ -18,9 +18,10 @@
 """My gnome settings."""
 
 import sys
+import json
 from pathlib import Path
-from gi.repository import Gio, GLib
 
+from gi.repository import Gio, GLib
 
 SETTINGS = {
     "org.gnome.mutter": {
@@ -194,7 +195,7 @@ SETTINGS = {
 
 EXTENSION_SETTINGS = {
     "burn-my-windows@schneegans.github.com": {
-        "org.gnome.shell.extensions.burn-my-windows":{
+        "org.gnome.shell.extensions.burn-my-windows": {
             # Burn my window effects <3
             "apparition-close-effect": True,
             "apparition-open-effect": True,
@@ -221,6 +222,73 @@ EXTENSION_SETTINGS = {
             # bottom for windows which aren't tiled or already tiled to bottom,
             # see https://github.com/Leleat/Tiling-Assistant/wiki/Dynamic-Keybindings#tiling-state-windows
             "dynamic-keybinding-behavior": 3,
+        },
+    },
+    "dash-to-panel@jderose9.github.com": {
+        "org.gnome.shell.extensions.dash-to-panel": {
+            # Panel on the top, but on 32px high.  These are JSON values
+            # actually, that's why we don't use GVariant here.
+            "panel-positions": json.dumps({"0": "TOP"}),
+            "panel-sizes": '{"0":32}',
+            # Hide the apps button; we already have arc menu
+            "panel-element-positions": json.dumps({
+                "0": [
+                    {
+                        "element": "showAppsButton",
+                        "visible": False,
+                        "position": "stackedTL",
+                    },
+                    {
+                        "element": "activitiesButton",
+                        "visible": False,
+                        "position": "stackedTL",
+                    },
+                    {
+                        "element": "leftBox",
+                        "visible": True,
+                        "position": "stackedTL",
+                    },
+                    {
+                        "element": "taskbar",
+                        "visible": True,
+                        "position": "stackedTL",
+                    },
+                    {
+                        "element": "centerBox",
+                        "visible": True,
+                        "position": "stackedTL",
+                    },
+                    {
+                        "element": "rightBox",
+                        "visible": True,
+                        "position": "stackedBR",
+                    },
+                    {
+                        "element": "dateMenu",
+                        "visible": True,
+                        "position": "stackedBR",
+                    },
+                    {
+                        "element": "systemMenu",
+                        "visible": True,
+                        "position": "stackedBR",
+                    },
+                    {
+                        "element": "desktopButton",
+                        "visible": False,
+                        "position": "stackedBR",
+                    },
+                ],
+            }),
+            # Isolate workspaces for running apps
+            "isolate-workspaces": True,
+            # Bling bling
+            "animate-appicon-hover": True,
+            # Activity indicator on top, because our panel is also on top
+            "dot-position": "TOP",
+            # Use a different indicator for unfocused apps, to set the focused
+            # app apart from other icons.
+            "dot-style-unfocused": "DASHES",
         },
     },
 }

@@ -434,7 +434,6 @@ GNOME)
 
         # Gnome extensions and tools
         gnome-shell-extension-dash-to-panel    # Combine dash and panel
-        gnome-shell-extension-arc-menu         # Traditional menu for Gnome
         gnome-shell-extension-nasa-apod        # APOD as desktop background
         gnome-shell-extension-burn-my-windows  # Old school window effects
         gnome-shell-extension-desktop-cube     # The old school desktop cube effect
