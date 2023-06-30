@@ -671,18 +671,23 @@ done
 # Remove packages one by one because pacman doesn't handle uninstalled packages
 # gracefully
 for pkg in "${packages_to_remove_cascade[@]}"; do
-    pacman --noconfirm -Rsc "${pkg}" || true
+    if pacman -Qi "${pkg}" &>/dev/null; then
+        pacman --noconfirm -Rsc "${pkg}" || true
+    fi
 done
 
 for pkg in "${packages_to_remove[@]}"; do
-    pacman --noconfirm -Rs "${pkg}" || true
+    if pacman -Qi "${pkg}" &>/dev/null; then
+        pacman --noconfirm -Rs "${pkg}"
+    fi
 done
 
 # Mark packages as optional dependencies one by one, because pacman doesn't
 # handle missing packages gracefully here.
 for pkg in "${packages_to_mark_as_deps[@]}"; do
-    # shellcheck disable=SC2250
-    pacman --noconfirm -D --asdeps "$pkg" || true
+    if pacman -Qi "${pkg}" &>/dev/null; then
+        pacman --noconfirm -D --asdeps "${pkg}" || true
+    fi
 done
 
 pacman -Qtdq | pacman --noconfirm -Rs - || true
