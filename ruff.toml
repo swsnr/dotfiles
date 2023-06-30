@@ -32,3 +32,4 @@ include = [
 "bin/*" = ["INP001"]
 "arch/*" = ["INP001"]
 "gnome/*" = ["INP001"]
+"kde/*" = ["INP001"]
