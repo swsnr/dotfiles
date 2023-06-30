@@ -67,15 +67,28 @@ packages_to_remove_cascade=()
 
 # Packages to remove
 packages_to_remove=(
+    # Applications I no longer use
+    epiphany
+    gwakeonlan
     # Way too complex for the simple things, can't actually replace word for
     # word documents, and for anything non-trivial I find LaTeX so much better.
-    libreoffice-fresh # Office
+    libreoffice-fresh
     libreoffice-fresh-de
-    epiphany
     # I don't actually use this
     apparmor
-    # KDE left-over
+    # I don't actually have any hardware that would make use of this.
     iio-sensor-proxy
+
+    # I don't really use apidocs this way
+    devhelp
+    glib2-docs
+    gnome-devel-docs
+    libsoup3-docs
+    gtk3-docs
+    gtk4-docs
+    libadwaita-docs
+    libportal-docs
+    mutter-docs
 )
 
 # Packages to mark as optional dependencies
@@ -132,7 +145,6 @@ packages_to_install=(
     rclone         # rsync for clouds
     yt-dlp         # youtube-dl with extra features
     wol            # Wake up systems on LAN
-    gwakeonlan     # GUI tool to send WoL packages
 
     # Cloud tools
     hcloud # CLI for Hetzner cloud
@@ -195,16 +207,6 @@ packages_to_install=(
     jq            # Process JSON on command line
     kdiff3        # Diff/merge tool
     d-spy         # DBus inspector and debugger
-
-    devhelp    # Gnome API doc browser…
-    glib2-docs # …and various library documentation packages
-    gnome-devel-docs
-    libsoup3-docs
-    gtk3-docs
-    gtk4-docs
-    libadwaita-docs
-    libportal-docs
-    mutter-docs
 
     # Science & data tooling
     insect # Scientific command line calculator
