@@ -41,6 +41,24 @@ pacman_repositories=(
     "${DIR}/etc/pacman/60-aur-repository.conf"
 )
 
+#region Configuration
+# By default, do not use the proprietary nvidia driver
+use_nvidia=false
+
+# By default, discover the root filesystem automatically.  Disable for e.g.
+# btrfs raid on root fs.
+discover_rootfs=true
+
+case "${HOSTNAME}" in
+*RB*)
+    # System uses btrfs raid, so we need an explicit rootfs
+    discover_rootfs=false
+    ;;
+*) ;;
+esac
+#endregion
+
+#region Basic packages and services
 packages_to_remove=(
     # Way too complex for the simple things, can't actually replace word for
     # word documents, and for anything non-trivial I find LaTeX so much better.
@@ -411,19 +429,14 @@ flatpaks=(
 )
 
 flatpaks_to_remove=()
-
-# By default, do not use the proprietary nvidia driver
-use_nvidia=false
-
-# By default, discover the root filesystem automatically.  Disable for e.g.
-# btrfs raid on root fs.
-discover_rootfs=true
+#endregion
 
 if [[ -n "${MY_USER_ACCOUNT}" ]]; then
     # Scrub home directory of my user account
     services+=("btrfs-scrub@$(systemd-escape -p "/home/${MY_USER_ACCOUNT}").timer")
 fi
 
+#region Per-host and per-hardware packages, services, etc.
 case "${PRODUCT_NAME}" in
 'XPS 9315')
     packages_to_install+=(
@@ -569,12 +582,10 @@ case "${HOSTNAME}" in
     services+=(
         pacrunner.service # Proxy auto-configuration URLs
     )
-
-    # System uses btrfs raid, so we need an explicit rootfs
-    discover_rootfs=false
     ;;
 *) ;;
 esac
+#endregion
 
 if [[ "${use_nvidia}" == true ]]; then
     packages+=(
@@ -598,6 +609,7 @@ else
     )
 fi
 
+#region Pacman setup
 # Setup pacman and install/remove packages
 install -pm644 "${DIR}/etc/pacman/pacman.conf" /etc/pacman.conf
 install -pm644 "${DIR}/etc/pacman/mirrorlist" /etc/pacman.d/mirrorlist
@@ -610,7 +622,9 @@ ln -sf /dev/null /etc/pacman.d/hooks/90-mkinitcpio-install.hook
 # Update pacman keyring with additional keys
 pacman-key -a "${DIR}/etc/pacman/keys/personal.asc"
 pacman-key --lsign-key B8ADA38BC94C48C4E7AABE4F7548C2CC396B57FC
+#endregion
 
+#region Package installation and service setup
 # Disable services before uninstalling packages
 for service in "${services_to_disable[@]}"; do
     systemctl disable --quiet "${service}" || true
@@ -653,6 +667,7 @@ flatpak update --system --noninteractive
 
 # Enable selected services
 systemctl enable "${services[@]}"
+#endregion
 
 # See /usr/share/factory/etc/nsswitch.conf for the Arch Linux factory defaults.
 # We add mdns hostnames (from Avahi) and libvirtd names, and also shuffle things around
@@ -684,6 +699,7 @@ install -m644 -t /etc/mkinitcpio.conf.d/ \
     "${DIR}/etc/mkinitcpio.conf.d/10-swsnr-systemd-base.conf" \
     "${DIR}/etc/mkinitcpio.conf.d/20-swsnr-coretemp.conf"
 
+#region Nvidia special cases
 if [[ "${use_nvidia}" == true ]]; then
     # For nvidia early-kms setup is more intricate because the standard kms hook
     # doesn't really seem to support it, so remove the KMS hook and use a more
@@ -712,6 +728,7 @@ else
         /etc/modprobe.d/nvidia-power-management.conf \
         /etc/udev/rules.d/61-gdm.rules
 fi
+#endregion
 
 # Configure kernel cmdline for mkinitcpio
 install -m755 -d /etc/cmdline.d
@@ -788,6 +805,7 @@ localectl set-x11-keymap --no-convert us,de pc105 '' ,compose:ralt
 # https://help.gnome.org/admin/system-admin-guide/stable/login-banner.html.en
 install -Dpm644 "${DIR}/etc/gdm-profile" /etc/dconf/profile/gdm
 
+#region Firewall setup
 # Start firewalld and configure it
 systemctl start firewalld.service
 firewall-cmd --quiet --permanent --zone=home \
@@ -817,7 +835,9 @@ fi
 # default imho).
 firewall-cmd --quiet --permanent --zone=public --remove-service=ssh
 firewall-cmd --quiet --reload
+#endregion
 
+#region Secure boot setup
 # Setup secure boot
 if command -v sbctl >/dev/null && [[ -f /usr/share/secureboot/keys/db/db.key ]]; then
     # Generate signed bootloader image
@@ -839,6 +859,7 @@ if command -v sbctl >/dev/null && [[ -f /usr/share/secureboot/keys/db/db.key ]];
     sbctl sign-all
     sbctl verify # Safety check
 fi
+#endregion
 
 # Install or update, and then configure the bootloader.
 # Do this AFTER signing the boot loader with sbctl, see above, to make sure we
