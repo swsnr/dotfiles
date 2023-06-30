@@ -43,7 +43,7 @@ pacman_repositories=(
 
 #region Configuration
 # The desired desktop for this system
-desired_desktop=KDE
+desired_desktop=GNOME
 
 # By default, do not use the proprietary nvidia driver
 use_nvidia=false
