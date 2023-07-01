@@ -42,6 +42,9 @@ pacman_repositories=(
 )
 
 #region Configuration
+# Whether to upgrade packages.  Set to false to avoid an initial pacman -Syu
+upgrade_packages=true
+
 # The desired desktop for this system
 desired_desktop=GNOME
 
@@ -789,7 +792,11 @@ for pkg in "${packages_to_mark_as_deps[@]}"; do
 done
 
 pacman -Qtdq | pacman --noconfirm -Rs - || true
-pacman -Syu --needed "${packages_to_install[@]}"
+# Update the system, then install new packages and optional dependencies.
+if [[ "${upgrade_packages}" == "true" ]]; then
+    pacman -Syu
+fi
+pacman -S --needed "${packages_to_install[@]}"
 pacman -S --needed --asdeps "${packages_to_install_optdeps[@]}"
 pacman -D --asdeps "${packages_to_install_optdeps[@]}"
 
