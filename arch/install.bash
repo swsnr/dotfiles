@@ -492,10 +492,11 @@ KDE)
         gvfs-mtp
         gvfs-smb
         # KMail is a nightmare full of issues and questionable design decisions,
-        # so let's get rid of it and of contact.  We'll only use the address book
-        # and the calendar app.
+        # so let's get rid of it and of contact, too, since it becomes pointless
+        # without kmail.
         kontact
         kmail
+        korganizer
     )
 
     packages_to_install+=(
@@ -531,8 +532,8 @@ KDE)
         kdeconnect               # Connect to mobile phone
         krdc                     # Remote desktop connections
         print-manager            # Setup printers and manage print jobs
-        korganizer               # KDE kalendar app
         kaddressbook             # KDE address book app
+        kalendar                 # KDE calendar app
 
         kdepim-addons  # Addons for KDE PIM suite
         konsole        # KDE's default terminal, in case wezterm breaks
