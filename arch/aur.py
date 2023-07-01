@@ -57,15 +57,12 @@ PACKAGES = [
     "gnome-shell-extension-desktop-cube",
     "gnome-shell-extension-nasa-apod",
     "gnome-shell-extension-tiling-assistant",
-    "insect",
     "jabref",
     "otf-vollkorn",
     "pacman-hook-kernel-install",
     "pacman-hook-reproducible-status",
     "pcsc-cyberjack",
-    "setzer",
     "texlive-latexindent-meta",
-    "ttf-fira-go",
 ]
 
 class regex_in(str): # noqa: N801,SLOT000

@@ -70,12 +70,24 @@ packages_to_remove_cascade=()
 
 # Packages to remove
 packages_to_remove=(
-    # Applications and services I no longer use
+    # Applications, tools, and services I no longer use
     epiphany
     gwakeonlan
     apparmor
     iio-sensor-proxy
     rygel
+    setzer
+    texlab
+    insect
+    cargo-vet
+    cargo-bloat
+    cargo-geiger
+    cargo-vet
+    mkosi
+    gitui
+    baobab
+    remmina
+    gnome-calendar
     # Way too complex for the simple things, can't actually replace word for
     # word documents, and for anything non-trivial I find LaTeX so much better.
     libreoffice-fresh
@@ -92,11 +104,20 @@ packages_to_remove=(
     libportal-docs
     mutter-docs
     gnucash-docs
+
+    # Fonts I no longer use
+    ttf-ubuntu-font-family
+    ttf-fira-go
+    ttf-opensans
+    adobe-source-serif-fonts
+    adobe-source-sans-fonts
 )
 
 # Packages to mark as optional dependencies
 packages_to_mark_as_deps=(
     hunspell
+    adobe-source-code-pro-fonts # Dependency of Gnome
+    curl
 )
 
 packages_to_install=(
@@ -142,7 +163,6 @@ packages_to_install=(
     avahi          # DNS-SD for CUPS, only for service-discovery (name resolution is done by resolved)
     sequoia-sq     # Sane GPG tooling
     acme.sh        # ACME/Letsencrypt client
-    curl           # The standard HTTP client
     xh             # HTTP requests on the command line
     rsync          # Remote copy and syncing
     rclone         # rsync for clouds
@@ -159,7 +179,6 @@ packages_to_install=(
     arch-repro-status               # Manually check reproducibility of installed packages
     pacman-hook-reproducible-status # Check reproducibility of packages in pacman transactions
     aurutils                        # Build AUR packages
-    mkosi                           # Create OS images for testing
 
     # Shell environment and CLI tools
     helix       # Simple terminal editor with LSP support
@@ -188,7 +207,6 @@ packages_to_install=(
     git-filter-repo
     git-lfs
     git-gone
-    gitui
     github-cli
 
     # Development tooling
@@ -197,9 +215,6 @@ packages_to_install=(
     rustup        # Rust toolchain manager
     cargo-release # Rust release helper
     cargo-deny    # Rust compliance checker (licensing, advisories, etc.)
-    cargo-bloat   # Identify bloat in cargo binaries
-    cargo-geiger  # Identify unsafe in cargo dependencies trees
-    cargo-vet     # Supply chain security
     shellcheck    # Lint bash code
     shfmt         # Format bash code
     frum          # Fast Ruby version manager
@@ -210,9 +225,6 @@ packages_to_install=(
     jq            # Process JSON on command line
     kdiff3        # Diff/merge tool
     d-spy         # DBus inspector and debugger
-
-    # Science & data tooling
-    insect # Scientific command line calculator
 
     # Basic desktop
     wl-clipboard   # CLI access to clipboard
@@ -254,8 +266,6 @@ packages_to_install=(
     texlive-mathscience
     texlive-publishers
     biber
-    texlab # Language server for latex
-    setzer # Simple and easy latex editor
     # Missing dependencies for latexindent
     # See <https://bugs.archlinux.org/task/60210>
     texlive-latexindent-meta
@@ -280,17 +290,8 @@ packages_to_install=(
     ttf-jetbrains-mono # Nice monospace font
     otf-vollkorn       # My favorite serif font for documents
     ttf-fira-sans      # User interface font used by some websites
-    ttf-fira-go        # A nice font for presentations
-    # Adobes user interface fonts
-    adobe-source-sans-fonts
-    adobe-source-serif-fonts
-    adobe-source-code-pro-fonts
-    # IBM's user brand font family
-    ttf-ibm-plex
-    # Other great user interface fonts
-    ttf-opensans
-    ttf-ubuntu-font-family
-    inter-font
+    ttf-ibm-plex       # A nice set of fonts from IBM
+    inter-font         # A good user interface font
 )
 
 packages_to_install_optdeps=(
@@ -412,7 +413,6 @@ GNOME)
         gdm
         gnome-characters
         gnome-keyring
-        gnome-calendar
         gnome-clocks
         gnome-weather
         gnome-maps
@@ -430,9 +430,7 @@ GNOME)
         eog            # Image viewer
         simple-scan    # Scanning
         seahorse       # Gnome keyring manager
-        baobab         # Disk space analyser
         gnome-firmware # Manage firmware with Gnome
-        remmina        # Remote desktop
         qalculate-gtk  # Scientific desktop calculator w/ unit conversion and search provider
 
         # Gnome extensions and tools
@@ -465,9 +463,6 @@ GNOME)
         # wezterm: Nautilus integration
         # gnome-shell-extension-gsconnect: Send to menu
         python-nautilus
-
-        # remmina: RDP support
-        freerdp
     )
 
     flatpaks+=(
