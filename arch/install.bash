@@ -488,6 +488,11 @@ KDE)
         gvfs-gphoto2
         gvfs-mtp
         gvfs-smb
+        # KMail is a nightmare full of issues and questionable design decisions,
+        # so let's get rid of it and of contact.  We'll only use the address book
+        # and the calendar app.
+        kontact
+        kmail
     )
 
     packages_to_install+=(
@@ -523,16 +528,18 @@ KDE)
         kdeconnect               # Connect to mobile phone
         krdc                     # Remote desktop connections
         print-manager            # Setup printers and manage print jobs
-        kontact                  # Combined KDE mail and calendar application
-        kdepim-addons            # Addons for KDE PIM suite
-        konsole                  # KDE's default terminal, in case wezterm breaks
-        ark                      # KDE archive program
-        filelight                # Analyse disk usage
-        kate                     # KDE's text editor
-        kcharselect              # Select characters
-        krecorder                # Record audio
-        kwalletmanager           # Manage passwords in kwallet
-        calligra                 # Simple office suite
+        korganizer               # KDE kalendar app
+        kaddressbook             # KDE address book app
+
+        kdepim-addons  # Addons for KDE PIM suite
+        konsole        # KDE's default terminal, in case wezterm breaks
+        ark            # KDE archive program
+        filelight      # Analyse disk usage
+        kate           # KDE's text editor
+        kcharselect    # Select characters
+        krecorder      # Record audio
+        kwalletmanager # Manage passwords in kwallet
+        calligra       # Simple office suite
 
         # KDE theming
         materia-kde
@@ -550,13 +557,8 @@ KDE)
         breeze-plymouth
         # plasma-meta: configure flatpak apps
         flatpak-kcm
-        plymouth-kcm
         # plasma-meta: configure plymouth
-
-        # kontact: Parts
-        kmail
-        korganizer
-        kaddressbook
+        plymouth-kcm
 
         # kvantum: Qt6 support
         qt6-svg
