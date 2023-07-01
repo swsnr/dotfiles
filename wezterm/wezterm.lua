@@ -125,7 +125,7 @@ return {
     wezterm.exec_domain("scoped", wrap_in_systemd_scope),
   },
   color_scheme = scheme_for_appearance(wezterm.gui.get_appearance()),
-  font = wezterm.font("PragmataPro Mono Liga"),
+  font = wezterm.font("JetBrains Mono"),
   font_size = 11.0,
   -- Default initial window size
   initial_rows = 40,
