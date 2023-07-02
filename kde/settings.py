@@ -87,18 +87,6 @@ CONFIGURATION = {
             "WallpaperPlugin": "org.kde.potd",
         },
     },
-    # KMail
-    "kmail2rc": {
-        "General": {
-            # Do not ask to enable unified mailboxes
-            "AskEnableUnifiedMailboxes": False,
-        },
-        "Reader": {
-            # Enable HTML mail and preserve original colors
-            "htmlMail": True,
-            "realHtmlMailColor": True,
-        },
-    },
 }
 
 
