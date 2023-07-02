@@ -620,13 +620,27 @@ case "${HOSTNAME}" in
         whatsapp-for-linux # Whatsapp desktop client for Linux
         ja2-stracciatella  # Modern runtime for the venerable JA2
         threema-desktop    # Secure messaging
-        kid3-qt            # Audio tag editor
-        sound-juicer       # Simple audio disc ripper
         handbrake          # DVD and video encoding
 
-        gnome-shell-extension-gsconnect # Connect phone and desktop system
-        syncthing                       # Network synchronization
+        syncthing # Network synchronization
     )
+
+    case "${desired_desktop}" in
+    GNOME)
+        packages_to_install+=(
+            gnome-shell-extension-gsconnect # Connect phone and desktop system
+            kid3-qt                         # Audio tag editor
+            sound-juicer                    # Simple audio disc ripper
+
+        )
+        ;;
+    KDE)
+        packages_to_install+=(
+            kid3
+        )
+        ;;
+    *) ;;
+    esac
 
     packages_to_install_optdeps+=(
         # vlc: DVD playback
