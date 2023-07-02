@@ -93,7 +93,7 @@ packages_to_remove=(
     gnome-shell-extension-burn-my-windows
     gnome-shell-extension-desktop-cube
     gnome-shell-extension-tiling-assistant
-
+    kdepim-addons
     # Way too complex for the simple things, can't actually replace word for
     # word documents, and for anything non-trivial I find LaTeX so much better.
     libreoffice-fresh
@@ -533,7 +533,6 @@ KDE)
         kaddressbook             # KDE address book app
         kalendar                 # KDE calendar app
 
-        kdepim-addons  # Addons for KDE PIM suite
         konsole        # KDE's default terminal, in case wezterm breaks
         ark            # KDE archive program
         filelight      # Analyse disk usage
