@@ -262,6 +262,10 @@ packages_to_install=(
     jabref                  # Bibliography
     evolution               # Mail client & calendar (even on KDE, because kmail and korganizer have a bunch of issues)
 
+    # This should be an optional dependency of zim, but isn't currently, see https://bugs.archlinux.org/task/78946
+    # zim: App indicator support
+    libappindicator-gtk3
+
     # Latex
     texlive-basic
     texlive-binextra
@@ -330,9 +334,6 @@ packages_to_install_optdeps=(
 
     # sonnet: spell checking (sonnet doesn't seem to support nuspell)
     hunspell
-
-    # App indicator support for Gtk3
-    libappindicator-gtk3
 )
 
 services=(
