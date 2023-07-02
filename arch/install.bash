@@ -614,6 +614,7 @@ case "${HOSTNAME}" in
         paperwork          # Document management
         tellico            # Collection manager
         gnucash            # Finance manager
+        kmymoney           # Finance manager
         ausweisapp2        # eID app
         chiaki-git         # Remote play client for PS4/5; use git for better controller support
         whatsapp-for-linux # Whatsapp desktop client for Linux
