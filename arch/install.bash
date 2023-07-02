@@ -88,6 +88,12 @@ packages_to_remove=(
     baobab
     remmina
     gnome-calendar
+    piper
+    libratbag
+    gnome-shell-extension-burn-my-windows
+    gnome-shell-extension-desktop-cube
+    gnome-shell-extension-tiling-assistant
+
     # Way too complex for the simple things, can't actually replace word for
     # word documents, and for anything non-trivial I find LaTeX so much better.
     libreoffice-fresh
@@ -434,14 +440,11 @@ GNOME)
         qalculate-gtk  # Scientific desktop calculator w/ unit conversion and search provider
 
         # Gnome extensions and tools
-        gnome-shell-extension-dash-to-panel    # Combine dash and panel
-        gnome-shell-extension-nasa-apod        # APOD as desktop background
-        gnome-shell-extension-burn-my-windows  # Old school window effects
-        gnome-shell-extension-desktop-cube     # The old school desktop cube effect
-        gnome-shell-extension-tiling-assistant # Better tiling for Gnome shell
-        gnome-shell-extension-appindicator     # Systray for Gnome
-        gnome-search-providers-jetbrains       # Jetbrains projects in search
-        firefox-gnome-search-provider          # Firefox bookmarks in search
+        gnome-shell-extension-dash-to-panel # Combine dash and panel
+        gnome-shell-extension-nasa-apod     # APOD as desktop background
+        gnome-shell-extension-appindicator  # Systray for Gnome
+        gnome-search-providers-jetbrains    # Jetbrains projects in search
+        firefox-gnome-search-provider       # Firefox bookmarks in search
     )
 
     packages_to_install_optdeps+=(
@@ -599,10 +602,6 @@ case "${HOSTNAME}" in
     packages_to_install+=(
         # Supposedly better gaming kernel
         linux-zen
-
-        # Configure mice
-        libratbag
-        piper
 
         # Game mode
         gamemode

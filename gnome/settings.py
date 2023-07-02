@@ -194,36 +194,6 @@ SETTINGS = {
 }
 
 EXTENSION_SETTINGS = {
-    "burn-my-windows@schneegans.github.com": {
-        "org.gnome.shell.extensions.burn-my-windows": {
-            # Burn my window effects <3
-            "apparition-close-effect": True,
-            "apparition-open-effect": True,
-            "broken-glass-close-effect": True,
-            "destroy-dialogs": True,
-            "doom-open-effect": True,
-            "glide-close-effect": True,
-            "glide-open-effect": True,
-            "hexagon-additive-blending": True,
-            "incinerate-close-effect": True,
-            "incinerate-use-pointer": True,
-            "tv-open-effect": True,
-            "wisps-close-effect": True,
-            "wisps-open-effect": True,
-        },
-    },
-    "tiling-assistant@leleat-on-github": {
-        "org.gnome.shell.extensions.tiling-assistant": {
-            # Gaps between windows and to the screen borders
-            "single-screen-gap": 4,
-            "window-gap": 4,
-            # Adapt keybindings if the focused window is in tiled state: 3 means
-            # change tiling state, but minimize windows instead of tiling to
-            # bottom for windows which aren't tiled or already tiled to bottom,
-            # see https://github.com/Leleat/Tiling-Assistant/wiki/Dynamic-Keybindings#tiling-state-windows
-            "dynamic-keybinding-behavior": 3,
-        },
-    },
     "dash-to-panel@jderose9.github.com": {
         "org.gnome.shell.extensions.dash-to-panel": {
             # Panel on the top, but on 32px high.  These are JSON values

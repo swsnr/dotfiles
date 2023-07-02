@@ -157,11 +157,6 @@ GNOME)
         # pacman. This stops Gnome from sending the list of my extensions to
         # extensions.gnome.org.
         'disable-extension-updates@swsnr.de'
-        # Better tiling
-        'tiling-assistant@leleat-on-github'
-        # Bling bling
-        'burn-my-windows@schneegans.github.com'
-        'desktop-cube@schneegans.github.com'
         # Cool wallpapers every day
         'nasa_apod@elinvention.ovh'
     )
