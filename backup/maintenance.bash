@@ -15,29 +15,50 @@
 
 set -xeuo pipefail
 
-INHIBITOR_APP_ID=""
-
-if [[ -n ${GNOME_TERMINAL_SERVICE:-} ]]; then
-    INHIBITOR_APP_ID=org.gnome.Terminal.desktop
-elif [[ ${TERM_PROGRAM:-} == "WezTerm" ]]; then
-    INHIBITOR_APP_ID=org.wezfurlong.wezterm.desktop
-fi
-
-if [[ -z "${INHIBITOR_APP_ID}" ]]; then
-    echo 'Cannot determine terminal App to inhibit logout during backup'
-    exit 1
-fi
-
 inhibit() {
     local reason
     reason="$1"
     shift
-    # See backup.bash about why we have to use gnome-session-inhibit with an
-    # actual application.
-    gnome-session-inhibit \
-        --app-id "${INHIBITOR_APP_ID}" --reason "${reason}" \
-        --inhibit "logout:suspend" \
-        "$@"
+    case "${XDG_CURRENT_DESKTOP:-}" in
+    KDE)
+        kde-inhibit --power "${@}"
+        ;;
+    GNOME)
+        # Inhibit logout (which includes shutdown) and suspend in the name of the
+        # running terminal emulator, to make sure the backup completes without
+        # interruptions.
+        #
+        # We need to use gnome-session-inhibit and an existing app ID to make the
+        # inhibitor appear in the logout dialog; Gnome session logout doesn't show
+        # systemd inhibitors and it doesn't show inhibitors without app IDs, because no
+        # icon I guess.  See https://discourse.gnome.org/t/gnome-logout-dialog-ignores-inhibitors/8602/4
+        # for details; not the most useful behaviour in my opinion, but it's not a fight
+        # for me to pick.
+        INHIBITOR_APP_ID=""
+
+        if [[ -n "${GNOME_TERMINAL_SERVICE:-}" ]]; then
+            INHIBITOR_APP_ID=org.gnome.Terminal.desktop
+        elif [[ "${TERM_PROGRAM:-}" == "kgx" ]]; then
+            # Hopefully; see https://gitlab.gnome.org/GNOME/console/-/merge_requests/140
+            INHIBITOR_APP_ID=org.gnome.Console.desktop
+        elif [[ "${TERM_PROGRAM:-}" == "WezTerm" ]]; then
+            INHIBITOR_APP_ID=org.wezfurlong.wezterm.desktop
+        fi
+
+        if [[ -z "${INHIBITOR_APP_ID}" ]]; then
+            echo 'Cannot determine terminal App to inhibit logout during backup'
+            exit 1
+        fi
+
+        gnome-session-inhibit \
+            --app-id "${INHIBITOR_APP_ID}" --reason "${reason}" \
+            --inhibit "logout:suspend" \
+            "$@"
+        ;;
+    *)
+        return 1
+        ;;
+    esac
 }
 
 USERNAME="$(id -un)"
