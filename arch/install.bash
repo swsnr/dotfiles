@@ -46,7 +46,7 @@ pacman_repositories=(
 upgrade_packages=true
 
 # The desired desktop for this system
-desired_desktop=GNOME
+desired_desktop=KDE
 
 # By default, do not use the proprietary nvidia driver
 use_nvidia=false
