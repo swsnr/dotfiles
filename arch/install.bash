@@ -907,8 +907,8 @@ case "${HOSTNAME}" in
     install -pm644 "${DIR}/etc/loader-default-zen.conf" /efi/loader/loader.conf
     ;;
 *)
-    # Otherwise use stock kernel for maximum compatibility
-    install -pm644 "${DIR}/etc/loader-default-arch.conf" /efi/loader/loader.conf
+    # Otherwise use LTS kernel for maximum compatibility and reliability
+    install -pm644 "${DIR}/etc/loader-default-lts.conf" /efi/loader/loader.conf
     ;;
 esac
 
