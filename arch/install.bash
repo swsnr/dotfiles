@@ -94,6 +94,8 @@ packages_to_remove=(
     gnome-shell-extension-desktop-cube
     gnome-shell-extension-tiling-assistant
     kdepim-addons
+    texlive-latexindent-meta
+
     # Way too complex for the simple things, can't actually replace word for
     # word documents, and for anything non-trivial I find LaTeX so much better.
     libreoffice-fresh
@@ -276,9 +278,6 @@ packages_to_install=(
     texlive-mathscience
     texlive-publishers
     biber
-    # Missing dependencies for latexindent
-    # See <https://bugs.archlinux.org/task/60210>
-    texlive-latexindent-meta
 
     # Spell-checking dictionaries, for nuspell, indirectly enchant, and then all
     # the way up the dependency chain to all Gnome apps.

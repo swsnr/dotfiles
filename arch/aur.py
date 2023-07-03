@@ -59,7 +59,6 @@ PACKAGES = [
     "pacman-hook-kernel-install",
     "pacman-hook-reproducible-status",
     "pcsc-cyberjack",
-    "texlive-latexindent-meta",
 ]
 
 class regex_in(str): # noqa: N801,SLOT000
