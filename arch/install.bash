@@ -69,57 +69,7 @@ esac
 packages_to_remove_cascade=()
 
 # Packages to remove
-packages_to_remove=(
-    # Applications, tools, and services I no longer use
-    epiphany
-    gwakeonlan
-    apparmor
-    iio-sensor-proxy
-    rygel
-    setzer
-    texlab
-    insect
-    cargo-vet
-    cargo-bloat
-    cargo-geiger
-    cargo-vet
-    mkosi
-    gitui
-    baobab
-    remmina
-    gnome-calendar
-    piper
-    libratbag
-    gnome-shell-extension-burn-my-windows
-    gnome-shell-extension-desktop-cube
-    gnome-shell-extension-tiling-assistant
-    kdepim-addons
-    texlive-latexindent-meta
-
-    # Way too complex for the simple things, can't actually replace word for
-    # word documents, and for anything non-trivial I find LaTeX so much better.
-    libreoffice-fresh
-    libreoffice-fresh-de
-
-    # I don't really use these docs
-    devhelp
-    glib2-docs
-    gnome-devel-docs
-    libsoup3-docs
-    gtk3-docs
-    gtk4-docs
-    libadwaita-docs
-    libportal-docs
-    mutter-docs
-    gnucash-docs
-
-    # Fonts I no longer use
-    ttf-ubuntu-font-family
-    ttf-fira-go
-    ttf-opensans
-    adobe-source-serif-fonts
-    adobe-source-sans-fonts
-)
+packages_to_remove=()
 
 # Packages to mark as optional dependencies
 packages_to_mark_as_deps=(
