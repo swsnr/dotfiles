@@ -961,6 +961,9 @@ localectl set-x11-keymap --no-convert us,de pc105 '' ,compose:ralt
 # https://help.gnome.org/admin/system-admin-guide/stable/login-banner.html.en
 install -Dpm644 "${DIR}/etc/gdm-profile" /etc/dconf/profile/gdm
 
+# SDDM configuration
+install -Dpm644 -t /etc/sddm.conf.d "${DIR}/etc/sddm/"*.conf
+
 #region Firewall setup
 # Start firewalld and configure it
 systemctl start firewalld.service
