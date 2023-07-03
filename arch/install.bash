@@ -71,7 +71,10 @@ esac
 packages_to_remove_cascade=()
 
 # Packages to remove
-packages_to_remove=()
+packages_to_remove=(
+    # I prefer Gnucash
+    kmymoney
+)
 
 # Packages to mark as optional dependencies
 packages_to_mark_as_deps=(
@@ -565,7 +568,6 @@ case "${HOSTNAME}" in
         paperwork          # Document management
         tellico            # Collection manager
         gnucash            # Finance manager
-        kmymoney           # Finance manager
         ausweisapp2        # eID app
         chiaki-git         # Remote play client for PS4/5; use git for better controller support
         whatsapp-for-linux # Whatsapp desktop client for Linux
