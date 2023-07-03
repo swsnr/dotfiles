@@ -62,6 +62,11 @@ for file in bashrc bash_logout bash_profile; do
     ln -fs "${DIR}/bash/${file}" "${HOME}/.${file}"
 done
 
+# Install user services to local systemd directory
+mkdir -p ~/.local/share/systemd/user
+ln -fs -t ~/.local/share/systemd/user "${DIR}/systemd/ssh-agent.service"
+systemctl --user daemon-reload
+
 # Terminal emulator
 mkdir -p ~/.config/wezterm/colors
 ln -fs "${DIR}/wezterm/wezterm.lua" ~/.config/wezterm/wezterm.lua
@@ -84,6 +89,23 @@ ln -fs "${DIR}/ssh/config" ~/.ssh/config
 ln -fs -t ~/.ssh/known-hosts.d "${DIR}/ssh/known-hosts.d/"*
 ln -fs -t ~/.ssh/config.d "${DIR}/ssh/config.d/"*
 clean-recursively ~/.ssh/config.d ~/.ssh/known-hosts.d || true
+
+case "${HOSTNAME}" in
+*kastl*)
+    # On personal systems use 1password for SSH and commit signing
+    systemctl --user disable ssh-agent.service || true
+    ln -fs -t ~/.config/git "${DIR}/git/config.1password-signing"
+    # This file deliberately lies outside of "${DIR}/ssh/config.d" because we
+    # install all files from config.d above
+    ln -fs -t ~/.ssh/config.d "${DIR}/ssh/90-1password-ssh-agent"
+    ;;
+*)
+    # On other systems use a regular ssh-agent.  Note that this service does
+    # not activate in GNOME, because GNOME ships an SSH agent implementation as
+    # part of its keyring service.
+    systemctl --user enable ssh-agent.service
+    ;;
+esac
 
 # Scala configuration
 mkdir -p ~/.ammonite ~/.sbt/1.0/plugins/project
@@ -118,12 +140,6 @@ ln -fs "${DIR}/python/startup.py" ~/.config/python/startup.py
 # Pipewire
 mkdir -p ~/.config/pipewire/pipewire.conf.d/
 clean-recursively ~/.config/pipewire/pipewire.conf.d/
-
-# User services
-mkdir -p ~/.config/systemd/user/
-ln -fs -t ~/.config/systemd/user "${DIR}/systemd/ssh-agent.service"
-systemctl --user daemon-reload
-systemctl --user enable ssh-agent.service
 
 # Misc files
 mkdir -p ~/.config/{latexmk,restic}
@@ -196,14 +212,6 @@ KDE)
     ;;
 *) ;;
 esac
-
-# On personal systems use 1password for SSH and commit signing
-if [[ "${HOSTNAME}" == *kastl* ]]; then
-    ln -fs -t ~/.config/git "${DIR}/git/config.1password-signing"
-    # This file deliberately lies outside of "${DIR}/ssh/config.d" because we
-    # install all files from config.d above
-    ln -fs -t ~/.ssh/config.d "${DIR}/ssh/90-1password-ssh-agent"
-fi
 
 # Generate additional fish completions
 mkdir -p ~/.config/fish/completions
