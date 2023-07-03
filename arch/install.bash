@@ -17,6 +17,8 @@
 
 set -xeuo pipefail
 
+PS4='\033[32m$(date +%H:%M:%S) >>>\033[0m '
+
 if [[ "${EUID}" != 0 ]]; then
     echo 'Elevating privileges'
     exec sudo "$0" "$@"
