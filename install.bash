@@ -119,6 +119,12 @@ ln -fs "${DIR}/python/startup.py" ~/.config/python/startup.py
 mkdir -p ~/.config/pipewire/pipewire.conf.d/
 clean-recursively ~/.config/pipewire/pipewire.conf.d/
 
+# User services
+mkdir -p ~/.config/systemd/user/
+ln -fs -t ~/.config/systemd/user "${DIR}/systemd/ssh-agent.service"
+systemctl --user daemon-reload
+systemctl --user enable ssh-agent.service
+
 # Misc files
 mkdir -p ~/.config/{latexmk,restic}
 ln -fs "${DIR}/backup/linux.exclude" ~/.config/restic/linux.exclude
