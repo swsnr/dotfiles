@@ -215,7 +215,7 @@ esac
 
 # Generate additional fish completions
 mkdir -p ~/.config/fish/completions
-has rclone && rclone completion fish >~/.config/fish/completions/rclone.fish
+has rclone && rclone completion fish ~/.config/fish/completions/rclone.fish
 has restic && restic generate --fish-completion ~/.config/fish/completions/restic.fish
 
 # Setup firefox user.js
