@@ -110,11 +110,11 @@ function wrap_in_systemd_scope(cmd)
 end
 
 return {
-  -- Attempt to work around wezterm issues https://github.com/wez/wezterm/issues/3225
-  -- and https://github.com/wez/wezterm/issues/3687
-  -- front_end = "WebGpu",
+  front_end = "WebGpu",
+  -- Remove extra redundant title bar added by the compositor, and embed the
+  -- tabbar into our own decorations
   window_decorations = "INTEGRATED_BUTTONS|RESIZE",
-  -- window_decorations = "RESIZE",
+  -- Configure TERM
   term = determine_term_value(),
   -- Use fish as standard interactive shell
   default_prog = { "/usr/bin/fish" },
