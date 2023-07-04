@@ -427,9 +427,7 @@ def apply_keybindings() -> None:
 
         media_keys = Gio.Settings(schema=media_keys_schema)
         custom_bindings = media_keys.get_strv("custom-keybindings")
-        for path in new_bindings:
-            if path not in custom_bindings:
-                custom_bindings.append(path)
+        custom_bindings.extend(p for p in new_bindings if p not in custom_bindings)
         for path in removed_bindings:
             if path in custom_bindings:
                 custom_bindings.remove(path)
