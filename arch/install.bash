@@ -487,6 +487,7 @@ KDE)
         print-manager            # Setup printers and manage print jobs
         kaddressbook             # KDE address book app
         kalendar                 # KDE calendar app
+        kdepim-addons            # Addons for KDE pim (specifically, appointment display in plasma)
 
         konsole        # KDE's default terminal, in case wezterm breaks
         ark            # KDE archive program
