@@ -655,11 +655,11 @@ case "${HOSTNAME}" in
         lnav     # Log file analyzer
 
         # Additional applications
-        drawio-desktop     # Diagram drawing
-        keepassxc          # Keepass
-        evolution-ews      # Exchange for evolution
-        mattermost-desktop # Chat application
-        rocketchat-desktop # Chat application
+        drawio-desktop        # Diagram drawing
+        keepassxc             # Keepass
+        evolution-ews         # Exchange for evolution
+        mattermost-desktop    # Chat application
+        rocketchat-client-bin # Chat application
     )
 
     packages_to_install_optdeps+=(

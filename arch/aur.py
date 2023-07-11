@@ -83,7 +83,7 @@ match regex_in(gethostname()):
         PACKAGES.extend([
             "drawio-desktop",
             "python2",
-            "rocketchat-desktop",
+            "rocketchat-client-bin",
         ])
 
 
