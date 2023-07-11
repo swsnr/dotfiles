@@ -126,7 +126,7 @@ return {
   },
   color_scheme = scheme_for_appearance(wezterm.gui.get_appearance()),
   font = wezterm.font("JetBrains Mono"),
-  font_size = 11.0,
+  font_size = 10.0,
   -- Default initial window size
   initial_rows = 40,
   initial_cols = 120,
