@@ -258,6 +258,8 @@ EXTENSION_SETTINGS = {
             # Use a different indicator for unfocused apps, to set the focused
             # app apart from other icons.
             "dot-style-unfocused": "DASHES",
+            # Prevent automatic overview mode on startup
+            "hide-overview-on-startup": True,
         },
     },
 }
