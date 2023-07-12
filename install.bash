@@ -15,6 +15,8 @@
 
 set -xeuo pipefail
 
+PS4='\033[32m$(date +%H:%M:%S) >>>\033[0m '
+
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 
 clean-recursively() {
