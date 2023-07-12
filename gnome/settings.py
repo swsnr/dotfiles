@@ -200,12 +200,11 @@ EXTENSION_SETTINGS = {
             # actually, that's why we don't use GVariant here.
             "panel-positions": json.dumps({"0": "TOP"}),
             "panel-sizes": '{"0":32}',
-            # Hide the apps button; we already have arc menu
             "panel-element-positions": json.dumps({
                 "0": [
                     {
                         "element": "showAppsButton",
-                        "visible": False,
+                        "visible": True,
                         "position": "stackedTL",
                     },
                     {
