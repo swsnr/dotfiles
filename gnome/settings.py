@@ -260,6 +260,8 @@ EXTENSION_SETTINGS = {
             "dot-style-unfocused": "DASHES",
             # Prevent automatic overview mode on startup
             "hide-overview-on-startup": True,
+            # Show panel on main screen only
+            "multi-monitors": False,
         },
     },
 }
