@@ -174,7 +174,6 @@ GNOME)
         # drives.
         'dash-to-panel@jderose9.github.com'
         'appindicatorsupport@rgcjonas.gmail.com'
-        'workspace-indicator@gnome-shell-extensions.gcampax.github.com'
         'drive-menu@gnome-shell-extensions.gcampax.github.com'
         # Disable automatic extension updates; I install all extensions through
         # pacman. This stops Gnome from sending the list of my extensions to
@@ -200,6 +199,8 @@ GNOME)
                 gnome-extensions enable "${extension}"
             fi
         done
+
+        gnome-extensions disable  'workspace-indicator@gnome-shell-extensions.gcampax.github.com'
     fi
     ;;
 KDE)
