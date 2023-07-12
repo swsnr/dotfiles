@@ -200,8 +200,10 @@ EXTENSION_SETTINGS = {
         "org.gnome.shell.extensions.dash-to-panel": {
             # Panel on the top, but on 32px high.  These are JSON values
             # actually, that's why we don't use GVariant here.
-            "panel-positions": json.dumps({"0": "TOP"}),
-            "panel-sizes": '{"0":32}',
+            "panel-positions": json.dumps({str(i): "TOP" for i in range(3)}),
+            "panel-sizes": json.dumps({str(i): 32 for i in range(3)}),
+            # Sync panel elements across all monitors
+            "panel-element-positions-monitors-sync": True,
             "panel-element-positions": json.dumps({
                 "0": [
                     {
