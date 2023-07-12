@@ -110,7 +110,6 @@ function wrap_in_systemd_scope(cmd)
 end
 
 return {
-  front_end = "WebGpu",
   -- Remove extra redundant title bar added by the compositor, and embed the
   -- tabbar into our own decorations
   window_decorations = "INTEGRATED_BUTTONS|RESIZE",
