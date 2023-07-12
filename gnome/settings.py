@@ -152,7 +152,23 @@ SETTINGS = {
         "current-workspace-only": True,
     },
 
+    # Gtk settings
+    "org.gtk.Settings.FileChooser": {
+        "sort-directories-first": True,
+    },
+    "org.gtk.gtk4.Settings.FileChooser": {
+        "sort-directories-first": True,
+    },
+
     # Application settings
+    "org.gnome.nautilus.icon-view": {
+        # Show file size in captions
+        "captions": ["size", "none", "none"],
+    },
+    "org.gnome.nautilus.list-view": {
+        # Make folders expandable in list view
+        "use-tree-view": True,
+    },
     "org.gnome.software": {
         # Don't educate me Gnome
         "show-nonfree-ui": False,
