@@ -26,8 +26,10 @@ from gi.repository import Gio, GLib
 SETTINGS = {
     "org.gnome.mutter": {
         "dynamic-workspaces": True,
-        # Switch workspaces on all screens
-        "workspaces-only-on-primary": False,
+        # Only switch workspaces on primary screen, and treat secondary screens
+        # as kind of permanent notepads.  Particularly useful to always have
+        # a terminal at hand, and keep zim available
+        "workspaces-only-on-primary": True,
     },
 
     # Power settings
