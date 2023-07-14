@@ -202,7 +202,7 @@ GNOME)
             fi
         done
 
-        gnome-extensions disable  'workspace-indicator@gnome-shell-extensions.gcampax.github.com'
+        gnome-extensions disable 'workspace-indicator@gnome-shell-extensions.gcampax.github.com'
     fi
     ;;
 KDE)
