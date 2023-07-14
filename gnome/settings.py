@@ -291,7 +291,7 @@ TERMINAL_PROFILE = {
     "bold-is-bright": False,
     "default-size-columns": 120,
     "default-size-rows": 40,
-    "font": "JetBrains Mono 11",
+    "font": "JetBrains Mono 10",
     "use-system-font": False,
     "visible-name": "Shell",
     # Tango theme
