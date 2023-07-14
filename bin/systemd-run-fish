@@ -1,0 +1,44 @@
+#!/usr/bin/bash
+# Copyright Sebastian Wiesner <sebastian@swsnr.de>
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may not
+# use this file except in compliance with the License. You may obtain a copy of
+# the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations under
+# the License.
+
+# Run fish in a separate systemd scope to isolate terminal tabs/panes wrt to OOM killing
+
+set -euo pipefail
+
+# Use a random unit name by default
+unit="fish-shell"
+description="Fish shell"
+
+# Include unit name and description for some known terminal emulators
+if [[ -n "${WEZTERM_PANE:-}" ]]; then
+    # WezTerm.
+    #
+    # The pane ID is unique within a WezTerm instance, so name the unit after the pane ID
+    # and include the socket name to identify the WezTerm instance.
+    socket="${WEZTERM_UNIX_SOCKET:-}"
+    unit="wezterm-pane-fish-${WEZTERM_PANE}-${socket##*/}"
+    description="Fish shell in WezTerm pane ${WEZTERM_PANE}"
+elif [[ -n "${GNOME_TERMINAL_SCREEN:-}" ]]; then
+    # Extract the unique per-screen UUID from Gnome Terminal
+    screen="${GNOME_TERMINAL_SCREEN##*/}"
+    unit="gnome-terminal-screen-fish-${screen}"
+    # Gnome terminal
+    description="Fish shell on Gnome Terminal screen ${screen}"
+fi
+
+# Run fish in a separate scope unit.  Always append a random number to the unit
+# name to make sure it's reasonably unique in all circumstances.
+exec /usr/bin/systemd-run --user --scope --description="${description}" \
+    --same-dir --collect --unit="${unit}-${RANDOM}" /usr/bin/fish

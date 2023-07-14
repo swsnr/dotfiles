@@ -29,12 +29,6 @@ function random_string(length)
   return table.concat(ret)
 end
 
--- Get the basename of a Unix path
-function basename(str)
-  local name = string.gsub(str, "(.*/)(.*)", "%2")
-  return name
-end
-
 -- Check whether the given file exists
 function file_exists(name)
   local f = io.open(name, "r")
@@ -80,49 +74,15 @@ wezterm.on("window-config-reloaded", function(window, pane)
   window:set_config_overrides(overrides)
 end)
 
-function wrap_in_systemd_scope(cmd)
-  local env = cmd.set_environment_variables
-  local ident = ""
-  if env.WEZTERM_UNIX_SOCKET then
-    ident = "wezterm-pane-" .. env.WEZTERM_PANE .. "-on-" .. basename(env.WEZTERM_UNIX_SOCKET)
-  else
-    -- Sometimes there's no wezterm socket; in this case let's use a random string.
-    ident = "wezterm-pane-" .. env.WEZTERM_PANE .. "-" .. random_string(10)
-  end
-
-  local wrapped = {
-    "/usr/bin/systemd-run",
-    "--user",
-    "--scope",
-    "--description=Shell started by wezterm",
-    "--same-dir",
-    "--collect",
-    "--unit=" .. ident,
-  }
-
-  for _, arg in ipairs(cmd.args or { os.getenv("SHELL") }) do
-    table.insert(wrapped, arg)
-  end
-
-  cmd.args = wrapped
-
-  return cmd
-end
-
 return {
   -- Remove extra redundant title bar added by the compositor, and embed the
   -- tabbar into our own decorations
   window_decorations = "INTEGRATED_BUTTONS|RESIZE",
   -- Configure TERM
   term = determine_term_value(),
-  -- Use fish as standard interactive shell
-  default_prog = { "/usr/bin/fish" },
-  -- Run each pane in separate systemd scope, so that a runnaway process in one
-  -- pane doesn't take down the entire terminal through systemd-oomd
-  default_domain = "scoped",
-  exec_domains = {
-    wezterm.exec_domain("scoped", wrap_in_systemd_scope),
-  },
+  -- Use fish as standard interactive shell, but scoped in a separate systemd unit
+  -- to prevent runaway processes from taking down the entire terminal.
+  default_prog = { "systemd-run-fish" },
   color_scheme = scheme_for_appearance(wezterm.gui.get_appearance()),
   font = wezterm.font("JetBrains Mono"),
   font_size = 10.0,

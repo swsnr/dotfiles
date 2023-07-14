@@ -316,7 +316,7 @@ TERMINAL_PROFILE = {
     "foreground-color": "#F8F8F2",
     "use-theme-colors": True,
     "use-custom-command": True,
-    "custom-command": "/usr/bin/fish",
+    "custom-command": "systemd-run-fish",
 }
 
 BINDINGS = {
