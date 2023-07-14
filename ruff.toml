@@ -22,7 +22,6 @@ include = [
   "bin/paperwork-export-with-date",
   "bin/paperwork-import-with-date",
   "bin/split-m4b",
-  "bin/toggle-nightlight",
   "bin/xtermbg",
   "bin/zim-journal",
 ]
