@@ -331,6 +331,11 @@ BINDINGS = {
         "command": "1password --quick-access",
         "binding": "<Super>o",
     },
+    "onepassword-show": {
+        "name": "Show 1password",
+        "command": "1password --show",
+        "binding": "<Super>p",
+    },
 }
 
 
