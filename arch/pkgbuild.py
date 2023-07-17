@@ -14,13 +14,13 @@
 # the License.
 
 """Build AUR packages I use."""
-
-
+import argparse
 import os
 import re
+from argparse import ArgumentParser
 from pathlib import Path
 from socket import gethostname
-from subprocess import DEVNULL, run
+from subprocess import run
 from tempfile import NamedTemporaryFile
 
 
@@ -43,7 +43,8 @@ class Repo:
         self.name = self.db.name.removesuffix(".db.tar.zst")
 
 
-PACKAGES = [
+#: AUR packages to build
+AUR_PACKAGES = [
     "1password",
     "1password-cli",
     "aurutils",
@@ -61,6 +62,9 @@ PACKAGES = [
     "pcsc-cyberjack",
 ]
 
+#: Packages to remove from the repository
+PACKAGES_TO_REMOVE = set()
+
 class regex_in(str): # noqa: N801,SLOT000
     """Match a regex in a string in structural pattern matching."""
 
@@ -69,9 +73,10 @@ class regex_in(str): # noqa: N801,SLOT000
         return bool(re.search(pattern, self))
 
 
+#: Packages we only build on some hosts
 match regex_in(gethostname()):
     case "kastl":
-        PACKAGES.extend([
+        AUR_PACKAGES.extend([
             "ausweisapp2",
             "chiaki-git",
             "gnome-shell-extension-gsconnect",
@@ -80,7 +85,7 @@ match regex_in(gethostname()):
             "whatsapp-for-linux",
         ])
     case "RB":
-        PACKAGES.extend([
+        AUR_PACKAGES.extend([
             "drawio-desktop",
             "python2",
             "rocketchat-client-bin",
@@ -105,22 +110,6 @@ def bootstrap() -> None:
     # TODO: Create initial database with this:
     # repo-add --sign --key "$GPGKEY" "$REPODB"
     raise NotImplementedError
-
-
-def collect_dependencies(packages: list[str]) -> list[str]:
-    """Collect `packages` and all AUR dependencies."""
-    depend_order = run(["/usr/bin/aur", "depends", "--reverse", *packages], text=True,
-                       capture_output=True, check=True).stdout
-    # We could perhaps do this in python, but shelling out to tsort is just a
-    # bit more convenient
-    return run(
-        ["/usr/bin/tsort"], input=depend_order,
-        capture_output=True, text=True, check=True).stdout.splitlines()
-
-
-def add_debug_packages(packages: list[str]) -> list[str]:
-    """Return `packages` and all potential debug packages."""
-    return packages + [f"{pkg}-debug" for pkg in packages]
 
 
 def get_packages_in_repo(repo: Repo, *, with_versions: bool) -> list[str]:
@@ -179,33 +168,59 @@ def backup(repo: Repo) -> None:
          "--path", str(repo.directory), "--tag", tag, "--prune"], check=True)
 
 
-def main() -> None:
-    """Run this program."""
-    repo = Repo(Path("/srv/pkgrepo/aur/aur.db.tar.zst"))
-    # TODO: bootstrap()
-    packages_with_dependencies = collect_dependencies(PACKAGES)
-    all_packages = set(add_debug_packages(packages_with_dependencies))
-    packages_in_repo = set(get_packages_in_repo(repo, with_versions=False))
-
-    remove_packages(repo, packages_in_repo - all_packages)
-
+def _action_aur_sync(repo: Repo, _args: argparse.Namespace) -> None:
+    """Sync all desired AUR packages."""
+    # TODO: Move to dedicated cleanup command?
+    remove_packages(repo, PACKAGES_TO_REMOVE)
     sync_cmd = [
         "/usr/bin/aur", "sync", "-d", repo.name,
         "--nocheck", "-ucRS",
         "--makepkg-conf", MAKEPKG_CONF,
     ]
 
-    run([*sync_cmd, *PACKAGES], check=True)
+    run([*sync_cmd, *AUR_PACKAGES], check=True)
 
-    vcs_packages = [pkg for pkg in packages_with_dependencies if pkg.endswith("-git")]
+    vcs_packages = [pkg for pkg in AUR_PACKAGES if pkg.endswith("-git")]
     outdated_vcs_packages = get_outdated_vcs_packages(repo, vcs_packages)
     if outdated_vcs_packages:
         run([*sync_cmd, *outdated_vcs_packages], check=True)
 
-    query = run(["/usr/bin/resolvectl", "query", "kastl.local"],
-                stdout=DEVNULL, stderr=DEVNULL)
-    if "kastl" in gethostname() and query.returncode == 0:
-        backup(repo)
+
+def _action_backup(repo: Repo, _args: argparse.Namespace) -> None:
+    """Backup the repo."""
+    backup(repo)
+
+
+def _action_update_repo(repo: Repo, _args: argparse.Namespace) -> None:
+    """Update the repo.
+
+    Add all package files in the repo dir to the database, then completely
+    remove all packages desired to be removed.
+    """
+    repo_add = ["/usr/bin/repo-add", "--sign", "--key", GPGKEY, repo.db]
+    repo_add.extend(repo.directory.glob("*.pkg.tar.zst"))
+    run(repo_add, check=True)
+
+    remove_packages(repo, PACKAGES_TO_REMOVE)
+
+
+def main() -> None:
+    """Run this program."""
+    parser = ArgumentParser()
+    subparsers = parser.add_subparsers(required=True)
+
+    # TODO: bootstrap()
+    parser_aur_sync = subparsers.add_parser("aur_sync")
+    parser_aur_sync.set_defaults(action_callback=_action_aur_sync)
+    parser_backup = subparsers.add_parser("backup")
+    parser_backup.set_defaults(action_callback=_action_backup)
+    parser_update_repo = subparsers.add_parser("update_repo")
+    parser_update_repo.set_defaults(action_callback=_action_update_repo)
+
+    args = parser.parse_args()
+
+    repo = Repo(Path("/srv/pkgrepo/swsnr/swsnr.db.tar.zst"))
+    args.action_callback(repo, args)
 
 
 if __name__ == "__main__":

@@ -39,8 +39,8 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 PRODUCT_NAME="$(</sys/class/dmi/id/product_name)"
 
 pacman_repositories=(
+    "${DIR}/etc/pacman/40-swsnr-repository.conf"
     "${DIR}/etc/pacman/50-core-repositories.conf"
-    "${DIR}/etc/pacman/60-aur-repository.conf"
 )
 
 #region Configuration
@@ -718,6 +718,8 @@ fi
 install -pm644 "${DIR}/etc/pacman/pacman.conf" /etc/pacman.conf
 install -pm644 "${DIR}/etc/pacman/mirrorlist" /etc/pacman.d/mirrorlist
 install -pm644 -Dt /etc/pacman.d/repos "${pacman_repositories[@]}"
+# Remove unused repos
+rm -f /etc/pacman.d/repos/{40-abs,60-aur}-repository.conf
 install -m755 -d /etc/pacman.d/hooks
 # Stub out pacman hooks of mkinitcpio; we use kernel-install instead
 ln -sf /dev/null /etc/pacman.d/hooks/60-mkinitcpio-remove.hook
@@ -764,6 +766,13 @@ fi
 pacman -S --needed "${packages_to_install[@]}"
 pacman -S --needed --asdeps "${packages_to_install_optdeps[@]}"
 pacman -D --asdeps "${packages_to_install_optdeps[@]}"
+
+# Remove unused local pacman repos
+for name in abs aur; do
+    if [[ -d "/srv/pkgrepo/${name}" ]]; then
+        btrfs subvolume delete "/srv/pkgrepo/${name}"
+    fi
+done
 
 # Configure flatpak languages to install in addition to system locale
 flatpak config --system --set extra-languages 'en;en_GB;de;de_DE'
