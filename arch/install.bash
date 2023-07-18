@@ -74,6 +74,7 @@ packages_to_remove_cascade=()
 packages_to_remove=(
     # I prefer Gnucash
     kmymoney
+    linux-zen
 )
 
 # Packages to mark as optional dependencies
@@ -557,9 +558,6 @@ case "${HOSTNAME}" in
     pacman_repositories+=()
 
     packages_to_install+=(
-        # Supposedly better gaming kernel
-        linux-zen
-
         # Game mode
         gamemode
         innoextract # Extract Windows installers (mostly GoG)
@@ -865,16 +863,7 @@ else
 fi
 
 # Boot loader configuration
-case "${HOSTNAME}" in
-*kastl*)
-    # Use zen, as it's supposedly a better kernel for gaming
-    install -pm644 "${DIR}/etc/loader-default-zen.conf" /efi/loader/loader.conf
-    ;;
-*)
-    # Otherwise use stock kernel for maximum compatibility
-    install -pm644 "${DIR}/etc/loader-default-arch.conf" /efi/loader/loader.conf
-    ;;
-esac
+install -pm644 "${DIR}/etc/loader.conf" /efi/loader/loader.conf
 
 # System configuration
 install -pm644 "${DIR}/etc/faillock.conf" /etc/security/faillock.conf
