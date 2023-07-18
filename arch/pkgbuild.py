@@ -54,6 +54,7 @@ AUR_PACKAGES = [
     "frum",
     "git-gone",
     "gnome-search-providers-jetbrains",
+    "gnome-shell-extension-caffeine",
     "gnome-shell-extension-nasa-apod",
     "jabref",
     "otf-vollkorn",

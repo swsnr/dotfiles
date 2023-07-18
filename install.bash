@@ -187,6 +187,8 @@ GNOME)
         'disable-extension-updates@swsnr.de'
         # Cool wallpapers every day
         'nasa_apod@elinvention.ovh'
+        # Inhibit suspend
+        'caffeine@patapon.info'
     )
     case "${HOSTNAME}" in
     *kastl*)

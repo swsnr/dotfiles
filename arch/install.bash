@@ -398,6 +398,7 @@ GNOME)
         qalculate-gtk  # Scientific desktop calculator w/ unit conversion and search provider
 
         # Gnome extensions and tools
+        gnome-shell-extension-caffeine      # Inhibit suspend
         gnome-shell-extension-dash-to-panel # Combine dash and panel
         gnome-shell-extension-nasa-apod     # APOD as desktop background
         gnome-shell-extension-appindicator  # Systray for Gnome
