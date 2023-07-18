@@ -58,9 +58,9 @@ end
 
 function scheme_for_appearance(appearance)
   if appearance:find("Dark") then
-    return "OneDark (base16)"
+    return "OneHalfDark"
   else
-    return "One Light (base16)"
+    return "OneHalfLight"
   end
 end
 
