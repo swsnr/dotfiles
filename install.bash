@@ -78,6 +78,10 @@ clean-recursively ~/.config/wezterm/colors || true
 mkdir -p ~/.config/helix
 ln -fs "${DIR}/helix/config.toml" ~/.config/helix/config.toml
 
+# Micro
+mkdir -p ~/.config/micro
+ln -fs "${DIR}/micro/init.lua" ~/.config/micro/init.lua
+
 # Git configuration
 mkdir -p ~/.config/git
 ln -fs -t ~/.config/git "${DIR}/git/common/"*

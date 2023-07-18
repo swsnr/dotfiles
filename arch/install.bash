@@ -146,6 +146,7 @@ packages_to_install=(
 
     # Shell environment and CLI tools
     helix       # Simple terminal editor with LSP support
+    micro       # Simple and reasonable terminal editor
     wezterm     # My preferred terminal emulator
     fish        # My preferred shell
     zoxide      # Cross-shell/editor directory jumping
