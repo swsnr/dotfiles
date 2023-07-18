@@ -211,11 +211,11 @@ def main() -> None:
     subparsers = parser.add_subparsers(required=True)
 
     # TODO: bootstrap()
-    parser_aur_sync = subparsers.add_parser("aur_sync")
+    parser_aur_sync = subparsers.add_parser("aur-sync")
     parser_aur_sync.set_defaults(action_callback=_action_aur_sync)
     parser_backup = subparsers.add_parser("backup")
     parser_backup.set_defaults(action_callback=_action_backup)
-    parser_update_repo = subparsers.add_parser("update_repo")
+    parser_update_repo = subparsers.add_parser("update-repo")
     parser_update_repo.set_defaults(action_callback=_action_update_repo)
 
     args = parser.parse_args()
