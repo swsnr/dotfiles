@@ -175,10 +175,7 @@ GNOME)
     clean-recursively ~/.local/share/gnome-shell/extensions/
 
     extensions=(
-        # Redo the panel: Combine dash and panel into a single more traditional
-        # panel, and add a systray, workspace indicator, and a menu for removable
-        # drives.
-        'dash-to-panel@jderose9.github.com'
+        # Add a systray and a drive menu to the panel
         'appindicatorsupport@rgcjonas.gmail.com'
         'drive-menu@gnome-shell-extensions.gcampax.github.com'
         # Disable automatic extension updates; I install all extensions through
@@ -208,7 +205,8 @@ GNOME)
             fi
         done
 
-        gnome-extensions disable 'workspace-indicator@gnome-shell-extensions.gcampax.github.com'
+        gnome-extensions disable 'workspace-indicator@gnome-shell-extensions.gcampax.github.com' || true
+        gnome-extensions disable 'dash-to-panel@jderose9.github.com' || true
     fi
     ;;
 KDE)

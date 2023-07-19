@@ -72,9 +72,9 @@ packages_to_remove_cascade=()
 
 # Packages to remove
 packages_to_remove=(
-    # I prefer Gnucash
     kmymoney
     linux-zen
+    gnome-shell-extension-dash-to-panel
 )
 
 # Packages to mark as optional dependencies
@@ -399,7 +399,6 @@ GNOME)
 
         # Gnome extensions and tools
         gnome-shell-extension-caffeine      # Inhibit suspend
-        gnome-shell-extension-dash-to-panel # Combine dash and panel
         gnome-shell-extension-nasa-apod     # APOD as desktop background
         gnome-shell-extension-appindicator  # Systray for Gnome
         gnome-search-providers-jetbrains    # Jetbrains projects in search
