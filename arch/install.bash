@@ -398,11 +398,11 @@ GNOME)
         qalculate-gtk  # Scientific desktop calculator w/ unit conversion and search provider
 
         # Gnome extensions and tools
-        gnome-shell-extension-caffeine      # Inhibit suspend
-        gnome-shell-extension-nasa-apod     # APOD as desktop background
-        gnome-shell-extension-appindicator  # Systray for Gnome
-        gnome-search-providers-jetbrains    # Jetbrains projects in search
-        firefox-gnome-search-provider       # Firefox bookmarks in search
+        gnome-shell-extension-caffeine     # Inhibit suspend
+        gnome-shell-extension-nasa-apod    # APOD as desktop background
+        gnome-shell-extension-appindicator # Systray for Gnome
+        gnome-search-providers-jetbrains   # Jetbrains projects in search
+        firefox-gnome-search-provider      # Firefox bookmarks in search
     )
 
     packages_to_install_optdeps+=(
