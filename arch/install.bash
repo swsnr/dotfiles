@@ -973,6 +973,11 @@ if command -v sbctl >/dev/null && [[ -f /usr/share/secureboot/keys/db/db.key ]];
 
     sbctl sign-all
     sbctl verify # Safety check
+
+    # Under secure boot, enable kernel lockdown mode
+    install -m644 -t /etc/cmdline.d "${DIR}"/etc/cmdline.d/40-swsnr-lockdown.conf
+else
+    rm -f /etc/cmdline.d/40-swsnr-lockdown.conf
 fi
 #endregion
 
