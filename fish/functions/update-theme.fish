@@ -43,14 +43,17 @@ function update-theme -d 'Read the current terminal background and update our en
             set VIVID_THEME one-light
             # TODO: Perhaps find one-light for micro?
             set -gx MICRO_COLORSCHEME bubblegum
+            set -gx BTM_COLOR default-light
         case dark
             set -gx BAT_THEME OneHalfDark
             set VIVID_THEME one-dark
             set -gx MICRO_COLORSCHEME one-dark
+            set -gx BTM_COLOR default
         case unknown
             # If we don't know about the terminal background, default to the
             # standard 8 bit theme in Bat
             set -gx BAT_THEME ansi
+            set -gx BTM_COLOR default
     end
 
     # dircolors, by vidid <https://github.com/sharkdp/vivid>
