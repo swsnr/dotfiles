@@ -14,15 +14,16 @@
 # the License.
 
 """Build AUR packages I use."""
+
 import argparse
 import os
 import re
 from argparse import ArgumentParser
+from collections.abc import Collection, Set
 from pathlib import Path
 from socket import gethostname
 from subprocess import run
 from tempfile import NamedTemporaryFile
-
 
 XDG_CACHE_DIR = Path(os.environ.get("XDG_CACHE_HOME", Path.home() / ".cache"))
 GPGKEY = "B8ADA38BC94C48C4E7AABE4F7548C2CC396B57FC"
@@ -42,9 +43,16 @@ class Repo:
         self.directory = self.db.parent
         self.name = self.db.name.removesuffix(".db.tar.zst")
 
+    def packages(self: "Repo", *, with_versions: bool=False) -> list[str]:
+        """Get a list of all packages in the given repository."""
+        cmd = ["/usr/bin/aur", "repo", "-d", self.name, "-l"]
+        if not with_versions:
+            cmd.append("-q")
+        return run(cmd, check=True, capture_output=True, text=True).stdout.splitlines()
+
 
 #: AUR packages to build
-AUR_PACKAGES = [
+AUR_PACKAGES: list[str] = [
     "1password",
     "1password-cli",
     "aurutils",
@@ -63,7 +71,7 @@ AUR_PACKAGES = [
 ]
 
 #: Packages to remove from the repository
-PACKAGES_TO_REMOVE = {
+PACKAGES_TO_REMOVE: Set[str] = {
     "cargo-vet",
 }
 
@@ -114,20 +122,12 @@ def bootstrap() -> None:
     raise NotImplementedError
 
 
-def get_packages_in_repo(repo: Repo, *, with_versions: bool) -> list[str]:
-    """Get a list of all packages in the given repository."""
-    cmd = ["/usr/bin/aur", "repo", "-d", repo.name, "-l"]
-    if not with_versions:
-        cmd.append("-q")
-    return run(cmd, check=True, capture_output=True, text=True).stdout.splitlines()
-
-
 def get_outdated_vcs_packages(repo: Repo, packages: list[str]) -> list[str]:
     """Get all outdated VCS packages from `packages`."""
     if not packages:
         return []
 
-    repo_packages_with_version = get_packages_in_repo(repo, with_versions=True)
+    pkgnames_with_versions = repo.packages(with_versions=True)
 
     with NamedTemporaryFile() as vcs_versions_file:
         aurutils_sync_dir = XDG_CACHE_DIR / "aurutils" / "sync"
@@ -135,10 +135,10 @@ def get_outdated_vcs_packages(repo: Repo, packages: list[str]) -> list[str]:
             cwd=aurutils_sync_dir, check=True, stdout=vcs_versions_file)
         return run(["/usr/bin/aur", "vercmp", "-q", "-p", vcs_versions_file.name],
             check=True, text=True, capture_output=True,
-            input="\n".join(repo_packages_with_version)).stdout.splitlines()
+            input="\n".join(pkgnames_with_versions)).stdout.splitlines()
 
 
-def remove_packages(repo: Repo, packages: set[str]) -> None:
+def remove_packages(repo: Repo, packages: Collection[str]) -> None:
     """Remove the given list of packages from `repo`.
 
     Delete package files as well as database entries.
@@ -157,6 +157,32 @@ def remove_packages(repo: Repo, packages: set[str]) -> None:
 
     run(["/usr/bin/repo-remove", "--sign", "--key", GPGKEY, repo.db, *packages],
         check=True)
+
+
+def get_packages_to_remove(repo: Repo) -> Collection[str]:
+    """Get all packages to remove from the repo.
+
+    Includes packages explicitly designated for removal, as well as redundant
+    debug packages.
+    """
+    repo_packages = set(repo.packages(with_versions=False))
+    orphan_debug_pkgnames = {p for p in repo_packages
+                             if p.endswith("-debug") and
+                             p.removesuffix("-debug") not in repo_packages}
+
+    pkgnames = PACKAGES_TO_REMOVE | \
+        {f"{p}-debug" for p in PACKAGES_TO_REMOVE} | \
+        orphan_debug_pkgnames
+    return repo_packages & pkgnames
+
+
+def cleanup_repo(repo: Repo) -> None:
+    """Cleanup the repo.
+
+    Delete packages to be removed, and remove debug packages where the original
+    package was removed.
+    """
+    remove_packages(repo, get_packages_to_remove(repo))
 
 
 def backup(repo: Repo) -> None:
@@ -203,7 +229,7 @@ def _action_update_repo(repo: Repo, _args: argparse.Namespace) -> None:
     repo_add.extend(repo.directory.glob("*.pkg.tar.zst"))
     run(repo_add, check=True)
 
-    remove_packages(repo, PACKAGES_TO_REMOVE)
+    cleanup_repo(repo)
 
 
 def main() -> None:
