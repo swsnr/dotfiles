@@ -232,18 +232,27 @@ def _action_update_repo(repo: Repo, _args: argparse.Namespace) -> None:
     cleanup_repo(repo)
 
 
+def _action_cleanup(repo: Repo, _args: argparse.Namespace) -> None:
+    """Cleanup the repo."""
+    cleanup_repo(repo)
+
+
 def main() -> None:
     """Run this program."""
     parser = ArgumentParser()
     subparsers = parser.add_subparsers(required=True)
 
-    # TODO: bootstrap()
-    parser_aur_sync = subparsers.add_parser("aur-sync")
-    parser_aur_sync.set_defaults(action_callback=_action_aur_sync)
-    parser_backup = subparsers.add_parser("backup")
-    parser_backup.set_defaults(action_callback=_action_backup)
-    parser_update_repo = subparsers.add_parser("update-repo")
-    parser_update_repo.set_defaults(action_callback=_action_update_repo)
+    actions = [
+        "aur-sync",
+        "backup",
+        "update-repo",
+        "cleanup",
+    ]
+    parsers = {}
+    for action in actions:
+        parsers[action] = subparsers.add_parser(action)
+        name = action.replace("-", "_")
+        parsers[action].set_defaults(action_callback=globals()[f"_action_{name}"])
 
     args = parser.parse_args()
 
