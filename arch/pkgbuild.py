@@ -200,8 +200,7 @@ def backup(repo: Repo) -> None:
 
 def _action_aur_sync(repo: Repo, _args: argparse.Namespace) -> None:
     """Sync all desired AUR packages."""
-    # TODO: Move to dedicated cleanup command?
-    remove_packages(repo, PACKAGES_TO_REMOVE)
+    cleanup_repo(repo)
     sync_cmd = [
         "/usr/bin/aur", "sync", "-d", repo.name,
         "--nocheck", "-ucRS",
