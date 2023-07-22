@@ -136,13 +136,17 @@ packages_to_install=(
     # Cloud tools
     hcloud # CLI for Hetzner cloud
 
-    # Arch tools & infrastructure
+    # Arch tools
     etc-update                      # Deal with pacdiff/pacsave files
-    namcap                          # Lint arch packages
-    debuginfod                      # Remote debug info
     arch-repro-status               # Manually check reproducibility of installed packages
     pacman-hook-reproducible-status # Check reproducibility of packages in pacman transactions
-    aurutils                        # Build AUR packages
+
+    # Build arch packages
+    base-devel
+    namcap     # Lint arch packages
+    devtools   # Build arch packages (pkgctl mainly)
+    debuginfod # Remote debug info
+    aurutils   # Tooling for AUR packages
 
     # Shell environment and CLI tools
     helix       # Simple terminal editor with LSP support
@@ -278,9 +282,6 @@ packages_to_install_optdeps=(
     poppler-data
     # zathura: PDF support
     zathura-pdf-mupdf
-
-    # aurutils: chroot support
-    devtools
 
     # zim: spell checking
     gtkspell3
