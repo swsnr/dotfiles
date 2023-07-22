@@ -48,7 +48,6 @@ AUR_PACKAGES = [
     "1password",
     "1password-cli",
     "aurutils",
-    "cargo-vet",
     "firefox-gnome-search-provider",
     "fnm",
     "frum",
@@ -64,7 +63,9 @@ AUR_PACKAGES = [
 ]
 
 #: Packages to remove from the repository
-PACKAGES_TO_REMOVE = set()
+PACKAGES_TO_REMOVE = {
+    "cargo-vet",
+}
 
 class regex_in(str): # noqa: N801,SLOT000
     """Match a regex in a string in structural pattern matching."""
