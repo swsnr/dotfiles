@@ -11,10 +11,8 @@
 
 # See https://aur.archlinux.org/ (only fingerprints, must be logged out to see them)
 aur.archlinux.org ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEuBKrPzbawxA/k2g6NcyV5jmqwJ2s+zpgZGZ7tpLIcN
-# The instance configuration page at https://gitlab.archlinux.org/help/instance_configuration#ssh-host-keys-fingerprints
-# lists wrong fingerprints; this key is obtained from ssh-keyscan and checked
-# against what someone else saw in https://bbs.archlinux.org/viewtopic.php?id=283071
-[gitlab.archlinux.org]:222 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICjT2SuA0k/xc5Cbyp+eBY5uN3bRL2K7GdpNtltOK6vy
+# See https://gitlab.archlinux.org/help/instance_configuration#ssh-host-keys-fingerprints
+gitlab.archlinux.org ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICjT2SuA0k/xc5Cbyp+eBY5uN3bRL2K7GdpNtltOK6vy
 # See https://codeberg.org/codeberg/org/src/branch/main/Imprint.md#user-content-ssh-fingerprints
 codeberg.org ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIVIC02vnjFyL+I4RHfvIGNtOgJMe769VTF1VR4EB3ZB
 # See https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/githubs-ssh-key-fingerprints (only fingerprints)
