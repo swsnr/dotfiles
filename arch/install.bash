@@ -273,6 +273,9 @@ packages_to_install_optdeps=(
     # libva: intel drivers
     intel-media-driver
 
+    # firewalld: applet
+    python-pyqt5
+
     # Mark pipewire as optional dependencies
     pipewire-pulse wireplumber
     # pipewire: zeroconf support
