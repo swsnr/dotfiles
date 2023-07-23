@@ -1,6 +1,7 @@
 # Unfortunately helix does not yet switch themes automatically for light/dark mode, see
-# https://github.com/helix-editor/helix/issues/2158
-theme = "onelight"
+# https://github.com/helix-editor/helix/issues/2158, so we use a custom symlink
+# to switch the active theme.
+theme = "swsnr-light-dark"
 
 [editor]
 # Highlight lines with cursors

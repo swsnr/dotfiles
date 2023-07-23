@@ -75,8 +75,11 @@ ln -fs "${DIR}/wezterm/wezterm.lua" ~/.config/wezterm/wezterm.lua
 clean-recursively ~/.config/wezterm/colors || true
 
 # Helix
-mkdir -p ~/.config/helix
+mkdir -p ~/.config/helix/themes
 ln -fs "${DIR}/helix/config.toml" ~/.config/helix/config.toml
+if [[ ! -e ~/.config/helix/themes/swsnr-light-dark.toml ]]; then
+    ln -fs /usr/lib/helix/runtime/themes/onelight.toml ~/.config/helix/themes/swsnr-light-dark.toml
+fi
 
 # Micro
 mkdir -p ~/.config/micro
