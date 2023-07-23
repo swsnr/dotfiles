@@ -1,6 +1,9 @@
 # Unfortunately helix does not yet switch themes automatically for light/dark mode, see
 # https://github.com/helix-editor/helix/issues/2158, so we use a custom symlink
 # to switch the active theme.
+#
+# See update-theme fish function and install.bash for how we manage this
+# symlink.
 theme = "swsnr-light-dark"
 
 [editor]
@@ -19,6 +22,18 @@ bufferline = "multiple"
 [editor.lsp]
 display-messages = true
 display-inlay-hints = true
+
+[editor.indent-guides]
+# Render indent guides
+render = true
+
+[editor.soft-wrap]
+# Soft-wrap long lines at text width
+enable = true
+wrap-at-text-width = true
+
+[keys.normal]
+"A-q" = ":reflow"
 
 [keys.insert]
 j = { k = "normal_mode" }
