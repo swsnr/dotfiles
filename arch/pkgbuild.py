@@ -28,7 +28,7 @@ from tempfile import NamedTemporaryFile
 
 XDG_CACHE_DIR = Path(os.environ.get("XDG_CACHE_HOME", Path.home() / ".cache"))
 GPGKEY = "B8ADA38BC94C48C4E7AABE4F7548C2CC396B57FC"
-MAKEPKG_CONF = "/usr/share/devtools/makepkg.conf.d/x86_64_v3.conf"
+MAKEPKG_CONF = "/usr/share/devtools/makepkg.conf.d/x86_64.conf"
 PACKAGER = "Sebastian Wiesner <sebastian@swsnr.de>"
 
 
