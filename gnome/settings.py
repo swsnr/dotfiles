@@ -86,6 +86,11 @@ SETTINGS = {
     "org.gnome.desktop.peripherals.keyboard": {
         "remember-numlock-state": True,
     },
+    "org.gnome.desktop.media-handling": {
+        # Never mount external disks automatically.
+        "automount": False,
+        "automount-open": False,
+    },
     "org.gnome.desktop.screensaver": {
         # Lock screen immediately when the session becomes idle
         "lock-enabled": True,
