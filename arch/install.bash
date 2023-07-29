@@ -182,6 +182,7 @@ packages_to_install=(
     gcc           # C compiler
     make          # ubiquituous "build" tool
     rustup        # Rust toolchain manager
+    rust-analyzer # Language server for Rust
     cargo-release # Rust release helper
     cargo-deny    # Rust compliance checker (licensing, advisories, etc.)
     shellcheck    # Lint bash code
