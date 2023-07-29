@@ -76,7 +76,7 @@ clean-recursively ~/.config/wezterm/colors || true
 
 # Helix
 mkdir -p ~/.config/helix/themes
-ln -fs "${DIR}/helix/config.toml" ~/.config/helix/config.toml
+ln -fs -t ~/.config/helix "${DIR}/helix/"{config,languages}.toml
 if [[ ! -e ~/.config/helix/themes/swsnr-light-dark.toml ]]; then
     ln -fs /usr/lib/helix/runtime/themes/onelight.toml ~/.config/helix/themes/swsnr-light-dark.toml
 fi

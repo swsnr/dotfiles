@@ -1,0 +1,12 @@
+[[language]]
+# Formatting in bash, see https://github.com/helix-editor/helix/wiki/External-binary-formatter-configuration#shfmt
+name = "bash"
+indent = { tab-width = 4, unit = "    " }
+formatter = { command = 'shfmt', args = ["-i", "4"] }
+auto-format = true
+
+[[language]]
+# Formatting in fish, see https://github.com/helix-editor/helix/wiki/External-binary-formatter-configuration#fish_indent
+name = "fish"
+formatter = { command = "fish_indent" }
+auto-format = true
