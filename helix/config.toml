@@ -27,11 +27,6 @@ display-inlay-hints = true
 # Render indent guides
 render = true
 
-[editor.soft-wrap]
-# Soft-wrap long lines at text width
-enable = true
-wrap-at-text-width = true
-
 [keys.normal]
 "A-q" = ":reflow"
 
