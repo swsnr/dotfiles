@@ -25,6 +25,7 @@ has() {
 
 packages=(
     nala
+
     # Shell & tools
     fish
     zoxide
@@ -32,20 +33,28 @@ packages=(
     ripgrep
     exa
     file
+
     # Git
     git
+
     # Editor
-    neovim
+    helix
+
     # Compiler & devtools
     clang
     shfmt
     shellcheck
     jq
-    nodejs # For nvimm tree sitter parserss
+
     # Networking & cryptography
     rclone
     xh
     openssh
+)
+
+packages_to_remove=(
+    neovim
+    nodejs
 )
 
 # Setup mirros and install packages
@@ -60,6 +69,9 @@ fi
 
 nala upgrade --update --simple --assume-yes
 nala install --no-update --simple --assume-yes "${packages[@]}"
+for package in "${packages_to_remove[@]}"; do
+    nala purge "${package}"
+done
 
 # Configure termux
 install -pm644 -t"${HOME}/.termux/" \
