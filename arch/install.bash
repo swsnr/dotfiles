@@ -303,9 +303,6 @@ services=(
     fstrim.timer                               # Periodically trim file systems…
     "btrfs-scrub@$(systemd-escape -p /).timer" # scrub root filesystem…
 
-    # Hardware
-    fwupd-refresh.timer # check for firmware updates…
-
     # Core system services
     systemd-boot-update.service # Update boot loader automatically
     systemd-homed.service       # homed for user management and home areas
@@ -331,6 +328,7 @@ services_to_disable=(
     auditd.service
     apparmor.service
     sddm.service
+    fwupd-refresh.timer # Consistently fails for reasons…
 )
 
 # Flatpaks
