@@ -1,0 +1,81 @@
+#!/usr/bin/python3
+# Copyright 2020 Sebastian Wiesner <sebastian@swsnr.de>
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may not
+# use this file except in compliance with the License. You may obtain a copy of
+# the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations under
+# the License.
+
+"""Trigger certain actions when the Gnome color scheme changes.
+
+Specifically,
+
+- update the Helix theme and reload all running Helix instances.
+"""
+
+import contextlib
+from pathlib import Path
+from subprocess import run
+from typing import Never
+
+from gi.repository import Gio, GLib
+
+
+def update_color_scheme(scheme: str) -> None:
+    """Update color scheme to the given `scheme`.
+
+    Update the Helix color theme file, and reload configuration of all running
+    Helix instances.
+    """
+    helix_theme = "onelight"
+    if scheme == "prefer-dark":
+        helix_theme = "onedark"
+    # Link the appropriate Helix theme
+    config_dir = Path(GLib.get_user_config_dir()) / "helix"
+    theme_file = config_dir / "themes" / "swsnr-light-dark.toml"
+    theme_definition = (Path(
+        "/usr/lib/helix/runtime/themes") / helix_theme).with_suffix(".toml")
+    # TODO: Log here? How?
+    theme_file.unlink(missing_ok=True)
+    theme_file.symlink_to(theme_definition)
+    run(["/usr/bin/pkill", "-USR1", "helix"], check=True)
+
+
+def handle_settings_signal(
+        _settings: Never, _sender: str, signal: str, args: GLib.Variant) -> None:
+    """Handle any signal from the settings portal.
+
+    React on the `SettingsChanged` signal, and trigger color scheme actions when
+    the color scheme setting changed.
+    """
+    if signal == "SettingChanged":
+        namespace, key, value = args.unpack()
+        if namespace == "org.gnome.desktop.interface" and key == "color-scheme":
+            update_color_scheme(value)
+
+
+def main() -> None:
+    """Run this application."""
+    loop = GLib.MainLoop(None)
+    bus = Gio.bus_get_sync(Gio.BusType.SESSION, None)
+    settings = Gio.DBusProxy.new_sync(
+        bus, Gio.DBusProxyFlags.DO_NOT_LOAD_PROPERTIES,
+        None,
+        "org.freedesktop.portal.Desktop",
+        "/org/freedesktop/portal/desktop",
+        "org.freedesktop.portal.Settings", None)
+    settings.connect("g_signal", handle_settings_signal)
+    loop.run()
+    # TODO: Update color scheme initially after mainloop started
+
+
+if __name__ == "__main__":
+    with contextlib.suppress(KeyboardInterrupt):
+        main()

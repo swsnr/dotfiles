@@ -44,13 +44,11 @@ function update-theme -d 'Read the current terminal background and update our en
             # TODO: Perhaps find one-light for micro?
             set -gx MICRO_COLORSCHEME bubblegum
             set -gx BTM_COLOR default-light
-            set helix_theme onelight
         case dark
             set -gx BAT_THEME OneHalfDark
             set VIVID_THEME one-dark
             set -gx MICRO_COLORSCHEME one-dark
             set -gx BTM_COLOR default
-            set helix_theme onedark
         case unknown
             # If we don't know about the terminal background, default to the
             # standard 8 bit theme in Bat
@@ -64,9 +62,4 @@ function update-theme -d 'Read the current terminal background and update our en
     if command -q vivid && set -q VIVID_THEME
         set -gx LS_COLORS (vivid generate $VIVID_THEME)
     end
-
-    # Helix doesn't support environment variables, so we switch by redirecting
-    # a symlink.
-    ln -fs /usr/lib/helix/runtime/themes/$helix_theme.toml \
-        ~/.config/helix/themes/swsnr-light-dark.toml
 end

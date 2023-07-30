@@ -18,6 +18,7 @@ ignore = [
 # All the python stuff that needs to be linted
 include = [
   "*.py",
+  "bin/color-scheme-hook",
   "bin/dos2unix",
   "bin/paperwork-export-with-date",
   "bin/paperwork-import-with-date",

@@ -1,0 +1,9 @@
+[Unit]
+Description=Personal color scheme hook
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/color-scheme-hook
+
+[Install]
+WantedBy=graphical-session.target
