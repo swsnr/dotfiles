@@ -190,6 +190,7 @@ packages_to_install=(
     frum          # Fast Ruby version manager
     fnm           # Fast node version manager
     ruff          # Fast python linter
+    pyright       # Language server for Python
     stylua        # Lua code formatter
     hexyl         # hex viewer
     oxipng        # Optimize PNGs for size

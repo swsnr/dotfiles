@@ -2,3 +2,5 @@
 name = "python"
 formatter = { command = "ruff", args = ["check", "--fix-only", "-"] }
 auto-format = true
+language-server = { command = "pyright-langserver", args = ["--stdio"] }
+config = {}
