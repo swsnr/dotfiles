@@ -37,14 +37,16 @@ def update_color_scheme(scheme: str) -> None:
     helix_theme = "onelight"
     if scheme == "prefer-dark":
         helix_theme = "onedark"
+    print(f"Using helix color theme {helix_theme} for Gnome color scheme {scheme}")
     # Link the appropriate Helix theme
     config_dir = Path(GLib.get_user_config_dir()) / "helix"
     theme_file = config_dir / "themes" / "swsnr-light-dark.toml"
     theme_definition = (Path(
         "/usr/lib/helix/runtime/themes") / helix_theme).with_suffix(".toml")
-    # TODO: Log here? How?
+    print(f"Linking {theme_file} to {theme_definition}")
     theme_file.unlink(missing_ok=True)
     theme_file.symlink_to(theme_definition)
+    print("Refreshing configuration of all running helix processes")
     run(["/usr/bin/pkill", "-USR1", "helix"], check=True)
 
 
@@ -61,6 +63,12 @@ def handle_settings_signal(
             update_color_scheme(value)
 
 
+def set_initial_color_scheme(settings: Gio.DBusProxy) -> None:
+    """Set color scheme initially."""
+    color_scheme = settings.Read("(ss)", "org.gnome.desktop.interface", "color-scheme")
+    update_color_scheme(color_scheme)
+
+
 def main() -> None:
     """Run this application."""
     loop = GLib.MainLoop()
@@ -72,8 +80,8 @@ def main() -> None:
         "/org/freedesktop/portal/desktop",
         "org.freedesktop.portal.Settings", None)
     settings.connect("g_signal", handle_settings_signal)
+    GLib.timeout_add(0, lambda: set_initial_color_scheme(settings))
     loop.run()
-    # TODO: Update color scheme initially after mainloop started
 
 
 if __name__ == "__main__":
