@@ -17,7 +17,6 @@
 
 set -euo pipefail
 
-# Use a random unit name by default
 unit="fish-shell"
 description="Fish shell"
 
