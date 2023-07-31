@@ -94,9 +94,11 @@ bootstrap_packages=(
     linux-firmware
     intel-ucode
     btrfs-progs
-    # We need a text editor
-    neovim
+    # Some essential tools: A text editor, network management, and restic to
+    # restore backups (in particular my own package repository).
+    helix
     networkmanager
+    restic
 )
 pacstrap -K "${SYSROOT}" "${bootstrap_packages[@]}"
 
