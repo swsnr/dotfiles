@@ -19,6 +19,8 @@ set -xeuo pipefail
 
 PS4='\033[32m$(date +%H:%M:%S) >>>\033[0m '
 
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+
 target_device="$1"
 
 if [[ -z "${target_device}" ]]; then
@@ -122,8 +124,17 @@ systemctl --root "${SYSROOT}" enable \
     systemd-resolved.service systemd-homed.service NetworkManager.service
 
 echo "Building UKIs"
-# TODO: Do this with mkinitcpio
-arch-chroot "${SYSROOT}" dracut -f --uefi --regenerate-all
+# Make mkinitcpio use systemd
+install -Dpm644 -t "${SYSROOT}"/etc/mkinitcpio.d \
+    "${DIR}"/etc/mkinitcpio.conf.d/10-swsnr-systemd-base.conf
+# Tell kernel-install to use mkinitcpio to build UKIs
+install -Dpm644 "${SYSROOT}"/etc/kernel/ "${DIR}"/etc/kernel/install.conf
+# Get version of installed kernel
+kernel_versions=("${SYSROOT}"/usr/lib/modules/*)
+kernel_version="${kernel_versions[0]##*/}"
+arch-chroot "${SYSROOT}" kernel-install add "${kernel_version}" \
+    "/usr/lib/modules/${kernel_version}/vmlinuz"
+
 echo "Install bootloader"
 bootctl --root "${SYSROOT}" install
 
