@@ -21,11 +21,42 @@ Specifically,
 """
 
 import contextlib
+import fcntl
 from pathlib import Path
 from subprocess import run
 from typing import Never
+from contextlib import contextmanager
+from threading import Lock
 
 from gi.repository import Gio, GLib
+
+
+RUNTIME_DIR = Path(GLib.get_user_runtime_dir())
+LOCK_FILE = RUNTIME_DIR / "swsnr-dotfiles-color-scheme-hook.lock"
+LOCK_FILE_OBJ = open(LOCK_FILE, mode="w")
+INTERNAL_LOCK = Lock()
+
+
+def log(msg: str) -> None:
+    """Log the given message to standard output."""
+    print(msg, flush=True)
+
+
+@contextmanager
+def globally_lock_color_scheme_update():
+    """Acquire the global color scheme lock for a process.
+
+    This lock guards against concurrent instances of this script.
+    """
+    # First acquire an internal lock to make sure that only on thread locks the
+    # global lock file; since file locks are process-wide we might otherwise
+    # deadlock ourselves.
+    with INTERNAL_LOCK:
+        try:
+            fcntl.flock(LOCK_FILE_OBJ, fcntl.LOCK_EX)
+            yield
+        finally:
+            fcntl.flock(LOCK_FILE_OBJ, fcntl.LOCK_UN)
 
 
 def update_color_scheme(scheme: str) -> None:
@@ -37,17 +68,18 @@ def update_color_scheme(scheme: str) -> None:
     helix_theme = "onelight"
     if scheme == "prefer-dark":
         helix_theme = "onedark"
-    print(f"Using helix color theme {helix_theme} for Gnome color scheme {scheme}")
+    log(f"Using helix color theme {helix_theme} for Gnome color scheme {scheme}")
     # Link the appropriate Helix theme
     config_dir = Path(GLib.get_user_config_dir()) / "helix"
     theme_file = config_dir / "themes" / "swsnr-light-dark.toml"
     theme_definition = (Path(
         "/usr/lib/helix/runtime/themes") / helix_theme).with_suffix(".toml")
-    print(f"Linking {theme_file} to {theme_definition}")
-    theme_file.unlink(missing_ok=True)
-    theme_file.symlink_to(theme_definition)
-    print("Refreshing configuration of all running helix processes")
-    run(["/usr/bin/pkill", "-USR1", "helix"], check=True)
+    log(f"Linking {theme_file} to {theme_definition}")
+    with globally_lock_color_scheme_update():
+        theme_file.unlink(missing_ok=True)
+        theme_file.symlink_to(theme_definition)
+        log("Refreshing configuration of all running helix processes")
+        run(["/usr/bin/pkill", "-USR1", "helix"])
 
 
 def handle_settings_signal(
