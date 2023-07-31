@@ -1,5 +1,6 @@
 [[language]]
 # Formatting in bash, see https://github.com/helix-editor/helix/wiki/External-binary-formatter-configuration#shfmt
+# Four spaces indentation is a reasonable default for many projects, so we use it globally.
 name = "bash"
 indent = { tab-width = 4, unit = "    " }
 formatter = { command = 'shfmt', args = ["-i", "4"] }
