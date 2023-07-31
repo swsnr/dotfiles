@@ -215,6 +215,19 @@ def _action_aur_sync(repo: Repo, _args: argparse.Namespace) -> None:
         run([*sync_cmd, *outdated_vcs_packages], check=True)
 
 
+def _action_build_pkgbuild(repo: Repo, args: argparse.Namespace) -> None:
+    """Build a directory with a PKGBUILD and add the result to the repo."""
+    pkgbuild = args.directory / "PKGBUILD"
+    if not pkgbuild.exists():
+        msg = f"Missing PKGBUILD in {args.directory}"
+        raise ValueError(msg)
+    build_cmd = [
+        "/usr/bin/aur", "build", "-d", repo.name,
+        "-cRS", "--nocheck", "--makepkg-conf", MAKEPKG_CONF,
+    ]
+    run(build_cmd, check=True, cwd=args.directory)
+
+
 def _action_backup(repo: Repo, _args: argparse.Namespace) -> None:
     """Backup the repo."""
     backup(repo)
@@ -248,12 +261,15 @@ def main() -> None:
         "backup",
         "update-repo",
         "cleanup",
+        "build-pkgbuild",
     ]
-    parsers = {}
+    parsers: dict[str, ArgumentParser] = {}
     for action in actions:
         parsers[action] = subparsers.add_parser(action)
         name = action.replace("-", "_")
         parsers[action].set_defaults(action_callback=globals()[f"_action_{name}"])
+
+    parsers["build-pkgbuild"].add_argument("directory", type=Path)
 
     args = parser.parse_args()
 
