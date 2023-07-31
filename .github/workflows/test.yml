@@ -47,13 +47,18 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
-      # Install pygobject and its stubs
+        with:
+          cache: 'pip'
+          python-version: "3.11"
+      # Install build dependencies for pygobject, see
+      # https://pygobject.readthedocs.io/en/latest/getting_started.html#ubuntu-logo-ubuntu-debian-logo-debian
       - run: |
           sudo apt-get update -y
-          sudo apt-get install -y python3-gi
+          sudo apt-get install -y libgirepository1.0-dev gcc libcairo2-dev pkg-config python3-dev gir1.2-gtk-4.0
+      # Install pygobject and pygobject type stubs
       - run: |
-          python -m venv .venv --system-site-packages
+          python -m venv .venv
           source .venv/bin/activate
           echo "$PWD/.venv/bin" >> $GITHUB_PATH
-      - run: pip install pygobject-stubs
+      - run: pip install pycairo PyGObject pygobject-stubs
       - uses: jakebailey/pyright-action@v1
