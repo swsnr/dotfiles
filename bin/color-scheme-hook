@@ -63,7 +63,7 @@ def handle_settings_signal(
 
 def main() -> None:
     """Run this application."""
-    loop = GLib.MainLoop(None)
+    loop = GLib.MainLoop()
     bus = Gio.bus_get_sync(Gio.BusType.SESSION, None)
     settings = Gio.DBusProxy.new_sync(
         bus, Gio.DBusProxyFlags.DO_NOT_LOAD_PROPERTIES,

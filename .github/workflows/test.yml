@@ -42,3 +42,27 @@ jobs:
       - uses: actions/checkout@v3
       # Check all python code
       - uses: chartboost/ruff-action@v1
+  pyright:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+      # Install pygobject and its stubs
+      - run: |
+          sudo apt-get update -y
+          sudo apt-get install -y python3-gi
+      - run: |
+          python -m venv .venv --system-site-packages
+          source .venv/bin/activate
+          echo "$PWD/.venv/bin" >> $GITHUB_PATH
+      - run: pip install pygobject-stubs
+      - uses: jakebailey/pyright-action@v1
+        with:
+          extra-args: |
+            "*.py"
+            bin/color-scheme-hook
+            bin/dos2unix
+            bin/paperwork-tool
+            bin/split-m4b
+            bin/xtermbg
+            bin/zim-journal
