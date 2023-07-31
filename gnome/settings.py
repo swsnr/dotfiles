@@ -366,8 +366,7 @@ def set_pytype(settings: Gio.Settings, key: str, value: GlibValue) -> None:
         raise TypeError(message)
 
 
-def set_all_items(settings: Gio.Settings,
-                   items: dict[str, dict[str, GlibValue]]) -> None:
+def set_all_items(settings: Gio.Settings, items: dict[str, GlibValue]) -> None:
     """Apply all `items` to `settings`."""
     settings_schema = settings.get_property("settings-schema")
     schema = settings.get_property("schema")
@@ -382,6 +381,9 @@ def set_all_items(settings: Gio.Settings,
 def apply_settings() -> None:
     """Apply all standard settings."""
     default_source = Gio.SettingsSchemaSource.get_default()
+    if not default_source:
+        msg = "No default schema source found!"
+        raise LookupError(msg)
     for schema_id_or_path, items in SETTINGS.items():
         if isinstance(schema_id_or_path, str):
             schema_id = schema_id_or_path
@@ -400,6 +402,9 @@ def apply_settings() -> None:
 def apply_extension_settings() -> None:
     """Apply all settings for gnome extensions."""
     default_source = Gio.SettingsSchemaSource.get_default()
+    if not default_source:
+        msg = "No default schema source found!"
+        raise LookupError(msg)
     extension_prefixes = [
         Path("/usr/share/gnome-shell/extensions"),
         Path.home() / "local" / "share" / "gnome-shell" / "extensions",
@@ -432,6 +437,9 @@ def apply_extension_settings() -> None:
 def apply_keybindings() -> None:
     """Apply all keybindings."""
     default_source = Gio.SettingsSchemaSource.get_default()
+    if not default_source:
+        msg = "No default schema source found!"
+        raise LookupError(msg)
     media_keys_schema = "org.gnome.settings-daemon.plugins.media-keys"
     media_keys_path = "/" + media_keys_schema.replace(".", "/")
     bindings_schema = f"{media_keys_schema}.custom-keybinding"
@@ -470,6 +478,9 @@ def apply_keybindings() -> None:
 def apply_gnome_terminal() -> None:
     """Apply gnome-terminal settings."""
     default_source = Gio.SettingsSchemaSource.get_default()
+    if not default_source:
+        msg = "No default schema source found!"
+        raise LookupError(msg)
     schema_id = "org.gnome.Terminal.ProfilesList"
     if not default_source.lookup(schema_id, False): # noqa: FBT003
         print("Terminal profile list not available, skipping", file=sys.stderr)
