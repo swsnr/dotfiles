@@ -1,29 +1,44 @@
 name: "Test"
 on: push
 jobs:
-  check:
+  shellcheck:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
-      # Check shell scripts
       - run: 'shellcheck --version'
       - run: 'shellcheck **/*.bash **/*.sh bin/ui-theme bin/game-mode-hook'
+  shfmt:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
       - run: |
           curl -fsSL -o ./shfmt https://github.com/mvdan/sh/releases/download/v3.6.0/shfmt_v3.6.0_linux_amd64
           chmod 700 ./shfmt
       - run: ./shfmt --version
       - run: ./shfmt -i 4 -l -d **/*.bash **/*.sh bin/ui-theme bin/game-mode-hook bin/toggle-nightlight
+  fish_indent:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
       # Check fish things
       - run: 'sudo apt-add-repository ppa:fish-shell/release-3'
       - run: 'sudo apt-get update -y'
       - run: 'sudo apt-get install -y fish'
       - run: 'fish --version'
       - run: 'fish_indent -c fish/conf.d/*.fish fish/functions/*.fish fish/config.fish'
-      # Check lua code in neovim config
+  stylua:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      # Check all lua code (mostly wezterm configuration)
       - uses: JohnnyMorganz/stylua-action@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           version: latest
           args: --check .
+  ruff:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
       # Check all python code
       - uses: chartboost/ruff-action@v1
