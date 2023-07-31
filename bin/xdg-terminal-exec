@@ -1,2 +1,6 @@
 #!/bin/bash
+
+# Make Gnome use WezTerm to open CLI apps.  xdg-terminal-exec is the standard
+# extension point for Glib to open terminal desktop entries with.
+
 exec wezterm start -- "$@"
