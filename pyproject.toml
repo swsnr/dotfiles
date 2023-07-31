@@ -1,0 +1,47 @@
+[tool.ruff]
+# Select all rules by default, and selectively disable things I don't need
+select = ["ALL"]
+ignore = [
+    "S603", # A stupid rule; we do in fact absolutely want to use shell=False everywhere
+    "I001", # Sorted imports are just nitpicking.
+    "SIM300", # Allow yoda conditions; there's no point in forbidding these
+
+    # These TODO rules don't apply here; they are overly opinioned.
+    "TD002",
+    "TD003",
+    "FIX002",
+
+    # Ignore incompatible rules
+    'D203', # D211 instead
+    'D213', # D212 instead.
+]
+
+# All the python stuff that needs to be linted
+include = [
+    "**/*.py",
+    "bin/color-scheme-hook",
+    "bin/dos2unix",
+    "bin/paperwork-tool",
+    "bin/split-m4b",
+    "bin/xtermbg",
+    "bin/zim-journal",
+]
+
+[tool.ruff.per-file-ignores]
+# Files in these directories are no modules
+"bin/*" = ["INP001"]
+"arch/*" = ["INP001"]
+"gnome/*" = ["INP001"]
+"kde/*" = ["INP001"]
+
+[tool.pyright]
+# All the python stuff that needs to be linted
+include = [
+    "**/*.py",
+    "bin/color-scheme-hook",
+    "bin/dos2unix",
+    "bin/paperwork-tool",
+    "bin/split-m4b",
+    "bin/xtermbg",
+    "bin/zim-journal",
+]

@@ -57,12 +57,3 @@ jobs:
           echo "$PWD/.venv/bin" >> $GITHUB_PATH
       - run: pip install pygobject-stubs
       - uses: jakebailey/pyright-action@v1
-        with:
-          extra-args: |
-            "*.py"
-            bin/color-scheme-hook
-            bin/dos2unix
-            bin/paperwork-tool
-            bin/split-m4b
-            bin/xtermbg
-            bin/zim-journal
