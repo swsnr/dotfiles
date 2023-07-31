@@ -19,6 +19,7 @@ import json
 import logging
 import sys
 import re
+from collections.abc import Mapping
 from argparse import ArgumentParser, Namespace
 from datetime import date, datetime, timezone
 from pathlib import Path
@@ -42,7 +43,7 @@ class ColoredFormatter(logging.Formatter):
     _reset = "\x1b[0m"
     _format = "{message}"
 
-    FORMATS = {
+    FORMATS: Mapping[int, str] = {
         logging.DEBUG: _grey + _format + _reset,
         logging.INFO: _green + _format + _reset,
         logging.WARNING: _yellow + _format + _reset,
@@ -198,8 +199,7 @@ def import_file_with_labels_and_date(
 
 def action_export_with_date(args: Namespace) -> None:
     """Handle the 'export-with-date' action."""
-    directory = args.directory or Path(".")
-
+    directory = args.directory or Path.cwd()
     doc_ids = find_documents(args.query)
     docs_with_date = [(i, get_date_from_docid(i)) for i in doc_ids]
     for (doc_id, doc_date) in docs_with_date:
