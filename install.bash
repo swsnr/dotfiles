@@ -101,23 +101,6 @@ ln -fs -t ~/.ssh/known-hosts.d "${DIR}/ssh/known-hosts.d/"*
 ln -fs -t ~/.ssh/config.d "${DIR}/ssh/config.d/"*
 clean-recursively ~/.ssh/config.d ~/.ssh/known-hosts.d || true
 
-case "${HOSTNAME}" in
-*kastl*)
-    # On personal systems use 1password for SSH and commit signing
-    systemctl --user disable ssh-agent.service || true
-    ln -fs -t ~/.config/git "${DIR}/git/config.1password-signing"
-    # This file deliberately lies outside of "${DIR}/ssh/config.d" because we
-    # install all files from config.d above
-    ln -fs -t ~/.ssh/config.d "${DIR}/ssh/90-1password-ssh-agent"
-    ;;
-*)
-    # On other systems use a regular ssh-agent.  Note that this service does
-    # not activate in GNOME, because GNOME ships an SSH agent implementation as
-    # part of its keyring service.
-    systemctl --user enable ssh-agent.service
-    ;;
-esac
-
 # Scala configuration
 mkdir -p ~/.ammonite ~/.sbt/1.0/plugins/project
 ln -fs "${DIR}/scala/ammonite-predef.sc" ~/.ammonite/predef.sc
@@ -170,6 +153,9 @@ GNOME)
 
     # Disable kwallet in Gnome
     ln -fs "${DIR}/gnome/kwalletrc" ~/.config/kwalletrc
+    # Disable our SSH agent service; Gnome includes an SSH agent as part of its
+    # keyring service.
+    systemctl --user disable ssh-agent.service || true
 
     # Local gnome extensions
     mkdir -p ~/.local/share/gnome-shell/extensions
@@ -219,9 +205,18 @@ KDE)
         rm ~/.config/kwalletrc
     fi
 
+    # Synchronize KDE plasma environment with systemd's environment
+    # For some reason plasma does not inherit the systemd user environment
+    # properly, and thus has a wrong $PATH.  We add a little hack to synchronize
+    # both environments.
     mkdir -p ~/.config/plasma-workspace/env
     ln -fs "${DIR}/kde/systemd-fix-env.sh" ~/.config/plasma-workspace/env/systemd-fix-env.sh
+
+    # Configure KDE and its applications
     "${DIR}/kde/settings.py"
+
+    # Enable SSH agent service, because KDE doesn't include an agent
+    systemctl --user enable ssh-agent.service
     ;;
 *) ;;
 esac
@@ -266,3 +261,16 @@ if has flatpak; then
         --nofilesystem xdg-pictures \
         com.valvesoftware.Steam
 fi
+
+case "${HOSTNAME}" in
+*kastl*)
+    # On personal systems use 1password for SSH and commit signing, so disable
+    # the SSH agent service and configure SSH to talk to 1password instead.
+    systemctl --user disable ssh-agent.service || true
+    ln -fs -t ~/.config/git "${DIR}/git/config.1password-signing"
+    # This file deliberately lies outside of "${DIR}/ssh/config.d" because we
+    # install all files from config.d above
+    ln -fs -t ~/.ssh/config.d "${DIR}/ssh/90-1password-ssh-agent"
+    ;;
+*) ;;
+esac
