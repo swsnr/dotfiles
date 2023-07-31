@@ -49,5 +49,8 @@ def _interactive_hook() -> None:
 
     _configure_readline()
 
-sys.__interactivehook__ = _interactive_hook
+
+# __interactivehook__ only exists in interactive sessions, and thus has no type
+# stubs, so silence the type checker here.
+sys.__interactivehook__ = _interactive_hook  # type: ignore[reportGeneralTypeIssues]
 del _interactive_hook

@@ -61,7 +61,9 @@ def get_session_locale(category: LocaleCategory) -> str:
                                      "org.gnome.SessionManager",
                                      "/org/gnome/SessionManager",
                                      "org.gnome.SessionManager")
-    return session.GetLocale("(i)", category)
+    # GetLocale is dynamically looked up on the DBus interface introspection,
+    # so the type checker is unable to check this.
+    return session.GetLocale("(i)", category)  # type: ignore[reportGeneralTypeIssues]
 
 
 ISO_FRIDAY = 5
