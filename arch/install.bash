@@ -661,6 +661,7 @@ case "${HOSTNAME}" in
         lnav     # Log file analyzer
 
         # Additional applications
+        ksnip              # Annotate screenshots
         drawio-desktop     # Diagram drawing
         keepassxc          # Keepass
         evolution-ews      # Exchange for evolution
