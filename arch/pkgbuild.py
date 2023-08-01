@@ -36,6 +36,10 @@ os.environ["PACKAGER"] = PACKAGER
 os.environ["GPGKEY"] = GPGKEY
 
 
+BACKUP_REPO = f"rclone:kastl:restic-{os.getlogin()}"
+BACKUP_TAG = "kastl-aur-repo"
+
+
 class Repo:
     """A package repository."""
 
@@ -191,13 +195,10 @@ def cleanup_repo(repo: Repo) -> None:
 
 def backup(repo: Repo) -> None:
     """Backup the entire repo."""
-    username = os.getlogin()
-    backup_repo = f"rclone:kastl:restic-{username}"
-    tag = "kastl-aur-repo"
-    run(["/usr/bin/restic", "-r", backup_repo, "backup", str(repo.directory),
-         "--tag", tag, "--exclude-caches"], check=True)
-    run(["/usr/bin/restic", "-r", backup_repo, "forget", "--keep-last", "3",
-         "--path", str(repo.directory), "--tag", tag, "--prune"], check=True)
+    run(["/usr/bin/restic", "-r", BACKUP_REPO, "backup", str(repo.directory),
+         "--tag", BACKUP_TAG, "--exclude-caches"], check=True)
+    run(["/usr/bin/restic", "-r", BACKUP_REPO, "forget", "--keep-last", "3",
+         "--path", str(repo.directory), "--tag", BACKUP_TAG, "--prune"], check=True)
 
 
 def _action_create_repo(repo: Repo, _args: argparse.Namespace) -> None:
@@ -219,6 +220,16 @@ def _action_create_repo(repo: Repo, _args: argparse.Namespace) -> None:
         check=True)
     # Create an empty database
     run(["/usr/bin/repo-add", "--sign", "--key", GPGKEY, str(repo.db)], check=True)
+
+
+def _action_restore(repo: Repo, args: argparse.Namespace) -> None:
+    """Restore the contents of the repository."""
+    restore = ["/usr/bin/restic", "-r", BACKUP_REPO, "restore",
+               "-t", BACKUP_TAG, "--path", str(repo.directory),
+               "--target", "/", "latest"]
+    if args.verbose:
+        restore.append("--verbose")
+    run(restore, check=True)
 
 
 def _action_aur_sync(repo: Repo, _args: argparse.Namespace) -> None:
@@ -283,6 +294,7 @@ def main() -> None:
         "create-repo",
         "aur-sync",
         "backup",
+        "restore",
         "update-repo",
         "cleanup",
         "build-pkgbuild",
@@ -294,6 +306,7 @@ def main() -> None:
         parsers[action].set_defaults(action_callback=globals()[f"_action_{name}"])
 
     parsers["build-pkgbuild"].add_argument("directory", type=Path)
+    parsers["restore"].add_argument("--verbose", action="store_true")
 
     args = parser.parse_args()
 
