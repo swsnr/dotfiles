@@ -60,5 +60,5 @@ jobs:
           python -m venv .venv
           source .venv/bin/activate
           echo "$PWD/.venv/bin" >> $GITHUB_PATH
-      - run: pip install pycairo PyGObject pygobject-stubs
+      - run: pip install -r requirements.txt
       - uses: jakebailey/pyright-action@v1
