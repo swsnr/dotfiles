@@ -200,6 +200,27 @@ def backup(repo: Repo) -> None:
          "--path", str(repo.directory), "--tag", tag, "--prune"], check=True)
 
 
+def _action_create_repo(repo: Repo, _args: argparse.Namespace) -> None:
+    """Create the initial empty repository."""
+    if repo.db.exists():
+        msg = f"Repository already exists at {repo.db}"
+        raise ValueError(msg)
+
+    # Create the top-level repository directory
+    run(["/usr/bin/sudo", "install", "-m755", "-d", str(repo.directory.parent)],
+        check=True)
+    # Create a btrfs subvolume for the repository directory itself
+    run(["/usr/bin/sudo", "btrfs", "subvolume", "create", str(repo.directory)],
+        check=True)
+    # Make myself owner of the repo directory
+    uid = os.getuid()
+    gid = os.getgid()
+    run(["/usr/bin/sudo", "chown", "-R", f"{uid}:{gid}", str(repo.directory)],
+        check=True)
+    # Create an empty database
+    run(["/usr/bin/repo-add", "--sign", "--key", GPGKEY, str(repo.db)], check=True)
+
+
 def _action_aur_sync(repo: Repo, _args: argparse.Namespace) -> None:
     """Sync all desired AUR packages."""
     cleanup_repo(repo)
@@ -259,6 +280,7 @@ def main() -> None:
     subparsers = parser.add_subparsers(required=True)
 
     actions = [
+        "create-repo",
         "aur-sync",
         "backup",
         "update-repo",
