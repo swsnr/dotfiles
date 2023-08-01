@@ -37,7 +37,7 @@ os.environ["GPGKEY"] = GPGKEY
 
 
 BACKUP_REPO = f"rclone:kastl:restic-{os.getlogin()}"
-BACKUP_TAG = "kastl-aur-repo"
+BACKUP_TAG = "kastl-swsnr-repo"
 
 
 class Repo:
