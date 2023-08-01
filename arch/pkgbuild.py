@@ -75,6 +75,7 @@ AUR_PACKAGES: list[str] = [
 #: Packages to remove from the repository
 PACKAGES_TO_REMOVE: Set[str] = {
     "cargo-vet",
+    "rocketchat-client-bin",
 }
 
 class regex_in(str): # noqa: N801,SLOT000
@@ -100,7 +101,8 @@ match regex_in(gethostname()):
         AUR_PACKAGES.extend([
             "drawio-desktop",
             "python2",
-            "rocketchat-client-bin",
+            # Currently patched to use Electron 22
+            # "rocketchat-desktop",
         ])
 
 

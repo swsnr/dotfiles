@@ -141,11 +141,12 @@ ln -fs "${DIR}/backup/linux.exclude" ~/.config/restic/linux.exclude
 ln -fs "${DIR}/latex/latexmkrc" ~/.config/latexmk/latexmkrc
 ln -fs "${DIR}/misc/XCompose" ~/.XCompose
 ln -fs "${DIR}/misc/electron-flags.conf" ~/.config/electron-flags.conf
+ln -fs "${DIR}/misc/electron-flags.conf" ~/.config/electron22-flags.conf
 ln -fs "${DIR}/misc/electron-flags.conf" ~/.config/electron24-flags.conf
 ln -fs "${DIR}/misc/gamemode.ini" ~/.config/gamemode.ini
 ln -fs "${DIR}/misc/zim-style.conf" ~/.config/zim/style.conf
 # Remove outdated electron flags
-rm -f ~/.config/electron{19,21,22,23}-flags.conf
+rm -f ~/.config/electron{19,21,23}-flags.conf
 
 case "${XDG_CURRENT_DESKTOP:-}" in
 GNOME)
