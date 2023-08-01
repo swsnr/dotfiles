@@ -60,6 +60,34 @@ def log(msg: str) -> None:
     print(msg, flush=True)  # noqa: T201
 
 
+def set_helix_theme(update_lock: GlobalLock, theme: str) -> None:
+    """Set the Helix color theme."""
+    log(f"Setting helix color theme {theme}")
+    # Link the appropriate Helix theme
+    config_dir = Path(GLib.get_user_config_dir()) / "helix"
+    theme_file = config_dir / "themes" / "swsnr-light-dark.toml"
+    theme_definition = (Path(
+        "/usr/lib/helix/runtime/themes") / theme).with_suffix(".toml")
+    log(f"Linking {theme_file} to {theme_definition}")
+    with update_lock.acquire():
+        theme_file.unlink(missing_ok=True)
+        theme_file.symlink_to(theme_definition)
+        log("Refreshing configuration of all running helix processes")
+        run(["/usr/bin/pkill", "-USR1", "helix"])
+
+
+def set_legacy_gtk_theme(scheme: str) -> None:
+    """Set a legacy Gtk theme appropriate for the given `scheme`."""
+    settings = Gio.Settings.new("org.gnome.desktop.interface")
+    if scheme == "prefer-dark":
+        log("Setting gtk-theme to Adwaita-dark")
+        settings.set_string("gtk-theme", "Adwaita-dark")
+    else:
+        log("Setting gtk-theme back to default")
+        settings.reset("gtk-theme")
+
+
+
 def update_color_scheme(update_lock: GlobalLock, scheme: str) -> None:
     """Update color scheme to the given `scheme`.
 
@@ -69,18 +97,8 @@ def update_color_scheme(update_lock: GlobalLock, scheme: str) -> None:
     helix_theme = "onelight"
     if scheme == "prefer-dark":
         helix_theme = "onedark"
-    log(f"Using helix color theme {helix_theme} for Gnome color scheme {scheme}")
-    # Link the appropriate Helix theme
-    config_dir = Path(GLib.get_user_config_dir()) / "helix"
-    theme_file = config_dir / "themes" / "swsnr-light-dark.toml"
-    theme_definition = (Path(
-        "/usr/lib/helix/runtime/themes") / helix_theme).with_suffix(".toml")
-    log(f"Linking {theme_file} to {theme_definition}")
-    with update_lock.acquire():
-        theme_file.unlink(missing_ok=True)
-        theme_file.symlink_to(theme_definition)
-        log("Refreshing configuration of all running helix processes")
-        run(["/usr/bin/pkill", "-USR1", "helix"])
+    set_helix_theme(update_lock, helix_theme)
+    set_legacy_gtk_theme(scheme)
 
 
 def handle_settings_signal(
