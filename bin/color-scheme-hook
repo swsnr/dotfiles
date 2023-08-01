@@ -24,42 +24,43 @@ import contextlib
 import fcntl
 from pathlib import Path
 from subprocess import run
-from typing import Never
+from typing import Never, IO
+from collections.abc import Iterator
 from contextlib import contextmanager
+from functools import partial
 from threading import Lock
 
 from gi.repository import Gio, GLib
 
 
-RUNTIME_DIR = Path(GLib.get_user_runtime_dir())
-LOCK_FILE = RUNTIME_DIR / "swsnr-dotfiles-color-scheme-hook.lock"
-LOCK_FILE_OBJ = open(LOCK_FILE, mode="w")
-INTERNAL_LOCK = Lock()
+class GlobalLock:
+    """A system-wide global lock around a lock file."""
+
+    def __init__(self: "GlobalLock", lock_file: IO) -> None:
+        """Initialize a global lock with the given lock file."""
+        self._internal_lock = Lock()
+        self._lock_file = lock_file
+
+    @contextmanager
+    def acquire(self: "GlobalLock") -> Iterator[None]:
+        """Acquire this global lock as a context manager."""
+        # First acquire an internal lock to make sure that only on thread locks the
+        # global lock file; since file locks are process-wide we might otherwise
+        # deadlock ourselves.
+        with self._internal_lock:
+            try:
+                fcntl.flock(self._lock_file, fcntl.LOCK_EX)
+                yield
+            finally:
+                fcntl.flock(self._lock_file, fcntl.LOCK_UN)
 
 
 def log(msg: str) -> None:
     """Log the given message to standard output."""
-    print(msg, flush=True)
+    print(msg, flush=True)  # noqa: T201
 
 
-@contextmanager
-def globally_lock_color_scheme_update():
-    """Acquire the global color scheme lock for a process.
-
-    This lock guards against concurrent instances of this script.
-    """
-    # First acquire an internal lock to make sure that only on thread locks the
-    # global lock file; since file locks are process-wide we might otherwise
-    # deadlock ourselves.
-    with INTERNAL_LOCK:
-        try:
-            fcntl.flock(LOCK_FILE_OBJ, fcntl.LOCK_EX)
-            yield
-        finally:
-            fcntl.flock(LOCK_FILE_OBJ, fcntl.LOCK_UN)
-
-
-def update_color_scheme(scheme: str) -> None:
+def update_color_scheme(update_lock: GlobalLock, scheme: str) -> None:
     """Update color scheme to the given `scheme`.
 
     Update the Helix color theme file, and reload configuration of all running
@@ -75,7 +76,7 @@ def update_color_scheme(scheme: str) -> None:
     theme_definition = (Path(
         "/usr/lib/helix/runtime/themes") / helix_theme).with_suffix(".toml")
     log(f"Linking {theme_file} to {theme_definition}")
-    with globally_lock_color_scheme_update():
+    with update_lock.acquire():
         theme_file.unlink(missing_ok=True)
         theme_file.symlink_to(theme_definition)
         log("Refreshing configuration of all running helix processes")
@@ -83,6 +84,7 @@ def update_color_scheme(scheme: str) -> None:
 
 
 def handle_settings_signal(
+        update_lock: GlobalLock,
         _settings: Never, _sender: str, signal: str, args: GLib.Variant) -> None:
     """Handle any signal from the settings portal.
 
@@ -92,28 +94,35 @@ def handle_settings_signal(
     if signal == "SettingChanged":
         namespace, key, value = args.unpack()
         if namespace == "org.gnome.desktop.interface" and key == "color-scheme":
-            update_color_scheme(value)
+            update_color_scheme(update_lock, value)
 
 
-def set_initial_color_scheme(settings: Gio.DBusProxy) -> None:
+def set_initial_color_scheme(
+        update_lock: GlobalLock, settings: Gio.DBusProxy) -> None:
     """Set color scheme initially."""
-    color_scheme = settings.Read("(ss)", "org.gnome.desktop.interface", "color-scheme")
-    update_color_scheme(color_scheme)
+    color_scheme = settings.Read(  # type: ignore[reportGeneralTypeIssues]
+        "(ss)", "org.gnome.desktop.interface", "color-scheme")
+    update_color_scheme(update_lock, color_scheme)
 
 
 def main() -> None:
     """Run this application."""
-    loop = GLib.MainLoop()
-    bus = Gio.bus_get_sync(Gio.BusType.SESSION, None)
-    settings = Gio.DBusProxy.new_sync(
-        bus, Gio.DBusProxyFlags.DO_NOT_LOAD_PROPERTIES,
-        None,
-        "org.freedesktop.portal.Desktop",
-        "/org/freedesktop/portal/desktop",
-        "org.freedesktop.portal.Settings", None)
-    settings.connect("g_signal", handle_settings_signal)
-    GLib.timeout_add(0, lambda: set_initial_color_scheme(settings))
-    loop.run()
+    runtime_dir = Path(GLib.get_user_runtime_dir())
+    lock_file = runtime_dir / "swsnr-dotfiles-color-scheme-hook.lock"
+
+    with lock_file.open("w") as lock_fd:
+        update_lock = GlobalLock(lock_fd)
+        loop = GLib.MainLoop()
+        bus = Gio.bus_get_sync(Gio.BusType.SESSION, None)
+        settings = Gio.DBusProxy.new_sync(
+            bus, Gio.DBusProxyFlags.DO_NOT_LOAD_PROPERTIES,
+            None,
+            "org.freedesktop.portal.Desktop",
+            "/org/freedesktop/portal/desktop",
+            "org.freedesktop.portal.Settings", None)
+        settings.connect("g_signal", partial(handle_settings_signal, update_lock))
+        GLib.timeout_add(0, lambda: set_initial_color_scheme(update_lock, settings))
+        loop.run()
 
 
 if __name__ == "__main__":
