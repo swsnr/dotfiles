@@ -648,6 +648,7 @@ case "${HOSTNAME}" in
         skopeo         # Container registory tool
         sbt            # Scala build tool
         glab           # Gitlab CLI
+        pnpm           # JS package manager
 
         # VPN
         networkmanager-vpnc
