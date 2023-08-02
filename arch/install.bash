@@ -390,16 +390,17 @@ GNOME)
         gnome-control-center
         gnome-tweaks
         gnome-backgrounds
-        gnome-terminal # Backup terminal, in case I mess up wezterm
-        yelp           # Online help system
-        nautilus       # File manager
-        sushi          # Previewer for nautilus
-        evince         # Document viewer
-        eog            # Image viewer
-        simple-scan    # Scanning
-        seahorse       # Gnome keyring manager
-        gnome-firmware # Manage firmware with Gnome
-        qalculate-gtk  # Scientific desktop calculator w/ unit conversion and search provider
+        gnome-themes-extra # Adwaita dark, for dark mode in Gtk3 applications
+        gnome-terminal     # Backup terminal, in case I mess up wezterm
+        yelp               # Online help system
+        nautilus           # File manager
+        sushi              # Previewer for nautilus
+        evince             # Document viewer
+        eog                # Image viewer
+        simple-scan        # Scanning
+        seahorse           # Gnome keyring manager
+        gnome-firmware     # Manage firmware with Gnome
+        qalculate-gtk      # Scientific desktop calculator w/ unit conversion and search provider
 
         # Gnome extensions and tools
         gnome-shell-extension-caffeine     # Inhibit suspend
