@@ -105,8 +105,7 @@ match regex_in(gethostname()):
         AUR_PACKAGES.extend([
             "drawio-desktop",
             "python2",
-            # Currently patched to use Electron 22
-            # "rocketchat-desktop",
+            "rocketchat-desktop",
         ])
 
 
