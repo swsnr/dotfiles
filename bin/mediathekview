@@ -1,0 +1,71 @@
+#!/usr/bin/env python3
+# Copyright Sebastian Wiesner <sebastian@swsnr.de>
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may not
+# use this file except in compliance with the License. You may obtain a copy of
+# the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations under
+# the License.
+
+
+"""Run mediathekview with scaling appropriate for the primary monitor."""
+
+import os
+import sys
+from contextlib import suppress, closing
+from gi.repository import Gio
+
+
+def get_primary_scale(bus: Gio.DBusConnection) -> float:
+    """Get the scale of the primary monitor.
+
+    Obtain current display configuration from the given dbus connection.
+    """
+    flags = Gio.DBusProxyFlags.DO_NOT_LOAD_PROPERTIES | \
+            Gio.DBusProxyFlags.DO_NOT_CONNECT_SIGNALS
+    # See https://gitlab.gnome.org/GNOME/mutter/-/blob/main/data/dbus-interfaces/org.gnome.Mutter.DisplayConfig.xml
+    # for this interface
+    display_config = Gio.DBusProxy.new_sync(
+        bus, flags, None, "org.gnome.Mutter.DisplayConfig",
+        "/org/gnome/Mutter/DisplayConfig", "org.gnome.Mutter.DisplayConfig")
+    state = display_config.GetCurrentState()  # type: ignore[reportGeneralTypeIssues]
+    logical_monitors = state[2]
+    for logical_monitor in logical_monitors:
+        _x, _y, scale, _transform, primary, _monitors, _properties = logical_monitor
+        if primary:
+            return scale
+
+    msg = "Could not find primary monitor"
+    raise LookupError(msg)
+
+
+def main() -> None:
+    """Run mediathekview with proper scaling.
+
+    Inspect Gnome's display configuration and obtain the UI scale on the primary
+    monitor.  Then
+    """
+    with closing(Gio.bus_get_sync(Gio.BusType.SESSION)) as bus:
+        scale = get_primary_scale(bus)
+
+    # Start mediathekview outside the with block above, to make sure
+    # the bus connection is closed clean before replacing the current process.
+    command = ["/usr/bin/mediathekview"] + sys.argv[1:]
+    env = dict(os.environ)
+    if scale != 1:
+        tool_options = env.get("JAVA_TOOL_OPTIONS", "")
+        tool_options += " -Dsun.java2d.uiScale=2"
+        env["JAVA_TOOL_OPTIONS"] = tool_options
+    command.extend(sys.argv[1:])
+    os.execve(command[0], command, env)
+
+
+if __name__ == "__main__":
+    with suppress(KeyboardInterrupt):
+        main()

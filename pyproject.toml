@@ -2,7 +2,6 @@
 # Select all rules by default, and selectively disable things I don't need
 select = ["ALL"]
 ignore = [
-    "S603", # A stupid rule; we do in fact absolutely want to use shell=False everywhere
     "I001", # Sorted imports are just nitpicking.
     "SIM300", # Allow yoda conditions; there's no point in forbidding these
 
@@ -14,6 +13,12 @@ ignore = [
     # Ignore incompatible rules
     'D203', # D211 instead
     'D213', # D212 instead.
+
+    # These are stupid rules; we definitely do not want to use a shell to start processes
+    # unless there's a very good reason.
+    "S603",
+    "S606",
+
 ]
 
 # All the python stuff that needs to be linted
@@ -21,6 +26,7 @@ include = [
     "**/*.py",
     "bin/color-scheme-hook",
     "bin/dos2unix",
+    "bin/mediathekview",
     "bin/paperwork-tool",
     "bin/split-m4b",
     "bin/xtermbg",
@@ -40,6 +46,7 @@ include = [
     "**/*.py",
     "bin/color-scheme-hook",
     "bin/dos2unix",
+    "bin/mediathekview",
     "bin/paperwork-tool",
     "bin/split-m4b",
     "bin/xtermbg",
