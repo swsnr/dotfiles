@@ -3,7 +3,9 @@ Description=Personal color scheme hook
 
 [Service]
 Type=simple
-ExecStart=%h/.local/bin/color-scheme-hook
+# Search executable in $HOME
+ExecSearchPath=%h/.local/bin:/usr/local/bin:/usr/bin
+ExecStart=color-scheme-hook
 
 [Install]
 WantedBy=graphical-session.target

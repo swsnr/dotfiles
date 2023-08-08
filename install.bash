@@ -67,9 +67,12 @@ done
 # Install user services to local systemd directory
 mkdir -p ~/.local/share/systemd/user
 ln -fs -t ~/.local/share/systemd/user "${DIR}/systemd/ssh-agent.service"
-ln -fs -t ~/.local/share/systemd/user "${DIR}/systemd/color-scheme-hook.service"
+ln -fs -t ~/.local/share/systemd/user "${DIR}/systemd/swsnr-color-scheme-hook.service"
+# Remove old services
+rm -f ~/.config/systemd/user/color-scheme-hook.service
+# Reload daemon and enable relevant services
 systemctl --user daemon-reload
-systemctl --user enable color-scheme-hook.service
+systemctl --user enable swsnr-color-scheme-hook.service
 
 # Terminal emulator
 mkdir -p ~/.config/wezterm/colors
