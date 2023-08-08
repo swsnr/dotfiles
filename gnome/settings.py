@@ -174,6 +174,48 @@ SETTINGS = {
         # Make folders expandable in list view
         "use-tree-view": True,
     },
+
+    "org.gnome.evolution": {
+       "disabled-eplugins": [
+            # This is not the 90s anymore
+            "org.gnome.evolution.plugin.preferPlain",
+            # I don't use templates and custom headers
+            "org.gnome.evolution.plugin.templates",
+            "org.gnome.evolution.email-custom-header",
+            # Don't manage my addressbook automatically
+            "org.gnome.evolution.bbdb",
+            # I don't publish my calendar
+            "org.gnome.evolution.calendar.publish",
+        ],
+    },
+    "org.gnome.evolution.shell": {
+        # Keep the menubar visible; the standard actions are somewhat basic.
+        "menubar-visible": True,
+    },
+    "org.gnome.evolution.calendar": {
+        # Show timezone input when creating calender entries.  I often have
+        # to make entries in UTC time, and it's simpler to directly select UTC.
+        "editor-show-timezone": True,
+        # Don't shorten appointments automatically
+        "shorten-time": 0,
+        # Proper time
+        "use-24hour-format": True,
+    },
+    "org.gnome.evolution.plugin.attachment-reminder": {
+        # Tune marker words for attachments (I write German and English).
+        "attachment-reminder-clues": [
+            "Anhang",
+            "Anlage",
+            "Beilage",
+            "angehängt",
+            "anhängen",
+            "beigelegt",
+            "beigefügt",
+            "attachment",
+            "attached",
+        ],
+    },
+
     "org.gnome.software": {
         # Don't educate me Gnome
         "show-nonfree-ui": False,
@@ -181,6 +223,7 @@ SETTINGS = {
         # I'll handle this myself
         "enable-repos-dialog": False,
     },
+
     "org.gnome.Epiphany": {
         # Adjust search engines: Remove bing, and add startpage as default
         # search engine
