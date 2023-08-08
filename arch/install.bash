@@ -122,16 +122,17 @@ packages_to_install=(
     smartmontools   # Disk monitoring
 
     # Networking & security
-    networkmanager # Standard desktop network tool
-    firewalld      # Firewall
-    avahi          # DNS-SD for CUPS, only for service-discovery (name resolution is done by resolved)
-    sequoia-sq     # Sane GPG tooling
-    acme.sh        # ACME/Letsencrypt client
-    xh             # HTTP requests on the command line
-    rsync          # Remote copy and syncing
-    rclone         # rsync for clouds
-    yt-dlp         # youtube-dl with extra features
-    wol            # Wake up systems on LAN
+    networkmanager       # Standard desktop network tool
+    nm-connection-editor # Advanced connection settings for network manager
+    firewalld            # Firewall
+    avahi                # DNS-SD for CUPS, only for service-discovery (name resolution is done by resolved)
+    sequoia-sq           # Sane GPG tooling
+    acme.sh              # ACME/Letsencrypt client
+    xh                   # HTTP requests on the command line
+    rsync                # Remote copy and syncing
+    rclone               # rsync for clouds
+    yt-dlp               # youtube-dl with extra features
+    wol                  # Wake up systems on LAN
 
     # Cloud tools
     hcloud # CLI for Hetzner cloud
