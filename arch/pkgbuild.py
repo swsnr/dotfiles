@@ -285,6 +285,11 @@ def _action_cleanup(repo: Repo, _args: argparse.Namespace) -> None:
     cleanup_repo(repo)
 
 
+def _action_remove_packages(repo: Repo, args: argparse.Namespace) -> None:
+    """Remove packages specified given on command line."""
+    remove_packages(repo, args.packages)
+
+
 def main() -> None:
     """Run this program."""
     parser = ArgumentParser()
@@ -298,6 +303,7 @@ def main() -> None:
         "update-repo",
         "cleanup",
         "build-pkgbuild",
+        "remove-packages",
     ]
     parsers: dict[str, ArgumentParser] = {}
     for action in actions:
@@ -305,6 +311,7 @@ def main() -> None:
         name = action.replace("-", "_")
         parsers[action].set_defaults(action_callback=globals()[f"_action_{name}"])
 
+    parsers["remove-packages"].add_argument("packages", nargs="+")
     parsers["build-pkgbuild"].add_argument("directory", type=Path)
     parsers["restore"].add_argument("--verbose", action="store_true")
 
