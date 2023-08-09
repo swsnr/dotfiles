@@ -105,6 +105,7 @@ match regex_in(gethostname()):
         AUR_PACKAGES.extend([
             "drawio-desktop",
             "python2",
+            "fnm",
             "rocketchat-desktop",
         ])
 

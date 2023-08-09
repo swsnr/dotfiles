@@ -189,7 +189,6 @@ packages_to_install=(
     shellcheck    # Lint bash code
     shfmt         # Format bash code
     frum          # Fast Ruby version manager
-    fnm           # Fast node version manager
     ruff          # Fast python linter
     pyright       # Language server for Python
     stylua        # Lua code formatter
@@ -649,6 +648,7 @@ case "${HOSTNAME}" in
         skopeo         # Container registory tool
         sbt            # Scala build tool
         glab           # Gitlab CLI
+        fnm            # Fast node version manager
         pnpm           # JS package manager
 
         # VPN
