@@ -75,7 +75,7 @@ def luminance(r: float, g: float, b: float) -> float:
 
 LIGHT_LUMINANCE_THRESHOLD = 128
 
-ColorTheme = Literal["light"] | Literal["dark"]
+ColorTheme = Literal["light", "dark"]
 
 def theme(r: float, g: float, b: float) -> ColorTheme:
     """Derive desired color theme from the given RGB color.

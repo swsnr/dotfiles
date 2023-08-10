@@ -65,10 +65,10 @@ def run_paperwork_raw(command: list[str]) -> CompletedProcess[str]:
     else:
         full_command = ["paperwork-json"]
     full_command.extend(command)
-    LOG.debug(f"Running command {full_command}")
+    LOG.debug("Running command %s", full_command)
     child = run(full_command, stdout=PIPE, text=True)
-    LOG.debug(f"Command {full_command} exited with {child.returncode} and "
-        f"output {child.stdout!r}")
+    LOG.debug("Command %s exited with %s and output %r",
+        full_command, child.returncode, child.stdout)
     return child
 
 
@@ -122,9 +122,10 @@ def guess_date_from_filename(path: Path) -> date:
 def get_pdf_creation_date(path: Path) -> date:
     """Extract the creation date from the metadata of a PDF file at `path`."""
     command = ["pdfinfo", "-isodates", str(path)]
-    LOG.debug(f"Running {command}")
+    LOG.debug("Running %s", command)
     result = run(command, capture_output=True, text=True)
-    LOG.debug(f"Command {command} finished with exit code {result.returncode}")
+    LOG.debug("Command %s finished with exit code %s",
+        command, result.returncode)
     if result.returncode != 0:
         message = f"{path} may not be a PDF file: {result.stderr}"
         raise ValueError(message)
@@ -174,26 +175,27 @@ def import_file_with_labels_and_date(
 
     Return `True` if the file was imported, `False` otherwise.
     """
-    LOG.info(f"Importing {file} with date {docdate} and labels {labels}")
+    LOG.info("Importing %s with date %s and labels %s",
+        file, docdate, labels)
     import_result = cast(ImportResult, run_paperwork(["import", str(file.absolute())]))
     if import_result["ignored"]:
-        LOG.warning(f"{file} ignored, already imported?")
+        LOG.warning("%s ignored, already imported?", file)
         return False
 
     docid = import_result["new_docs"][0]
-    LOG.debug(f"Document {docid} imported from {file}")
+    LOG.debug("Document %s imported from %s", docid, file)
     guessed_labels = get_labels(docid)
-    LOG.debug(f"Document {docid} imported with labels {guessed_labels}")
+    LOG.debug("Document %s imported with labels %s", docid, guessed_labels)
     for label in (guessed_labels - labels):
-        LOG.debug(f"Removing undesired label {label} from document {docid}")
+        LOG.debug("Removing undesired label %s from document %s", label, docid)
         run_paperwork(["label", "remove", docid, label])
     for label in (labels - guessed_labels):
-        LOG.debug(f"Adding desired label {label} to document {docid}")
+        LOG.debug("Adding desired label %s to document %s", label, docid)
     new_id = "_".join([docdate.strftime("%Y%m%d"), docid.split("_", 1)[1]])
-    LOG.debug(
-        f"Renaming imported document {docid} to {new_id} to set date to {docdate}")
+    LOG.debug("Renaming imported document %s to %s to set date to %s",
+        docid, new_id, docdate)
     run_paperwork(["rename", docid, new_id])
-    LOG.info(f"File {file} successfully imported to {new_id}")
+    LOG.info("File %s successfully imported to %s", file, new_id)
     return True
 
 
@@ -205,7 +207,7 @@ def action_export_with_date(args: Namespace) -> None:
     for (doc_id, doc_date) in docs_with_date:
         name = f"{doc_date:%Y-%m-%d}-{args.basename}-{doc_id}.pdf"
         target = directory / name
-        LOG.info(f"Exporting {doc_id} to {target}")
+        LOG.info("Exporting %s to %s", doc_id, target)
         run_paperwork_raw(["export", "--filters", "unmodified_pdf",
                            "--out", str(target.absolute()), doc_id])
 
@@ -222,7 +224,7 @@ def action_import_with_date(args: Namespace) -> None:
     for (file, docdate) in files:
         was_imported = import_file_with_labels_and_date(file, docdate, set(args.label))
         if was_imported and args.trash:
-            LOG.info(f"Moving imported file {file} to trash")
+            LOG.info("Moving imported file %s to trash", file)
             run(["/usr/bin/gio", "trash", str(file)], check=True)
 
 
@@ -253,7 +255,7 @@ def main() -> None:
     stderr.setFormatter(ColoredFormatter())
     logging.getLogger().addHandler(stderr)
 
-    LOG.debug(f"Arguments: {args}")
+    LOG.debug("Arguments: %s", args)
 
     args.callback(args)
 

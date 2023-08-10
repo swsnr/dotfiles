@@ -19,6 +19,8 @@ ignore = [
     "S603",
     "S606",
 
+    # Let's keep the original names
+    "PYI025",
 ]
 
 # All the python stuff that needs to be linted
