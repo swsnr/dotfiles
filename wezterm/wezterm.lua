@@ -73,6 +73,13 @@ wezterm.on("window-config-reloaded", function(window, pane)
   if overrides.color_scheme ~= scheme then
     overrides.color_scheme = scheme
     window:set_config_overrides(overrides)
+
+    -- If we know about the inner fish process send it USR1 to refresh the theme
+    local fish_pid = pane:get_user_vars().fish_pid
+    if fish_pid then
+      wezterm.log_info("Sending USR1 to fish process", fish_pid)
+      wezterm.background_child_process({ "/usr/bin/kill", "-USR1", fish_pid })
+    end
   end
 end)
 

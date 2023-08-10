@@ -24,8 +24,23 @@ if status --is-interactive
     # of the entire desktop, since GDM starts the session through a login shell
     set -x LC_MESSAGES 'en_GB.utf8'
 
-    # Update colours (ls, bat, etc.)
+    # Update colours (ls, bat, etc.) immediately, and whenever we receive SIGUSR1
+    # This lets wezterm refresh the shell theme whenever the background color changes,
+    # i.e. when switching between light and dark modes.
     update-theme
+    function __update_theme_on_usr1 --on-signal USR1
+        update-theme
+    end
+    if not set -q SSH_CONNECTION
+        # Tell wezterm (or any other terminal which might be interested) about
+        # our PID Our wezterm configuration uses this PID to send USR1 to fish
+        # whenever the appearance changes, prompting our signal handler above to
+        # refresh color themes inside this fish instance.
+        #
+        # We only do this if we're not on an SSH connection; wezterm won't
+        # know how to deal with PIDs of remote processes.
+        wezterm_set_user_var fish_pid $fish_pid
+    end
 
     # Directory jumping
     if command -q zoxide
