@@ -21,6 +21,9 @@ ignore = [
 
     # Let's keep the original names
     "PYI025",
+
+    # Do not require future import for type annotations, we really rely on Python >=3.9 here.
+    "FA102",
 ]
 
 # All the python stuff that needs to be linted
