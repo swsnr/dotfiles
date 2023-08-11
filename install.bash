@@ -131,6 +131,7 @@ ln -fs -t ~/.gnupg "${DIR}/gnupg/"*.conf
 mkdir -p ~/.config/bat/themes
 ln -fs "${DIR}/bat/config" ~/.config/bat/config
 ln -fs -t ~/.config/bat/themes "${DIR}/bat/"*.tmTheme
+clean-recursively ~/.config/bat/themes
 has bat && bat cache --build
 
 # Python
