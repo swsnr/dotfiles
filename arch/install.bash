@@ -656,7 +656,8 @@ case "${HOSTNAME}" in
         networkmanager-openconnect
 
         # Security
-        rust-rage # Simple file encryption
+        rust-rage      # Simple file encryption
+        age-plugin-tpm # Rage plugin for TPM keys
 
         # Networking and debugging tools
         lftp     # Powerful FTP client

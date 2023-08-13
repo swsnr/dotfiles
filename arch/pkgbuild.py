@@ -61,6 +61,7 @@ class Repo:
 AUR_PACKAGES: list[str] = [
     "1password",
     "1password-cli",
+    "age-plugin-tpm",
     "aurutils",
     "firefox-gnome-search-provider",
     "frum",
