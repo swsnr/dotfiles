@@ -63,7 +63,6 @@ AUR_PACKAGES: list[str] = [
     "1password-cli",
     "aurutils",
     "firefox-gnome-search-provider",
-    "fnm",
     "frum",
     "git-gone",
     "gnome-search-providers-jetbrains",
