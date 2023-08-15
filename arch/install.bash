@@ -571,17 +571,17 @@ case "${HOSTNAME}" in
         scummvm     # For the classics
 
         # Apps
-        mediathekview      # Client for public broadcasting video libraries
-        digikam            # Photo management
-        paperwork          # Document management
-        tellico            # Collection manager
-        gnucash            # Finance manager
-        ausweisapp2        # eID app
-        chiaki-git         # Remote play client for PS4/5; use git for better controller support
-        whatsapp-for-linux # Whatsapp desktop client for Linux
-        ja2-stracciatella  # Modern runtime for the venerable JA2
-        threema-desktop    # Secure messaging
-        handbrake          # DVD and video encoding
+        mediathekview         # Client for public broadcasting video libraries
+        digikam               # Photo management
+        paperwork             # Document management
+        tellico               # Collection manager
+        gnucash               # Finance manager
+        ausweisapp2           # eID app
+        chiaki-git            # Remote play client for PS4/5; use git for better controller support
+        whatsapp-for-linux    # Whatsapp desktop client for Linux
+        ja2-stracciatella-git # Modern runtime for the venerable JA2
+        threema-desktop       # Secure messaging
+        handbrake             # DVD and video encoding
 
         syncthing # Network synchronization
     )
