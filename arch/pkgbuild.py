@@ -110,26 +110,6 @@ match regex_in(gethostname()):
         ])
 
 
-def bootstrap() -> None:
-    """Bootstrap aurutils and the aur repo."""
-    # TODO: Attempt to restore from backup automatically
-    # TODO: Run the equivalent of this code for bootstrapping aurutils:
-    # trap "rm -rf '$BDIR'" EXIT
-    # echo "Building aurutils in $BDIR"
-    # cd "$BDIR"
-    # git clone --depth=1 "https://aur.archlinux.org/aurutils.git"
-    # cd aurutils
-    # makepkg --noconfirm --nocheck -rsi --sign
-    # TODO: Run the equivalent of this code to create the repository subvolumne
-    # set -xeuo pipefail
-    # install -m755 -d /srv/pkgrepo
-    # btrfs subvolumne create "/srv/pkgrepo/aur"
-    # chown -R "${SUDO_UID}:$(id -g "$SUDO_UID")" "/srv/pkgrepo/aur"
-    # TODO: Create initial database with this:
-    # repo-add --sign --key "$GPGKEY" "$REPODB"
-    raise NotImplementedError
-
-
 def get_outdated_vcs_packages(repo: Repo, packages: list[str]) -> list[str]:
     """Get all outdated VCS packages from `packages`."""
     if not packages:
