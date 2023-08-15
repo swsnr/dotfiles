@@ -74,6 +74,7 @@ AUR_PACKAGES: list[str] = [
     "pacman-hook-kernel-install",
     "pacman-hook-reproducible-status",
     "pcsc-cyberjack",
+    "sioyek",
 ]
 
 #: Packages to remove from the repository

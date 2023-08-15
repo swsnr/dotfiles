@@ -227,6 +227,7 @@ packages_to_install=(
     pdfarranger             # Reorder pages in PDF files
     zim                     # Personal desktop wiki
     jabref                  # Bibliography
+    sioyek                  # PDF viewer for papers and technical documents
 
     # This should be an optional dependency of zim, but isn't currently, see https://bugs.archlinux.org/task/78946
     # zim: App indicator support
