@@ -76,6 +76,7 @@ packages_to_remove=(
     linux-zen
     gnome-shell-extension-dash-to-panel
     inkscape
+    zathura-pdf-mupdf
     zathura
 )
 
@@ -286,8 +287,6 @@ packages_to_install_optdeps=(
 
     # poppler: data files
     poppler-data
-    # zathura: PDF support
-    zathura-pdf-mupdf
 
     # zim: spell checking
     gtkspell3
