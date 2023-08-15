@@ -245,6 +245,9 @@ packages_to_install=(
     texlive-publishers
     biber
 
+    # Document & pdf tools
+    diffpdf # visual diff for PDF files
+
     # Spell-checking dictionaries, for nuspell, indirectly enchant, and then all
     # the way up the dependency chain to all Gnome apps.
     hunspell-de
