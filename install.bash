@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/bash
 # Copyright Sebastian Wiesner <sebastian@swsnr.de>
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -26,6 +26,9 @@ clean-recursively() {
 has() {
     command -v "$1" >&/dev/null
 }
+
+# Set up pre-commit hook for this repo
+ln -fs "../../pre-commit" "${DIR}/.git/hooks/pre-commit"
 
 # Binaries
 mkdir -p ~/.local/bin
