@@ -75,6 +75,8 @@ packages_to_remove=(
     kmymoney
     linux-zen
     gnome-shell-extension-dash-to-panel
+    inkscape
+    zathura
 )
 
 # Packages to mark as optional dependencies
@@ -220,13 +222,11 @@ packages_to_install=(
     signal-desktop          # Secure mobile chat
     vlc                     # The media player
     audacious               # Simple music player
-    inkscape                # Vector graphics
+    evolution               # Mail client & calendar (even on KDE, because kmail and korganizer have a bunch of issues
     xournalpp               # Hand-written notes and PDF annotations
-    zathura                 # Lightweight document viewer
     pdfarranger             # Reorder pages in PDF files
     zim                     # Personal desktop wiki
     jabref                  # Bibliography
-    evolution               # Mail client & calendar (even on KDE, because kmail and korganizer have a bunch of issues)
 
     # This should be an optional dependency of zim, but isn't currently, see https://bugs.archlinux.org/task/78946
     # zim: App indicator support
