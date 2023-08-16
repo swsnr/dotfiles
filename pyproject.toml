@@ -23,6 +23,7 @@ ignore = [
     "PYI025",
 
     # Do not require future import for type annotations, we really rely on Python >=3.9 here.
+    "FA100",
     "FA102",
 ]
 
