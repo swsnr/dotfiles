@@ -43,7 +43,7 @@ banner-message-text={message}"""
     target.write_text(content)
 
     print("dconf update") # noqa: T201
-    subprocess.run(["/usr/bin/dconf", "update"])
+    subprocess.run(["/usr/bin/dconf", "update"], check=True)
 
 if __name__ == "__main__":
     main()
