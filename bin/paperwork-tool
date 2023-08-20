@@ -23,7 +23,7 @@ from collections.abc import Mapping
 from argparse import ArgumentParser, Namespace
 from datetime import date, datetime, timezone
 from pathlib import Path
-from subprocess import CompletedProcess, run, PIPE
+from subprocess import CalledProcessError, CompletedProcess, run, PIPE
 from typing import Literal, TypedDict, cast
 from operator import itemgetter
 
@@ -123,12 +123,15 @@ def get_pdf_creation_date(path: Path) -> date:
     """Extract the creation date from the metadata of a PDF file at `path`."""
     command = ["pdfinfo", "-isodates", str(path)]
     LOG.debug("Running %s", command)
-    result = run(command, capture_output=True, text=True)
-    LOG.debug("Command %s finished with exit code %s",
-        command, result.returncode)
-    if result.returncode != 0:
-        message = f"{path} may not be a PDF file: {result.stderr}"
-        raise ValueError(message)
+    try:
+        result = run(command, capture_output=True, text=True, check=True)
+        LOG.debug("Command %s finished successfully", command)
+    except CalledProcessError as error:
+        LOG.exception("Command %s failed with exit code %s",
+            command, error.returncode)
+        message = f"{path} may not be a PDF file: {error.stderr}"
+        raise ValueError(message) from error
+
     for line in result.stdout.splitlines():
         if line.startswith("CreationDate:"):
             return date.fromisoformat(line.split(":", 1)[1].strip().split("T", 1)[0])
