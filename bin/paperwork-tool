@@ -66,7 +66,9 @@ def run_paperwork_raw(command: list[str]) -> CompletedProcess[str]:
         full_command = ["paperwork-json"]
     full_command.extend(command)
     LOG.debug("Running command %s", full_command)
-    child = run(full_command, stdout=PIPE, text=True)
+    # We want to let the caller decide what to do with the return code of the
+    # child process and thus deliberately don't use check=True here.
+    child = run(full_command, stdout=PIPE, text=True)  # noqa: PLW1510
     LOG.debug("Command %s exited with %s and output %r",
         full_command, child.returncode, child.stdout)
     return child

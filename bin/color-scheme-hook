@@ -74,7 +74,9 @@ def set_helix_theme(update_lock: GlobalLock, theme: str) -> None:
         theme_file.unlink(missing_ok=True)
         theme_file.symlink_to(theme_definition)
         log("Refreshing configuration of all running helix processes")
-        run(["/usr/bin/pkill", "-USR1", "helix"])
+        # pkill fails if there are no matching processes, but that's totally
+        # expected so we deliberately don't use check=True here.
+        run(["/usr/bin/pkill", "-USR1", "helix"])  # noqa: PLW1510
 
 
 def set_legacy_gtk_theme(theme: Optional[str]) -> None:
