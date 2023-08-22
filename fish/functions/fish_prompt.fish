@@ -53,14 +53,6 @@ function fish_prompt -d 'My personal prompt'
     # Time
     echo -sn ' at ' (set_color cyan) (date '+%H:%M') (set_color normal)
 
-    # Current kubectl context if there are multiple
-    if command -q kubectl
-        set -l contexts (kubectl config get-contexts -oname)
-        if [ 1 -lt (count $contexts) ]
-            echo -sn ' k8s:' (set_color cyan) (kubectl config current-context) (set_color normal)
-        end
-    end
-
     # Python virtualenv if any
     if set -q VIRTUAL_ENV
         printf ' %s%b%s%s' (set_color cyan) '\uf81f@' (realpath --relative-to=$PWD $VIRTUAL_ENV) (set_color normal)
