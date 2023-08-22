@@ -99,12 +99,9 @@ class Extension {
     l("enabled");
     if (this.indicator === null) {
       this.indicator = new SpaceTimesIndicator();
-      // Add the indicator to the end of the status area in the right box.
       Main.panel.addToStatusArea(
         `${Me.metadata.name} Indicator`,
         this.indicator,
-        -1,
-        "right"
       );
     }
   }
