@@ -389,6 +389,7 @@ GNOME)
         gnome-maps
         gnome-shell
         gnome-shell-extensions # Built-in shell extensions for Gnome
+        gnome-disk-utility
         gnome-system-monitor
         gnome-control-center
         gnome-tweaks
