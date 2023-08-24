@@ -19,6 +19,7 @@
 
 import sys
 import json
+from socket import gethostname
 from pathlib import Path
 
 from gi.repository import Gio, GLib
@@ -385,6 +386,11 @@ BINDINGS = {
         "binding": "<Super>p",
     },
 }
+
+# Override some settings for workstations
+if "RB" in gethostname():
+    SETTINGS["org.gnome.settings-daemon.plugins.power"] \
+        ["sleep-inactive-ac-type"] = "nothing"
 
 
 GlibValue = None | str | bool | int | list[str] | GLib.Variant
