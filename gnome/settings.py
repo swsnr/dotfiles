@@ -34,8 +34,9 @@ SETTINGS = {
 
     # Power settings
     "org.gnome.settings-daemon.plugins.power": {
-        # Do not suspend automatically when on AC power
-        "sleep-inactive-ac-type": "nothing",
+        # Suspend after 30 minutes of inactivity when on AC power
+        "sleep-inactive-ac-timeout": 1800,
+        "sleep-inactive-ac-type": "suspend",
         # On battery suspend after five minutes already
         "sleep-inactive-battery-timeout": 300,
         "sleep-inactive-battery-type": "suspend",
