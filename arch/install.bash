@@ -79,6 +79,9 @@ packages_to_remove=(
     zathura-pdf-mupdf
     zathura
     micro
+    # No longer maintained upstream, and removed from extra
+    qgnomeplatform-qt5
+    qgnomeplatform-qt6
 )
 
 # Packages to mark as optional dependencies
@@ -300,6 +303,10 @@ packages_to_install_optdeps=(
 
     # sonnet: spell checking (sonnet doesn't seem to support nuspell)
     hunspell
+
+    # Qt: wayland support
+    qt5-wayland
+    qt6-wayland
 )
 
 services=(
@@ -364,10 +371,6 @@ GNOME)
     )
 
     packages_to_install+=(
-        # Gnome infrastructure
-        # Gnome style for Qt apps
-        qgnomeplatform-qt5
-        qgnomeplatform-qt6
         # Multimedia codecs for gnome
         gst-libav       # Many additional codecs
         gstreamer-vaapi # Hardware video decoding for gstreamer
