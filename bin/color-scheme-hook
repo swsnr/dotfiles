@@ -45,9 +45,9 @@ class GlobalLock:
     @contextmanager
     def acquire(self: "GlobalLock") -> Iterator[None]:
         """Acquire this global lock as a context manager."""
-        # First acquire an internal lock to make sure that only on thread locks the
-        # global lock file; since file locks are process-wide we might otherwise
-        # deadlock ourselves.
+        # First acquire an internal lock to make sure that only one thread
+        # locks the global lock file; since file locks are process-wide we might
+        # otherwise deadlock ourselves.
         with self._internal_lock:
             try:
                 fcntl.flock(self._lock_file, fcntl.LOCK_EX)
