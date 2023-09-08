@@ -21,7 +21,7 @@ function prompt_battery -d 'Battery information for prompt'
     set -l battery_info_start_index
 
     for device in (upower -e)
-        set battery_info (string trim (upower -i $device))
+        set battery_info (string trim (env LC_NUMERIC=C upower -i $device))
         set battery_info_start_index (contains -i battery $battery_info)
         if test $status -eq 0
             set battery_info $battery_info[$battery_info_start_index..(count $battery_info)]
