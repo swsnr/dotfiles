@@ -227,7 +227,7 @@ KDE)
     "${DIR}/kde/settings.py"
 
     # Enable SSH agent service, because KDE doesn't include an agent
-    systemctl --user enable ssh-agent.service
+    systemctl --user enable ssh-agent.socket
     ;;
 *) ;;
 esac
