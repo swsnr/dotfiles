@@ -69,10 +69,9 @@ done
 
 # Install user services to local systemd directory
 mkdir -p ~/.local/share/systemd/user
-ln -fs -t ~/.local/share/systemd/user "${DIR}/systemd/ssh-agent.service"
 ln -fs -t ~/.local/share/systemd/user "${DIR}/systemd/swsnr-color-scheme-hook.service"
 # Remove old services
-rm -f ~/.config/systemd/user/color-scheme-hook.service
+rm -f ~/.config/systemd/user/{color-scheme-hook,ssh-agent}.service
 # Reload daemon and enable relevant services
 systemctl --user daemon-reload
 systemctl --user enable swsnr-color-scheme-hook.service
