@@ -164,7 +164,7 @@ packages_to_install=(
     fzf         # Fuzzy file finder for shells
     man-db      # Man page reader
     man-pages   # Linux manpagers
-    exa         # Better ls (with git support)
+    eza         # Better ls (with git support)
     vivid       # Creates themes for dircolors
     ripgrep     # Better grep
     ripgrep-all # ripgrep for all kinds of files

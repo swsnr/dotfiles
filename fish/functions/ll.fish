@@ -12,10 +12,10 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
-function ll --description 'List files verbosely'
-    if command -q exa
+function ll --wraps eza --description 'List files verbosely'
+    if command -q eza
         set args --long --git --icons
-        exa $args $argv
+        eza $args $argv
     else
         ls -l $argv
     end
