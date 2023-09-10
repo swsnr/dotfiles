@@ -82,6 +82,8 @@ packages_to_remove=(
     # No longer maintained upstream, and removed from extra
     qgnomeplatform-qt5
     qgnomeplatform-qt6
+    # Upstreamed to firefox package, see https://bugs.archlinux.org/task/68705
+    firefox-gnome-search-provider
 )
 
 # Packages to mark as optional dependencies
@@ -414,7 +416,6 @@ GNOME)
         gnome-shell-extension-nasa-apod    # APOD as desktop background
         gnome-shell-extension-appindicator # Systray for Gnome
         gnome-search-providers-jetbrains   # Jetbrains projects in search
-        firefox-gnome-search-provider      # Firefox bookmarks in search
     )
 
     packages_to_install_optdeps+=(

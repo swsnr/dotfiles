@@ -62,7 +62,6 @@ AUR_PACKAGES: list[str] = [
     "1password",
     "1password-cli",
     "aurutils",
-    "firefox-gnome-search-provider",
     "frum",
     "git-gone",
     "gnome-search-providers-jetbrains",
@@ -80,6 +79,8 @@ AUR_PACKAGES: list[str] = [
 PACKAGES_TO_REMOVE: Set[str] = {
     "cargo-vet",
     "rocketchat-client-bin",
+    # Upstreamed to firefox package, see https://bugs.archlinux.org/task/68705
+    "firefox-gnome-search-provider",
 }
 
 class regex_in(str): # noqa: N801,SLOT000
