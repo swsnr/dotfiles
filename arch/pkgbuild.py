@@ -15,10 +15,11 @@
 
 """Build AUR packages I use."""
 
-import argparse
+import sys
 import os
 import re
-from argparse import ArgumentParser
+import argparse
+from argparse import ArgumentParser, ArgumentError
 from collections.abc import Collection, Set
 from pathlib import Path
 from socket import gethostname
@@ -274,7 +275,10 @@ def _action_remove_packages(repo: Repo, args: argparse.Namespace) -> None:
 
 def main() -> None:
     """Run this program."""
-    parser = ArgumentParser()
+    parser = ArgumentParser(
+        description="Manage my custom repo of AUR and other packages.",
+        exit_on_error=False,
+    )
     subparsers = parser.add_subparsers(required=True)
 
     actions = [
@@ -297,7 +301,12 @@ def main() -> None:
     parsers["build-pkgbuild"].add_argument("directory", type=Path)
     parsers["restore"].add_argument("--verbose", action="store_true")
 
-    args = parser.parse_args()
+    try:
+        args = parser.parse_args()
+    except ArgumentError as error:
+        print(error, file=sys.stderr)  # noqa: T201
+        print(parser.format_help(), file=sys.stderr)  # noqa: T201
+        sys.exit(1)
 
     repo = Repo(Path("/srv/pkgrepo/swsnr/swsnr.db.tar.zst"))
     args.action_callback(repo, args)
