@@ -142,6 +142,7 @@ packages_to_install=(
     rclone               # rsync for clouds
     yt-dlp               # youtube-dl with extra features
     wol                  # Wake up systems on LAN
+    nmap                 # Port scanning and other network information
 
     # Cloud tools
     hcloud # CLI for Hetzner cloud
