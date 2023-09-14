@@ -60,7 +60,12 @@ packages_to_remove=(
 
 # Setup mirros and install packages
 # shellcheck disable=SC2154 # Prefix comes from termux
-ln -sf "${PREFIX}/etc/termux/mirrors/europe" "${PREFIX}/etc/termux/chosen_mirrors"
+MIRROR="${PREFIX}/etc/termux/mirrors/europe"
+if [[ -e "${MIRROR}" ]]; then
+    # /etc/termux sometimes doesn't exist on first bootstrap, so only install
+    # mirrors if they exist.
+    ln -sf "${MIRROR}" "${PREFIX}/etc/termux/chosen_mirrors"
+fi
 
 # Install nala if not yet there
 if ! has nala; then
