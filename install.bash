@@ -67,14 +67,17 @@ for file in bashrc bash_logout bash_profile; do
     ln -fs "${DIR}/bash/${file}" "${HOME}/.${file}"
 done
 
-# Install user services to local systemd directory
-mkdir -p ~/.local/share/systemd/user
-ln -fs -t ~/.local/share/systemd/user "${DIR}/systemd/swsnr-color-scheme-hook.service"
-# Remove old services
-rm -f ~/.config/systemd/user/{color-scheme-hook,ssh-agent}.service
-# Reload daemon and enable relevant services
-systemctl --user daemon-reload
-systemctl --user enable swsnr-color-scheme-hook.service
+# Termux has no systemd, so let's guard these services
+if has systemctl; then
+    # Install user services to local systemd directory
+    mkdir -p ~/.local/share/systemd/user
+    ln -fs -t ~/.local/share/systemd/user "${DIR}/systemd/swsnr-color-scheme-hook.service"
+    # Remove old services
+    rm -f ~/.config/systemd/user/{color-scheme-hook,ssh-agent}.service
+    # Reload daemon and enable relevant services
+    systemctl --user daemon-reload
+    systemctl --user enable swsnr-color-scheme-hook.service
+fi
 
 # Terminal emulator
 mkdir -p ~/.config/wezterm/colors
