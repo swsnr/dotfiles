@@ -585,7 +585,7 @@ case "${HOSTNAME}" in
         tellico               # Collection manager
         gnucash               # Finance manager
         ausweisapp2           # eID app
-        chiaki-git            # Remote play client for PS4/5; use git for better controller support
+        chiaki                # Remote play client for PS4/5
         whatsapp-for-linux    # Whatsapp desktop client for Linux
         ja2-stracciatella-git # Modern runtime for the venerable JA2
         threema-desktop       # Secure messaging

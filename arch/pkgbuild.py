@@ -82,6 +82,8 @@ PACKAGES_TO_REMOVE: Set[str] = {
     "rocketchat-client-bin",
     # Upstreamed to firefox package, see https://bugs.archlinux.org/task/68705
     "firefox-gnome-search-provider",
+    # Chiaki got released again
+    "chiaki-git",
 }
 
 class regex_in(str): # noqa: N801,SLOT000
@@ -97,7 +99,7 @@ match regex_in(gethostname()):
     case "kastl":
         AUR_PACKAGES.extend([
             "ausweisapp2",
-            "chiaki-git",
+            "chiaki",
             "gnome-shell-extension-gsconnect",
             "ja2-stracciatella",
             "threema-desktop",
