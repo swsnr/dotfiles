@@ -54,6 +54,10 @@ clean-recursively ~/.config/fish/functions ~/.config/fish/conf.d ~/.config/fish/
 # Fish plugins (per fisher scheme)
 ln -fs -t ~/.config/fish/conf.d "${DIR}"/fish/plugins/*/conf.d/*.fish
 ln -fs -t ~/.config/fish/functions "${DIR}"/fish/plugins/*/functions/*.fish
+if has broot; then
+    # Tell broot that its shell function is installed
+    broot --set-install-state installed
+fi
 
 # Remove profile.  I set up environment variables through systemd, so let's
 # clear profile files from distributions, etc. which mess up my $PATH.

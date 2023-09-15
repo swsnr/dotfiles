@@ -168,6 +168,7 @@ packages_to_install=(
     man-db      # Man page reader
     man-pages   # Linux manpagers
     eza         # Better ls (with git support)
+    broot       # Interactive tree & cd
     vivid       # Creates themes for dircolors
     ripgrep     # Better grep
     ripgrep-all # ripgrep for all kinds of files
