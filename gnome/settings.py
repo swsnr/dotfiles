@@ -60,9 +60,14 @@ SETTINGS = {
         "show-weekdate": True,
     },
     "org.gnome.desktop.input-sources": {
-        # compose:ralt: Set compose key to right alt key, for my moonlander layout
-        # numpad:mac: Always use numpad for nummeric keys, never for arrows and stuff
-        "xkb-options": ["compose:ralt", "numpad:mac"],
+        "xkb-options": [
+            # Set compose key to right alt key, for my moonlander layout
+            "compose:ralt",
+            # Always use numpad for nummeric keys, never for arrows and stuff
+            "numpad:mac",
+            # Use capslock as additional Ctrl key
+            "caps:ctrl_modifier",
+        ],
     },
     "org.gnome.desktop.interface": {
         # Themes and fonts
