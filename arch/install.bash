@@ -71,27 +71,10 @@ esac
 packages_to_remove_cascade=()
 
 # Packages to remove
-packages_to_remove=(
-    kmymoney
-    linux-zen
-    gnome-shell-extension-dash-to-panel
-    inkscape
-    zathura-pdf-mupdf
-    zathura
-    micro
-    # No longer maintained upstream, and removed from extra
-    qgnomeplatform-qt5
-    qgnomeplatform-qt6
-    # Upstreamed to firefox package, see https://bugs.archlinux.org/task/68705
-    firefox-gnome-search-provider
-)
+packages_to_remove=()
 
 # Packages to mark as optional dependencies
-packages_to_mark_as_deps=(
-    hunspell
-    adobe-source-code-pro-fonts # Dependency of Gnome
-    curl
-)
+packages_to_mark_as_deps=()
 
 packages_to_install=(
     # Basic packages & system tools
@@ -339,12 +322,7 @@ services=(
     pcscd.socket                  # Smartcards, mostly eID
 )
 
-services_to_disable=(
-    auditd.service
-    apparmor.service
-    sddm.service
-    fwupd-refresh.timer # Consistently fails for reasons…
-)
+services_to_disable=()
 
 # Flatpaks
 flatpaks=()
