@@ -385,7 +385,7 @@ GNOME)
         nautilus           # File manager
         sushi              # Previewer for nautilus
         evince             # Document viewer
-        eog                # Image viewer
+        eog                # Image viewer (TODO: Replace with loupe)
         simple-scan        # Scanning
         seahorse           # Gnome keyring manager
         gnome-firmware     # Manage firmware with Gnome
