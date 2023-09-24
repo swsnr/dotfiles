@@ -132,6 +132,7 @@ packages_to_install=(
 
     # Arch tools
     etc-update                      # Deal with pacdiff/pacsave files
+    reflector                       # Keep mirror list updated
     arch-repro-status               # Manually check reproducibility of installed packages
     pacman-hook-reproducible-status # Check reproducibility of packages in pacman transactions
 
@@ -306,6 +307,9 @@ services=(
     systemd-homed.service       # homed for user management and home areas
     systemd-oomd.service        # Userspace OOM killer
     systemd-timesyncd.service   # Time sync
+
+    # Maintenance services
+    reflector.timer # Regularly update the mirrorlist.
 
     # Networking services
     systemd-resolved.service # DNS resolution
@@ -713,7 +717,6 @@ fi
 #region Pacman setup
 # Setup pacman and install/remove packages
 install -pm644 "${DIR}/etc/pacman/pacman.conf" /etc/pacman.conf
-install -pm644 "${DIR}/etc/pacman/mirrorlist" /etc/pacman.d/mirrorlist
 install -pm644 -Dt /etc/pacman.d/repos "${pacman_repositories[@]}"
 # Remove unused repos
 rm -f /etc/pacman.d/repos/{40-abs,60-aur}-repository.conf
@@ -754,6 +757,12 @@ for pkg in "${packages_to_mark_as_deps[@]}"; do
         pacman --noconfirm -D --asdeps "${pkg}" || true
     fi
 done
+
+# Update mirror list before installing anything; we use the systemd service
+# because it uses the appropriate reflector configuration.
+if command -v reflector >/dev/null && [[ -e /etc/xdg/reflector/reflector.conf ]]; then
+    systemctl start reflector.service
+fi
 
 pacman -Qtdq | pacman --noconfirm -Rs - || true
 # Update the system, then install new packages and optional dependencies.
@@ -896,6 +905,7 @@ rm -rf /etc/audit/rules.d/00-swsnr.rules /etc/cmdline.d/20-swsnr-audit.conf
 
 # Services configuration
 install -Dpm644 "${DIR}/etc/networkmanager-mdns.conf" /etc/NetworkManager/conf.d/50-mdns.conf
+install -Dpm644 "${DIR}/etc/reflector.conf" /etc/xdg/reflector/reflector.conf
 
 # Global font configuration
 install -Dpm644 -t /etc/fonts/conf.d/ "${DIR}"/etc/fontconfig/59-noto-with-color-emoji.conf
