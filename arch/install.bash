@@ -657,12 +657,13 @@ case "${HOSTNAME}" in
         lnav     # Log file analyzer
 
         # Additional applications
-        ksnip              # Annotate screenshots
-        drawio-desktop     # Diagram drawing
-        keepassxc          # Keepass
-        evolution-ews      # Exchange for evolution
-        mattermost-desktop # Chat application
-        rocketchat-desktop # Chat application
+        ksnip                     # Annotate screenshots
+        drawio-desktop            # Diagram drawing
+        keepassxc                 # Keepass
+        evolution-ews             # Exchange for evolution
+        mattermost-desktop        # Chat application
+        rocketchat-desktop        # Chat application
+        microsoft-edge-stable-bin # Browser for teams and web testing
     )
 
     packages_to_install_optdeps+=(

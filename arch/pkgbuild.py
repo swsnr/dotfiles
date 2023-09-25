@@ -107,11 +107,12 @@ match regex_in(gethostname()):
         ])
     case "RB":
         AUR_PACKAGES.extend([
-            "drawio-desktop",
-            "python2",
-            "fnm",
-            "rocketchat-desktop",
             "age-plugin-tpm",
+            "drawio-desktop",
+            "fnm",
+            "microsoft-edge-stable-bin",
+            "python2",
+            "rocketchat-desktop",
         ])
 
 
