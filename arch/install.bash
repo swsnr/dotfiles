@@ -664,6 +664,8 @@ case "${HOSTNAME}" in
         mattermost-desktop        # Chat application
         rocketchat-desktop        # Chat application
         microsoft-edge-stable-bin # Browser for teams and web testing
+        libreoffice-fresh
+        libreoffice-fresh-de
     )
 
     packages_to_install_optdeps+=(
