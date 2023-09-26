@@ -329,7 +329,10 @@ services=(
 services_to_disable=()
 
 # Flatpaks
-flatpaks=()
+flatpaks=(
+    # For Windows software (gaming, project management things, etc.)
+    com.usebottles.bottles
+)
 
 flatpaks_to_remove=()
 #endregion
@@ -615,7 +618,6 @@ case "${HOSTNAME}" in
         # cope with multilib and mess around with missing steam dependencies.
         # Officially bottles only supports flatpak anyway.
         com.valvesoftware.Steam
-        com.usebottles.bottles
         com.valvesoftware.Steam.Utility.gamescope # Fullscreen control for games
     )
     ;;
