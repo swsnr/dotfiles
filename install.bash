@@ -280,6 +280,9 @@ if has flatpak; then
         com.valvesoftware.Steam
 fi
 
+# Configure Code OSS
+has code && "${DIR}"/misc/code-settings.py
+
 case "${HOSTNAME}" in
 *kastl*)
     # On personal systems use 1password for SSH and commit signing, so disable

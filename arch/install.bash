@@ -220,6 +220,7 @@ packages_to_install=(
     zim                     # Personal desktop wiki
     jabref                  # Bibliography
     sioyek                  # PDF viewer for papers and technical documents
+    code                    # Powerful text editor, i.e. poor-mans IDE
 
     # This should be an optional dependency of zim, but isn't currently, see https://bugs.archlinux.org/task/78946
     # zim: App indicator support
@@ -403,6 +404,7 @@ GNOME)
         gnome-shell-extension-nasa-apod    # APOD as desktop background
         gnome-shell-extension-appindicator # Systray for Gnome
         gnome-search-providers-jetbrains   # Jetbrains projects in search
+        gnome-search-providers-vscode      # VSCode workspaces in search
     )
 
     packages_to_install_optdeps+=(

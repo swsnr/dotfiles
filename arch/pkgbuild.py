@@ -65,6 +65,7 @@ AUR_PACKAGES: list[str] = [
     "aurutils",
     "frum",
     "git-gone",
+    "gnome-search-providers-vscode",
     "gnome-search-providers-jetbrains",
     "gnome-shell-extension-caffeine",
     "gnome-shell-extension-nasa-apod",

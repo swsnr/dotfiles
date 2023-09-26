@@ -45,6 +45,7 @@ include = [
 "arch/*" = ["INP001"]
 "gnome/*" = ["INP001"]
 "kde/*" = ["INP001"]
+"misc/*" = ["INP001"]
 
 [tool.pyright]
 # All the python stuff that needs to be linted
