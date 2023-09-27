@@ -178,7 +178,7 @@ packages_to_install=(
     gcc           # C compiler
     make          # ubiquituous "build" tool
     rustup        # Rust toolchain manager
-    rust-analyzer # Language server for Rust
+    rust-analyzer # Language server for Rust (more recent than what's provided by rustup)
     cargo-release # Rust release helper
     cargo-deny    # Rust compliance checker (licensing, advisories, etc.)
     shellcheck    # Lint bash code
