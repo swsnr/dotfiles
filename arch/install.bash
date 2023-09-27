@@ -165,6 +165,7 @@ packages_to_install=(
     renameutils # qmv is super nice
     restic      # Backups
     p7zip       # CLI zip file tool
+    imagemagick # Handy and powerful image processing tools
 
     # Git and related tools
     git
