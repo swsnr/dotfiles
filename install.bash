@@ -157,9 +157,10 @@ mkdir -p ~/.config/{latexmk,restic}
 ln -fs "${DIR}/backup/linux.exclude" ~/.config/restic/linux.exclude
 ln -fs "${DIR}/latex/latexmkrc" ~/.config/latexmk/latexmkrc
 ln -fs "${DIR}/misc/XCompose" ~/.XCompose
-ln -fs "${DIR}/misc/electron-flags.conf" ~/.config/electron-flags.conf
-ln -fs "${DIR}/misc/electron-flags.conf" ~/.config/electron22-flags.conf
-ln -fs "${DIR}/misc/electron-flags.conf" ~/.config/electron24-flags.conf
+for electron_version in "" 22 24 25; do
+    ln -fs "${DIR}/misc/electron-flags.conf" \
+        ~/.config/electron"${electron_version}"-flags.conf
+done
 ln -fs "${DIR}/misc/gamemode.ini" ~/.config/gamemode.ini
 ln -fs "${DIR}/misc/zim-style.conf" ~/.config/zim/style.conf
 # Remove outdated electron flags
