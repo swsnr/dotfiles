@@ -51,6 +51,11 @@ SETTINGS = {
     # File explorer
     "explorer.confirmDragAndDrop": False,
     "explorer.confirmDelete": False,
+    # Rust settings
+    # Use package-installed rust-analyzer, works better than the built-in one
+    "rust-analyzer.server.path": "/usr/bin/rust-analyzer",
+    # Use clippy to check, by default
+    "rust-analyzer.checkOnSave.command": "clippy",
 }
 
 
