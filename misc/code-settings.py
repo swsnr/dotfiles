@@ -73,6 +73,7 @@ EXTENSIONS = [
     # Rust support
     "rust-lang.rust-analyzer",
     "serayuzgur.crates",
+    "tamasfe.even-better-toml",
 ]
 
 
