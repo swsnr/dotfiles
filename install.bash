@@ -157,19 +157,20 @@ mkdir -p ~/.config/{latexmk,restic}
 ln -fs "${DIR}/backup/linux.exclude" ~/.config/restic/linux.exclude
 ln -fs "${DIR}/latex/latexmkrc" ~/.config/latexmk/latexmkrc
 ln -fs "${DIR}/misc/XCompose" ~/.XCompose
-for electron_version in "" 22 24; do
+ln -fs "${DIR}/misc/gamemode.ini" ~/.config/gamemode.ini
+ln -fs "${DIR}/misc/zim-style.conf" ~/.config/zim/style.conf
+# Electron flags for all electron versions
+#
+# We use the following flags:
+#
+# --ozone-platform-hint=auto enables wayland support in wayland environments
+# --enable-features=WaylandWindowDecorations adds client-side decorations under wayland
+# --disable-features=WaylandFractionalScaleV1 works around blurry text, see https://github.com/microsoft/vscode/issues/192590
+# --enable-webrtc-pipewire-capturer enables screen capture with pipewire under wayland
+for electron_version in "" 22 24 25; do
     ln -fs "${DIR}/misc/electron-flags.conf" \
         ~/.config/electron"${electron_version}"-flags.conf
 done
-# Do not set electron flags for wayland, as it makes text appear blurry on Gnome w/ 200% scaling, see
-# https://github.com/microsoft/vscode/issues/192590
-# A workaround exists, see https://github.com/microsoft/vscode/issues/192590#issuecomment-1731312805
-# but unfortunatly VSCode currently breaks --disable-features, see https://github.com/microsoft/vscode/pull/193795
-# So let's keep electron25 on X11 until a new code release comes out, or the patch is backported, see
-# https://bugs.archlinux.org/task/79797
-rm -f ~/.config/electron25-flags.conf
-ln -fs "${DIR}/misc/gamemode.ini" ~/.config/gamemode.ini
-ln -fs "${DIR}/misc/zim-style.conf" ~/.config/zim/style.conf
 # Remove outdated electron flags
 rm -f ~/.config/electron{19,21,23}-flags.conf
 
