@@ -167,12 +167,12 @@ ln -fs "${DIR}/misc/zim-style.conf" ~/.config/zim/style.conf
 # --enable-features=WaylandWindowDecorations adds client-side decorations under wayland
 # --disable-features=WaylandFractionalScaleV1 works around blurry text, see https://github.com/microsoft/vscode/issues/192590
 # --enable-webrtc-pipewire-capturer enables screen capture with pipewire under wayland
-for electron_version in "" 22 24 25; do
+for electron_version in "" 24 25; do
     ln -fs "${DIR}/misc/electron-flags.conf" \
         ~/.config/electron"${electron_version}"-flags.conf
 done
 # Remove outdated electron flags
-rm -f ~/.config/electron{19,21,23}-flags.conf
+rm -f ~/.config/electron{19,21,22,23}-flags.conf
 
 case "${XDG_CURRENT_DESKTOP:-}" in
 GNOME)
