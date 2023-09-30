@@ -222,6 +222,7 @@ packages_to_install=(
     jabref                  # Bibliography
     sioyek                  # PDF viewer for papers and technical documents
     code                    # Powerful text editor, i.e. poor-mans IDE
+    zeal                    # Offline docs browser
 
     # This should be an optional dependency of zim, but isn't currently, see https://bugs.archlinux.org/task/78946
     # zim: App indicator support
@@ -336,7 +337,10 @@ flatpaks=(
     com.usebottles.bottles
 )
 
-flatpaks_to_remove=()
+flatpaks_to_remove=(
+    # End-of-life
+    com.valvesoftware.Steam.Utility.gamescope
+)
 #endregion
 
 if [[ -n "${MY_USER_ACCOUNT}" ]]; then
@@ -619,9 +623,8 @@ case "${HOSTNAME}" in
     flatpaks+=(
         # Gaming; we're using flatpak for these because otherwise we'd have to
         # cope with multilib and mess around with missing steam dependencies.
-        # Officially bottles only supports flatpak anyway.
         com.valvesoftware.Steam
-        com.valvesoftware.Steam.Utility.gamescope # Fullscreen control for games
+        org.freedesktop.Platform.VulkanLayer.gamescope # Fullscreen control for games
     )
     ;;
 *RB*)
