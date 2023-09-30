@@ -193,6 +193,14 @@ packages_to_install=(
     kdiff3        # Diff/merge tool
     d-spy         # DBus inspector and debugger
 
+    # devhelp and doc packages
+    devhelp
+    glib2-docs
+    gnome-devel-docs
+    libportal-docs
+    mutter-docs
+    libsoup-docs
+
     # Basic desktop
     wl-clipboard   # CLI access to clipboard
     dconf-editor   # Edit and view Gnome configuration database
