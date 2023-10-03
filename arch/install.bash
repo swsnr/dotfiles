@@ -812,6 +812,9 @@ flatpak update --system --noninteractive
 
 # Enable selected services
 systemctl enable "${services[@]}"
+
+# Mask a few services I don't want
+systemctl mask passim.service # Caching daemon from fwupd
 #endregion
 
 # See /usr/share/factory/etc/nsswitch.conf for the Arch Linux factory defaults.
