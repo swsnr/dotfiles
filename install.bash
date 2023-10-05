@@ -174,6 +174,13 @@ done
 # Remove outdated electron flags
 rm -f ~/.config/electron{19,21,22,23}-flags.conf
 
+# devhelp
+# mutter-docs ships documentation at wrong place, so we have to manually symlink
+# it to make it appear in devhelp, see https://bugs.archlinux.org/task/79860
+mkdir -p ~/.local/share/devhelp/books
+ln -fs -t ~/.local/share/devhelp/books \
+    /usr/share/mutter-12/doc/{cally,clutter,cogl,cogl-pango,meta}
+
 case "${XDG_CURRENT_DESKTOP:-}" in
 GNOME)
     "${DIR}/gnome/settings.py" || true
