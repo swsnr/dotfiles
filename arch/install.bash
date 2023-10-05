@@ -144,28 +144,29 @@ packages_to_install=(
     aurutils   # Tooling for AUR packages
 
     # Shell environment and CLI tools
-    helix       # Simple terminal editor with LSP support
-    wezterm     # My preferred terminal emulator
-    fish        # My preferred shell
-    zoxide      # Cross-shell/editor directory jumping
-    fzf         # Fuzzy file finder for shells
-    man-db      # Man page reader
-    man-pages   # Linux manpagers
-    eza         # Better ls (with git support)
-    broot       # Interactive tree & cd
-    vivid       # Creates themes for dircolors
-    ripgrep     # Better grep
-    ripgrep-all # ripgrep for all kinds of files
-    bat         # Better less
-    mdcat       # Cat markdown files
-    fd          # Simpler find
-    sd          # Simpler sed
-    dua-cli     # Disk space analyzer
-    nnn         # Command line file manager (also a good pager for aurutils)
-    renameutils # qmv is super nice
-    restic      # Backups
-    p7zip       # CLI zip file tool
-    imagemagick # Handy and powerful image processing tools
+    helix         # Simple terminal editor with LSP support
+    wezterm       # My preferred terminal emulator
+    fish          # My preferred shell
+    zoxide        # Cross-shell/editor directory jumping
+    fzf           # Fuzzy file finder for shells
+    man-db        # Man page reader
+    man-pages     # Linux manpagers
+    eza           # Better ls (with git support)
+    broot         # Interactive tree & cd
+    vivid         # Creates themes for dircolors
+    ripgrep       # Better grep
+    ripgrep-all   # ripgrep for all kinds of files
+    bat           # Better less
+    mdcat         # Cat markdown files
+    fd            # Simpler find
+    sd            # Simpler sed
+    dua-cli       # Disk space analyzer
+    nnn           # Command line file manager (also a good pager for aurutils)
+    renameutils   # qmv is super nice
+    restic        # Backups
+    p7zip         # CLI zip file tool
+    imagemagick   # Handy and powerful image processing tools
+    inotify-tools # Watch for file changes
 
     # Git and related tools
     git
