@@ -71,7 +71,11 @@ esac
 packages_to_remove_cascade=()
 
 # Packages to remove
-packages_to_remove=()
+packages_to_remove=(
+    intel-gpu-tools
+    nvtop
+    powertop
+)
 
 # Packages to mark as optional dependencies
 packages_to_mark_as_deps=()
@@ -104,14 +108,11 @@ packages_to_install=(
     pcsc-cyberjack # Card reader driver for eID
 
     # System monitoring
-    iotop           # Monitor IO load
-    htop            # Monitor processes
-    nvtop           # Monitor GPU load
-    bottom          # Overall system monitor
-    lsof            # Check open files
-    powertop        # Monitor power consumption
-    intel-gpu-tools # Tools to inspect intel GPUs
-    smartmontools   # Disk monitoring
+    iotop         # Monitor IO load
+    htop          # Monitor processes
+    bottom        # Overall system monitor
+    lsof          # Check open files
+    smartmontools # Disk monitoring
 
     # Networking & security
     networkmanager       # Standard desktop network tool
