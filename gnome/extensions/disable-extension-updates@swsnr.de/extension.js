@@ -18,15 +18,15 @@ import * as ExtensionUtils from 'resource:///org/gnome/shell/misc/extensionUtils
 
 export default class DisableExtensionUpdates extends Extension {
   enable() {
-    console.warn('Marking all per-user extensions as having an update to suppress update check');
+    console.warn('Marking all per-user extensions system extensions to suppress update check');
     Main.extensionManager.getUuids().forEach(uuid => {
       const extension = Main.extensionManager.lookup(uuid);
       console.debug(`Looking at extension ${uuid} of type ${extension.type}`);
       if (extension.type !== ExtensionUtils.ExtensionType.PER_USER) {
         return;
       }
-      console.log(`Marking per-user extension ${uuid} has having an update`);
-      extension.hasUpdate = true;
+      console.log(`Marking per-user extension ${uuid} has system extension`);
+      extension.type = ExtensionUtils.ExtensionType.SYSTEM;
     });
   }
 
