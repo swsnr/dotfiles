@@ -1,47 +1,38 @@
-/* This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published
- * by the Free Software Foundation, version 3.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
+// Copyright Sebastian Wiesner <sebastian@swsnr.de>
+//
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not
+// use this file except in compliance with the License. You may obtain a copy of
+// the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+// License for the specific language governing permissions and limitations under
+// the License.
 
-const ExtensionUtils = imports.misc.extensionUtils;
-const downloader = imports.ui.extensionDownloader;
+import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js'
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import * as ExtensionUtils from 'resource:///org/gnome/shell/misc/extensionUtils.js';
 
-const Me = ExtensionUtils.getCurrentExtension();
-const l = message => log(`${Me.metadata.uuid}: ${message}`);
-
-class DisableExtensionUpdates {
-  constructor() {
-    this._original_checkForUpdates = null;
+export default class DisableExtensionUpdates extends Extension {
+  logWithUUID(message) {
+    log(`${this.uuid}: ${message}`);
   }
 
   enable() {
-    if (this._original_checkForUpdates === null) {
-      l('enabled: blocking extension updates');
-      this._original_checkForUpdates = downloader.checkForUpdates;
-      downloader.checkForUpdates = () => {
-        l('Extension update check attempted; disabled by disable-extension-updates@swsnr.de');
+    const l = (message) => this.logWithUUID(message);
+    l('Marking all per-user extensions as having an update to suppress update check');
+    Main.extensionManager.getUuids().forEach(uuid => {
+      const extension = Main.extensionManager.lookup(uuid);
+      if (extension.type !== ExtensionUtils.ExtensionType.PER_USER) {
         return;
       }
-    }
+      l(`Marking per-user extension ${uuid} has having an update`);
+      extension.hasUpdate = true;
+    });
   }
 
-  disable() {
-    if (this._original_checkForUpdates !== null) {
-      l('disabled: extension are checked for updates again');
-      downloader.checkForUpdates = this._original_checkForUpdates;
-      this._original_checkForUpdates = null;
-    }
-  }
-}
-
-function init() {
-  return new DisableExtensionUpdates();
+  disable() { }
 }

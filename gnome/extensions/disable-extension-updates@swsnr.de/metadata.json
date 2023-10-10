@@ -6,12 +6,8 @@
     "unlock-dialog"
   ],
   "shell-version": [
-    "40",
-    "41",
-    "42",
-    "43",
-    "44"
+    "45"
   ],
   "uuid": "disable-extension-updates@swsnr.de",
-  "version": 1
+  "version": 2
 }
