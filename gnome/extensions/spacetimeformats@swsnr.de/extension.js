@@ -1,40 +1,34 @@
-/* extension.js
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- * SPDX-License-Identifier: GPL-2.0-or-later
- */
+// Copyright Sebastian Wiesner <sebastian@swsnr.de>
+//
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not
+// use this file except in compliance with the License. You may obtain a copy of
+// the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+// License for the specific language governing permissions and limitations under
+// the License.
 
-/* exported init */
+import St from 'gi://St';
+import GLib from 'gi://GLib';
+import GObject from 'gi://GObject'
+import Gio from 'gi://Gio';
+import Clutter from 'gi://Clutter';
+import GnomeDesktop from 'gi://GnomeDesktop';
 
-const { St, GLib, GObject, Gio, Clutter, GnomeDesktop } = imports.gi;
-
-const Main = imports.ui.main;
-const ExtensionUtils = imports.misc.extensionUtils;
-const PanelMenu = imports.ui.panelMenu;
-const Util = imports.misc.util;
-
-const Me = ExtensionUtils.getCurrentExtension();
-
-const l = message => log(`${Me.metadata.uuid}: ${message}`);
+import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js'
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js';
 
 const SpaceTimesIndicator = GObject.registerClass(
   { GTypeName: "SpaceTimesIndicator" },
   class SpaceTimesIndicator extends PanelMenu.Button {
-    _init() {
-      super._init(0.0, `${Me.metadata.name} Indicator`, true);
-      this._settings = ExtensionUtils.getSettings();
+    _init({ name, settings }) {
+      super._init(5, name, true);
+      this._settings = settings;
       this._settingsChangedId = this._settings.connect('changed', this._onSettingsChanged.bind(this));
 
       this._clock = new GnomeDesktop.WallClock()
@@ -90,31 +84,32 @@ const SpaceTimesIndicator = GObject.registerClass(
   }
 );
 
-class Extension {
-  constructor() {
+export default class SpaceTimeFormatsExtension extends Extension {
+  constructor(metadata) {
+    super(metadata);
     this.indicator = null;
   }
 
+  logWithUUID(message) {
+    log(`${this.uuid}: ${message}`);
+  }
+
   enable() {
-    l("enabled");
+    this.logWithUUID("enabled");
     if (this.indicator === null) {
-      this.indicator = new SpaceTimesIndicator();
+      this.indicator = new SpaceTimesIndicator({ name: `${this.uuid} Indicator`, settings: this.getSettings() });
       Main.panel.addToStatusArea(
-        `${Me.metadata.name} Indicator`,
+        `${this.uuid} Indicator`,
         this.indicator,
       );
     }
   }
 
   disable() {
-    l("disabled");
+    this.logWithUUID("disabled");
     if (this.indicator !== null) {
       this.indicator.destroy();
       this.indicator = null;
     }
   }
-}
-
-function init() {
-  return new Extension();
 }
