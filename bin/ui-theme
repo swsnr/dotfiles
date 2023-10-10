@@ -39,7 +39,7 @@ echo "${theme}"
 
 case "${theme}" in
 light)
-    gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'
+    gsettings set org.gnome.desktop.interface color-scheme 'default'
     ;;
 dark)
     gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
