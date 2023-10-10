@@ -71,7 +71,9 @@ esac
 packages_to_remove_cascade=()
 
 # Packages to remove
-packages_to_remove=()
+packages_to_remove=(
+    eog # Superseded by loupe
+)
 
 # Packages to mark as optional dependencies
 packages_to_mark_as_deps=()
@@ -404,7 +406,7 @@ GNOME)
         nautilus           # File manager
         sushi              # Previewer for nautilus
         evince             # Document viewer
-        eog                # Image viewer (TODO: Replace with loupe)
+        loupe              # Image viewer
         simple-scan        # Scanning
         seahorse           # Gnome keyring manager
         gnome-firmware     # Manage firmware with Gnome
