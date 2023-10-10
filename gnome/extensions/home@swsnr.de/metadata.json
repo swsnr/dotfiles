@@ -2,12 +2,8 @@
   "name": "home",
   "description": "Commute homewards",
   "uuid": "home@swsnr.de",
-  "version": "1",
+  "version": "2",
   "shell-version": [
-    "40",
-    "41",
-    "42",
-    "43",
-    "44"
+    "45"
   ]
 }

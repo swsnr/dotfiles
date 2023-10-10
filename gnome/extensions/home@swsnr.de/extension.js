@@ -1,82 +1,56 @@
-/* extension.js
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- * SPDX-License-Identifier: GPL-2.0-or-later
- */
+// Copyright Sebastian Wiesner <sebastian@swsnr.de>
+//
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not
+// use this file except in compliance with the License. You may obtain a copy of
+// the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+// License for the specific language governing permissions and limitations under
+// the License.
 
-/* exported init */
+import St from "gi://St";
+import GLib from "gi://GLib";
+import GObject from "gi://GObject";
+import Gio from "gi://Gio";
+import Clutter from "gi://Clutter";
 
-const { St, GLib, GObject, Gio, Clutter } = imports.gi;
+import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js'
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js';
+import { PopupMenuItem } from 'resource:///org/gnome/shell/ui/popupMenu.js';
 
-const Main = imports.ui.main;
-const Me = imports.misc.extensionUtils.getCurrentExtension();
-const PanelMenu = imports.ui.panelMenu;
-const PopupMenuItem = imports.ui.popupMenu.PopupMenuItem;
+// Shouldn't this be upstreamed to Gjs?
+Gio._promisify(Gio.Subprocess.prototype, 'communicate_utf8_async');
 
-const l = message => log(`${Me.metadata.uuid}: ${message}`);
+const getRoutes = async () => {
+  const flags = Gio.SubprocessFlags.STDOUT_PIPE | Gio.SubprocessFlags.STDERR_PIPE
+  const proc = Gio.Subprocess.new(["home"], flags);
+  const [stdout, stderr] = await proc.communicate_utf8_async(null, null);
+  if (proc.get_successful()) {
+    return stdout.trim().split("\n");
+  } else {
+    throw new Error(`home failed: ${stderr}`);
+  }
+}
 
-/**
- * Spawn command.
- *
- * Taken from <https://github.com/andyholmes/andyholmes.github.io/blob/master/articles/asynchronous-programming-in-gjs.md#spawning-processes>
- */
-const execCommand = argv =>
-  new Promise((resolve, reject) => {
-    // There is also a reusable Gio.SubprocessLauncher class available
-    const proc = new Gio.Subprocess({
-      argv: argv,
-      // There are also other types of flags for merging stdout/stderr,
-      // redirecting to /dev/null or inheriting the parent's pipes
-      flags: Gio.SubprocessFlags.STDOUT_PIPE
-    });
-
-    // Classes that implement GInitable must be initialized before use, but
-    // an alternative in this case is to use Gio.Subprocess.new(argv, flags)
-    //
-    // If the class implements GAsyncInitable then Class.new_async() could
-    // also be used and awaited in a Promise.
-    proc.init(null);
-
-    // communicate_utf8() returns a string, communicate() returns a
-    // a GLib.Bytes and there are "headless" functions available as well
-    proc.communicate_utf8_async(null, null, (proc, res) => {
-      try {
-        resolve(proc.communicate_utf8_finish(res)[1]);
-      } catch (e) {
-        reject(e);
-      }
-    });
-  });
-
-const getRoutes = () =>
-  execCommand(["home"]).then(output => {
-    return output.trim().split("\n");
-  });
-
-const getRoutesForIndicator = indicator => {
-  getRoutes().then(
-    routes => indicator.showRoutes(routes),
-    error => indicator.showError(error)
-  );
+const updateRoutesOnIndicator = async (indicator) => {
+  try {
+    indicator.showRoutes(await getRoutes());
+  } catch (error) {
+    console.error("Failed to update routes", error);
+    indicator.showError(error);
+  }
 };
 
 const HomeIndicator = GObject.registerClass(
   { GTypeName: "HomeIndicator" },
   class HomeIndicator extends PanelMenu.Button {
-    _init() {
-      super._init(0.0, `${Me.metadata.name} Indicator`, false);
+    _init({ name }) {
+      super._init(0, name, false);
 
       this.routes = null;
 
@@ -106,37 +80,38 @@ const HomeIndicator = GObject.registerClass(
     }
 
     showError(error) {
-      l(`error: ${error}`);
       this._label.set_text(`Error: ${error}`);
       this.menu.removeAll();
     }
   }
 );
 
-class Extension {
-  constructor() {
+export default class HomeExtension extends Extension {
+  constructor(metadata) {
+    super(metadata);
+
     this.indicator = null;
     this.sourceIdOfRefreshTimer = null;
     this.shallRefreshAgain = true;
   }
 
   enable() {
-    l("enabled");
     if (this.indicator === null) {
-      this.indicator = new HomeIndicator();
-      Main.panel.addToStatusArea(
-        `${Me.metadata.name} Indicator`,
-        this.indicator
-      );
+      console.log(`Extension ${this.uuid} enabled, creating indicator`);
+      const name = `${this.uuid} Indicator`;
+      this.indicator = new HomeIndicator({ name });
+      Main.panel.addToStatusArea(name, this.indicator);
 
-      getRoutesForIndicator(this.indicator);
+      console.log("Getting initial routes");
+      updateRoutesOnIndicator(this.indicator);
 
+      console.log("Starting to refresh routes once per minute");
       this.shallRefreshAgain = true;
       this.sourceIdOfRefreshTimer = GLib.timeout_add_seconds(
         GLib.PRIORITY_DEFAULT,
         60,
         () => {
-          getRoutesForIndicator(this.indicator);
+          updateRoutesOnIndicator(this.indicator);
           return this.shallRefreshAgain;
         }
       );
@@ -144,16 +119,13 @@ class Extension {
   }
 
   disable() {
-    l("disabled");
     if (this.indicator !== null) {
+      console.log(`Extension ${this.uuid} disabled, stopping refresh timer`);
       this.shallRefreshAgain = false;
       GLib.source_remove(this.sourceIdOfRefreshTimer);
+      console.log("Destroying indicator");
       this.indicator.destroy();
       this.indicator = null;
     }
   }
-}
-
-function init() {
-  return new Extension();
 }
