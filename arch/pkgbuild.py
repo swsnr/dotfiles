@@ -20,7 +20,7 @@ import os
 import re
 import argparse
 from argparse import ArgumentParser, ArgumentError
-from collections.abc import Collection, Set
+from collections.abc import Collection
 from pathlib import Path
 from socket import gethostname
 from subprocess import run
@@ -78,14 +78,7 @@ AUR_PACKAGES: list[str] = [
 ]
 
 #: Packages to remove from the repository
-PACKAGES_TO_REMOVE: Set[str] = {
-    "cargo-vet",
-    "rocketchat-client-bin",
-    # Upstreamed to firefox package, see https://bugs.archlinux.org/task/68705
-    "firefox-gnome-search-provider",
-    # Chiaki got released again
-    "chiaki-git",
-}
+PACKAGES_TO_REMOVE: list[str] = []
 
 class regex_in(str): # noqa: N801,SLOT000
     """Match a regex in a string in structural pattern matching."""
@@ -165,7 +158,7 @@ def get_packages_to_remove(repo: Repo) -> Collection[str]:
                              if p.endswith("-debug") and
                              p.removesuffix("-debug") not in repo_packages}
 
-    pkgnames = PACKAGES_TO_REMOVE | \
+    pkgnames = set(PACKAGES_TO_REMOVE) | \
         {f"{p}-debug" for p in PACKAGES_TO_REMOVE} | \
         orphan_debug_pkgnames
     return repo_packages & pkgnames

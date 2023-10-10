@@ -71,11 +71,7 @@ esac
 packages_to_remove_cascade=()
 
 # Packages to remove
-packages_to_remove=(
-    intel-gpu-tools
-    nvtop
-    powertop
-)
+packages_to_remove=()
 
 # Packages to mark as optional dependencies
 packages_to_mark_as_deps=()
