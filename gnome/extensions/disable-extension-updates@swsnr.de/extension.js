@@ -17,19 +17,15 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import * as ExtensionUtils from 'resource:///org/gnome/shell/misc/extensionUtils.js';
 
 export default class DisableExtensionUpdates extends Extension {
-  logWithUUID(message) {
-    log(`${this.uuid}: ${message}`);
-  }
-
   enable() {
-    const l = (message) => this.logWithUUID(message);
-    l('Marking all per-user extensions as having an update to suppress update check');
+    console.warn('Marking all per-user extensions as having an update to suppress update check');
     Main.extensionManager.getUuids().forEach(uuid => {
       const extension = Main.extensionManager.lookup(uuid);
+      console.debug(`Looking at extension ${uuid} of type ${extension.type}`);
       if (extension.type !== ExtensionUtils.ExtensionType.PER_USER) {
         return;
       }
-      l(`Marking per-user extension ${uuid} has having an update`);
+      console.log(`Marking per-user extension ${uuid} has having an update`);
       extension.hasUpdate = true;
     });
   }

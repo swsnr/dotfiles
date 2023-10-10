@@ -28,9 +28,12 @@ const SpaceTimesIndicator = GObject.registerClass(
   class SpaceTimesIndicator extends PanelMenu.Button {
     _init({ name, settings }) {
       super._init(5, name, true);
+
+      console.info("Listening for setting changes");
       this._settings = settings;
       this._settingsChangedId = this._settings.connect('changed', this._onSettingsChanged.bind(this));
 
+      console.info("Listening for wall clock ticks");
       this._clock = new GnomeDesktop.WallClock()
       this._clockNotifyId = this._clock.connect('notify::clock', this._updateLabel.bind(this));
 
@@ -54,6 +57,7 @@ const SpaceTimesIndicator = GObject.registerClass(
 
     _open_uri() {
       const uri = this._get_uri_to_open();
+      console.info("Trying to open URI after click", uri);
       if (!!uri) {
         Gio.AppInfo.launch_default_for_uri_async(uri, null, null, null);
       }
@@ -74,7 +78,9 @@ const SpaceTimesIndicator = GObject.registerClass(
 
     _onSettingsChanged() {
       // Enable clicking the indicator only of a URI was configured
-      this.setSensitive(!!this._get_uri_to_open());
+      const haveURI = !!this._get_uri_to_open();
+      console.info("Updating sensitive state of indicator", haveURI);
+      this.setSensitive(haveURI);
     }
 
     _updateLabel() {
@@ -90,24 +96,18 @@ export default class SpaceTimeFormatsExtension extends Extension {
     this.indicator = null;
   }
 
-  logWithUUID(message) {
-    log(`${this.uuid}: ${message}`);
-  }
-
   enable() {
-    this.logWithUUID("enabled");
     if (this.indicator === null) {
-      this.indicator = new SpaceTimesIndicator({ name: `${this.uuid} Indicator`, settings: this.getSettings() });
-      Main.panel.addToStatusArea(
-        `${this.uuid} Indicator`,
-        this.indicator,
-      );
+      console.log(`Extension ${this.uuid} enabled, creating indicator`);
+      const name = `${this.uuid} Indicator`;
+      this.indicator = new SpaceTimesIndicator({ name, settings: this.getSettings() });
+      Main.panel.addToStatusArea(name, this.indicator);
     }
   }
 
   disable() {
-    this.logWithUUID("disabled");
     if (this.indicator !== null) {
+      console.log(`Extension ${this.uuid} disabled, destroying indicator`);
       this.indicator.destroy();
       this.indicator = null;
     }
