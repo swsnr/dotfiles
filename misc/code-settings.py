@@ -70,6 +70,8 @@ EXTENSIONS = [
     "rust-lang.rust-analyzer",
     "serayuzgur.crates",
     "tamasfe.even-better-toml",
+    # Python
+    "ms-python.python",
 ]
 
 
