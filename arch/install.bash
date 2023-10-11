@@ -575,6 +575,9 @@ case "${HOSTNAME}" in
     pacman_repositories+=()
 
     packages_to_install+=(
+        # NPM (for my own stuff I don't need fnm and node version management)
+        npm
+
         # Game mode
         gamemode
         innoextract # Extract Windows installers (mostly GoG)
