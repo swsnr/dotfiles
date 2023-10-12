@@ -118,6 +118,9 @@ return {
   -- https://wezfurlong.org/wezterm/config/key-encoding.html
   enable_kitty_keyboard = true,
   keys = {
+    -- Used in some console applications; Gnome has Super+Enter for this anyway
+    { key = "Enter", mods = "ALT", action = wezterm.action.DisableDefaultAssignment },
+    -- Custom key bindings
     { key = "_", mods = "ALT|SHIFT", action = wezterm.action({ SplitVertical = { domain = "CurrentPaneDomain" } }) },
     { key = "|", mods = "ALT|SHIFT", action = wezterm.action({ SplitHorizontal = { domain = "CurrentPaneDomain" } }) },
     { key = "UpArrow", mods = "ALT|SHIFT", action = wezterm.action({ ScrollToPrompt = -1 }) },
