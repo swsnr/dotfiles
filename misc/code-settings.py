@@ -72,6 +72,9 @@ EXTENSIONS = [
     "tamasfe.even-better-toml",
     # Python
     "ms-python.python",
+    # JS & Typescript,
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
 ]
 
 
