@@ -578,6 +578,10 @@ case "${HOSTNAME}" in
         # NPM (for my own stuff I don't need fnm and node version management)
         npm
 
+        # Gtk/Gjs tooling
+        gobject-introspection
+        blueprint-compiler
+
         # Game mode
         gamemode
         innoextract # Extract Windows installers (mostly GoG)
