@@ -266,6 +266,12 @@ SETTINGS = {
 }
 
 EXTENSION_SETTINGS = {
+    "utc-clock@swsnr.de": {
+        "org.gnome.shell.extensions.swsnr-utc-clock": {
+            # Add CW and DOY to UTC clock
+            "clock-format": "%j/%H:%MZ CW %V",
+        },
+    },
     "dash-to-panel@jderose9.github.com": {
         "org.gnome.shell.extensions.dash-to-panel": {
             # Panel on the top, but on 32px high.  These are JSON values
@@ -473,9 +479,9 @@ def apply_extension_settings() -> None:
                 trusted=True,
             )
         else:
-            # Some extensions get packaged to install their schemas into the
-            # standard schema dir; that's somewhat unususal, but not a bad idea,
-            # so let's support it.
+            # System extensions ideally have their schema in the default
+            # glib schema directory, to integrate better with gsettings and
+            # dconf editor.
             source = default_source
         for schema_id, items in schemas.items():
             schema = source.lookup(schema_id, False) # noqa: FBT003

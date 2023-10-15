@@ -219,6 +219,11 @@ GNOME)
             'gsconnect@andyholmes.github.io'
         )
         ;;
+    *RB*)
+        extensions+=(
+            'utc-clock@swsnr.de'
+        )
+        ;;
     *) ;;
     esac
 
@@ -229,9 +234,6 @@ GNOME)
                 gnome-extensions enable "${extension}"
             fi
         done
-
-        gnome-extensions disable 'workspace-indicator@gnome-shell-extensions.gcampax.github.com' || true
-        gnome-extensions disable 'dash-to-panel@jderose9.github.com' || true
     fi
     ;;
 KDE)
