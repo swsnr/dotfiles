@@ -51,11 +51,16 @@ SETTINGS = {
     # File explorer
     "explorer.confirmDragAndDrop": False,
     "explorer.confirmDelete": False,
+    # Terminal: Use fish.
+    "terminal.integrated.defaultProfile.linux": "fish",
+    "terminal.external.linuxExec": "wezterm",
+    "terminal.integrated.enableImages": True,
     # Rust settings
     # Use package-installed rust-analyzer, works better than the built-in one
     "rust-analyzer.server.path": "/usr/bin/rust-analyzer",
     # Use clippy to check, by default
     "rust-analyzer.check.command": "clippy",
+    # Language specific settings
     "[toml]": {
         # Don't auto-format toml files
         "editor.formatOnSave": False,
