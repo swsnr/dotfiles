@@ -97,6 +97,7 @@
 	bl = branch
 	bla = branch -a
 	c = commit
+	ca = commit --amend
 	cfm = commit --amend --reuse-message=HEAD
 	cm = commit --message
 	d = diff
