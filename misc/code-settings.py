@@ -72,6 +72,7 @@ SETTINGS = {
 EXTENSIONS = [
     "bmalehorn.vscode-fish",
     "sonnyp.blueprint-gtk",
+    "asciidoctor.asciidoctor-vscode",
     # Rust support
     "rust-lang.rust-analyzer",
     "serayuzgur.crates",
