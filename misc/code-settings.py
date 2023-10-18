@@ -60,6 +60,17 @@ SETTINGS = {
     "rust-analyzer.server.path": "/usr/bin/rust-analyzer",
     # Use clippy to check, by default
     "rust-analyzer.check.command": "clippy",
+    # Build latex w/ latexmk only
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "latexmk (latexmkrc)",
+            "tools": [
+                "latexmk_rconly",
+            ],
+        },
+    ],
+    # Preview latex documents in a tab
+    "latex-workshop.view.pdf.viewer": "tab",
     # Language specific settings
     "[toml]": {
         # Don't auto-format toml files
@@ -73,6 +84,7 @@ EXTENSIONS = [
     "bmalehorn.vscode-fish",
     "sonnyp.blueprint-gtk",
     "asciidoctor.asciidoctor-vscode",
+    "James-Yu.latex-workshop",
     # Rust support
     "rust-lang.rust-analyzer",
     "serayuzgur.crates",
