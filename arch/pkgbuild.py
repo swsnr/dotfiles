@@ -68,6 +68,7 @@ AUR_PACKAGES: list[str] = [
     "gnome-search-providers-jetbrains",
     "gnome-search-providers-vscode",
     "gnome-shell-extension-caffeine",
+    "gnome-shell-extension-disable-extension-updates",
     "gnome-shell-extension-nasa-apod",
     "gnome-shell-extension-utc-clock",
     "jabref",

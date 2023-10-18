@@ -413,12 +413,13 @@ GNOME)
         qalculate-gtk      # Scientific desktop calculator w/ unit conversion and search provider
 
         # Gnome extensions and tools
-        gnome-shell-extension-appindicator # Systray for Gnome
-        gnome-shell-extension-caffeine     # Inhibit suspend
-        gnome-shell-extension-nasa-apod    # APOD as desktop background
-        gnome-shell-extension-utc-clock    # UTC clock for the panel
-        gnome-search-providers-jetbrains   # Jetbrains projects in search
-        gnome-search-providers-vscode      # VSCode workspaces in search
+        gnome-shell-extension-appindicator              # Systray for Gnome
+        gnome-shell-extension-caffeine                  # Inhibit suspend
+        gnome-shell-extension-disable-extension-updates # Don't check for extension updates
+        gnome-shell-extension-nasa-apod                 # APOD as desktop background
+        gnome-shell-extension-utc-clock                 # UTC clock for the panel
+        gnome-search-providers-jetbrains                # Jetbrains projects in search
+        gnome-search-providers-vscode                   # VSCode workspaces in search
     )
 
     packages_to_install_optdeps+=(
