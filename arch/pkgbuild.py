@@ -65,7 +65,6 @@ AUR_PACKAGES: list[str] = [
     "aurutils",
     "frum",
     "git-gone",
-    "gnome-search-providers-jetbrains",
     "gnome-search-providers-vscode",
     "gnome-shell-extension-caffeine",
     "gnome-shell-extension-disable-extension-updates",
@@ -103,6 +102,7 @@ match regex_in(gethostname()):
         ])
     case "RB":
         AUR_PACKAGES.extend([
+            "gnome-search-providers-jetbrains",
             "age-plugin-tpm",
             "drawio-desktop",
             "fnm",
