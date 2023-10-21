@@ -31,8 +31,7 @@ packages=(
     zoxide
     bat
     ripgrep
-    # TODO: Replace with eza once it's included in Termux
-    exa
+    eza
     file
 
     # Git
