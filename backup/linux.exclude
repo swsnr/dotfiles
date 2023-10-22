@@ -20,3 +20,5 @@ $HOME/.local/share/containers/
 # Jetbrains toolbox apps and downloads are redundant as well
 $HOME/.local/share/JetBrains/Toolbox/apps/
 $HOME/.local/share/JetBrains/Toolbox/downloads/
+# Build results, etc
+**/node_modules/**
