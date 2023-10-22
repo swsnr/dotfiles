@@ -35,7 +35,7 @@ PACKAGER = "Sebastian Wiesner <sebastian@swsnr.de>"
 
 os.environ["PACKAGER"] = PACKAGER
 os.environ["GPGKEY"] = GPGKEY
-
+os.environ["AUR_PAGER"] = "nnn -e"
 
 BACKUP_REPO = f"rclone:kastl:restic-{os.getlogin()}"
 BACKUP_TAG = "kastl-swsnr-repo"
