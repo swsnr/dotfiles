@@ -109,10 +109,6 @@ ln -fs -t ~/.ssh/known-hosts.d "${DIR}/ssh/known-hosts.d/"*
 ln -fs -t ~/.ssh/config.d "${DIR}/ssh/config.d/"*
 clean-recursively ~/.ssh/config.d ~/.ssh/known-hosts.d || true
 
-# Make IDEA download its JDKs to ~/.local/share/jdks
-mkdir -p ~/.local/share/jdks
-ln -fs -T .local/share/jdks ~/.jdks
-
 # Scala configuration
 mkdir -p ~/.ammonite ~/.sbt/1.0/plugins/project
 ln -fs "${DIR}/scala/ammonite-predef.sc" ~/.ammonite/predef.sc
