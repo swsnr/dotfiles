@@ -27,6 +27,9 @@ has() {
     command -v "$1" >&/dev/null
 }
 
+# Cleanup things I no longer use
+rm -rf ~/.config/micro
+
 # Set up pre-commit hook for this repo
 ln -fs "../../pre-commit" "${DIR}/.git/hooks/pre-commit"
 
@@ -94,10 +97,6 @@ ln -fs -t ~/.config/helix "${DIR}/helix/"{config,languages}.toml
 if [[ ! -e ~/.config/helix/themes/swsnr-light-dark.toml ]]; then
     ln -fs /usr/lib/helix/runtime/themes/onelight.toml ~/.config/helix/themes/swsnr-light-dark.toml
 fi
-
-# Micro
-mkdir -p ~/.config/micro
-ln -fs "${DIR}/micro/init.lua" ~/.config/micro/init.lua
 
 # Git configuration
 mkdir -p ~/.config/git
