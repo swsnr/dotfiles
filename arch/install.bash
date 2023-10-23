@@ -663,6 +663,7 @@ case "${HOSTNAME}" in
         helm                             # k8s package manager
         skopeo                           # Container registory tool
         sbt                              # Scala build tool
+        ammonite                         # Scala repl
         glab                             # Gitlab CLI
         fnm                              # Fast node version manager
         pnpm                             # JS package manager
