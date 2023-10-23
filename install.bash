@@ -184,11 +184,6 @@ GNOME)
     systemctl --user disable ssh-agent.service || true
 
     # Local gnome extensions
-    mkdir -p ~/.local/share/gnome-shell/extensions
-    ln -fs -t ~/.local/share/gnome-shell/extensions \
-        "${DIR}/gnome/extensions/home@swsnr.de" \
-        "${DIR}/gnome/extensions/spacetimeformats@swsnr.de" \
-        "${DIR}/gnome/extensions/disable-extension-updates@swsnr.de"
     clean-recursively ~/.local/share/gnome-shell/extensions/
 
     extensions=(
