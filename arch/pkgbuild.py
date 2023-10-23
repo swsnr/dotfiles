@@ -66,7 +66,6 @@ AUR_PACKAGES: list[str] = [
     "frum",
     "git-gone",
     "gnome-search-providers-vscode",
-    "gnome-shell-extension-caffeine",
     "gnome-shell-extension-disable-extension-updates",
     "gnome-shell-extension-nasa-apod",
     "gnome-shell-extension-utc-clock",
@@ -79,7 +78,10 @@ AUR_PACKAGES: list[str] = [
 ]
 
 #: Packages to remove from the repository
-PACKAGES_TO_REMOVE: list[str] = []
+PACKAGES_TO_REMOVE: list[str] = [
+    # Moved to extra
+    "gnome-shell-extension-caffeine",
+]
 
 class regex_in(str): # noqa: N801,SLOT000
     """Match a regex in a string in structural pattern matching."""
