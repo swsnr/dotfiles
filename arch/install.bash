@@ -175,23 +175,24 @@ packages_to_install=(
     github-cli
 
     # Development tooling
-    gcc           # C compiler
-    make          # ubiquituous "build" tool
-    rustup        # Rust toolchain manager
-    rust-analyzer # Language server for Rust (more recent than what's provided by rustup)
-    cargo-release # Rust release helper
-    cargo-deny    # Rust compliance checker (licensing, advisories, etc.)
-    shellcheck    # Lint bash code
-    shfmt         # Format bash code
-    frum          # Fast Ruby version manager
-    ruff          # Fast python linter
-    pyright       # Language server for Python
-    stylua        # Lua code formatter
-    hexyl         # hex viewer
-    oxipng        # Optimize PNGs for size
-    jq            # Process JSON on command line
-    kdiff3        # Diff/merge tool
-    d-spy         # DBus inspector and debugger
+    gcc                 # C compiler
+    make                # ubiquituous "build" tool
+    rustup              # Rust toolchain manager
+    rust-analyzer       # Language server for Rust (more recent than what's provided by rustup)
+    cargo-release       # Rust release helper
+    cargo-semver-checks # Lint public Rust APIs
+    cargo-deny          # Rust compliance checker (licensing, advisories, etc.)
+    shellcheck          # Lint bash code
+    shfmt               # Format bash code
+    frum                # Fast Ruby version manager
+    ruff                # Fast python linter
+    pyright             # Language server for Python
+    stylua              # Lua code formatter
+    hexyl               # hex viewer
+    oxipng              # Optimize PNGs for size
+    jq                  # Process JSON on command line
+    kdiff3              # Diff/merge tool
+    d-spy               # DBus inspector and debugger
 
     # devhelp and doc packages
     devhelp
