@@ -77,7 +77,6 @@ if status --is-interactive
     # Abbreviations (unlike aliases, these are expanded before running)
     # Fast one or two letter abbrevs
     abbr --global --add _ sudo
-    abbr --global --add dc docker-compose
     abbr --global --add e eval '$EDITOR'
     abbr --global --add g git
     abbr --global --add jc journalctl
@@ -92,9 +91,4 @@ if status --is-interactive
     # Default args for some commands
     abbr --global --add df df -kh
     abbr --global --add du du -h
-
-    # And some shortcuts
-    abbr --global --add mdc mdcat
-    abbr --global --add mdl mdcat -p
-    abbr --global --add wttr curl wttr.in
 end
