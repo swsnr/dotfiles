@@ -58,7 +58,7 @@ if status --is-interactive
             # Only search for version files inside my code directory
             if string match -q $HOME/'Code/*' $PWD
                 # Silence any error messages
-                fnm use --silent-if-unchanged 2>/dev/null
+                fnm use --version-file-strategy=recursive --silent-if-unchanged 2>/dev/null
             end
         end
     end
