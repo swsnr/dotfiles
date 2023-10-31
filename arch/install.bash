@@ -72,7 +72,8 @@ packages_to_remove_cascade=()
 
 # Packages to remove
 packages_to_remove=(
-    eog # Superseded by loupe
+    eog  # Superseded by loupe
+    frum # Not used anymore
 )
 
 # Packages to mark as optional dependencies
@@ -184,7 +185,6 @@ packages_to_install=(
     cargo-deny          # Rust compliance checker (licensing, advisories, etc.)
     shellcheck          # Lint bash code
     shfmt               # Format bash code
-    frum                # Fast Ruby version manager
     ruff                # Fast python linter
     pyright             # Language server for Python
     stylua              # Lua code formatter

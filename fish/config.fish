@@ -62,9 +62,6 @@ if status --is-interactive
             end
         end
     end
-    if command -q frum
-        frum init | source
-    end
 
     # On Termux start ssh-agent, because termux doesn't do this for us.  On
     # other systems, e.g. Linux, etc. this is handled by the desktop keyring or

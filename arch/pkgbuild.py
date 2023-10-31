@@ -63,7 +63,6 @@ AUR_PACKAGES: list[str] = [
     "1password",
     "1password-cli",
     "aurutils",
-    "frum",
     "git-gone",
     "gnome-search-providers-vscode",
     "gnome-shell-extension-disable-extension-updates",
@@ -79,6 +78,8 @@ AUR_PACKAGES: list[str] = [
 
 #: Packages to remove from the repository
 PACKAGES_TO_REMOVE: list[str] = [
+    # Not used anymore
+    "frum",
     # Moved to extra
     "gnome-shell-extension-caffeine",
 ]
