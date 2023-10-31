@@ -52,7 +52,15 @@ if status --is-interactive
 
     # Setup automatic node and ruby version management
     if command -q fnm
-        fnm env --use-on-cd | source
+        fnm env | source
+        function _fnm_autoload_hook --on-variable PWD --description 'Change Node version on directory change'
+            status --is-command-substitution; and return
+            # Only search for version files inside my code directory
+            if string match -q $HOME/'Code/*' $PWD
+                # Silence any error messages
+                fnm use --silent-if-unchanged 2>/dev/null
+            end
+        end
     end
     if command -q frum
         frum init | source
