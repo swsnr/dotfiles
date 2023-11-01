@@ -74,6 +74,7 @@ packages_to_remove_cascade=()
 packages_to_remove=(
     eog  # Superseded by loupe
     frum # Not used anymore
+    hcloud
 )
 
 # Packages to mark as optional dependencies
@@ -126,9 +127,6 @@ packages_to_install=(
     yt-dlp               # youtube-dl with extra features
     wol                  # Wake up systems on LAN
     nmap                 # Port scanning and other network information
-
-    # Cloud tools
-    hcloud # CLI for Hetzner cloud
 
     # Arch tools
     etc-update                      # Deal with pacdiff/pacsave files
