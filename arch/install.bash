@@ -579,8 +579,11 @@ case "${HOSTNAME}" in
         npm
 
         # Gtk/Gjs tooling
-        gobject-introspection
-        blueprint-compiler
+        gobject-introspection # Introspection data for glib, for ts-for-gir
+        blueprint-compiler    # UI language compiler
+
+        # Development tools
+        poedit # Translation file editor
 
         # Game mode
         gamemode
