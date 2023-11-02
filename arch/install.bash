@@ -643,6 +643,9 @@ case "${HOSTNAME}" in
         # cope with multilib and mess around with missing steam dependencies.
         com.valvesoftware.Steam
         org.freedesktop.Platform.VulkanLayer.gamescope # Fullscreen control for games
+
+        # Gtk tooling
+        re.sonny.Workbench
     )
     ;;
 *RB*)
