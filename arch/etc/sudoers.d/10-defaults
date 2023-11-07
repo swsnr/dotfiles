@@ -15,7 +15,7 @@ Defaults    always_set_home
 #
 # Provide password input feedback.
 #
-Defaults pwfeedback
+Defaults    pwfeedback
 
 #
 # Lookup sudoers groups by ID instead of looking up user groups by name;
@@ -38,3 +38,8 @@ Defaults    env_keep += "LC_TIME LC_ALL LANGUAGE LINGUAS _XKB_CHARSET XAUTHORITY
 # Keep some variables for building arch packages in chroot
 #
 Defaults    env_keep += "AUR_PAGER PACKAGER GPGKEY"
+
+#
+# Just don't, sudo.
+#
+Defaults    lecture = never
