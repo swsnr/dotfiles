@@ -66,7 +66,7 @@ AUR_PACKAGES: list[str] = [
     "git-gone",
     "gnome-search-providers-vscode",
     "gnome-shell-extension-disable-extension-updates",
-    "gnome-shell-extension-nasa-apod",
+    "gnome-shell-extension-picture-of-the-day",
     "gnome-shell-extension-utc-clock",
     "jabref",
     "otf-vollkorn",
@@ -82,6 +82,8 @@ PACKAGES_TO_REMOVE: list[str] = [
     "frum",
     # Moved to extra
     "gnome-shell-extension-caffeine",
+    # Not ported to GNOME 45 yet, superseded by picture-of-the-day
+    "gnome-shell-extension-nasa-apod",
 ]
 
 class regex_in(str): # noqa: N801,SLOT000

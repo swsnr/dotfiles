@@ -75,6 +75,7 @@ packages_to_remove=(
     eog  # Superseded by loupe
     frum # Not used anymore
     hcloud
+    gnome-shell-extension-nasa-apod
 )
 
 # Packages to mark as optional dependencies
@@ -416,7 +417,7 @@ GNOME)
         gnome-shell-extension-appindicator              # Systray for Gnome
         gnome-shell-extension-caffeine                  # Inhibit suspend
         gnome-shell-extension-disable-extension-updates # Don't check for extension updates
-        gnome-shell-extension-nasa-apod                 # APOD as desktop background
+        gnome-shell-extension-picture-of-the-day        # Picture of the day as background
         gnome-shell-extension-utc-clock                 # UTC clock for the panel
         gnome-search-providers-vscode                   # VSCode workspaces in search
     )
