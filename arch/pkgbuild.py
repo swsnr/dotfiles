@@ -100,6 +100,7 @@ match regex_in(gethostname()):
             "chiaki",
             "gnome-shell-extension-gsconnect",
             "ja2-stracciatella",
+            "televido",
             "threema-desktop",
             "whatsapp-for-linux",
         ])

@@ -410,6 +410,7 @@ GNOME)
         seahorse           # Gnome keyring manager
         gnome-firmware     # Manage firmware with Gnome
         qalculate-gtk      # Scientific desktop calculator w/ unit conversion and search provider
+        totem              # Video player for GNOME
 
         # Gnome extensions and tools
         gnome-shell-extension-appindicator              # Systray for Gnome
@@ -592,6 +593,7 @@ case "${HOSTNAME}" in
 
         # Apps
         mediathekview         # Client for public broadcasting video libraries
+        televido              # GNOME client for mediathek
         digikam               # Photo management
         paperwork             # Document management
         tellico               # Collection manager
