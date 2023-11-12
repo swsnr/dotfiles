@@ -458,8 +458,6 @@ KDE)
     fi
 
     packages_to_remove+=(
-        qgnomeplatform-qt5
-        qgnomeplatform-qt6
         xdg-desktop-portal-gnome
         gvfs-afc
         gvfs-gphoto2
