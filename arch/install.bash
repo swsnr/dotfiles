@@ -76,6 +76,14 @@ packages_to_remove=(
     frum # Not used anymore
     hcloud
     gnome-shell-extension-nasa-apod
+    # Use Biblioteca instead
+    devhelp
+    glib2-docs
+    gnome-devel-docs
+    libportal-docs
+    mutter-docs
+    libsoup-docs
+    zeal
 )
 
 # Packages to mark as optional dependencies
@@ -193,14 +201,6 @@ packages_to_install=(
     kdiff3              # Diff/merge tool
     d-spy               # DBus inspector and debugger
 
-    # devhelp and doc packages
-    devhelp
-    glib2-docs
-    gnome-devel-docs
-    libportal-docs
-    mutter-docs
-    libsoup-docs
-
     # Basic desktop
     wl-clipboard   # CLI access to clipboard
     dconf-editor   # Edit and view Gnome configuration database
@@ -230,7 +230,6 @@ packages_to_install=(
     jabref                  # Bibliography
     sioyek                  # PDF viewer for papers and technical documents
     code                    # Powerful text editor, i.e. poor-mans IDE
-    zeal                    # Offline docs browser
 
     # This should be an optional dependency of zim, but isn't currently, see https://bugs.archlinux.org/task/78946
     # zim: App indicator support
@@ -649,6 +648,7 @@ case "${HOSTNAME}" in
 
         # Gtk tooling
         re.sonny.Workbench
+        app.drey.Biblioteca
     )
     ;;
 *RB*)
