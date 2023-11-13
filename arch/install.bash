@@ -796,7 +796,7 @@ done
 # Update mirror list before installing anything; we use the systemd service
 # because it uses the appropriate reflector configuration.
 if command -v reflector >/dev/null && [[ -e /etc/xdg/reflector/reflector.conf ]]; then
-    systemctl start reflector.service
+    systemctl start reflector.service || true
 fi
 
 pacman -Qtdq | pacman --noconfirm -Rs - || true
