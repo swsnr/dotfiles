@@ -100,6 +100,7 @@ packages_to_install=(
     plymouth # Boot splash screen
     sudo
     pacman-hook-kernel-install # Install kernels to /efi
+    systemd-ukify              # Generate and copy UKIs to /efi (required as of https://bugs.archlinux.org/task/80240)
     zram-generator             # swap on compressed RAM, mostly to support systemd-oomd
     sbctl                      # Manage secure boot binaries and sign binaries
 
