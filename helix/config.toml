@@ -2,8 +2,7 @@
 # https://github.com/helix-editor/helix/issues/2158, so we use a custom symlink
 # to switch the active theme.
 #
-# See update-theme fish function and install.bash for how we manage this
-# symlink.
+# See bin/color-scheme-hook for how we manage this symlink.
 theme = "swsnr-light-dark"
 
 [editor]
