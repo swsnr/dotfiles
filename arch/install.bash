@@ -72,10 +72,6 @@ packages_to_remove_cascade=()
 
 # Packages to remove
 packages_to_remove=(
-    eog  # Superseded by loupe
-    frum # Not used anymore
-    hcloud
-    gnome-shell-extension-nasa-apod
     # Use Biblioteca instead
     devhelp
     glib2-docs
