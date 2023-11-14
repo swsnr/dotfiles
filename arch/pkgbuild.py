@@ -84,6 +84,9 @@ PACKAGES_TO_REMOVE: list[str] = [
     "gnome-shell-extension-caffeine",
     # Not ported to GNOME 45 yet, superseded by picture-of-the-day
     "gnome-shell-extension-nasa-apod",
+    # Not used anymore
+    "python2",
+    "rocketchat-desktop",
 ]
 
 class regex_in(str): # noqa: N801,SLOT000
@@ -113,8 +116,6 @@ match regex_in(gethostname()):
             "drawio-desktop",
             "fnm",
             "microsoft-edge-stable-bin",
-            "python2",
-            "rocketchat-desktop",
         ])
 
 

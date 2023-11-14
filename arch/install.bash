@@ -80,6 +80,10 @@ packages_to_remove=(
     mutter-docs
     libsoup-docs
     zeal
+    # No longer used
+    mattermost-desktop
+    rocketchat-desktop
+    python2
     # Regression fixed
     systemd-ukify
 )
@@ -658,7 +662,6 @@ case "${HOSTNAME}" in
         virtualbox-guest-iso
         virtualbox
 
-        python2                          # Old python for old tools
         dotnet-sdk                       # .NET development
         podman                           # Deamonless containers
         podman-compose                   # docker-compose for podman
@@ -691,8 +694,6 @@ case "${HOSTNAME}" in
         drawio-desktop            # Diagram drawing
         keepassxc                 # Keepass
         evolution-ews             # Exchange for evolution
-        mattermost-desktop        # Chat application
-        rocketchat-desktop        # Chat application
         microsoft-edge-stable-bin # Browser for teams and web testing
         libreoffice-fresh
         libreoffice-fresh-de
