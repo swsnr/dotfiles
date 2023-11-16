@@ -87,7 +87,7 @@ packages_to_remove=(
     ausweisap2
     chiki
     televdo
-    threema-deskop
+    threema-desktop
     whatsapp-for-liux
 )
 
