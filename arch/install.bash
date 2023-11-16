@@ -47,9 +47,6 @@ pacman_repositories=(
 # Whether to upgrade packages.  Set to false to avoid an initial pacman -Syu
 upgrade_packages=true
 
-# The desired desktop for this system
-desired_desktop=GNOME
-
 # By default, do not use the proprietary nvidia driver
 use_nvidia=false
 
@@ -365,202 +362,84 @@ if [[ -n "${MY_USER_ACCOUNT}" ]]; then
     services+=("btrfs-scrub@$(systemd-escape -p "/home/${MY_USER_ACCOUNT}").timer")
 fi
 
-#region Per-desktop packages
-case "${desired_desktop}" in
-GNOME)
-    # If sddm is installed, clean up the entire Qt hierarchy first, to get rid
-    # of all KDE packages
-    if pacman -Qi sddm &>/dev/null; then
-        packages_to_remove_cascade+=(qt5-base qt6-base)
-    fi
+#region GNOME desktop
+packages_to_install+=(
+    # Multimedia codecs for gnome
+    gst-libav       # Many additional codecs
+    gstreamer-vaapi # Hardware video decoding for gstreamer
+    # Virtual filesystem for Gnome
+    gvfs-afc     # Gnome VFS: Apple devices
+    gvfs-gphoto2 # Gnome VFS: camera support
+    gvfs-mtp     # Gnome VFS: Android devices
+    gvfs-smb     # Gnome VFS: SMB/CIFS shares
+    # Portals for gnome
+    xdg-desktop-portal-gnome
+    xdg-user-dirs-gtk
 
-    packages_to_remove+=(
-        xsettingsd
-        materia-kde
-        materia-gtk-theme
-        kvantum-theme-materia
-        papirus-icon-theme
-    )
+    # Gnome
+    gdm
+    gnome-characters
+    gnome-keyring
+    gnome-clocks
+    gnome-weather
+    gnome-maps
+    gnome-shell
+    gnome-shell-extensions # Built-in shell extensions for Gnome
+    gnome-disk-utility
+    gnome-system-monitor
+    gnome-control-center
+    gnome-tweaks
+    gnome-backgrounds
+    gnome-themes-extra # Adwaita dark, for dark mode in Gtk3 applications
+    gnome-terminal     # Backup terminal, in case I mess up wezterm
+    yelp               # Online help system
+    nautilus           # File manager
+    sushi              # Previewer for nautilus
+    evince             # Document viewer
+    loupe              # Image viewer
+    simple-scan        # Scanning
+    seahorse           # Gnome keyring manager
+    gnome-firmware     # Manage firmware with Gnome
+    qalculate-gtk      # Scientific desktop calculator w/ unit conversion and search provider
+    totem              # Video player for GNOME
 
-    packages_to_install+=(
-        # Multimedia codecs for gnome
-        gst-libav       # Many additional codecs
-        gstreamer-vaapi # Hardware video decoding for gstreamer
-        # Virtual filesystem for Gnome
-        gvfs-afc     # Gnome VFS: Apple devices
-        gvfs-gphoto2 # Gnome VFS: camera support
-        gvfs-mtp     # Gnome VFS: Android devices
-        gvfs-smb     # Gnome VFS: SMB/CIFS shares
-        # Portals for gnome
-        xdg-desktop-portal-gnome
-        xdg-user-dirs-gtk
+    # Gnome extensions and tools
+    gnome-shell-extension-appindicator              # Systray for Gnome
+    gnome-shell-extension-caffeine                  # Inhibit suspend
+    gnome-shell-extension-disable-extension-updates # Don't check for extension updates
+    gnome-shell-extension-picture-of-the-day        # Picture of the day as background
+    gnome-shell-extension-utc-clock                 # UTC clock for the panel
+    gnome-search-providers-vscode                   # VSCode workspaces in search
+)
 
-        # Gnome
-        gdm
-        gnome-characters
-        gnome-keyring
-        gnome-clocks
-        gnome-weather
-        gnome-maps
-        gnome-shell
-        gnome-shell-extensions # Built-in shell extensions for Gnome
-        gnome-disk-utility
-        gnome-system-monitor
-        gnome-control-center
-        gnome-tweaks
-        gnome-backgrounds
-        gnome-themes-extra # Adwaita dark, for dark mode in Gtk3 applications
-        gnome-terminal     # Backup terminal, in case I mess up wezterm
-        yelp               # Online help system
-        nautilus           # File manager
-        sushi              # Previewer for nautilus
-        evince             # Document viewer
-        loupe              # Image viewer
-        simple-scan        # Scanning
-        seahorse           # Gnome keyring manager
-        gnome-firmware     # Manage firmware with Gnome
-        qalculate-gtk      # Scientific desktop calculator w/ unit conversion and search provider
-        totem              # Video player for GNOME
+packages_to_install_optdeps+=(
+    # gnome-shell: screen recording support
+    gst-plugins-good
+    gst-plugin-pipewire
 
-        # Gnome extensions and tools
-        gnome-shell-extension-appindicator              # Systray for Gnome
-        gnome-shell-extension-caffeine                  # Inhibit suspend
-        gnome-shell-extension-disable-extension-updates # Don't check for extension updates
-        gnome-shell-extension-picture-of-the-day        # Picture of the day as background
-        gnome-shell-extension-utc-clock                 # UTC clock for the panel
-        gnome-search-providers-vscode                   # VSCode workspaces in search
-    )
+    # gnome-control-center: app permissions
+    malcontent
 
-    packages_to_install_optdeps+=(
-        # gnome-shell: screen recording support
-        gst-plugins-good
-        gst-plugin-pipewire
+    # nautilus: search
+    tracker3-miners
 
-        # gnome-control-center: app permissions
-        malcontent
+    # We only need to install this explicitly on Gnome to support KDE apps.
+    # On KDE it's a hard dependency of plasma
+    # kiconthemes: fallback icons
+    breeze-icons
 
-        # nautilus: search
-        tracker3-miners
+    # wezterm: Nautilus integration
+    # gnome-shell-extension-gsconnect: Send to menu
+    python-nautilus
+    # wezterm: Fallback font for symbols
+    ttf-nerd-fonts-symbols-mono
+)
 
-        # We only need to install this explicitly on Gnome to support KDE apps.
-        # On KDE it's a hard dependency of plasma
-        # kiconthemes: fallback icons
-        breeze-icons
+flatpaks+=(
+    com.github.tchx84.Flatseal
+)
 
-        # wezterm: Nautilus integration
-        # gnome-shell-extension-gsconnect: Send to menu
-        python-nautilus
-        # wezterm: Fallback font for symbols
-        ttf-nerd-fonts-symbols-mono
-    )
-
-    flatpaks+=(
-        com.github.tchx84.Flatseal
-    )
-
-    services+=(gdm.service)
-    services_to_disable+=(sddm.service)
-    ;;
-KDE)
-    # If gdm is installed, clean up the entire Gtk hierarchy to effectively remove Gnome shell
-    if pacman -Qi gdm &>/dev/null; then
-        packages_to_remove_cascade+=(gtk3 gtk4)
-    fi
-
-    packages_to_remove+=(
-        xdg-desktop-portal-gnome
-        gvfs-afc
-        gvfs-gphoto2
-        gvfs-mtp
-        gvfs-smb
-        # KMail is a nightmare full of issues and questionable design decisions,
-        # so let's get rid of it and of contact, too, since it becomes pointless
-        # without kmail.
-        kontact
-        kmail
-        korganizer
-    )
-
-    packages_to_install+=(
-        # KDE core and infrastructure
-        sddm                   # KDE-recommended desktop manager
-        plasma-meta            # Plasma desktop session
-        plasma-wayland-session # Plasma on Wayland
-        kio-admin              # Edit files as root safely
-        kio-extras             # Extra IO protocols (SMB, SFTP, info, SSH, etc.)
-        kio-zeroconf           # zeroconf service lookups via KIO
-        audiocd-kio            # Directly open audio CDs
-        kde-inotify-survey     # Monitor inotify FD usage, and ask to increase FD limits if needed
-        akonadiconsole         # Debug akonadi
-
-        # KDE applications
-        okular                   # Document viewer
-        skanpage                 # Scanning
-        spectacle                # Screenshots
-        gwenview                 # Image viewer
-        kruler                   # Measure screen space
-        kcolorchooser            # Choose colors on screen
-        svgpart                  # Show SVG in KDE applications
-        markdownpart             # Show markdown in KDE applications
-        kdegraphics-thumbnailers # Thumbnail generation for graphics formats
-        ffmpegthumbs             # Thumbnail generation for video files
-        marble                   # Maps application
-        kamoso                   # Webcam recorder
-        dolphin                  # File manager
-        dolphin-plugins          # and plugins for the file manager
-        khelpcenter              # Online help
-        kjournald                # View journals
-        partitionmanager         # Edit partitions
-        kdeconnect               # Connect to mobile phone
-        krdc                     # Remote desktop connections
-        print-manager            # Setup printers and manage print jobs
-        kaddressbook             # KDE address book app
-        kalendar                 # KDE calendar app
-        kdepim-addons            # Addons for KDE pim (specifically, appointment display in plasma)
-
-        konsole        # KDE's default terminal, in case wezterm breaks
-        ark            # KDE archive program
-        filelight      # Analyse disk usage
-        kate           # KDE's text editor
-        kcharselect    # Select characters
-        krecorder      # Record audio
-        kwalletmanager # Manage passwords in kwallet
-        calligra       # Simple office suite
-
-        # KDE theming
-        materia-kde
-        materia-gtk-theme
-        kvantum-theme-materia
-        papirus-icon-theme
-    )
-
-    packages_to_install_optdeps+=(
-        # gwenview: More image formats
-        kimageformats
-        qt5-imageformats
-
-        # plasma-meta: breeze theme for plymouth
-        breeze-plymouth
-        # plasma-meta: configure flatpak apps
-        flatpak-kcm
-        # plasma-meta: configure plymouth
-        plymouth-kcm
-
-        # kvantum: Qt6 support
-        qt6-svg
-    )
-
-    # KDE has this built-in
-    flatpaks_to_remove+=(com.github.tchx84.Flatseal)
-
-    services+=(sddm.service)
-    services_to_disable+=(gdm.service)
-    ;;
-*)
-    echo "Unsupported desired desktop: ${desired_desktop}"
-    exit 1
-    ;;
-esac
+services+=(gdm.service)
 #endregion
 
 #region Per-host and per-hardware packages, services, etc.
@@ -607,26 +486,12 @@ case "${HOSTNAME}" in
         gnucash               # Finance manager
         ja2-stracciatella-git # Modern runtime for the venerable JA2
         handbrake             # DVD and video encoding
+        kid3-qt               # Audio tag editor
+        sound-juicer          # Simple audio disc ripper
 
-        syncthing # Network synchronization
+        gnome-shell-extension-gsconnect # Connect phone and desktop system
+        syncthing                       # Network synchronization
     )
-
-    case "${desired_desktop}" in
-    GNOME)
-        packages_to_install+=(
-            gnome-shell-extension-gsconnect # Connect phone and desktop system
-            kid3-qt                         # Audio tag editor
-            sound-juicer                    # Simple audio disc ripper
-
-        )
-        ;;
-    KDE)
-        packages_to_install+=(
-            kid3
-        )
-        ;;
-    *) ;;
-    esac
 
     packages_to_install_optdeps+=(
         # vlc: DVD playback
