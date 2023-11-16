@@ -173,76 +173,54 @@ mkdir -p ~/.local/share/devhelp/books
 ln -fs -t ~/.local/share/devhelp/books \
     /usr/share/mutter-12/doc/{cally,clutter,cogl,cogl-pango,meta}
 
-case "${XDG_CURRENT_DESKTOP:-}" in
-GNOME)
-    "${DIR}/gnome/settings.py" || true
+"${DIR}/gnome/settings.py" || true
 
-    # Disable kwallet in Gnome
-    ln -fs "${DIR}/gnome/kwalletrc" ~/.config/kwalletrc
-    # Disable our SSH agent service; Gnome includes an SSH agent as part of its
-    # keyring service.
-    systemctl --user disable ssh-agent.service || true
+# Disable kwallet in Gnome
+ln -fs "${DIR}/gnome/kwalletrc" ~/.config/kwalletrc
+# Disable our SSH agent service; Gnome includes an SSH agent as part of its
+# keyring service.
+systemctl --user disable ssh-agent.service || true
 
-    # Local gnome extensions
-    clean-recursively ~/.local/share/gnome-shell/extensions/
+# Local gnome extensions
+clean-recursively ~/.local/share/gnome-shell/extensions/
 
-    extensions=(
-        # Add a systray and a drive menu to the panel
-        'appindicatorsupport@rgcjonas.gmail.com'
-        'drive-menu@gnome-shell-extensions.gcampax.github.com'
-        # Disable automatic extension updates; I install all extensions through
-        # pacman. This stops Gnome from sending the list of my extensions to
-        # extensions.gnome.org.
-        'disable-extension-updates@swsnr.de'
-        # Cool wallpapers every day
-        'nasa_apod@elinvention.ovh'
-        # Inhibit suspend
-        'caffeine@patapon.info'
+extensions=(
+    # Add a systray and a drive menu to the panel
+    'appindicatorsupport@rgcjonas.gmail.com'
+    'drive-menu@gnome-shell-extensions.gcampax.github.com'
+    # Disable automatic extension updates; I install all extensions through
+    # pacman. This stops Gnome from sending the list of my extensions to
+    # extensions.gnome.org.
+    'disable-extension-updates@swsnr.de'
+    # Cool wallpapers every day
+    'nasa_apod@elinvention.ovh'
+    # Inhibit suspend
+    'caffeine@patapon.info'
+)
+
+case "${HOSTNAME}" in
+*kastl*)
+    extensions+=(
+        # Connect my system to my mobile phone
+        'gsconnect@andyholmes.github.io'
     )
-    case "${HOSTNAME}" in
-    *kastl*)
-        extensions+=(
-            # Connect my system to my mobile phone
-            'gsconnect@andyholmes.github.io'
-        )
-        ;;
-    *RB*)
-        extensions+=(
-            'utc-clock@swsnr.de'
-        )
-        ;;
-    *) ;;
-    esac
-
-    if has gnome-extensions; then
-        for extension in "${extensions[@]}"; do
-            # Enable extension if present
-            if gnome-extensions list | grep -q "${extension}"; then
-                gnome-extensions enable "${extension}"
-            fi
-        done
-    fi
     ;;
-KDE)
-    if test -L ~/.config/kwalletrc; then
-        rm ~/.config/kwalletrc
-    fi
-
-    # Synchronize KDE plasma environment with systemd's environment
-    # For some reason plasma does not inherit the systemd user environment
-    # properly, and thus has a wrong $PATH.  We add a little hack to synchronize
-    # both environments.
-    mkdir -p ~/.config/plasma-workspace/env
-    ln -fs "${DIR}/kde/systemd-fix-env.sh" ~/.config/plasma-workspace/env/systemd-fix-env.sh
-
-    # Configure KDE and its applications
-    "${DIR}/kde/settings.py"
-
-    # Enable SSH agent service, because KDE doesn't include an agent
-    systemctl --user enable ssh-agent.socket
+*RB*)
+    extensions+=(
+        'utc-clock@swsnr.de'
+    )
     ;;
 *) ;;
 esac
+
+if has gnome-extensions; then
+    for extension in "${extensions[@]}"; do
+        # Enable extension if present
+        if gnome-extensions list | grep -q "${extension}"; then
+            gnome-extensions enable "${extension}"
+        fi
+    done
+fi
 
 # Generate additional fish completions
 mkdir -p ~/.config/fish/completions
@@ -290,9 +268,8 @@ has code && "${DIR}"/misc/code-settings.py
 
 case "${HOSTNAME}" in
 *kastl*)
-    # On personal systems use 1password for SSH and commit signing, so disable
-    # the SSH agent service and configure SSH to talk to 1password instead.
-    systemctl --user disable ssh-agent.service || true
+    # On personal systems use 1password for SSH and commit signing, so
+    # configure SSH to talk to 1password instead.
     ln -fs -t ~/.config/git "${DIR}/git/config.1password-signing"
     # This file deliberately lies outside of "${DIR}/ssh/config.d" because we
     # install all files from config.d above

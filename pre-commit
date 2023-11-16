@@ -16,9 +16,9 @@
 set -euo pipefail
 
 echo "=== shfmt"
-shfmt -i 4 -l -d **/*.bash **/*.sh bin/ui-theme bin/game-mode-hook bin/toggle-nightlight
+shfmt -i 4 -l -d **/*.bash bin/ui-theme bin/game-mode-hook bin/toggle-nightlight
 echo "=== shellcheck"
-shellcheck **/*.bash **/*.sh bin/ui-theme bin/game-mode-hook bin/toggle-nightlight
+shellcheck **/*.bash bin/ui-theme bin/game-mode-hook bin/toggle-nightlight
 echo "=== fish_indent"
 fish_indent -c fish/**/*.fish
 echo "=== ruff"
