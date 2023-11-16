@@ -344,6 +344,8 @@ services_to_disable=()
 flatpaks=(
     # For Windows software (gaming, project management things, etc.)
     com.usebottles.bottles
+    # Quickly obfuscate information in images
+    com.belmoussaoui.Obfuscate
 )
 
 flatpaks_to_remove=(
