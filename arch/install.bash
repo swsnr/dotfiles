@@ -84,11 +84,11 @@ packages_to_remove=(
     # Regression fixed
     systemd-ukify
     # Flatpaks instead
-    ausweisap2
-    chiki
-    televdo
+    ausweisapp2
+    chiaki
+    televido
     threema-desktop
-    whatsapp-for-liux
+    whatsapp-for-linux
 )
 
 # Packages to mark as optional dependencies
