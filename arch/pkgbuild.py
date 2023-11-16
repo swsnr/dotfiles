@@ -87,6 +87,12 @@ PACKAGES_TO_REMOVE: list[str] = [
     # Not used anymore
     "python2",
     "rocketchat-desktop",
+    # Use flatpak instead
+    "ausweisapp2",
+    "chiaki",
+    "televido",
+    "threema-desktop",
+    "whatsapp-for-linux",
 ]
 
 class regex_in(str): # noqa: N801,SLOT000
@@ -101,13 +107,8 @@ class regex_in(str): # noqa: N801,SLOT000
 match regex_in(gethostname()):
     case "kastl":
         AUR_PACKAGES.extend([
-            "ausweisapp2",
-            "chiaki",
             "gnome-shell-extension-gsconnect",
             "ja2-stracciatella",
-            "televido",
-            "threema-desktop",
-            "whatsapp-for-linux",
         ])
     case "RB":
         AUR_PACKAGES.extend([

@@ -86,6 +86,12 @@ packages_to_remove=(
     python2
     # Regression fixed
     systemd-ukify
+    # Flatpaks instead
+    ausweisap2
+    chiki
+    televdo
+    threema-deskop
+    whatsapp-for-liux
 )
 
 # Packages to mark as optional dependencies
@@ -595,16 +601,11 @@ case "${HOSTNAME}" in
 
         # Apps
         mediathekview         # Client for public broadcasting video libraries
-        televido              # GNOME client for mediathek
         digikam               # Photo management
         paperwork             # Document management
         tellico               # Collection manager
         gnucash               # Finance manager
-        ausweisapp2           # eID app
-        chiaki                # Remote play client for PS4/5
-        whatsapp-for-linux    # Whatsapp desktop client for Linux
         ja2-stracciatella-git # Modern runtime for the venerable JA2
-        threema-desktop       # Secure messaging
         handbrake             # DVD and video encoding
 
         syncthing # Network synchronization
@@ -651,6 +652,13 @@ case "${HOSTNAME}" in
         # Gtk tooling
         re.sonny.Workbench
         app.drey.Biblioteca
+
+        # Applications
+        de.bund.ausweisapp.ausweisapp2
+        re.chiaki.Chiaki
+        de.k_bo.Televido
+        ch.threema.threema-web-desktop
+        com.github.eneshecan.WhatsAppForLinux
     )
     ;;
 *RB*)
