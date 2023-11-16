@@ -94,6 +94,7 @@ EXTENSIONS = [
     # JS & Typescript,
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
+    "denoland.vscode-deno",
 ]
 
 

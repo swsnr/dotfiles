@@ -205,6 +205,7 @@ packages_to_install=(
     jq                  # Process JSON on command line
     kdiff3              # Diff/merge tool
     d-spy               # DBus inspector and debugger
+    deno                # Typescript runtime, for scripting
 
     # Basic desktop
     wl-clipboard   # CLI access to clipboard
