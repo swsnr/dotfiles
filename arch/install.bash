@@ -49,18 +49,6 @@ upgrade_packages=true
 
 # By default, do not use the proprietary nvidia driver
 use_nvidia=false
-
-# By default, discover the root filesystem automatically.  Disable for e.g.
-# btrfs raid on root fs.
-discover_rootfs=true
-
-case "${HOSTNAME}" in
-*RB*)
-    # System uses btrfs raid, so we need an explicit rootfs
-    discover_rootfs=false
-    ;;
-*) ;;
-esac
 #endregion
 
 #region Basic packages and services
@@ -776,12 +764,7 @@ install -m644 -t /etc/cmdline.d \
     "${DIR}"/etc/cmdline.d/10-swsnr-quiet-boot.conf \
     "${DIR}"/etc/cmdline.d/20-swsnr-disable-zswap.conf \
     "${DIR}"/etc/cmdline.d/20-swsnr-rootflags-btrfs.conf
-if [[ "${discover_rootfs}" == true ]]; then
-    rm -f /etc/cmdline.d/30-explicit-root.conf
-else
-    install -m644 -t /etc/cmdline.d/ \
-        "${DIR}"/etc/cmdline.d/30-explicit-root.conf
-fi
+rm -f /etc/cmdline.d/30-explicit-root.conf
 
 # Boot loader configuration
 install -pm644 "${DIR}/etc/loader.conf" /efi/loader/loader.conf
