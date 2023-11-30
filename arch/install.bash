@@ -59,6 +59,9 @@ packages_to_remove_cascade=()
 packages_to_remove=(
     # No longer used
     qt6-wayland
+    handbrake
+    kid3-qt
+    sound-juicer
     # Flatpaks instead
     jabref
     sioyek
@@ -456,9 +459,6 @@ case "${HOSTNAME}" in
         paperwork             # Document management
         gnucash               # Finance manager
         ja2-stracciatella-git # Modern runtime for the venerable JA2
-        handbrake             # DVD and video encoding
-        kid3-qt               # Audio tag editor
-        sound-juicer          # Simple audio disc ripper
 
         gnome-shell-extension-gsconnect # Connect phone and desktop system
         syncthing                       # Network synchronization
