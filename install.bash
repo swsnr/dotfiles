@@ -263,6 +263,10 @@ if has flatpak; then
         --nofilesystem xdg-music \
         --nofilesystem xdg-pictures \
         com.valvesoftware.Steam
+
+    flatpak override --user \
+        --filesystem xdg-documents/Tellico \
+        org.kde.tellico
 fi
 
 # Configure Code OSS

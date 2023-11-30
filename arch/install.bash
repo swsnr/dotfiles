@@ -80,6 +80,8 @@ packages_to_remove=(
     jabref
     sioyek
     mediathekview # Only Java we use, so let's get rid of java-runtime on the host
+    # Use flatpak for all KDE things to keep KDE dep isolated
+    tellico
 )
 
 # Packages to mark as optional dependencies
@@ -340,6 +342,7 @@ flatpaks=(
     org.jabref.jabref              # Library & reference manager
     com.github.ahrm.sioyek         # PDF viewer for papers and real documents
     de.mediathekview.MediathekView # Client for German TV broadcasting stations
+    org.kde.tellico                # Manage collections of books, etc.
 )
 
 flatpaks_to_remove=(
@@ -472,7 +475,6 @@ case "${HOSTNAME}" in
         # Apps
         digikam               # Photo management
         paperwork             # Document management
-        tellico               # Collection manager
         gnucash               # Finance manager
         ja2-stracciatella-git # Modern runtime for the venerable JA2
         handbrake             # DVD and video encoding
