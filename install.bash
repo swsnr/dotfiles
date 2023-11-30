@@ -269,9 +269,11 @@ if has flatpak; then
         --filesystem xdg-documents/Tellico \
         org.kde.tellico
 
-    # Remove stracciatella access to documents, I keep game data elsewhere
+    # Remove stracciatella access to documents, I keep game data elsewhere.
+    # Allow access to wayland and enforce wayland as SDL driver
     flatpak override --user \
         --nofilesystem xdg-documents \
+        --socket=wayland --env=SDL_VIDEODRIVER=wayland \
         io.github.ja2_stracciatella.JA2-Stracciatella
 fi
 
