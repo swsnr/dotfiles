@@ -93,6 +93,7 @@ PACKAGES_TO_REMOVE: list[str] = [
     "whatsapp-for-linux",
     "jabref",
     "sioyek",
+    "ja2-stracciatella",
 ]
 
 class regex_in(str): # noqa: N801,SLOT000
@@ -108,7 +109,6 @@ match regex_in(gethostname()):
     case "kastl":
         AUR_PACKAGES.extend([
             "gnome-shell-extension-gsconnect",
-            "ja2-stracciatella",
         ])
     case "RB":
         AUR_PACKAGES.extend([
