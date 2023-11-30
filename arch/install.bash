@@ -77,6 +77,8 @@ packages_to_remove=(
     televido
     threema-desktop
     whatsapp-for-linux
+    jabref
+    sioyek
 )
 
 # Packages to mark as optional dependencies
@@ -221,8 +223,6 @@ packages_to_install=(
     xournalpp               # Hand-written notes and PDF annotations
     pdfarranger             # Reorder pages in PDF files
     zim                     # Personal desktop wiki
-    jabref                  # Bibliography
-    sioyek                  # PDF viewer for papers and technical documents
     code                    # Powerful text editor, i.e. poor-mans IDE
 
     # This should be an optional dependency of zim, but isn't currently, see https://bugs.archlinux.org/task/78946
@@ -334,10 +334,10 @@ services_to_disable=()
 
 # Flatpaks
 flatpaks=(
-    # For Windows software (gaming, project management things, etc.)
-    com.usebottles.bottles
-    # Quickly obfuscate information in images
-    com.belmoussaoui.Obfuscate
+    com.usebottles.bottles     # Windows software, mostly gaming
+    com.belmoussaoui.Obfuscate # Obfuscate things in screenshots
+    org.jabref.jabref          # Library & reference manager
+    com.github.ahrm.sioyek     # PDF viewer for papers and real documents
 )
 
 flatpaks_to_remove=(

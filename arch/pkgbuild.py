@@ -68,12 +68,10 @@ AUR_PACKAGES: list[str] = [
     "gnome-shell-extension-disable-extension-updates",
     "gnome-shell-extension-picture-of-the-day",
     "gnome-shell-extension-utc-clock",
-    "jabref",
     "otf-vollkorn",
     "pacman-hook-kernel-install",
     "pacman-hook-reproducible-status",
     "pcsc-cyberjack",
-    "sioyek",
 ]
 
 #: Packages to remove from the repository
@@ -93,6 +91,8 @@ PACKAGES_TO_REMOVE: list[str] = [
     "televido",
     "threema-desktop",
     "whatsapp-for-linux",
+    "jabref",
+    "sioyek",
 ]
 
 class regex_in(str): # noqa: N801,SLOT000
