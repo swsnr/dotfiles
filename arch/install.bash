@@ -62,6 +62,10 @@ packages_to_remove=(
     handbrake
     kid3-qt
     sound-juicer
+    diffpdf
+    xournalpp
+    pdfarranger
+    poedit
     # Flatpaks instead
     jabref
     sioyek
@@ -212,8 +216,6 @@ packages_to_install=(
     vlc                     # The media player
     audacious               # Simple music player
     evolution               # Mail client & calendar (even on KDE, because kmail and korganizer have a bunch of issues
-    xournalpp               # Hand-written notes and PDF annotations
-    pdfarranger             # Reorder pages in PDF files
     zim                     # Personal desktop wiki
     code                    # Powerful text editor, i.e. poor-mans IDE
 
@@ -231,9 +233,6 @@ packages_to_install=(
     texlive-mathscience
     texlive-publishers
     biber
-
-    # Document & pdf tools
-    diffpdf # visual diff for PDF files
 
     # Spell-checking dictionaries, for nuspell, indirectly enchant, and then all
     # the way up the dependency chain to all Gnome apps.
@@ -447,9 +446,6 @@ case "${HOSTNAME}" in
         # Gtk/Gjs tooling
         gobject-introspection # Introspection data for glib, for ts-for-gir
         blueprint-compiler    # UI language compiler
-
-        # Development tools
-        poedit # Translation file editor
 
         # Game mode
         gamemode
