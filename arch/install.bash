@@ -79,6 +79,7 @@ packages_to_remove=(
     whatsapp-for-linux
     jabref
     sioyek
+    mediathekview # Only Java we use, so let's get rid of java-runtime on the host
 )
 
 # Packages to mark as optional dependencies
@@ -334,10 +335,11 @@ services_to_disable=()
 
 # Flatpaks
 flatpaks=(
-    com.usebottles.bottles     # Windows software, mostly gaming
-    com.belmoussaoui.Obfuscate # Obfuscate things in screenshots
-    org.jabref.jabref          # Library & reference manager
-    com.github.ahrm.sioyek     # PDF viewer for papers and real documents
+    com.usebottles.bottles         # Windows software, mostly gaming
+    com.belmoussaoui.Obfuscate     # Obfuscate things in screenshots
+    org.jabref.jabref              # Library & reference manager
+    com.github.ahrm.sioyek         # PDF viewer for papers and real documents
+    de.mediathekview.MediathekView # Client for German TV broadcasting stations
 )
 
 flatpaks_to_remove=(
@@ -468,7 +470,6 @@ case "${HOSTNAME}" in
         scummvm     # For the classics
 
         # Apps
-        mediathekview         # Client for public broadcasting video libraries
         digikam               # Photo management
         paperwork             # Document management
         tellico               # Collection manager
