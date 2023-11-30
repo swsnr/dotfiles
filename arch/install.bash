@@ -57,27 +57,9 @@ packages_to_remove_cascade=()
 
 # Packages to remove
 packages_to_remove=(
-    # Use Biblioteca instead
-    devhelp
-    glib2-docs
-    gnome-devel-docs
-    libportal-docs
-    mutter-docs
-    libsoup-docs
-    zeal
     # No longer used
-    mattermost-desktop
-    rocketchat-desktop
-    python2
     qt6-wayland
-    # Regression fixed
-    systemd-ukify
     # Flatpaks instead
-    ausweisapp2
-    chiaki
-    televido
-    threema-desktop
-    whatsapp-for-linux
     jabref
     sioyek
     mediathekview # Only Java we use, so let's get rid of java-runtime on the host
