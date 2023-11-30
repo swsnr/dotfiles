@@ -65,6 +65,7 @@ packages_to_remove=(
     # Flatpaks instead
     jabref
     sioyek
+    ja2-stracciatella-git
     mediathekview # Only Java we use, so let's get rid of java-runtime on the host
     # Use flatpak for all KDE things to keep KDE dep isolated
     tellico
@@ -456,9 +457,8 @@ case "${HOSTNAME}" in
         scummvm     # For the classics
 
         # Apps
-        paperwork             # Document management
-        gnucash               # Finance manager
-        ja2-stracciatella-git # Modern runtime for the venerable JA2
+        paperwork # Document management
+        gnucash   # Finance manager
 
         gnome-shell-extension-gsconnect # Connect phone and desktop system
         syncthing                       # Network synchronization

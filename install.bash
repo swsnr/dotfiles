@@ -264,9 +264,15 @@ if has flatpak; then
         --nofilesystem xdg-pictures \
         com.valvesoftware.Steam
 
+    # Allow Tellico to access my collection data
     flatpak override --user \
         --filesystem xdg-documents/Tellico \
         org.kde.tellico
+
+    # Remove stracciatella access to documents, I keep game data elsewhere
+    flatpak override --user \
+        --nofilesystem xdg-documents \
+        io.github.ja2_stracciatella.JA2-Stracciatella
 fi
 
 # Configure Code OSS
