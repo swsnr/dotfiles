@@ -82,6 +82,7 @@ packages_to_remove=(
     mediathekview # Only Java we use, so let's get rid of java-runtime on the host
     # Use flatpak for all KDE things to keep KDE dep isolated
     tellico
+    digikam
 )
 
 # Packages to mark as optional dependencies
@@ -343,6 +344,7 @@ flatpaks=(
     com.github.ahrm.sioyek         # PDF viewer for papers and real documents
     de.mediathekview.MediathekView # Client for German TV broadcasting stations
     org.kde.tellico                # Manage collections of books, etc.
+    org.kde.digikam                # Digital photo management
 )
 
 flatpaks_to_remove=(
@@ -473,7 +475,6 @@ case "${HOSTNAME}" in
         scummvm     # For the classics
 
         # Apps
-        digikam               # Photo management
         paperwork             # Document management
         gnucash               # Finance manager
         ja2-stracciatella-git # Modern runtime for the venerable JA2
