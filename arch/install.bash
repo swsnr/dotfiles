@@ -69,6 +69,7 @@ packages_to_remove=(
     mattermost-desktop
     rocketchat-desktop
     python2
+    qt6-wayland
     # Regression fixed
     systemd-ukify
     # Flatpaks instead
@@ -303,7 +304,6 @@ packages_to_install_optdeps=(
 
     # Qt: wayland support
     qt5-wayland
-    qt6-wayland
 )
 
 services=(
