@@ -83,6 +83,8 @@ packages_to_remove=(
     # Use flatpak for all KDE things to keep KDE dep isolated
     tellico
     digikam
+    kwallet
+    kdiff3
 )
 
 # Packages to mark as optional dependencies
@@ -197,7 +199,6 @@ packages_to_install=(
     hexyl               # hex viewer
     oxipng              # Optimize PNGs for size
     jq                  # Process JSON on command line
-    kdiff3              # Diff/merge tool
     d-spy               # DBus inspector and debugger
     deno                # Typescript runtime, for scripting
 
@@ -418,11 +419,6 @@ packages_to_install_optdeps+=(
 
     # nautilus: search
     tracker3-miners
-
-    # We only need to install this explicitly on Gnome to support KDE apps.
-    # On KDE it's a hard dependency of plasma
-    # kiconthemes: fallback icons
-    breeze-icons
 
     # wezterm: Nautilus integration
     # gnome-shell-extension-gsconnect: Send to menu
