@@ -85,6 +85,10 @@ PACKAGES_TO_REMOVE: list[str] = [
     # Not used anymore
     "python2",
     "rocketchat-desktop",
+    "sol2",
+    "sol2-single",
+    "string-theory",
+    "archlinux-java-run",
     # Use flatpak instead
     "ausweisapp2",
     "chiaki",
@@ -94,6 +98,7 @@ PACKAGES_TO_REMOVE: list[str] = [
     "jabref",
     "sioyek",
     "ja2-stracciatella",
+    "ja2-stracciatella-git",
 ]
 
 class regex_in(str): # noqa: N801,SLOT000
