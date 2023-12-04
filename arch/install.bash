@@ -484,6 +484,7 @@ case "${HOSTNAME}" in
         # cope with multilib and mess around with missing steam dependencies.
         com.valvesoftware.Steam
         org.freedesktop.Platform.VulkanLayer.gamescope # Fullscreen control for games
+        io.github.ja2_stracciatella.JA2-Stracciatella  # JA2 for this century
 
         # Gtk tooling
         re.sonny.Workbench
