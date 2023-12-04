@@ -119,9 +119,7 @@ match regex_in(gethostname()):
         AUR_PACKAGES.extend([
             "gnome-search-providers-jetbrains",
             "age-plugin-tpm",
-            "drawio-desktop",
             "fnm",
-            "microsoft-edge-stable-bin",
         ])
 
 

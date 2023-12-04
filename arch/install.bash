@@ -67,6 +67,10 @@ packages_to_remove=(
     pdfarranger
     poedit
     # Flatpaks instead
+    drawio-desktop
+    microsoft-edge-stable-bin
+    libreoffice-fresh-de
+    libreoffice-fresh
     jabref
     sioyek
     ja2-stracciatella-git
@@ -532,13 +536,9 @@ case "${HOSTNAME}" in
         lnav     # Log file analyzer
 
         # Additional applications
-        ksnip                     # Annotate screenshots
-        drawio-desktop            # Diagram drawing
-        keepassxc                 # Keepass
-        evolution-ews             # Exchange for evolution
-        microsoft-edge-stable-bin # Browser for teams and web testing
-        libreoffice-fresh
-        libreoffice-fresh-de
+        ksnip         # Annotate screenshots
+        keepassxc     # Keepass
+        evolution-ews # Exchange for evolution
     )
 
     packages_to_install_optdeps+=(
@@ -558,6 +558,9 @@ case "${HOSTNAME}" in
 
     flatpaks+=(
         org.apache.directory.studio # LDAP browser
+        com.microsoft.Edge          # For teams
+        com.jgraph.drawio.desktop   # Diagrams
+        org.libreoffice.LibreOffice # Office
     )
 
     services+=(
