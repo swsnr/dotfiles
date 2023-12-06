@@ -328,13 +328,10 @@ services_to_disable=()
 
 # Flatpaks
 flatpaks=(
-    com.usebottles.bottles         # Windows software, mostly gaming
-    com.belmoussaoui.Obfuscate     # Obfuscate things in screenshots
-    org.jabref.jabref              # Library & reference manager
-    com.github.ahrm.sioyek         # PDF viewer for papers and real documents
-    de.mediathekview.MediathekView # Client for German TV broadcasting stations
-    org.kde.tellico                # Manage collections of books, etc.
-    org.kde.digikam                # Digital photo management
+    com.usebottles.bottles     # Windows software, mostly gaming
+    com.belmoussaoui.Obfuscate # Obfuscate things in screenshots
+    org.jabref.jabref          # Library & reference manager
+    com.github.ahrm.sioyek     # PDF viewer for papers and real documents
 )
 
 flatpaks_to_remove=(
@@ -487,15 +484,18 @@ case "${HOSTNAME}" in
         io.github.ja2_stracciatella.JA2-Stracciatella  # JA2 for this century
 
         # Gtk tooling
-        re.sonny.Workbench
-        app.drey.Biblioteca
+        re.sonny.Workbench  # Playround for Gtk things
+        app.drey.Biblioteca # Doc browser for Gtk
 
         # Applications
-        de.bund.ausweisapp.ausweisapp2
-        re.chiaki.Chiaki
-        de.k_bo.Televido
-        ch.threema.threema-web-desktop
-        com.github.eneshecan.WhatsAppForLinux
+        de.bund.ausweisapp.ausweisapp2        # eID
+        re.chiaki.Chiaki                      # Remote play client for playstation
+        de.k_bo.Televido                      # Mediathek client
+        ch.threema.threema-web-desktop        # Chat
+        com.github.eneshecan.WhatsAppForLinux # Another chat
+        de.mediathekview.MediathekView        # Client for German TV broadcasting stations
+        org.kde.tellico                       # Manage collections of books, etc.
+        org.kde.digikam                       # Digital photo management
     )
     ;;
 *RB*)
