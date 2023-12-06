@@ -534,7 +534,6 @@ case "${HOSTNAME}" in
         lnav     # Log file analyzer
 
         # Additional applications
-        ksnip         # Annotate screenshots
         keepassxc     # Keepass
         evolution-ews # Exchange for evolution
     )
@@ -559,6 +558,7 @@ case "${HOSTNAME}" in
         com.microsoft.Edge          # For teams
         com.jgraph.drawio.desktop   # Diagrams
         org.libreoffice.LibreOffice # Office
+        org.kde.okular              # More powerful PDF viewer
     )
 
     services+=(
