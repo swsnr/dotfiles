@@ -332,6 +332,7 @@ flatpaks=(
     com.belmoussaoui.Obfuscate # Obfuscate things in screenshots
     org.jabref.jabref          # Library & reference manager
     com.github.ahrm.sioyek     # PDF viewer for papers and real documents
+    com.github.tchx84.Flatseal # Manage flatpak permissions
 )
 
 flatpaks_to_remove=(
@@ -411,10 +412,6 @@ packages_to_install_optdeps+=(
     python-nautilus
     # wezterm: Fallback font for symbols
     ttf-nerd-fonts-symbols-mono
-)
-
-flatpaks+=(
-    com.github.tchx84.Flatseal
 )
 
 services+=(gdm.service)
