@@ -104,9 +104,9 @@ PACKAGES_TO_REMOVE: list[str] = [
 class regex_in(str): # noqa: N801,SLOT000
     """Match a regex in a string in structural pattern matching."""
 
-    def __eq__(self: str, pattern: str) -> bool:
+    def __eq__(self: str, pattern: object) -> bool:
         """Check whether this string matches `pattern`."""
-        return bool(re.search(pattern, self))
+        return isinstance(pattern, str) and bool(re.search(pattern, self))
 
 
 #: Packages we only build on some hosts
