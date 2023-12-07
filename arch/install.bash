@@ -91,9 +91,10 @@ packages_to_install=(
     linux-firmware
     intel-ucode
     linux
-    linux-lts # Fallback kernel
-    mkinitcpio
-    plymouth # Boot splash screen
+    linux-lts     # Fallback kernel
+    mkinitcpio    # Generate initramfs and build UKI
+    systemd-ukify # Build and install UKIs
+    plymouth      # Boot splash screen
     sudo
     pacman-hook-kernel-install # Install kernels to /efi
     zram-generator             # swap on compressed RAM, mostly to support systemd-oomd
