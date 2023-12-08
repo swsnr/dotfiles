@@ -94,10 +94,9 @@ packages_to_install=(
     linux-firmware
     intel-ucode
     linux
-    linux-lts  # Fallback kernel
-    mkinitcpio # Generate initramfs and build UKI
-    # Don't install explicitly for now, see https://gitlab.archlinux.org/archlinux/packaging/packages/systemd/-/issues/19
-    #systemd-ukify # Build and install UKIs
+    linux-lts     # Fallback kernel
+    mkinitcpio    # Generate initramfs and build UKI
+    systemd-ukify # Build and install UKIs
     sudo
     pacman-hook-kernel-install # Install kernels to /efi
     zram-generator             # swap on compressed RAM, mostly to support systemd-oomd
