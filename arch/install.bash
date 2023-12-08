@@ -740,11 +740,14 @@ fi
 # Configure kernel cmdline for mkinitcpio
 install -m755 -d /etc/cmdline.d
 install -m644 -t /etc/cmdline.d \
-    "${DIR}"/etc/cmdline.d/10-swsnr-plymouth.conf \
     "${DIR}"/etc/cmdline.d/10-swsnr-quiet-boot.conf \
     "${DIR}"/etc/cmdline.d/20-swsnr-disable-zswap.conf \
     "${DIR}"/etc/cmdline.d/20-swsnr-rootflags-btrfs.conf
 rm -f /etc/cmdline.d/30-explicit-root.conf
+
+# Setup plymouth splash screen
+install -m644 -t /etc/mkinitcpio.conf.d "${DIR}/etc/mkinitcpio.conf.d/11-swsnr-plymouth.conf"
+install -m644 -t /etc/cmdline.d "${DIR}"/etc/cmdline.d/10-swsnr-plymouth.conf
 
 # Boot loader configuration
 install -pm644 "${DIR}/etc/loader.conf" /efi/loader/loader.conf
