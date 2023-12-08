@@ -49,6 +49,9 @@ upgrade_packages=true
 
 # By default, do not use the proprietary nvidia driver
 use_nvidia=false
+
+# By default, do not use plymouth
+use_plymouth=false
 #endregion
 
 #region Basic packages and services
@@ -95,7 +98,6 @@ packages_to_install=(
     mkinitcpio # Generate initramfs and build UKI
     # Don't install explicitly for now, see https://gitlab.archlinux.org/archlinux/packaging/packages/systemd/-/issues/19
     #systemd-ukify # Build and install UKIs
-    plymouth # Boot splash screen
     sudo
     pacman-hook-kernel-install # Install kernels to /efi
     zram-generator             # swap on compressed RAM, mostly to support systemd-oomd
@@ -498,6 +500,9 @@ case "${HOSTNAME}" in
     )
     ;;
 *RB*)
+    # Let's use plymouth on these systems
+    use_plymouth=true
+
     packages_to_install+=(
         # Kernel headers for DKMS
         linux-headers
@@ -591,6 +596,12 @@ else
         nvidia-suspend.service
         nvidia-resume.service
     )
+fi
+
+if [[ "${use_plymouth}" == true ]]; then
+    packages+=(plymouth)
+else
+    packages_to_remove+=(plymouth)
 fi
 
 #region Pacman setup
@@ -738,6 +749,18 @@ else
 fi
 #endregion
 
+#region Plymouth
+if [[ "${use_plymouth}" == true ]]; then
+    # Setup plymouth splash screen in initramfs and enable it on the cmdline
+    install -m644 -t /etc/mkinitcpio.conf.d "${DIR}/etc/mkinitcpio.conf.d/11-swsnr-plymouth.conf"
+    install -m644 -t /etc/cmdline.d "${DIR}"/etc/cmdline.d/10-swsnr-plymouth.conf
+else
+    rm -f \
+        /etc/mkinitcpio.conf.d/11-swsnr-plymouth.conf \
+        /etc/cmdline.d/10-swsnr-plymouth.conf
+fi
+#endregion
+
 # Configure kernel cmdline for mkinitcpio
 install -m755 -d /etc/cmdline.d
 install -m644 -t /etc/cmdline.d \
@@ -745,10 +768,6 @@ install -m644 -t /etc/cmdline.d \
     "${DIR}"/etc/cmdline.d/20-swsnr-disable-zswap.conf \
     "${DIR}"/etc/cmdline.d/20-swsnr-rootflags-btrfs.conf
 rm -f /etc/cmdline.d/30-explicit-root.conf
-
-# Setup plymouth splash screen
-install -m644 -t /etc/mkinitcpio.conf.d "${DIR}/etc/mkinitcpio.conf.d/11-swsnr-plymouth.conf"
-install -m644 -t /etc/cmdline.d "${DIR}"/etc/cmdline.d/10-swsnr-plymouth.conf
 
 # Boot loader configuration
 install -pm644 "${DIR}/etc/loader.conf" /efi/loader/loader.conf
