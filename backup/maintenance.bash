@@ -39,7 +39,6 @@ inhibit() {
         if [[ -n "${GNOME_TERMINAL_SERVICE:-}" ]]; then
             INHIBITOR_APP_ID=org.gnome.Terminal.desktop
         elif [[ "${TERM_PROGRAM:-}" == "kgx" ]]; then
-            # Hopefully; see https://gitlab.gnome.org/GNOME/console/-/merge_requests/140
             INHIBITOR_APP_ID=org.gnome.Console.desktop
         elif [[ "${TERM_PROGRAM:-}" == "WezTerm" ]]; then
             INHIBITOR_APP_ID=org.wezfurlong.wezterm.desktop
