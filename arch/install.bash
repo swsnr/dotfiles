@@ -337,6 +337,7 @@ flatpaks=(
     org.jabref.jabref          # Library & reference manager
     com.github.ahrm.sioyek     # PDF viewer for papers and real documents
     com.github.tchx84.Flatseal # Manage flatpak permissions
+    org.gnome.Fractal          # Simple matrix client
 )
 
 flatpaks_to_remove=(
