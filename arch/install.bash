@@ -94,13 +94,19 @@ packages_to_install=(
     linux-firmware
     intel-ucode
     linux
-    linux-lts     # Fallback kernel
-    mkinitcpio    # Generate initramfs and build UKI
-    systemd-ukify # Build and install UKIs
+    linux-lts  # Fallback kernel
+    mkinitcpio # Generate initramfs and build UKI
     sudo
     pacman-hook-kernel-install # Install kernels to /efi
     zram-generator             # swap on compressed RAM, mostly to support systemd-oomd
     sbctl                      # Manage secure boot binaries and sign binaries
+
+    # Install uykify; currently we don't actually need it since mkinitcpio
+    # generates our UKIs itself, but if it's absent kernel-install fails
+    # because 60-ukify.hook bails out if it doesn't find ukify in $PATH.
+    # 60-ukify.install shouldn't be part of systemd itself, in my opinion, see
+    # https://gitlab.archlinux.org/archlinux/packaging/packages/systemd/-/merge_requests/3
+    systemd-ukify
 
     # File systems
     ntfs-3g
