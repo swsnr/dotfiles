@@ -59,31 +59,7 @@ use_plymouth=false
 packages_to_remove_cascade=()
 
 # Packages to remove
-packages_to_remove=(
-    # No longer used
-    qt6-wayland
-    handbrake
-    kid3-qt
-    sound-juicer
-    diffpdf
-    xournalpp
-    pdfarranger
-    poedit
-    # Flatpaks instead
-    drawio-desktop
-    microsoft-edge-stable-bin
-    libreoffice-fresh-de
-    libreoffice-fresh
-    jabref
-    sioyek
-    ja2-stracciatella-git
-    mediathekview # Only Java we use, so let's get rid of java-runtime on the host
-    # Use flatpak for all KDE things to keep KDE dep isolated
-    tellico
-    digikam
-    kwallet
-    kdiff3
-)
+packages_to_remove=()
 
 # Packages to mark as optional dependencies
 packages_to_mark_as_deps=()
@@ -355,10 +331,7 @@ flatpaks=(
     org.gnome.Fractal          # Simple matrix client
 )
 
-flatpaks_to_remove=(
-    # End-of-life
-    com.valvesoftware.Steam.Utility.gamescope
-)
+flatpaks_to_remove=()
 #endregion
 
 if [[ -n "${MY_USER_ACCOUNT}" ]]; then
@@ -787,7 +760,6 @@ install -m644 -t /etc/cmdline.d \
     "${DIR}"/etc/cmdline.d/10-swsnr-quiet-boot.conf \
     "${DIR}"/etc/cmdline.d/20-swsnr-disable-zswap.conf \
     "${DIR}"/etc/cmdline.d/20-swsnr-rootflags-btrfs.conf
-rm -f /etc/cmdline.d/30-explicit-root.conf
 
 # Boot loader configuration
 install -pm644 "${DIR}/etc/loader.conf" /efi/loader/loader.conf
@@ -800,10 +772,6 @@ install -pm644 "${DIR}/etc/modules-load-swsnr.conf" /etc/modules-load.d/swsnr.co
 install -D -m644 "${DIR}/etc/systemd/system/btrfs-scrub-io.conf" \
     "/etc/systemd/system/btrfs-scrub@.service.d/swsnr-limit-io.conf"
 install -D -m644 "${DIR}/etc/plymouthd.conf" /etc/plymouth/plymouthd.conf
-
-# Remove apparmor configuration
-rm -rf /etc/cmdline.d/20-swsnr-lsm-apparmor.conf \
-    /etc/apparmor.d/tunables/xdg-user-dirs.d/de
 
 # sudo configuration
 install -dm750 /etc/sudoers.d/
@@ -818,9 +786,6 @@ install -Dpm644 "${DIR}/etc/systemd/zram-generator.conf" /etc/systemd/zram-gener
 install -Dpm644 "${DIR}/etc/systemd/oomd-swsnr.conf" /etc/systemd/oomd.conf.d/50-swsnr.conf
 install -Dpm644 "${DIR}/etc/systemd/root-slice-oomd-swsnr.conf" /etc/systemd/system/-.slice.d/50-oomd-swsnr.conf
 install -Dpm644 "${DIR}/etc/systemd/user-service-oomd-swsnr.conf" /etc/systemd/system/user@.service.d/50-oomd-swsnr.conf
-
-# Remove audit setup
-rm -rf /etc/audit/rules.d/00-swsnr.rules /etc/cmdline.d/20-swsnr-audit.conf
 
 # Services configuration
 install -Dpm644 "${DIR}/etc/networkmanager-mdns.conf" /etc/NetworkManager/conf.d/50-mdns.conf
