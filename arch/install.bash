@@ -51,7 +51,7 @@ upgrade_packages=true
 use_nvidia=false
 
 # By default, do not use plymouth
-use_plymouth=false
+use_plymouth=true
 #endregion
 
 #region Basic packages and services
