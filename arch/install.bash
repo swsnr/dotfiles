@@ -588,7 +588,7 @@ else
 fi
 
 if [[ "${use_plymouth}" == true ]]; then
-    packages+=(plymouth)
+    packages_to_install+=(plymouth)
 else
     packages_to_remove+=(plymouth)
 fi
@@ -747,10 +747,12 @@ if [[ "${use_plymouth}" == true ]]; then
     # Setup plymouth splash screen in initramfs and enable it on the cmdline
     install -m644 -t /etc/mkinitcpio.conf.d "${DIR}/etc/mkinitcpio.conf.d/11-swsnr-plymouth.conf"
     install -m644 -t /etc/cmdline.d "${DIR}"/etc/cmdline.d/10-swsnr-plymouth.conf
+    install -D -m644 "${DIR}/etc/plymouthd.conf" /etc/plymouth/plymouthd.conf
 else
     rm -f \
         /etc/mkinitcpio.conf.d/11-swsnr-plymouth.conf \
-        /etc/cmdline.d/10-swsnr-plymouth.conf
+        /etc/cmdline.d/10-swsnr-plymouth.conf \
+        /etc/plymouth/plymouthd.conf
 fi
 #endregion
 
@@ -771,7 +773,6 @@ install -pm644 "${DIR}/etc/modprobe-swsnr.conf" /etc/modprobe.d/modprobe-swsnr.c
 install -pm644 "${DIR}/etc/modules-load-swsnr.conf" /etc/modules-load.d/swsnr.conf
 install -D -m644 "${DIR}/etc/systemd/system/btrfs-scrub-io.conf" \
     "/etc/systemd/system/btrfs-scrub@.service.d/swsnr-limit-io.conf"
-install -D -m644 "${DIR}/etc/plymouthd.conf" /etc/plymouth/plymouthd.conf
 
 # sudo configuration
 install -dm750 /etc/sudoers.d/
