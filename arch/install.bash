@@ -101,6 +101,10 @@ packages_to_install=(
     zram-generator             # swap on compressed RAM, mostly to support systemd-oomd
     sbctl                      # Manage secure boot binaries and sign binaries
 
+    # Better DBus daemon, see https://wiki.archlinux.org/title/D-Bus#dbus-broker
+    # and https://gitlab.archlinux.org/archlinux/rfcs/-/merge_requests/25
+    dbus-broker
+
     # Install uykify; currently we don't actually need it since mkinitcpio
     # generates our UKIs itself, but if it's absent kernel-install fails
     # because 60-ukify.hook bails out if it doesn't find ukify in $PATH.
@@ -314,6 +318,7 @@ services=(
     systemd-homed.service       # homed for user management and home areas
     systemd-oomd.service        # Userspace OOM killer
     systemd-timesyncd.service   # Time sync
+    dbus-broker.service         # Better dbus daemon
 
     # Maintenance services
     reflector.timer # Regularly update the mirrorlist.
@@ -331,6 +336,11 @@ services=(
     cups.service                  # Printing
     bluetooth.service             # Bluetooth
     pcscd.socket                  # Smartcards, mostly eID
+)
+
+# User services to enable globally
+global_services=(
+    dbus-broker.service
 )
 
 services_to_disable=()
@@ -689,6 +699,10 @@ flatpak update --system --noninteractive
 
 # Enable selected services
 systemctl enable "${services[@]}"
+
+if [[ 0 -lt ${#global_services[@]} ]]; then
+    systemctl enable --global "${global_services[@]}"
+fi
 
 # Mask a few services I don't want
 systemctl mask passim.service # Caching daemon from fwupd
