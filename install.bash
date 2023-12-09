@@ -273,7 +273,6 @@ if has flatpak; then
     # Allow access to wayland and enforce wayland as SDL driver
     flatpak override --user \
         --nofilesystem xdg-documents \
-        --socket=wayland --env=SDL_VIDEODRIVER=wayland \
         io.github.ja2_stracciatella.JA2-Stracciatella
 fi
 
