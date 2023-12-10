@@ -59,7 +59,19 @@ use_plymouth=true
 packages_to_remove_cascade=()
 
 # Packages to remove
-packages_to_remove=()
+packages_to_remove=(
+    # Unused apps
+    totem
+
+    # Unused libraries
+    libdvdcss
+    gst-libav
+    gstreamer-vaapi
+
+    # Flatpak instead
+    signal-desktop
+    vlc
+)
 
 # Packages to mark as optional dependencies
 packages_to_mark_as_deps=()
@@ -205,8 +217,6 @@ packages_to_install=(
     # Applications
     1password 1password-cli # Personal password manager
     firefox firefox-i18n-de # Browser
-    signal-desktop          # Secure mobile chat
-    vlc                     # The media player
     audacious               # Simple music player
     evolution               # Mail client & calendar (even on KDE, because kmail and korganizer have a bunch of issues
     zim                     # Personal desktop wiki
@@ -329,6 +339,8 @@ flatpaks=(
     com.github.ahrm.sioyek     # PDF viewer for papers and real documents
     com.github.tchx84.Flatseal # Manage flatpak permissions
     org.gnome.Fractal          # Simple matrix client
+    org.videolan.VLC           # Powerful video player
+    org.signal.Signal          # Messaging
 )
 
 flatpaks_to_remove=()
@@ -341,9 +353,6 @@ fi
 
 #region GNOME desktop
 packages_to_install+=(
-    # Multimedia codecs for gnome
-    gst-libav       # Many additional codecs
-    gstreamer-vaapi # Hardware video decoding for gstreamer
     # Virtual filesystem for Gnome
     gvfs-afc     # Gnome VFS: Apple devices
     gvfs-gphoto2 # Gnome VFS: camera support
@@ -378,7 +387,6 @@ packages_to_install+=(
     seahorse           # Gnome keyring manager
     gnome-firmware     # Manage firmware with Gnome
     qalculate-gtk      # Scientific desktop calculator w/ unit conversion and search provider
-    totem              # Video player for GNOME
 
     # Gnome extensions and tools
     gnome-shell-extension-appindicator              # Systray for Gnome
@@ -452,9 +460,6 @@ case "${HOSTNAME}" in
     )
 
     packages_to_install_optdeps+=(
-        # vlc: DVD playback
-        libdvdcss
-
         # python-pyocr: OCR backend
         tesseract
         # tesseract: data files
