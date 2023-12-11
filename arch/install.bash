@@ -443,9 +443,10 @@ case "${HOSTNAME}" in
         # NPM (for my own stuff I don't need fnm and node version management)
         npm
 
-        # Gtk/Gjs tooling
+        # GNOME development tooling
         gobject-introspection # Introspection data for glib, for ts-for-gir
         blueprint-compiler    # UI language compiler
+        flatpak-builder       # Build flatpaks locally
 
         # Game mode
         gamemode
