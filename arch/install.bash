@@ -520,6 +520,7 @@ case "${HOSTNAME}" in
         fnm                              # Fast node version manager
         pnpm                             # JS package manager
         gnome-search-providers-jetbrains # Jetbrains projects in search
+        ansible                          # Infrastructure management
 
         # VPN
         networkmanager-vpnc
