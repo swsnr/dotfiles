@@ -341,6 +341,7 @@ flatpaks=(
     org.gnome.Fractal          # Simple matrix client
     org.videolan.VLC           # Powerful video player
     org.signal.Signal          # Messaging
+    de.schmidhuberj.DieBahn    # Public transit client
 )
 
 flatpaks_to_remove=()
