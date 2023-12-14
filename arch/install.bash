@@ -852,6 +852,11 @@ firewall-cmd --quiet --permanent --zone=public --remove-service=ssh
 firewall-cmd --quiet --reload
 #endregion
 
+#region pam configuration
+if [[ "${HOSTNAME}" == *RB* ]]; then
+    install -m644 -t /etc/pam.d "${DIR}"/etc/pam.d/gdm-autologin
+fi
+
 #region Secure boot setup
 # Setup secure boot
 if command -v sbctl >/dev/null && [[ -f /usr/share/secureboot/keys/db/db.key ]]; then
