@@ -482,6 +482,7 @@ case "${HOSTNAME}" in
         # Gtk tooling
         re.sonny.Workbench  # Playround for Gtk things
         app.drey.Biblioteca # Doc browser for Gtk
+        net.poedit.Poedit   # Translation edit
 
         # Applications
         de.bund.ausweisapp.ausweisapp2        # eID
