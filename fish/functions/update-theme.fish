@@ -41,13 +41,10 @@ function update-theme -d 'Read the current terminal background and update our en
         case light
             set -gx BAT_THEME OneHalfLight
             set VIVID_THEME one-light
-            # TODO: Perhaps find one-light for micro?
-            set -gx MICRO_COLORSCHEME bubblegum
             set -gx BTM_COLOR default-light
         case dark
             set -gx BAT_THEME OneHalfDark
             set VIVID_THEME one-dark
-            set -gx MICRO_COLORSCHEME one-dark
             set -gx BTM_COLOR default
         case unknown
             # If we don't know about the terminal background, default to the
