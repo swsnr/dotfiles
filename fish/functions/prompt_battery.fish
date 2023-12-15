@@ -43,9 +43,17 @@ function prompt_battery -d 'Battery information for prompt'
     set -l state_symbol
     set -l colour
 
+    set -l nf_md_battery_unknown '\Uf0091'
+    set -l nf_md_battery_alert '\Uf0083'
+    set -l nf_md_battery_charging_high '\Uf12a6'
+    set -l nf_md_battery_10 '\Uf007a'
+    set -l nf_md_battery_charging_10 '\Uf089c'
+    set -l nf_md_battery_charging_20 '\Uf0086'
+    set -l nf_md_battery_charging_100 '\Uf0085'
+
     switch $state
         case fully-charged
-            set state_symbol '\uf573'
+            set state_symbol $nf_md_battery_charging_high
             set colour green
         case charging
             set -l time_to_full (string match -r '^time to full:\s+(.+)' $battery_info)[2]
@@ -56,28 +64,15 @@ function prompt_battery -d 'Battery information for prompt'
             end
 
             set colour green
-            # Nerd fonts fucked up the charging icons, see https://github.com/ryanoasis/nerd-fonts/issues/279
-            # Icons for 10%, 50% and 70% are missing, but for whatever insane
-            # reason 30% exists, so we cannot compute an icon elegantly either
-            # for 10 or 20% steps, so we use 20% steps and just write everything
-            # out 😒
+            # Nerd fonts messed up the charging icons: Charging 10 comes before charging 100, and charging 20 comes after
+            # so we'll need to fiddle a bit
             switch $stepwise_level
-                case 0
-                    set state_symbol '\uf585'
-                case 1 2
-                    set state_symbol '\uf585'
-                case 3
-                    set state_symbol '\uf586'
-                case 4 5
-                    set state_symbol '\uf587'
-                case 6 7
-                    set state_symbol '\uf588'
-                case 8
-                    set state_symbol '\uf589'
-                case 9
-                    set state_symbol '\uf58a'
+                case 0 1
+                    set state_symbol $nf_md_battery_charging_10
                 case 10
-                    set state_symbol '\uf584'
+                    set state_symbol $nf_md_battery_charging_100
+                case '*'
+                    set state_symbol (string replace '0x' '\U' (math --base hex (string replace '\U' '0x' $nf_md_battery_charging_20) + $stepwise_level - 2))
             end
         case discharging
             set -l time_to_empty (string match -r '^time to empty:\s+(.+)' $battery_info)[2]
@@ -88,12 +83,10 @@ function prompt_battery -d 'Battery information for prompt'
             end
 
             if test $stepwise_level -eq 0
-                set state_symbol '\uf582'
+                set state_symbol $nf_md_battery_alert
                 set colour -b red -o white
-            else if test $stepwise_level -eq 10
-                set state_symbol '\uf578'
             else
-                set state_symbol (string replace '0x' '\u' (math --base hex 0xf578 + $stepwise_level))
+                set state_symbol (string replace '0x' '\U' (math --base hex (string replace '\U' '0x' $nf_md_battery_10) + $stepwise_level))
             end
 
             set -l warning_level (string match -r '^warning-level:\s+(.+)' $battery_info)[2]
@@ -103,16 +96,16 @@ function prompt_battery -d 'Battery information for prompt'
                 case low
                     set colour yellow
                 case critical
-                    set state_symbol '\uf582'
+                    set state_symbol $nf_md_battery_alert
                     set colour -b red -o white
                 case '*'
                     set colour -b red
-                    set state_symbol '\uf590'
+                    set state_symbol $nf_md_battery_unknown
             end
         case '*'
             set level UNKNOWN
             set colour -o red
-            set state_symbol '\uf590'
+            set state_symbol $nf_md_battery_unknown
     end
     printf '%s%b%s%s' (set_color $colour) $state_symbol $level (set_color normal)
 end
