@@ -43,6 +43,7 @@ function prompt_battery -d 'Battery information for prompt'
     set -l state_symbol
     set -l colour
 
+    set -l nf_md_battery '\Uf0079'
     set -l nf_md_battery_unknown '\Uf0091'
     set -l nf_md_battery_alert '\Uf0083'
     set -l nf_md_battery_charging_high '\Uf12a6'
@@ -82,11 +83,14 @@ function prompt_battery -d 'Battery information for prompt'
                 set level " $percentage"
             end
 
-            if test $stepwise_level -eq 0
-                set state_symbol $nf_md_battery_alert
-                set colour -b red -o white
-            else
-                set state_symbol (string replace '0x' '\U' (math --base hex (string replace '\U' '0x' $nf_md_battery_10) + $stepwise_level))
+            switch $stepwise_level
+                case 0
+                    set state_symbol $nf_md_battery_alert
+                    set colour -b red -o white
+                case 10
+                    set state_symbol $nf_md_battery
+                case '*'
+                    set state_symbol (string replace '0x' '\U' (math --base hex (string replace '\U' '0x' $nf_md_battery_10) + $stepwise_level - 1))
             end
 
             set -l warning_level (string match -r '^warning-level:\s+(.+)' $battery_info)[2]

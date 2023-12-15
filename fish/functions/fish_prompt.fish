@@ -29,6 +29,10 @@ function fish_prompt -d 'My personal prompt'
     set -g __fish_git_prompt_color_untrackedfiles red
     set -g __fish_git_prompt_color_cleanstate green
 
+    set -l nf_md_source_branch '\Uf062c'
+    set -l nf_md_language_python '\Uf0320'
+    set -l nf_md_lock '\Uf033e'
+
     # Mark end of last command and start of prompt
     # See https://gitlab.freedesktop.org/Per_Bothner/specifications/blob/master/proposals/semantic-prompts.md
     printf "\e]133;P;k=i\a"
@@ -47,15 +51,13 @@ function fish_prompt -d 'My personal prompt'
         end
     end
     # Working directory and git prompt
-    echo -sn (set_color cyan) (prompt_pwd) (set_color normal)
-    echo -sn (fish_git_prompt " on  %s")
-
-    # Time
-    echo -sn ' at ' (set_color cyan) (date '+%H:%M') (set_color normal)
+    printf "%s%s%s%s at %s%s%s" (set_color cyan) (prompt_pwd) (set_color normal) \
+        (fish_git_prompt " on $nf_md_source_branch %s") \
+        (set_color cyan) (date '+%H:%M') (set_color normal)
 
     # Python virtualenv if any
     if set -q VIRTUAL_ENV
-        printf ' %s%b%s%s' (set_color cyan) '\uf81f@' (realpath --relative-to=$PWD $VIRTUAL_ENV) (set_color normal)
+        printf ' %s%b@%s%s' (set_color cyan) $nf_md_language_python (realpath --relative-to=$PWD $VIRTUAL_ENV) (set_color normal)
     end
 
     # Battery if present and supported
@@ -76,7 +78,7 @@ function fish_prompt -d 'My personal prompt'
 
     # Private mode
     if set -q fish_private_mode
-        printf '%s%b%s ' (set_color red) '\uf023' (set_color normal)
+        printf '%s%b%s ' (set_color red) $nf_md_lock (set_color normal)
     end
 
     # Indicate exit code of last command
