@@ -319,8 +319,8 @@ services=(
 
     # Desktop services
     power-profiles-daemon.service # Power profile management
-    cups.service                  # Printing
     bluetooth.service             # Bluetooth
+    cups.socket                   # Printing
     pcscd.socket                  # Smartcards, mostly eID
 )
 
