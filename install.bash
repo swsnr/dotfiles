@@ -168,18 +168,14 @@ done
 # Remove outdated electron flags
 rm -f ~/.config/electron{19,21,22,23}-flags.conf
 
-# devhelp
-# mutter-docs ships documentation at wrong place, so we have to manually symlink
-# it to make it appear in devhelp, see https://bugs.archlinux.org/task/79860
-mkdir -p ~/.local/share/devhelp/books
-ln -fs -t ~/.local/share/devhelp/books \
-    /usr/share/mutter-12/doc/{cally,clutter,cogl,cogl-pango,meta}
+# Remove devhelp links (no longer using devhelp)
+rm -rf ~/.local/share/devhelp/books
 
+# GNOME settings
 "${DIR}/gnome/settings.py" || true
-
-# Disable kwallet in Gnome
+# Disable kwallet in GNOME
 ln -fs "${DIR}/gnome/kwalletrc" ~/.config/kwalletrc
-# Disable our SSH agent service; Gnome includes an SSH agent as part of its
+# Disable our SSH agent service; GNOME includes an SSH agent as part of its
 # keyring service.
 systemctl --user disable ssh-agent.service || true
 
