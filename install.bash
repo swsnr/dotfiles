@@ -117,6 +117,11 @@ ln -fs -t ~/.sbt/1.0/plugins "${DIR}/scala/"{plugins,sbt-updates}.sbt
 ln -fs -t ~/.sbt/1.0/plugins/project/ "${DIR}/scala/sbt-updates.sbt"
 ln -fs -t ~/.sbt "${DIR}/scala/sbtopts"
 
+# containers
+if has podman; then
+    systemctl --user enable podman.socket
+fi
+
 # k8s and related tools
 mkdir -p ~/.config/k9s
 ln -fs -t ~/.config/k9s "${DIR}/k8s/k9s/skins" ~/.config/k9s
