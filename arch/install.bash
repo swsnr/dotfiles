@@ -59,19 +59,7 @@ use_plymouth=true
 packages_to_remove_cascade=()
 
 # Packages to remove
-packages_to_remove=(
-    # Unused apps
-    totem
-
-    # Unused libraries
-    libdvdcss
-    gst-libav
-    gstreamer-vaapi
-
-    # Flatpak instead
-    signal-desktop
-    vlc
-)
+packages_to_remove=()
 
 # Packages to mark as optional dependencies
 packages_to_mark_as_deps=()
