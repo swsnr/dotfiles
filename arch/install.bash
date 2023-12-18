@@ -563,6 +563,7 @@ case "${HOSTNAME}" in
         com.jgraph.drawio.desktop   # Diagrams
         org.libreoffice.LibreOffice # Office
         org.kde.okular              # More powerful PDF viewer
+        org.ksnip.ksnip             # Screenshot annotation tool
     )
 
     services+=(
