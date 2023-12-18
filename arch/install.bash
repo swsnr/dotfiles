@@ -59,7 +59,9 @@ use_plymouth=true
 packages_to_remove_cascade=()
 
 # Packages to remove
-packages_to_remove=()
+packages_to_remove=(
+    podman-compose # Let's use podman-docker and docker-compose instead
+)
 
 # Packages to mark as optional dependencies
 packages_to_mark_as_deps=()
@@ -499,7 +501,8 @@ case "${HOSTNAME}" in
 
         dotnet-sdk                       # .NET development
         podman                           # Deamonless containers
-        podman-compose                   # docker-compose for podman
+        podman-docker                    # Let's be compatible
+        docker-compose                   # Manage multiple containers for development
         kubectl                          # k8s client
         k9s                              # k8s TUI
         helm                             # k8s package manager
