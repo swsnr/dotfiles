@@ -48,8 +48,23 @@ function prompt_battery -d 'Battery information for prompt'
     set -l nf_md_battery_alert '\Uf0083'
     set -l nf_md_battery_charging_high '\Uf12a6'
     set -l nf_md_battery_10 '\Uf007a'
-    set -l nf_md_battery_charging_10 '\Uf089c'
+    set -l nf_md_battery_20 '\Uf007b'
+    set -l nf_md_battery_30 '\Uf007c'
+    set -l nf_md_battery_40 '\Uf007d'
+    set -l nf_md_battery_50 '\Uf007e'
+    set -l nf_md_battery_60 '\Uf007f'
+    set -l nf_md_battery_70 '\Uf0080'
+    set -l nf_md_battery_80 '\Uf0081'
+    set -l nf_md_battery_90 '\Uf0082'
+    set -l nf_md_battery_charging_10 '\Uf089cf089c'
     set -l nf_md_battery_charging_20 '\Uf0086'
+    set -l nf_md_battery_charging_30 '\Uf0087'
+    set -l nf_md_battery_charging_40 '\Uf0088'
+    set -l nf_md_battery_charging_50 '\Uf089d'
+    set -l nf_md_battery_charging_60 '\Uf0089'
+    set -l nf_md_battery_charging_70 '\Uf089e'
+    set -l nf_md_battery_charging_80 '\Uf008a'
+    set -l nf_md_battery_charging_90 '\Uf008b'
     set -l nf_md_battery_charging_100 '\Uf0085'
 
     switch $state
@@ -70,10 +85,26 @@ function prompt_battery -d 'Battery information for prompt'
             switch $stepwise_level
                 case 0 1
                     set state_symbol $nf_md_battery_charging_10
+                case 2
+                    set state_symbol $nf_md_battery_charging_20
+                case 3
+                    set state_symbol $nf_md_battery_charging_30
+                case 4
+                    set state_symbol $nf_md_battery_charging_40
+                case 5
+                    set state_symbol $nf_md_battery_charging_50
+                case 6
+                    set state_symbol $nf_md_battery_charging_60
+                case 7
+                    set state_symbol $nf_md_battery_charging_70
+                case 8
+                    set state_symbol $nf_md_battery_charging_80
+                case 9
+                    set state_symbol $nf_md_battery_charging_90
                 case 10
                     set state_symbol $nf_md_battery_charging_100
                 case '*'
-                    set state_symbol (string replace '0x' '\U' (math --base hex (string replace '\U' '0x' $nf_md_battery_charging_20) + $stepwise_level - 2))
+                    set state_symbol $nf_md_battery_unknown
             end
         case discharging
             set -l time_to_empty (string match -r '^time to empty:\s+(.+)' $battery_info)[2]
@@ -87,10 +118,28 @@ function prompt_battery -d 'Battery information for prompt'
                 case 0
                     set state_symbol $nf_md_battery_alert
                     set colour -b red -o white
+                case 1
+                    set state_symbol $nf_md_battery_10
+                case 2
+                    set state_symbol $nf_md_battery_20
+                case 3
+                    set state_symbol $nf_md_battery_30
+                case 4
+                    set state_symbol $nf_md_battery_40
+                case 5
+                    set state_symbol $nf_md_battery_50
+                case 6
+                    set state_symbol $nf_md_battery_60
+                case 7
+                    set state_symbol $nf_md_battery_70
+                case 8
+                    set state_symbol $nf_md_battery_80
+                case 9
+                    set state_symbol $nf_md_battery_90
                 case 10
                     set state_symbol $nf_md_battery
                 case '*'
-                    set state_symbol (string replace '0x' '\U' (math --base hex (string replace '\U' '0x' $nf_md_battery_10) + $stepwise_level - 1))
+                    set state_symbol $nf_md_battery_unknown
             end
 
             set -l warning_level (string match -r '^warning-level:\s+(.+)' $battery_info)[2]
