@@ -61,6 +61,7 @@ packages_to_remove_cascade=()
 # Packages to remove
 packages_to_remove=(
     podman-compose # Let's use podman-docker and docker-compose instead
+    systemd-ukify  # No longer required for uki copy kernel install hook
 )
 
 # Packages to mark as optional dependencies
@@ -82,13 +83,6 @@ packages_to_install=(
     # Better DBus daemon, see https://wiki.archlinux.org/title/D-Bus#dbus-broker
     # and https://gitlab.archlinux.org/archlinux/rfcs/-/merge_requests/25
     dbus-broker
-
-    # Install uykify; currently we don't actually need it since mkinitcpio
-    # generates our UKIs itself, but if it's absent kernel-install fails
-    # because 60-ukify.hook bails out if it doesn't find ukify in $PATH.
-    # 60-ukify.install shouldn't be part of systemd itself, in my opinion, see
-    # https://gitlab.archlinux.org/archlinux/packaging/packages/systemd/-/merge_requests/3
-    systemd-ukify
 
     # File systems
     ntfs-3g
