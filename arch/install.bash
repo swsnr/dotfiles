@@ -328,7 +328,10 @@ flatpaks=(
     de.schmidhuberj.DieBahn    # Public transit client
 )
 
-flatpaks_to_remove=()
+flatpaks_to_remove=(
+    # Nice but not quite there yet for me
+    de.k_bo.Televido
+)
 #endregion
 
 if [[ -n "${MY_USER_ACCOUNT}" ]]; then
@@ -471,7 +474,6 @@ case "${HOSTNAME}" in
         # Applications
         de.bund.ausweisapp.ausweisapp2        # eID
         re.chiaki.Chiaki                      # Remote play client for playstation
-        de.k_bo.Televido                      # Mediathek client
         ch.threema.threema-web-desktop        # Chat
         com.github.eneshecan.WhatsAppForLinux # Another chat
         de.mediathekview.MediathekView        # Client for German TV broadcasting stations
