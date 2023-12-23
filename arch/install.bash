@@ -326,6 +326,8 @@ flatpaks=(
     org.videolan.VLC           # Powerful video player
     org.signal.Signal          # Messaging
     de.schmidhuberj.DieBahn    # Public transit client
+    com.logseq.Logseq          # Knowledge management and journal
+    io.freetubeapp.FreeTube    # Ad-free youtube client
 )
 
 flatpaks_to_remove=(
