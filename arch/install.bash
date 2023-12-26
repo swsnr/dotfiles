@@ -317,17 +317,27 @@ services_to_disable=()
 
 # Flatpaks
 flatpaks=(
-    com.usebottles.bottles     # Windows software, mostly gaming
+    com.usebottles.bottles # Windows software, mostly gaming
+
+    # Misc tools
     com.belmoussaoui.Obfuscate # Obfuscate things in screenshots
-    org.jabref.jabref          # Library & reference manager
-    com.github.ahrm.sioyek     # PDF viewer for papers and real documents
     com.github.tchx84.Flatseal # Manage flatpak permissions
-    org.gnome.Fractal          # Simple matrix client
-    org.videolan.VLC           # Powerful video player
-    org.signal.Signal          # Messaging
     de.schmidhuberj.DieBahn    # Public transit client
-    com.logseq.Logseq          # Knowledge management and journal
-    io.freetubeapp.FreeTube    # Ad-free youtube client
+
+    # Knowledge management
+    org.jabref.jabref      # Library & reference manager
+    com.logseq.Logseq      # Knowledge management and journal
+    com.zettlr.Zettlr      # Markdown editor with Zettelkasten features
+    com.github.ahrm.sioyek # PDF viewer for papers and real documents
+
+    # Messaging
+    org.gnome.Fractal     # Simple matrix client
+    org.signal.Signal     # Messaging
+    de.schmidhuberj.Flare # GNOME Signal client
+
+    # Multimedia
+    org.videolan.VLC        # Powerful video player
+    io.freetubeapp.FreeTube # Ad-free youtube client
 )
 
 flatpaks_to_remove=(
