@@ -56,7 +56,9 @@ use_plymouth=true
 
 #region Basic packages and services
 # Packages to remove with --cascade set, to clean up entire package hierarchies, e.g. when switching desktops
-packages_to_remove_cascade=()
+packages_to_remove_cascade=(
+    texlive-basic
+)
 
 # Packages to remove
 packages_to_remove=(
@@ -73,6 +75,17 @@ packages_to_remove=(
     gnome-clocks
     gnome-characters
     gnome-maps
+
+    # I don't use texlive directly
+    texlive-binextra
+    texlive-humanities
+    texlive-langgerman
+    texlive-latexextra
+    texlive-luatex
+    texlive-mathscience
+    texlive-publishers
+    biber
+
 )
 
 # Packages to mark as optional dependencies
@@ -217,17 +230,6 @@ packages_to_install=(
     zim                     # Personal desktop wiki
     code                    # Powerful text editor, i.e. poor-mans IDE
 
-    # Latex
-    texlive-basic
-    texlive-binextra
-    texlive-humanities
-    texlive-langgerman
-    texlive-latexextra
-    texlive-luatex
-    texlive-mathscience
-    texlive-publishers
-    biber
-
     # Spell-checking dictionaries, for nuspell, indirectly enchant, and then all
     # the way up the dependency chain to all Gnome apps.
     hunspell-de
@@ -337,9 +339,12 @@ flatpaks=(
     io.github.Qalculate        # Scientific desktop calculator w/ unit conversion and search provider
 
     # Knowledge management
-    org.jabref.jabref      # Library & reference manager
-    com.logseq.Logseq      # Knowledge management and journal
-    com.zettlr.Zettlr      # Markdown editor with Zettelkasten features
+    org.jabref.jabref # Library & reference manager
+    com.logseq.Logseq # Knowledge management and journal
+    com.zettlr.Zettlr # Markdown editor with Zettelkasten features
+
+    # Documents
+    org.cvfosammmm.Setzer  # GNOME LaTeX editor
     com.github.ahrm.sioyek # PDF viewer for papers and real documents
 
     # Messaging
