@@ -60,8 +60,19 @@ packages_to_remove_cascade=()
 
 # Packages to remove
 packages_to_remove=(
-    podman-compose # Let's use podman-docker and docker-compose instead
-    systemd-ukify  # No longer required for uki copy kernel install hook
+    podman-compose       # Let's use podman-docker and docker-compose instead
+    systemd-ukify        # No longer required for uki copy kernel install hook
+    libappindicator-gtk3 # I don't use anything with indicators
+
+    # Applications I no longer use
+    yelp
+
+    # Moved to flatpak
+    qalculate-gtk
+    gnome-weather
+    gnome-clocks
+    gnome-characters
+    gnome-maps
 )
 
 # Packages to mark as optional dependencies
@@ -206,10 +217,6 @@ packages_to_install=(
     zim                     # Personal desktop wiki
     code                    # Powerful text editor, i.e. poor-mans IDE
 
-    # This should be an optional dependency of zim, but isn't currently, see https://bugs.archlinux.org/task/78946
-    # zim: App indicator support
-    libappindicator-gtk3
-
     # Latex
     texlive-basic
     texlive-binextra
@@ -320,9 +327,14 @@ flatpaks=(
     com.usebottles.bottles # Windows software, mostly gaming
 
     # Misc tools
+    org.gnome.clocks           # Word clock
+    org.gnome.Maps             # Simple maps application
+    org.gnome.Characters       # Character chooser
+    org.gnome.Weather          # Weather app
     com.belmoussaoui.Obfuscate # Obfuscate things in screenshots
     com.github.tchx84.Flatseal # Manage flatpak permissions
     de.schmidhuberj.DieBahn    # Public transit client
+    io.github.Qalculate        # Scientific desktop calculator w/ unit conversion and search provider
 
     # Knowledge management
     org.jabref.jabref      # Library & reference manager
@@ -364,11 +376,7 @@ packages_to_install+=(
 
     # Gnome
     gdm
-    gnome-characters
     gnome-keyring
-    gnome-clocks
-    gnome-weather
-    gnome-maps
     gnome-shell
     gnome-shell-extensions # Built-in shell extensions for Gnome
     gnome-disk-utility
@@ -378,7 +386,6 @@ packages_to_install+=(
     gnome-backgrounds
     gnome-themes-extra # Adwaita dark, for dark mode in Gtk3 applications
     gnome-terminal     # Backup terminal, in case I mess up wezterm
-    yelp               # Online help system
     nautilus           # File manager
     sushi              # Previewer for nautilus
     evince             # Document viewer
@@ -386,7 +393,6 @@ packages_to_install+=(
     simple-scan        # Scanning
     seahorse           # Gnome keyring manager
     gnome-firmware     # Manage firmware with Gnome
-    qalculate-gtk      # Scientific desktop calculator w/ unit conversion and search provider
 
     # Gnome extensions and tools
     gnome-shell-extension-appindicator              # Systray for Gnome
