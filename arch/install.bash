@@ -65,6 +65,7 @@ packages_to_remove=(
     podman-compose       # Let's use podman-docker and docker-compose instead
     systemd-ukify        # No longer required for uki copy kernel install hook
     libappindicator-gtk3 # I don't use anything with indicators
+    hunspell             # Prefer nuspell
 
     # Applications I no longer use
     yelp
@@ -281,9 +282,6 @@ packages_to_install_optdeps=(
     nuspell
     # zim: source code view
     gtksourceview3
-
-    # sonnet: spell checking (sonnet doesn't seem to support nuspell)
-    hunspell
 
     # Qt: wayland support
     qt5-wayland
