@@ -189,7 +189,7 @@ packages_to_install=(
 
     # Development tooling
     gcc                 # C compiler
-    make                # ubiquituous "build" tool
+    make                # Ubiquituous "build" tool
     rustup              # Rust toolchain manager
     rust-analyzer       # Language server for Rust (more recent than what's provided by rustup)
     cargo-release       # Rust release helper
@@ -205,6 +205,8 @@ packages_to_install=(
     jq                  # Process JSON on command line
     d-spy               # DBus inspector and debugger
     deno                # Typescript runtime, for scripting
+    podman              # Deamonless containers
+    podman-docker       # Let's be compatible
 
     # Basic desktop
     wl-clipboard   # CLI access to clipboard
@@ -519,8 +521,6 @@ case "${HOSTNAME}" in
         virtualbox
 
         dotnet-sdk                       # .NET development
-        podman                           # Deamonless containers
-        podman-docker                    # Let's be compatible
         docker-compose                   # Manage multiple containers for development
         kubectl                          # k8s client
         k9s                              # k8s TUI
