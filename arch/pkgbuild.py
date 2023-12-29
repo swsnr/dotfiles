@@ -114,6 +114,7 @@ match regex_in(gethostname()):
     case "kastl":
         AUR_PACKAGES.extend([
             "gnome-shell-extension-gsconnect",
+            "ruby-install",
         ])
     case "RB":
         AUR_PACKAGES.extend([
