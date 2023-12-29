@@ -348,9 +348,8 @@ flatpaks=(
     com.github.ahrm.sioyek # PDF viewer for papers and real documents
 
     # Messaging
-    org.gnome.Fractal     # Simple matrix client
-    org.signal.Signal     # Messaging
-    de.schmidhuberj.Flare # GNOME Signal client
+    org.gnome.Fractal # Simple matrix client
+    org.signal.Signal # Messaging
 
     # Multimedia
     org.videolan.VLC        # Powerful video player
@@ -360,6 +359,7 @@ flatpaks=(
 flatpaks_to_remove=(
     # Nice but not quite there yet for me
     de.k_bo.Televido
+    de.schmidhuberj.Flare
 )
 #endregion
 
