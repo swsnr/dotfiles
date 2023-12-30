@@ -464,6 +464,7 @@ case "${HOSTNAME}" in
         gobject-introspection # Introspection data for glib, for ts-for-gir
         blueprint-compiler    # UI language compiler
         flatpak-builder       # Build flatpaks locally
+        zbus_xmlgen           # Generate Rust stubs for DBus interfaces
 
         # Game mode
         gamemode
