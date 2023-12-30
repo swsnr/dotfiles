@@ -76,6 +76,7 @@ packages_to_remove=(
     gnome-clocks
     gnome-characters
     gnome-maps
+    audacious
 
     # I don't use texlive directly
     texlive-binextra
@@ -87,6 +88,15 @@ packages_to_remove=(
     texlive-publishers
     biber
 
+    # Unused optional dependencies
+    # Never actually required for electron, because it defaults to gio trash
+    # which is present on almost every system, and certainly on every system
+    # with GNOME installed.
+    trash-cli
+    # I don't use any electron app with indicators outside of flatpak
+    libappindicator-gtk3
+    # For firewalld applet, but I never actually used the applet
+    python-pyqt5
 )
 
 # Packages to mark as optional dependencies
@@ -228,7 +238,6 @@ packages_to_install=(
     # Applications
     1password 1password-cli # Personal password manager
     firefox firefox-i18n-de # Browser
-    audacious               # Simple music player
     evolution               # Mail client & calendar (even on KDE, because kmail and korganizer have a bunch of issues
     zim                     # Personal desktop wiki
     code                    # Powerful text editor, i.e. poor-mans IDE
@@ -265,9 +274,6 @@ packages_to_install_optdeps=(
     # libva: intel drivers
     intel-media-driver
 
-    # firewalld: applet
-    python-pyqt5
-
     # Mark pipewire as optional dependencies
     pipewire-pulse wireplumber
     # pipewire: zeroconf support
@@ -282,9 +288,6 @@ packages_to_install_optdeps=(
     nuspell
     # zim: source code view
     gtksourceview3
-
-    # Qt: wayland support
-    qt5-wayland
 )
 
 services=(
@@ -354,6 +357,7 @@ flatpaks=(
     # Multimedia
     org.videolan.VLC        # Powerful video player
     io.freetubeapp.FreeTube # Ad-free youtube client
+    org.atheme.audacious    # Lightweight audio player
 )
 
 flatpaks_to_remove=(
@@ -559,14 +563,10 @@ case "${HOSTNAME}" in
         virtualbox-host-dkms
         # libproxy: Proxy autoconfiguration URLs, for Gnome and Glib
         pacrunner
-        # electron: trashing
-        trash-cli
-        # electron: tray icons
-        libappindicator-gtk3
         # aardvark: DNS support
         aardvark-dns
-        # firewalld: applet
-        python-pyqt5
+        # Qt: wayland support
+        qt5-wayland
     )
 
     flatpaks+=(
