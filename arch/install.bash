@@ -493,9 +493,10 @@ case "${HOSTNAME}" in
         io.github.ja2_stracciatella.JA2-Stracciatella # JA2 for this century
 
         # Gtk tooling
-        re.sonny.Workbench  # Playround for Gtk things
-        app.drey.Biblioteca # Doc browser for Gtk
-        net.poedit.Poedit   # Translation edit
+        re.sonny.Workbench           # Playround for Gtk things
+        app.drey.Biblioteca          # Doc browser for Gtk
+        net.poedit.Poedit            # Translation edit
+        org.gnome.design.IconLibrary # Icons for GNOME apps
 
         # Applications
         de.bund.ausweisapp.ausweisapp2        # eID
