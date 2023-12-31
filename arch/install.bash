@@ -66,6 +66,7 @@ packages_to_remove=(
     systemd-ukify        # No longer required for uki copy kernel install hook
     libappindicator-gtk3 # I don't use anything with indicators
     hunspell             # Prefer nuspell
+    npm                  # Corepack & yarn or pnpm instead
 
     # Applications I no longer use
     yelp
@@ -454,9 +455,6 @@ case "${HOSTNAME}" in
     pacman_repositories+=()
 
     packages_to_install+=(
-        # NPM (for my own stuff I don't need fnm and node version management)
-        npm
-
         # Ruby
         ruby-install
 
