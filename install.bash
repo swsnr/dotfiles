@@ -117,7 +117,13 @@ ln -fs -t ~/.sbt/1.0/plugins "${DIR}/scala/"{plugins,sbt-updates}.sbt
 ln -fs -t ~/.sbt/1.0/plugins/project/ "${DIR}/scala/sbt-updates.sbt"
 ln -fs -t ~/.sbt "${DIR}/scala/sbtopts"
 
-# containers
+# Javascript
+if has corepack && [[ ! -e ~/.local/bin/yarn ]]; then
+    # Install corepack shims to my binary directory
+    corepack enable --install-directory ~/.local/bin
+fi
+
+# Containers
 if has podman; then
     systemctl --user enable podman.socket
 fi
