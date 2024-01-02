@@ -67,6 +67,7 @@ packages_to_remove=(
     libappindicator-gtk3 # I don't use anything with indicators
     hunspell             # Prefer nuspell
     npm                  # Corepack & yarn or pnpm instead
+    pnpm                 # Corepack instead
 
     # Applications I no longer use
     yelp
@@ -535,7 +536,6 @@ case "${HOSTNAME}" in
         ammonite                         # Scala repl
         glab                             # Gitlab CLI
         fnm                              # Fast node version manager
-        pnpm                             # JS package manager
         gnome-search-providers-jetbrains # Jetbrains projects in search
         ansible                          # Infrastructure management
 
