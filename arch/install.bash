@@ -99,6 +99,9 @@ packages_to_remove=(
     libappindicator-gtk3
     # For firewalld applet, but I never actually used the applet
     python-pyqt5
+    # For zim, but I'm phasing out zim in favour of logseq
+    gtkspell3
+    gtksourceview3
 )
 
 # Packages to mark as optional dependencies
@@ -282,12 +285,8 @@ packages_to_install_optdeps=(
     # poppler: data files
     poppler-data
 
-    # zim: spell checking
-    gtkspell3
     # enchant: fast and modern spell checking backend
     nuspell
-    # zim: source code view
-    gtksourceview3
 )
 
 services=(

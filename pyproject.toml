@@ -35,7 +35,6 @@ include = [
     "bin/paperwork-tool",
     "bin/split-m4b",
     "bin/xtermbg",
-    "bin/zim-journal",
 ]
 
 [tool.ruff.per-file-ignores]
@@ -55,5 +54,4 @@ include = [
     "bin/paperwork-tool",
     "bin/split-m4b",
     "bin/xtermbg",
-    "bin/zim-journal",
 ]

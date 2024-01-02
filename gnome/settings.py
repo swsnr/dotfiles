@@ -28,8 +28,7 @@ SETTINGS = {
     "org.gnome.mutter": {
         "dynamic-workspaces": True,
         # Only switch workspaces on primary screen, and treat secondary screens
-        # as kind of permanent notepads.  Particularly useful to always have
-        # a terminal at hand, and keep zim available
+        # as kind of permanent notepads.
         "workspaces-only-on-primary": True,
     },
 
