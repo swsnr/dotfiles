@@ -27,9 +27,9 @@ from gi.repository import Gio, GLib
 SETTINGS = {
     "org.gnome.mutter": {
         "dynamic-workspaces": True,
-        # Only switch workspaces on primary screen, and treat secondary screens
-        # as kind of permanent notepads.
-        "workspaces-only-on-primary": True,
+        # Switch workspaces on all screens, so that we have all screens available
+        # for the task at hand
+        "workspaces-only-on-primary": False,
     },
 
     # Power settings
@@ -75,8 +75,8 @@ SETTINGS = {
         "font-name": None,
         "document-font-name": None,
         "monospace-font-name": None,
-        # Disable hot corner
-        "enable-hot-corners": False,
+        # Enable hot corner in top left, to quickly open activities with the mouse
+        "enable-hot-corners": True,
         # Show date and weekday in clock
         "clock-show-date": True,
         "clock-show-weekday": True,
