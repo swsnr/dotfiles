@@ -118,8 +118,10 @@ ln -fs -t ~/.sbt/1.0/plugins/project/ "${DIR}/scala/sbt-updates.sbt"
 ln -fs -t ~/.sbt "${DIR}/scala/sbtopts"
 
 # Javascript
-if has corepack && [[ ! -e ~/.local/bin/yarn ]]; then
-    # Install corepack shims to my binary directory
+if has corepack && ! has fnm && [[ ! -e ~/.local/bin/yarn ]]; then
+    # Install corepack shims to my binary directory, but only for global node
+    # installations.  For fnm managed installations we can just use fnm's
+    # own corepack support.
     corepack enable --install-directory ~/.local/bin
 fi
 
