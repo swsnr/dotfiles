@@ -339,6 +339,7 @@ flatpaks=(
     com.github.tchx84.Flatseal # Manage flatpak permissions
     de.schmidhuberj.DieBahn    # Public transit client
     io.github.Qalculate        # Scientific desktop calculator w/ unit conversion and search provider
+    org.remmina.Remmina        # Remote access
 
     # Knowledge management
     org.jabref.jabref # Library & reference manager
