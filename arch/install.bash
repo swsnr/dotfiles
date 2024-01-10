@@ -110,6 +110,7 @@ packages_to_mark_as_deps=()
 packages_to_install=(
     # Basic packages & system tools
     base
+    dbus-broker # Explicity install dbus-broker to avoid prompt
     linux-firmware
     intel-ucode
     linux
@@ -119,10 +120,6 @@ packages_to_install=(
     pacman-hook-kernel-install # Install kernels to /efi
     zram-generator             # swap on compressed RAM, mostly to support systemd-oomd
     sbctl                      # Manage secure boot binaries and sign binaries
-
-    # Better DBus daemon, see https://wiki.archlinux.org/title/D-Bus#dbus-broker
-    # and https://gitlab.archlinux.org/archlinux/rfcs/-/merge_requests/25
-    dbus-broker
 
     # File systems
     ntfs-3g
