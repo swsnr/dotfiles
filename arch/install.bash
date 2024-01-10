@@ -296,7 +296,6 @@ services=(
     systemd-homed.service       # homed for user management and home areas
     systemd-oomd.service        # Userspace OOM killer
     systemd-timesyncd.service   # Time sync
-    dbus-broker.service         # Better dbus daemon
 
     # Maintenance services
     reflector.timer # Regularly update the mirrorlist.
