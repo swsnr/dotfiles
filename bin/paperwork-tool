@@ -51,7 +51,7 @@ class ColoredFormatter(logging.Formatter):
         logging.CRITICAL: _bold_red + _format + _reset,
     }
 
-    def format(self, record: logging.LogRecord) -> str: # noqa: A003, D102, ANN101
+    def format(self, record: logging.LogRecord) -> str: # noqa: D102, ANN101
         log_fmt = self.FORMATS.get(record.levelno)
         formatter = logging.Formatter(fmt=log_fmt, style="{")
         return formatter.format(record)
