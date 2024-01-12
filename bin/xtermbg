@@ -95,7 +95,8 @@ def main() -> None:
     args = parser.parse_args()
 
     term = os.environ.get("TERM", "")
-    if term == "wezterm" or "xterm" in term.lower():
+    supported_terms = {"wezterm", "rio"}
+    if term in supported_terms or "xterm" in term.lower():
         colour = read_background_colour(Path(os.ctermid()))
     else:
         sys.exit(f"Terminal reports no xterm compatibility ($TERM={term})")

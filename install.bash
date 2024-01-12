@@ -87,6 +87,11 @@ fi
 mkdir -p ~/.config/wezterm/colors
 ln -fs "${DIR}/wezterm/wezterm.lua" ~/.config/wezterm/wezterm.lua
 clean-recursively ~/.config/wezterm/colors || true
+# Another terminal emulator
+mkdir -p ~/.config/rio/themes
+ln -fs "${DIR}/rio/config.toml" ~/.config/rio/config.toml
+ln -fs -t ~/.config/rio/themes "${DIR}/rio/themes"/*.toml
+clean-recursively ~/.config/rio/themes || true
 
 # Helix
 mkdir -p ~/.config/helix/themes

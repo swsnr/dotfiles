@@ -1,0 +1,77 @@
+cursor = '▇'
+blinking-cursor = false
+theme = "OneHalfLight"
+
+[adaptive-theme]
+light = "OneHalfLight"
+dark = "OneHalfDark"
+
+[window]
+width = 1024
+height = 768
+mode = "Windowed"
+foreground-opacity = 1.0
+background-opacity = 1.0
+
+performance = "Low"
+backend = "Automatic"
+disable-renderer-when-unfocused = false
+
+[keyboard]
+use-kitty-keyboard-protocol = true
+# disable-ctlseqs-alt = false
+
+[fonts]
+size = 18
+family = "JetBrains Mono"
+
+# Scroll
+#
+# You can change how many lines are scrolled each time by setting this option.
+#
+# Scroll calculation for canonical mode will be based on `lines = (accumulated scroll * multiplier / divider)`,
+# If you want a quicker scroll, keep increasing the multiplier.
+# If you want to reduce scroll speed you will need to increase the divider.
+# You can use both properties also to find the best scroll for you.
+#
+# Multiplier default is 3.0.
+# Divider default is 1.0.
+# Example:
+# [scroll]
+# multiplier = 3.0
+# divider = 1.0
+
+# Navigation
+#
+# "mode" - Define navigation mode
+#   • NativeTab (MacOs only)
+#   • CollapsedTab
+#   • BottomTab
+#   • TopTab
+#   • Breadcrumb
+#   • Plain
+#
+# "clickable" - Enable click on tabs to switch.
+# "use-current-path" - Use same path whenever a new tab is created.
+# "color-automation" - Set a specific color for the tab whenever a specific program is running, or in a specific directory.
+#
+# Example:
+[navigation]
+mode = "CollapsedTab"
+clickable = false
+use-current-path = true
+color-automation = []
+
+[shell]
+# TODO: Use scoped tab
+program = "/usr/bin/fish"
+args = []
+
+# Example:
+# [bindings]
+# keys = [
+#   { key = "q", with = "super", action = "Quit" },
+#   # Bytes[27, 91, 53, 126] is equivalent to "\x1b[5~"
+#   { key = "home", with = "super | shift", bytes = [27, 91, 53, 126] }
+# ]
+
