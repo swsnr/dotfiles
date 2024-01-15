@@ -309,9 +309,10 @@ flatpaks=(
     org.signal.Signal # Messaging
 
     # Multimedia
-    org.videolan.VLC        # Powerful video player
-    io.freetubeapp.FreeTube # Ad-free youtube client
-    org.atheme.audacious    # Lightweight audio player
+    org.videolan.VLC            # Powerful video player
+    io.freetubeapp.FreeTube     # Ad-free youtube client
+    org.atheme.audacious        # Lightweight audio player
+    com.github.wwmm.easyeffects # Audio effects for pipewire
 )
 
 flatpaks_to_remove=()
