@@ -56,53 +56,10 @@ use_plymouth=true
 
 #region Basic packages and services
 # Packages to remove with --cascade set, to clean up entire package hierarchies, e.g. when switching desktops
-packages_to_remove_cascade=(
-    texlive-basic
-)
+packages_to_remove_cascade=()
 
 # Packages to remove
-packages_to_remove=(
-    podman-compose       # Let's use podman-docker and docker-compose instead
-    systemd-ukify        # No longer required for uki copy kernel install hook
-    libappindicator-gtk3 # I don't use anything with indicators
-    hunspell             # Prefer nuspell
-    npm                  # Corepack & yarn or pnpm instead
-    pnpm                 # Corepack instead
-
-    # Applications I no longer use
-    yelp
-
-    # Moved to flatpak
-    qalculate-gtk
-    gnome-weather
-    gnome-clocks
-    gnome-characters
-    gnome-maps
-    audacious
-
-    # I don't use texlive directly
-    texlive-binextra
-    texlive-humanities
-    texlive-langgerman
-    texlive-latexextra
-    texlive-luatex
-    texlive-mathscience
-    texlive-publishers
-    biber
-
-    # Unused optional dependencies
-    # Never actually required for electron, because it defaults to gio trash
-    # which is present on almost every system, and certainly on every system
-    # with GNOME installed.
-    trash-cli
-    # I don't use any electron app with indicators outside of flatpak
-    libappindicator-gtk3
-    # For firewalld applet, but I never actually used the applet
-    python-pyqt5
-    # For zim, but I'm phasing out zim in favour of logseq
-    gtkspell3
-    gtksourceview3
-)
+packages_to_remove=()
 
 # Packages to mark as optional dependencies
 packages_to_mark_as_deps=()
@@ -357,11 +314,7 @@ flatpaks=(
     org.atheme.audacious    # Lightweight audio player
 )
 
-flatpaks_to_remove=(
-    # Nice but not quite there yet for me
-    de.k_bo.Televido
-    de.schmidhuberj.Flare
-)
+flatpaks_to_remove=()
 #endregion
 
 if [[ -n "${MY_USER_ACCOUNT}" ]]; then
@@ -614,8 +567,6 @@ fi
 # Setup pacman and install/remove packages
 install -pm644 "${DIR}/etc/pacman/pacman.conf" /etc/pacman.conf
 install -pm644 -Dt /etc/pacman.d/repos "${pacman_repositories[@]}"
-# Remove unused repos
-rm -f /etc/pacman.d/repos/{40-abs,60-aur}-repository.conf
 install -m755 -d /etc/pacman.d/hooks
 # Stub out pacman hooks of mkinitcpio; we use kernel-install instead
 ln -sf /dev/null /etc/pacman.d/hooks/60-mkinitcpio-remove.hook
