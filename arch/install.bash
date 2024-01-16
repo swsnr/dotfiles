@@ -760,6 +760,9 @@ install -Dpm644 "${DIR}/etc/systemd/user-service-oomd-swsnr.conf" /etc/systemd/s
 # Services configuration
 install -Dpm644 "${DIR}/etc/networkmanager-mdns.conf" /etc/NetworkManager/conf.d/50-mdns.conf
 install -Dpm644 "${DIR}/etc/reflector.conf" /etc/xdg/reflector/reflector.conf
+# Make udisks scan removable devices for truecrypt/veracrypt volumnes, see
+# https://github.com/storaged-project/udisks/issues/589
+touch -a /etc/udisks2/tcrypt.conf
 
 # Global font configuration
 install -Dpm644 -t /etc/fonts/conf.d/ "${DIR}"/etc/fontconfig/59-noto-with-color-emoji.conf
