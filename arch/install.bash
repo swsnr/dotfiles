@@ -480,6 +480,7 @@ case "${HOSTNAME}" in
         podman-docker                    # Let's be compatible
         docker-compose                   # Manage multiple containers for development
         kubectl                          # k8s client
+        kubeconform                      # Validate kubernetes manifests
         k9s                              # k8s TUI
         helm                             # k8s package manager
         skopeo                           # Container registory tool
