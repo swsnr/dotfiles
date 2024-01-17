@@ -150,6 +150,7 @@ packages_to_install=(
     p7zip         # CLI zip file tool
     imagemagick   # Handy and powerful image processing tools
     inotify-tools # Watch for file changes
+    qrencode      # Quickly generate QR codes
 
     # Git and related tools
     git
