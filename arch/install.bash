@@ -568,9 +568,9 @@ fi
 
 #region Pacman setup
 # Setup pacman and install/remove packages
-install -pm644 "${DIR}/etc/pacman/pacman.conf" /etc/pacman.conf
-install -pm644 -Dt /etc/pacman.d/repos "${pacman_repositories[@]}"
-install -m755 -d /etc/pacman.d/hooks
+install -Cm644 "${DIR}/etc/pacman/pacman.conf" /etc/pacman.conf
+install -Cm644 -Dt /etc/pacman.d/repos "${pacman_repositories[@]}"
+install -Cm755 -d /etc/pacman.d/hooks
 # Stub out pacman hooks of mkinitcpio; we use kernel-install instead
 ln -sf /dev/null /etc/pacman.d/hooks/60-mkinitcpio-remove.hook
 ln -sf /dev/null /etc/pacman.d/hooks/90-mkinitcpio-install.hook
@@ -674,11 +674,11 @@ NSS_HOSTS=(
 sed -i '/^hosts: /s/^hosts: .*/'"hosts: ${NSS_HOSTS[*]}/" /etc/nsswitch.conf
 
 # UKI installation
-install -pm644 "${DIR}/etc/kernel/install.conf" /etc/kernel/install.conf
+install -Cm644 "${DIR}/etc/kernel/install.conf" /etc/kernel/install.conf
 
 # Configure mkinitcpio
-install -m755 -d /etc/mkinitcpio.conf.d/
-install -m644 -t /etc/mkinitcpio.conf.d/ \
+install -Cm755 -d /etc/mkinitcpio.conf.d/
+install -Cm644 -t /etc/mkinitcpio.conf.d/ \
     "${DIR}/etc/mkinitcpio.conf.d/10-swsnr-systemd-base.conf" \
     "${DIR}/etc/mkinitcpio.conf.d/20-swsnr-coretemp.conf"
 
@@ -687,22 +687,22 @@ if [[ "${use_nvidia}" == true ]]; then
     # For nvidia early-kms setup is more intricate because the standard kms hook
     # doesn't really seem to support it, so remove the KMS hook and use a more
     # elaborate nvidia configuration instead.
-    install -m644 -t /etc/mkinitcpio.conf.d/ "${DIR}/etc/mkinitcpio.conf.d/20-swsnr-nvidia.conf"
+    install -Cm644 -t /etc/mkinitcpio.conf.d/ "${DIR}/etc/mkinitcpio.conf.d/20-swsnr-nvidia.conf"
     rm -f /etc/mkinitcpio.conf.d/20-swsnr-kms.conf
 
     # Enable modesetting
-    install -m644 -t /etc/cmdline.d/ "${DIR}"/etc/cmdline.d/30-nvidia-modeset.conf
+    install -Cm644 -t /etc/cmdline.d/ "${DIR}"/etc/cmdline.d/30-nvidia-modeset.conf
 
     # Load nvidia powermanagement modules, and disable GDM's nvidia override
     # rules. This seems to be required to get GDM to accept older nvidia cards.
     # We do know better than GDM here, otherwise we'd not set "use_nividia" to
     # true for the relevant system.
-    install -pm644 "${DIR}/etc/modprobe-nvidia-power-management.conf" \
+    install -Cm644 "${DIR}/etc/modprobe-nvidia-power-management.conf" \
         /etc/modprobe.d/nvidia-power-management.conf
     ln -sf /dev/null /etc/udev/rules.d/61-gdm.rules
 else
     # Use standard KMS hook if we're not using the proprietary driver.
-    install -m644 -t /etc/mkinitcpio.conf.d/ \
+    install -Cm644 -t /etc/mkinitcpio.conf.d/ \
         "${DIR}/etc/mkinitcpio.conf.d/20-swsnr-kms.conf"
     # Remove all the nvidia stuff
     rm -f \
@@ -716,8 +716,8 @@ fi
 #region Plymouth
 if [[ "${use_plymouth}" == true ]]; then
     # Setup plymouth splash screen in initramfs and enable it on the cmdline
-    install -m644 -t /etc/mkinitcpio.conf.d "${DIR}/etc/mkinitcpio.conf.d/11-swsnr-plymouth.conf"
-    install -m644 -t /etc/cmdline.d "${DIR}"/etc/cmdline.d/10-swsnr-plymouth.conf
+    install -Cm644 -t /etc/mkinitcpio.conf.d "${DIR}/etc/mkinitcpio.conf.d/11-swsnr-plymouth.conf"
+    install -Cm644 -t /etc/cmdline.d "${DIR}"/etc/cmdline.d/10-swsnr-plymouth.conf
     install -D -m644 "${DIR}/etc/plymouthd.conf" /etc/plymouth/plymouthd.conf
 else
     rm -f \
@@ -729,45 +729,45 @@ fi
 
 # Configure kernel cmdline for mkinitcpio
 install -m755 -d /etc/cmdline.d
-install -m644 -t /etc/cmdline.d \
+install -Cm644 -t /etc/cmdline.d \
     "${DIR}"/etc/cmdline.d/10-swsnr-quiet-boot.conf \
     "${DIR}"/etc/cmdline.d/20-swsnr-disable-zswap.conf \
     "${DIR}"/etc/cmdline.d/20-swsnr-rootflags-btrfs.conf
 
 # Boot loader configuration
-install -pm644 "${DIR}/etc/loader.conf" /efi/loader/loader.conf
+install -Cm644 "${DIR}/etc/loader.conf" /efi/loader/loader.conf
 
 # System configuration
-install -pm644 "${DIR}/etc/faillock.conf" /etc/security/faillock.conf
-install -pm644 "${DIR}/etc/sysctl-swsnr.conf" /etc/sysctl.d/90-swsnr.conf
-install -pm644 "${DIR}/etc/modprobe-swsnr.conf" /etc/modprobe.d/modprobe-swsnr.conf
-install -pm644 "${DIR}/etc/modules-load-swsnr.conf" /etc/modules-load.d/swsnr.conf
-install -D -m644 "${DIR}/etc/systemd/system/btrfs-scrub-io.conf" \
+install -Cm644 "${DIR}/etc/faillock.conf" /etc/security/faillock.conf
+install -Cm644 "${DIR}/etc/sysctl-swsnr.conf" /etc/sysctl.d/90-swsnr.conf
+install -Cm644 "${DIR}/etc/modprobe-swsnr.conf" /etc/modprobe.d/modprobe-swsnr.conf
+install -Cm644 "${DIR}/etc/modules-load-swsnr.conf" /etc/modules-load.d/swsnr.conf
+install -D -Cm644 "${DIR}/etc/systemd/system/btrfs-scrub-io.conf" \
     "/etc/systemd/system/btrfs-scrub@.service.d/swsnr-limit-io.conf"
 
 # sudo configuration
 install -dm750 /etc/sudoers.d/
-install -pm600 -t/etc/sudoers.d "${DIR}"/etc/sudoers.d/*
+install -Cm600 -t/etc/sudoers.d "${DIR}"/etc/sudoers.d/*
 
 # Systemd configuration
 ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
-install -Dpm644 "${DIR}/etc/systemd/system-swsnr.conf" /etc/systemd/system.conf.d/50-swsnr.conf
-install -Dpm644 "${DIR}/etc/systemd/timesyncd-swsnr.conf" /etc/systemd/timesyncd.conf.d/50-swsnr.conf
-install -Dpm644 "${DIR}/etc/systemd/resolved-swsnr.conf" /etc/systemd/resolved.conf.d/50-swsnr.conf
-install -Dpm644 "${DIR}/etc/systemd/zram-generator.conf" /etc/systemd/zram-generator.conf
-install -Dpm644 "${DIR}/etc/systemd/oomd-swsnr.conf" /etc/systemd/oomd.conf.d/50-swsnr.conf
-install -Dpm644 "${DIR}/etc/systemd/root-slice-oomd-swsnr.conf" /etc/systemd/system/-.slice.d/50-oomd-swsnr.conf
-install -Dpm644 "${DIR}/etc/systemd/user-service-oomd-swsnr.conf" /etc/systemd/system/user@.service.d/50-oomd-swsnr.conf
+install -DCm644 "${DIR}/etc/systemd/system-swsnr.conf" /etc/systemd/system.conf.d/50-swsnr.conf
+install -DCm644 "${DIR}/etc/systemd/timesyncd-swsnr.conf" /etc/systemd/timesyncd.conf.d/50-swsnr.conf
+install -DCm644 "${DIR}/etc/systemd/resolved-swsnr.conf" /etc/systemd/resolved.conf.d/50-swsnr.conf
+install -DCm644 "${DIR}/etc/systemd/zram-generator.conf" /etc/systemd/zram-generator.conf
+install -DCm644 "${DIR}/etc/systemd/oomd-swsnr.conf" /etc/systemd/oomd.conf.d/50-swsnr.conf
+install -DCm644 "${DIR}/etc/systemd/root-slice-oomd-swsnr.conf" /etc/systemd/system/-.slice.d/50-oomd-swsnr.conf
+install -DCm644 "${DIR}/etc/systemd/user-service-oomd-swsnr.conf" /etc/systemd/system/user@.service.d/50-oomd-swsnr.conf
 
 # Services configuration
-install -Dpm644 "${DIR}/etc/networkmanager-mdns.conf" /etc/NetworkManager/conf.d/50-mdns.conf
-install -Dpm644 "${DIR}/etc/reflector.conf" /etc/xdg/reflector/reflector.conf
+install -DCm644 "${DIR}/etc/networkmanager-mdns.conf" /etc/NetworkManager/conf.d/50-mdns.conf
+install -DCm644 "${DIR}/etc/reflector.conf" /etc/xdg/reflector/reflector.conf
 # Make udisks scan removable devices for truecrypt/veracrypt volumnes, see
 # https://github.com/storaged-project/udisks/issues/589
 touch -a /etc/udisks2/tcrypt.conf
 
 # Global font configuration
-install -Dpm644 -t /etc/fonts/conf.d/ "${DIR}"/etc/fontconfig/59-noto-with-color-emoji.conf
+install -DCm644 -t /etc/fonts/conf.d/ "${DIR}"/etc/fontconfig/59-noto-with-color-emoji.conf
 for file in 10-hinting-slight 10-sub-pixel-rgb 11-lcdfilter-default; do
     ln -sf "/usr/share/fontconfig/conf.avail/${file}.conf" "/etc/fonts/conf.d/${file}.conf"
 done
@@ -781,7 +781,7 @@ localectl set-x11-keymap --no-convert us,de pc105 '' ,compose:ralt
 
 # GDM dconf profile, for global GDM configuration, see
 # https://help.gnome.org/admin/system-admin-guide/stable/login-banner.html.en
-install -Dpm644 "${DIR}/etc/gdm-profile" /etc/dconf/profile/gdm
+install -DCm644 "${DIR}/etc/gdm-profile" /etc/dconf/profile/gdm
 
 # Remove SDDM configuration
 rm -rf /etc/sddm.conf /etc/sddm.conf.d
@@ -820,7 +820,7 @@ firewall-cmd --quiet --reload
 
 #region pam configuration
 if [[ "${HOSTNAME}" == *RB* ]]; then
-    install -m644 -t /etc/pam.d "${DIR}"/etc/pam.d/gdm-autologin
+    install -Cm644 -t /etc/pam.d "${DIR}"/etc/pam.d/gdm-autologin
 fi
 
 #region Secure boot setup
@@ -839,14 +839,14 @@ if command -v sbctl >/dev/null && [[ -f /usr/share/secureboot/keys/db/db.key ]];
 
     # Since we sign the firmware updater directly we do not require shim for
     # firmware updates.
-    install -m644 "${DIR}/etc/fwupd-uefi_capsule_secure_boot.conf" \
+    install -Cm644 "${DIR}/etc/fwupd-uefi_capsule_secure_boot.conf" \
         /etc/fwupd/uefi_capsule.conf
 
     sbctl sign-all
     sbctl verify # Safety check
 
     # Under secure boot, enable kernel lockdown mode
-    install -m644 -t /etc/cmdline.d "${DIR}"/etc/cmdline.d/40-swsnr-lockdown.conf
+    install -Cm644 -t /etc/cmdline.d "${DIR}"/etc/cmdline.d/40-swsnr-lockdown.conf
 else
     rm -f /etc/cmdline.d/40-swsnr-lockdown.conf
 fi
