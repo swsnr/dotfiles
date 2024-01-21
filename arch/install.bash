@@ -59,7 +59,13 @@ use_plymouth=true
 packages_to_remove_cascade=()
 
 # Packages to remove
-packages_to_remove=()
+packages_to_remove=(
+    # Dev tooling I don't need currently
+    gobject-introspection
+    flatpak-builder
+    zbus_xmlgen
+    stylua
+)
 
 # Packages to mark as optional dependencies
 packages_to_mark_as_deps=()
@@ -171,7 +177,6 @@ packages_to_install=(
     shfmt               # Format bash code
     ruff                # Fast python linter
     pyright             # Language server for Python
-    stylua              # Lua code formatter
     hexyl               # hex viewer
     oxipng              # Optimize PNGs for size
     jq                  # Process JSON on command line
@@ -410,10 +415,7 @@ case "${HOSTNAME}" in
         ruby-install
 
         # GNOME development tooling
-        gobject-introspection # Introspection data for glib, for ts-for-gir
-        blueprint-compiler    # UI language compiler
-        flatpak-builder       # Build flatpaks locally
-        zbus_xmlgen           # Generate Rust stubs for DBus interfaces
+        blueprint-compiler # UI language compiler
 
         # Game mode
         gamemode
