@@ -352,6 +352,7 @@ packages_to_install+=(
     gnome-backgrounds
     gnome-themes-extra # Adwaita dark, for dark mode in Gtk3 applications
     gnome-terminal     # Backup terminal, in case I mess up wezterm
+    yelp               # Manual viewer for GNOME applications
     nautilus           # File manager
     sushi              # Previewer for nautilus
     evince             # Document viewer
