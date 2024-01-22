@@ -65,6 +65,8 @@ packages_to_remove=(
     flatpak-builder
     zbus_xmlgen
     stylua
+    # No longer need these
+    innoextract
 )
 
 # Packages to mark as optional dependencies
@@ -420,8 +422,7 @@ case "${HOSTNAME}" in
 
         # Game mode
         gamemode
-        innoextract # Extract Windows installers (mostly GoG)
-        scummvm     # For the classics
+        scummvm # For the classics
 
         # Apps
         paperwork # Document management
