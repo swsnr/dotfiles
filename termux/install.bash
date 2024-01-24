@@ -45,6 +45,7 @@ packages=(
     shfmt
     shellcheck
     jq
+    nodejs
 
     # Networking & cryptography
     rclone
@@ -52,10 +53,7 @@ packages=(
     openssh
 )
 
-packages_to_remove=(
-    neovim
-    nodejs
-)
+packages_to_remove=(neovim)
 
 # Setup mirros and install packages
 # shellcheck disable=SC2154 # Prefix comes from termux
