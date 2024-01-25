@@ -79,7 +79,6 @@ packages_to_install=(
     linux-firmware
     intel-ucode
     linux
-    linux-lts  # Fallback kernel
     mkinitcpio # Generate initramfs and build UKI
     sudo
     pacman-hook-kernel-install # Install kernels to /efi
@@ -476,6 +475,8 @@ case "${HOSTNAME}" in
     use_plymouth=true
 
     packages_to_install+=(
+        linux-lts # Fallback kernel
+
         # Kernel headers for DKMS
         linux-headers
         linux-lts-headers
