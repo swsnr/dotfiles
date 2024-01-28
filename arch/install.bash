@@ -320,6 +320,9 @@ flatpaks=(
     org.gnome.Fractal # Simple matrix client
     org.signal.Signal # Messaging
 
+    # Social media
+    dev.geopjr.Tuba # Mastodon client
+
     # Multimedia
     org.videolan.VLC            # Powerful video player
     io.freetubeapp.FreeTube     # Ad-free youtube client
