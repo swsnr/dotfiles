@@ -67,6 +67,7 @@ packages_to_remove=(
     stylua
     # No longer need these
     innoextract
+    rio
 )
 
 # Packages to mark as optional dependencies
