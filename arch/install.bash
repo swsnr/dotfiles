@@ -286,9 +286,7 @@ services=(
 )
 
 # User services to enable globally
-global_services=(
-    dbus-broker.service
-)
+global_services=()
 
 services_to_disable=()
 
