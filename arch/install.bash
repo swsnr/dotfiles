@@ -324,7 +324,6 @@ flatpaks=(
 
     # Multimedia
     org.videolan.VLC            # Powerful video player
-    io.freetubeapp.FreeTube     # Ad-free youtube client
     org.atheme.audacious        # Lightweight audio player
     com.github.wwmm.easyeffects # Audio effects for pipewire
 )
@@ -470,6 +469,7 @@ case "${HOSTNAME}" in
         de.mediathekview.MediathekView        # Client for German TV broadcasting stations
         org.kde.tellico                       # Manage collections of books, etc.
         org.kde.digikam                       # Digital photo management
+        io.freetubeapp.FreeTube               # Ad-free youtube client
     )
     ;;
 *RB*)
