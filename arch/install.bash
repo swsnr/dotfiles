@@ -84,7 +84,7 @@ packages_to_install=(
     sudo
     pacman-hook-kernel-install # Install kernels to /efi
     zram-generator             # swap on compressed RAM, mostly to support systemd-oomd
-    systemd-ukify              # Build UKIs
+    systemd-ukify              # Build UKIs (see kernel/install.conf)
     sbctl                      # Manage secure boot binaries and sign binaries
     mkosi                      # Generate system images
 
