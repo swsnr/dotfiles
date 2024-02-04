@@ -1,4 +1,15 @@
 [tool.ruff]
+# All the python stuff that needs to be linted
+include = [
+    "**/*.py",
+    "bin/color-scheme-hook",
+    "bin/dos2unix",
+    "bin/paperwork-tool",
+    "bin/split-m4b",
+    "bin/xtermbg",
+]
+
+[tool.ruff.lint]
 # Select all rules by default, and selectively disable things I don't need
 select = ["ALL"]
 ignore = [
@@ -27,17 +38,7 @@ ignore = [
     "FA102",
 ]
 
-# All the python stuff that needs to be linted
-include = [
-    "**/*.py",
-    "bin/color-scheme-hook",
-    "bin/dos2unix",
-    "bin/paperwork-tool",
-    "bin/split-m4b",
-    "bin/xtermbg",
-]
-
-[tool.ruff.per-file-ignores]
+[tool.ruff.lint.per-file-ignores]
 # Files in these directories are no modules
 "bin/*" = ["INP001"]
 "arch/*" = ["INP001"]
