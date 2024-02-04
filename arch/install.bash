@@ -68,6 +68,8 @@ packages_to_remove=(
     # No longer need these
     innoextract
     rio
+    # Flatpak'ed
+    paperwork
 )
 
 # Packages to mark as optional dependencies
@@ -312,8 +314,9 @@ flatpaks=(
     com.zettlr.Zettlr # Markdown editor with Zettelkasten features
 
     # Documents
-    org.cvfosammmm.Setzer  # GNOME LaTeX editor
-    com.github.ahrm.sioyek # PDF viewer for papers and real documents
+    org.cvfosammmm.Setzer    # GNOME LaTeX editor
+    com.github.ahrm.sioyek   # PDF viewer for papers and real documents
+    work.openpaper.Paperwork # Manage personal documents
 
     # Messaging
     org.gnome.Fractal # Simple matrix client
@@ -430,8 +433,7 @@ case "${HOSTNAME}" in
         scummvm # For the classics
 
         # Apps
-        paperwork # Document management
-        gnucash   # Finance manager
+        gnucash # Finance manager
 
         gnome-shell-extension-gsconnect # Connect phone and desktop system
         syncthing                       # Network synchronization

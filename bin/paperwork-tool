@@ -29,7 +29,7 @@ from operator import itemgetter
 
 
 LOG = logging.getLogger()
-USE_FLATPAK = False
+USE_FLATPAK = True
 
 
 class ColoredFormatter(logging.Formatter):
