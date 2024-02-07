@@ -103,12 +103,8 @@ EXTENSIONS = [
 
 def install_extensions() -> None:
     """Install desired vscode extensions."""
-    installed = set(run(
-        ["/usr/bin/code", "--list-extensions"], text=True, check=True,
-            capture_output=True).stdout.splitlines())
     for extension in EXTENSIONS:
-        if extension not in installed:
-            run(["/usr/bin/code", "--install-extension", extension], check=True)
+        run(["/usr/bin/code", "--install-extension", extension], check=True)
 
 
 def update_config() -> None:
