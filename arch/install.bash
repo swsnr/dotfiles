@@ -317,9 +317,8 @@ flatpaks=(
     com.zettlr.Zettlr # Markdown editor with Zettelkasten features
 
     # Documents
-    org.cvfosammmm.Setzer    # GNOME LaTeX editor
-    com.github.ahrm.sioyek   # PDF viewer for papers and real documents
-    work.openpaper.Paperwork # Manage personal documents
+    org.cvfosammmm.Setzer  # GNOME LaTeX editor
+    com.github.ahrm.sioyek # PDF viewer for papers and real documents
 
     # Messaging
     org.gnome.Fractal # Simple matrix client
@@ -468,6 +467,7 @@ case "${HOSTNAME}" in
         org.kde.tellico                       # Manage collections of books, etc.
         org.kde.digikam                       # Digital photo management
         io.freetubeapp.FreeTube               # Ad-free youtube client
+        work.openpaper.Paperwork              # Manage personal documents
     )
     ;;
 *RB*)
