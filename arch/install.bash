@@ -70,6 +70,10 @@ packages_to_remove=(
     rio
     # Flatpak'ed
     paperwork
+    tesseract
+    tesseract-data-deu
+    tesseract-data-deu_frak
+    tesseract-data-eng
 )
 
 # Packages to mark as optional dependencies
@@ -439,13 +443,6 @@ case "${HOSTNAME}" in
     )
 
     packages_to_install_optdeps+=(
-        # python-pyocr: OCR backend
-        tesseract
-        # tesseract: data files
-        tesseract-data-deu
-        tesseract-data-deu_frak
-        tesseract-data-eng
-
         # sdl2: Wayland client decorations
         libdecor
     )
