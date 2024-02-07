@@ -12,10 +12,7 @@
 " License for the specific language governing permissions and limitations under
 " the License.
 
-" Simple vim configuration to make old vim behave sensibly, for servers and old
-" systems where neovim is not available.
-
-" Backported neovim defaults
+" Simple vim configuration to make old vim behave sensibly, for old systems
 set nocompatible
 
 syntax on " Enable syntax highlight
@@ -37,8 +34,7 @@ set viminfo+=!
 set wildmenu
 set ttymouse=xterm2
 
-" My defaults; there's are sometimes different from my neovim defaults, because
-" in neovim I'm often covered by plugins.
+" Some reasonable defaults to make vim more bearable
 set number
 set relativenumber
 set cursorline

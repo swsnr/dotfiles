@@ -66,7 +66,7 @@ if status --is-interactive
     # On Termux start ssh-agent, because termux doesn't do this for us.  On
     # other systems, e.g. Linux, etc. this is handled by the desktop keyring or
     # by 1password.  Only do this for login shells, so that nested terminals in
-    # e.g. neovim don't spawn a new agent instance.
+    # don't spawn a new agent instance.
     if set -q ANDROID_ROOT && set -q TERMUX_VERSION && status is-login
         eval (ssh-agent -c)
     end

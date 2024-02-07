@@ -24,6 +24,3 @@ Desktop.ini
 
 # Python bytecode
 __pycache__/
-
-# Neovim
-.neoconf.json
