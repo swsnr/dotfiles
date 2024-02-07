@@ -26,6 +26,9 @@ SETTINGS = {
     "telemetry.telemetryLevel": "off",
     # Colors (follow the system on colors)
     "window.autoDetectColorScheme": True,
+    # Use a custom title bar instead of the native one; the native one is
+    # somewhat pointless on Wayland
+    "window.titleBarStyle": "custom",
     # Fonts
     "editor.fontFamily": '"Jetbrains Mono","Noto Color Emoji"',
     "editor.fontLigatures": True,
