@@ -74,6 +74,7 @@ packages_to_remove=(
     tesseract-data-deu
     tesseract-data-deu_frak
     tesseract-data-eng
+    zim
 )
 
 # Packages to mark as optional dependencies
@@ -212,7 +213,6 @@ packages_to_install=(
     1password 1password-cli # Personal password manager
     firefox firefox-i18n-de # Browser
     evolution               # Mail client & calendar (even on KDE, because kmail and korganizer have a bunch of issues
-    zim                     # Personal desktop wiki
     code                    # Powerful text editor, i.e. poor-mans IDE
 
     # Spell-checking dictionaries, for nuspell, indirectly enchant, and then all
@@ -315,6 +315,7 @@ flatpaks=(
     org.jabref.jabref # Library & reference manager
     com.logseq.Logseq # Knowledge management and journal
     com.zettlr.Zettlr # Markdown editor with Zettelkasten features
+    org.zim_wiki.Zim  # To access old zim wikis
 
     # Documents
     org.cvfosammmm.Setzer  # GNOME LaTeX editor
