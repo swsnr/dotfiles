@@ -1,0 +1,32 @@
+# Service preset from my dotfiles
+
+# Core systemd services in addition to systemd preset
+enable systemd-oomd.service
+
+# Maintenance services
+# Regularly update the mirrorlist.
+enable reflector.timer
+# Periodically trim, and scrub root filesystem
+enable fstrim.timer
+enable btrfs-scrub@.timer -
+
+# Networking
+# Use network manager instead of systemd-networkd
+disable systemd-networkd.service
+disable systemd-networkd-wait-online.service
+disable systemd-network-generator.service
+enable NetworkManager.service
+enable NetworkManager-wait-online.service
+# mDNS resolution and discovery, required for CUPS
+enable avahi-daemon.service
+enable firewalld.service
+
+# Desktop services
+# Power management, bluetooth, printing, and smartcards (eID)
+enable power-profiles-daemon.service
+enable bluetooth.service
+enable cups.socket
+enable pcscd.socket
+
+# Login manager for Gnome
+enable gdm.service

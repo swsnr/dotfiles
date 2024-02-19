@@ -1,0 +1,3 @@
+# Service preset from my dotfiles, for intel systems
+
+enable thermald.service

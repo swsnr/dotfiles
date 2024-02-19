@@ -1,0 +1,4 @@
+# Service preset from my dotfiles, for nvidia systems
+
+enable nvidia-suspend.service
+enable nvidia-resume.service

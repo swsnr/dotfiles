@@ -262,40 +262,6 @@ packages_to_install_optdeps=(
     cpio
 )
 
-services=(
-    # File systems
-    fstrim.timer                               # Periodically trim file systems…
-    "btrfs-scrub@$(systemd-escape -p /).timer" # scrub root filesystem…
-
-    # Core system services
-    systemd-boot-update.service # Update boot loader automatically
-    systemd-homed.service       # homed for user management and home areas
-    systemd-oomd.service        # Userspace OOM killer
-    systemd-timesyncd.service   # Time sync
-
-    # Maintenance services
-    reflector.timer # Regularly update the mirrorlist.
-
-    # Networking services
-    systemd-resolved.service # DNS resolution
-    NetworkManager.service   # Network manager for desktops
-    avahi-daemon.service     # Local network service discovery (for WLAN printers)
-
-    # Security
-    firewalld.service # Firewall
-
-    # Desktop services
-    power-profiles-daemon.service # Power profile management
-    bluetooth.service             # Bluetooth
-    cups.socket                   # Printing
-    pcscd.socket                  # Smartcards, mostly eID
-)
-
-# User services to enable globally
-global_services=()
-
-services_to_disable=()
-
 # Flatpaks
 flatpaks=(
     com.usebottles.bottles # Windows software, mostly gaming
@@ -335,12 +301,13 @@ flatpaks=(
 )
 
 flatpaks_to_remove=()
-#endregion
 
-if [[ -n "${MY_USER_ACCOUNT}" ]]; then
-    # Scrub home directory of my user account
-    services+=("btrfs-scrub@$(systemd-escape -p "/home/${MY_USER_ACCOUNT}").timer")
-fi
+systemd_presets=(
+    50-swsnr.preset
+)
+
+files_to_remove=()
+#endregion
 
 #region GNOME desktop
 packages_to_install+=(
@@ -400,8 +367,6 @@ packages_to_install_optdeps+=(
     # wezterm: Fallback font for symbols
     ttf-nerd-fonts-symbols-mono
 )
-
-services+=(gdm.service)
 #endregion
 
 #region Per-host and per-hardware packages, services, etc.
@@ -412,10 +377,7 @@ case "${PRODUCT_NAME}" in
         thermald     # Thermal management for intel systems
     )
 
-    services+=(
-        # Thermal management for intel CPUs
-        thermald.service
-    )
+    systemd_presets+=("50-swsnr-intel.preset")
     ;;
 *) ;;
 esac
@@ -541,9 +503,7 @@ case "${HOSTNAME}" in
         org.ksnip.ksnip             # Screenshot annotation tool
     )
 
-    services+=(
-        pacrunner.service # Proxy auto-configuration URLs
-    )
+    systemd_presets+=(50-swsnr-rb.preset)
     ;;
 *) ;;
 esac
@@ -555,26 +515,25 @@ if [[ "${use_nvidia}" == true ]]; then
         nvidia-lts
     )
 
-    services+=(
-        nvidia-suspend.service
-        nvidia-resume.service
-    )
+    systemd_presets+=("50-swsnr-nvidia.preset")
 else
     packages_to_remove+=(
         nvidia
         nvidia-lts
     )
 
-    services_to_disable+=(
-        nvidia-suspend.service
-        nvidia-resume.service
-    )
+    files_to_remove=(/etc/systemd/system-preset/50-swsnr-nvidia.conf)
 fi
 
 if [[ "${use_plymouth}" == true ]]; then
     packages_to_install+=(plymouth)
 else
     packages_to_remove+=(plymouth)
+fi
+
+# Cleanup files
+if [[ 0 -lt ${#files_to_remove[@]} ]]; then
+    rm -rf "${files_to_remove[@]}"
 fi
 
 #region Pacman setup
@@ -592,11 +551,6 @@ pacman-key --lsign-key B8ADA38BC94C48C4E7AABE4F7548C2CC396B57FC
 #endregion
 
 #region Package installation and service setup
-# Disable services before uninstalling packages
-for service in "${services_to_disable[@]}"; do
-    systemctl disable --quiet "${service}" || true
-done
-
 # Remove packages one by one because pacman doesn't handle uninstalled packages
 # gracefully
 for pkg in "${packages_to_remove_cascade[@]}"; do
@@ -651,16 +605,6 @@ for flatpak in "${flatpaks_to_remove[@]}"; do
 done
 flatpak uninstall --system --noninteractive --unused
 flatpak update --system --noninteractive
-
-# Enable selected services
-systemctl enable "${services[@]}"
-
-if [[ 0 -lt ${#global_services[@]} ]]; then
-    systemctl enable --global "${global_services[@]}"
-fi
-
-# Mask a few services I don't want
-systemctl mask passim.service # Caching daemon from fwupd
 #endregion
 
 # See /usr/share/factory/etc/nsswitch.conf for the Arch Linux factory defaults.
@@ -769,6 +713,20 @@ install -DCm644 "${DIR}/etc/systemd/zram-generator.conf" /etc/systemd/zram-gener
 install -DCm644 "${DIR}/etc/systemd/oomd-swsnr.conf" /etc/systemd/oomd.conf.d/50-swsnr.conf
 install -DCm644 "${DIR}/etc/systemd/root-slice-oomd-swsnr.conf" /etc/systemd/system/-.slice.d/50-oomd-swsnr.conf
 install -DCm644 "${DIR}/etc/systemd/user-service-oomd-swsnr.conf" /etc/systemd/system/user@.service.d/50-oomd-swsnr.conf
+install -DCm644 -t /etc/systemd/system-preset "${systemd_presets[@]/#/${DIR}/etc/systemd/system-preset/}"
+
+# Update systemd preset to enable/disable services
+systemctl preset-all
+
+if [[ -n "${MY_USER_ACCOUNT}" ]]; then
+    # Scrub home directory of my user account
+    # TODO: Move this to a generated preset file
+    instance="$(systemd-escape -p "/home/${MY_USER_ACCOUNT}")"
+    systemctl enable "btrfs-scrub@${instance}.timer"
+fi
+
+# Mask a few services I don't want
+systemctl mask passim.service # Caching daemon from fwupd
 
 # Services configuration
 install -DCm644 "${DIR}/etc/networkmanager-mdns.conf" /etc/NetworkManager/conf.d/50-mdns.conf

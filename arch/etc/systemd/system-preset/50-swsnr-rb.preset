@@ -1,0 +1,4 @@
+# Service preset from my dotfiles, for some systems
+
+# Enable support for PAC scripts
+enable pacrunner.service
