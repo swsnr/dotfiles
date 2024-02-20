@@ -80,7 +80,7 @@ if has systemctl; then
     clean-recursively ~/.local/share/systemd/user
     # Reload daemon and enable relevant services
     systemctl --user daemon-reload
-    systemctl --user enable swsnr-color-scheme-hook.service
+    systemctl --user enable swsnr-color-scheme-hook.service gcr-ssh-agent.socket
 fi
 
 # Terminal emulator
