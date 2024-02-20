@@ -38,10 +38,19 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 
 PRODUCT_NAME="$(</sys/class/dmi/id/product_name)"
 
-pacman_repositories=(
-    "${DIR}/etc/pacman/40-swsnr-repository.conf"
-    "${DIR}/etc/pacman/50-core-repositories.conf"
-)
+function add_tree() {
+    local tree="$1"
+    cp --recursive --no-dereference --preserve=links,mode,timestamps \
+        --target-directory=/ --update --verbose \
+        "${DIR}/trees/${tree}/."
+}
+
+function remove_tree() {
+    local tree="$1"
+    find "${DIR}/trees/${tree}" '!' -type d \
+        -exec realpath --no-symlinks --relative-base="${DIR}/trees/${tree}" {} \; |
+        xargs -n1 printf "/%s\0" | xargs -0 rm -vfd
+}
 
 #region Configuration
 # Whether to upgrade packages.  Set to false to avoid an initial pacman -Syu
@@ -50,8 +59,11 @@ upgrade_packages=true
 # By default, do not use the proprietary nvidia driver
 use_nvidia=false
 
-# By default, do not use plymouth
-use_plymouth=true
+# Configure secureboot if secureboot keys exist
+use_secureboot=false
+if command -v sbctl >/dev/null && [[ -f /usr/share/secureboot/keys/db/db.key ]]; then
+    use_secureboot=true
+fi
 #endregion
 
 #region Basic packages and services
@@ -94,6 +106,7 @@ packages_to_install=(
     systemd-ukify              # Build UKIs (see kernel/install.conf)
     sbctl                      # Manage secure boot binaries and sign binaries
     mkosi                      # Generate system images
+    plymouth                   # Splash screen for boot
 
     # File systems
     ntfs-3g
@@ -302,9 +315,8 @@ flatpaks=(
 
 flatpaks_to_remove=()
 
-systemd_presets=(
-    50-swsnr.preset
-)
+trees_to_add=(base)
+trees_to_remove=()
 
 files_to_remove=()
 #endregion
@@ -377,7 +389,7 @@ case "${PRODUCT_NAME}" in
         thermald     # Thermal management for intel systems
     )
 
-    systemd_presets+=("50-swsnr-intel.preset")
+    trees_to_add+=("intel")
     ;;
 *) ;;
 esac
@@ -434,9 +446,6 @@ case "${HOSTNAME}" in
     )
     ;;
 *RB*)
-    # Let's use plymouth on these systems
-    use_plymouth=true
-
     packages_to_install+=(
         linux-lts # Fallback kernel
 
@@ -503,32 +512,36 @@ case "${HOSTNAME}" in
         org.ksnip.ksnip             # Screenshot annotation tool
     )
 
-    systemd_presets+=(50-swsnr-rb.preset)
+    trees_to_add+=("rb")
     ;;
 *) ;;
 esac
 #endregion
 
+# Setup proprietary nvidia driver if enabled
 if [[ "${use_nvidia}" == true ]]; then
     packages+=(
         nvidia
         nvidia-lts
     )
 
-    systemd_presets+=("50-swsnr-nvidia.preset")
+    trees_to_remove+=("kms")
+    trees_to_add+=("nvidia")
 else
     packages_to_remove+=(
         nvidia
         nvidia-lts
     )
 
-    files_to_remove=(/etc/systemd/system-preset/50-swsnr-nvidia.conf)
+    trees_to_remove+=("nvidia")
+    trees_to_add+=("kms")
 fi
 
-if [[ "${use_plymouth}" == true ]]; then
-    packages_to_install+=(plymouth)
+# Configure secure boot if enabled
+if [[ "${use_secureboot}" == true ]]; then
+    trees_to_add+=(secureboot)
 else
-    packages_to_remove+=(plymouth)
+    trees_to_remove+=(secureboot)
 fi
 
 # Cleanup files
@@ -536,19 +549,24 @@ if [[ 0 -lt ${#files_to_remove[@]} ]]; then
     rm -rf "${files_to_remove[@]}"
 fi
 
-#region Pacman setup
-# Setup pacman and install/remove packages
-install -Cm644 "${DIR}/etc/pacman/pacman.conf" /etc/pacman.conf
-install -Cm644 -Dt /etc/pacman.d/repos "${pacman_repositories[@]}"
-install -Cm755 -d /etc/pacman.d/hooks
-# Stub out pacman hooks of mkinitcpio; we use kernel-install instead
-ln -sf /dev/null /etc/pacman.d/hooks/60-mkinitcpio-remove.hook
-ln -sf /dev/null /etc/pacman.d/hooks/90-mkinitcpio-install.hook
+# Add our filesystem trees
+for tree in "${trees_to_add[@]}"; do
+    echo "Adding filesystem tree ${tree}"
+    add_tree "${tree}"
+done
 
-# Update pacman keyring with additional keys
-pacman-key -a "${DIR}/etc/pacman/keys/personal.asc"
+for tree in "${trees_to_remove[@]}"; do
+    echo "Removing filesystem tree ${tree}"
+    remove_tree "${tree}"
+done
+
+# Correct permissions
+chmod 750 /etc/sudoers.d
+find /etc/sudoers.d -type f -exec chmod 600 {} \+
+
+# Import our signing key into pacman's keyring
+pacman-key -a "${DIR}/pacman-signing-key.asc"
 pacman-key --lsign-key B8ADA38BC94C48C4E7AABE4F7548C2CC396B57FC
-#endregion
 
 #region Package installation and service setup
 # Remove packages one by one because pacman doesn't handle uninstalled packages
@@ -628,93 +646,6 @@ NSS_HOSTS=(
 )
 sed -i '/^hosts: /s/^hosts: .*/'"hosts: ${NSS_HOSTS[*]}/" /etc/nsswitch.conf
 
-# UKI installation
-install -Cm644 "${DIR}/etc/kernel/install.conf" /etc/kernel/install.conf
-
-# Configure mkinitcpio
-install -Cm755 -d /etc/mkinitcpio.conf.d/
-install -Cm644 -t /etc/mkinitcpio.conf.d/ \
-    "${DIR}/etc/mkinitcpio.conf.d/10-swsnr-systemd-base.conf" \
-    "${DIR}/etc/mkinitcpio.conf.d/20-swsnr-coretemp.conf"
-
-#region Nvidia special cases
-if [[ "${use_nvidia}" == true ]]; then
-    # For nvidia early-kms setup is more intricate because the standard kms hook
-    # doesn't really seem to support it, so remove the KMS hook and use a more
-    # elaborate nvidia configuration instead.
-    install -Cm644 -t /etc/mkinitcpio.conf.d/ "${DIR}/etc/mkinitcpio.conf.d/20-swsnr-nvidia.conf"
-    rm -f /etc/mkinitcpio.conf.d/20-swsnr-kms.conf
-
-    # Enable modesetting
-    install -Cm644 -t /etc/cmdline.d/ "${DIR}"/etc/cmdline.d/30-nvidia-modeset.conf
-
-    # Load nvidia powermanagement modules, and disable GDM's nvidia override
-    # rules. This seems to be required to get GDM to accept older nvidia cards.
-    # We do know better than GDM here, otherwise we'd not set "use_nividia" to
-    # true for the relevant system.
-    install -Cm644 "${DIR}/etc/modprobe-nvidia-power-management.conf" \
-        /etc/modprobe.d/nvidia-power-management.conf
-    ln -sf /dev/null /etc/udev/rules.d/61-gdm.rules
-else
-    # Use standard KMS hook if we're not using the proprietary driver.
-    install -Cm644 -t /etc/mkinitcpio.conf.d/ \
-        "${DIR}/etc/mkinitcpio.conf.d/20-swsnr-kms.conf"
-    # Remove all the nvidia stuff
-    rm -f \
-        /etc/cmdline.d/30-nvidia-modeset.conf \
-        /etc/mkinitcpio.conf.d/20-swsnr-nvidia.conf \
-        /etc/modprobe.d/nvidia-power-management.conf \
-        /etc/udev/rules.d/61-gdm.rules
-fi
-#endregion
-
-#region Plymouth
-if [[ "${use_plymouth}" == true ]]; then
-    # Setup plymouth splash screen in initramfs and enable it on the cmdline
-    install -Cm644 -t /etc/mkinitcpio.conf.d "${DIR}/etc/mkinitcpio.conf.d/11-swsnr-plymouth.conf"
-    install -Cm644 -t /etc/cmdline.d "${DIR}"/etc/cmdline.d/10-swsnr-plymouth.conf
-    install -D -m644 "${DIR}/etc/plymouthd.conf" /etc/plymouth/plymouthd.conf
-else
-    rm -f \
-        /etc/mkinitcpio.conf.d/11-swsnr-plymouth.conf \
-        /etc/cmdline.d/10-swsnr-plymouth.conf \
-        /etc/plymouth/plymouthd.conf
-fi
-#endregion
-
-# Configure kernel cmdline for mkinitcpio
-install -m755 -d /etc/cmdline.d
-install -Cm644 -t /etc/cmdline.d \
-    "${DIR}"/etc/cmdline.d/10-swsnr-quiet-boot.conf \
-    "${DIR}"/etc/cmdline.d/20-swsnr-disable-zswap.conf \
-    "${DIR}"/etc/cmdline.d/20-swsnr-rootflags-btrfs.conf
-
-# Boot loader configuration
-install -Cm644 "${DIR}/etc/loader.conf" /efi/loader/loader.conf
-
-# System configuration
-install -Cm644 "${DIR}/etc/faillock.conf" /etc/security/faillock.conf
-install -Cm644 "${DIR}/etc/sysctl-swsnr.conf" /etc/sysctl.d/90-swsnr.conf
-install -Cm644 "${DIR}/etc/modprobe-swsnr.conf" /etc/modprobe.d/modprobe-swsnr.conf
-install -Cm644 "${DIR}/etc/modules-load-swsnr.conf" /etc/modules-load.d/swsnr.conf
-install -D -Cm644 "${DIR}/etc/systemd/system/btrfs-scrub-io.conf" \
-    "/etc/systemd/system/btrfs-scrub@.service.d/swsnr-limit-io.conf"
-
-# sudo configuration
-install -dm750 /etc/sudoers.d/
-install -Cm600 -t/etc/sudoers.d "${DIR}"/etc/sudoers.d/*
-
-# Systemd configuration
-ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
-install -DCm644 "${DIR}/etc/systemd/system-swsnr.conf" /etc/systemd/system.conf.d/50-swsnr.conf
-install -DCm644 "${DIR}/etc/systemd/timesyncd-swsnr.conf" /etc/systemd/timesyncd.conf.d/50-swsnr.conf
-install -DCm644 "${DIR}/etc/systemd/resolved-swsnr.conf" /etc/systemd/resolved.conf.d/50-swsnr.conf
-install -DCm644 "${DIR}/etc/systemd/zram-generator.conf" /etc/systemd/zram-generator.conf
-install -DCm644 "${DIR}/etc/systemd/oomd-swsnr.conf" /etc/systemd/oomd.conf.d/50-swsnr.conf
-install -DCm644 "${DIR}/etc/systemd/root-slice-oomd-swsnr.conf" /etc/systemd/system/-.slice.d/50-oomd-swsnr.conf
-install -DCm644 "${DIR}/etc/systemd/user-service-oomd-swsnr.conf" /etc/systemd/system/user@.service.d/50-oomd-swsnr.conf
-install -DCm644 -t /etc/systemd/system-preset "${systemd_presets[@]/#/${DIR}/etc/systemd/system-preset/}"
-
 # Update systemd preset to enable/disable services
 systemctl preset-all
 
@@ -728,29 +659,12 @@ fi
 # Mask a few services I don't want
 systemctl mask passim.service # Caching daemon from fwupd
 
-# Services configuration
-install -DCm644 "${DIR}/etc/networkmanager-mdns.conf" /etc/NetworkManager/conf.d/50-mdns.conf
-install -DCm644 "${DIR}/etc/reflector.conf" /etc/xdg/reflector/reflector.conf
-# Make udisks scan removable devices for truecrypt/veracrypt volumnes, see
-# https://github.com/storaged-project/udisks/issues/589
-touch -a /etc/udisks2/tcrypt.conf
-
-# Global font configuration
-install -DCm644 -t /etc/fonts/conf.d/ "${DIR}"/etc/fontconfig/59-noto-with-color-emoji.conf
-for file in 10-hinting-slight 10-sub-pixel-rgb 11-lcdfilter-default; do
-    ln -sf "/usr/share/fontconfig/conf.avail/${file}.conf" "/etc/fonts/conf.d/${file}.conf"
-done
-
 # Locale settings
 localectl set-locale de_DE.UTF-8
 # --no-convert stops localectl from trying to apply the text console layout to
 # X11/Wayland and vice versa
 localectl set-keymap --no-convert us
 localectl set-x11-keymap --no-convert us,de pc105 '' ,compose:ralt
-
-# GDM dconf profile, for global GDM configuration, see
-# https://help.gnome.org/admin/system-admin-guide/stable/login-banner.html.en
-install -DCm644 "${DIR}/etc/gdm-profile" /etc/dconf/profile/gdm
 
 # Remove SDDM configuration
 rm -rf /etc/sddm.conf /etc/sddm.conf.d
@@ -789,7 +703,7 @@ firewall-cmd --quiet --reload
 
 #region Secure boot setup
 # Setup secure boot
-if command -v sbctl >/dev/null && [[ -f /usr/share/secureboot/keys/db/db.key ]]; then
+if [[ "${use_secureboot}" == true ]]; then
     # Generate signed bootloader image
     if ! sbctl list-files | grep -q /usr/lib/systemd/boot/efi/systemd-bootx64.efi; then
         sbctl sign -s -o /usr/lib/systemd/boot/efi/systemd-bootx64.efi.signed /usr/lib/systemd/boot/efi/systemd-bootx64.efi
@@ -801,18 +715,8 @@ if command -v sbctl >/dev/null && [[ -f /usr/share/secureboot/keys/db/db.key ]];
         sbctl sign -s -o /usr/lib/fwupd/efi/fwupdx64.efi.signed /usr/lib/fwupd/efi/fwupdx64.efi
     fi
 
-    # Since we sign the firmware updater directly we do not require shim for
-    # firmware updates.
-    install -Cm644 "${DIR}/etc/fwupd-uefi_capsule_secure_boot.conf" \
-        /etc/fwupd/uefi_capsule.conf
-
     sbctl sign-all
     sbctl verify # Safety check
-
-    # Under secure boot, enable kernel lockdown mode
-    install -Cm644 -t /etc/cmdline.d "${DIR}"/etc/cmdline.d/40-swsnr-lockdown.conf
-else
-    rm -f /etc/cmdline.d/40-swsnr-lockdown.conf
 fi
 #endregion
 
