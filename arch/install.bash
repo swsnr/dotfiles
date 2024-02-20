@@ -666,9 +666,6 @@ localectl set-locale de_DE.UTF-8
 localectl set-keymap --no-convert us
 localectl set-x11-keymap --no-convert us,de pc105 '' ,compose:ralt
 
-# Remove SDDM configuration
-rm -rf /etc/sddm.conf /etc/sddm.conf.d
-
 #region Firewall setup
 # Start firewalld and configure it
 systemctl start firewalld.service
