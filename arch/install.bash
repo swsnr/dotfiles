@@ -28,7 +28,7 @@ fi
 # order to call aurutils.
 if [[ -n "${SUDO_USER:-}" ]]; then
     MY_USER_ACCOUNT="${SUDO_USER}"
-elif [[ -n "${PKEXEC_UID}" ]]; then
+elif [[ -n "${PKEXEC_UID:-}" ]]; then
     MY_USER_ACCOUNT="$(id -nu "${PKEXEC_UID}")"
 else
     MY_USER_ACCOUNT=""
