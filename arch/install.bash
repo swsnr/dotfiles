@@ -180,6 +180,7 @@ packages_to_install=(
     imagemagick   # Handy and powerful image processing tools
     inotify-tools # Watch for file changes
     qrencode      # Quickly generate QR codes
+    zbar          # Decode QR codes
 
     # Git and related tools
     git
