@@ -24,5 +24,5 @@ Target = usr/src/*/dkms.conf
 [Action]
 Description = Installing kernel and initrd to $BOOT... (kernel-install)
 When = PostTransaction
-Exec = bash /etc/pacman.d/scripts/kernel-install add
+Exec = /usr/bin/bash /etc/pacman.d/scripts/kernel-install add
 NeedsTargets
