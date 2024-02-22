@@ -63,12 +63,9 @@ AUR_PACKAGES: list[str] = [
     "1password",
     "1password-cli",
     "aurutils",
-    "gnome-search-providers-vscode",
     "gnome-shell-extension-disable-extension-updates",
     "gnome-shell-extension-picture-of-the-day",
     "gnome-shell-extension-utc-clock",
-    "otf-vollkorn",
-    "pcsc-cyberjack",
 ]
 
 #: Packages to remove from the repository
@@ -101,6 +98,10 @@ PACKAGES_TO_REMOVE: list[str] = [
     "ja2-stracciatella-git",
     # Moved to my OBS repo
     "git-gone",
+    "otf-vollkorn",
+    "pcsc-cyberjack",
+    "gnome-search-providers-vscode",
+    "ruby-install",
 ]
 
 class regex_in(str): # noqa: N801,SLOT000
@@ -116,7 +117,6 @@ match regex_in(gethostname()):
     case "kastl":
         AUR_PACKAGES.extend([
             "gnome-shell-extension-gsconnect",
-            "ruby-install",
         ])
     case "RB":
         AUR_PACKAGES.extend([
