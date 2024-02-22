@@ -23,7 +23,6 @@ packages=(
     linux
     mkinitcpio # Generate initramfs and build UKI
     sudo
-    pacman-hook-kernel-install # Install kernels to /efi
     zram-generator             # swap on compressed RAM, mostly to support systemd-oomd
     systemd-ukify              # Build UKIs (see kernel/install.conf)
     sbctl                      # Manage secure boot binaries and sign binaries
