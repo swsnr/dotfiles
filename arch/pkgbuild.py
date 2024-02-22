@@ -70,7 +70,6 @@ AUR_PACKAGES: list[str] = [
     "gnome-shell-extension-utc-clock",
     "otf-vollkorn",
     "pacman-hook-kernel-install",
-    "pacman-hook-reproducible-status",
     "pcsc-cyberjack",
 ]
 
@@ -89,6 +88,7 @@ PACKAGES_TO_REMOVE: list[str] = [
     "sol2-single",
     "string-theory",
     "archlinux-java-run",
+    "pacman-hook-reproducible-status",
     # Use flatpak instead
     "ausweisapp2",
     "chiaki",

@@ -68,7 +68,6 @@ packages=(
     etc-update                      # Deal with pacdiff/pacsave files
     reflector                       # Keep mirror list updated
     arch-repro-status               # Manually check reproducibility of installed packages
-    pacman-hook-reproducible-status # Check reproducibility of packages in pacman transactions
 
     # Build arch packages
     base-devel
