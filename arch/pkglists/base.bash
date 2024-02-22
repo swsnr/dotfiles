@@ -126,6 +126,7 @@ packages=(
     jq                  # Process JSON on command line
     d-spy               # DBus inspector and debugger
     deno                # Typescript runtime, for scripting
+    osc                 # Client for Opensuse build service
 
     # Basic desktop
     wl-clipboard   # CLI access to clipboard
