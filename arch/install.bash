@@ -126,6 +126,7 @@ pacman-key -a "${DIR}/pacman-keys/"*.gpg
 pacman_keys=(
     B8ADA38BC94C48C4E7AABE4F7548C2CC396B57FC # swsnr
     FCADAFC81273B9E7F184F2B0826659A9013E5B65 # openSUSE_Tools_key
+    42D80446DC5C2B66D69DF5B6C1A96AD497928E88 # home:swsnr OBS repo (my packages)
 )
 for key in "${pacman_keys[@]}"; do
     pacman-key --lsign-key "${key}"
