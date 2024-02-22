@@ -63,7 +63,6 @@ AUR_PACKAGES: list[str] = [
     "1password",
     "1password-cli",
     "aurutils",
-    "git-gone",
     "gnome-search-providers-vscode",
     "gnome-shell-extension-disable-extension-updates",
     "gnome-shell-extension-picture-of-the-day",
@@ -100,6 +99,8 @@ PACKAGES_TO_REMOVE: list[str] = [
     "sioyek",
     "ja2-stracciatella",
     "ja2-stracciatella-git",
+    # Moved to my OBS repo
+    "git-gone",
 ]
 
 class regex_in(str): # noqa: N801,SLOT000
