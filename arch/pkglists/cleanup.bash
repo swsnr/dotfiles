@@ -23,6 +23,8 @@ packages=(
     # No longer need these
     innoextract
     rio
+    pacman-hook-reproducible-status
+    pacman-hook-kernel-install
     # Flatpak'ed
     paperwork
     tesseract

@@ -89,6 +89,7 @@ PACKAGES_TO_REMOVE: list[str] = [
     "archlinux-java-run",
     "pacman-hook-reproducible-status",
     "pacman-hook-kernel-install",
+    "wcal-git",
     # Use flatpak instead
     "ausweisapp2",
     "chiaki",
