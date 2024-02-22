@@ -23,11 +23,11 @@ packages=(
     linux
     mkinitcpio # Generate initramfs and build UKI
     sudo
-    zram-generator             # swap on compressed RAM, mostly to support systemd-oomd
-    systemd-ukify              # Build UKIs (see kernel/install.conf)
-    sbctl                      # Manage secure boot binaries and sign binaries
-    mkosi                      # Generate system images
-    plymouth                   # Splash screen for boot
+    zram-generator # swap on compressed RAM, mostly to support systemd-oomd
+    systemd-ukify  # Build UKIs (see kernel/install.conf)
+    sbctl          # Manage secure boot binaries and sign binaries
+    mkosi          # Generate system images
+    plymouth       # Splash screen for boot
 
     # File systems
     ntfs-3g
@@ -64,9 +64,9 @@ packages=(
     nmap                 # Port scanning and other network information
 
     # Arch tools
-    etc-update                      # Deal with pacdiff/pacsave files
-    reflector                       # Keep mirror list updated
-    arch-repro-status               # Manually check reproducibility of installed packages
+    etc-update        # Deal with pacdiff/pacsave files
+    reflector         # Keep mirror list updated
+    arch-repro-status # Manually check reproducibility of installed packages
 
     # Build arch packages
     base-devel
