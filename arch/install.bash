@@ -121,9 +121,15 @@ done
 chmod 750 /etc/sudoers.d
 find /etc/sudoers.d -type f -exec chmod 600 {} \+
 
-# Import our signing key into pacman's keyring
-pacman-key -a "${DIR}/pacman-signing-key.asc"
-pacman-key --lsign-key B8ADA38BC94C48C4E7AABE4F7548C2CC396B57FC
+# Import keys for 3rd party repos into pacman
+pacman-key -a "${DIR}/pacman-keys/"*.gpg
+pacman_keys=(
+    B8ADA38BC94C48C4E7AABE4F7548C2CC396B57FC # swsnr
+    FCADAFC81273B9E7F184F2B0826659A9013E5B65 # openSUSE_Tools_key
+)
+for key in "${pacman_keys[@]}"; do
+    pacman-key --lsign-key "${key}"
+done
 
 # Load and apply package lists
 packages_to_install=()
