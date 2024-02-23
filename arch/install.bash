@@ -148,7 +148,7 @@ for key in "${pacman_keys[@]}"; do
     pacman-key --lsign-key "${key}"
 done
 # Remove signing key for my old local repository
-pacman-key --delete B8ADA38BC94C48C4E7AABE4F7548C2CC396B57FC
+pacman-key --delete B8ADA38BC94C48C4E7AABE4F7548C2CC396B57FC || true
 
 # Load and apply package lists
 packages_to_install=()
