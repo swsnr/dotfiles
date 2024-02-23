@@ -69,11 +69,8 @@ packages=(
     arch-repro-status # Manually check reproducibility of installed packages
 
     # Build arch packages
-    base-devel
     namcap     # Lint arch packages
-    devtools   # Build arch packages (pkgctl mainly)
     debuginfod # Remote debug info
-    aurutils   # Tooling for AUR packages
 
     # Shell environment and CLI tools
     helix         # Simple terminal editor with LSP support
@@ -93,7 +90,7 @@ packages=(
     fd            # Simpler find
     sd            # Simpler sed
     dua-cli       # Disk space analyzer
-    nnn           # Command line file manager (also a good pager for aurutils)
+    nnn           # Command line file manager
     renameutils   # qmv is super nice
     restic        # Backups
     p7zip         # CLI zip file tool

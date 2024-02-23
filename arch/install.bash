@@ -50,8 +50,19 @@ if command -v sbctl >/dev/null && [[ -f /usr/share/secureboot/keys/db/db.key ]];
     use_secureboot=true
 fi
 
+# Files and directories we'd explicitly like to remove from the root filesystem,
+# using rm -rf
+files_to_remove=(
+    /etc/aurutils/
+    /etc/sudoers.d/90-aurutils
+)
+
+# Package lists which we'd like to remove and install respectively.
+# We load package lists from bash files in pkglists/
 pkglists_to_remove=(cleanup)
 pkglists_to_add=(base gnome)
+# Filesystem trees we'd like to copy to and delete from the root filesystem.
+# Trees are directory structures and files under trees/
 trees_to_add=(base)
 trees_to_remove=()
 
@@ -105,6 +116,11 @@ function remove_tree() {
         -exec realpath --no-symlinks --relative-base="${DIR}/trees/${tree}" {} \; |
         xargs -n1 printf "/%s\0" | xargs -0 rm -vfd
 }
+
+# Cleanup files
+if [[ 0 -lt "${#files_to_remove[@]}" ]]; then
+    rm -rfv "${files_to_remove[@]}"
+fi
 
 # Add our filesystem trees
 for tree in "${trees_to_add[@]}"; do

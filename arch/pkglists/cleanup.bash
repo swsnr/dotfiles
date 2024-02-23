@@ -15,6 +15,11 @@
 # List of packages to remove
 
 packages=(
+    # Tooling to build PKGBUILDs. I've moved my custom packages to OBS and no
+    # longer build locally.
+    base-devel
+    aurutils
+    devtools
     # Dev tooling I don't need currently
     gobject-introspection
     flatpak-builder
