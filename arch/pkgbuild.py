@@ -63,7 +63,6 @@ AUR_PACKAGES: list[str] = [
     "1password",
     "1password-cli",
     "aurutils",
-    "gnome-shell-extension-disable-extension-updates",
 ]
 
 #: Packages to remove from the repository
@@ -103,6 +102,9 @@ PACKAGES_TO_REMOVE: list[str] = [
     "gnome-search-providers-jetbrains",
     "gnome-shell-extension-utc-clock",
     "gnome-shell-extension-picture-of-the-day",
+    "gnome-shell-extension-disable-extension-updates",
+    "gnome-shell-extension-gsconnect",
+    "fnm",
 ]
 
 class regex_in(str): # noqa: N801,SLOT000
@@ -115,14 +117,9 @@ class regex_in(str): # noqa: N801,SLOT000
 
 #: Packages we only build on some hosts
 match regex_in(gethostname()):
-    case "kastl":
-        AUR_PACKAGES.extend([
-            "gnome-shell-extension-gsconnect",
-        ])
     case "RB":
         AUR_PACKAGES.extend([
             "age-plugin-tpm",
-            "fnm",
         ])
 
 
