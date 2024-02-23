@@ -214,13 +214,6 @@ pacman -S --needed "${packages_to_install[@]}"
 pacman -S --needed --asdeps "${packages_to_install_optdeps[@]}"
 pacman -D --asdeps "${packages_to_install_optdeps[@]}"
 
-# Remove unused local pacman repos
-for name in abs aur; do
-    if [[ -d "/srv/pkgrepo/${name}" ]]; then
-        btrfs subvolume delete "/srv/pkgrepo/${name}"
-    fi
-done
-
 # Configure flatpak languages to install in addition to system locale
 flatpak config --system --set extra-languages 'en;en_GB;de;de_DE'
 # Install all flatpaks
