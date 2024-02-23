@@ -64,8 +64,6 @@ AUR_PACKAGES: list[str] = [
     "1password-cli",
     "aurutils",
     "gnome-shell-extension-disable-extension-updates",
-    "gnome-shell-extension-picture-of-the-day",
-    "gnome-shell-extension-utc-clock",
 ]
 
 #: Packages to remove from the repository
@@ -102,6 +100,9 @@ PACKAGES_TO_REMOVE: list[str] = [
     "pcsc-cyberjack",
     "gnome-search-providers-vscode",
     "ruby-install",
+    "gnome-search-providers-jetbrains",
+    "gnome-shell-extension-utc-clock",
+    "gnome-shell-extension-picture-of-the-day",
 ]
 
 class regex_in(str): # noqa: N801,SLOT000
@@ -120,7 +121,6 @@ match regex_in(gethostname()):
         ])
     case "RB":
         AUR_PACKAGES.extend([
-            "gnome-search-providers-jetbrains",
             "age-plugin-tpm",
             "fnm",
         ])
