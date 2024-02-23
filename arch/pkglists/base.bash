@@ -71,6 +71,8 @@ packages=(
     # Build arch packages
     namcap     # Lint arch packages
     debuginfod # Remote debug info
+    # Minimal parts of base-devel I actually need for my local packages
+    fakeroot
 
     # Shell environment and CLI tools
     helix         # Simple terminal editor with LSP support
@@ -108,6 +110,7 @@ packages=(
 
     # Development tooling
     gcc                 # C compiler
+    patch               # Apply patches
     make                # Ubiquituous "build" tool
     rustup              # Rust toolchain manager
     rust-analyzer       # Language server for Rust (more recent than what's provided by rustup)
