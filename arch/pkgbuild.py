@@ -17,12 +17,10 @@
 
 import sys
 import os
-import re
 import argparse
 from argparse import ArgumentParser, ArgumentError
 from collections.abc import Collection
 from pathlib import Path
-from socket import gethostname
 from subprocess import run
 from tempfile import NamedTemporaryFile
 
@@ -71,6 +69,7 @@ PACKAGES_TO_REMOVE: list[str] = [
     "frum",
     # Moved to extra
     "gnome-shell-extension-caffeine",
+    "age-plugin-tpm",
     # Not ported to GNOME 45 yet, superseded by picture-of-the-day
     "gnome-shell-extension-nasa-apod",
     # Not used anymore
@@ -106,21 +105,6 @@ PACKAGES_TO_REMOVE: list[str] = [
     "gnome-shell-extension-gsconnect",
     "fnm",
 ]
-
-class regex_in(str): # noqa: N801,SLOT000
-    """Match a regex in a string in structural pattern matching."""
-
-    def __eq__(self: str, pattern: object) -> bool:
-        """Check whether this string matches `pattern`."""
-        return isinstance(pattern, str) and bool(re.search(pattern, self))
-
-
-#: Packages we only build on some hosts
-match regex_in(gethostname()):
-    case "RB":
-        AUR_PACKAGES.extend([
-            "age-plugin-tpm",
-        ])
 
 
 def get_outdated_vcs_packages(repo: Repo, packages: list[str]) -> list[str]:
