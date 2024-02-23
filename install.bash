@@ -163,14 +163,14 @@ mkdir -p ~/.config/pipewire/pipewire.conf.d/
 clean-recursively ~/.config/pipewire/pipewire.conf.d/
 
 # Misc files
-mkdir -p ~/.config/{latexmk,restic,zim} ~/.cargo
+mkdir -p ~/.config/{latexmk,restic,zim,pacman} ~/.cargo
 ln -fs "${DIR}/backup/linux.exclude" ~/.config/restic/linux.exclude
 ln -fs "${DIR}/latex/latexmkrc" ~/.config/latexmk/latexmkrc
 ln -fs "${DIR}/misc/XCompose" ~/.XCompose
 ln -fs "${DIR}/misc/gamemode.ini" ~/.config/gamemode.ini
 ln -fs "${DIR}/misc/zim-style.conf" ~/.config/zim/style.conf
 ln -fs "${DIR}/misc/cargo-config.toml" ~/.cargo/config.toml
-
+ln -fs "${DIR}/misc/makepkg.conf" ~/.config/pacman/makepkg.conf
 # Electron flags for all electron versions
 #
 # We use the following flags:
