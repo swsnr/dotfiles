@@ -55,6 +55,7 @@ fi
 files_to_remove=(
     /etc/aurutils/
     /etc/sudoers.d/90-aurutils
+    /etc/pacman.d/repos/40-swsnr-repository.conf
 )
 
 # Package lists which we'd like to remove and install respectively.
@@ -137,16 +138,17 @@ done
 chmod 750 /etc/sudoers.d
 find /etc/sudoers.d -type f -exec chmod 600 {} \+
 
-# Import keys for 3rd party repos into pacman
+# Import keys for additional repos into pacman
 pacman-key -a "${DIR}/pacman-keys/"*.gpg
 pacman_keys=(
-    B8ADA38BC94C48C4E7AABE4F7548C2CC396B57FC # swsnr
     FCADAFC81273B9E7F184F2B0826659A9013E5B65 # openSUSE_Tools_key
-    42D80446DC5C2B66D69DF5B6C1A96AD497928E88 # home:swsnr OBS repo (my packages)
+    42D80446DC5C2B66D69DF5B6C1A96AD497928E88 # home:swsnr OBS repo (my own packages)
 )
 for key in "${pacman_keys[@]}"; do
     pacman-key --lsign-key "${key}"
 done
+# Remove signing key for my old local repository
+pacman-key --delete B8ADA38BC94C48C4E7AABE4F7548C2CC396B57FC
 
 # Load and apply package lists
 packages_to_install=()
