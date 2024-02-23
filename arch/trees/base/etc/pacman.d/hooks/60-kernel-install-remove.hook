@@ -1,25 +1,8 @@
 [Trigger]
 Type = Path
-Operation = Upgrade
 Operation = Remove
 Target = usr/lib/modules/*/vmlinuz
 Target = usr/lib/modules/*/extramodules/*
-
-[Trigger]
-Type = Path
-Operation = Install
-Operation = Upgrade
-Operation = Remove
-Target = boot/*-ucode.img
-Target = usr/lib/booster/*
-Target = usr/lib/initcpio/*
-Target = usr/lib/initcpio/*/*
-Target = usr/lib/dracut/*
-Target = usr/lib/dracut/*/*
-Target = usr/lib/dracut/*/*/*
-Target = usr/lib/kernel/*
-Target = usr/lib/kernel/*/*
-Target = usr/src/*/dkms.conf
 
 [Action]
 Description = Removing kernel and initrd from $BOOT... (kernel-install)
