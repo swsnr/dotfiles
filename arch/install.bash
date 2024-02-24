@@ -56,6 +56,8 @@ files_to_remove=(
     /etc/aurutils/
     /etc/sudoers.d/90-aurutils
     /etc/pacman.d/repos/40-swsnr-repository.conf
+    /etc/xdg/reflector/reflector.conf
+    /etc/xdg/reflector/reflector.conf.pacsave
 )
 
 # Package lists which we'd like to remove and install respectively.
@@ -198,12 +200,6 @@ for pkg in "${packages_to_remove[@]}"; do
         pacman --noconfirm -Rs "${pkg}"
     fi
 done
-
-# Update mirror list before installing anything; we use the systemd service
-# because it uses the appropriate reflector configuration.
-if command -v reflector >/dev/null && [[ -e /etc/xdg/reflector/reflector.conf ]]; then
-    systemctl start reflector.service || true
-fi
 
 pacman -Qtdq | pacman --noconfirm -Rs - || true
 # Update the system, then install new packages and optional dependencies.

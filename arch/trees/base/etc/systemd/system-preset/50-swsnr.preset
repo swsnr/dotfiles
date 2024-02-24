@@ -4,8 +4,6 @@
 enable systemd-oomd.service
 
 # Maintenance services
-# Regularly update the mirrorlist.
-enable reflector.timer
 # Periodically trim, and scrub root filesystem
 enable fstrim.timer
 enable btrfs-scrub@.timer -
@@ -30,3 +28,6 @@ enable pcscd.socket
 
 # Login manager for Gnome
 enable gdm.service
+
+# Disable some unused/removed services
+disable reflector.timer

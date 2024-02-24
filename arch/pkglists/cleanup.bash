@@ -30,6 +30,7 @@ packages=(
     rio
     pacman-hook-reproducible-status
     pacman-hook-kernel-install
+    reflector
     # Flatpak'ed
     paperwork
     tesseract
