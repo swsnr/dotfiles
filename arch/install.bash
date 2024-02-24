@@ -230,27 +230,6 @@ flatpak uninstall --system --noninteractive --unused
 flatpak update --system --noninteractive
 #endregion
 
-# See /usr/share/factory/etc/nsswitch.conf for the Arch Linux factory defaults.
-# We add mdns hostnames (from Avahi) and libvirtd names, and also shuffle things around
-# to follow the recommendations in nss-resolve(8) which Arch Linux deliberately doesn't
-# do by default, see e.g. https://bugs.archlinux.org/task/57852
-NSS_HOSTS=(
-    # Resolves containers managed by systemd-machined
-    mymachines
-    # Resolve everything else with systemd-resolved and bail out if resolved
-    # doesn't find hostname.  Everything after this stanza is just fallback in
-    # case resolved is down
-    resolve '[!UNAVAIL=return]'
-    # Resolve hosts from /etc/hosts (systemd-resolved handles /etc/hosts as well
-    # so this comes after resolve)
-    files
-    # Resolves gethostname(), i.e. /etc/hostname
-    myhostname
-    # Resolves from DNS
-    dns
-)
-sed -i '/^hosts: /s/^hosts: .*/'"hosts: ${NSS_HOSTS[*]}/" /etc/nsswitch.conf
-
 # Update systemd preset to enable/disable services
 systemctl preset-all
 
