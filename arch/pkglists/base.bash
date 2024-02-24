@@ -193,6 +193,9 @@ optdeps=(
 
     # mkosi: cpio format
     cpio
+
+    # udisks2: btrfs support
+    udisks2-btrfs
 )
 
 flatpaks=(
