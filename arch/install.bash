@@ -63,10 +63,10 @@ files_to_remove=(
 # Package lists which we'd like to remove and install respectively.
 # We load package lists from bash files in pkglists/
 pkglists_to_remove=(cleanup)
-pkglists_to_add=(base gnome)
+pkglists_to_add=(base gnome 1password)
 # Filesystem trees we'd like to copy to and delete from the root filesystem.
 # Trees are directory structures and files under trees/
-trees_to_add=(base)
+trees_to_add=(base 1password)
 trees_to_remove=()
 
 case "${PRODUCT_NAME}" in
@@ -140,11 +140,19 @@ done
 chmod 750 /etc/sudoers.d
 find /etc/sudoers.d -type f -exec chmod 600 {} \+
 
+# Decrypt private repo
+if [[ ! -e /etc/pacman.d/repos/35-1password.conf ]]; then
+    gpg --no-symkey-cache --decrypt \
+        --output /etc/pacman.d/repos/35-1password.conf \
+        /etc/pacman.d/repos/35-1password.conf.gpg
+fi
+
 # Import keys for additional repos into pacman
 pacman-key -a "${DIR}/pacman-keys/"*.gpg
 pacman_keys=(
     'FCADAFC81273B9E7F184F2B0826659A9013E5B65' # openSUSE_Tools_key
     '42D80446DC5C2B66D69DF5B6C1A96AD497928E88' # home:swsnr OBS repo (my own packages)
+    'B0D22477C20E1CA6814B8DAAE4ED3D2BB799BE2F' # My personal makepkg key (mostly for 1password packages)
 )
 for key in "${pacman_keys[@]}"; do
     pacman-key --lsign-key "${key}"

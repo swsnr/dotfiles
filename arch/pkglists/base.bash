@@ -144,7 +144,6 @@ packages=(
     sane-airscan          # Better airscan support, sane's builtin support is primitive
 
     # Applications
-    1password 1password-cli # Personal password manager
     firefox firefox-i18n-de # Browser
     evolution               # Mail client & calendar (even on KDE, because kmail and korganizer have a bunch of issues
     code                    # Powerful text editor, i.e. poor-mans IDE
