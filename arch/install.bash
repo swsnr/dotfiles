@@ -143,8 +143,8 @@ find /etc/sudoers.d -type f -exec chmod 600 {} \+
 # Import keys for additional repos into pacman
 pacman-key -a "${DIR}/pacman-keys/"*.gpg
 pacman_keys=(
-    FCADAFC81273B9E7F184F2B0826659A9013E5B65 # openSUSE_Tools_key
-    42D80446DC5C2B66D69DF5B6C1A96AD497928E88 # home:swsnr OBS repo (my own packages)
+    'FCADAFC81273B9E7F184F2B0826659A9013E5B65' # openSUSE_Tools_key
+    '42D80446DC5C2B66D69DF5B6C1A96AD497928E88' # home:swsnr OBS repo (my own packages)
 )
 for key in "${pacman_keys[@]}"; do
     pacman-key --lsign-key "${key}"
