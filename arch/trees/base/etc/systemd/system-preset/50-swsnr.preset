@@ -7,6 +7,8 @@ enable systemd-oomd.service
 # Periodically trim, and scrub root filesystem
 enable fstrim.timer
 enable btrfs-scrub@.timer -
+# Cleanup pacman cache
+enable paccache.timer
 
 # Networking
 # Use network manager instead of systemd-networkd

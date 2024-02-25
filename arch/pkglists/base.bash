@@ -64,6 +64,7 @@ packages=(
     nmap                 # Port scanning and other network information
 
     # Arch tools
+    pacman-contrib    # Extra tools for pacman
     etc-update        # Deal with pacdiff/pacsave files
     arch-repro-status # Manually check reproducibility of installed packages
 
