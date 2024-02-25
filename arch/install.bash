@@ -59,6 +59,9 @@ files_to_remove=(
     /etc/xdg/reflector/reflector.conf
     /etc/xdg/reflector/reflector.conf.pacsave
     /var/lib/aurbuild
+    # These repo files were moved
+    /etc/pacman.d/repos/40-osc-repository.conf
+    /etc/pacman.d/repos/30-swsnr-obs-repository.conf
 )
 
 # Package lists which we'd like to remove and install respectively.
