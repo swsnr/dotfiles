@@ -145,7 +145,7 @@ chmod 750 /etc/sudoers.d
 find /etc/sudoers.d -type f -exec chmod 600 {} \+
 
 # Decrypt private repo
-if [[ ! -e /etc/pacman.d/repos/35-1password.conf ]]; then
+if [[ ! -e /etc/pacman.d/repos/35-1password.conf && -e /etc/pacman.d/repos/35-1password.conf.gpg ]]; then
     gpg --no-symkey-cache --decrypt \
         --output /etc/pacman.d/repos/35-1password.conf \
         /etc/pacman.d/repos/35-1password.conf.gpg
