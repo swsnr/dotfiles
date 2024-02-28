@@ -164,7 +164,7 @@ user_pref("browser.fixup.alternate.enabled", false);
 // Hardware acceleration for firefox, see https://discourse.flathub.org/t/how-to-enable-video-hardware-acceleration-on-flatpak-firefox/3125
 user_pref("gfx.webrender.all", true);
 user_pref("media.ffmpeg.vaapi.enabled", true);
-user_pref("media.ffvpx.enabled", false);
+user_pref("media.ffvpx.enabled", true);
 user_pref("media.av1.enabled", false);
 // Force hardware video decoding, see https://bbs.archlinux.org/viewtopic.php?id=281398
 user_pref("media.hardware-video-decoding.force-enabled", true);
