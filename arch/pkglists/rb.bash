@@ -32,7 +32,7 @@ packages=(
     kubeconform                      # Validate kubernetes manifests
     k9s                              # k8s TUI
     helm                             # k8s package manager
-    skopeo                           # Container registory tool
+    skopeo                           # Container registry tool
     sbt                              # Scala build tool
     ammonite                         # Scala repl
     glab                             # Gitlab CLI
