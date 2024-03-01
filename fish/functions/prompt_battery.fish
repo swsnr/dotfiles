@@ -25,10 +25,12 @@ function prompt_battery -d 'Battery information for prompt'
         set battery_info_start_index (contains -i battery $battery_info)
         if test $status -eq 0
             set battery_info $battery_info[$battery_info_start_index..(count $battery_info)]
-        else
-            set battery_info
-            set battery_info_start_index
+            break
         end
+    end
+
+    if not set -q battery_info[1]
+        return
     end
 
     # Take the matches apart.  $matches[1] is the entire text matched by the
