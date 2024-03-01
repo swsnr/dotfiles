@@ -375,7 +375,8 @@ TERMINAL_PROFILE = {
     "foreground-color": "#F8F8F2",
     "use-theme-colors": True,
     "use-custom-command": True,
-    "custom-command": "systemd-run-fish",
+    # We don't need a systemd wrapper here, because VTE does this by itself
+    "custom-command": "/usr/bin/fish",
 }
 
 BINDINGS = {
