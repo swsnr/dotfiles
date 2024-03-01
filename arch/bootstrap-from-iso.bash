@@ -99,13 +99,11 @@ bootstrap_packages=(
     base
     linux
     linux-firmware
+    systemd-ukify
     intel-ucode
     btrfs-progs
-    # Some essential tools: A text editor, network management, and restic to
-    # restore backups (in particular my own package repository).
     helix
     networkmanager
-    restic
 )
 pacstrap -K "${SYSROOT}" "${bootstrap_packages[@]}"
 
