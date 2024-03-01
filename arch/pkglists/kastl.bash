@@ -57,4 +57,5 @@ flatpaks=(
     org.kde.digikam                       # Digital photo management
     io.freetubeapp.FreeTube               # Ad-free youtube client
     work.openpaper.Paperwork              # Manage personal documents
+    org.gnome.Boxes                       # Easy to use VMs
 )
