@@ -14,28 +14,4 @@
 
 # List of packages to remove
 
-packages=(
-    # Tooling to build PKGBUILDs. I've moved my custom packages to OBS and no
-    # longer build locally.
-    base-devel
-    aurutils
-    devtools
-    # Dev tooling I don't need currently
-    gobject-introspection
-    flatpak-builder
-    zbus_xmlgen
-    stylua
-    # No longer need these
-    innoextract
-    rio
-    pacman-hook-reproducible-status
-    pacman-hook-kernel-install
-    reflector
-    # Flatpak'ed
-    paperwork
-    tesseract
-    tesseract-data-deu
-    tesseract-data-deu_frak
-    tesseract-data-eng
-    zim
-)
+packages=()

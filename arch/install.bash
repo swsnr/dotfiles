@@ -52,17 +52,7 @@ fi
 
 # Files and directories we'd explicitly like to remove from the root filesystem,
 # using rm -rf
-files_to_remove=(
-    /etc/aurutils/
-    /etc/sudoers.d/90-aurutils
-    /etc/pacman.d/repos/40-swsnr-repository.conf
-    /etc/xdg/reflector/reflector.conf
-    /etc/xdg/reflector/reflector.conf.pacsave
-    /var/lib/aurbuild
-    # These repo files were moved
-    /etc/pacman.d/repos/40-osc-repository.conf
-    /etc/pacman.d/repos/30-swsnr-obs-repository.conf
-)
+files_to_remove=()
 
 # Package lists which we'd like to remove and install respectively.
 # We load package lists from bash files in pkglists/
