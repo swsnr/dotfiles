@@ -22,6 +22,7 @@ PS4='\033[32m$(date +%H:%M:%S) >>>\033[0m '
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 
 target_device="$1"
+encrypt="true"
 
 if [[ -z "${target_device}" ]]; then
     echo "Missing --device <device> argument" >&2
@@ -52,29 +53,33 @@ sleep 3
 partprobe -s "${target_device}"
 sleep 3
 
-# Encrypt root if desired
-cryptsetup luksFormat --type luks2 \
-    /dev/disk/by-partlabel/linux
-cryptsetup luksOpen /dev/disk/by-partlabel/linux root
-# Enable discards and disable workqueues, see
-# https://wiki.archlinux.org/title/Dm-crypt/Specialties#Discard/TRIM_support_for_solid_state_drives_(SSD)
-# and
-# https://wiki.archlinux.org/title/Dm-crypt/Specialties#Disable_workqueue_for_increased_solid_state_drive_(SSD)_performance
-cryptsetup refresh \
-    --allow-discards \
-    --perf-no_read_workqueue --perf-no_write_workqueue \
-    --persistent \
-    root
+root_device="/dev/disk/by-partlabel/linux"
+
+if [[ "${encrypt}" == "true" ]]; then
+    # Encrypt root if desired
+    cryptsetup luksFormat --type luks2 "${root_device}"
+    cryptsetup luksOpen "${root_device}" root
+    # Enable discards and disable workqueues, see
+    # https://wiki.archlinux.org/title/Dm-crypt/Specialties#Discard/TRIM_support_for_solid_state_drives_(SSD)
+    # and
+    # https://wiki.archlinux.org/title/Dm-crypt/Specialties#Disable_workqueue_for_increased_solid_state_drive_(SSD)_performance
+    cryptsetup refresh \
+        --allow-discards \
+        --perf-no_read_workqueue --perf-no_write_workqueue \
+        --persistent \
+        root
+    root_device="/dev/mapper/root"
+fi
 
 # Create file systems
 mkfs.fat -F32 -n EFISYSTEM /dev/disk/by-partlabel/EFISYSTEM
-mkfs.btrfs -f -L linux "/dev/mapper/root"
+mkfs.btrfs -f -L linux "${root_device}"
 
 SYSROOT="/mnt"
 
 # Mount arch subvolume and create additional subvolumes for rootfs.  Enable
 # compression for the bootstrap process.
-mount -o 'compress=zstd:1' "/dev/mapper/root" "${SYSROOT}"
+mount -o 'compress=zstd:1' "${root_device}" "${SYSROOT}"
 mkdir "${SYSROOT}"/efi
 for subvol in var var/log var/cache var/tmp srv home; do
     btrfs subvolume create "${SYSROOT}/${subvol}"
