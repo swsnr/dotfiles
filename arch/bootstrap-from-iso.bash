@@ -133,7 +133,9 @@ install -Dpm644 -t "${SYSROOT}"/etc/kernel/ "${DIR}"/trees/base/etc/kernel/insta
 arch-chroot "${SYSROOT}" kernel-install add-all
 
 echo "Install bootloader"
-bootctl --root "${SYSROOT}" install
+# We use a full chroot instead of bootctl --root here to make it update EFI
+# variables for bootloader entries; with --root bootctl doesn't do this
+arch-chroot "${SYSROOT}" bootctl install
 
 # Finish things
 echo "BOOTSTRAPPING FINISHED"
