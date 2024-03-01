@@ -130,11 +130,7 @@ install -Dpm644 -t "${SYSROOT}"/etc/mkinitcpio.d \
     "${DIR}"/trees/base/etc/mkinitcpio.conf.d/10-swsnr-systemd-base.conf
 # Tell kernel-install to use mkinitcpio to build UKIs
 install -Dpm644 -t "${SYSROOT}"/etc/kernel/ "${DIR}"/trees/base/etc/kernel/install.conf
-# Get version of installed kernel
-kernel_versions=("${SYSROOT}"/usr/lib/modules/*)
-kernel_version="${kernel_versions[0]##*/}"
-arch-chroot "${SYSROOT}" kernel-install add "${kernel_version}" \
-    "/usr/lib/modules/${kernel_version}/vmlinuz"
+arch-chroot "${SYSROOT}" kernel-install add-all
 
 echo "Install bootloader"
 bootctl --root "${SYSROOT}" install
