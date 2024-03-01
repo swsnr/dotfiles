@@ -100,6 +100,13 @@ else
     trees_to_remove+=(secureboot)
 fi
 
+# Support for VMs
+chassis="$(hostnamectl chassis)"
+if [[ "${chassis}" == "vm" ]]; then
+    trees_to_add+=("vm-guest")
+    pkglists_to_add+=("vm_guest")
+fi
+
 function add_tree() {
     local tree="$1"
     cp --recursive --no-dereference --preserve=links,mode,timestamps \
