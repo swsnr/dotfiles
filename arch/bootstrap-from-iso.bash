@@ -94,7 +94,7 @@ echo "Bootstrapping"
 # Use the global pkgbuild mirror for simplicity
 # shellcheck disable=SC2016
 echo 'Server = https://geo.mirror.pkgbuild.com/$repo/os/$arch' >/etc/pacman.d/mirrorlist
-pacman -Sy archlinux-keyring
+pacman -Sy --noconfirm archlinux-keyring
 bootstrap_packages=(
     base
     linux
