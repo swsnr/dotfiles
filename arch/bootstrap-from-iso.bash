@@ -126,7 +126,7 @@ systemctl --root "${SYSROOT}" enable \
 
 echo "Building UKIs"
 # Make mkinitcpio use systemd
-install -Dpm644 -t "${SYSROOT}"/etc/mkinitcpio.d \
+install -Dpm644 -t "${SYSROOT}"/etc/mkinitcpio.conf.d \
     "${DIR}"/trees/base/etc/mkinitcpio.conf.d/10-swsnr-systemd-base.conf
 # Tell kernel-install to use mkinitcpio to build UKIs
 install -Dpm644 -t "${SYSROOT}"/etc/kernel/ "${DIR}"/trees/base/etc/kernel/install.conf
