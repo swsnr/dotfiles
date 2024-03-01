@@ -24,7 +24,7 @@ packages=(
     mkinitcpio # Generate initramfs and build UKI
     sudo
     zram-generator # swap on compressed RAM, mostly to support systemd-oomd
-    systemd-ukify  # Build UKIs (see kernel/install.conf)
+    systemd-ukify  # Build and inspect UKIs
     sbctl          # Manage secure boot binaries and sign binaries
     mkosi          # Generate system images
     plymouth       # Splash screen for boot
