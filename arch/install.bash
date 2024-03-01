@@ -104,7 +104,7 @@ fi
 chassis="$(hostnamectl chassis)"
 if [[ "${chassis}" == "vm" ]]; then
     trees_to_add+=("vm-guest")
-    pkglists_to_add+=("vm_guest")
+    pkglists_to_add+=("vm-guest")
 fi
 
 function add_tree() {
