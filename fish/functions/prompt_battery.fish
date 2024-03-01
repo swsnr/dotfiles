@@ -26,6 +26,9 @@ function prompt_battery -d 'Battery information for prompt'
         if test $status -eq 0
             set battery_info $battery_info[$battery_info_start_index..(count $battery_info)]
             break
+        else
+            set battery_info
+            set battery_info_start_index
         end
     end
 
