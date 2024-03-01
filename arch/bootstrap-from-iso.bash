@@ -80,7 +80,7 @@ SYSROOT="/mnt"
 # Mount arch subvolume and create additional subvolumes for rootfs.  Enable
 # compression for the bootstrap process.
 mount -o 'compress=zstd:1' "${root_device}" "${SYSROOT}"
-mkdir "${SYSROOT}"/efi
+mkdir -m700 "${SYSROOT}"/efi
 for subvol in var var/log var/cache var/tmp srv home; do
     btrfs subvolume create "${SYSROOT}/${subvol}"
 done
