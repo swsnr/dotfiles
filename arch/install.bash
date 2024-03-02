@@ -63,7 +63,7 @@ pkglists_to_remove=(cleanup)
 pkglists_to_add=(base gnome 1password)
 # Filesystem trees we'd like to copy to and delete from the root filesystem.
 # Trees are directory structures and files under trees/
-trees_to_add=(base 1password)
+trees_to_add=(base gnome 1password)
 trees_to_remove=()
 
 case "${PRODUCT_NAME}" in

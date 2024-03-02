@@ -1,0 +1,2 @@
+# Login manager for Gnome
+enable gdm.service
