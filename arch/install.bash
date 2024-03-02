@@ -52,7 +52,10 @@ fi
 
 # Files and directories we'd explicitly like to remove from the root filesystem,
 # using rm -rf
-files_to_remove=()
+files_to_remove=(
+    # Split into core and extra
+    /etc/pacman.d/repos/50-core-repositories.conf
+)
 
 # Package lists which we'd like to remove and install respectively.
 # We load package lists from bash files in pkglists/
