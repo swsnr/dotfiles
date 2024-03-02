@@ -82,6 +82,10 @@ case "${HOSTNAME}" in
     pkglists_to_add+=("rb")
     trees_to_add+=("rb")
     ;;
+arch-test*)
+    # Enable testing repos on test VMs
+    trees_to_add+=("testing")
+    ;;
 *) ;;
 esac
 
