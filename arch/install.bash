@@ -229,7 +229,7 @@ pacman -D --asdeps "${packages_to_install_optdeps[@]}"
 # Configure flatpak languages to install in addition to system locale
 flatpak config --system --set extra-languages 'en;en_GB;de;de_DE'
 # Install all flatpaks
-flatpak install --system --noninteractive flathub "${flatpaks[@]}"
+flatpak install --system --noninteractive flathub "${flatpaks_to_install[@]}"
 # Remove unused flatpaks; one by one because uninstall fails on missing refs :|
 for flatpak in "${flatpaks_to_remove[@]}"; do
     flatpak uninstall --system --noninteractive "${flatpak}" || true
