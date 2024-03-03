@@ -288,6 +288,11 @@ if has flatpak; then
     flatpak override --user \
         --nofilesystem xdg-documents \
         io.github.ja2_stracciatella.JA2-Stracciatella
+
+    # Make scummvm use wayland
+    flatpak override --user \
+        --env=SDL_VIDEODRIVER=wayland,x11 \
+        org.scummvm.ScummVM
 fi
 
 # Configure Code OSS
