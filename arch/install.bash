@@ -60,10 +60,10 @@ files_to_remove=(
 # Package lists which we'd like to remove and install respectively.
 # We load package lists from bash files in pkglists/
 pkglists_to_remove=(cleanup)
-pkglists_to_add=(base gnome 1password)
+pkglists_to_add=(base 1password)
 # Filesystem trees we'd like to copy to and delete from the root filesystem.
 # Trees are directory structures and files under trees/
-trees_to_add=(base gnome 1password)
+trees_to_add=(base 1password)
 trees_to_remove=()
 
 case "${PRODUCT_NAME}" in
@@ -76,11 +76,18 @@ esac
 
 case "${HOSTNAME}" in
 *kastl*)
-    pkglists_to_add+=("kastl")
+    pkglists_to_add+=("gnome" "kastl")
+    trees_to_add+=("gnome")
     ;;
 *RB*)
-    pkglists_to_add+=("rb")
-    trees_to_add+=("rb")
+    pkglists_to_add+=("gnome" "rb")
+    trees_to_add+=("gnome" "rb")
+    ;;
+arch-test-kde*)
+    pkglists_to_remove+=("gnome")
+    trees_to_remove+=("gnome")
+    trees_to_add+=("kde" "testing")
+    pkglists_to_add+=("kde")
     ;;
 arch-test*)
     # Enable testing repos on test VMs

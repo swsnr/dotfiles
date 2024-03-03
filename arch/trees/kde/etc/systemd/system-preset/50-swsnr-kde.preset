@@ -1,0 +1,3 @@
+# Login manager for KDE
+disable gdm.service
+enable sddm.service
