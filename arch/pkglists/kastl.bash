@@ -13,19 +13,9 @@
 # the License.
 
 packages=(
-    # Ruby
-    ruby-install
-
-    # GNOME development tooling
-    blueprint-compiler # UI language compiler
-
-    # Game mode
-    gamemode
-    scummvm # For the classics
-
-    # Apps
-    gnucash # Finance manager
-
+    ruby-install                    # Local ruby installations
+    blueprint-compiler              # UI language compiler
+    gamemode                        # Game mode
     gnome-shell-extension-gsconnect # Connect phone and desktop system
     syncthing                       # Network synchronization
 )
@@ -40,6 +30,7 @@ flatpaks=(
     # cope with multilib and mess around with missing steam dependencies.
     com.valvesoftware.Steam
     io.github.ja2_stracciatella.JA2-Stracciatella # JA2 for this century
+    org.scummvm.ScummVM                           # For classics
 
     # Gtk tooling
     re.sonny.Workbench           # Playround for Gtk things
@@ -58,4 +49,5 @@ flatpaks=(
     io.freetubeapp.FreeTube               # Ad-free youtube client
     work.openpaper.Paperwork              # Manage personal documents
     org.gnome.Boxes                       # Easy to use VMs
+    org.gnucash.GnuCash                   # Personal finances
 )

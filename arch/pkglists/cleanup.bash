@@ -14,4 +14,7 @@
 
 # List of packages to remove
 
-packages=()
+packages=(
+    gnucash
+    scummvm
+)
