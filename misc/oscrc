@@ -1,0 +1,10 @@
+[general]
+apiurl=https://api.opensuse.org
+# Haskell cabal doesn't like colon in paths
+checkout_no_colon=true
+# Store credentials in system keyring
+use_keyring=true
+
+[https://api.opensuse.org]
+user=swsnr
+credentials_mgr_class=osc.credentials.KeyringCredentialsManager:keyring.backends.SecretService.Keyring
