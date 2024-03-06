@@ -117,7 +117,7 @@ packages=(
     cargo-release       # Rust release helper
     cargo-semver-checks # Lint public Rust APIs
     cargo-deny          # Rust compliance checker (licensing, advisories, etc.)
-    shellcheck          # Lint bash code
+    shellcheck-static   # Lint bash code
     shfmt               # Format bash code
     ruff                # Fast python linter
     pyright             # Language server for Python

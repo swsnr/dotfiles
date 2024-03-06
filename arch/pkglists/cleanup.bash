@@ -17,4 +17,6 @@
 packages=(
     gnucash
     scummvm
+    shellcheck
+    ghc-libs
 )
