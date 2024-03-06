@@ -171,7 +171,8 @@ pacman-key --delete B8ADA38BC94C48C4E7AABE4F7548C2CC396B57FC || true
 # Load and apply package lists
 packages_to_install=()
 packages_to_install_optdeps=()
-packages_to_remove=()
+# We track packages to remove in an associative array, for reasons below
+declare -A packages_to_remove
 flatpaks_to_install=()
 flatpaks_to_remove=()
 
@@ -191,8 +192,12 @@ function load_pkglist() {
         flatpaks_to_install+=("${flatpaks[@]}")
         ;;
     remove)
-        packages_to_remove+=("${optdeps[@]}")
-        packages_to_remove+=("${packages[@]}")
+        for pkg in "${optdeps[@]}"; do
+            packages_to_remove["${pkg}"]=1
+        done
+        for pkg in "${packages[@]}"; do
+            packages_to_remove["${pkg}"]=1
+        done
         flatpaks_to_remove+=("${flatpaks[@]}")
         ;;
     *)
@@ -209,15 +214,22 @@ for item in "${pkglists_to_remove[@]}"; do
     load_pkglist remove "${item}"
 done
 
-# Remove packages one by one because pacman doesn't handle uninstalled packages
-# gracefully
-for pkg in "${packages_to_remove[@]}"; do
-    if pacman -Qi "${pkg}" &>/dev/null; then
-        pacman --noconfirm -Rs "${pkg}"
+# pacman -R has no equivalent to -S --unneeded to only remove package which are
+# still installed, so we do a little dance:  We first pass the list of packages
+# to remove to pacman -Qq to discard all packages already removed, and then
+# check every single package against the list of packages to remove to rule out
+# provides which "pacman -Qq" unfortunately takes into account
+installed_packages_to_remove=()
+for pkg in $(pacman -Qq "${!packages_to_remove[@]}" 2>/dev/null || true); do
+    if [[ "${packages_to_remove["${pkg}"]:-0}" == "1" ]]; then
+        installed_packages_to_remove+=("${pkg}")
     fi
 done
+if [[ 0 -lt "${#installed_packages_to_remove[@]}" ]]; then
+    pacman -Rs "${installed_packages_to_remove[@]}"
+fi
 
-pacman -Qtdq | pacman --noconfirm -Rs - || true
+pacman -Qtdq | pacman -Rs --noconfirm - || true
 # Update the system, then install new packages and optional dependencies.
 if [[ "${upgrade_packages}" == "true" ]]; then
     pacman -Syu
