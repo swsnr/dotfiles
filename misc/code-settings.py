@@ -84,10 +84,13 @@ SETTINGS = {
 
 
 EXTENSIONS = [
-    "bmalehorn.vscode-fish",
     "sonnyp.blueprint-gtk",
     "asciidoctor.asciidoctor-vscode",
     "James-Yu.latex-workshop",
+    # Shell scripting with fish and bash
+    "bmalehorn.vscode-fish",
+    "mads-hartmann.bash-ide-vscode",
+    "mkhl.shfmt",
     # Rust support
     "rust-lang.rust-analyzer",
     "serayuzgur.crates",
