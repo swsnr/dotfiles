@@ -1,5 +1,12 @@
 [Unit]
 Description=Personal color scheme hook
+# Start only after the graphical session is functional, i.e. $DISPLAY and $WAYLAND_DISPLAY
+# are known to the service manager, so that xdg-desktop-portal.service knowns
+# about these variables as well when it gets DBus-activated by the hook script.
+After=graphical-session.target
+# Also fail this unit if the graphical session doesn't start up, to make sure
+# we're not accidentally spawning a partially broken portal service.
+Requisite=graphical-session.target
 
 [Service]
 Type=simple
