@@ -13,7 +13,8 @@
 # the License.
 
 set -x EDITOR helix
-set -x PAGER less
+set -x PAGER moar
+
 # Default less options:
 #
 # -q: Do not beep

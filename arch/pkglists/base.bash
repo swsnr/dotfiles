@@ -81,7 +81,8 @@ packages=(
     zoxide            # Cross-shell/editor directory jumping
     fzf               # Fuzzy file finder for shells
     man-db            # Man page reader
-    man-pages         # Linux manpagers
+    man-pages         # Linux manpages
+    moar              # Alternative to less
     eza               # Better ls (with git support)
     broot             # Interactive tree & cd
     vivid             # Creates themes for dircolors
