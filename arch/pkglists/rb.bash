@@ -39,6 +39,7 @@ packages=(
     fnm                              # Fast node version manager
     gnome-search-providers-jetbrains # Jetbrains projects in search
     ansible                          # Infrastructure management
+    hurl                             # HTTP testing
 
     # VPN
     networkmanager-vpnc
