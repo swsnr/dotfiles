@@ -12,6 +12,28 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
+set -x EDITOR helix
+set -x PAGER less
+# Default less options:
+#
+# -q: Do not beep
+# -g: Highlight search results
+# -i: Ignore case when searching
+# -M: Prompt verbosely
+# -R: Print ANSI color sequences
+# -S: Cut of long lines instead of wrapping them
+# -w: Highlight the first new line after scrolling
+# -z: Keep four lines when scrolling
+# -X: Don't set initialization termcap stuff to terminal, to avoid unintended side-effects
+# -K: Exit on interrupt
+# -F: Exit immediately if content fits on screen
+# --use-color: Enable colour output
+# -Dd+b: Add blue colour to bold text
+# -Du+g: Add green colour to underline text
+# -Dk+m: Add magenta colour to blinking text
+# -Ds+y: Add yellow colour to standout text
+set -x LESS '-q -g -i -M -R -S -w -z-4 -X -K -F --use-color -Dd+b$Du+g$Dk+m$Ds+y'
+
 # Setup for interactive shells
 if status --is-interactive
     # Set cursor shape for vi
