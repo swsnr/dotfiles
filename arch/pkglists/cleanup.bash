@@ -15,8 +15,11 @@
 # List of packages to remove
 
 packages=(
+    # Flatpak now
     gnucash
     scummvm
+    # I use my own static builds for less Haskell dependencies
     shellcheck
     ghc-libs
+    jq # Replaced with jaq
 )

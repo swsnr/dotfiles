@@ -125,7 +125,7 @@ packages=(
     pyright             # Language server for Python
     hexyl               # hex viewer
     oxipng              # Optimize PNGs for size
-    jq                  # Process JSON on command line
+    jaq                 # Process JSON on command line
     d-spy               # DBus inspector and debugger
     deno                # Typescript runtime, for scripting
     osc                 # Client for Opensuse build service
