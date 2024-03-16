@@ -15,6 +15,9 @@
 # List of packages to remove
 
 packages=(
+    # No longer need these
+    namcap
+    debuginfod
     # Flatpak now
     gnucash
     scummvm
