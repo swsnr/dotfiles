@@ -35,6 +35,9 @@ set -x PAGER moar
 # -Ds+y: Add yellow colour to standout text
 set -x LESS '-q -g -i -M -R -S -w -z-4 -X -K -F --use-color -Dd+b$Du+g$Dk+m$Ds+y'
 
+# Disable default line numbers, as this really interferes with bat
+set -x MOAR --no-linenumbers
+
 # Setup for interactive shells
 if status --is-interactive
     # Set cursor shape for vi
