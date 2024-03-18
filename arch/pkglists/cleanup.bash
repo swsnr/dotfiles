@@ -16,6 +16,7 @@
 
 packages=(
     # No longer need these
+    yq
     namcap
     debuginfod
     # Flatpak now
@@ -24,5 +25,6 @@ packages=(
     # I use my own static builds for less Haskell dependencies
     shellcheck
     ghc-libs
-    jq # Replaced with jaq
+    # Use jaq instead
+    jq
 )

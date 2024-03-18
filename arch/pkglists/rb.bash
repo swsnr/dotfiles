@@ -40,7 +40,6 @@ packages=(
     gnome-search-providers-jetbrains # Jetbrains projects in search
     ansible                          # Infrastructure management
     hurl                             # HTTP testing
-    yq                               # Query YAML files
 
     # VPN
     networkmanager-vpnc
