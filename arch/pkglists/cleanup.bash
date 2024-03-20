@@ -14,17 +14,4 @@
 
 # List of packages to remove
 
-packages=(
-    # No longer need these
-    yq
-    namcap
-    debuginfod
-    # Flatpak now
-    gnucash
-    scummvm
-    # I use my own static builds for less Haskell dependencies
-    shellcheck
-    ghc-libs
-    # Use jaq instead
-    jq
-)
+packages=()
