@@ -70,6 +70,7 @@ packages=(
 
     # Minimal parts of base-devel I actually need for my local packages
     fakeroot
+    debugedit
 
     # Shell environment and CLI tools
     helix             # Simple terminal editor with LSP support
