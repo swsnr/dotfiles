@@ -50,9 +50,11 @@ packages=(
     age-plugin-tpm  # Age/Rage plugin for TPM keys
 
     # Networking and debugging tools
-    lftp     # Powerful FTP client
-    websocat # Debug websockets on the CLI
-    lnav     # Log file analyzer
+    lftp          # Powerful FTP client
+    websocat      # Debug websockets on the CLI
+    lnav          # Log file analyzer
+    wireshark-qt  # Network capturing GUI
+    wireshark-cli # CLI interface to wireshark
 
     # Additional applications
     keepassxc     # Keepass
@@ -68,6 +70,7 @@ optdeps=(
     aardvark-dns
     # Qt: wayland support
     qt5-wayland
+    qt6-wayland
 )
 
 flatpaks=(
