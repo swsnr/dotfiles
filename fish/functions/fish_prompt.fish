@@ -60,12 +60,6 @@ function fish_prompt -d 'My personal prompt'
         printf ' %s%b@%s%s' (set_color cyan) $nf_md_language_python (realpath --relative-to=$PWD $VIRTUAL_ENV) (set_color normal)
     end
 
-    # Battery if present and supported
-    set -l battery (prompt_battery)
-    if string length -q $battery $battery
-        echo -sn ' ' $battery
-    end
-
     # New line
     echo -s
 
