@@ -14,4 +14,11 @@
 
 # List of packages to remove
 
-packages=()
+packages=(
+    # No longer required or used
+    libdecor
+    sequoia-sq
+    acme.sh
+    wol
+    nmap
+)

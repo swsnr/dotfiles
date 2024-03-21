@@ -20,10 +20,7 @@ packages=(
     syncthing                       # Network synchronization
 )
 
-optdeps=(
-    # sdl2: Wayland client decorations
-    libdecor
-)
+optdeps=()
 
 flatpaks=(
     # Gaming; we're using flatpak for these because otherwise we'd have to

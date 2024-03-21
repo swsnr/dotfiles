@@ -54,14 +54,10 @@ packages=(
     nm-connection-editor # Advanced connection settings for network manager
     firewalld            # Firewall
     avahi                # DNS-SD for CUPS, only for service-discovery (name resolution is done by resolved)
-    sequoia-sq           # Sane GPG tooling
-    acme.sh              # ACME/Letsencrypt client
     xh                   # HTTP requests on the command line
     rsync                # Remote copy and syncing
     rclone               # rsync for clouds
     yt-dlp               # youtube-dl with extra features
-    wol                  # Wake up systems on LAN
-    nmap                 # Port scanning and other network information
 
     # Arch tools
     pacman-contrib    # Extra tools for pacman
@@ -197,6 +193,9 @@ optdeps=(
 
     # udisks2: btrfs support
     udisks2-btrfs
+
+    # wezterm: Fallback font for symbols
+    ttf-nerd-fonts-symbols-mono
 )
 
 flatpaks=(

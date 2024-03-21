@@ -68,6 +68,4 @@ optdeps=(
     # wezterm: Nautilus integration
     # gnome-shell-extension-gsconnect: Send to menu
     python-nautilus
-    # wezterm: Fallback font for symbols
-    ttf-nerd-fonts-symbols-mono
 )
