@@ -35,8 +35,10 @@ set -x PAGER moar
 # -Ds+y: Add yellow colour to standout text
 set -x LESS '-q -g -i -M -R -S -w -z-4 -X -K -F --use-color -Dd+b$Du+g$Dk+m$Ds+y'
 
-# Disable default line numbers, as this really interferes with bat
-set -x MOAR --no-linenumbers
+# Disable default line numbers, as this really interferes with bat.
+# Don't page if everything fits on one screen, which works better with short git outputs.
+# Keep current contents of screen after exit, for reference
+set -x MOAR '--no-linenumbers --quit-if-one-screen --no-clear-on-exit'
 
 # Setup for interactive shells
 if status --is-interactive
