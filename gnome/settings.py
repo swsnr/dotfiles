@@ -72,9 +72,9 @@ SETTINGS = {
         # Themes and fonts
         "icon-theme": None,
         "gtk-theme": None,
-        "font-name": None,
-        "document-font-name": None,
-        "monospace-font-name": None,
+        "font-name": "Inter 11",
+        "document-font-name": "Inter 11",
+        "monospace-font-name": "JetBrains Mono 10",
         # Enable hot corner in top left, to quickly open activities with the mouse
         "enable-hot-corners": True,
         # Show date and weekday in clock
@@ -109,7 +109,7 @@ SETTINGS = {
 
     # Window manager settings
     "org.gnome.desktop.wm.preferences": {
-        "titlebar-font": None,
+        "titlebar-font": "Inter Bold 11",
     },
     "org.gnome.desktop.wm.keybindings": {
         "close": ["<Super>q", "<Alt>F4"],
