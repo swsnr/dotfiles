@@ -105,24 +105,26 @@ packages=(
     github-cli
 
     # Development tooling
-    gcc                 # C compiler
-    patch               # Apply patches
-    make                # Ubiquituous "build" tool
-    rustup              # Rust toolchain manager
-    rust-analyzer       # Language server for Rust (more recent than what's provided by rustup)
-    cargo-release       # Rust release helper
-    cargo-semver-checks # Lint public Rust APIs
-    cargo-deny          # Rust compliance checker (licensing, advisories, etc.)
-    shellcheck-static   # Lint bash code
-    shfmt               # Format bash code
-    ruff                # Fast python linter
-    pyright             # Language server for Python
-    hexyl               # hex viewer
-    oxipng              # Optimize PNGs for size
-    jaq                 # Process JSON on command line
-    d-spy               # DBus inspector and debugger
-    deno                # Typescript runtime, for scripting
-    osc                 # Client for Opensuse build service
+    gcc               # C compiler
+    patch             # Apply patches
+    make              # Ubiquituous "build" tool
+    shellcheck-static # Lint bash code
+    shfmt             # Format bash code
+    ruff              # Fast python linter
+    pyright           # Language server for Python
+    hexyl             # hex viewer
+    oxipng            # Optimize PNGs for size
+    jaq               # Process JSON on command line
+    d-spy             # DBus inspector and debugger
+    deno              # Typescript runtime, for scripting
+    osc               # Client for Opensuse build service
+    # Rust tooling
+    rustup              # Toolchain manager
+    rust-analyzer       # Language server
+    cargo-release       # Release automation for crates
+    cargo-semver-checks # Lint semver compliance of crates
+    cargo-deny          # Lint policy compliance checker (licensing, advisories, etc.)
+    cargo-vet           # Supply chain security
 
     # Basic desktop
     wl-clipboard   # CLI access to clipboard
