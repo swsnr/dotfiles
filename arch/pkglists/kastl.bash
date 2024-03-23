@@ -13,7 +13,6 @@
 # the License.
 
 packages=(
-    ruby-install                    # Local ruby installations
     blueprint-compiler              # UI language compiler
     gamemode                        # Game mode
     gnome-shell-extension-gsconnect # Connect phone and desktop system

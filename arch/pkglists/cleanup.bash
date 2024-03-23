@@ -21,4 +21,5 @@ packages=(
     acme.sh
     wol
     nmap
+    ruby-install
 )
