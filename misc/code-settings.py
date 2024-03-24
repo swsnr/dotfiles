@@ -87,6 +87,7 @@ EXTENSIONS = [
     "sonnyp.blueprint-gtk",
     "asciidoctor.asciidoctor-vscode",
     "James-Yu.latex-workshop",
+    "samuelcolvin.jinjahtml",
     # Shell scripting with fish and bash
     "bmalehorn.vscode-fish",
     "mads-hartmann.bash-ide-vscode",
