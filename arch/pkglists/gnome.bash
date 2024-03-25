@@ -68,4 +68,8 @@ optdeps=(
     # wezterm: Nautilus integration
     # gnome-shell-extension-gsconnect: Send to menu
     python-nautilus
+
+    # gnome-shell: Support for captive portals, see
+    # https://gitlab.archlinux.org/archlinux/packaging/packages/gnome-shell/-/issues/5
+    webkitgtk-6.0
 )
