@@ -30,6 +30,9 @@ SETTINGS = {
         # Switch workspaces on all screens, so that we have all screens available
         # for the task at hand
         "workspaces-only-on-primary": False,
+        "experimental-features": [
+            "variable-refresh-rate",
+        ],
     },
 
     # Power settings
