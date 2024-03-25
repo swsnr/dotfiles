@@ -68,6 +68,10 @@ packages=(
     fakeroot
     debugedit
 
+    # Infra to debug packages in order to provide stacktraces
+    debuginfod
+    gdb
+
     # Shell environment and CLI tools
     helix             # Simple terminal editor with LSP support
     wezterm           # My preferred terminal emulator
